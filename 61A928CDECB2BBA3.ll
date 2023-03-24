@@ -99,22 +99,22 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   ]
 
 37:                                               ; preds = %2
-  %38 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str)
-  %39 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %38)
-  %40 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %39, ptr noundef nonnull @.str.1)
+  %38 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str, i64 noundef 6)
+  %39 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr)
+  %40 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %39, ptr noundef nonnull @.str.1, i64 noundef 8)
   %41 = load ptr, ptr %1, align 8, !tbaa !5
-  %42 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %40, ptr noundef %41)
-  %43 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %42, ptr noundef nonnull @.str.2)
-  %44 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %43)
-  %45 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %44, ptr noundef nonnull @.str.3)
-  %46 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %45)
-  %47 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %46, ptr noundef nonnull @.str.4)
+  %42 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %39, ptr noundef %41)
+  %43 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %42, ptr noundef nonnull @.str.2, i64 noundef 9)
+  %44 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %42)
+  %45 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %44, ptr noundef nonnull @.str.3, i64 noundef 63)
+  %46 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %44)
+  %47 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %46, ptr noundef nonnull @.str.4, i64 noundef 8)
   %48 = load ptr, ptr %1, align 8, !tbaa !5
-  %49 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %47, ptr noundef %48)
-  %50 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull @.str.5)
-  %51 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %50)
-  %52 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef nonnull @.str.6)
-  %53 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %52)
+  %49 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %46, ptr noundef %48)
+  %50 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull @.str.5, i64 noundef 15)
+  %51 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %49)
+  %52 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef nonnull @.str.6, i64 noundef 78)
+  %53 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %51)
   tail call void @exit(i32 noundef 1) #13
   unreachable
 
@@ -229,7 +229,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   store i64 0, ptr %118, align 8, !tbaa !30
   store i8 0, ptr %117, align 8, !tbaa !27
   invoke void @_ZN8YAML_DocC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_S7_S7_(ptr noundef nonnull align 8 dereferenceable(216) %13, ptr noundef nonnull align 8 dereferenceable(32) %14, ptr noundef nonnull align 8 dereferenceable(32) %15, ptr noundef nonnull align 8 dereferenceable(32) %16, ptr noundef nonnull align 8 dereferenceable(32) %17)
-          to label %119 unwind label %311
+          to label %119 unwind label %310
 
 119:                                              ; preds = %108
   %120 = load ptr, ptr %17, align 8, !tbaa !32
@@ -287,7 +287,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   store i64 0, ptr %140, align 8, !tbaa !30
   store i8 0, ptr %139, align 8, !tbaa !27
   %141 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %18, ptr noundef nonnull align 8 dereferenceable(32) %19)
-          to label %142 unwind label %329
+          to label %142 unwind label %328
 
 142:                                              ; preds = %135
   %143 = load ptr, ptr %19, align 8, !tbaa !32
@@ -319,7 +319,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %153 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %20, i64 0, i32 2, i32 1, i64 3
   store i8 0, ptr %153, align 1, !tbaa !27
   %154 = invoke noundef ptr @_ZN12YAML_Element3getERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %20)
-          to label %155 unwind label %339
+          to label %155 unwind label %338
 
 155:                                              ; preds = %150
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %21) #12
@@ -337,7 +337,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   store i64 0, ptr %160, align 8, !tbaa !30
   store i8 0, ptr %159, align 8, !tbaa !27
   %161 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_(ptr noundef nonnull align 8 dereferenceable(88) %154, ptr noundef nonnull align 8 dereferenceable(32) %21, ptr noundef nonnull align 8 dereferenceable(32) %22)
-          to label %162 unwind label %341
+          to label %162 unwind label %340
 
 162:                                              ; preds = %155
   %163 = load ptr, ptr %22, align 8, !tbaa !32
@@ -379,7 +379,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %177 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %23, i64 0, i32 2, i32 1, i64 3
   store i8 0, ptr %177, align 1, !tbaa !27
   %178 = invoke noundef ptr @_ZN12YAML_Element3getERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %23)
-          to label %179 unwind label %357
+          to label %179 unwind label %356
 
 179:                                              ; preds = %174
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %24) #12
@@ -388,7 +388,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #12
   store i64 18, ptr %5, align 8, !tbaa !33
   %181 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %24, ptr noundef nonnull align 8 dereferenceable(8) %5, i64 noundef 0)
-          to label %182 unwind label %359
+          to label %182 unwind label %358
 
 182:                                              ; preds = %179
   store ptr %181, ptr %24, align 8, !tbaa !32
@@ -408,7 +408,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   store i64 0, ptr %188, align 8, !tbaa !30
   store i8 0, ptr %187, align 8, !tbaa !27
   %189 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_(ptr noundef nonnull align 8 dereferenceable(88) %178, ptr noundef nonnull align 8 dereferenceable(32) %24, ptr noundef nonnull align 8 dereferenceable(32) %25)
-          to label %190 unwind label %361
+          to label %190 unwind label %360
 
 190:                                              ; preds = %182
   %191 = load ptr, ptr %25, align 8, !tbaa !32
@@ -456,7 +456,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   store i64 0, ptr %207, align 8, !tbaa !30
   store i8 0, ptr %206, align 8, !tbaa !27
   %208 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %26, ptr noundef nonnull align 8 dereferenceable(32) %27)
-          to label %209 unwind label %378
+          to label %209 unwind label %377
 
 209:                                              ; preds = %202
   %210 = load ptr, ptr %27, align 8, !tbaa !32
@@ -488,7 +488,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %220 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %28, i64 0, i32 2, i32 1, i64 2
   store i8 0, ptr %220, align 2, !tbaa !27
   %221 = invoke noundef ptr @_ZN12YAML_Element3getERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %28)
-          to label %222 unwind label %388
+          to label %222 unwind label %387
 
 222:                                              ; preds = %217
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %29) #12
@@ -500,7 +500,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %225 = getelementptr inbounds i8, ptr %29, i64 18
   store i8 0, ptr %225, align 2, !tbaa !27
   %226 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi(ptr noundef nonnull align 8 dereferenceable(88) %221, ptr noundef nonnull align 8 dereferenceable(32) %29, i32 noundef %73)
-          to label %227 unwind label %390
+          to label %227 unwind label %389
 
 227:                                              ; preds = %222
   %228 = load ptr, ptr %29, align 8, !tbaa !32
@@ -532,7 +532,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %238 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %30, i64 0, i32 2, i32 1, i64 2
   store i8 0, ptr %238, align 2, !tbaa !27
   %239 = invoke noundef ptr @_ZN12YAML_Element3getERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %30)
-          to label %240 unwind label %402
+          to label %240 unwind label %401
 
 240:                                              ; preds = %235
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %31) #12
@@ -544,7 +544,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %243 = getelementptr inbounds i8, ptr %31, i64 18
   store i8 0, ptr %243, align 2, !tbaa !27
   %244 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi(ptr noundef nonnull align 8 dereferenceable(88) %239, ptr noundef nonnull align 8 dereferenceable(32) %31, i32 noundef %72)
-          to label %245 unwind label %404
+          to label %245 unwind label %403
 
 245:                                              ; preds = %240
   %246 = load ptr, ptr %31, align 8, !tbaa !32
@@ -576,7 +576,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %256 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %32, i64 0, i32 2, i32 1, i64 2
   store i8 0, ptr %256, align 2, !tbaa !27
   %257 = invoke noundef ptr @_ZN12YAML_Element3getERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %32)
-          to label %258 unwind label %416
+          to label %258 unwind label %415
 
 258:                                              ; preds = %253
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %33) #12
@@ -588,7 +588,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %261 = getelementptr inbounds i8, ptr %33, i64 18
   store i8 0, ptr %261, align 2, !tbaa !27
   %262 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi(ptr noundef nonnull align 8 dereferenceable(88) %257, ptr noundef nonnull align 8 dereferenceable(32) %33, i32 noundef %71)
-          to label %263 unwind label %418
+          to label %263 unwind label %417
 
 263:                                              ; preds = %258
   %264 = load ptr, ptr %33, align 8, !tbaa !32
@@ -617,7 +617,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #12
   store i64 22, ptr %4, align 8, !tbaa !33
   %273 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %34, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-          to label %274 unwind label %430
+          to label %274 unwind label %429
 
 274:                                              ; preds = %271
   store ptr %273, ptr %34, align 8, !tbaa !32
@@ -632,7 +632,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #12
   %279 = load i32, ptr %11, align 4, !tbaa !9
   %280 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %34, i32 noundef %279)
-          to label %281 unwind label %432
+          to label %281 unwind label %431
 
 281:                                              ; preds = %274
   %282 = load ptr, ptr %34, align 8, !tbaa !32
@@ -651,7 +651,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #12
   store i64 16, ptr %3, align 8, !tbaa !33
   %287 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %35, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
-          to label %288 unwind label %439
+          to label %288 unwind label %438
 
 288:                                              ; preds = %285
   store ptr %287, ptr %35, align 8, !tbaa !32
@@ -666,7 +666,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #12
   %293 = load double, ptr %12, align 8, !tbaa !11
   %294 = invoke noundef ptr @_ZN12YAML_Element3addERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEd(ptr noundef nonnull align 8 dereferenceable(88) %13, ptr noundef nonnull align 8 dereferenceable(32) %35, double noundef %293)
-          to label %295 unwind label %441
+          to label %295 unwind label %440
 
 295:                                              ; preds = %288
   %296 = load ptr, ptr %35, align 8, !tbaa !32
@@ -677,30 +677,402 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @_ZdlPv(ptr noundef %296) #15
   br label %299
 
-299:                                              ; preds = %295, %298
+299:                                              ; preds = %298, %295
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %35) #12
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %36) #12
   invoke void @_ZN8YAML_Doc12generateYAMLB5cxx11Ev(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %36, ptr noundef nonnull align 8 dereferenceable(216) %13)
-          to label %300 unwind label %448
+          to label %300 unwind label %447
 
 300:                                              ; preds = %299
   %301 = load ptr, ptr %36, align 8, !tbaa !32
   %302 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 0, i32 1
   %303 = load i64, ptr %302, align 8, !tbaa !30
   %304 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef %301, i64 noundef %303)
-          to label %305 unwind label %450
+          to label %305 unwind label %449
 
 305:                                              ; preds = %300
   %306 = load ptr, ptr %36, align 8, !tbaa !32
   %307 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 0, i32 2
   %308 = icmp eq ptr %306, %307
-  br i1 %308, label %310, label %309
+  br i1 %308, label %461, label %309
 
 309:                                              ; preds = %305
   call void @_ZdlPv(ptr noundef %306) #15
-  br label %310
+  br label %461
 
-310:                                              ; preds = %305, %309
+310:                                              ; preds = %108
+  %311 = landingpad { ptr, i32 }
+          cleanup
+  %312 = load ptr, ptr %17, align 8, !tbaa !32
+  %313 = icmp eq ptr %312, %117
+  br i1 %313, label %315, label %314
+
+314:                                              ; preds = %310
+  call void @_ZdlPv(ptr noundef %312) #15
+  br label %315
+
+315:                                              ; preds = %314, %310
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %17) #12
+  %316 = load ptr, ptr %16, align 8, !tbaa !32
+  %317 = icmp eq ptr %316, %115
+  br i1 %317, label %319, label %318
+
+318:                                              ; preds = %315
+  call void @_ZdlPv(ptr noundef %316) #15
+  br label %319
+
+319:                                              ; preds = %318, %315
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %16) #12
+  %320 = load ptr, ptr %15, align 8, !tbaa !32
+  %321 = icmp eq ptr %320, %112
+  br i1 %321, label %323, label %322
+
+322:                                              ; preds = %319
+  call void @_ZdlPv(ptr noundef %320) #15
+  br label %323
+
+323:                                              ; preds = %322, %319
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %15) #12
+  %324 = load ptr, ptr %14, align 8, !tbaa !32
+  %325 = icmp eq ptr %324, %109
+  br i1 %325, label %327, label %326
+
+326:                                              ; preds = %323
+  call void @_ZdlPv(ptr noundef %324) #15
+  br label %327
+
+327:                                              ; preds = %326, %323
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %14) #12
+  br label %459
+
+328:                                              ; preds = %135
+  %329 = landingpad { ptr, i32 }
+          cleanup
+  %330 = load ptr, ptr %19, align 8, !tbaa !32
+  %331 = icmp eq ptr %330, %139
+  br i1 %331, label %333, label %332
+
+332:                                              ; preds = %328
+  call void @_ZdlPv(ptr noundef %330) #15
+  br label %333
+
+333:                                              ; preds = %332, %328
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %19) #12
+  %334 = load ptr, ptr %18, align 8, !tbaa !32
+  %335 = icmp eq ptr %334, %136
+  br i1 %335, label %337, label %336
+
+336:                                              ; preds = %333
+  call void @_ZdlPv(ptr noundef %334) #15
+  br label %337
+
+337:                                              ; preds = %336, %333
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %18) #12
+  br label %457
+
+338:                                              ; preds = %150
+  %339 = landingpad { ptr, i32 }
+          cleanup
+  br label %350
+
+340:                                              ; preds = %155
+  %341 = landingpad { ptr, i32 }
+          cleanup
+  %342 = load ptr, ptr %22, align 8, !tbaa !32
+  %343 = icmp eq ptr %342, %159
+  br i1 %343, label %345, label %344
+
+344:                                              ; preds = %340
+  call void @_ZdlPv(ptr noundef %342) #15
+  br label %345
+
+345:                                              ; preds = %344, %340
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %22) #12
+  %346 = load ptr, ptr %21, align 8, !tbaa !32
+  %347 = icmp eq ptr %346, %156
+  br i1 %347, label %349, label %348
+
+348:                                              ; preds = %345
+  call void @_ZdlPv(ptr noundef %346) #15
+  br label %349
+
+349:                                              ; preds = %348, %345
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %21) #12
+  br label %350
+
+350:                                              ; preds = %349, %338
+  %351 = phi { ptr, i32 } [ %341, %349 ], [ %339, %338 ]
+  %352 = load ptr, ptr %20, align 8, !tbaa !32
+  %353 = icmp eq ptr %352, %151
+  br i1 %353, label %355, label %354
+
+354:                                              ; preds = %350
+  call void @_ZdlPv(ptr noundef %352) #15
+  br label %355
+
+355:                                              ; preds = %354, %350
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %20) #12
+  br label %457
+
+356:                                              ; preds = %174
+  %357 = landingpad { ptr, i32 }
+          cleanup
+  br label %371
+
+358:                                              ; preds = %179
+  %359 = landingpad { ptr, i32 }
+          cleanup
+  br label %369
+
+360:                                              ; preds = %182
+  %361 = landingpad { ptr, i32 }
+          cleanup
+  %362 = load ptr, ptr %25, align 8, !tbaa !32
+  %363 = icmp eq ptr %362, %187
+  br i1 %363, label %365, label %364
+
+364:                                              ; preds = %360
+  call void @_ZdlPv(ptr noundef %362) #15
+  br label %365
+
+365:                                              ; preds = %364, %360
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %25) #12
+  %366 = load ptr, ptr %24, align 8, !tbaa !32
+  %367 = icmp eq ptr %366, %180
+  br i1 %367, label %369, label %368
+
+368:                                              ; preds = %365
+  call void @_ZdlPv(ptr noundef %366) #15
+  br label %369
+
+369:                                              ; preds = %368, %365, %358
+  %370 = phi { ptr, i32 } [ %359, %358 ], [ %361, %365 ], [ %361, %368 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %24) #12
+  br label %371
+
+371:                                              ; preds = %369, %356
+  %372 = phi { ptr, i32 } [ %370, %369 ], [ %357, %356 ]
+  %373 = load ptr, ptr %23, align 8, !tbaa !32
+  %374 = icmp eq ptr %373, %175
+  br i1 %374, label %376, label %375
+
+375:                                              ; preds = %371
+  call void @_ZdlPv(ptr noundef %373) #15
+  br label %376
+
+376:                                              ; preds = %375, %371
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %23) #12
+  br label %457
+
+377:                                              ; preds = %202
+  %378 = landingpad { ptr, i32 }
+          cleanup
+  %379 = load ptr, ptr %27, align 8, !tbaa !32
+  %380 = icmp eq ptr %379, %206
+  br i1 %380, label %382, label %381
+
+381:                                              ; preds = %377
+  call void @_ZdlPv(ptr noundef %379) #15
+  br label %382
+
+382:                                              ; preds = %381, %377
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %27) #12
+  %383 = load ptr, ptr %26, align 8, !tbaa !32
+  %384 = icmp eq ptr %383, %203
+  br i1 %384, label %386, label %385
+
+385:                                              ; preds = %382
+  call void @_ZdlPv(ptr noundef %383) #15
+  br label %386
+
+386:                                              ; preds = %385, %382
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %26) #12
+  br label %457
+
+387:                                              ; preds = %217
+  %388 = landingpad { ptr, i32 }
+          cleanup
+  br label %395
+
+389:                                              ; preds = %222
+  %390 = landingpad { ptr, i32 }
+          cleanup
+  %391 = load ptr, ptr %29, align 8, !tbaa !32
+  %392 = icmp eq ptr %391, %223
+  br i1 %392, label %394, label %393
+
+393:                                              ; preds = %389
+  call void @_ZdlPv(ptr noundef %391) #15
+  br label %394
+
+394:                                              ; preds = %393, %389
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %29) #12
+  br label %395
+
+395:                                              ; preds = %394, %387
+  %396 = phi { ptr, i32 } [ %390, %394 ], [ %388, %387 ]
+  %397 = load ptr, ptr %28, align 8, !tbaa !32
+  %398 = icmp eq ptr %397, %218
+  br i1 %398, label %400, label %399
+
+399:                                              ; preds = %395
+  call void @_ZdlPv(ptr noundef %397) #15
+  br label %400
+
+400:                                              ; preds = %399, %395
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %28) #12
+  br label %457
+
+401:                                              ; preds = %235
+  %402 = landingpad { ptr, i32 }
+          cleanup
+  br label %409
+
+403:                                              ; preds = %240
+  %404 = landingpad { ptr, i32 }
+          cleanup
+  %405 = load ptr, ptr %31, align 8, !tbaa !32
+  %406 = icmp eq ptr %405, %241
+  br i1 %406, label %408, label %407
+
+407:                                              ; preds = %403
+  call void @_ZdlPv(ptr noundef %405) #15
+  br label %408
+
+408:                                              ; preds = %407, %403
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %31) #12
+  br label %409
+
+409:                                              ; preds = %408, %401
+  %410 = phi { ptr, i32 } [ %404, %408 ], [ %402, %401 ]
+  %411 = load ptr, ptr %30, align 8, !tbaa !32
+  %412 = icmp eq ptr %411, %236
+  br i1 %412, label %414, label %413
+
+413:                                              ; preds = %409
+  call void @_ZdlPv(ptr noundef %411) #15
+  br label %414
+
+414:                                              ; preds = %413, %409
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %30) #12
+  br label %457
+
+415:                                              ; preds = %253
+  %416 = landingpad { ptr, i32 }
+          cleanup
+  br label %423
+
+417:                                              ; preds = %258
+  %418 = landingpad { ptr, i32 }
+          cleanup
+  %419 = load ptr, ptr %33, align 8, !tbaa !32
+  %420 = icmp eq ptr %419, %259
+  br i1 %420, label %422, label %421
+
+421:                                              ; preds = %417
+  call void @_ZdlPv(ptr noundef %419) #15
+  br label %422
+
+422:                                              ; preds = %421, %417
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %33) #12
+  br label %423
+
+423:                                              ; preds = %422, %415
+  %424 = phi { ptr, i32 } [ %418, %422 ], [ %416, %415 ]
+  %425 = load ptr, ptr %32, align 8, !tbaa !32
+  %426 = icmp eq ptr %425, %254
+  br i1 %426, label %428, label %427
+
+427:                                              ; preds = %423
+  call void @_ZdlPv(ptr noundef %425) #15
+  br label %428
+
+428:                                              ; preds = %427, %423
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %32) #12
+  br label %457
+
+429:                                              ; preds = %271
+  %430 = landingpad { ptr, i32 }
+          cleanup
+  br label %436
+
+431:                                              ; preds = %274
+  %432 = landingpad { ptr, i32 }
+          cleanup
+  %433 = load ptr, ptr %34, align 8, !tbaa !32
+  %434 = icmp eq ptr %433, %272
+  br i1 %434, label %436, label %435
+
+435:                                              ; preds = %431
+  call void @_ZdlPv(ptr noundef %433) #15
+  br label %436
+
+436:                                              ; preds = %435, %431, %429
+  %437 = phi { ptr, i32 } [ %430, %429 ], [ %432, %431 ], [ %432, %435 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %34) #12
+  br label %457
+
+438:                                              ; preds = %285
+  %439 = landingpad { ptr, i32 }
+          cleanup
+  br label %445
+
+440:                                              ; preds = %288
+  %441 = landingpad { ptr, i32 }
+          cleanup
+  %442 = load ptr, ptr %35, align 8, !tbaa !32
+  %443 = icmp eq ptr %442, %286
+  br i1 %443, label %445, label %444
+
+444:                                              ; preds = %440
+  call void @_ZdlPv(ptr noundef %442) #15
+  br label %445
+
+445:                                              ; preds = %444, %440, %438
+  %446 = phi { ptr, i32 } [ %439, %438 ], [ %441, %440 ], [ %441, %444 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %35) #12
+  br label %457
+
+447:                                              ; preds = %299
+  %448 = landingpad { ptr, i32 }
+          cleanup
+  br label %455
+
+449:                                              ; preds = %300
+  %450 = landingpad { ptr, i32 }
+          cleanup
+  %451 = load ptr, ptr %36, align 8, !tbaa !32
+  %452 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 0, i32 2
+  %453 = icmp eq ptr %451, %452
+  br i1 %453, label %455, label %454
+
+454:                                              ; preds = %449
+  call void @_ZdlPv(ptr noundef %451) #15
+  br label %455
+
+455:                                              ; preds = %454, %449, %447
+  %456 = phi { ptr, i32 } [ %448, %447 ], [ %450, %449 ], [ %450, %454 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %36) #12
+  br label %457
+
+457:                                              ; preds = %455, %445, %436, %428, %414, %400, %386, %376, %355, %337
+  %458 = phi { ptr, i32 } [ %456, %455 ], [ %446, %445 ], [ %437, %436 ], [ %424, %428 ], [ %410, %414 ], [ %396, %400 ], [ %378, %386 ], [ %372, %376 ], [ %351, %355 ], [ %329, %337 ]
+  call void @_ZN8YAML_DocD1Ev(ptr noundef nonnull align 8 dereferenceable(216) %13) #12
+  br label %459
+
+459:                                              ; preds = %457, %327
+  %460 = phi { ptr, i32 } [ %458, %457 ], [ %311, %327 ]
+  call void @llvm.lifetime.end.p0(i64 216, ptr nonnull %13) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #12
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %11) #12
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %10) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #12
+  resume { ptr, i32 } %460
+
+461:                                              ; preds = %305, %309
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %36) #12
   call void @_ZN8YAML_DocD1Ev(ptr noundef nonnull align 8 dereferenceable(216) %13) #12
   call void @llvm.lifetime.end.p0(i64 216, ptr nonnull %13) #12
@@ -712,378 +1084,6 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #12
   ret i32 0
-
-311:                                              ; preds = %108
-  %312 = landingpad { ptr, i32 }
-          cleanup
-  %313 = load ptr, ptr %17, align 8, !tbaa !32
-  %314 = icmp eq ptr %313, %117
-  br i1 %314, label %316, label %315
-
-315:                                              ; preds = %311
-  call void @_ZdlPv(ptr noundef %313) #15
-  br label %316
-
-316:                                              ; preds = %315, %311
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %17) #12
-  %317 = load ptr, ptr %16, align 8, !tbaa !32
-  %318 = icmp eq ptr %317, %115
-  br i1 %318, label %320, label %319
-
-319:                                              ; preds = %316
-  call void @_ZdlPv(ptr noundef %317) #15
-  br label %320
-
-320:                                              ; preds = %319, %316
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %16) #12
-  %321 = load ptr, ptr %15, align 8, !tbaa !32
-  %322 = icmp eq ptr %321, %112
-  br i1 %322, label %324, label %323
-
-323:                                              ; preds = %320
-  call void @_ZdlPv(ptr noundef %321) #15
-  br label %324
-
-324:                                              ; preds = %323, %320
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %15) #12
-  %325 = load ptr, ptr %14, align 8, !tbaa !32
-  %326 = icmp eq ptr %325, %109
-  br i1 %326, label %328, label %327
-
-327:                                              ; preds = %324
-  call void @_ZdlPv(ptr noundef %325) #15
-  br label %328
-
-328:                                              ; preds = %327, %324
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %14) #12
-  br label %460
-
-329:                                              ; preds = %135
-  %330 = landingpad { ptr, i32 }
-          cleanup
-  %331 = load ptr, ptr %19, align 8, !tbaa !32
-  %332 = icmp eq ptr %331, %139
-  br i1 %332, label %334, label %333
-
-333:                                              ; preds = %329
-  call void @_ZdlPv(ptr noundef %331) #15
-  br label %334
-
-334:                                              ; preds = %333, %329
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %19) #12
-  %335 = load ptr, ptr %18, align 8, !tbaa !32
-  %336 = icmp eq ptr %335, %136
-  br i1 %336, label %338, label %337
-
-337:                                              ; preds = %334
-  call void @_ZdlPv(ptr noundef %335) #15
-  br label %338
-
-338:                                              ; preds = %337, %334
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %18) #12
-  br label %458
-
-339:                                              ; preds = %150
-  %340 = landingpad { ptr, i32 }
-          cleanup
-  br label %351
-
-341:                                              ; preds = %155
-  %342 = landingpad { ptr, i32 }
-          cleanup
-  %343 = load ptr, ptr %22, align 8, !tbaa !32
-  %344 = icmp eq ptr %343, %159
-  br i1 %344, label %346, label %345
-
-345:                                              ; preds = %341
-  call void @_ZdlPv(ptr noundef %343) #15
-  br label %346
-
-346:                                              ; preds = %345, %341
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %22) #12
-  %347 = load ptr, ptr %21, align 8, !tbaa !32
-  %348 = icmp eq ptr %347, %156
-  br i1 %348, label %350, label %349
-
-349:                                              ; preds = %346
-  call void @_ZdlPv(ptr noundef %347) #15
-  br label %350
-
-350:                                              ; preds = %349, %346
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %21) #12
-  br label %351
-
-351:                                              ; preds = %350, %339
-  %352 = phi { ptr, i32 } [ %342, %350 ], [ %340, %339 ]
-  %353 = load ptr, ptr %20, align 8, !tbaa !32
-  %354 = icmp eq ptr %353, %151
-  br i1 %354, label %356, label %355
-
-355:                                              ; preds = %351
-  call void @_ZdlPv(ptr noundef %353) #15
-  br label %356
-
-356:                                              ; preds = %355, %351
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %20) #12
-  br label %458
-
-357:                                              ; preds = %174
-  %358 = landingpad { ptr, i32 }
-          cleanup
-  br label %372
-
-359:                                              ; preds = %179
-  %360 = landingpad { ptr, i32 }
-          cleanup
-  br label %370
-
-361:                                              ; preds = %182
-  %362 = landingpad { ptr, i32 }
-          cleanup
-  %363 = load ptr, ptr %25, align 8, !tbaa !32
-  %364 = icmp eq ptr %363, %187
-  br i1 %364, label %366, label %365
-
-365:                                              ; preds = %361
-  call void @_ZdlPv(ptr noundef %363) #15
-  br label %366
-
-366:                                              ; preds = %365, %361
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %25) #12
-  %367 = load ptr, ptr %24, align 8, !tbaa !32
-  %368 = icmp eq ptr %367, %180
-  br i1 %368, label %370, label %369
-
-369:                                              ; preds = %366
-  call void @_ZdlPv(ptr noundef %367) #15
-  br label %370
-
-370:                                              ; preds = %369, %366, %359
-  %371 = phi { ptr, i32 } [ %360, %359 ], [ %362, %366 ], [ %362, %369 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %24) #12
-  br label %372
-
-372:                                              ; preds = %370, %357
-  %373 = phi { ptr, i32 } [ %371, %370 ], [ %358, %357 ]
-  %374 = load ptr, ptr %23, align 8, !tbaa !32
-  %375 = icmp eq ptr %374, %175
-  br i1 %375, label %377, label %376
-
-376:                                              ; preds = %372
-  call void @_ZdlPv(ptr noundef %374) #15
-  br label %377
-
-377:                                              ; preds = %376, %372
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %23) #12
-  br label %458
-
-378:                                              ; preds = %202
-  %379 = landingpad { ptr, i32 }
-          cleanup
-  %380 = load ptr, ptr %27, align 8, !tbaa !32
-  %381 = icmp eq ptr %380, %206
-  br i1 %381, label %383, label %382
-
-382:                                              ; preds = %378
-  call void @_ZdlPv(ptr noundef %380) #15
-  br label %383
-
-383:                                              ; preds = %382, %378
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %27) #12
-  %384 = load ptr, ptr %26, align 8, !tbaa !32
-  %385 = icmp eq ptr %384, %203
-  br i1 %385, label %387, label %386
-
-386:                                              ; preds = %383
-  call void @_ZdlPv(ptr noundef %384) #15
-  br label %387
-
-387:                                              ; preds = %386, %383
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %26) #12
-  br label %458
-
-388:                                              ; preds = %217
-  %389 = landingpad { ptr, i32 }
-          cleanup
-  br label %396
-
-390:                                              ; preds = %222
-  %391 = landingpad { ptr, i32 }
-          cleanup
-  %392 = load ptr, ptr %29, align 8, !tbaa !32
-  %393 = icmp eq ptr %392, %223
-  br i1 %393, label %395, label %394
-
-394:                                              ; preds = %390
-  call void @_ZdlPv(ptr noundef %392) #15
-  br label %395
-
-395:                                              ; preds = %394, %390
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %29) #12
-  br label %396
-
-396:                                              ; preds = %395, %388
-  %397 = phi { ptr, i32 } [ %391, %395 ], [ %389, %388 ]
-  %398 = load ptr, ptr %28, align 8, !tbaa !32
-  %399 = icmp eq ptr %398, %218
-  br i1 %399, label %401, label %400
-
-400:                                              ; preds = %396
-  call void @_ZdlPv(ptr noundef %398) #15
-  br label %401
-
-401:                                              ; preds = %400, %396
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %28) #12
-  br label %458
-
-402:                                              ; preds = %235
-  %403 = landingpad { ptr, i32 }
-          cleanup
-  br label %410
-
-404:                                              ; preds = %240
-  %405 = landingpad { ptr, i32 }
-          cleanup
-  %406 = load ptr, ptr %31, align 8, !tbaa !32
-  %407 = icmp eq ptr %406, %241
-  br i1 %407, label %409, label %408
-
-408:                                              ; preds = %404
-  call void @_ZdlPv(ptr noundef %406) #15
-  br label %409
-
-409:                                              ; preds = %408, %404
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %31) #12
-  br label %410
-
-410:                                              ; preds = %409, %402
-  %411 = phi { ptr, i32 } [ %405, %409 ], [ %403, %402 ]
-  %412 = load ptr, ptr %30, align 8, !tbaa !32
-  %413 = icmp eq ptr %412, %236
-  br i1 %413, label %415, label %414
-
-414:                                              ; preds = %410
-  call void @_ZdlPv(ptr noundef %412) #15
-  br label %415
-
-415:                                              ; preds = %414, %410
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %30) #12
-  br label %458
-
-416:                                              ; preds = %253
-  %417 = landingpad { ptr, i32 }
-          cleanup
-  br label %424
-
-418:                                              ; preds = %258
-  %419 = landingpad { ptr, i32 }
-          cleanup
-  %420 = load ptr, ptr %33, align 8, !tbaa !32
-  %421 = icmp eq ptr %420, %259
-  br i1 %421, label %423, label %422
-
-422:                                              ; preds = %418
-  call void @_ZdlPv(ptr noundef %420) #15
-  br label %423
-
-423:                                              ; preds = %422, %418
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %33) #12
-  br label %424
-
-424:                                              ; preds = %423, %416
-  %425 = phi { ptr, i32 } [ %419, %423 ], [ %417, %416 ]
-  %426 = load ptr, ptr %32, align 8, !tbaa !32
-  %427 = icmp eq ptr %426, %254
-  br i1 %427, label %429, label %428
-
-428:                                              ; preds = %424
-  call void @_ZdlPv(ptr noundef %426) #15
-  br label %429
-
-429:                                              ; preds = %428, %424
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %32) #12
-  br label %458
-
-430:                                              ; preds = %271
-  %431 = landingpad { ptr, i32 }
-          cleanup
-  br label %437
-
-432:                                              ; preds = %274
-  %433 = landingpad { ptr, i32 }
-          cleanup
-  %434 = load ptr, ptr %34, align 8, !tbaa !32
-  %435 = icmp eq ptr %434, %272
-  br i1 %435, label %437, label %436
-
-436:                                              ; preds = %432
-  call void @_ZdlPv(ptr noundef %434) #15
-  br label %437
-
-437:                                              ; preds = %436, %432, %430
-  %438 = phi { ptr, i32 } [ %431, %430 ], [ %433, %432 ], [ %433, %436 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %34) #12
-  br label %458
-
-439:                                              ; preds = %285
-  %440 = landingpad { ptr, i32 }
-          cleanup
-  br label %446
-
-441:                                              ; preds = %288
-  %442 = landingpad { ptr, i32 }
-          cleanup
-  %443 = load ptr, ptr %35, align 8, !tbaa !32
-  %444 = icmp eq ptr %443, %286
-  br i1 %444, label %446, label %445
-
-445:                                              ; preds = %441
-  call void @_ZdlPv(ptr noundef %443) #15
-  br label %446
-
-446:                                              ; preds = %445, %441, %439
-  %447 = phi { ptr, i32 } [ %440, %439 ], [ %442, %441 ], [ %442, %445 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %35) #12
-  br label %458
-
-448:                                              ; preds = %299
-  %449 = landingpad { ptr, i32 }
-          cleanup
-  br label %456
-
-450:                                              ; preds = %300
-  %451 = landingpad { ptr, i32 }
-          cleanup
-  %452 = load ptr, ptr %36, align 8, !tbaa !32
-  %453 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 0, i32 2
-  %454 = icmp eq ptr %452, %453
-  br i1 %454, label %456, label %455
-
-455:                                              ; preds = %450
-  call void @_ZdlPv(ptr noundef %452) #15
-  br label %456
-
-456:                                              ; preds = %455, %450, %448
-  %457 = phi { ptr, i32 } [ %449, %448 ], [ %451, %450 ], [ %451, %455 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %36) #12
-  br label %458
-
-458:                                              ; preds = %456, %446, %437, %429, %415, %401, %387, %377, %356, %338
-  %459 = phi { ptr, i32 } [ %457, %456 ], [ %447, %446 ], [ %438, %437 ], [ %425, %429 ], [ %411, %415 ], [ %397, %401 ], [ %379, %387 ], [ %373, %377 ], [ %352, %356 ], [ %330, %338 ]
-  call void @_ZN8YAML_DocD1Ev(ptr noundef nonnull align 8 dereferenceable(216) %13) #12
-  br label %460
-
-460:                                              ; preds = %458, %328
-  %461 = phi { ptr, i32 } [ %459, %458 ], [ %312, %328 ]
-  call void @llvm.lifetime.end.p0(i64 216, ptr nonnull %13) #12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #12
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %11) #12
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %10) #12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #12
-  resume { ptr, i32 } %461
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

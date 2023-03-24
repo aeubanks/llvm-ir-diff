@@ -142,9 +142,9 @@ define dso_local void @_Z26BENCHMARK_BILATERAL_FILTERRN9benchmark5StateE(ptr nou
   %7 = load i64, ptr %6, align 8, !tbaa !13
   %8 = trunc i64 %7 to i32
   %9 = shl i64 %4, 32
-  %10 = ashr exact i64 %9, 30
-  %11 = ashr exact i64 %9, 32
-  %12 = mul i64 %10, %11
+  %10 = ashr exact i64 %9, 32
+  %11 = ashr exact i64 %9, 30
+  %12 = mul i64 %11, %10
   %13 = tail call noalias ptr @malloc(i64 noundef %12) #15
   %14 = icmp eq ptr %13, null
   br i1 %14, label %15, label %17

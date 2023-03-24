@@ -18,10 +18,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [3 x i8] c"wb\00", align 1
 @.str.10 = private unnamed_addr constant [41 x i8] c"The output file: %s could not be opened\0A\00", align 1
 @stdout = external local_unnamed_addr global ptr, align 8
-@str = private unnamed_addr constant [55 x i8] c"The key length must be 32, 48 or 64 hexadecimal digits\00", align 1
-@str.11 = private unnamed_addr constant [26 x i8] c"The key value is too long\00", align 1
-@str.12 = private unnamed_addr constant [36 x i8] c"key must be in hexadecimal notation\00", align 1
-@str.13 = private unnamed_addr constant [58 x i8] c"usage: rijndael in_filename out_filename [d/e] key_in_hex\00", align 1
+@str = private unnamed_addr constant [58 x i8] c"usage: rijndael in_filename out_filename [d/e] key_in_hex\00", align 1
+@str.11 = private unnamed_addr constant [55 x i8] c"The key length must be 32, 48 or 64 hexadecimal digits\00", align 1
+@str.12 = private unnamed_addr constant [26 x i8] c"The key value is too long\00", align 1
+@str.13 = private unnamed_addr constant [36 x i8] c"key must be in hexadecimal notation\00", align 1
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, argmem: write, inaccessiblemem: none) uwtable
 define dso_local void @fillrand(ptr nocapture noundef writeonly %0, i32 noundef %1) local_unnamed_addr #0 {
@@ -352,96 +352,98 @@ define dso_local i32 @decfile(ptr nocapture noundef %0, ptr nocapture noundef %1
 
 11:                                               ; preds = %5
   %12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef %3)
-  br label %70
+  br label %69
 
 13:                                               ; preds = %5
   %14 = call i64 @fread(ptr noundef nonnull %7, i64 noundef 1, i64 noundef 16, ptr noundef %0)
-  %15 = and i64 %14, 4294967279
-  %16 = icmp eq i64 %15, 0
-  br i1 %16, label %19, label %17
+  %15 = trunc i64 %14 to i32
+  switch i32 %15, label %16 [
+    i32 16, label %18
+    i32 0, label %18
+  ]
 
-17:                                               ; preds = %13
-  %18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2)
-  br label %70
+16:                                               ; preds = %13
+  %17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2)
+  br label %69
 
-19:                                               ; preds = %13
-  %20 = call signext i16 @decrypt(ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef %2) #8
-  %21 = load <16 x i8>, ptr %6, align 16, !tbaa !9
-  %22 = load <16 x i8>, ptr %8, align 16, !tbaa !9
-  %23 = xor <16 x i8> %22, %21
-  store <16 x i8> %23, ptr %8, align 16, !tbaa !9
-  %24 = extractelement <16 x i8> %23, i64 0
-  %25 = and i8 %24, 15
-  %26 = zext i8 %25 to i32
-  %27 = call i64 @fread(ptr noundef nonnull %6, i64 noundef 1, i64 noundef 16, ptr noundef %0)
-  %28 = and i64 %27, 4294967295
-  %29 = icmp ne i64 %28, 16
-  br i1 %29, label %57, label %30
+18:                                               ; preds = %13, %13
+  %19 = call signext i16 @decrypt(ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef %2) #8
+  %20 = load <16 x i8>, ptr %6, align 16, !tbaa !9
+  %21 = load <16 x i8>, ptr %8, align 16, !tbaa !9
+  %22 = xor <16 x i8> %21, %20
+  store <16 x i8> %22, ptr %8, align 16, !tbaa !9
+  %23 = extractelement <16 x i8> %22, i64 0
+  %24 = and i8 %23, 15
+  %25 = zext i8 %24 to i32
+  %26 = call i64 @fread(ptr noundef nonnull %6, i64 noundef 1, i64 noundef 16, ptr noundef %0)
+  %27 = and i64 %26, 4294967295
+  %28 = icmp ne i64 %27, 16
+  br i1 %28, label %56, label %29
 
-30:                                               ; preds = %19
-  %31 = getelementptr inbounds i8, ptr %8, i64 1
-  %32 = call i64 @fwrite(ptr noundef nonnull %31, i64 noundef 1, i64 noundef 15, ptr noundef %1)
-  %33 = icmp eq i64 %32, 15
-  br i1 %33, label %34, label %47
+29:                                               ; preds = %18
+  %30 = getelementptr inbounds i8, ptr %8, i64 1
+  %31 = call i64 @fwrite(ptr noundef nonnull %30, i64 noundef 1, i64 noundef 15, ptr noundef %1)
+  %32 = icmp eq i64 %31, 15
+  br i1 %32, label %33, label %46
 
-34:                                               ; preds = %30
-  %35 = call signext i16 @decrypt(ptr noundef nonnull %6, ptr noundef nonnull %8, ptr noundef %2) #8
-  %36 = load <16 x i8>, ptr %7, align 16, !tbaa !9
-  %37 = load <16 x i8>, ptr %8, align 16, !tbaa !9
-  %38 = xor <16 x i8> %37, %36
-  store <16 x i8> %38, ptr %8, align 16, !tbaa !9
-  %39 = call i64 @fread(ptr noundef nonnull %7, i64 noundef 1, i64 noundef 16, ptr noundef %0)
-  %40 = and i64 %39, 4294967295
-  %41 = icmp eq i64 %40, 16
-  br i1 %41, label %42, label %57
+33:                                               ; preds = %29
+  %34 = call signext i16 @decrypt(ptr noundef nonnull %6, ptr noundef nonnull %8, ptr noundef %2) #8
+  %35 = load <16 x i8>, ptr %7, align 16, !tbaa !9
+  %36 = load <16 x i8>, ptr %8, align 16, !tbaa !9
+  %37 = xor <16 x i8> %36, %35
+  store <16 x i8> %37, ptr %8, align 16, !tbaa !9
+  %38 = call i64 @fread(ptr noundef nonnull %7, i64 noundef 1, i64 noundef 16, ptr noundef %0)
+  %39 = and i64 %38, 4294967295
+  %40 = icmp eq i64 %39, 16
+  br i1 %40, label %41, label %56
 
-42:                                               ; preds = %34, %49
-  %43 = phi ptr [ %44, %49 ], [ %6, %34 ]
-  %44 = phi ptr [ %43, %49 ], [ %7, %34 ]
-  %45 = call i64 @fwrite(ptr noundef nonnull %8, i64 noundef 1, i64 noundef 16, ptr noundef %1)
-  %46 = icmp eq i64 %45, 16
-  br i1 %46, label %49, label %47
+41:                                               ; preds = %33, %48
+  %42 = phi ptr [ %43, %48 ], [ %6, %33 ]
+  %43 = phi ptr [ %42, %48 ], [ %7, %33 ]
+  %44 = call i64 @fwrite(ptr noundef nonnull %8, i64 noundef 1, i64 noundef 16, ptr noundef %1)
+  %45 = icmp eq i64 %44, 16
+  br i1 %45, label %48, label %46
 
-47:                                               ; preds = %42, %30
-  %48 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %4)
-  br label %70
+46:                                               ; preds = %41, %29
+  %47 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %4)
+  br label %69
 
-49:                                               ; preds = %42
-  %50 = call signext i16 @decrypt(ptr noundef nonnull %44, ptr noundef nonnull %8, ptr noundef %2) #8
-  %51 = load <16 x i8>, ptr %43, align 1, !tbaa !9
-  %52 = load <16 x i8>, ptr %8, align 16, !tbaa !9
-  %53 = xor <16 x i8> %52, %51
-  store <16 x i8> %53, ptr %8, align 16, !tbaa !9
-  %54 = call i64 @fread(ptr noundef nonnull %43, i64 noundef 1, i64 noundef 16, ptr noundef %0)
-  %55 = and i64 %54, 4294967295
-  %56 = icmp eq i64 %55, 16
-  br i1 %56, label %42, label %57, !llvm.loop !15
+48:                                               ; preds = %41
+  %49 = call signext i16 @decrypt(ptr noundef nonnull %43, ptr noundef nonnull %8, ptr noundef %2) #8
+  %50 = load <16 x i8>, ptr %42, align 1, !tbaa !9
+  %51 = load <16 x i8>, ptr %8, align 16, !tbaa !9
+  %52 = xor <16 x i8> %51, %50
+  store <16 x i8> %52, ptr %8, align 16, !tbaa !9
+  %53 = call i64 @fread(ptr noundef nonnull %42, i64 noundef 1, i64 noundef 16, ptr noundef %0)
+  %54 = and i64 %53, 4294967295
+  %55 = icmp eq i64 %54, 16
+  br i1 %55, label %41, label %56, !llvm.loop !15
 
-57:                                               ; preds = %49, %34, %19
-  %58 = xor i1 %29, true
-  %59 = zext i1 %58 to i32
-  %60 = add nuw nsw i32 %59, %26
-  %61 = icmp eq i32 %60, 0
-  br i1 %61, label %70, label %62
+56:                                               ; preds = %48, %33, %18
+  %57 = xor i1 %28, true
+  %58 = zext i1 %57 to i32
+  %59 = add nuw nsw i32 %58, %25
+  %60 = icmp eq i32 %59, 0
+  br i1 %60, label %69, label %61
 
-62:                                               ; preds = %57
-  %63 = zext i1 %29 to i64
-  %64 = getelementptr inbounds i8, ptr %8, i64 %63
-  %65 = zext i32 %60 to i64
-  %66 = call i64 @fwrite(ptr noundef nonnull %64, i64 noundef 1, i64 noundef %65, ptr noundef %1)
-  %67 = icmp eq i64 %66, %65
-  br i1 %67, label %70, label %68
+61:                                               ; preds = %56
+  %62 = zext i1 %28 to i64
+  %63 = getelementptr inbounds i8, ptr %8, i64 %62
+  %64 = zext i32 %59 to i64
+  %65 = call i64 @fwrite(ptr noundef nonnull %63, i64 noundef 1, i64 noundef %64, ptr noundef %1)
+  %66 = icmp eq i64 %65, %64
+  br i1 %66, label %69, label %67
 
-68:                                               ; preds = %62
-  %69 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %4)
-  br label %70
+67:                                               ; preds = %61
+  %68 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %4)
+  br label %69
 
-70:                                               ; preds = %57, %62, %68, %47, %17, %11
-  %71 = phi i32 [ 9, %11 ], [ -10, %17 ], [ -12, %68 ], [ -11, %47 ], [ 0, %62 ], [ 0, %57 ]
+69:                                               ; preds = %56, %61, %67, %46, %16, %11
+  %70 = phi i32 [ 9, %11 ], [ -10, %16 ], [ -12, %67 ], [ -11, %46 ], [ 0, %61 ], [ 0, %56 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #8
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #8
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #8
-  ret i32 %71
+  ret i32 %70
 }
 
 declare signext i16 @decrypt(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #4
@@ -469,7 +471,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %16, label %19, label %17
 
 17:                                               ; preds = %6, %2
-  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
+  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %113
 
 19:                                               ; preds = %6
@@ -503,7 +505,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %40, label %43, label %41
 
 41:                                               ; preds = %38
-  %42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
   br label %113
 
 43:                                               ; preds = %38, %28
@@ -535,19 +537,19 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %61, label %64, label %62
 
 62:                                               ; preds = %59
-  %63 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %63 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %113
 
 64:                                               ; preds = %22, %59
   %65 = phi i32 [ 64, %59 ], [ %24, %22 ]
-  %66 = icmp ugt i32 %65, 31
+  %66 = icmp ult i32 %65, 32
   %67 = and i32 %65, 15
-  %68 = icmp eq i32 %67, 0
-  %69 = and i1 %66, %68
-  br i1 %69, label %72, label %70
+  %68 = icmp ne i32 %67, 0
+  %69 = or i1 %66, %68
+  br i1 %69, label %70, label %72
 
 70:                                               ; preds = %64
-  %71 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %71 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   br label %113
 
 72:                                               ; preds = %64
@@ -627,11 +629,11 @@ declare signext i16 @set_key(ptr noundef, i32 noundef, i32 noundef, ptr noundef)
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #3
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #7
 
 attributes #0 = { nofree norecurse nosync nounwind memory(readwrite, argmem: write, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -639,8 +641,8 @@ attributes #2 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-mat
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nofree nounwind }
-attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { nofree nounwind }
 attributes #8 = { nounwind }
 attributes #9 = { nounwind willreturn memory(none) }
 

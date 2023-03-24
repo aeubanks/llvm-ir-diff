@@ -180,7 +180,7 @@ define dso_local void @_ZN12CProfileNodeD2Ev(ptr nocapture noundef nonnull reado
 ; Function Attrs: uwtable
 define dso_local noundef ptr @_ZN12CProfileNode12Get_Sub_NodeEPKc(ptr noundef nonnull align 8 dereferenceable(56) %0, ptr noundef %1) local_unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
   %3 = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 6
-  %4 = load ptr, ptr %3, align 8, !tbaa !18
+  %4 = load ptr, ptr %3, align 8, !tbaa !16
   %5 = icmp eq ptr %4, null
   br i1 %5, label %14, label %6
 
@@ -192,7 +192,7 @@ define dso_local noundef ptr @_ZN12CProfileNode12Get_Sub_NodeEPKc(ptr noundef no
 
 10:                                               ; preds = %6
   %11 = getelementptr inbounds %class.CProfileNode, ptr %7, i64 0, i32 7
-  %12 = load ptr, ptr %11, align 8, !tbaa !18
+  %12 = load ptr, ptr %11, align 8, !tbaa !17
   %13 = icmp eq ptr %12, null
   br i1 %13, label %14, label %6
 
@@ -233,9 +233,9 @@ define dso_local void @_ZN12CProfileNode4CallEv(ptr nocapture noundef nonnull al
   %5 = add nsw i32 %4, 1
   store i32 %5, ptr %3, align 8, !tbaa !14
   %6 = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 8, !tbaa !19
+  %7 = load i32, ptr %6, align 8, !tbaa !18
   %8 = add nsw i32 %7, 1
-  store i32 %8, ptr %6, align 8, !tbaa !19
+  store i32 %8, ptr %6, align 8, !tbaa !18
   %9 = icmp eq i32 %7, 0
   br i1 %9, label %10, label %22
 
@@ -243,17 +243,17 @@ define dso_local void @_ZN12CProfileNode4CallEv(ptr nocapture noundef nonnull al
   %11 = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 3
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #16
   %12 = call i32 @gettimeofday(ptr noundef nonnull %2, ptr noundef null) #16
-  %13 = load i64, ptr %2, align 8, !tbaa !20
-  %14 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %13 = load i64, ptr %2, align 8, !tbaa !19
+  %14 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %15 = sub nsw i64 %13, %14
   %16 = mul nsw i64 %15, 1000000
   %17 = getelementptr inbounds %struct.timeval, ptr %2, i64 0, i32 1
-  %18 = load i64, ptr %17, align 8, !tbaa !24
-  %19 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %18 = load i64, ptr %17, align 8, !tbaa !23
+  %19 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   %20 = sub i64 %18, %19
   %21 = add nsw i64 %20, %16
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #16
-  store i64 %21, ptr %11, align 8, !tbaa !26
+  store i64 %21, ptr %11, align 8, !tbaa !25
   br label %22
 
 22:                                               ; preds = %10, %1
@@ -264,29 +264,29 @@ define dso_local void @_ZN12CProfileNode4CallEv(ptr nocapture noundef nonnull al
 define dso_local noundef zeroext i1 @_ZN12CProfileNode6ReturnEv(ptr nocapture noundef nonnull align 8 dereferenceable(56) %0) local_unnamed_addr #6 align 2 {
   %2 = alloca %struct.timeval, align 8
   %3 = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 4
-  %4 = load i32, ptr %3, align 8, !tbaa !19
+  %4 = load i32, ptr %3, align 8, !tbaa !18
   %5 = add nsw i32 %4, -1
-  store i32 %5, ptr %3, align 8, !tbaa !19
-  %6 = icmp ne i32 %5, 0
+  store i32 %5, ptr %3, align 8, !tbaa !18
+  %6 = icmp eq i32 %5, 0
   %7 = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 1
   %8 = load i32, ptr %7, align 8
-  %9 = icmp eq i32 %8, 0
-  %10 = select i1 %6, i1 true, i1 %9
-  br i1 %10, label %31, label %11
+  %9 = icmp ne i32 %8, 0
+  %10 = select i1 %6, i1 %9, i1 false
+  br i1 %10, label %11, label %31
 
 11:                                               ; preds = %1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #16
   %12 = call i32 @gettimeofday(ptr noundef nonnull %2, ptr noundef null) #16
-  %13 = load i64, ptr %2, align 8, !tbaa !20
-  %14 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %13 = load i64, ptr %2, align 8, !tbaa !19
+  %14 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %15 = sub nsw i64 %13, %14
   %16 = mul nsw i64 %15, 1000000
   %17 = getelementptr inbounds %struct.timeval, ptr %2, i64 0, i32 1
-  %18 = load i64, ptr %17, align 8, !tbaa !24
-  %19 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %18 = load i64, ptr %17, align 8, !tbaa !23
+  %19 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #16
   %20 = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 3
-  %21 = load i64, ptr %20, align 8, !tbaa !27
+  %21 = load i64, ptr %20, align 8, !tbaa !26
   %22 = add i64 %16, %18
   %23 = add i64 %19, %21
   %24 = sub i64 %22, %23
@@ -296,7 +296,7 @@ define dso_local noundef zeroext i1 @_ZN12CProfileNode6ReturnEv(ptr nocapture no
   %28 = load float, ptr %27, align 4, !tbaa !15
   %29 = fadd float %28, %26
   store float %29, ptr %27, align 4, !tbaa !15
-  %30 = load i32, ptr %3, align 8, !tbaa !19
+  %30 = load i32, ptr %3, align 8, !tbaa !18
   br label %31
 
 31:                                               ; preds = %11, %1
@@ -307,49 +307,49 @@ define dso_local noundef zeroext i1 @_ZN12CProfileNode6ReturnEv(ptr nocapture no
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN16CProfileIteratorC2EP12CProfileNode(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(16) %0, ptr noundef %1) unnamed_addr #7 align 2 {
-  store ptr %1, ptr %0, align 8, !tbaa !28
+  store ptr %1, ptr %0, align 8, !tbaa !27
   %3 = getelementptr inbounds %class.CProfileNode, ptr %1, i64 0, i32 6
   %4 = load ptr, ptr %3, align 8, !tbaa !16
   %5 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !30
+  store ptr %4, ptr %5, align 8, !tbaa !29
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local void @_ZN16CProfileIterator5FirstEv(ptr nocapture noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #8 align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !28
+  %2 = load ptr, ptr %0, align 8, !tbaa !27
   %3 = getelementptr inbounds %class.CProfileNode, ptr %2, i64 0, i32 6
   %4 = load ptr, ptr %3, align 8, !tbaa !16
   %5 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !30
+  store ptr %4, ptr %5, align 8, !tbaa !29
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local void @_ZN16CProfileIterator4NextEv(ptr nocapture noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #8 align 2 {
   %2 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !30
+  %3 = load ptr, ptr %2, align 8, !tbaa !29
   %4 = getelementptr inbounds %class.CProfileNode, ptr %3, i64 0, i32 7
   %5 = load ptr, ptr %4, align 8, !tbaa !17
-  store ptr %5, ptr %2, align 8, !tbaa !30
+  store ptr %5, ptr %2, align 8, !tbaa !29
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
 define dso_local noundef zeroext i1 @_ZN16CProfileIterator7Is_DoneEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %0) local_unnamed_addr #9 align 2 {
   %2 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !30
+  %3 = load ptr, ptr %2, align 8, !tbaa !29
   %4 = icmp eq ptr %3, null
   ret i1 %4
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local void @_ZN16CProfileIterator11Enter_ChildEi(ptr nocapture noundef nonnull align 8 dereferenceable(16) %0, i32 noundef %1) local_unnamed_addr #10 align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !28
+  %3 = load ptr, ptr %0, align 8, !tbaa !27
   %4 = getelementptr inbounds %class.CProfileNode, ptr %3, i64 0, i32 6
   %5 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %4, align 8, !tbaa !18
-  store ptr %6, ptr %5, align 8, !tbaa !30
+  %6 = load ptr, ptr %4, align 8, !tbaa !30
+  store ptr %6, ptr %5, align 8, !tbaa !29
   %7 = icmp ne ptr %6, null
   %8 = icmp ne i32 %1, 0
   %9 = and i1 %7, %8
@@ -360,8 +360,8 @@ define dso_local void @_ZN16CProfileIterator11Enter_ChildEi(ptr nocapture nounde
   %12 = phi i32 [ %13, %10 ], [ %1, %2 ]
   %13 = add nsw i32 %12, -1
   %14 = getelementptr inbounds %class.CProfileNode, ptr %11, i64 0, i32 7
-  %15 = load ptr, ptr %14, align 8, !tbaa !18
-  store ptr %15, ptr %5, align 8, !tbaa !30
+  %15 = load ptr, ptr %14, align 8, !tbaa !30
+  store ptr %15, ptr %5, align 8, !tbaa !29
   %16 = icmp ne ptr %15, null
   %17 = icmp ne i32 %13, 0
   %18 = select i1 %16, i1 %17, i1 false
@@ -373,10 +373,10 @@ define dso_local void @_ZN16CProfileIterator11Enter_ChildEi(ptr nocapture nounde
   br i1 %21, label %22, label %25
 
 22:                                               ; preds = %19
-  store ptr %20, ptr %0, align 8, !tbaa !28
+  store ptr %20, ptr %0, align 8, !tbaa !27
   %23 = getelementptr inbounds %class.CProfileNode, ptr %20, i64 0, i32 6
   %24 = load ptr, ptr %23, align 8, !tbaa !16
-  store ptr %24, ptr %5, align 8, !tbaa !30
+  store ptr %24, ptr %5, align 8, !tbaa !29
   br label %25
 
 25:                                               ; preds = %22, %19
@@ -385,14 +385,14 @@ define dso_local void @_ZN16CProfileIterator11Enter_ChildEi(ptr nocapture nounde
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local void @_ZN16CProfileIterator12Enter_ParentEv(ptr nocapture noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #8 align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !28
+  %2 = load ptr, ptr %0, align 8, !tbaa !27
   %3 = getelementptr inbounds %class.CProfileNode, ptr %2, i64 0, i32 5
   %4 = load ptr, ptr %3, align 8, !tbaa !13
   %5 = icmp eq ptr %4, null
   br i1 %5, label %7, label %6
 
 6:                                                ; preds = %1
-  store ptr %4, ptr %0, align 8, !tbaa !28
+  store ptr %4, ptr %0, align 8, !tbaa !27
   br label %7
 
 7:                                                ; preds = %6, %1
@@ -400,21 +400,21 @@ define dso_local void @_ZN16CProfileIterator12Enter_ParentEv(ptr nocapture nound
   %9 = getelementptr inbounds %class.CProfileNode, ptr %8, i64 0, i32 6
   %10 = load ptr, ptr %9, align 8, !tbaa !16
   %11 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  store ptr %10, ptr %11, align 8, !tbaa !30
+  store ptr %10, ptr %11, align 8, !tbaa !29
   ret void
 }
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef %0) local_unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
   %2 = alloca %struct.timeval, align 8
-  %3 = load ptr, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !18
+  %3 = load ptr, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !30
   %4 = load ptr, ptr %3, align 8, !tbaa !5
   %5 = icmp eq ptr %4, %0
   br i1 %5, label %26, label %6
 
 6:                                                ; preds = %1
   %7 = getelementptr inbounds %class.CProfileNode, ptr %3, i64 0, i32 6
-  %8 = load ptr, ptr %7, align 8, !tbaa !18
+  %8 = load ptr, ptr %7, align 8, !tbaa !16
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
 
@@ -426,7 +426,7 @@ define dso_local void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef %0) l
 
 14:                                               ; preds = %10
   %15 = getelementptr inbounds %class.CProfileNode, ptr %11, i64 0, i32 7
-  %16 = load ptr, ptr %15, align 8, !tbaa !18
+  %16 = load ptr, ptr %15, align 8, !tbaa !17
   %17 = icmp eq ptr %16, null
   br i1 %17, label %18, label %10
 
@@ -447,7 +447,7 @@ define dso_local void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef %0) l
 
 24:                                               ; preds = %10, %18
   %25 = phi ptr [ %19, %18 ], [ %11, %10 ]
-  store ptr %25, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !18
+  store ptr %25, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !30
   br label %26
 
 26:                                               ; preds = %24, %1
@@ -457,9 +457,9 @@ define dso_local void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef %0) l
   %30 = add nsw i32 %29, 1
   store i32 %30, ptr %28, align 8, !tbaa !14
   %31 = getelementptr inbounds %class.CProfileNode, ptr %27, i64 0, i32 4
-  %32 = load i32, ptr %31, align 8, !tbaa !19
+  %32 = load i32, ptr %31, align 8, !tbaa !18
   %33 = add nsw i32 %32, 1
-  store i32 %33, ptr %31, align 8, !tbaa !19
+  store i32 %33, ptr %31, align 8, !tbaa !18
   %34 = icmp eq i32 %32, 0
   br i1 %34, label %35, label %47
 
@@ -467,17 +467,17 @@ define dso_local void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef %0) l
   %36 = getelementptr inbounds %class.CProfileNode, ptr %27, i64 0, i32 3
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #16
   %37 = call i32 @gettimeofday(ptr noundef nonnull %2, ptr noundef null) #16
-  %38 = load i64, ptr %2, align 8, !tbaa !20
-  %39 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %38 = load i64, ptr %2, align 8, !tbaa !19
+  %39 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %40 = sub nsw i64 %38, %39
   %41 = mul nsw i64 %40, 1000000
   %42 = getelementptr inbounds %struct.timeval, ptr %2, i64 0, i32 1
-  %43 = load i64, ptr %42, align 8, !tbaa !24
-  %44 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %43 = load i64, ptr %42, align 8, !tbaa !23
+  %44 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   %45 = sub i64 %43, %44
   %46 = add nsw i64 %45, %41
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #16
-  store i64 %46, ptr %36, align 8, !tbaa !26
+  store i64 %46, ptr %36, align 8, !tbaa !25
   br label %47
 
 47:                                               ; preds = %26, %35
@@ -487,31 +487,31 @@ define dso_local void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef %0) l
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @_ZN15CProfileManager12Stop_ProfileEv() local_unnamed_addr #6 align 2 {
   %1 = alloca %struct.timeval, align 8
-  %2 = load ptr, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !18
+  %2 = load ptr, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !30
   %3 = getelementptr inbounds %class.CProfileNode, ptr %2, i64 0, i32 4
-  %4 = load i32, ptr %3, align 8, !tbaa !19
+  %4 = load i32, ptr %3, align 8, !tbaa !18
   %5 = add nsw i32 %4, -1
-  store i32 %5, ptr %3, align 8, !tbaa !19
-  %6 = icmp ne i32 %5, 0
+  store i32 %5, ptr %3, align 8, !tbaa !18
+  %6 = icmp eq i32 %5, 0
   %7 = getelementptr inbounds %class.CProfileNode, ptr %2, i64 0, i32 1
   %8 = load i32, ptr %7, align 8
-  %9 = icmp eq i32 %8, 0
-  %10 = select i1 %6, i1 true, i1 %9
-  br i1 %10, label %31, label %11
+  %9 = icmp ne i32 %8, 0
+  %10 = select i1 %6, i1 %9, i1 false
+  br i1 %10, label %11, label %31
 
 11:                                               ; preds = %0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #16
   %12 = call i32 @gettimeofday(ptr noundef nonnull %1, ptr noundef null) #16
-  %13 = load i64, ptr %1, align 8, !tbaa !20
-  %14 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %13 = load i64, ptr %1, align 8, !tbaa !19
+  %14 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %15 = sub nsw i64 %13, %14
   %16 = mul nsw i64 %15, 1000000
   %17 = getelementptr inbounds %struct.timeval, ptr %1, i64 0, i32 1
-  %18 = load i64, ptr %17, align 8, !tbaa !24
-  %19 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %18 = load i64, ptr %17, align 8, !tbaa !23
+  %19 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #16
   %20 = getelementptr inbounds %class.CProfileNode, ptr %2, i64 0, i32 3
-  %21 = load i64, ptr %20, align 8, !tbaa !27
+  %21 = load i64, ptr %20, align 8, !tbaa !26
   %22 = add i64 %16, %18
   %23 = add i64 %19, %21
   %24 = sub i64 %22, %23
@@ -521,7 +521,7 @@ define dso_local void @_ZN15CProfileManager12Stop_ProfileEv() local_unnamed_addr
   %28 = load float, ptr %27, align 4, !tbaa !15
   %29 = fadd float %28, %26
   store float %29, ptr %27, align 4, !tbaa !15
-  %30 = load i32, ptr %3, align 8, !tbaa !19
+  %30 = load i32, ptr %3, align 8, !tbaa !18
   br label %31
 
 31:                                               ; preds = %0, %11
@@ -530,10 +530,10 @@ define dso_local void @_ZN15CProfileManager12Stop_ProfileEv() local_unnamed_addr
   br i1 %33, label %34, label %38
 
 34:                                               ; preds = %31
-  %35 = load ptr, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !18
+  %35 = load ptr, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !30
   %36 = getelementptr inbounds %class.CProfileNode, ptr %35, i64 0, i32 5
   %37 = load ptr, ptr %36, align 8, !tbaa !13
-  store ptr %37, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !18
+  store ptr %37, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !30
   br label %38
 
 38:                                               ; preds = %34, %31
@@ -549,43 +549,43 @@ define dso_local void @_ZN15CProfileManager5ResetEv() local_unnamed_addr #6 alig
   %4 = load i32, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 1), align 8, !tbaa !14
   %5 = add nsw i32 %4, 1
   store i32 %5, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 1), align 8, !tbaa !14
-  %6 = load i32, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 4), align 8, !tbaa !19
+  %6 = load i32, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 4), align 8, !tbaa !18
   %7 = add nsw i32 %6, 1
-  store i32 %7, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 4), align 8, !tbaa !19
+  store i32 %7, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 4), align 8, !tbaa !18
   %8 = icmp eq i32 %6, 0
   br i1 %8, label %9, label %20
 
 9:                                                ; preds = %0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #16
   %10 = call i32 @gettimeofday(ptr noundef nonnull %2, ptr noundef null) #16
-  %11 = load i64, ptr %2, align 8, !tbaa !20
-  %12 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %11 = load i64, ptr %2, align 8, !tbaa !19
+  %12 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %13 = sub nsw i64 %11, %12
   %14 = mul nsw i64 %13, 1000000
   %15 = getelementptr inbounds %struct.timeval, ptr %2, i64 0, i32 1
-  %16 = load i64, ptr %15, align 8, !tbaa !24
-  %17 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %16 = load i64, ptr %15, align 8, !tbaa !23
+  %17 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   %18 = sub i64 %16, %17
   %19 = add nsw i64 %18, %14
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #16
-  store i64 %19, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 3), align 8, !tbaa !26
+  store i64 %19, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 3), align 8, !tbaa !25
   br label %20
 
 20:                                               ; preds = %0, %9
   store i32 0, ptr @_ZN15CProfileManager12FrameCounterE, align 4, !tbaa !31
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #16
   %21 = call i32 @gettimeofday(ptr noundef nonnull %1, ptr noundef null) #16
-  %22 = load i64, ptr %1, align 8, !tbaa !20
-  %23 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %22 = load i64, ptr %1, align 8, !tbaa !19
+  %23 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %24 = sub nsw i64 %22, %23
   %25 = mul nsw i64 %24, 1000000
   %26 = getelementptr inbounds %struct.timeval, ptr %1, i64 0, i32 1
-  %27 = load i64, ptr %26, align 8, !tbaa !24
-  %28 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %27 = load i64, ptr %26, align 8, !tbaa !23
+  %28 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   %29 = sub i64 %27, %28
   %30 = add nsw i64 %29, %25
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #16
-  store i64 %30, ptr @_ZN15CProfileManager9ResetTimeE, align 8, !tbaa !26
+  store i64 %30, ptr @_ZN15CProfileManager9ResetTimeE, align 8, !tbaa !25
   ret void
 }
 
@@ -602,15 +602,15 @@ define dso_local noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv() l
   %1 = alloca %struct.timeval, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #16
   %2 = call i32 @gettimeofday(ptr noundef nonnull %1, ptr noundef null) #16
-  %3 = load i64, ptr %1, align 8, !tbaa !20
-  %4 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %3 = load i64, ptr %1, align 8, !tbaa !19
+  %4 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %5 = sub nsw i64 %3, %4
   %6 = mul nsw i64 %5, 1000000
   %7 = getelementptr inbounds %struct.timeval, ptr %1, i64 0, i32 1
-  %8 = load i64, ptr %7, align 8, !tbaa !24
-  %9 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %8 = load i64, ptr %7, align 8, !tbaa !23
+  %9 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #16
-  %10 = load i64, ptr @_ZN15CProfileManager9ResetTimeE, align 8, !tbaa !26
+  %10 = load i64, ptr @_ZN15CProfileManager9ResetTimeE, align 8, !tbaa !25
   %11 = add i64 %6, %8
   %12 = add i64 %9, %10
   %13 = sub i64 %11, %12
@@ -622,11 +622,11 @@ define dso_local noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv() l
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #6 align 2 {
   %3 = alloca %struct.timeval, align 8
-  %4 = load ptr, ptr %0, align 8, !tbaa !28
+  %4 = load ptr, ptr %0, align 8, !tbaa !27
   %5 = getelementptr inbounds %class.CProfileNode, ptr %4, i64 0, i32 6
   %6 = load ptr, ptr %5, align 8, !tbaa !16
   %7 = getelementptr inbounds %class.CProfileIterator, ptr %0, i64 0, i32 1
-  store ptr %6, ptr %7, align 8, !tbaa !30
+  store ptr %6, ptr %7, align 8, !tbaa !29
   %8 = icmp eq ptr %6, null
   br i1 %8, label %170, label %9
 
@@ -639,15 +639,15 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
 13:                                               ; preds = %9
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #16
   %14 = call i32 @gettimeofday(ptr noundef nonnull %3, ptr noundef null) #16
-  %15 = load i64, ptr %3, align 8, !tbaa !20
-  %16 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !22
+  %15 = load i64, ptr %3, align 8, !tbaa !19
+  %16 = load i64, ptr @_ZL13gProfileClock, align 8, !tbaa !21
   %17 = sub nsw i64 %15, %16
   %18 = mul nsw i64 %17, 1000000
   %19 = getelementptr inbounds %struct.timeval, ptr %3, i64 0, i32 1
-  %20 = load i64, ptr %19, align 8, !tbaa !24
-  %21 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !25
+  %20 = load i64, ptr %19, align 8, !tbaa !23
+  %21 = load i64, ptr getelementptr inbounds (%class.btClock, ptr @_ZL13gProfileClock, i64 0, i32 0, i32 1), align 8, !tbaa !24
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #16
-  %22 = load i64, ptr @_ZN15CProfileManager9ResetTimeE, align 8, !tbaa !26
+  %22 = load i64, ptr @_ZN15CProfileManager9ResetTimeE, align 8, !tbaa !25
   %23 = add i64 %18, %20
   %24 = add i64 %21, %22
   %25 = sub i64 %23, %24
@@ -689,11 +689,11 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
   br i1 %48, label %49, label %44
 
 49:                                               ; preds = %44, %35, %42
-  %50 = load ptr, ptr %0, align 8, !tbaa !28
+  %50 = load ptr, ptr %0, align 8, !tbaa !27
   %51 = load ptr, ptr %50, align 8, !tbaa !5
   %52 = fpext float %32 to double
   %53 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %51, double noundef %52)
-  %54 = load ptr, ptr %7, align 8, !tbaa !30
+  %54 = load ptr, ptr %7, align 8, !tbaa !29
   %55 = icmp eq ptr %54, null
   br i1 %55, label %110, label %56
 
@@ -703,10 +703,10 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
   br i1 %34, label %59, label %88
 
 59:                                               ; preds = %56, %72
-  %60 = phi float [ %74, %72 ], [ 0.000000e+00, %56 ]
-  %61 = phi i32 [ %73, %72 ], [ 0, %56 ]
-  %62 = phi ptr [ %86, %72 ], [ %54, %56 ]
-  %63 = getelementptr inbounds %class.CProfileNode, ptr %62, i64 0, i32 2
+  %60 = phi ptr [ %86, %72 ], [ %54, %56 ]
+  %61 = phi float [ %74, %72 ], [ 0.000000e+00, %56 ]
+  %62 = phi i32 [ %73, %72 ], [ 0, %56 ]
+  %63 = getelementptr inbounds %class.CProfileNode, ptr %60, i64 0, i32 2
   %64 = load float, ptr %63, align 4, !tbaa !15
   %65 = fdiv float %64, %32
   %66 = fmul float %65, 1.000000e+02
@@ -720,46 +720,46 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
   br i1 %71, label %72, label %67
 
 72:                                               ; preds = %67
-  %73 = add nuw i32 %61, 1
-  %74 = fadd float %60, %64
+  %73 = add nuw i32 %62, 1
+  %74 = fadd float %61, %64
   %75 = select i1 %57, float %66, float 0.000000e+00
-  %76 = load ptr, ptr %7, align 8, !tbaa !30
+  %76 = load ptr, ptr %7, align 8, !tbaa !29
   %77 = load ptr, ptr %76, align 8, !tbaa !5
   %78 = fpext float %75 to double
   %79 = fpext float %64 to double
   %80 = fdiv double %79, %58
   %81 = getelementptr inbounds %class.CProfileNode, ptr %76, i64 0, i32 1
   %82 = load i32, ptr %81, align 8, !tbaa !14
-  %83 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %61, ptr noundef %77, double noundef %78, double noundef %80, i32 noundef %82)
-  %84 = load ptr, ptr %7, align 8, !tbaa !30
+  %83 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %62, ptr noundef %77, double noundef %78, double noundef %80, i32 noundef %82)
+  %84 = load ptr, ptr %7, align 8, !tbaa !29
   %85 = getelementptr inbounds %class.CProfileNode, ptr %84, i64 0, i32 7
   %86 = load ptr, ptr %85, align 8, !tbaa !17
-  store ptr %86, ptr %7, align 8, !tbaa !30
+  store ptr %86, ptr %7, align 8, !tbaa !29
   %87 = icmp eq ptr %86, null
   br i1 %87, label %110, label %59
 
 88:                                               ; preds = %56, %88
-  %89 = phi float [ %95, %88 ], [ 0.000000e+00, %56 ]
-  %90 = phi i32 [ %92, %88 ], [ 0, %56 ]
-  %91 = phi ptr [ %108, %88 ], [ %54, %56 ]
-  %92 = add nuw i32 %90, 1
-  %93 = getelementptr inbounds %class.CProfileNode, ptr %91, i64 0, i32 2
+  %89 = phi ptr [ %108, %88 ], [ %54, %56 ]
+  %90 = phi float [ %95, %88 ], [ 0.000000e+00, %56 ]
+  %91 = phi i32 [ %92, %88 ], [ 0, %56 ]
+  %92 = add nuw i32 %91, 1
+  %93 = getelementptr inbounds %class.CProfileNode, ptr %89, i64 0, i32 2
   %94 = load float, ptr %93, align 4, !tbaa !15
-  %95 = fadd float %89, %94
+  %95 = fadd float %90, %94
   %96 = fdiv float %94, %32
   %97 = fmul float %96, 1.000000e+02
   %98 = select i1 %57, float %97, float 0.000000e+00
-  %99 = load ptr, ptr %91, align 8, !tbaa !5
+  %99 = load ptr, ptr %89, align 8, !tbaa !5
   %100 = fpext float %98 to double
   %101 = fpext float %94 to double
   %102 = fdiv double %101, %58
-  %103 = getelementptr inbounds %class.CProfileNode, ptr %91, i64 0, i32 1
+  %103 = getelementptr inbounds %class.CProfileNode, ptr %89, i64 0, i32 1
   %104 = load i32, ptr %103, align 8, !tbaa !14
-  %105 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %90, ptr noundef %99, double noundef %100, double noundef %102, i32 noundef %104)
-  %106 = load ptr, ptr %7, align 8, !tbaa !30
+  %105 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %91, ptr noundef %99, double noundef %100, double noundef %102, i32 noundef %104)
+  %106 = load ptr, ptr %7, align 8, !tbaa !29
   %107 = getelementptr inbounds %class.CProfileNode, ptr %106, i64 0, i32 7
   %108 = load ptr, ptr %107, align 8, !tbaa !17
-  store ptr %108, ptr %7, align 8, !tbaa !30
+  store ptr %108, ptr %7, align 8, !tbaa !29
   %109 = icmp eq ptr %108, null
   br i1 %109, label %110, label %88
 
@@ -788,8 +788,8 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
   %124 = fsub float %32, %112
   %125 = fdiv float %124, %32
   %126 = fmul float %125, 1.000000e+02
-  %127 = fpext float %126 to double
-  %128 = select i1 %123, double %127, double 0.000000e+00
+  %127 = select i1 %123, float %126, float 0.000000e+00
+  %128 = fpext float %127 to double
   %129 = fpext float %124 to double
   %130 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.8, double noundef %128, double noundef %129)
   %131 = icmp eq i32 %111, 0
@@ -797,15 +797,15 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
 
 132:                                              ; preds = %122
   %133 = add nsw i32 %1, 3
-  %134 = load ptr, ptr %0, align 8, !tbaa !28
+  %134 = load ptr, ptr %0, align 8, !tbaa !27
   br label %135
 
 135:                                              ; preds = %132, %164
   %136 = phi ptr [ %134, %132 ], [ %165, %164 ]
   %137 = phi i32 [ 0, %132 ], [ %168, %164 ]
   %138 = getelementptr inbounds %class.CProfileNode, ptr %136, i64 0, i32 6
-  %139 = load ptr, ptr %138, align 8, !tbaa !18
-  store ptr %139, ptr %7, align 8, !tbaa !30
+  %139 = load ptr, ptr %138, align 8, !tbaa !30
+  store ptr %139, ptr %7, align 8, !tbaa !29
   %140 = icmp ne ptr %139, null
   %141 = icmp ne i32 %137, 0
   %142 = and i1 %141, %140
@@ -816,8 +816,8 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
   %145 = phi i32 [ %146, %143 ], [ %137, %135 ]
   %146 = add nsw i32 %145, -1
   %147 = getelementptr inbounds %class.CProfileNode, ptr %144, i64 0, i32 7
-  %148 = load ptr, ptr %147, align 8, !tbaa !18
-  store ptr %148, ptr %7, align 8, !tbaa !30
+  %148 = load ptr, ptr %147, align 8, !tbaa !30
+  store ptr %148, ptr %7, align 8, !tbaa !29
   %149 = icmp ne ptr %148, null
   %150 = icmp ne i32 %146, 0
   %151 = select i1 %149, i1 %150, i1 false
@@ -829,29 +829,29 @@ define dso_local void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(
   br i1 %154, label %155, label %158
 
 155:                                              ; preds = %152
-  store ptr %153, ptr %0, align 8, !tbaa !28
+  store ptr %153, ptr %0, align 8, !tbaa !27
   %156 = getelementptr inbounds %class.CProfileNode, ptr %153, i64 0, i32 6
   %157 = load ptr, ptr %156, align 8, !tbaa !16
-  store ptr %157, ptr %7, align 8, !tbaa !30
+  store ptr %157, ptr %7, align 8, !tbaa !29
   br label %158
 
 158:                                              ; preds = %152, %155
   tail call void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(ptr noundef nonnull %0, i32 noundef %133)
-  %159 = load ptr, ptr %0, align 8, !tbaa !28
+  %159 = load ptr, ptr %0, align 8, !tbaa !27
   %160 = getelementptr inbounds %class.CProfileNode, ptr %159, i64 0, i32 5
   %161 = load ptr, ptr %160, align 8, !tbaa !13
   %162 = icmp eq ptr %161, null
   br i1 %162, label %164, label %163
 
 163:                                              ; preds = %158
-  store ptr %161, ptr %0, align 8, !tbaa !28
+  store ptr %161, ptr %0, align 8, !tbaa !27
   br label %164
 
 164:                                              ; preds = %158, %163
   %165 = phi ptr [ %161, %163 ], [ %159, %158 ]
   %166 = getelementptr inbounds %class.CProfileNode, ptr %165, i64 0, i32 6
   %167 = load ptr, ptr %166, align 8, !tbaa !16
-  store ptr %167, ptr %7, align 8, !tbaa !30
+  store ptr %167, ptr %7, align 8, !tbaa !29
   %168 = add nuw i32 %137, 1
   %169 = icmp eq i32 %168, %111
   br i1 %169, label %170, label %135
@@ -866,10 +866,10 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 ; Function Attrs: uwtable
 define dso_local void @_ZN15CProfileManager7dumpAllEv() local_unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
   %1 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #15
-  store ptr @_ZN15CProfileManager4RootE, ptr %1, align 8, !tbaa !28
+  store ptr @_ZN15CProfileManager4RootE, ptr %1, align 8, !tbaa !27
   %2 = load ptr, ptr getelementptr inbounds (%class.CProfileNode, ptr @_ZN15CProfileManager4RootE, i64 0, i32 6), align 8, !tbaa !16
   %3 = getelementptr inbounds %class.CProfileIterator, ptr %1, i64 0, i32 1
-  store ptr %2, ptr %3, align 8, !tbaa !30
+  store ptr %2, ptr %3, align 8, !tbaa !29
   tail call void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(ptr noundef nonnull %1, i32 noundef 0)
   tail call void @_ZdlPv(ptr noundef nonnull %1) #14
   ret void
@@ -889,14 +889,14 @@ define internal void @_GLOBAL__sub_I_btQuickprof.cpp() #6 section ".text.startup
   ret void
 }
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #0
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #0
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
 
 attributes #0 = { nofree nounwind }
 attributes #1 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -937,17 +937,17 @@ attributes #16 = { nounwind }
 !15 = !{!6, !11, i64 12}
 !16 = !{!6, !7, i64 40}
 !17 = !{!6, !7, i64 48}
-!18 = !{!7, !7, i64 0}
-!19 = !{!6, !10, i64 24}
-!20 = !{!21, !12, i64 0}
-!21 = !{!"_ZTS7timeval", !12, i64 0, !12, i64 8}
-!22 = !{!23, !12, i64 0}
-!23 = !{!"_ZTS7btClock", !21, i64 0}
-!24 = !{!21, !12, i64 8}
-!25 = !{!23, !12, i64 8}
-!26 = !{!12, !12, i64 0}
-!27 = !{!6, !12, i64 16}
-!28 = !{!29, !7, i64 0}
-!29 = !{!"_ZTS16CProfileIterator", !7, i64 0, !7, i64 8}
-!30 = !{!29, !7, i64 8}
+!18 = !{!6, !10, i64 24}
+!19 = !{!20, !12, i64 0}
+!20 = !{!"_ZTS7timeval", !12, i64 0, !12, i64 8}
+!21 = !{!22, !12, i64 0}
+!22 = !{!"_ZTS7btClock", !20, i64 0}
+!23 = !{!20, !12, i64 8}
+!24 = !{!22, !12, i64 8}
+!25 = !{!12, !12, i64 0}
+!26 = !{!6, !12, i64 16}
+!27 = !{!28, !7, i64 0}
+!28 = !{!"_ZTS16CProfileIterator", !7, i64 0, !7, i64 8}
+!29 = !{!28, !7, i64 8}
+!30 = !{!7, !7, i64 0}
 !31 = !{!10, !10, i64 0}

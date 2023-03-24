@@ -534,7 +534,7 @@ define dso_local void @jinit_c_master_control(ptr noundef %0, i32 noundef %1) lo
 345:                                              ; preds = %344
   %346 = icmp sgt i32 %304, %306
   %347 = add nsw i32 %309, -1
-  %348 = icmp eq i32 %311, %347
+  %348 = icmp ne i32 %311, %347
   %349 = freeze i1 %348
   %350 = icmp eq i32 %309, 0
   %351 = sext i32 %304 to i64
@@ -573,7 +573,7 @@ define dso_local void @jinit_c_master_control(ptr noundef %0, i32 noundef %1) lo
   br i1 %350, label %371, label %402
 
 371:                                              ; preds = %370
-  br i1 %349, label %387, label %372
+  br i1 %349, label %372, label %387
 
 372:                                              ; preds = %371, %383
   %373 = phi i64 [ %384, %383 ], [ %351, %371 ]
@@ -604,8 +604,8 @@ define dso_local void @jinit_c_master_control(ptr noundef %0, i32 noundef %1) lo
   %388 = phi i64 [ %399, %398 ], [ %351, %371 ]
   %389 = getelementptr inbounds i32, ptr %359, i64 %388
   %390 = load i32, ptr %389, align 4, !tbaa !56
-  %391 = icmp slt i32 %390, 1
-  br i1 %391, label %398, label %392
+  %391 = icmp sgt i32 %390, 0
+  br i1 %391, label %392, label %398
 
 392:                                              ; preds = %387
   %393 = load ptr, ptr %0, align 8, !tbaa !27
@@ -629,11 +629,11 @@ define dso_local void @jinit_c_master_control(ptr noundef %0, i32 noundef %1) lo
   %403 = phi i64 [ %417, %416 ], [ %351, %370 ]
   %404 = getelementptr inbounds i32, ptr %359, i64 %403
   %405 = load i32, ptr %404, align 4, !tbaa !56
-  %406 = icmp sgt i32 %405, -1
-  %407 = icmp eq i32 %309, %405
-  %408 = and i1 %407, %406
-  %409 = and i1 %349, %408
-  br i1 %409, label %416, label %410
+  %406 = icmp slt i32 %405, 0
+  %407 = icmp ne i32 %309, %405
+  %408 = or i1 %407, %406
+  %409 = or i1 %349, %408
+  br i1 %409, label %410, label %416
 
 410:                                              ; preds = %402
   %411 = load ptr, ptr %0, align 8, !tbaa !27
@@ -653,7 +653,7 @@ define dso_local void @jinit_c_master_control(ptr noundef %0, i32 noundef %1) lo
   %419 = icmp eq i32 %352, %418
   br i1 %419, label %420, label %402, !llvm.loop !62
 
-420:                                              ; preds = %416, %383, %398, %369
+420:                                              ; preds = %416, %398, %383, %369
   %421 = add nuw nsw i64 %355, 1
   %422 = icmp eq i64 %421, %353
   br i1 %422, label %456, label %354, !llvm.loop !63
@@ -1840,13 +1840,13 @@ define internal fastcc void @per_scan_setup(ptr noundef %0) unnamed_addr #0 {
 declare i64 @jdiv_round_up(i64 noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #3
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #3
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #3
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

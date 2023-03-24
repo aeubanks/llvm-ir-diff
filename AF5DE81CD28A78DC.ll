@@ -606,194 +606,193 @@ define dso_local void @htstat() local_unnamed_addr #12 {
   %3 = load ptr, ptr @he, align 8, !tbaa !5
   br label %4
 
-4:                                                ; preds = %0, %23
-  %5 = phi i64 [ 0, %0 ], [ %24, %23 ]
+4:                                                ; preds = %0, %22
+  %5 = phi i64 [ 0, %0 ], [ %23, %22 ]
   %6 = getelementptr inbounds i8, ptr %3, i64 %5
   %7 = load i8, ptr %6, align 1, !tbaa !9
-  %8 = and i8 %7, 31
-  %9 = zext i8 %8 to i64
-  %10 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 %9
-  %11 = load i32, ptr %10, align 4, !tbaa !14
-  %12 = add nsw i32 %11, 1
-  store i32 %12, ptr %10, align 4, !tbaa !14
-  %13 = sext i8 %7 to i32
-  %14 = and i32 %13, 31
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %23, label %16
+  %8 = sext i8 %7 to i32
+  %9 = and i32 %8, 31
+  %10 = zext i32 %9 to i64
+  %11 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 %10
+  %12 = load i32, ptr %11, align 4, !tbaa !14
+  %13 = add nsw i32 %12, 1
+  store i32 %13, ptr %11, align 4, !tbaa !14
+  %14 = icmp eq i32 %9, 0
+  br i1 %14, label %22, label %15
 
-16:                                               ; preds = %4
-  %17 = ashr i32 %13, 5
-  %18 = add nsw i32 %17, 4
-  %19 = zext i32 %18 to i64
-  %20 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 %19
-  %21 = load i32, ptr %20, align 4, !tbaa !14
-  %22 = add nsw i32 %21, 1
-  store i32 %22, ptr %20, align 4, !tbaa !14
-  br label %23
+15:                                               ; preds = %4
+  %16 = ashr i32 %8, 5
+  %17 = add nsw i32 %16, 4
+  %18 = zext i32 %17 to i64
+  %19 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 %18
+  %20 = load i32, ptr %19, align 4, !tbaa !14
+  %21 = add nsw i32 %20, 1
+  store i32 %21, ptr %19, align 4, !tbaa !14
+  br label %22
 
-23:                                               ; preds = %4, %16
-  %24 = add nuw nsw i64 %5, 1
-  %25 = icmp eq i64 %24, 1050011
-  br i1 %25, label %26, label %4, !llvm.loop !16
+22:                                               ; preds = %4, %15
+  %23 = add nuw nsw i64 %5, 1
+  %24 = icmp eq i64 %23, 1050011
+  br i1 %24, label %25, label %4, !llvm.loop !16
 
-26:                                               ; preds = %23
-  %27 = load i32, ptr %2, align 16, !tbaa !14
-  %28 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 1
-  %29 = load i32, ptr %28, align 4, !tbaa !14
-  %30 = add nsw i32 %29, %27
-  %31 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 2
-  %32 = load i32, ptr %31, align 8, !tbaa !14
-  %33 = add nsw i32 %32, %30
-  %34 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 3
-  %35 = load i32, ptr %34, align 4, !tbaa !14
-  %36 = add nsw i32 %35, %33
-  %37 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 4
-  %38 = load i32, ptr %37, align 16, !tbaa !14
-  %39 = add nsw i32 %38, %36
-  %40 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 5
-  %41 = load i32, ptr %40, align 4, !tbaa !14
-  %42 = add nsw i32 %41, %39
-  %43 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 6
-  %44 = load i32, ptr %43, align 8, !tbaa !14
-  %45 = add nsw i32 %44, %42
-  %46 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 7
-  %47 = load i32, ptr %46, align 4, !tbaa !14
-  %48 = add nsw i32 %47, %45
-  %49 = icmp sgt i32 %48, 0
-  br i1 %49, label %50, label %71
+25:                                               ; preds = %22
+  %26 = load i32, ptr %2, align 16, !tbaa !14
+  %27 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 1
+  %28 = load i32, ptr %27, align 4, !tbaa !14
+  %29 = add nsw i32 %28, %26
+  %30 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 2
+  %31 = load i32, ptr %30, align 8, !tbaa !14
+  %32 = add nsw i32 %31, %29
+  %33 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 3
+  %34 = load i32, ptr %33, align 4, !tbaa !14
+  %35 = add nsw i32 %34, %32
+  %36 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 4
+  %37 = load i32, ptr %36, align 16, !tbaa !14
+  %38 = add nsw i32 %37, %35
+  %39 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 5
+  %40 = load i32, ptr %39, align 4, !tbaa !14
+  %41 = add nsw i32 %40, %38
+  %42 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 6
+  %43 = load i32, ptr %42, align 8, !tbaa !14
+  %44 = add nsw i32 %43, %41
+  %45 = getelementptr inbounds [8 x i32], ptr %2, i64 0, i64 7
+  %46 = load i32, ptr %45, align 4, !tbaa !14
+  %47 = add nsw i32 %46, %44
+  %48 = icmp sgt i32 %47, 0
+  br i1 %48, label %49, label %70
 
-50:                                               ; preds = %26
-  %51 = load i64, ptr @posed, align 8, !tbaa !12
-  %52 = icmp eq i64 %51, 0
-  %53 = load i64, ptr @hits, align 8
-  %54 = sitofp i64 %53 to double
-  %55 = sitofp i64 %51 to double
-  %56 = fdiv double %54, %55
-  %57 = select i1 %52, double 0.000000e+00, double %56
-  %58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %57)
-  %59 = sitofp i32 %32 to double
-  %60 = sitofp i32 %48 to double
-  %61 = fdiv double %59, %60
-  %62 = sitofp i32 %35 to double
-  %63 = fdiv double %62, %60
-  %64 = sitofp i32 %38 to double
-  %65 = fdiv double %64, %60
-  %66 = sitofp i32 %41 to double
-  %67 = fdiv double %66, %60
-  %68 = sitofp i32 %44 to double
-  %69 = fdiv double %68, %60
-  %70 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %61, double noundef %63, double noundef %65, double noundef %67, double noundef %69)
-  br label %71
+49:                                               ; preds = %25
+  %50 = load i64, ptr @posed, align 8, !tbaa !12
+  %51 = icmp eq i64 %50, 0
+  %52 = load i64, ptr @hits, align 8
+  %53 = sitofp i64 %52 to double
+  %54 = sitofp i64 %50 to double
+  %55 = fdiv double %53, %54
+  %56 = select i1 %51, double 0.000000e+00, double %55
+  %57 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %56)
+  %58 = sitofp i32 %31 to double
+  %59 = sitofp i32 %47 to double
+  %60 = fdiv double %58, %59
+  %61 = sitofp i32 %34 to double
+  %62 = fdiv double %61, %59
+  %63 = sitofp i32 %37 to double
+  %64 = fdiv double %63, %59
+  %65 = sitofp i32 %40 to double
+  %66 = fdiv double %65, %59
+  %67 = sitofp i32 %43 to double
+  %68 = fdiv double %67, %59
+  %69 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %60, double noundef %62, double noundef %64, double noundef %66, double noundef %68)
+  br label %70
 
-71:                                               ; preds = %50, %26
-  %72 = load i32, ptr %1, align 16, !tbaa !14
-  %73 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %72, i32 noundef 9)
-  %74 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 1
-  %75 = load i32, ptr %74, align 4, !tbaa !14
-  %76 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %75, i32 noundef 9)
-  %77 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 2
-  %78 = load i32, ptr %77, align 8, !tbaa !14
-  %79 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %78, i32 noundef 9)
-  %80 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 3
-  %81 = load i32, ptr %80, align 4, !tbaa !14
-  %82 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %81, i32 noundef 9)
-  %83 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 4
-  %84 = load i32, ptr %83, align 16, !tbaa !14
-  %85 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %84, i32 noundef 9)
-  %86 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 5
-  %87 = load i32, ptr %86, align 4, !tbaa !14
-  %88 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %87, i32 noundef 9)
-  %89 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 6
-  %90 = load i32, ptr %89, align 8, !tbaa !14
-  %91 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %90, i32 noundef 9)
-  %92 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 7
-  %93 = load i32, ptr %92, align 4, !tbaa !14
-  %94 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %93, i32 noundef 10)
-  %95 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 8
-  %96 = load i32, ptr %95, align 16, !tbaa !14
-  %97 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %96, i32 noundef 9)
-  %98 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 9
-  %99 = load i32, ptr %98, align 4, !tbaa !14
-  %100 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %99, i32 noundef 9)
-  %101 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 10
-  %102 = load i32, ptr %101, align 8, !tbaa !14
-  %103 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %102, i32 noundef 9)
-  %104 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 11
-  %105 = load i32, ptr %104, align 4, !tbaa !14
-  %106 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %105, i32 noundef 9)
-  %107 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 12
-  %108 = load i32, ptr %107, align 16, !tbaa !14
-  %109 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %108, i32 noundef 9)
-  %110 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 13
-  %111 = load i32, ptr %110, align 4, !tbaa !14
-  %112 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %111, i32 noundef 9)
-  %113 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 14
-  %114 = load i32, ptr %113, align 8, !tbaa !14
-  %115 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %114, i32 noundef 9)
-  %116 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 15
-  %117 = load i32, ptr %116, align 4, !tbaa !14
-  %118 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %117, i32 noundef 10)
-  %119 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 16
-  %120 = load i32, ptr %119, align 16, !tbaa !14
-  %121 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %120, i32 noundef 9)
-  %122 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 17
-  %123 = load i32, ptr %122, align 4, !tbaa !14
-  %124 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %123, i32 noundef 9)
-  %125 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 18
-  %126 = load i32, ptr %125, align 8, !tbaa !14
-  %127 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %126, i32 noundef 9)
-  %128 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 19
-  %129 = load i32, ptr %128, align 4, !tbaa !14
-  %130 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %129, i32 noundef 9)
-  %131 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 20
-  %132 = load i32, ptr %131, align 16, !tbaa !14
-  %133 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %132, i32 noundef 9)
-  %134 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 21
-  %135 = load i32, ptr %134, align 4, !tbaa !14
-  %136 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %135, i32 noundef 9)
-  %137 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 22
-  %138 = load i32, ptr %137, align 8, !tbaa !14
-  %139 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %138, i32 noundef 9)
-  %140 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 23
-  %141 = load i32, ptr %140, align 4, !tbaa !14
-  %142 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %141, i32 noundef 10)
-  %143 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 24
-  %144 = load i32, ptr %143, align 16, !tbaa !14
-  %145 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %144, i32 noundef 9)
-  %146 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 25
-  %147 = load i32, ptr %146, align 4, !tbaa !14
-  %148 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %147, i32 noundef 9)
-  %149 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 26
-  %150 = load i32, ptr %149, align 8, !tbaa !14
-  %151 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %150, i32 noundef 9)
-  %152 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 27
-  %153 = load i32, ptr %152, align 4, !tbaa !14
-  %154 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %153, i32 noundef 9)
-  %155 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 28
-  %156 = load i32, ptr %155, align 16, !tbaa !14
-  %157 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %156, i32 noundef 9)
-  %158 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 29
-  %159 = load i32, ptr %158, align 4, !tbaa !14
-  %160 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %159, i32 noundef 9)
-  %161 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 30
-  %162 = load i32, ptr %161, align 8, !tbaa !14
-  %163 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %162, i32 noundef 9)
-  %164 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 31
-  %165 = load i32, ptr %164, align 4, !tbaa !14
-  %166 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %165, i32 noundef 10)
+70:                                               ; preds = %49, %25
+  %71 = load i32, ptr %1, align 16, !tbaa !14
+  %72 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %71, i32 noundef 9)
+  %73 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 1
+  %74 = load i32, ptr %73, align 4, !tbaa !14
+  %75 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %74, i32 noundef 9)
+  %76 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 2
+  %77 = load i32, ptr %76, align 8, !tbaa !14
+  %78 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %77, i32 noundef 9)
+  %79 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 3
+  %80 = load i32, ptr %79, align 4, !tbaa !14
+  %81 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %80, i32 noundef 9)
+  %82 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 4
+  %83 = load i32, ptr %82, align 16, !tbaa !14
+  %84 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %83, i32 noundef 9)
+  %85 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 5
+  %86 = load i32, ptr %85, align 4, !tbaa !14
+  %87 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %86, i32 noundef 9)
+  %88 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 6
+  %89 = load i32, ptr %88, align 8, !tbaa !14
+  %90 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %89, i32 noundef 9)
+  %91 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 7
+  %92 = load i32, ptr %91, align 4, !tbaa !14
+  %93 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %92, i32 noundef 10)
+  %94 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 8
+  %95 = load i32, ptr %94, align 16, !tbaa !14
+  %96 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %95, i32 noundef 9)
+  %97 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 9
+  %98 = load i32, ptr %97, align 4, !tbaa !14
+  %99 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %98, i32 noundef 9)
+  %100 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 10
+  %101 = load i32, ptr %100, align 8, !tbaa !14
+  %102 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %101, i32 noundef 9)
+  %103 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 11
+  %104 = load i32, ptr %103, align 4, !tbaa !14
+  %105 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %104, i32 noundef 9)
+  %106 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 12
+  %107 = load i32, ptr %106, align 16, !tbaa !14
+  %108 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %107, i32 noundef 9)
+  %109 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 13
+  %110 = load i32, ptr %109, align 4, !tbaa !14
+  %111 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %110, i32 noundef 9)
+  %112 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 14
+  %113 = load i32, ptr %112, align 8, !tbaa !14
+  %114 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %113, i32 noundef 9)
+  %115 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 15
+  %116 = load i32, ptr %115, align 4, !tbaa !14
+  %117 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %116, i32 noundef 10)
+  %118 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 16
+  %119 = load i32, ptr %118, align 16, !tbaa !14
+  %120 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %119, i32 noundef 9)
+  %121 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 17
+  %122 = load i32, ptr %121, align 4, !tbaa !14
+  %123 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %122, i32 noundef 9)
+  %124 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 18
+  %125 = load i32, ptr %124, align 8, !tbaa !14
+  %126 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %125, i32 noundef 9)
+  %127 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 19
+  %128 = load i32, ptr %127, align 4, !tbaa !14
+  %129 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %128, i32 noundef 9)
+  %130 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 20
+  %131 = load i32, ptr %130, align 16, !tbaa !14
+  %132 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %131, i32 noundef 9)
+  %133 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 21
+  %134 = load i32, ptr %133, align 4, !tbaa !14
+  %135 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %134, i32 noundef 9)
+  %136 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 22
+  %137 = load i32, ptr %136, align 8, !tbaa !14
+  %138 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %137, i32 noundef 9)
+  %139 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 23
+  %140 = load i32, ptr %139, align 4, !tbaa !14
+  %141 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %140, i32 noundef 10)
+  %142 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 24
+  %143 = load i32, ptr %142, align 16, !tbaa !14
+  %144 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %143, i32 noundef 9)
+  %145 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 25
+  %146 = load i32, ptr %145, align 4, !tbaa !14
+  %147 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %146, i32 noundef 9)
+  %148 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 26
+  %149 = load i32, ptr %148, align 8, !tbaa !14
+  %150 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %149, i32 noundef 9)
+  %151 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 27
+  %152 = load i32, ptr %151, align 4, !tbaa !14
+  %153 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %152, i32 noundef 9)
+  %154 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 28
+  %155 = load i32, ptr %154, align 16, !tbaa !14
+  %156 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %155, i32 noundef 9)
+  %157 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 29
+  %158 = load i32, ptr %157, align 4, !tbaa !14
+  %159 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %158, i32 noundef 9)
+  %160 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 30
+  %161 = load i32, ptr %160, align 8, !tbaa !14
+  %162 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %161, i32 noundef 9)
+  %163 = getelementptr inbounds [32 x i32], ptr %1, i64 0, i64 31
+  %164 = load i32, ptr %163, align 4, !tbaa !14
+  %165 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %164, i32 noundef 10)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #15
   call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %1) #15
   ret void
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #13
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #13
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14

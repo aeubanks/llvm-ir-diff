@@ -122,8 +122,8 @@ define dso_local i32 @lexan() local_unnamed_addr #0 {
   store i32 -1, ptr @NextTokenval, align 4, !tbaa !9
   br label %44
 
-44:                                               ; preds = %40, %36, %33, %29, %28, %43, %26, %19
-  %45 = phi i32 [ %20, %19 ], [ %27, %26 ], [ %3, %43 ], [ 260, %28 ], [ 61, %33 ], [ 2012, %29 ], [ 33, %40 ], [ 2013, %36 ]
+44:                                               ; preds = %28, %40, %36, %33, %29, %43, %26, %19
+  %45 = phi i32 [ %20, %19 ], [ %27, %26 ], [ %3, %43 ], [ 61, %33 ], [ 2012, %29 ], [ 33, %40 ], [ 2013, %36 ], [ 260, %28 ]
   ret i32 %45
 }
 
@@ -168,12 +168,12 @@ define dso_local i32 @Number(i32 noundef %0) local_unnamed_addr #0 {
 17:                                               ; preds = %11
   %18 = load ptr, ptr @stdin, align 8, !tbaa !5
   %19 = tail call i32 @ungetc(i32 noundef %16, ptr noundef %18)
-  br label %168
+  br label %190
 
 20:                                               ; preds = %11, %11, %11, %1
   %21 = phi i32 [ %16, %11 ], [ %0, %1 ], [ %16, %11 ], [ %16, %11 ]
   %22 = icmp eq i32 %21, 46
-  br i1 %22, label %23, label %66
+  br i1 %22, label %23, label %90
 
 23:                                               ; preds = %20
   %24 = load ptr, ptr @stdin, align 8, !tbaa !5
@@ -198,7 +198,7 @@ define dso_local i32 @Number(i32 noundef %0) local_unnamed_addr #0 {
   %39 = load i16, ptr %38, align 2, !tbaa !11
   %40 = and i16 %39, 2048
   %41 = icmp eq i16 %40, 0
-  br i1 %41, label %66, label %42
+  br i1 %41, label %90, label %42
 
 42:                                               ; preds = %33
   %43 = load ptr, ptr @stdin, align 8, !tbaa !5
@@ -219,177 +219,208 @@ define dso_local i32 @Number(i32 noundef %0) local_unnamed_addr #0 {
   %54 = phi float [ %47, %42 ], [ %51, %49 ]
   store float %54, ptr @NextFtokenval, align 4, !tbaa !13
   %55 = icmp eq i32 %35, 0
-  br i1 %55, label %63, label %56
+  br i1 %55, label %87, label %56
 
-56:                                               ; preds = %53, %56
-  %57 = phi float [ %59, %56 ], [ %54, %53 ]
-  %58 = phi i32 [ %60, %56 ], [ %35, %53 ]
-  %59 = fdiv float %57, 1.000000e+01
-  %60 = add nsw i32 %58, -1
-  %61 = icmp sgt i32 %58, 1
-  br i1 %61, label %56, label %62
+56:                                               ; preds = %53
+  %57 = and i32 %35, 7
+  %58 = icmp eq i32 %57, 0
+  br i1 %58, label %67, label %59
 
-62:                                               ; preds = %56
-  store float %59, ptr @NextFtokenval, align 4, !tbaa !13
-  br label %63
+59:                                               ; preds = %56, %59
+  %60 = phi float [ %63, %59 ], [ %54, %56 ]
+  %61 = phi i32 [ %64, %59 ], [ %35, %56 ]
+  %62 = phi i32 [ %65, %59 ], [ 0, %56 ]
+  %63 = fdiv float %60, 1.000000e+01
+  %64 = add nsw i32 %61, -1
+  %65 = add i32 %62, 1
+  %66 = icmp eq i32 %65, %57
+  br i1 %66, label %67, label %59, !llvm.loop !18
 
-63:                                               ; preds = %62, %53
-  %64 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %65 = call i32 @getc(ptr noundef %64)
-  br label %66
+67:                                               ; preds = %59, %56
+  %68 = phi float [ undef, %56 ], [ %63, %59 ]
+  %69 = phi float [ %54, %56 ], [ %63, %59 ]
+  %70 = phi i32 [ %35, %56 ], [ %64, %59 ]
+  %71 = icmp ult i32 %35, 8
+  br i1 %71, label %85, label %72
 
-66:                                               ; preds = %33, %63, %20
-  %67 = phi i32 [ %65, %63 ], [ %34, %33 ], [ %21, %20 ]
-  %68 = load i32, ptr @NextTokenval, align 4, !tbaa !9
-  %69 = sitofp i32 %68 to float
-  %70 = load float, ptr @NextFtokenval, align 4, !tbaa !13
-  %71 = fadd float %70, %69
-  store float %71, ptr @NextFtokenval, align 4, !tbaa !13
-  %72 = and i32 %67, -33
-  %73 = icmp eq i32 %72, 69
-  br i1 %73, label %74, label %164
+72:                                               ; preds = %67, %72
+  %73 = phi float [ %82, %72 ], [ %69, %67 ]
+  %74 = phi i32 [ %83, %72 ], [ %70, %67 ]
+  %75 = fdiv float %73, 1.000000e+01
+  %76 = fdiv float %75, 1.000000e+01
+  %77 = fdiv float %76, 1.000000e+01
+  %78 = fdiv float %77, 1.000000e+01
+  %79 = fdiv float %78, 1.000000e+01
+  %80 = fdiv float %79, 1.000000e+01
+  %81 = fdiv float %80, 1.000000e+01
+  %82 = fdiv float %81, 1.000000e+01
+  %83 = add nsw i32 %74, -8
+  %84 = icmp eq i32 %83, 0
+  br i1 %84, label %85, label %72
 
-74:                                               ; preds = %66
-  %75 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %76 = call i32 @getc(ptr noundef %75)
-  switch i32 %76, label %77 [
-    i32 45, label %84
-    i32 43, label %84
-  ]
+85:                                               ; preds = %72, %67
+  %86 = phi float [ %68, %67 ], [ %82, %72 ]
+  store float %86, ptr @NextFtokenval, align 4, !tbaa !13
+  br label %87
 
-77:                                               ; preds = %74
-  %78 = load ptr, ptr %4, align 8, !tbaa !5
-  %79 = sext i32 %76 to i64
-  %80 = getelementptr inbounds i16, ptr %78, i64 %79
-  %81 = load i16, ptr %80, align 2, !tbaa !11
-  %82 = and i16 %81, 2048
-  %83 = icmp eq i16 %82, 0
-  br i1 %83, label %164, label %84
-
-84:                                               ; preds = %74, %74, %77
-  %85 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %86 = call i32 @ungetc(i32 noundef %76, ptr noundef %85)
-  %87 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.2, ptr noundef nonnull %3)
+87:                                               ; preds = %85, %53
   %88 = load ptr, ptr @stdin, align 8, !tbaa !5
   %89 = call i32 @getc(ptr noundef %88)
-  %90 = icmp eq i32 %89, 46
-  br i1 %90, label %91, label %93
+  br label %90
 
-91:                                               ; preds = %84
+90:                                               ; preds = %33, %87, %20
+  %91 = phi i32 [ %89, %87 ], [ %34, %33 ], [ %21, %20 ]
+  %92 = load i32, ptr @NextTokenval, align 4, !tbaa !9
+  %93 = sitofp i32 %92 to float
+  %94 = load float, ptr @NextFtokenval, align 4, !tbaa !13
+  %95 = fadd float %94, %93
+  store float %95, ptr @NextFtokenval, align 4, !tbaa !13
+  switch i32 %91, label %186 [
+    i32 101, label %96
+    i32 69, label %96
+  ]
+
+96:                                               ; preds = %90, %90
+  %97 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %98 = call i32 @getc(ptr noundef %97)
+  switch i32 %98, label %99 [
+    i32 45, label %106
+    i32 43, label %106
+  ]
+
+99:                                               ; preds = %96
+  %100 = load ptr, ptr %4, align 8, !tbaa !5
+  %101 = sext i32 %98 to i64
+  %102 = getelementptr inbounds i16, ptr %100, i64 %101
+  %103 = load i16, ptr %102, align 2, !tbaa !11
+  %104 = and i16 %103, 2048
+  %105 = icmp eq i16 %104, 0
+  br i1 %105, label %186, label %106
+
+106:                                              ; preds = %96, %96, %99
+  %107 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %108 = call i32 @ungetc(i32 noundef %98, ptr noundef %107)
+  %109 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.2, ptr noundef nonnull %3)
+  %110 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %111 = call i32 @getc(ptr noundef %110)
+  %112 = icmp eq i32 %111, 46
+  br i1 %112, label %113, label %115
+
+113:                                              ; preds = %106
   call void @error(ptr noundef nonnull @.str.3) #7
-  %92 = load i32, ptr @lookahead, align 4, !tbaa !9
-  br label %168
+  %114 = load i32, ptr @lookahead, align 4, !tbaa !9
+  br label %190
 
-93:                                               ; preds = %84
-  %94 = load i32, ptr %3, align 4, !tbaa !9
-  %95 = icmp sgt i32 %94, 0
-  br i1 %95, label %116, label %96
+115:                                              ; preds = %106
+  %116 = load i32, ptr %3, align 4, !tbaa !9
+  %117 = icmp sgt i32 %116, 0
+  br i1 %117, label %138, label %118
 
-96:                                               ; preds = %93
-  %97 = icmp slt i32 %94, 0
-  br i1 %97, label %98, label %164
+118:                                              ; preds = %115
+  %119 = icmp slt i32 %116, 0
+  br i1 %119, label %120, label %186
 
-98:                                               ; preds = %96
-  %99 = load float, ptr @NextFtokenval, align 4, !tbaa !13
-  %100 = sub i32 0, %94
-  %101 = and i32 %100, 7
-  %102 = icmp eq i32 %101, 0
-  br i1 %102, label %111, label %103
+120:                                              ; preds = %118
+  %121 = load float, ptr @NextFtokenval, align 4, !tbaa !13
+  %122 = sub i32 0, %116
+  %123 = and i32 %122, 7
+  %124 = icmp eq i32 %123, 0
+  br i1 %124, label %133, label %125
 
-103:                                              ; preds = %98, %103
-  %104 = phi i32 [ %108, %103 ], [ %94, %98 ]
-  %105 = phi float [ %107, %103 ], [ %99, %98 ]
-  %106 = phi i32 [ %109, %103 ], [ 0, %98 ]
-  %107 = fdiv float %105, 1.000000e+01
-  %108 = add i32 %104, 1
-  %109 = add i32 %106, 1
-  %110 = icmp eq i32 %109, %101
-  br i1 %110, label %111, label %103, !llvm.loop !18
+125:                                              ; preds = %120, %125
+  %126 = phi i32 [ %130, %125 ], [ %116, %120 ]
+  %127 = phi float [ %129, %125 ], [ %121, %120 ]
+  %128 = phi i32 [ %131, %125 ], [ 0, %120 ]
+  %129 = fdiv float %127, 1.000000e+01
+  %130 = add i32 %126, 1
+  %131 = add i32 %128, 1
+  %132 = icmp eq i32 %131, %123
+  br i1 %132, label %133, label %125, !llvm.loop !20
 
-111:                                              ; preds = %103, %98
-  %112 = phi float [ undef, %98 ], [ %107, %103 ]
-  %113 = phi i32 [ %94, %98 ], [ %108, %103 ]
-  %114 = phi float [ %99, %98 ], [ %107, %103 ]
-  %115 = icmp ugt i32 %94, -8
-  br i1 %115, label %162, label %147
+133:                                              ; preds = %125, %120
+  %134 = phi float [ undef, %120 ], [ %129, %125 ]
+  %135 = phi i32 [ %116, %120 ], [ %130, %125 ]
+  %136 = phi float [ %121, %120 ], [ %129, %125 ]
+  %137 = icmp ugt i32 %116, -8
+  br i1 %137, label %184, label %169
 
-116:                                              ; preds = %93
-  %117 = load float, ptr @NextFtokenval, align 4, !tbaa !13
-  %118 = and i32 %94, 7
-  %119 = icmp eq i32 %118, 0
-  br i1 %119, label %128, label %120
+138:                                              ; preds = %115
+  %139 = load float, ptr @NextFtokenval, align 4, !tbaa !13
+  %140 = and i32 %116, 7
+  %141 = icmp eq i32 %140, 0
+  br i1 %141, label %150, label %142
 
-120:                                              ; preds = %116, %120
-  %121 = phi i32 [ %125, %120 ], [ %94, %116 ]
-  %122 = phi float [ %124, %120 ], [ %117, %116 ]
-  %123 = phi i32 [ %126, %120 ], [ 0, %116 ]
-  %124 = fmul float %122, 1.000000e+01
-  %125 = add nsw i32 %121, -1
-  %126 = add i32 %123, 1
-  %127 = icmp eq i32 %126, %118
-  br i1 %127, label %128, label %120, !llvm.loop !20
+142:                                              ; preds = %138, %142
+  %143 = phi i32 [ %147, %142 ], [ %116, %138 ]
+  %144 = phi float [ %146, %142 ], [ %139, %138 ]
+  %145 = phi i32 [ %148, %142 ], [ 0, %138 ]
+  %146 = fmul float %144, 1.000000e+01
+  %147 = add nsw i32 %143, -1
+  %148 = add i32 %145, 1
+  %149 = icmp eq i32 %148, %140
+  br i1 %149, label %150, label %142, !llvm.loop !21
 
-128:                                              ; preds = %120, %116
-  %129 = phi i32 [ %94, %116 ], [ %125, %120 ]
-  %130 = phi float [ %117, %116 ], [ %124, %120 ]
-  %131 = phi float [ undef, %116 ], [ %124, %120 ]
-  %132 = icmp ult i32 %94, 8
-  br i1 %132, label %160, label %133
+150:                                              ; preds = %142, %138
+  %151 = phi i32 [ %116, %138 ], [ %147, %142 ]
+  %152 = phi float [ %139, %138 ], [ %146, %142 ]
+  %153 = phi float [ undef, %138 ], [ %146, %142 ]
+  %154 = icmp ult i32 %116, 8
+  br i1 %154, label %182, label %155
 
-133:                                              ; preds = %128, %133
-  %134 = phi i32 [ %144, %133 ], [ %129, %128 ]
-  %135 = phi float [ %143, %133 ], [ %130, %128 ]
-  %136 = fmul float %135, 1.000000e+01
-  %137 = fmul float %136, 1.000000e+01
-  %138 = fmul float %137, 1.000000e+01
-  %139 = fmul float %138, 1.000000e+01
-  %140 = fmul float %139, 1.000000e+01
-  %141 = fmul float %140, 1.000000e+01
-  %142 = fmul float %141, 1.000000e+01
-  %143 = fmul float %142, 1.000000e+01
-  %144 = add nsw i32 %134, -8
-  %145 = add i32 %134, -9
-  %146 = icmp ult i32 %145, -2
-  br i1 %146, label %133, label %160, !llvm.loop !21
+155:                                              ; preds = %150, %155
+  %156 = phi i32 [ %166, %155 ], [ %151, %150 ]
+  %157 = phi float [ %165, %155 ], [ %152, %150 ]
+  %158 = fmul float %157, 1.000000e+01
+  %159 = fmul float %158, 1.000000e+01
+  %160 = fmul float %159, 1.000000e+01
+  %161 = fmul float %160, 1.000000e+01
+  %162 = fmul float %161, 1.000000e+01
+  %163 = fmul float %162, 1.000000e+01
+  %164 = fmul float %163, 1.000000e+01
+  %165 = fmul float %164, 1.000000e+01
+  %166 = add nsw i32 %156, -8
+  %167 = add i32 %156, -9
+  %168 = icmp ult i32 %167, -2
+  br i1 %168, label %155, label %182, !llvm.loop !22
 
-147:                                              ; preds = %111, %147
-  %148 = phi i32 [ %158, %147 ], [ %113, %111 ]
-  %149 = phi float [ %157, %147 ], [ %114, %111 ]
-  %150 = fdiv float %149, 1.000000e+01
-  %151 = fdiv float %150, 1.000000e+01
-  %152 = fdiv float %151, 1.000000e+01
-  %153 = fdiv float %152, 1.000000e+01
-  %154 = fdiv float %153, 1.000000e+01
-  %155 = fdiv float %154, 1.000000e+01
-  %156 = fdiv float %155, 1.000000e+01
-  %157 = fdiv float %156, 1.000000e+01
-  %158 = add i32 %148, 8
-  %159 = icmp eq i32 %158, 0
-  br i1 %159, label %162, label %147, !llvm.loop !22
+169:                                              ; preds = %133, %169
+  %170 = phi i32 [ %180, %169 ], [ %135, %133 ]
+  %171 = phi float [ %179, %169 ], [ %136, %133 ]
+  %172 = fdiv float %171, 1.000000e+01
+  %173 = fdiv float %172, 1.000000e+01
+  %174 = fdiv float %173, 1.000000e+01
+  %175 = fdiv float %174, 1.000000e+01
+  %176 = fdiv float %175, 1.000000e+01
+  %177 = fdiv float %176, 1.000000e+01
+  %178 = fdiv float %177, 1.000000e+01
+  %179 = fdiv float %178, 1.000000e+01
+  %180 = add i32 %170, 8
+  %181 = icmp eq i32 %180, 0
+  br i1 %181, label %184, label %169, !llvm.loop !23
 
-160:                                              ; preds = %133, %128
-  %161 = phi float [ %131, %128 ], [ %143, %133 ]
-  store float %161, ptr @NextFtokenval, align 4, !tbaa !13
+182:                                              ; preds = %155, %150
+  %183 = phi float [ %153, %150 ], [ %165, %155 ]
+  store float %183, ptr @NextFtokenval, align 4, !tbaa !13
   store i32 0, ptr %3, align 4, !tbaa !9
-  br label %164
+  br label %186
 
-162:                                              ; preds = %147, %111
-  %163 = phi float [ %112, %111 ], [ %157, %147 ]
-  store float %163, ptr @NextFtokenval, align 4, !tbaa !13
+184:                                              ; preds = %169, %133
+  %185 = phi float [ %134, %133 ], [ %179, %169 ]
+  store float %185, ptr @NextFtokenval, align 4, !tbaa !13
   store i32 0, ptr %3, align 4, !tbaa !9
-  br label %164
+  br label %186
 
-164:                                              ; preds = %96, %162, %160, %77, %66
-  %165 = phi i32 [ %76, %77 ], [ %67, %66 ], [ %89, %160 ], [ %89, %162 ], [ %89, %96 ]
-  %166 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %167 = call i32 @ungetc(i32 noundef %165, ptr noundef %166)
-  br label %168
+186:                                              ; preds = %118, %184, %182, %90, %99
+  %187 = phi i32 [ %98, %99 ], [ %91, %90 ], [ %111, %182 ], [ %111, %184 ], [ %111, %118 ]
+  %188 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %189 = call i32 @ungetc(i32 noundef %187, ptr noundef %188)
+  br label %190
 
-168:                                              ; preds = %164, %91, %17
-  %169 = phi i32 [ 256, %17 ], [ %92, %91 ], [ 2001, %164 ]
+190:                                              ; preds = %186, %113, %17
+  %191 = phi i32 [ 256, %17 ], [ %114, %113 ], [ 2001, %186 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #7
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #7
-  ret i32 %169
+  ret i32 %191
 }
 
 ; Function Attrs: nounwind uwtable
@@ -398,7 +429,7 @@ define dso_local i32 @Indentifier(i32 noundef %0) local_unnamed_addr #0 {
   br i1 %2, label %3, label %9
 
 3:                                                ; preds = %1
-  store i8 95, ptr @lexbuf, align 16, !tbaa !23
+  store i8 95, ptr @lexbuf, align 16, !tbaa !24
   %4 = load ptr, ptr @stdin, align 8, !tbaa !5
   %5 = tail call i32 @getc(ptr noundef %4)
   %6 = icmp eq i32 %5, 95
@@ -431,7 +462,7 @@ define dso_local i32 @Indentifier(i32 noundef %0) local_unnamed_addr #0 {
   %23 = phi i64 [ %28, %41 ], [ %11, %9 ]
   %24 = trunc i32 %22 to i8
   %25 = getelementptr inbounds [128 x i8], ptr @lexbuf, i64 0, i64 %23
-  store i8 %24, ptr %25, align 1, !tbaa !23
+  store i8 %24, ptr %25, align 1, !tbaa !24
   %26 = load ptr, ptr @stdin, align 8, !tbaa !5
   %27 = tail call i32 @getc(ptr noundef %26)
   %28 = add nuw i64 %23, 1
@@ -452,14 +483,14 @@ define dso_local i32 @Indentifier(i32 noundef %0) local_unnamed_addr #0 {
   br i1 %40, label %41, label %42
 
 41:                                               ; preds = %36, %21
-  br label %21, !llvm.loop !24
+  br label %21, !llvm.loop !25
 
 42:                                               ; preds = %36
   %43 = load ptr, ptr @stdin, align 8, !tbaa !5
   %44 = tail call i32 @ungetc(i32 noundef %27, ptr noundef %43)
   %45 = and i64 %28, 4294967295
   %46 = getelementptr inbounds [128 x i8], ptr @lexbuf, i64 0, i64 %45
-  store i8 0, ptr %46, align 1, !tbaa !23
+  store i8 0, ptr %46, align 1, !tbaa !24
   %47 = tail call i32 @LocalLookup(ptr noundef nonnull @lexbuf) #7
   store i32 %47, ptr @LocalIndex, align 4, !tbaa !9
   %48 = tail call i32 @GlobalLookup(ptr noundef nonnull @lexbuf) #7
@@ -471,7 +502,7 @@ define dso_local i32 @Indentifier(i32 noundef %0) local_unnamed_addr #0 {
 51:                                               ; preds = %42
   %52 = sext i32 %49 to i64
   %53 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %52, i32 1
-  %54 = load i32, ptr %53, align 8, !tbaa !25
+  %54 = load i32, ptr %53, align 8, !tbaa !26
   br label %61
 
 55:                                               ; preds = %42
@@ -481,7 +512,7 @@ define dso_local i32 @Indentifier(i32 noundef %0) local_unnamed_addr #0 {
 57:                                               ; preds = %55
   %58 = sext i32 %48 to i64
   %59 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %58, i32 1
-  %60 = load i32, ptr %59, align 8, !tbaa !25
+  %60 = load i32, ptr %59, align 8, !tbaa !26
   br label %61
 
 61:                                               ; preds = %55, %57, %51, %19, %7
@@ -573,9 +604,10 @@ attributes #7 = { nounwind }
 !18 = distinct !{!18, !19}
 !19 = !{!"llvm.loop.unroll.disable"}
 !20 = distinct !{!20, !19}
-!21 = distinct !{!21, !16}
+!21 = distinct !{!21, !19}
 !22 = distinct !{!22, !16}
-!23 = !{!7, !7, i64 0}
-!24 = distinct !{!24, !16}
-!25 = !{!26, !10, i64 8}
-!26 = !{!"entry", !6, i64 0, !10, i64 8, !10, i64 12, !10, i64 16, !10, i64 20, !10, i64 24}
+!23 = distinct !{!23, !16}
+!24 = !{!7, !7, i64 0}
+!25 = distinct !{!25, !16}
+!26 = !{!27, !10, i64 8}
+!27 = !{!"entry", !6, i64 0, !10, i64 8, !10, i64 12, !10, i64 16, !10, i64 20, !10, i64 24}

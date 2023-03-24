@@ -169,9 +169,9 @@ define dso_local noundef i32 @_ZN13CDeltaEncoder18SetCoderPropertiesEPKjPK14tagP
 22:                                               ; preds = %18
   %23 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %2, i64 %14, i32 4
   %24 = load i32, ptr %23, align 8, !tbaa !16
-  %25 = add i32 %24, -1
-  %26 = icmp ult i32 %25, 256
-  br i1 %26, label %10, label %29
+  %25 = add i32 %24, -257
+  %26 = icmp ult i32 %25, -256
+  br i1 %26, label %29, label %10
 
 27:                                               ; preds = %10, %4
   %28 = phi i32 [ %6, %4 ], [ %24, %10 ]
@@ -221,9 +221,9 @@ define dso_local noundef i32 @_ZThn8_N13CDeltaEncoder18SetCoderPropertiesEPKjPK1
 22:                                               ; preds = %18
   %23 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %2, i64 %14, i32 4
   %24 = load i32, ptr %23, align 8, !tbaa !16
-  %25 = add i32 %24, -1
-  %26 = icmp ult i32 %25, 256
-  br i1 %26, label %10, label %29
+  %25 = add i32 %24, -257
+  %26 = icmp ult i32 %25, -256
+  br i1 %26, label %29, label %10
 
 27:                                               ; preds = %10, %4
   %28 = phi i32 [ %6, %4 ], [ %24, %10 ]

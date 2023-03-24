@@ -201,7 +201,7 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 define dso_local noundef i32 @_Z12LzmaBenchConP8_IO_FILEjjj(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #5 {
   %5 = alloca %struct.CBenchCallback, align 8
   %6 = tail call noundef zeroext i1 @_Z15CrcInternalTestv()
-  br i1 %6, label %7, label %155
+  br i1 %6, label %7, label %152
 
 7:                                                ; preds = %4
   %8 = tail call noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv()
@@ -283,7 +283,7 @@ define dso_local noundef i32 @_Z12LzmaBenchConP8_IO_FILEjjj(ptr noundef %0, i32 
   %60 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.7)
   %61 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %0)
   %62 = icmp eq i32 %1, 0
-  br i1 %62, label %94, label %63
+  br i1 %62, label %104, label %63
 
 63:                                               ; preds = %48
   %64 = icmp ult i32 %49, 4194304
@@ -291,136 +291,131 @@ define dso_local noundef i32 @_Z12LzmaBenchConP8_IO_FILEjjj(ptr noundef %0, i32 
   %66 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 4
   br label %67
 
-67:                                               ; preds = %63, %89
-  %68 = phi i1 [ true, %63 ], [ %91, %89 ]
-  %69 = phi i32 [ 0, %63 ], [ %90, %89 ]
-  br label %70
+67:                                               ; preds = %63, %88
+  %68 = phi i32 [ 0, %63 ], [ %89, %88 ]
+  br label %69
 
-70:                                               ; preds = %70, %67
-  %71 = phi i32 [ %65, %67 ], [ %74, %70 ]
-  %72 = lshr i32 %49, %71
-  %73 = icmp eq i32 %72, 0
-  %74 = add nsw i32 %71, -1
-  br i1 %73, label %70, label %75, !llvm.loop !31
+69:                                               ; preds = %69, %67
+  %70 = phi i32 [ %65, %67 ], [ %73, %69 ]
+  %71 = lshr i32 %49, %70
+  %72 = icmp eq i32 %71, 0
+  %73 = add nsw i32 %70, -1
+  br i1 %72, label %69, label %74, !llvm.loop !31
 
-75:                                               ; preds = %70
-  %76 = shl nuw i32 1, %71
-  %77 = icmp ugt i32 %76, %49
-  br i1 %77, label %89, label %82
+74:                                               ; preds = %69
+  %75 = shl nuw i32 1, %70
+  %76 = icmp ugt i32 %75, %49
+  br i1 %76, label %88, label %81
 
-78:                                               ; preds = %82
-  %79 = add nsw i32 %84, 1
-  %80 = shl nuw i32 1, %79
-  %81 = icmp ugt i32 %80, %49
-  br i1 %81, label %89, label %82, !llvm.loop !32
+77:                                               ; preds = %81
+  %78 = add nsw i32 %83, 1
+  %79 = shl nuw i32 1, %78
+  %80 = icmp ugt i32 %79, %49
+  br i1 %80, label %88, label %81, !llvm.loop !32
 
-82:                                               ; preds = %75, %78
-  %83 = phi i32 [ %80, %78 ], [ %76, %75 ]
-  %84 = phi i32 [ %79, %78 ], [ %71, %75 ]
-  %85 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.9, i32 noundef %84)
-  store i32 %83, ptr %66, align 8, !tbaa !5
-  %86 = call noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %14, i32 noundef %83, ptr noundef nonnull %5)
-  %87 = call i32 @fputc(i32 10, ptr %0)
-  %88 = icmp eq i32 %86, 0
-  br i1 %88, label %78, label %93
+81:                                               ; preds = %74, %77
+  %82 = phi i32 [ %79, %77 ], [ %75, %74 ]
+  %83 = phi i32 [ %78, %77 ], [ %70, %74 ]
+  %84 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.9, i32 noundef %83)
+  store i32 %82, ptr %66, align 8, !tbaa !5
+  %85 = call noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %14, i32 noundef %82, ptr noundef nonnull %5)
+  %86 = call i32 @fputc(i32 10, ptr %0)
+  %87 = icmp eq i32 %85, 0
+  br i1 %87, label %77, label %150
 
-89:                                               ; preds = %78, %75
-  %90 = add nuw i32 %69, 1
-  %91 = icmp ult i32 %90, %1
-  %92 = icmp eq i32 %90, %1
-  br i1 %92, label %94, label %67, !llvm.loop !33
+88:                                               ; preds = %77, %74
+  %89 = add nuw i32 %68, 1
+  %90 = icmp eq i32 %89, %1
+  br i1 %90, label %91, label %67, !llvm.loop !33
 
-93:                                               ; preds = %82
-  br i1 %68, label %153, label %94
+91:                                               ; preds = %88
+  %92 = load i64, ptr %51, align 8, !tbaa !34
+  %93 = icmp eq i64 %92, 0
+  br i1 %93, label %104, label %94
 
-94:                                               ; preds = %89, %48, %93
-  %95 = load i64, ptr %51, align 8, !tbaa !34
-  %96 = icmp eq i64 %95, 0
-  br i1 %96, label %107, label %97
-
-97:                                               ; preds = %94
-  %98 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 1
-  %99 = load i64, ptr %98, align 8, !tbaa !35
-  %100 = udiv i64 %99, %95
-  store i64 %100, ptr %98, align 8, !tbaa !35
-  %101 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 2
-  %102 = load i64, ptr %101, align 8, !tbaa !24
-  %103 = udiv i64 %102, %95
-  store i64 %103, ptr %101, align 8, !tbaa !24
-  %104 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 3
-  %105 = load i64, ptr %104, align 8, !tbaa !22
-  %106 = udiv i64 %105, %95
-  store i64 %106, ptr %104, align 8, !tbaa !22
+94:                                               ; preds = %91
+  %95 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 1
+  %96 = load i64, ptr %95, align 8, !tbaa !35
+  %97 = udiv i64 %96, %92
+  store i64 %97, ptr %95, align 8, !tbaa !35
+  %98 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 2
+  %99 = load i64, ptr %98, align 8, !tbaa !24
+  %100 = udiv i64 %99, %92
+  store i64 %100, ptr %98, align 8, !tbaa !24
+  %101 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 3
+  %102 = load i64, ptr %101, align 8, !tbaa !22
+  %103 = udiv i64 %102, %92
+  store i64 %103, ptr %101, align 8, !tbaa !22
   store i64 1, ptr %51, align 8, !tbaa !34
-  br label %107
+  br label %104
 
-107:                                              ; preds = %97, %94
-  %108 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2
-  %109 = load i64, ptr %108, align 8, !tbaa !34
-  %110 = icmp eq i64 %109, 0
-  br i1 %110, label %121, label %111
+104:                                              ; preds = %48, %94, %91
+  %105 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2
+  %106 = load i64, ptr %105, align 8, !tbaa !34
+  %107 = icmp eq i64 %106, 0
+  br i1 %107, label %118, label %108
 
-111:                                              ; preds = %107
-  %112 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 1
-  %113 = load i64, ptr %112, align 8, !tbaa !35
-  %114 = udiv i64 %113, %109
-  store i64 %114, ptr %112, align 8, !tbaa !35
-  %115 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 2
-  %116 = load i64, ptr %115, align 8, !tbaa !24
-  %117 = udiv i64 %116, %109
-  store i64 %117, ptr %115, align 8, !tbaa !24
-  %118 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 3
-  %119 = load i64, ptr %118, align 8, !tbaa !22
-  %120 = udiv i64 %119, %109
-  store i64 %120, ptr %118, align 8, !tbaa !22
-  store i64 1, ptr %108, align 8, !tbaa !34
-  br label %121
+108:                                              ; preds = %104
+  %109 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 1
+  %110 = load i64, ptr %109, align 8, !tbaa !35
+  %111 = udiv i64 %110, %106
+  store i64 %111, ptr %109, align 8, !tbaa !35
+  %112 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 2
+  %113 = load i64, ptr %112, align 8, !tbaa !24
+  %114 = udiv i64 %113, %106
+  store i64 %114, ptr %112, align 8, !tbaa !24
+  %115 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 3
+  %116 = load i64, ptr %115, align 8, !tbaa !22
+  %117 = udiv i64 %116, %106
+  store i64 %117, ptr %115, align 8, !tbaa !22
+  store i64 1, ptr %105, align 8, !tbaa !34
+  br label %118
 
-121:                                              ; preds = %107, %111
-  %122 = call i64 @fwrite(ptr nonnull @.str.11, i64 69, i64 1, ptr %0)
-  %123 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
-  %124 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 2
-  %125 = load i64, ptr %124, align 8, !tbaa !24
-  %126 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 3
-  %127 = load i64, ptr %126, align 8, !tbaa !22
-  %128 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 1
-  %129 = load i64, ptr %128, align 8, !tbaa !35
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %125, i64 noundef %127, i64 noundef %129)
-  %130 = call i64 @fwrite(ptr nonnull @.str.12, i64 5, i64 1, ptr %0)
-  %131 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
-  %132 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 2
-  %133 = load i64, ptr %132, align 8, !tbaa !24
-  %134 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 3
-  %135 = load i64, ptr %134, align 8, !tbaa !22
-  %136 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 1
-  %137 = load i64, ptr %136, align 8, !tbaa !35
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %133, i64 noundef %135, i64 noundef %137)
-  %138 = call i64 @fwrite(ptr nonnull @.str.13, i64 5, i64 1, ptr %0)
-  %139 = load i64, ptr %128, align 8, !tbaa !35
-  %140 = load i64, ptr %136, align 8, !tbaa !35
-  %141 = add i64 %140, %139
-  %142 = lshr i64 %141, 1
-  %143 = load i64, ptr %124, align 8, !tbaa !24
-  %144 = load i64, ptr %132, align 8, !tbaa !24
-  %145 = add i64 %144, %143
-  %146 = lshr i64 %145, 1
-  %147 = load i64, ptr %126, align 8, !tbaa !22
-  %148 = load i64, ptr %134, align 8, !tbaa !22
-  %149 = add i64 %148, %147
-  %150 = lshr i64 %149, 1
-  %151 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %146, i64 noundef %150, i64 noundef %142)
-  %152 = call i32 @fputc(i32 10, ptr %0)
-  br label %153
+118:                                              ; preds = %104, %108
+  %119 = call i64 @fwrite(ptr nonnull @.str.11, i64 69, i64 1, ptr %0)
+  %120 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
+  %121 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 2
+  %122 = load i64, ptr %121, align 8, !tbaa !24
+  %123 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 3
+  %124 = load i64, ptr %123, align 8, !tbaa !22
+  %125 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 1
+  %126 = load i64, ptr %125, align 8, !tbaa !35
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %122, i64 noundef %124, i64 noundef %126)
+  %127 = call i64 @fwrite(ptr nonnull @.str.12, i64 5, i64 1, ptr %0)
+  %128 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
+  %129 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 2
+  %130 = load i64, ptr %129, align 8, !tbaa !24
+  %131 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 3
+  %132 = load i64, ptr %131, align 8, !tbaa !22
+  %133 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 1
+  %134 = load i64, ptr %133, align 8, !tbaa !35
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %130, i64 noundef %132, i64 noundef %134)
+  %135 = call i64 @fwrite(ptr nonnull @.str.13, i64 5, i64 1, ptr %0)
+  %136 = load i64, ptr %125, align 8, !tbaa !35
+  %137 = load i64, ptr %133, align 8, !tbaa !35
+  %138 = add i64 %137, %136
+  %139 = lshr i64 %138, 1
+  %140 = load i64, ptr %121, align 8, !tbaa !24
+  %141 = load i64, ptr %129, align 8, !tbaa !24
+  %142 = add i64 %141, %140
+  %143 = lshr i64 %142, 1
+  %144 = load i64, ptr %123, align 8, !tbaa !22
+  %145 = load i64, ptr %131, align 8, !tbaa !22
+  %146 = add i64 %145, %144
+  %147 = lshr i64 %146, 1
+  %148 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %143, i64 noundef %147, i64 noundef %139)
+  %149 = call i32 @fputc(i32 10, ptr %0)
+  br label %150
 
-153:                                              ; preds = %93, %121
-  %154 = phi i32 [ 0, %121 ], [ %86, %93 ]
+150:                                              ; preds = %81, %118
+  %151 = phi i32 [ 0, %118 ], [ %85, %81 ]
   call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %5) #12
-  br label %155
+  br label %152
 
-155:                                              ; preds = %4, %153
-  %156 = phi i32 [ %154, %153 ], [ 1, %4 ]
-  ret i32 %156
+152:                                              ; preds = %4, %150
+  %153 = phi i32 [ %151, %150 ], [ 1, %4 ]
+  ret i32 %153
 }
 
 declare noundef zeroext i1 @_Z15CrcInternalTestv() local_unnamed_addr #1
@@ -469,7 +464,7 @@ define dso_local noundef i32 @_Z11CrcBenchConP8_IO_FILEjjj(ptr nocapture noundef
   %6 = alloca [32 x i8], align 16
   %7 = alloca i64, align 8
   %8 = tail call noundef zeroext i1 @_Z15CrcInternalTestv()
-  br i1 %8, label %9, label %249
+  br i1 %8, label %9, label %247
 
 9:                                                ; preds = %4
   %10 = tail call noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv()
@@ -484,17 +479,17 @@ define dso_local noundef i32 @_Z11CrcBenchConP8_IO_FILEjjj(ptr nocapture noundef
   %18 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %17) #14
   %19 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 6, i64 1, ptr %0)
   %20 = icmp eq i32 %13, 0
-  br i1 %20, label %24, label %110
+  br i1 %20, label %24, label %108
 
-21:                                               ; preds = %110
+21:                                               ; preds = %108
   %22 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %0)
   %23 = icmp eq i32 %1, 0
-  br i1 %23, label %245, label %27
+  br i1 %23, label %243, label %27
 
 24:                                               ; preds = %9
   %25 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %0)
   %26 = icmp eq i32 %1, 0
-  br i1 %26, label %245, label %28
+  br i1 %26, label %243, label %28
 
 27:                                               ; preds = %21
   br i1 %20, label %28, label %51
@@ -522,374 +517,372 @@ define dso_local noundef i32 @_Z11CrcBenchConP8_IO_FILEjjj(ptr nocapture noundef
   %48 = icmp ult i32 %15, 536870912
   %49 = icmp ult i32 %15, 1073741824
   %50 = icmp sgt i32 %15, -1
-  br label %117
+  br label %115
 
-51:                                               ; preds = %27, %101
-  %52 = phi i1 [ %104, %101 ], [ true, %27 ]
-  %53 = phi i32 [ %103, %101 ], [ 0, %27 ]
-  %54 = phi i64 [ %102, %101 ], [ 0, %27 ]
-  %55 = add i64 %54, 22
-  %56 = trunc i64 %54 to i32
-  %57 = add i32 %56, 22
-  br label %58
+51:                                               ; preds = %27, %100
+  %52 = phi i32 [ %102, %100 ], [ 0, %27 ]
+  %53 = phi i64 [ %101, %100 ], [ 0, %27 ]
+  %54 = add i64 %53, 22
+  %55 = trunc i64 %53 to i32
+  %56 = add i32 %55, 22
+  br label %57
 
-58:                                               ; preds = %95, %51
-  %59 = phi i32 [ 10, %51 ], [ %98, %95 ]
-  %60 = phi i64 [ %54, %51 ], [ %97, %95 ]
-  %61 = shl nuw i32 1, %59
-  %62 = icmp ugt i32 %61, %15
-  br i1 %62, label %101, label %63
+57:                                               ; preds = %94, %51
+  %58 = phi i32 [ 10, %51 ], [ %97, %94 ]
+  %59 = phi i64 [ %53, %51 ], [ %96, %94 ]
+  %60 = shl nuw i32 1, %58
+  %61 = icmp ugt i32 %60, %15
+  br i1 %61, label %100, label %62
 
-63:                                               ; preds = %58
-  %64 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef %59)
+62:                                               ; preds = %57
+  %63 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef %58)
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  br label %65
+  br label %64
 
-65:                                               ; preds = %88, %63
-  %66 = phi i64 [ %70, %88 ], [ 0, %63 ]
-  %67 = invoke noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
-          to label %68 unwind label %106
+64:                                               ; preds = %87, %62
+  %65 = phi i64 [ %69, %87 ], [ 0, %62 ]
+  %66 = invoke noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
+          to label %67 unwind label %104
 
-68:                                               ; preds = %65
-  br i1 %67, label %214, label %69
+67:                                               ; preds = %64
+  br i1 %66, label %212, label %68
 
-69:                                               ; preds = %68
-  %70 = add nuw nsw i64 %66, 1
-  %71 = trunc i64 %70 to i32
-  %72 = invoke noundef i32 @_Z8CrcBenchjjRy(i32 noundef %71, i32 noundef %61, ptr noundef nonnull align 8 dereferenceable(8) %7)
-          to label %73 unwind label %108
+68:                                               ; preds = %67
+  %69 = add nuw nsw i64 %65, 1
+  %70 = trunc i64 %69 to i32
+  %71 = invoke noundef i32 @_Z8CrcBenchjjRy(i32 noundef %70, i32 noundef %60, ptr noundef nonnull align 8 dereferenceable(8) %7)
+          to label %72 unwind label %106
 
-73:                                               ; preds = %69
-  %74 = icmp eq i32 %72, 0
-  br i1 %74, label %75, label %214
+72:                                               ; preds = %68
+  %73 = icmp eq i32 %71, 0
+  br i1 %73, label %74, label %212
 
-75:                                               ; preds = %73
-  %76 = load i64, ptr %7, align 8, !tbaa !23
-  %77 = lshr i64 %76, 20
+74:                                               ; preds = %72
+  %75 = load i64, ptr %7, align 8, !tbaa !23
+  %76 = lshr i64 %75, 20
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #12
-  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %77, ptr noundef nonnull %6, i32 noundef 10)
-          to label %78 unwind label %106
+  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %76, ptr noundef nonnull %6, i32 noundef 10)
+          to label %77 unwind label %104
 
-78:                                               ; preds = %75
-  %79 = call i32 @fputc(i32 32, ptr %0)
-  %80 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #13
-  %81 = trunc i64 %80 to i32
-  %82 = icmp slt i32 %81, 5
-  br i1 %82, label %83, label %88
+77:                                               ; preds = %74
+  %78 = call i32 @fputc(i32 32, ptr %0)
+  %79 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #13
+  %80 = trunc i64 %79 to i32
+  %81 = icmp slt i32 %80, 5
+  br i1 %81, label %82, label %87
 
-83:                                               ; preds = %78, %83
-  %84 = phi i32 [ %86, %83 ], [ %81, %78 ]
-  %85 = call i32 @fputc(i32 32, ptr %0)
-  %86 = add i32 %84, 1
-  %87 = icmp eq i32 %86, 5
-  br i1 %87, label %88, label %83, !llvm.loop !21
+82:                                               ; preds = %77, %82
+  %83 = phi i32 [ %85, %82 ], [ %80, %77 ]
+  %84 = call i32 @fputc(i32 32, ptr %0)
+  %85 = add i32 %83, 1
+  %86 = icmp eq i32 %85, 5
+  br i1 %86, label %87, label %82, !llvm.loop !21
 
-88:                                               ; preds = %83, %78
-  %89 = call i32 @fputs(ptr noundef nonnull %6, ptr noundef %0)
+87:                                               ; preds = %82, %77
+  %88 = call i32 @fputs(ptr noundef nonnull %6, ptr noundef %0)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #12
-  %90 = load i64, ptr %7, align 8, !tbaa !23
-  %91 = getelementptr inbounds i64, ptr %18, i64 %66
-  %92 = load i64, ptr %91, align 8, !tbaa !23
-  %93 = add i64 %92, %90
-  store i64 %93, ptr %91, align 8, !tbaa !23
-  %94 = icmp eq i64 %70, %16
-  br i1 %94, label %95, label %65, !llvm.loop !36
+  %89 = load i64, ptr %7, align 8, !tbaa !23
+  %90 = getelementptr inbounds i64, ptr %18, i64 %65
+  %91 = load i64, ptr %90, align 8, !tbaa !23
+  %92 = add i64 %91, %89
+  store i64 %92, ptr %90, align 8, !tbaa !23
+  %93 = icmp eq i64 %69, %16
+  br i1 %93, label %94, label %64, !llvm.loop !36
 
-95:                                               ; preds = %88
-  %96 = call i32 @fputc(i32 10, ptr %0)
-  %97 = add i64 %60, 1
+94:                                               ; preds = %87
+  %95 = call i32 @fputc(i32 10, ptr %0)
+  %96 = add i64 %59, 1
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  %98 = add nuw nsw i32 %59, 1
-  %99 = trunc i64 %97 to i32
-  %100 = icmp eq i32 %57, %99
-  br i1 %100, label %101, label %58, !llvm.loop !37
+  %97 = add nuw nsw i32 %58, 1
+  %98 = trunc i64 %96 to i32
+  %99 = icmp eq i32 %56, %98
+  br i1 %99, label %100, label %57, !llvm.loop !37
 
-101:                                              ; preds = %95, %58
-  %102 = phi i64 [ %60, %58 ], [ %55, %95 ]
-  %103 = add nuw i32 %53, 1
-  %104 = icmp ult i32 %103, %1
-  %105 = icmp eq i32 %103, %1
-  br i1 %105, label %216, label %51, !llvm.loop !38
+100:                                              ; preds = %94, %57
+  %101 = phi i64 [ %59, %57 ], [ %54, %94 ]
+  %102 = add nuw i32 %52, 1
+  %103 = icmp eq i32 %102, %1
+  br i1 %103, label %214, label %51, !llvm.loop !38
 
-106:                                              ; preds = %75, %65
+104:                                              ; preds = %74, %64
+  %105 = landingpad { ptr, i32 }
+          cleanup
+  br label %206
+
+106:                                              ; preds = %68
   %107 = landingpad { ptr, i32 }
           cleanup
+  br label %206
+
+108:                                              ; preds = %9, %108
+  %109 = phi i64 [ %110, %108 ], [ 0, %9 ]
+  %110 = add nuw nsw i64 %109, 1
+  %111 = trunc i64 %110 to i32
+  %112 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.15, i32 noundef %111)
+  %113 = getelementptr inbounds i64, ptr %18, i64 %109
+  store i64 0, ptr %113, align 8, !tbaa !23
+  %114 = icmp eq i64 %110, %16
+  br i1 %114, label %21, label %108, !llvm.loop !39
+
+115:                                              ; preds = %28, %208
+  %116 = phi i32 [ %210, %208 ], [ 0, %28 ]
+  %117 = phi i64 [ %209, %208 ], [ 0, %28 ]
+  %118 = add i64 %117, 22
+  br i1 %29, label %208, label %119
+
+119:                                              ; preds = %115
+  %120 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 10)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %121 = tail call i32 @fputc(i32 10, ptr %0)
+  %122 = add i64 %117, 1
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %30, label %208, label %123
+
+123:                                              ; preds = %119
+  %124 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 11)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %125 = tail call i32 @fputc(i32 10, ptr %0)
+  %126 = add i64 %117, 2
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %31, label %208, label %127
+
+127:                                              ; preds = %123
+  %128 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 12)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %129 = tail call i32 @fputc(i32 10, ptr %0)
+  %130 = add i64 %117, 3
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %32, label %208, label %131
+
+131:                                              ; preds = %127
+  %132 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 13)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %133 = tail call i32 @fputc(i32 10, ptr %0)
+  %134 = add i64 %117, 4
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %33, label %208, label %135
+
+135:                                              ; preds = %131
+  %136 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 14)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %137 = tail call i32 @fputc(i32 10, ptr %0)
+  %138 = add i64 %117, 5
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %34, label %208, label %139
+
+139:                                              ; preds = %135
+  %140 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 15)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %141 = tail call i32 @fputc(i32 10, ptr %0)
+  %142 = add i64 %117, 6
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %35, label %208, label %143
+
+143:                                              ; preds = %139
+  %144 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 16)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %145 = tail call i32 @fputc(i32 10, ptr %0)
+  %146 = add i64 %117, 7
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %36, label %208, label %147
+
+147:                                              ; preds = %143
+  %148 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 17)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %149 = tail call i32 @fputc(i32 10, ptr %0)
+  %150 = add i64 %117, 8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %37, label %208, label %151
+
+151:                                              ; preds = %147
+  %152 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 18)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %153 = tail call i32 @fputc(i32 10, ptr %0)
+  %154 = add i64 %117, 9
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %38, label %208, label %155
+
+155:                                              ; preds = %151
+  %156 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 19)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %157 = tail call i32 @fputc(i32 10, ptr %0)
+  %158 = add i64 %117, 10
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %39, label %208, label %159
+
+159:                                              ; preds = %155
+  %160 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 20)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %161 = tail call i32 @fputc(i32 10, ptr %0)
+  %162 = add i64 %117, 11
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %40, label %208, label %163
+
+163:                                              ; preds = %159
+  %164 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 21)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %165 = tail call i32 @fputc(i32 10, ptr %0)
+  %166 = add i64 %117, 12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %41, label %208, label %167
+
+167:                                              ; preds = %163
+  %168 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 22)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %169 = tail call i32 @fputc(i32 10, ptr %0)
+  %170 = add i64 %117, 13
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %42, label %208, label %171
+
+171:                                              ; preds = %167
+  %172 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 23)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %173 = tail call i32 @fputc(i32 10, ptr %0)
+  %174 = add i64 %117, 14
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %43, label %208, label %175
+
+175:                                              ; preds = %171
+  %176 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 24)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %177 = tail call i32 @fputc(i32 10, ptr %0)
+  %178 = add i64 %117, 15
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %44, label %208, label %179
+
+179:                                              ; preds = %175
+  %180 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 25)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %181 = tail call i32 @fputc(i32 10, ptr %0)
+  %182 = add i64 %117, 16
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %45, label %208, label %183
+
+183:                                              ; preds = %179
+  %184 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 26)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %185 = tail call i32 @fputc(i32 10, ptr %0)
+  %186 = add i64 %117, 17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %46, label %208, label %187
+
+187:                                              ; preds = %183
+  %188 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 27)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %189 = tail call i32 @fputc(i32 10, ptr %0)
+  %190 = add i64 %117, 18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %47, label %208, label %191
+
+191:                                              ; preds = %187
+  %192 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 28)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %193 = tail call i32 @fputc(i32 10, ptr %0)
+  %194 = add i64 %117, 19
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %48, label %208, label %195
+
+195:                                              ; preds = %191
+  %196 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 29)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %197 = tail call i32 @fputc(i32 10, ptr %0)
+  %198 = add i64 %117, 20
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %49, label %208, label %199
+
+199:                                              ; preds = %195
+  %200 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 30)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %201 = tail call i32 @fputc(i32 10, ptr %0)
+  %202 = add i64 %117, 21
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br i1 %50, label %208, label %203
+
+203:                                              ; preds = %199
+  %204 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 31)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
+  %205 = tail call i32 @fputc(i32 10, ptr %0)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
   br label %208
 
-108:                                              ; preds = %69
-  %109 = landingpad { ptr, i32 }
-          cleanup
-  br label %208
-
-110:                                              ; preds = %9, %110
-  %111 = phi i64 [ %112, %110 ], [ 0, %9 ]
-  %112 = add nuw nsw i64 %111, 1
-  %113 = trunc i64 %112 to i32
-  %114 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.15, i32 noundef %113)
-  %115 = getelementptr inbounds i64, ptr %18, i64 %111
-  store i64 0, ptr %115, align 8, !tbaa !23
-  %116 = icmp eq i64 %112, %16
-  br i1 %116, label %21, label %110, !llvm.loop !39
-
-117:                                              ; preds = %28, %210
-  %118 = phi i32 [ %212, %210 ], [ 0, %28 ]
-  %119 = phi i64 [ %211, %210 ], [ 0, %28 ]
-  %120 = add i64 %119, 22
-  br i1 %29, label %210, label %121
-
-121:                                              ; preds = %117
-  %122 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 10)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %123 = tail call i32 @fputc(i32 10, ptr %0)
-  %124 = add i64 %119, 1
+206:                                              ; preds = %106, %104
+  %207 = phi { ptr, i32 } [ %105, %104 ], [ %107, %106 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %30, label %210, label %125
-
-125:                                              ; preds = %121
-  %126 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 11)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %127 = tail call i32 @fputc(i32 10, ptr %0)
-  %128 = add i64 %119, 2
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %31, label %210, label %129
-
-129:                                              ; preds = %125
-  %130 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 12)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %131 = tail call i32 @fputc(i32 10, ptr %0)
-  %132 = add i64 %119, 3
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %32, label %210, label %133
-
-133:                                              ; preds = %129
-  %134 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 13)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %135 = tail call i32 @fputc(i32 10, ptr %0)
-  %136 = add i64 %119, 4
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %33, label %210, label %137
-
-137:                                              ; preds = %133
-  %138 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 14)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %139 = tail call i32 @fputc(i32 10, ptr %0)
-  %140 = add i64 %119, 5
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %34, label %210, label %141
-
-141:                                              ; preds = %137
-  %142 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 15)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %143 = tail call i32 @fputc(i32 10, ptr %0)
-  %144 = add i64 %119, 6
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %35, label %210, label %145
-
-145:                                              ; preds = %141
-  %146 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 16)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %147 = tail call i32 @fputc(i32 10, ptr %0)
-  %148 = add i64 %119, 7
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %36, label %210, label %149
-
-149:                                              ; preds = %145
-  %150 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 17)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %151 = tail call i32 @fputc(i32 10, ptr %0)
-  %152 = add i64 %119, 8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %37, label %210, label %153
-
-153:                                              ; preds = %149
-  %154 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 18)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %155 = tail call i32 @fputc(i32 10, ptr %0)
-  %156 = add i64 %119, 9
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %38, label %210, label %157
-
-157:                                              ; preds = %153
-  %158 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 19)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %159 = tail call i32 @fputc(i32 10, ptr %0)
-  %160 = add i64 %119, 10
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %39, label %210, label %161
-
-161:                                              ; preds = %157
-  %162 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 20)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %163 = tail call i32 @fputc(i32 10, ptr %0)
-  %164 = add i64 %119, 11
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %40, label %210, label %165
-
-165:                                              ; preds = %161
-  %166 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 21)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %167 = tail call i32 @fputc(i32 10, ptr %0)
-  %168 = add i64 %119, 12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %41, label %210, label %169
-
-169:                                              ; preds = %165
-  %170 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 22)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %171 = tail call i32 @fputc(i32 10, ptr %0)
-  %172 = add i64 %119, 13
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %42, label %210, label %173
-
-173:                                              ; preds = %169
-  %174 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 23)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %175 = tail call i32 @fputc(i32 10, ptr %0)
-  %176 = add i64 %119, 14
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %43, label %210, label %177
-
-177:                                              ; preds = %173
-  %178 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 24)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %179 = tail call i32 @fputc(i32 10, ptr %0)
-  %180 = add i64 %119, 15
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %44, label %210, label %181
-
-181:                                              ; preds = %177
-  %182 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 25)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %183 = tail call i32 @fputc(i32 10, ptr %0)
-  %184 = add i64 %119, 16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %45, label %210, label %185
-
-185:                                              ; preds = %181
-  %186 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 26)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %187 = tail call i32 @fputc(i32 10, ptr %0)
-  %188 = add i64 %119, 17
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %46, label %210, label %189
-
-189:                                              ; preds = %185
-  %190 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 27)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %191 = tail call i32 @fputc(i32 10, ptr %0)
-  %192 = add i64 %119, 18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %47, label %210, label %193
-
-193:                                              ; preds = %189
-  %194 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 28)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %195 = tail call i32 @fputc(i32 10, ptr %0)
-  %196 = add i64 %119, 19
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %48, label %210, label %197
-
-197:                                              ; preds = %193
-  %198 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 29)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %199 = tail call i32 @fputc(i32 10, ptr %0)
-  %200 = add i64 %119, 20
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %49, label %210, label %201
-
-201:                                              ; preds = %197
-  %202 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 30)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %203 = tail call i32 @fputc(i32 10, ptr %0)
-  %204 = add i64 %119, 21
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %50, label %210, label %205
-
-205:                                              ; preds = %201
-  %206 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 31)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %207 = tail call i32 @fputc(i32 10, ptr %0)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br label %210
-
-208:                                              ; preds = %108, %106
-  %209 = phi { ptr, i32 } [ %107, %106 ], [ %109, %108 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br label %247
-
-210:                                              ; preds = %205, %201, %197, %193, %189, %185, %181, %177, %173, %169, %165, %161, %157, %153, %149, %145, %141, %137, %133, %129, %125, %121, %117
-  %211 = phi i64 [ %119, %117 ], [ %124, %121 ], [ %128, %125 ], [ %132, %129 ], [ %136, %133 ], [ %140, %137 ], [ %144, %141 ], [ %148, %145 ], [ %152, %149 ], [ %156, %153 ], [ %160, %157 ], [ %164, %161 ], [ %168, %165 ], [ %172, %169 ], [ %176, %173 ], [ %180, %177 ], [ %184, %181 ], [ %188, %185 ], [ %192, %189 ], [ %196, %193 ], [ %200, %197 ], [ %204, %201 ], [ %120, %205 ]
-  %212 = add nuw i32 %118, 1
-  %213 = icmp eq i32 %212, %1
-  br i1 %213, label %216, label %117, !llvm.loop !38
-
-214:                                              ; preds = %73, %68
-  %215 = phi i32 [ -2147467260, %68 ], [ %72, %73 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %52, label %245, label %216
-
-216:                                              ; preds = %101, %210, %214
-  %217 = phi i64 [ %60, %214 ], [ %211, %210 ], [ %102, %101 ]
-  %218 = icmp eq i64 %217, 0
-  br i1 %218, label %245, label %219
-
-219:                                              ; preds = %216
-  %220 = call i64 @fwrite(ptr nonnull @.str.17, i64 5, i64 1, ptr %0)
-  br i1 %20, label %221, label %223
-
-221:                                              ; preds = %239, %219
-  %222 = call i32 @fputc(i32 10, ptr %0)
   br label %245
 
-223:                                              ; preds = %219, %239
-  %224 = phi i64 [ %241, %239 ], [ 0, %219 ]
-  %225 = getelementptr inbounds i64, ptr %18, i64 %224
-  %226 = load i64, ptr %225, align 8, !tbaa !23
-  %227 = udiv i64 %226, %217
-  %228 = lshr i64 %227, 20
+208:                                              ; preds = %203, %199, %195, %191, %187, %183, %179, %175, %171, %167, %163, %159, %155, %151, %147, %143, %139, %135, %131, %127, %123, %119, %115
+  %209 = phi i64 [ %117, %115 ], [ %122, %119 ], [ %126, %123 ], [ %130, %127 ], [ %134, %131 ], [ %138, %135 ], [ %142, %139 ], [ %146, %143 ], [ %150, %147 ], [ %154, %151 ], [ %158, %155 ], [ %162, %159 ], [ %166, %163 ], [ %170, %167 ], [ %174, %171 ], [ %178, %175 ], [ %182, %179 ], [ %186, %183 ], [ %190, %187 ], [ %194, %191 ], [ %198, %195 ], [ %202, %199 ], [ %118, %203 ]
+  %210 = add nuw i32 %116, 1
+  %211 = icmp eq i32 %210, %1
+  br i1 %211, label %214, label %115, !llvm.loop !38
+
+212:                                              ; preds = %72, %67
+  %213 = phi i32 [ %71, %72 ], [ -2147467260, %67 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
+  br label %243
+
+214:                                              ; preds = %100, %208
+  %215 = phi i64 [ %209, %208 ], [ %101, %100 ]
+  %216 = icmp eq i64 %215, 0
+  br i1 %216, label %243, label %217
+
+217:                                              ; preds = %214
+  %218 = call i64 @fwrite(ptr nonnull @.str.17, i64 5, i64 1, ptr %0)
+  br i1 %20, label %219, label %221
+
+219:                                              ; preds = %237, %217
+  %220 = call i32 @fputc(i32 10, ptr %0)
+  br label %243
+
+221:                                              ; preds = %217, %237
+  %222 = phi i64 [ %239, %237 ], [ 0, %217 ]
+  %223 = getelementptr inbounds i64, ptr %18, i64 %222
+  %224 = load i64, ptr %223, align 8, !tbaa !23
+  %225 = udiv i64 %224, %215
+  %226 = lshr i64 %225, 20
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #12
-  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %228, ptr noundef nonnull %5, i32 noundef 10)
-          to label %229 unwind label %243
+  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %226, ptr noundef nonnull %5, i32 noundef 10)
+          to label %227 unwind label %241
 
-229:                                              ; preds = %223
-  %230 = call i32 @fputc(i32 32, ptr %0)
-  %231 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #13
-  %232 = trunc i64 %231 to i32
-  %233 = icmp slt i32 %232, 5
-  br i1 %233, label %234, label %239
+227:                                              ; preds = %221
+  %228 = call i32 @fputc(i32 32, ptr %0)
+  %229 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #13
+  %230 = trunc i64 %229 to i32
+  %231 = icmp slt i32 %230, 5
+  br i1 %231, label %232, label %237
 
-234:                                              ; preds = %229, %234
-  %235 = phi i32 [ %237, %234 ], [ %232, %229 ]
-  %236 = call i32 @fputc(i32 32, ptr %0)
-  %237 = add i32 %235, 1
-  %238 = icmp eq i32 %237, 5
-  br i1 %238, label %239, label %234, !llvm.loop !21
+232:                                              ; preds = %227, %232
+  %233 = phi i32 [ %235, %232 ], [ %230, %227 ]
+  %234 = call i32 @fputc(i32 32, ptr %0)
+  %235 = add i32 %233, 1
+  %236 = icmp eq i32 %235, 5
+  br i1 %236, label %237, label %232, !llvm.loop !21
 
-239:                                              ; preds = %234, %229
-  %240 = call i32 @fputs(ptr noundef nonnull %5, ptr noundef %0)
+237:                                              ; preds = %232, %227
+  %238 = call i32 @fputs(ptr noundef nonnull %5, ptr noundef %0)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #12
-  %241 = add nuw nsw i64 %224, 1
-  %242 = icmp eq i64 %241, %16
-  br i1 %242, label %221, label %223, !llvm.loop !40
+  %239 = add nuw nsw i64 %222, 1
+  %240 = icmp eq i64 %239, %16
+  br i1 %240, label %219, label %221, !llvm.loop !40
 
-243:                                              ; preds = %223
-  %244 = landingpad { ptr, i32 }
+241:                                              ; preds = %221
+  %242 = landingpad { ptr, i32 }
           cleanup
+  br label %245
+
+243:                                              ; preds = %24, %21, %214, %219, %212
+  %244 = phi i32 [ %213, %212 ], [ 0, %219 ], [ 0, %214 ], [ 0, %21 ], [ 0, %24 ]
+  call void @_ZdaPv(ptr noundef nonnull %18) #15
   br label %247
 
-245:                                              ; preds = %24, %21, %216, %221, %214
-  %246 = phi i32 [ %215, %214 ], [ 0, %221 ], [ 0, %216 ], [ 0, %21 ], [ 0, %24 ]
+245:                                              ; preds = %241, %206
+  %246 = phi { ptr, i32 } [ %242, %241 ], [ %207, %206 ]
   call void @_ZdaPv(ptr noundef nonnull %18) #15
-  br label %249
+  resume { ptr, i32 } %246
 
-247:                                              ; preds = %243, %208
-  %248 = phi { ptr, i32 } [ %244, %243 ], [ %209, %208 ]
-  call void @_ZdaPv(ptr noundef nonnull %18) #15
-  resume { ptr, i32 } %248
-
-249:                                              ; preds = %4, %245
-  %250 = phi i32 [ %246, %245 ], [ 1, %4 ]
-  ret i32 %250
+247:                                              ; preds = %4, %243
+  %248 = phi i32 [ %244, %243 ], [ 1, %4 ]
+  ret i32 %248
 }
 
 declare i32 @__gxx_personality_v0(...)
@@ -977,14 +970,14 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #7
 ; Function Attrs: nobuiltin nounwind
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #8
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #10
+declare i64 @llvm.umax.i64(i64, i64) #9
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
@@ -998,8 +991,8 @@ attributes #5 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true"
 attributes #6 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }

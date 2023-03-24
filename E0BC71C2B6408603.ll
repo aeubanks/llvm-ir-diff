@@ -116,7 +116,7 @@ define dso_local void @sm_free(ptr nocapture noundef %0) local_unnamed_addr #3 {
   tail call void @free(ptr noundef nonnull %26) #16
   br label %29
 
-29:                                               ; preds = %24, %28
+29:                                               ; preds = %28, %24
   tail call void @free(ptr noundef nonnull %0) #16
   ret void
 }
@@ -923,8 +923,8 @@ define dso_local void @sm_remove_element(ptr nocapture noundef %0, ptr noundef %
 
 4:                                                ; preds = %2
   %5 = load i32, ptr %1, align 8, !tbaa !26
-  %6 = icmp slt i32 %5, 0
-  br i1 %6, label %16, label %7
+  %6 = icmp sgt i32 %5, -1
+  br i1 %6, label %7, label %16
 
 7:                                                ; preds = %4
   %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
@@ -972,9 +972,9 @@ define dso_local void @sm_remove_element(ptr nocapture noundef %0, ptr noundef %
   store i32 %36, ptr %34, align 4, !tbaa !41
   %37 = getelementptr inbounds %struct.sm_row_struct, ptr %17, i64 0, i32 3
   %38 = load ptr, ptr %37, align 8, !tbaa !38
-  %39 = icmp ne ptr %38, null
-  %40 = or i1 %6, %39
-  br i1 %40, label %107, label %41
+  %39 = icmp eq ptr %38, null
+  %40 = and i1 %39, %6
+  br i1 %40, label %41, label %107
 
 41:                                               ; preds = %28
   %42 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
@@ -1081,11 +1081,11 @@ define dso_local void @sm_remove_element(ptr nocapture noundef %0, ptr noundef %
   tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %49) #16
   br label %107
 
-107:                                              ; preds = %28, %98, %45, %41
+107:                                              ; preds = %98, %45, %41, %28
   %108 = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 1
   %109 = load i32, ptr %108, align 4, !tbaa !28
-  %110 = icmp slt i32 %109, 0
-  br i1 %110, label %121, label %111
+  %110 = icmp sgt i32 %109, -1
+  br i1 %110, label %111, label %121
 
 111:                                              ; preds = %107
   %112 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
@@ -1134,9 +1134,9 @@ define dso_local void @sm_remove_element(ptr nocapture noundef %0, ptr noundef %
   store i32 %141, ptr %139, align 4, !tbaa !44
   %142 = getelementptr inbounds %struct.sm_col_struct, ptr %122, i64 0, i32 3
   %143 = load ptr, ptr %142, align 8, !tbaa !43
-  %144 = icmp ne ptr %143, null
-  %145 = or i1 %110, %144
-  br i1 %145, label %211, label %146
+  %144 = icmp eq ptr %143, null
+  %145 = and i1 %144, %110
+  br i1 %145, label %146, label %211
 
 146:                                              ; preds = %133
   %147 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
@@ -1242,7 +1242,7 @@ define dso_local void @sm_remove_element(ptr nocapture noundef %0, ptr noundef %
   tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %155) #16
   br label %211
 
-211:                                              ; preds = %133, %202, %150, %146
+211:                                              ; preds = %202, %150, %146, %133
   tail call void @free(ptr noundef %1) #16
   br label %212
 
@@ -1638,7 +1638,7 @@ define dso_local i32 @sm_read(ptr noundef %0, ptr nocapture noundef %1) local_un
   %22 = icmp eq i32 %21, 0
   br i1 %22, label %14, label %23
 
-23:                                               ; preds = %16, %14
+23:                                               ; preds = %14, %16
   br label %24
 
 24:                                               ; preds = %14, %23, %2
@@ -1947,17 +1947,17 @@ define dso_local void @sm_cleanup() local_unnamed_addr #11 {
   ret void
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #12
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #14
+declare i32 @llvm.smax.i32(i32, i32) #13
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1971,9 +1971,9 @@ attributes #8 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem:
 attributes #9 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nounwind allocsize(0) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(1) }

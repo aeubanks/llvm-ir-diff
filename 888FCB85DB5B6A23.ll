@@ -813,7 +813,7 @@ define dso_local noundef i32 @_ZN12CFilterCoder14WriteWithLimitEP20ISequentialOu
   br label %17
 
 17:                                               ; preds = %7, %3
-  %18 = phi i32 [ %16, %7 ], [ %2, %3 ]
+  %18 = phi i32 [ %2, %3 ], [ %16, %7 ]
   %19 = getelementptr inbounds %class.CFilterCoder, ptr %0, i64 0, i32 12
   %20 = load ptr, ptr %19, align 8, !tbaa !12
   %21 = zext i32 %18 to i64
@@ -996,7 +996,7 @@ define dso_local noundef i32 @_ZN12CFilterCoder4CodeEP19ISequentialInStreamP20IS
   br label %115
 
 115:                                              ; preds = %107, %104
-  %116 = phi i32 [ %114, %107 ], [ %100, %104 ]
+  %116 = phi i32 [ %100, %104 ], [ %114, %107 ]
   %117 = load ptr, ptr %25, align 8, !tbaa !12
   %118 = zext i32 %116 to i64
   %119 = call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %117, i64 noundef %118)
@@ -1025,7 +1025,7 @@ define dso_local noundef i32 @_ZN12CFilterCoder4CodeEP19ISequentialInStreamP20IS
   br label %135
 
 135:                                              ; preds = %127, %124
-  %136 = phi i32 [ %134, %127 ], [ %99, %124 ]
+  %136 = phi i32 [ %99, %124 ], [ %134, %127 ]
   %137 = load ptr, ptr %25, align 8, !tbaa !12
   %138 = zext i32 %136 to i64
   %139 = call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %137, i64 noundef %138)
@@ -1100,8 +1100,8 @@ define dso_local noundef i32 @_ZN12CFilterCoder4CodeEP19ISequentialInStreamP20IS
   %191 = icmp eq i64 %190, %161
   br i1 %191, label %194, label %162, !llvm.loop !59
 
-192:                                              ; preds = %135, %35, %144, %102, %115, %121
-  %193 = phi i32 [ 0, %121 ], [ %119, %115 ], [ 0, %102 ], [ %139, %135 ], [ %41, %35 ], [ %148, %144 ]
+192:                                              ; preds = %35, %135, %144, %102, %115, %121
+  %193 = phi i32 [ 0, %121 ], [ %119, %115 ], [ 0, %102 ], [ %41, %35 ], [ %139, %135 ], [ %148, %144 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
   br label %215
 
@@ -1352,7 +1352,7 @@ define dso_local noundef i32 @_ZN12CFilterCoder5WriteEPKvjPj(ptr nocapture nound
   br label %60
 
 60:                                               ; preds = %52, %48
-  %61 = phi i32 [ %59, %52 ], [ %41, %48 ]
+  %61 = phi i32 [ %41, %48 ], [ %59, %52 ]
   %62 = load ptr, ptr %11, align 8, !tbaa !12
   %63 = zext i32 %61 to i64
   %64 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %49, ptr noundef %62, i64 noundef %63)
@@ -1478,7 +1478,7 @@ define dso_local noundef i32 @_ZN12CFilterCoder5FlushEv(ptr nocapture noundef no
   br label %52
 
 52:                                               ; preds = %42, %35
-  %53 = phi i32 [ %51, %42 ], [ %36, %35 ]
+  %53 = phi i32 [ %36, %35 ], [ %51, %42 ]
   %54 = load ptr, ptr %9, align 8, !tbaa !12
   %55 = zext i32 %53 to i64
   %56 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %38, ptr noundef %54, i64 noundef %55)
@@ -2588,7 +2588,7 @@ define linkonce_odr dso_local noundef i32 @_ZN12CFilterCoder14QueryInterfaceERK4
   %420 = tail call noundef i32 %419(ptr noundef nonnull align 8 dereferenceable(200) %0)
   br label %421
 
-421:                                              ; preds = %415, %406, %390, %374, %358, %342, %399
+421:                                              ; preds = %415, %399, %406, %390, %374, %358, %342
   %422 = phi i32 [ %347, %342 ], [ %363, %358 ], [ %379, %374 ], [ %395, %390 ], [ %411, %406 ], [ -2147467262, %399 ], [ 0, %415 ]
   ret i32 %422
 }

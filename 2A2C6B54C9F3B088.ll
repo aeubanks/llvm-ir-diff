@@ -396,7 +396,7 @@ define internal void @_ZN12_GLOBAL__N_124StatisticsTest_Mean_Test8TestBodyEv(ptr
   br label %35
 
 35:                                               ; preds = %15, %34, %30
-  %36 = phi { ptr, i32 } [ %16, %15 ], [ %31, %30 ], [ %31, %34 ]
+  %36 = phi { ptr, i32 } [ %31, %30 ], [ %31, %34 ], [ %16, %15 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #13
   br label %98
 
@@ -558,7 +558,7 @@ define internal void @_ZN12_GLOBAL__N_124StatisticsTest_Mean_Test8TestBodyEv(ptr
   br label %105
 
 105:                                              ; preds = %83, %104, %100
-  %106 = phi { ptr, i32 } [ %84, %83 ], [ %101, %100 ], [ %101, %104 ]
+  %106 = phi { ptr, i32 } [ %101, %100 ], [ %101, %104 ], [ %84, %83 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %7) #13
   br label %168
 
@@ -720,7 +720,7 @@ define internal void @_ZN12_GLOBAL__N_124StatisticsTest_Mean_Test8TestBodyEv(ptr
   br label %175
 
 175:                                              ; preds = %153, %174, %170
-  %176 = phi { ptr, i32 } [ %154, %153 ], [ %171, %170 ], [ %171, %174 ]
+  %176 = phi { ptr, i32 } [ %171, %170 ], [ %171, %174 ], [ %154, %153 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #13
   br label %222
 
@@ -1255,7 +1255,7 @@ define internal void @_ZN12_GLOBAL__N_126StatisticsTest_Median_Test8TestBodyEv(p
   br label %35
 
 35:                                               ; preds = %15, %34, %30
-  %36 = phi { ptr, i32 } [ %16, %15 ], [ %31, %30 ], [ %31, %34 ]
+  %36 = phi { ptr, i32 } [ %31, %30 ], [ %31, %34 ], [ %16, %15 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #13
   br label %98
 
@@ -1417,7 +1417,7 @@ define internal void @_ZN12_GLOBAL__N_126StatisticsTest_Median_Test8TestBodyEv(p
   br label %105
 
 105:                                              ; preds = %83, %104, %100
-  %106 = phi { ptr, i32 } [ %84, %83 ], [ %101, %100 ], [ %101, %104 ]
+  %106 = phi { ptr, i32 } [ %101, %100 ], [ %101, %104 ], [ %84, %83 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %7) #13
   br label %168
 
@@ -1579,7 +1579,7 @@ define internal void @_ZN12_GLOBAL__N_126StatisticsTest_Median_Test8TestBodyEv(p
   br label %175
 
 175:                                              ; preds = %153, %174, %170
-  %176 = phi { ptr, i32 } [ %154, %153 ], [ %171, %170 ], [ %171, %174 ]
+  %176 = phi { ptr, i32 } [ %171, %170 ], [ %171, %174 ], [ %154, %153 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #13
   br label %222
 
@@ -1794,7 +1794,7 @@ define internal void @_ZN12_GLOBAL__N_126StatisticsTest_StdDev_Test8TestBodyEv(p
   br label %35
 
 35:                                               ; preds = %15, %34, %30
-  %36 = phi { ptr, i32 } [ %16, %15 ], [ %31, %30 ], [ %31, %34 ]
+  %36 = phi { ptr, i32 } [ %31, %30 ], [ %31, %34 ], [ %16, %15 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #13
   br label %98
 
@@ -1956,7 +1956,7 @@ define internal void @_ZN12_GLOBAL__N_126StatisticsTest_StdDev_Test8TestBodyEv(p
   br label %105
 
 105:                                              ; preds = %83, %104, %100
-  %106 = phi { ptr, i32 } [ %84, %83 ], [ %101, %100 ], [ %101, %104 ]
+  %106 = phi { ptr, i32 } [ %101, %100 ], [ %101, %104 ], [ %84, %83 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %7) #13
   br label %168
 
@@ -2118,7 +2118,7 @@ define internal void @_ZN12_GLOBAL__N_126StatisticsTest_StdDev_Test8TestBodyEv(p
   br label %175
 
 175:                                              ; preds = %153, %174, %170
-  %176 = phi { ptr, i32 } [ %154, %153 ], [ %171, %170 ], [ %171, %174 ]
+  %176 = phi { ptr, i32 } [ %171, %170 ], [ %171, %174 ], [ %154, %153 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #13
   br label %222
 
@@ -2333,7 +2333,7 @@ define internal void @_ZN12_GLOBAL__N_122StatisticsTest_CV_Test8TestBodyEv(ptr n
   br label %35
 
 35:                                               ; preds = %15, %34, %30
-  %36 = phi { ptr, i32 } [ %16, %15 ], [ %31, %30 ], [ %31, %34 ]
+  %36 = phi { ptr, i32 } [ %31, %30 ], [ %31, %34 ], [ %16, %15 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #13
   br label %98
 
@@ -2495,7 +2495,7 @@ define internal void @_ZN12_GLOBAL__N_122StatisticsTest_CV_Test8TestBodyEv(ptr n
   br label %105
 
 105:                                              ; preds = %83, %104, %100
-  %106 = phi { ptr, i32 } [ %84, %83 ], [ %101, %100 ], [ %101, %104 ]
+  %106 = phi { ptr, i32 } [ %101, %100 ], [ %101, %104 ], [ %84, %83 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %7) #13
   br label %168
 
@@ -2657,7 +2657,7 @@ define internal void @_ZN12_GLOBAL__N_122StatisticsTest_CV_Test8TestBodyEv(ptr n
   br label %175
 
 175:                                              ; preds = %153, %174, %170
-  %176 = phi { ptr, i32 } [ %154, %153 ], [ %171, %170 ], [ %171, %174 ]
+  %176 = phi { ptr, i32 } [ %171, %170 ], [ %171, %174 ], [ %154, %153 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #13
   br label %222
 

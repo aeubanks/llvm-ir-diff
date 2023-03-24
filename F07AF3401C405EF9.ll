@@ -293,7 +293,7 @@ define dso_local void @jpeg_calc_output_dimensions(ptr noundef %0) local_unnamed
   %198 = icmp eq i32 %170, 3
   %199 = select i1 %197, i1 %198, i1 false
   %200 = icmp eq i32 %172, 2
-  %201 = and i1 %200, %199
+  %201 = and i1 %199, %200
   %202 = icmp eq i32 %180, 3
   %203 = select i1 %201, i1 %202, i1 false
   br i1 %203, label %204, label %246
@@ -614,33 +614,33 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %113, i8 0, i64 16, i1 false)
   %116 = load i32, ptr %115, align 4, !tbaa !44
   %117 = icmp eq i32 %116, 0
-  br i1 %117, label %118, label %122
+  br i1 %117, label %126, label %118
 
 118:                                              ; preds = %110
-  %119 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
-  store i32 0, ptr %119, align 4, !tbaa !68
-  %120 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 24
-  store i32 0, ptr %120, align 8, !tbaa !51
-  %121 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  store i32 0, ptr %121, align 4, !tbaa !69
-  br label %178
+  %119 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 14
+  %120 = load i32, ptr %119, align 8, !tbaa !68
+  %121 = icmp eq i32 %120, 0
+  br i1 %121, label %122, label %130
 
-122:                                              ; preds = %110
-  %123 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 14
-  %124 = load i32, ptr %123, align 8, !tbaa !70
-  %125 = icmp eq i32 %124, 0
-  br i1 %125, label %126, label %130
+122:                                              ; preds = %118
+  %123 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
+  store i32 0, ptr %123, align 4, !tbaa !69
+  %124 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 24
+  store i32 0, ptr %124, align 8, !tbaa !51
+  %125 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
+  store i32 0, ptr %125, align 4, !tbaa !70
+  br label %130
 
-126:                                              ; preds = %122
+126:                                              ; preds = %110
   %127 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
-  store i32 0, ptr %127, align 4, !tbaa !68
+  store i32 0, ptr %127, align 4, !tbaa !69
   %128 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 24
   store i32 0, ptr %128, align 8, !tbaa !51
   %129 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  store i32 0, ptr %129, align 4, !tbaa !69
-  br label %130
+  store i32 0, ptr %129, align 4, !tbaa !70
+  br label %178
 
-130:                                              ; preds = %126, %122
+130:                                              ; preds = %122, %118
   %131 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 15
   %132 = load i32, ptr %131, align 4, !tbaa !71
   %133 = icmp eq i32 %132, 0
@@ -661,11 +661,11 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
 
 141:                                              ; preds = %138
   %142 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
-  store i32 1, ptr %142, align 4, !tbaa !68
+  store i32 1, ptr %142, align 4, !tbaa !69
   %143 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 24
   store i32 0, ptr %143, align 8, !tbaa !51
   %144 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  store i32 0, ptr %144, align 4, !tbaa !69
+  store i32 0, ptr %144, align 4, !tbaa !70
   %145 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 32
   store ptr null, ptr %145, align 8, !tbaa !52
   br label %160
@@ -689,17 +689,17 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
 
 156:                                              ; preds = %152
   %157 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  store i32 1, ptr %157, align 4, !tbaa !69
+  store i32 1, ptr %157, align 4, !tbaa !70
   br label %160
 
 158:                                              ; preds = %152
   %159 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
-  store i32 1, ptr %159, align 4, !tbaa !68
+  store i32 1, ptr %159, align 4, !tbaa !69
   br label %160
 
 160:                                              ; preds = %158, %156, %150, %141
   %161 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
-  %162 = load i32, ptr %161, align 4, !tbaa !68
+  %162 = load i32, ptr %161, align 4, !tbaa !69
   %163 = icmp eq i32 %162, 0
   br i1 %163, label %167, label %164
 
@@ -712,7 +712,7 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
 
 167:                                              ; preds = %164, %160
   %168 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  %169 = load i32, ptr %168, align 4, !tbaa !69
+  %169 = load i32, ptr %168, align 4, !tbaa !70
   %170 = icmp eq i32 %169, 0
   br i1 %170, label %171, label %175
 
@@ -729,7 +729,7 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
   store ptr %177, ptr %114, align 8, !tbaa !53
   br label %178
 
-178:                                              ; preds = %175, %171, %118
+178:                                              ; preds = %175, %171, %126
   %179 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 15
   %180 = load i32, ptr %179, align 4, !tbaa !71
   %181 = icmp eq i32 %180, 0
@@ -751,7 +751,7 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
 
 187:                                              ; preds = %186, %185
   %188 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  %189 = load i32, ptr %188, align 4, !tbaa !69
+  %189 = load i32, ptr %188, align 4, !tbaa !70
   tail call void @jinit_d_post_controller(ptr noundef nonnull %0, i32 noundef %189) #4
   br label %190
 
@@ -794,7 +794,7 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
 
 210:                                              ; preds = %204
   %211 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 14
-  %212 = load i32, ptr %211, align 8, !tbaa !70
+  %212 = load i32, ptr %211, align 8, !tbaa !68
   %213 = icmp ne i32 %212, 0
   %214 = zext i1 %213 to i32
   br label %215
@@ -826,7 +826,7 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
 
 230:                                              ; preds = %220
   %231 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 14
-  %232 = load i32, ptr %231, align 8, !tbaa !70
+  %232 = load i32, ptr %231, align 8, !tbaa !68
   %233 = icmp eq i32 %232, 0
   br i1 %233, label %234, label %263
 
@@ -858,7 +858,7 @@ define dso_local void @jinit_master_decompress(ptr noundef %0) local_unnamed_add
   %255 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %228, i64 0, i32 3
   store i32 0, ptr %255, align 8, !tbaa !86
   %256 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  %257 = load i32, ptr %256, align 4, !tbaa !69
+  %257 = load i32, ptr %256, align 4, !tbaa !70
   %258 = icmp eq i32 %257, 0
   %259 = select i1 %258, i32 2, i32 3
   %260 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %228, i64 0, i32 4
@@ -913,7 +913,7 @@ define internal void @prepare_for_output_pass(ptr noundef %0) #0 {
 
 26:                                               ; preds = %22
   %27 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  %28 = load i32, ptr %27, align 4, !tbaa !69
+  %28 = load i32, ptr %27, align 4, !tbaa !70
   %29 = icmp eq i32 %28, 0
   br i1 %29, label %34, label %30
 
@@ -927,7 +927,7 @@ define internal void @prepare_for_output_pass(ptr noundef %0) #0 {
 
 34:                                               ; preds = %26, %22
   %35 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 23
-  %36 = load i32, ptr %35, align 4, !tbaa !68
+  %36 = load i32, ptr %35, align 4, !tbaa !69
   %37 = icmp eq i32 %36, 0
   br i1 %37, label %42, label %38
 
@@ -1027,7 +1027,7 @@ define internal void @prepare_for_output_pass(ptr noundef %0) #0 {
   %100 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %90, i64 0, i32 4
   store i32 %99, ptr %100, align 4, !tbaa !87
   %101 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 14
-  %102 = load i32, ptr %101, align 8, !tbaa !70
+  %102 = load i32, ptr %101, align 8, !tbaa !68
   %103 = icmp eq i32 %102, 0
   br i1 %103, label %116, label %104
 
@@ -1041,7 +1041,7 @@ define internal void @prepare_for_output_pass(ptr noundef %0) #0 {
 
 110:                                              ; preds = %104
   %111 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 25
-  %112 = load i32, ptr %111, align 4, !tbaa !69
+  %112 = load i32, ptr %111, align 4, !tbaa !70
   %113 = icmp eq i32 %112, 0
   %114 = select i1 %113, i32 1, i32 2
   %115 = add nsw i32 %114, %99
@@ -1182,9 +1182,9 @@ attributes #4 = { nounwind }
 !65 = !{!6, !7, i64 408}
 !66 = !{!54, !10, i64 24}
 !67 = !{!54, !10, i64 28}
-!68 = !{!6, !10, i64 116}
-!69 = !{!6, !10, i64 124}
-!70 = !{!6, !10, i64 80}
+!68 = !{!6, !10, i64 80}
+!69 = !{!6, !10, i64 116}
+!70 = !{!6, !10, i64 124}
 !71 = !{!6, !10, i64 84}
 !72 = !{!6, !10, i64 108}
 !73 = !{!54, !7, i64 32}

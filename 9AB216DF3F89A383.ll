@@ -425,7 +425,7 @@ define dso_local void @_ZN4Crux11store_beginEmi(ptr nocapture noundef nonnull re
   %41 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef nonnull %4, i32 noundef %2)
   br label %42
 
-42:                                               ; preds = %35, %40
+42:                                               ; preds = %40, %35
   call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %6) #15
   %43 = load i32, ptr @cp_num, align 4, !tbaa !25
   %44 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) @.str.6, ptr noundef nonnull @checkpoint_directory, i32 noundef %43) #15
@@ -728,7 +728,7 @@ define dso_local void @_ZN4Crux18restore_MallocPlusE10MallocPlus(ptr nocapture n
   %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %70, i64 noundef %53)
   br label %72
 
-72:                                               ; preds = %69, %66, %63, %59, %56, %7
+72:                                               ; preds = %69, %56, %59, %63, %66, %7
   %73 = tail call noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
   %74 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
   %75 = icmp eq ptr %73, %74

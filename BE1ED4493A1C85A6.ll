@@ -103,7 +103,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   tail call void @init2()
   br label %29
 
-29:                                               ; preds = %28, %24
+29:                                               ; preds = %24, %28
   %30 = tail call i32 (ptr, ...) @zflush(ptr noundef null) #11
   %31 = tail call i32 (ptr, ...) @zflushpage(ptr noundef null) #11
   %32 = tail call i32 (i32, ...) @gs_exit(i32 noundef 0) #11
@@ -138,17 +138,17 @@ define dso_local i32 @swproc(i8 noundef signext %0, ptr noundef %1) #0 {
   %7 = alloca %struct.ref_s, align 8
   %8 = alloca i32, align 4
   %9 = sext i8 %0 to i32
-  switch i32 %9, label %129 [
+  switch i32 %9, label %128 [
     i32 73, label %10
     i32 113, label %31
     i32 68, label %42
     i32 100, label %42
     i32 83, label %42
     i32 115, label %42
-    i32 119, label %91
-    i32 104, label %91
-    i32 69, label %116
-    i32 77, label %117
+    i32 119, label %89
+    i32 104, label %89
+    i32 69, label %115
+    i32 77, label %116
   ]
 
 10:                                               ; preds = %2
@@ -185,7 +185,7 @@ define dso_local i32 @swproc(i8 noundef signext %0, ptr noundef %1) #0 {
 29:                                               ; preds = %23, %27
   %30 = phi ptr [ %28, %27 ], [ %24, %23 ]
   store ptr null, ptr %30, align 8, !tbaa !5
-  br label %129
+  br label %128
 
 31:                                               ; preds = %2
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #11
@@ -209,7 +209,7 @@ define dso_local i32 @swproc(i8 noundef signext %0, ptr noundef %1) #0 {
   store i16 32, ptr %40, align 8, !tbaa !12
   %41 = call i32 (ptr, ptr, ...) @initial_enter_name(ptr noundef nonnull @.str.4, ptr noundef nonnull %3) #11
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #11
-  br label %129
+  br label %128
 
 42:                                               ; preds = %2, %2, %2, %2
   %43 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %1, i32 noundef 61) #10
@@ -235,7 +235,7 @@ define dso_local i32 @swproc(i8 noundef signext %0, ptr noundef %1) #0 {
   store i64 0, ptr %4, align 8, !tbaa !11
   %54 = getelementptr inbounds %struct.ref_s, ptr %4, i64 0, i32 1
   store i16 32, ptr %54, align 8, !tbaa !12
-  br label %89
+  br label %87
 
 55:                                               ; preds = %51
   %56 = icmp eq ptr %43, %1
@@ -244,139 +244,141 @@ define dso_local i32 @swproc(i8 noundef signext %0, ptr noundef %1) #0 {
 57:                                               ; preds = %55
   %58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5)
   %59 = tail call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
-  br label %89
+  br label %87
 
 60:                                               ; preds = %55
   %61 = getelementptr inbounds i8, ptr %43, i64 1
   store i8 0, ptr %43, align 1, !tbaa !11
-  %62 = and i8 %0, -33
-  %63 = icmp eq i8 %62, 68
-  br i1 %63, label %64, label %73
-
-64:                                               ; preds = %60
-  call void @llvm.lifetime.start.p0(i64 120, ptr nonnull %5) #11
-  %65 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %61) #10
-  %66 = trunc i64 %65 to i32
-  call void @sread_string(ptr noundef nonnull %5, ptr noundef nonnull %61, i32 noundef %66) #11
-  %67 = call i32 (ptr, i32, ptr, ...) @scan_token(ptr noundef nonnull %5, i32 noundef 0, ptr noundef nonnull %4) #11
-  %68 = icmp eq i32 %67, 0
-  br i1 %68, label %72, label %69
-
-69:                                               ; preds = %64
-  %70 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6)
-  %71 = call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
-  br label %72
-
-72:                                               ; preds = %69, %64
-  call void @llvm.lifetime.end.p0(i64 120, ptr nonnull %5) #11
-  br label %89
-
-73:                                               ; preds = %60
-  %74 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %61) #10
-  %75 = trunc i64 %74 to i32
-  %76 = tail call ptr @gs_malloc(i32 noundef %75, i32 noundef 1, ptr noundef nonnull @.str.7) #11
-  %77 = icmp eq ptr %76, null
-  br i1 %77, label %78, label %84
-
-78:                                               ; preds = %73
-  %79 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %80 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %79, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 153) #12
-  %81 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %82 = tail call i64 @fwrite(ptr nonnull @.str.10, i64 15, i64 1, ptr %81) #12
-  %83 = tail call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
-  br label %84
-
-84:                                               ; preds = %78, %73
-  %85 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %76, ptr noundef nonnull dereferenceable(1) %61) #11
-  store ptr %76, ptr %4, align 8, !tbaa !11
-  %86 = getelementptr inbounds %struct.ref_s, ptr %4, i64 0, i32 1
-  store i16 566, ptr %86, align 8, !tbaa !12
-  %87 = trunc i64 %74 to i16
-  %88 = getelementptr inbounds %struct.ref_s, ptr %4, i64 0, i32 2
-  store i16 %87, ptr %88, align 2, !tbaa !15
-  br label %89
-
-89:                                               ; preds = %72, %84, %57, %53
-  %90 = call i32 (ptr, ptr, ...) @initial_enter_name(ptr noundef %1, ptr noundef nonnull %4) #11
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #11
-  br label %129
-
-91:                                               ; preds = %2, %2
-  call void @llvm.lifetime.start.p0(i64 120, ptr nonnull %6) #11
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #11
-  %92 = load i32, ptr @init1_done, align 4, !tbaa !9
-  %93 = icmp eq i32 %92, 0
-  br i1 %93, label %94, label %99
-
-94:                                               ; preds = %91
-  %95 = load i32, ptr @memory_chunk_size, align 4, !tbaa !9
-  tail call void @alloc_init(ptr noundef nonnull @gs_malloc, ptr noundef nonnull @gs_free, i32 noundef %95) #11
-  %96 = tail call i32 (...) @name_init() #11
-  %97 = tail call i32 (...) @obj_init() #11
-  %98 = tail call i32 (...) @scan_init() #11
-  store i32 1, ptr @init1_done, align 4, !tbaa !9
-  br label %99
-
-99:                                               ; preds = %91, %94
-  %100 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #10
-  %101 = trunc i64 %100 to i32
-  call void @sread_string(ptr noundef nonnull %6, ptr noundef %1, i32 noundef %101) #11
-  %102 = call i32 (ptr, i32, ptr, ...) @scan_token(ptr noundef nonnull %6, i32 noundef 0, ptr noundef nonnull %7) #11
-  %103 = icmp eq i32 %102, 0
-  br i1 %103, label %104, label %109
-
-104:                                              ; preds = %99
-  %105 = getelementptr inbounds %struct.ref_s, ptr %7, i64 0, i32 1
-  %106 = load i16, ptr %105, align 8, !tbaa !12
-  %107 = lshr i16 %106, 2
-  %108 = and i16 %107, 63
-  switch i16 %108, label %109 [
-    i16 5, label %112
-    i16 11, label %112
+  switch i32 %9, label %71 [
+    i32 100, label %62
+    i32 68, label %62
   ]
 
-109:                                              ; preds = %104, %99
-  %110 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %111 = call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
-  br label %112
+62:                                               ; preds = %60, %60
+  call void @llvm.lifetime.start.p0(i64 120, ptr nonnull %5) #11
+  %63 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %61) #10
+  %64 = trunc i64 %63 to i32
+  call void @sread_string(ptr noundef nonnull %5, ptr noundef nonnull %61, i32 noundef %64) #11
+  %65 = call i32 (ptr, i32, ptr, ...) @scan_token(ptr noundef nonnull %5, i32 noundef 0, ptr noundef nonnull %4) #11
+  %66 = icmp eq i32 %65, 0
+  br i1 %66, label %70, label %67
 
-112:                                              ; preds = %104, %104, %109
-  %113 = icmp eq i8 %0, 119
-  %114 = select i1 %113, ptr @.str.12, ptr @.str.13
-  %115 = call i32 (ptr, ptr, ...) @initial_enter_name(ptr noundef nonnull %114, ptr noundef nonnull %7) #11
+67:                                               ; preds = %62
+  %68 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6)
+  %69 = call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
+  br label %70
+
+70:                                               ; preds = %67, %62
+  call void @llvm.lifetime.end.p0(i64 120, ptr nonnull %5) #11
+  br label %87
+
+71:                                               ; preds = %60
+  %72 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %61) #10
+  %73 = trunc i64 %72 to i32
+  %74 = tail call ptr @gs_malloc(i32 noundef %73, i32 noundef 1, ptr noundef nonnull @.str.7) #11
+  %75 = icmp eq ptr %74, null
+  br i1 %75, label %76, label %82
+
+76:                                               ; preds = %71
+  %77 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %78 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %77, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 153) #12
+  %79 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %80 = tail call i64 @fwrite(ptr nonnull @.str.10, i64 15, i64 1, ptr %79) #12
+  %81 = tail call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
+  br label %82
+
+82:                                               ; preds = %76, %71
+  %83 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %74, ptr noundef nonnull dereferenceable(1) %61) #11
+  store ptr %74, ptr %4, align 8, !tbaa !11
+  %84 = getelementptr inbounds %struct.ref_s, ptr %4, i64 0, i32 1
+  store i16 566, ptr %84, align 8, !tbaa !12
+  %85 = trunc i64 %72 to i16
+  %86 = getelementptr inbounds %struct.ref_s, ptr %4, i64 0, i32 2
+  store i16 %85, ptr %86, align 2, !tbaa !15
+  br label %87
+
+87:                                               ; preds = %70, %82, %57, %53
+  %88 = call i32 (ptr, ptr, ...) @initial_enter_name(ptr noundef %1, ptr noundef nonnull %4) #11
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #11
+  br label %128
+
+89:                                               ; preds = %2, %2
+  call void @llvm.lifetime.start.p0(i64 120, ptr nonnull %6) #11
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #11
+  %90 = load i32, ptr @init1_done, align 4, !tbaa !9
+  %91 = icmp eq i32 %90, 0
+  br i1 %91, label %92, label %97
+
+92:                                               ; preds = %89
+  %93 = load i32, ptr @memory_chunk_size, align 4, !tbaa !9
+  tail call void @alloc_init(ptr noundef nonnull @gs_malloc, ptr noundef nonnull @gs_free, i32 noundef %93) #11
+  %94 = tail call i32 (...) @name_init() #11
+  %95 = tail call i32 (...) @obj_init() #11
+  %96 = tail call i32 (...) @scan_init() #11
+  store i32 1, ptr @init1_done, align 4, !tbaa !9
+  br label %97
+
+97:                                               ; preds = %89, %92
+  %98 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #10
+  %99 = trunc i64 %98 to i32
+  call void @sread_string(ptr noundef nonnull %6, ptr noundef %1, i32 noundef %99) #11
+  %100 = call i32 (ptr, i32, ptr, ...) @scan_token(ptr noundef nonnull %6, i32 noundef 0, ptr noundef nonnull %7) #11
+  %101 = icmp eq i32 %100, 0
+  br i1 %101, label %102, label %108
+
+102:                                              ; preds = %97
+  %103 = getelementptr inbounds %struct.ref_s, ptr %7, i64 0, i32 1
+  %104 = load i16, ptr %103, align 8, !tbaa !12
+  %105 = lshr i16 %104, 2
+  %106 = and i16 %105, 63
+  %107 = zext i16 %106 to i32
+  switch i32 %107, label %108 [
+    i32 5, label %111
+    i32 11, label %111
+  ]
+
+108:                                              ; preds = %102, %97
+  %109 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %110 = call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
+  br label %111
+
+111:                                              ; preds = %102, %102, %108
+  %112 = icmp eq i8 %0, 119
+  %113 = select i1 %112, ptr @.str.12, ptr @.str.13
+  %114 = call i32 (ptr, ptr, ...) @initial_enter_name(ptr noundef nonnull %113, ptr noundef nonnull %7) #11
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #11
   call void @llvm.lifetime.end.p0(i64 120, ptr nonnull %6) #11
-  br label %129
+  br label %128
+
+115:                                              ; preds = %2
+  store i32 0, ptr @user_errors, align 4, !tbaa !9
+  br label %128
 
 116:                                              ; preds = %2
-  store i32 0, ptr @user_errors, align 4, !tbaa !9
-  br label %129
-
-117:                                              ; preds = %2
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #11
   store i32 0, ptr %8, align 4, !tbaa !9
-  %118 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %1, ptr noundef nonnull @.str.14, ptr noundef nonnull %8) #11
-  %119 = load i32, ptr %8, align 4, !tbaa !9
-  %120 = add i32 %119, -64
-  %121 = icmp ult i32 %120, -63
-  br i1 %121, label %122, label %126
+  %117 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %1, ptr noundef nonnull @.str.14, ptr noundef nonnull %8) #11
+  %118 = load i32, ptr %8, align 4, !tbaa !9
+  %119 = add i32 %118, -64
+  %120 = icmp ult i32 %119, -63
+  br i1 %120, label %121, label %125
 
-122:                                              ; preds = %117
-  %123 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15)
-  %124 = call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
-  %125 = load i32, ptr %8, align 4, !tbaa !9
-  br label %126
+121:                                              ; preds = %116
+  %122 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15)
+  %123 = call i32 (i32, ...) @gs_exit(i32 noundef 1) #11
+  %124 = load i32, ptr %8, align 4, !tbaa !9
+  br label %125
 
-126:                                              ; preds = %117, %122
-  %127 = phi i32 [ %119, %117 ], [ %125, %122 ]
-  %128 = shl i32 %127, 10
-  store i32 %128, ptr @memory_chunk_size, align 4, !tbaa !9
+125:                                              ; preds = %116, %121
+  %126 = phi i32 [ %118, %116 ], [ %124, %121 ]
+  %127 = shl i32 %126, 10
+  store i32 %127, ptr @memory_chunk_size, align 4, !tbaa !9
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #11
-  br label %129
+  br label %128
 
-129:                                              ; preds = %29, %39, %89, %112, %116, %126, %2
-  %130 = phi i32 [ -1, %2 ], [ 0, %126 ], [ 0, %116 ], [ 0, %112 ], [ 0, %89 ], [ 0, %39 ], [ 0, %29 ]
-  ret i32 %130
+128:                                              ; preds = %29, %39, %87, %111, %115, %125, %2
+  %129 = phi i32 [ -1, %2 ], [ 0, %125 ], [ 0, %115 ], [ 0, %111 ], [ 0, %87 ], [ 0, %39 ], [ 0, %29 ]
+  ret i32 %129
 }
 
 ; Function Attrs: nounwind uwtable
@@ -669,14 +671,14 @@ declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #6
 
 declare i32 @debug_dump_refs(...) local_unnamed_addr #4
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #9
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #8
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -686,8 +688,8 @@ attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #5 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: write, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nounwind willreturn memory(read) }
 attributes #11 = { nounwind }
 attributes #12 = { cold }

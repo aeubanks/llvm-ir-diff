@@ -319,7 +319,7 @@ define dso_local i32 @Mode_Decision_for_new_8x8IntraBlocks(i32 noundef %0, doubl
   br i1 %101, label %108, label %104
 
 104:                                              ; preds = %99
-  br i1 %103, label %131, label %105
+  br i1 %103, label %125, label %105
 
 105:                                              ; preds = %104
   %106 = load ptr, ptr @img, align 8, !tbaa !9
@@ -327,14 +327,14 @@ define dso_local i32 @Mode_Decision_for_new_8x8IntraBlocks(i32 noundef %0, doubl
   br label %112
 
 108:                                              ; preds = %99
-  br i1 %103, label %131, label %109
+  br i1 %103, label %125, label %109
 
 109:                                              ; preds = %108
   %110 = load ptr, ptr @img, align 8, !tbaa !9
   %111 = getelementptr inbounds %struct.ImageParameters, ptr %110, i64 0, i32 31
   br label %112
 
-112:                                              ; preds = %109, %105
+112:                                              ; preds = %105, %109
   %113 = phi ptr [ %111, %109 ], [ %107, %105 ]
   %114 = load ptr, ptr %113, align 8, !tbaa !9
   %115 = getelementptr inbounds %struct.pix_pos, ptr %11, i64 0, i32 5
@@ -347,18 +347,16 @@ define dso_local i32 @Mode_Decision_for_new_8x8IntraBlocks(i32 noundef %0, doubl
   %122 = sext i32 %121 to i64
   %123 = getelementptr inbounds i8, ptr %119, i64 %122
   %124 = load i8, ptr %123, align 1, !tbaa !29
-  %125 = icmp slt i8 %100, 0
-  %126 = icmp slt i8 %124, 0
-  %127 = select i1 %125, i1 true, i1 %126
-  br i1 %127, label %131, label %128
+  br label %125
 
-128:                                              ; preds = %112
-  %129 = call i8 @llvm.smin.i8(i8 %100, i8 %124)
-  %130 = zext i8 %129 to i32
-  br label %131
-
-131:                                              ; preds = %108, %104, %112, %128
-  %132 = phi i32 [ %130, %128 ], [ 2, %112 ], [ 2, %104 ], [ 2, %108 ]
+125:                                              ; preds = %112, %108, %104
+  %126 = phi i8 [ -1, %104 ], [ -1, %108 ], [ %124, %112 ]
+  %127 = icmp slt i8 %100, 0
+  %128 = icmp slt i8 %126, 0
+  %129 = select i1 %127, i1 true, i1 %128
+  %130 = call i8 @llvm.umin.i8(i8 %100, i8 %126)
+  %131 = sext i8 %130 to i32
+  %132 = select i1 %129, i32 2, i32 %131
   store i32 2147483647, ptr %2, align 4, !tbaa !5
   call void @intrapred_luma8x8(i32 noundef %20, i32 noundef %23, ptr noundef nonnull %8, ptr noundef nonnull %9, ptr noundef nonnull %10)
   %133 = load i32, ptr %9, align 4
@@ -435,11 +433,11 @@ define dso_local i32 @Mode_Decision_for_new_8x8IntraBlocks(i32 noundef %0, doubl
   %204 = getelementptr inbounds ptr, ptr %32, i64 %203
   br label %205
 
-205:                                              ; preds = %131, %689
-  %206 = phi i64 [ 0, %131 ], [ %693, %689 ]
-  %207 = phi i32 [ 0, %131 ], [ %692, %689 ]
-  %208 = phi double [ 1.000000e+30, %131 ], [ %691, %689 ]
-  %209 = phi i32 [ 0, %131 ], [ %690, %689 ]
+205:                                              ; preds = %125, %689
+  %206 = phi i64 [ 0, %125 ], [ %693, %689 ]
+  %207 = phi i32 [ 0, %125 ], [ %692, %689 ]
+  %208 = phi double [ 1.000000e+30, %125 ], [ %691, %689 ]
+  %209 = phi i32 [ 0, %125 ], [ %690, %689 ]
   %210 = icmp eq i64 %206, 2
   br i1 %210, label %223, label %211
 
@@ -1711,425 +1709,423 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   %45 = load ptr, ptr @getNeighbour, align 8, !tbaa !9
   call void %45(i32 noundef %17, i32 noundef %18, i32 noundef %42, i32 noundef 0, ptr noundef nonnull %9) #9
   %46 = load i32, ptr %8, align 4, !tbaa !23
-  %47 = icmp eq i32 %46, 0
-  br i1 %47, label %52, label %48
+  %47 = icmp ne i32 %46, 0
+  %48 = icmp ne i32 %13, 8
+  %49 = icmp ne i32 %14, 8
+  %50 = or i1 %48, %49
+  %51 = and i1 %50, %47
+  %52 = zext i1 %51 to i32
+  store i32 %52, ptr %8, align 4, !tbaa !23
+  %53 = load ptr, ptr @input, align 8, !tbaa !9
+  %54 = getelementptr inbounds %struct.InputParameters, ptr %53, i64 0, i32 23
+  %55 = load i32, ptr %54, align 8, !tbaa !21
+  %56 = icmp eq i32 %55, 0
+  br i1 %56, label %185, label %57
 
-48:                                               ; preds = %5
-  %49 = icmp ne i32 %13, 8
-  %50 = icmp ne i32 %14, 8
-  %51 = or i1 %49, %50
-  br label %52
+57:                                               ; preds = %5
+  %58 = load ptr, ptr @img, align 8
+  %59 = getelementptr inbounds %struct.ImageParameters, ptr %58, i64 0, i32 63
+  %60 = load i32, ptr %6, align 16, !tbaa !23
+  %61 = icmp eq i32 %60, 0
+  br i1 %61, label %69, label %62
 
-52:                                               ; preds = %48, %5
-  %53 = phi i1 [ false, %5 ], [ %51, %48 ]
-  %54 = zext i1 %53 to i32
-  store i32 %54, ptr %8, align 4, !tbaa !23
-  %55 = load ptr, ptr @input, align 8, !tbaa !9
-  %56 = getelementptr inbounds %struct.InputParameters, ptr %55, i64 0, i32 23
-  %57 = load i32, ptr %56, align 8, !tbaa !21
-  %58 = icmp eq i32 %57, 0
-  br i1 %58, label %187, label %59
+62:                                               ; preds = %57
+  %63 = load ptr, ptr %59, align 8, !tbaa !25
+  %64 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 0, i32 1
+  %65 = load i32, ptr %64, align 4, !tbaa !26
+  %66 = sext i32 %65 to i64
+  %67 = getelementptr inbounds i32, ptr %63, i64 %66
+  %68 = load i32, ptr %67, align 4, !tbaa !5
+  br label %69
 
-59:                                               ; preds = %52
-  %60 = load ptr, ptr @img, align 8
-  %61 = getelementptr inbounds %struct.ImageParameters, ptr %60, i64 0, i32 63
-  %62 = load i32, ptr %6, align 16, !tbaa !23
-  %63 = icmp eq i32 %62, 0
-  br i1 %63, label %71, label %64
+69:                                               ; preds = %57, %62
+  %70 = phi i32 [ %68, %62 ], [ 0, %57 ]
+  %71 = and i32 %70, 1
+  %72 = load i32, ptr %22, align 8, !tbaa !23
+  %73 = icmp eq i32 %72, 0
+  br i1 %73, label %81, label %74
 
-64:                                               ; preds = %59
-  %65 = load ptr, ptr %61, align 8, !tbaa !25
-  %66 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 0, i32 1
-  %67 = load i32, ptr %66, align 4, !tbaa !26
-  %68 = sext i32 %67 to i64
-  %69 = getelementptr inbounds i32, ptr %65, i64 %68
-  %70 = load i32, ptr %69, align 4, !tbaa !5
-  br label %71
+74:                                               ; preds = %69
+  %75 = load ptr, ptr %59, align 8, !tbaa !25
+  %76 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 1, i32 1
+  %77 = load i32, ptr %76, align 4, !tbaa !26
+  %78 = sext i32 %77 to i64
+  %79 = getelementptr inbounds i32, ptr %75, i64 %78
+  %80 = load i32, ptr %79, align 4, !tbaa !5
+  br label %81
 
-71:                                               ; preds = %59, %64
-  %72 = phi i32 [ %70, %64 ], [ 0, %59 ]
-  %73 = and i32 %72, 1
-  %74 = load i32, ptr %22, align 8, !tbaa !23
-  %75 = icmp eq i32 %74, 0
-  br i1 %75, label %83, label %76
+81:                                               ; preds = %74, %69
+  %82 = phi i32 [ %80, %74 ], [ 0, %69 ]
+  %83 = and i32 %82, %71
+  %84 = load i32, ptr %25, align 16, !tbaa !23
+  %85 = icmp eq i32 %84, 0
+  br i1 %85, label %93, label %86
 
-76:                                               ; preds = %71
-  %77 = load ptr, ptr %61, align 8, !tbaa !25
-  %78 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 1, i32 1
-  %79 = load i32, ptr %78, align 4, !tbaa !26
-  %80 = sext i32 %79 to i64
-  %81 = getelementptr inbounds i32, ptr %77, i64 %80
-  %82 = load i32, ptr %81, align 4, !tbaa !5
-  br label %83
+86:                                               ; preds = %81
+  %87 = load ptr, ptr %59, align 8, !tbaa !25
+  %88 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 2, i32 1
+  %89 = load i32, ptr %88, align 4, !tbaa !26
+  %90 = sext i32 %89 to i64
+  %91 = getelementptr inbounds i32, ptr %87, i64 %90
+  %92 = load i32, ptr %91, align 4, !tbaa !5
+  br label %93
 
-83:                                               ; preds = %76, %71
-  %84 = phi i32 [ %82, %76 ], [ 0, %71 ]
-  %85 = and i32 %84, %73
-  %86 = load i32, ptr %25, align 16, !tbaa !23
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %95, label %88
+93:                                               ; preds = %86, %81
+  %94 = phi i32 [ %92, %86 ], [ 0, %81 ]
+  %95 = and i32 %94, %83
+  %96 = load i32, ptr %28, align 8, !tbaa !23
+  %97 = icmp eq i32 %96, 0
+  br i1 %97, label %105, label %98
 
-88:                                               ; preds = %83
-  %89 = load ptr, ptr %61, align 8, !tbaa !25
-  %90 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 2, i32 1
-  %91 = load i32, ptr %90, align 4, !tbaa !26
-  %92 = sext i32 %91 to i64
-  %93 = getelementptr inbounds i32, ptr %89, i64 %92
-  %94 = load i32, ptr %93, align 4, !tbaa !5
-  br label %95
+98:                                               ; preds = %93
+  %99 = load ptr, ptr %59, align 8, !tbaa !25
+  %100 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 3, i32 1
+  %101 = load i32, ptr %100, align 4, !tbaa !26
+  %102 = sext i32 %101 to i64
+  %103 = getelementptr inbounds i32, ptr %99, i64 %102
+  %104 = load i32, ptr %103, align 4, !tbaa !5
+  br label %105
 
-95:                                               ; preds = %88, %83
-  %96 = phi i32 [ %94, %88 ], [ 0, %83 ]
-  %97 = and i32 %96, %85
-  %98 = load i32, ptr %28, align 8, !tbaa !23
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %107, label %100
+105:                                              ; preds = %98, %93
+  %106 = phi i32 [ %104, %98 ], [ 0, %93 ]
+  %107 = and i32 %106, %95
+  %108 = load i32, ptr %31, align 16, !tbaa !23
+  %109 = icmp eq i32 %108, 0
+  br i1 %109, label %117, label %110
 
-100:                                              ; preds = %95
-  %101 = load ptr, ptr %61, align 8, !tbaa !25
-  %102 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 3, i32 1
-  %103 = load i32, ptr %102, align 4, !tbaa !26
-  %104 = sext i32 %103 to i64
-  %105 = getelementptr inbounds i32, ptr %101, i64 %104
-  %106 = load i32, ptr %105, align 4, !tbaa !5
-  br label %107
+110:                                              ; preds = %105
+  %111 = load ptr, ptr %59, align 8, !tbaa !25
+  %112 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 4, i32 1
+  %113 = load i32, ptr %112, align 4, !tbaa !26
+  %114 = sext i32 %113 to i64
+  %115 = getelementptr inbounds i32, ptr %111, i64 %114
+  %116 = load i32, ptr %115, align 4, !tbaa !5
+  br label %117
 
-107:                                              ; preds = %100, %95
-  %108 = phi i32 [ %106, %100 ], [ 0, %95 ]
-  %109 = and i32 %108, %97
-  %110 = load i32, ptr %31, align 16, !tbaa !23
-  %111 = icmp eq i32 %110, 0
-  br i1 %111, label %119, label %112
+117:                                              ; preds = %110, %105
+  %118 = phi i32 [ %116, %110 ], [ 0, %105 ]
+  %119 = and i32 %118, %107
+  %120 = load i32, ptr %34, align 8, !tbaa !23
+  %121 = icmp eq i32 %120, 0
+  br i1 %121, label %129, label %122
 
-112:                                              ; preds = %107
-  %113 = load ptr, ptr %61, align 8, !tbaa !25
-  %114 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 4, i32 1
-  %115 = load i32, ptr %114, align 4, !tbaa !26
-  %116 = sext i32 %115 to i64
-  %117 = getelementptr inbounds i32, ptr %113, i64 %116
-  %118 = load i32, ptr %117, align 4, !tbaa !5
-  br label %119
+122:                                              ; preds = %117
+  %123 = load ptr, ptr %59, align 8, !tbaa !25
+  %124 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 5, i32 1
+  %125 = load i32, ptr %124, align 4, !tbaa !26
+  %126 = sext i32 %125 to i64
+  %127 = getelementptr inbounds i32, ptr %123, i64 %126
+  %128 = load i32, ptr %127, align 4, !tbaa !5
+  br label %129
 
-119:                                              ; preds = %112, %107
-  %120 = phi i32 [ %118, %112 ], [ 0, %107 ]
-  %121 = and i32 %120, %109
-  %122 = load i32, ptr %34, align 8, !tbaa !23
-  %123 = icmp eq i32 %122, 0
-  br i1 %123, label %131, label %124
+129:                                              ; preds = %122, %117
+  %130 = phi i32 [ %128, %122 ], [ 0, %117 ]
+  %131 = and i32 %130, %119
+  %132 = load i32, ptr %37, align 16, !tbaa !23
+  %133 = icmp eq i32 %132, 0
+  br i1 %133, label %141, label %134
 
-124:                                              ; preds = %119
-  %125 = load ptr, ptr %61, align 8, !tbaa !25
-  %126 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 5, i32 1
-  %127 = load i32, ptr %126, align 4, !tbaa !26
-  %128 = sext i32 %127 to i64
-  %129 = getelementptr inbounds i32, ptr %125, i64 %128
-  %130 = load i32, ptr %129, align 4, !tbaa !5
-  br label %131
+134:                                              ; preds = %129
+  %135 = load ptr, ptr %59, align 8, !tbaa !25
+  %136 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 6, i32 1
+  %137 = load i32, ptr %136, align 4, !tbaa !26
+  %138 = sext i32 %137 to i64
+  %139 = getelementptr inbounds i32, ptr %135, i64 %138
+  %140 = load i32, ptr %139, align 4, !tbaa !5
+  br label %141
 
-131:                                              ; preds = %124, %119
-  %132 = phi i32 [ %130, %124 ], [ 0, %119 ]
-  %133 = and i32 %132, %121
-  %134 = load i32, ptr %37, align 16, !tbaa !23
-  %135 = icmp eq i32 %134, 0
-  br i1 %135, label %143, label %136
+141:                                              ; preds = %134, %129
+  %142 = phi i32 [ %140, %134 ], [ 0, %129 ]
+  %143 = and i32 %142, %131
+  %144 = load i32, ptr %40, align 8, !tbaa !23
+  %145 = icmp eq i32 %144, 0
+  br i1 %145, label %153, label %146
 
-136:                                              ; preds = %131
-  %137 = load ptr, ptr %61, align 8, !tbaa !25
-  %138 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 6, i32 1
-  %139 = load i32, ptr %138, align 4, !tbaa !26
-  %140 = sext i32 %139 to i64
-  %141 = getelementptr inbounds i32, ptr %137, i64 %140
-  %142 = load i32, ptr %141, align 4, !tbaa !5
-  br label %143
+146:                                              ; preds = %141
+  %147 = load ptr, ptr %59, align 8, !tbaa !25
+  %148 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 7, i32 1
+  %149 = load i32, ptr %148, align 4, !tbaa !26
+  %150 = sext i32 %149 to i64
+  %151 = getelementptr inbounds i32, ptr %147, i64 %150
+  %152 = load i32, ptr %151, align 4, !tbaa !5
+  br label %153
 
-143:                                              ; preds = %136, %131
-  %144 = phi i32 [ %142, %136 ], [ 0, %131 ]
-  %145 = and i32 %144, %133
-  %146 = load i32, ptr %40, align 8, !tbaa !23
-  %147 = icmp eq i32 %146, 0
-  br i1 %147, label %155, label %148
+153:                                              ; preds = %146, %141
+  %154 = phi i32 [ %152, %146 ], [ 0, %141 ]
+  %155 = and i32 %154, %143
+  %156 = load i32, ptr %7, align 4, !tbaa !23
+  %157 = icmp eq i32 %156, 0
+  br i1 %157, label %165, label %158
 
-148:                                              ; preds = %143
-  %149 = load ptr, ptr %61, align 8, !tbaa !25
-  %150 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 7, i32 1
-  %151 = load i32, ptr %150, align 4, !tbaa !26
-  %152 = sext i32 %151 to i64
-  %153 = getelementptr inbounds i32, ptr %149, i64 %152
-  %154 = load i32, ptr %153, align 4, !tbaa !5
-  br label %155
+158:                                              ; preds = %153
+  %159 = load ptr, ptr %59, align 8, !tbaa !25
+  %160 = getelementptr inbounds %struct.pix_pos, ptr %7, i64 0, i32 1
+  %161 = load i32, ptr %160, align 4, !tbaa !26
+  %162 = sext i32 %161 to i64
+  %163 = getelementptr inbounds i32, ptr %159, i64 %162
+  %164 = load i32, ptr %163, align 4, !tbaa !5
+  br label %165
 
-155:                                              ; preds = %148, %143
-  %156 = phi i32 [ %154, %148 ], [ 0, %143 ]
-  %157 = and i32 %156, %145
-  %158 = load i32, ptr %7, align 4, !tbaa !23
-  %159 = icmp eq i32 %158, 0
-  br i1 %159, label %167, label %160
+165:                                              ; preds = %153, %158
+  %166 = phi i32 [ %164, %158 ], [ 0, %153 ]
+  br i1 %51, label %167, label %174
 
-160:                                              ; preds = %155
-  %161 = load ptr, ptr %61, align 8, !tbaa !25
-  %162 = getelementptr inbounds %struct.pix_pos, ptr %7, i64 0, i32 1
-  %163 = load i32, ptr %162, align 4, !tbaa !26
-  %164 = sext i32 %163 to i64
-  %165 = getelementptr inbounds i32, ptr %161, i64 %164
-  %166 = load i32, ptr %165, align 4, !tbaa !5
-  br label %167
+167:                                              ; preds = %165
+  %168 = load ptr, ptr %59, align 8, !tbaa !25
+  %169 = getelementptr inbounds %struct.pix_pos, ptr %8, i64 0, i32 1
+  %170 = load i32, ptr %169, align 4, !tbaa !26
+  %171 = sext i32 %170 to i64
+  %172 = getelementptr inbounds i32, ptr %168, i64 %171
+  %173 = load i32, ptr %172, align 4, !tbaa !5
+  br label %174
 
-167:                                              ; preds = %155, %160
-  %168 = phi i32 [ %166, %160 ], [ 0, %155 ]
-  br i1 %53, label %169, label %176
+174:                                              ; preds = %165, %167
+  %175 = phi i32 [ %173, %167 ], [ 0, %165 ]
+  %176 = load i32, ptr %9, align 4, !tbaa !23
+  %177 = icmp eq i32 %176, 0
+  br i1 %177, label %189, label %178
 
-169:                                              ; preds = %167
-  %170 = load ptr, ptr %61, align 8, !tbaa !25
-  %171 = getelementptr inbounds %struct.pix_pos, ptr %8, i64 0, i32 1
-  %172 = load i32, ptr %171, align 4, !tbaa !26
-  %173 = sext i32 %172 to i64
-  %174 = getelementptr inbounds i32, ptr %170, i64 %173
-  %175 = load i32, ptr %174, align 4, !tbaa !5
-  br label %176
+178:                                              ; preds = %174
+  %179 = load ptr, ptr %59, align 8, !tbaa !25
+  %180 = getelementptr inbounds %struct.pix_pos, ptr %9, i64 0, i32 1
+  %181 = load i32, ptr %180, align 4, !tbaa !26
+  %182 = sext i32 %181 to i64
+  %183 = getelementptr inbounds i32, ptr %179, i64 %182
+  %184 = load i32, ptr %183, align 4, !tbaa !5
+  br label %189
 
-176:                                              ; preds = %167, %169
-  %177 = phi i32 [ %175, %169 ], [ 0, %167 ]
-  %178 = load i32, ptr %9, align 4, !tbaa !23
-  %179 = icmp eq i32 %178, 0
-  br i1 %179, label %191, label %180
+185:                                              ; preds = %5
+  %186 = load i32, ptr %6, align 16, !tbaa !23
+  %187 = load i32, ptr %7, align 4, !tbaa !23
+  %188 = load i32, ptr %9, align 4, !tbaa !23
+  br label %189
 
-180:                                              ; preds = %176
-  %181 = load ptr, ptr %61, align 8, !tbaa !25
-  %182 = getelementptr inbounds %struct.pix_pos, ptr %9, i64 0, i32 1
-  %183 = load i32, ptr %182, align 4, !tbaa !26
-  %184 = sext i32 %183 to i64
-  %185 = getelementptr inbounds i32, ptr %181, i64 %184
-  %186 = load i32, ptr %185, align 4, !tbaa !5
-  br label %191
+189:                                              ; preds = %178, %174, %185
+  %190 = phi i32 [ %187, %185 ], [ %166, %174 ], [ %166, %178 ]
+  %191 = phi i32 [ %186, %185 ], [ %155, %174 ], [ %155, %178 ]
+  %192 = phi i32 [ %188, %185 ], [ 0, %174 ], [ %184, %178 ]
+  %193 = phi i32 [ %52, %185 ], [ %175, %174 ], [ %175, %178 ]
+  store i32 %191, ptr %2, align 4, !tbaa !5
+  store i32 %190, ptr %3, align 4, !tbaa !5
+  %194 = icmp ne i32 %190, 0
+  %195 = icmp ne i32 %191, 0
+  %196 = select i1 %194, i1 %195, i1 false
+  br i1 %196, label %197, label %200
 
-187:                                              ; preds = %52
-  %188 = load i32, ptr %6, align 16, !tbaa !23
-  %189 = load i32, ptr %7, align 4, !tbaa !23
-  %190 = load i32, ptr %9, align 4, !tbaa !23
-  br label %191
+197:                                              ; preds = %189
+  %198 = icmp ne i32 %192, 0
+  %199 = zext i1 %198 to i32
+  store i32 %199, ptr %4, align 4, !tbaa !5
+  br label %201
 
-191:                                              ; preds = %180, %176, %187
-  %192 = phi i32 [ %189, %187 ], [ %168, %176 ], [ %168, %180 ]
-  %193 = phi i32 [ %188, %187 ], [ %157, %176 ], [ %157, %180 ]
-  %194 = phi i32 [ %190, %187 ], [ 0, %176 ], [ %186, %180 ]
-  %195 = phi i32 [ %54, %187 ], [ %177, %176 ], [ %177, %180 ]
-  store i32 %193, ptr %2, align 4, !tbaa !5
-  store i32 %192, ptr %3, align 4, !tbaa !5
-  %196 = icmp ne i32 %192, 0
-  %197 = icmp ne i32 %193, 0
-  %198 = select i1 %196, i1 %197, i1 false
-  %199 = icmp ne i32 %194, 0
-  %200 = select i1 %198, i1 %199, i1 false
-  %201 = zext i1 %200 to i32
-  store i32 %201, ptr %4, align 4, !tbaa !5
-  br i1 %196, label %202, label %227
+200:                                              ; preds = %189
+  store i32 0, ptr %4, align 4, !tbaa !5
+  br i1 %194, label %201, label %226
 
-202:                                              ; preds = %191
-  %203 = getelementptr inbounds %struct.pix_pos, ptr %7, i64 0, i32 5
-  %204 = load i32, ptr %203, align 4, !tbaa !27
-  %205 = sext i32 %204 to i64
-  %206 = getelementptr inbounds ptr, ptr %12, i64 %205
-  %207 = load ptr, ptr %206, align 8, !tbaa !9
-  %208 = getelementptr inbounds %struct.pix_pos, ptr %7, i64 0, i32 4
-  %209 = load i32, ptr %208, align 4, !tbaa !28
-  %210 = sext i32 %209 to i64
-  %211 = getelementptr inbounds i16, ptr %207, i64 %210
-  %212 = getelementptr inbounds i16, ptr %211, i64 1
-  %213 = load i16, ptr %211, align 2, !tbaa !31
-  store i16 %213, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 1), align 2, !tbaa !31
-  %214 = getelementptr inbounds i16, ptr %212, i64 1
-  %215 = load i16, ptr %212, align 2, !tbaa !31
-  store i16 %215, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 2), align 4, !tbaa !31
-  %216 = getelementptr inbounds i16, ptr %214, i64 1
-  %217 = load i16, ptr %214, align 2, !tbaa !31
-  store i16 %217, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 3), align 2, !tbaa !31
-  %218 = getelementptr inbounds i16, ptr %216, i64 1
-  %219 = load i16, ptr %216, align 2, !tbaa !31
-  store i16 %219, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 4), align 8, !tbaa !31
-  %220 = getelementptr inbounds i16, ptr %218, i64 1
-  %221 = load i16, ptr %218, align 2, !tbaa !31
-  store i16 %221, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 5), align 2, !tbaa !31
-  %222 = getelementptr inbounds i16, ptr %220, i64 1
-  %223 = load i16, ptr %220, align 2, !tbaa !31
-  store i16 %223, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 6), align 4, !tbaa !31
-  %224 = getelementptr inbounds i16, ptr %222, i64 1
-  %225 = load i16, ptr %222, align 2, !tbaa !31
-  store i16 %225, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 7), align 2, !tbaa !31
-  %226 = load i16, ptr %224, align 2, !tbaa !31
-  br label %234
+201:                                              ; preds = %197, %200
+  %202 = getelementptr inbounds %struct.pix_pos, ptr %7, i64 0, i32 5
+  %203 = load i32, ptr %202, align 4, !tbaa !27
+  %204 = sext i32 %203 to i64
+  %205 = getelementptr inbounds ptr, ptr %12, i64 %204
+  %206 = load ptr, ptr %205, align 8, !tbaa !9
+  %207 = getelementptr inbounds %struct.pix_pos, ptr %7, i64 0, i32 4
+  %208 = load i32, ptr %207, align 4, !tbaa !28
+  %209 = sext i32 %208 to i64
+  %210 = getelementptr inbounds i16, ptr %206, i64 %209
+  %211 = getelementptr inbounds i16, ptr %210, i64 1
+  %212 = load i16, ptr %210, align 2, !tbaa !31
+  store i16 %212, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 1), align 2, !tbaa !31
+  %213 = getelementptr inbounds i16, ptr %211, i64 1
+  %214 = load i16, ptr %211, align 2, !tbaa !31
+  store i16 %214, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 2), align 4, !tbaa !31
+  %215 = getelementptr inbounds i16, ptr %213, i64 1
+  %216 = load i16, ptr %213, align 2, !tbaa !31
+  store i16 %216, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 3), align 2, !tbaa !31
+  %217 = getelementptr inbounds i16, ptr %215, i64 1
+  %218 = load i16, ptr %215, align 2, !tbaa !31
+  store i16 %218, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 4), align 8, !tbaa !31
+  %219 = getelementptr inbounds i16, ptr %217, i64 1
+  %220 = load i16, ptr %217, align 2, !tbaa !31
+  store i16 %220, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 5), align 2, !tbaa !31
+  %221 = getelementptr inbounds i16, ptr %219, i64 1
+  %222 = load i16, ptr %219, align 2, !tbaa !31
+  store i16 %222, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 6), align 4, !tbaa !31
+  %223 = getelementptr inbounds i16, ptr %221, i64 1
+  %224 = load i16, ptr %221, align 2, !tbaa !31
+  store i16 %224, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 7), align 2, !tbaa !31
+  %225 = load i16, ptr %223, align 2, !tbaa !31
+  store i16 %225, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 8), align 16, !tbaa !31
+  br label %233
 
-227:                                              ; preds = %191
-  %228 = load ptr, ptr @img, align 8, !tbaa !9
-  %229 = getelementptr inbounds %struct.ImageParameters, ptr %228, i64 0, i32 154
-  %230 = load i32, ptr %229, align 8, !tbaa !45
-  %231 = trunc i32 %230 to i16
-  store i16 %231, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 7), align 2, !tbaa !31
-  store i16 %231, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 6), align 4, !tbaa !31
-  store i16 %231, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 5), align 2, !tbaa !31
-  %232 = insertelement <4 x i16> poison, i16 %231, i64 0
-  %233 = shufflevector <4 x i16> %232, <4 x i16> poison, <4 x i32> zeroinitializer
-  store <4 x i16> %233, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 1), align 2, !tbaa !31
-  br label %234
+226:                                              ; preds = %200
+  %227 = load ptr, ptr @img, align 8, !tbaa !9
+  %228 = getelementptr inbounds %struct.ImageParameters, ptr %227, i64 0, i32 154
+  %229 = load i32, ptr %228, align 8, !tbaa !45
+  %230 = trunc i32 %229 to i16
+  %231 = insertelement <8 x i16> poison, i16 %230, i64 0
+  %232 = shufflevector <8 x i16> %231, <8 x i16> poison, <8 x i32> zeroinitializer
+  store <8 x i16> %232, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 1), align 2, !tbaa !31
+  br label %233
 
-234:                                              ; preds = %227, %202
-  %235 = phi i16 [ %226, %202 ], [ %231, %227 ]
-  store i16 %235, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 8), align 16
-  %236 = icmp eq i32 %195, 0
-  br i1 %236, label %262, label %237
+233:                                              ; preds = %226, %201
+  %234 = phi i16 [ %230, %226 ], [ %225, %201 ]
+  %235 = icmp eq i32 %193, 0
+  br i1 %235, label %261, label %236
 
-237:                                              ; preds = %234
-  %238 = getelementptr inbounds %struct.pix_pos, ptr %8, i64 0, i32 5
-  %239 = load i32, ptr %238, align 4, !tbaa !27
-  %240 = sext i32 %239 to i64
-  %241 = getelementptr inbounds ptr, ptr %12, i64 %240
-  %242 = load ptr, ptr %241, align 8, !tbaa !9
-  %243 = getelementptr inbounds %struct.pix_pos, ptr %8, i64 0, i32 4
-  %244 = load i32, ptr %243, align 4, !tbaa !28
-  %245 = sext i32 %244 to i64
-  %246 = getelementptr inbounds i16, ptr %242, i64 %245
-  %247 = getelementptr inbounds i16, ptr %246, i64 1
-  %248 = load i16, ptr %246, align 2, !tbaa !31
-  store i16 %248, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 9), align 2, !tbaa !31
-  %249 = getelementptr inbounds i16, ptr %247, i64 1
-  %250 = load i16, ptr %247, align 2, !tbaa !31
-  store i16 %250, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 10), align 4, !tbaa !31
-  %251 = getelementptr inbounds i16, ptr %249, i64 1
-  %252 = load i16, ptr %249, align 2, !tbaa !31
-  store i16 %252, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 11), align 2, !tbaa !31
-  %253 = getelementptr inbounds i16, ptr %251, i64 1
-  %254 = load i16, ptr %251, align 2, !tbaa !31
-  store i16 %254, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 12), align 8, !tbaa !31
-  %255 = getelementptr inbounds i16, ptr %253, i64 1
-  %256 = load i16, ptr %253, align 2, !tbaa !31
-  store i16 %256, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 13), align 2, !tbaa !31
-  %257 = getelementptr inbounds i16, ptr %255, i64 1
-  %258 = load i16, ptr %255, align 2, !tbaa !31
-  store i16 %258, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 14), align 4, !tbaa !31
-  %259 = getelementptr inbounds i16, ptr %257, i64 1
-  %260 = load i16, ptr %257, align 2, !tbaa !31
-  store i16 %260, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 15), align 2, !tbaa !31
-  %261 = load i16, ptr %259, align 2, !tbaa !31
-  store i16 %261, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 16), align 16, !tbaa !31
-  br label %265
+236:                                              ; preds = %233
+  %237 = getelementptr inbounds %struct.pix_pos, ptr %8, i64 0, i32 5
+  %238 = load i32, ptr %237, align 4, !tbaa !27
+  %239 = sext i32 %238 to i64
+  %240 = getelementptr inbounds ptr, ptr %12, i64 %239
+  %241 = load ptr, ptr %240, align 8, !tbaa !9
+  %242 = getelementptr inbounds %struct.pix_pos, ptr %8, i64 0, i32 4
+  %243 = load i32, ptr %242, align 4, !tbaa !28
+  %244 = sext i32 %243 to i64
+  %245 = getelementptr inbounds i16, ptr %241, i64 %244
+  %246 = getelementptr inbounds i16, ptr %245, i64 1
+  %247 = load i16, ptr %245, align 2, !tbaa !31
+  store i16 %247, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 9), align 2, !tbaa !31
+  %248 = getelementptr inbounds i16, ptr %246, i64 1
+  %249 = load i16, ptr %246, align 2, !tbaa !31
+  store i16 %249, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 10), align 4, !tbaa !31
+  %250 = getelementptr inbounds i16, ptr %248, i64 1
+  %251 = load i16, ptr %248, align 2, !tbaa !31
+  store i16 %251, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 11), align 2, !tbaa !31
+  %252 = getelementptr inbounds i16, ptr %250, i64 1
+  %253 = load i16, ptr %250, align 2, !tbaa !31
+  store i16 %253, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 12), align 8, !tbaa !31
+  %254 = getelementptr inbounds i16, ptr %252, i64 1
+  %255 = load i16, ptr %252, align 2, !tbaa !31
+  store i16 %255, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 13), align 2, !tbaa !31
+  %256 = getelementptr inbounds i16, ptr %254, i64 1
+  %257 = load i16, ptr %254, align 2, !tbaa !31
+  store i16 %257, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 14), align 4, !tbaa !31
+  %258 = getelementptr inbounds i16, ptr %256, i64 1
+  %259 = load i16, ptr %256, align 2, !tbaa !31
+  store i16 %259, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 15), align 2, !tbaa !31
+  %260 = load i16, ptr %258, align 2, !tbaa !31
+  store i16 %260, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 16), align 16, !tbaa !31
+  br label %264
 
-262:                                              ; preds = %234
-  %263 = insertelement <8 x i16> poison, i16 %235, i64 0
-  %264 = shufflevector <8 x i16> %263, <8 x i16> poison, <8 x i32> zeroinitializer
-  store <8 x i16> %264, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 9), align 2, !tbaa !31
-  br label %265
+261:                                              ; preds = %233
+  %262 = insertelement <8 x i16> poison, i16 %234, i64 0
+  %263 = shufflevector <8 x i16> %262, <8 x i16> poison, <8 x i32> zeroinitializer
+  store <8 x i16> %263, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 9), align 2, !tbaa !31
+  br label %264
 
-265:                                              ; preds = %262, %237
-  br i1 %197, label %266, label %347
+264:                                              ; preds = %261, %236
+  br i1 %195, label %265, label %346
 
-266:                                              ; preds = %265
-  %267 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 5
-  %268 = load i32, ptr %267, align 4, !tbaa !27
-  %269 = sext i32 %268 to i64
-  %270 = getelementptr inbounds ptr, ptr %12, i64 %269
-  %271 = load ptr, ptr %270, align 8, !tbaa !9
-  %272 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 4
-  %273 = load i32, ptr %272, align 16, !tbaa !28
-  %274 = sext i32 %273 to i64
-  %275 = getelementptr inbounds i16, ptr %271, i64 %274
-  %276 = load i16, ptr %275, align 2, !tbaa !31
-  store i16 %276, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 17), align 2, !tbaa !31
-  %277 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 1, i32 5
-  %278 = load i32, ptr %277, align 4, !tbaa !27
-  %279 = sext i32 %278 to i64
-  %280 = getelementptr inbounds ptr, ptr %12, i64 %279
-  %281 = load ptr, ptr %280, align 8, !tbaa !9
-  %282 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 1, i32 4
-  %283 = load i32, ptr %282, align 8, !tbaa !28
-  %284 = sext i32 %283 to i64
-  %285 = getelementptr inbounds i16, ptr %281, i64 %284
-  %286 = load i16, ptr %285, align 2, !tbaa !31
-  store i16 %286, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 18), align 4, !tbaa !31
-  %287 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 2, i32 5
-  %288 = load i32, ptr %287, align 4, !tbaa !27
-  %289 = sext i32 %288 to i64
-  %290 = getelementptr inbounds ptr, ptr %12, i64 %289
-  %291 = load ptr, ptr %290, align 8, !tbaa !9
-  %292 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 2, i32 4
-  %293 = load i32, ptr %292, align 16, !tbaa !28
-  %294 = sext i32 %293 to i64
-  %295 = getelementptr inbounds i16, ptr %291, i64 %294
-  %296 = load i16, ptr %295, align 2, !tbaa !31
-  store i16 %296, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 19), align 2, !tbaa !31
-  %297 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 3, i32 5
-  %298 = load i32, ptr %297, align 4, !tbaa !27
-  %299 = sext i32 %298 to i64
-  %300 = getelementptr inbounds ptr, ptr %12, i64 %299
-  %301 = load ptr, ptr %300, align 8, !tbaa !9
-  %302 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 3, i32 4
-  %303 = load i32, ptr %302, align 8, !tbaa !28
-  %304 = sext i32 %303 to i64
-  %305 = getelementptr inbounds i16, ptr %301, i64 %304
-  %306 = load i16, ptr %305, align 2, !tbaa !31
-  store i16 %306, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 20), align 8, !tbaa !31
-  %307 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 4, i32 5
-  %308 = load i32, ptr %307, align 4, !tbaa !27
-  %309 = sext i32 %308 to i64
-  %310 = getelementptr inbounds ptr, ptr %12, i64 %309
-  %311 = load ptr, ptr %310, align 8, !tbaa !9
-  %312 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 4, i32 4
-  %313 = load i32, ptr %312, align 16, !tbaa !28
-  %314 = sext i32 %313 to i64
-  %315 = getelementptr inbounds i16, ptr %311, i64 %314
-  %316 = load i16, ptr %315, align 2, !tbaa !31
-  store i16 %316, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 21), align 2, !tbaa !31
-  %317 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 5, i32 5
-  %318 = load i32, ptr %317, align 4, !tbaa !27
-  %319 = sext i32 %318 to i64
-  %320 = getelementptr inbounds ptr, ptr %12, i64 %319
-  %321 = load ptr, ptr %320, align 8, !tbaa !9
-  %322 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 5, i32 4
-  %323 = load i32, ptr %322, align 8, !tbaa !28
-  %324 = sext i32 %323 to i64
-  %325 = getelementptr inbounds i16, ptr %321, i64 %324
-  %326 = load i16, ptr %325, align 2, !tbaa !31
-  store i16 %326, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 22), align 4, !tbaa !31
-  %327 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 6, i32 5
-  %328 = load i32, ptr %327, align 4, !tbaa !27
-  %329 = sext i32 %328 to i64
-  %330 = getelementptr inbounds ptr, ptr %12, i64 %329
-  %331 = load ptr, ptr %330, align 8, !tbaa !9
-  %332 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 6, i32 4
-  %333 = load i32, ptr %332, align 16, !tbaa !28
-  %334 = sext i32 %333 to i64
-  %335 = getelementptr inbounds i16, ptr %331, i64 %334
-  %336 = load i16, ptr %335, align 2, !tbaa !31
-  store i16 %336, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 23), align 2, !tbaa !31
-  %337 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 7, i32 5
-  %338 = load i32, ptr %337, align 4, !tbaa !27
-  %339 = sext i32 %338 to i64
-  %340 = getelementptr inbounds ptr, ptr %12, i64 %339
-  %341 = load ptr, ptr %340, align 8, !tbaa !9
-  %342 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 7, i32 4
-  %343 = load i32, ptr %342, align 8, !tbaa !28
-  %344 = sext i32 %343 to i64
-  %345 = getelementptr inbounds i16, ptr %341, i64 %344
-  %346 = load i16, ptr %345, align 2, !tbaa !31
-  br label %354
+265:                                              ; preds = %264
+  %266 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 5
+  %267 = load i32, ptr %266, align 4, !tbaa !27
+  %268 = sext i32 %267 to i64
+  %269 = getelementptr inbounds ptr, ptr %12, i64 %268
+  %270 = load ptr, ptr %269, align 8, !tbaa !9
+  %271 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 4
+  %272 = load i32, ptr %271, align 16, !tbaa !28
+  %273 = sext i32 %272 to i64
+  %274 = getelementptr inbounds i16, ptr %270, i64 %273
+  %275 = load i16, ptr %274, align 2, !tbaa !31
+  store i16 %275, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 17), align 2, !tbaa !31
+  %276 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 1, i32 5
+  %277 = load i32, ptr %276, align 4, !tbaa !27
+  %278 = sext i32 %277 to i64
+  %279 = getelementptr inbounds ptr, ptr %12, i64 %278
+  %280 = load ptr, ptr %279, align 8, !tbaa !9
+  %281 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 1, i32 4
+  %282 = load i32, ptr %281, align 8, !tbaa !28
+  %283 = sext i32 %282 to i64
+  %284 = getelementptr inbounds i16, ptr %280, i64 %283
+  %285 = load i16, ptr %284, align 2, !tbaa !31
+  store i16 %285, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 18), align 4, !tbaa !31
+  %286 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 2, i32 5
+  %287 = load i32, ptr %286, align 4, !tbaa !27
+  %288 = sext i32 %287 to i64
+  %289 = getelementptr inbounds ptr, ptr %12, i64 %288
+  %290 = load ptr, ptr %289, align 8, !tbaa !9
+  %291 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 2, i32 4
+  %292 = load i32, ptr %291, align 16, !tbaa !28
+  %293 = sext i32 %292 to i64
+  %294 = getelementptr inbounds i16, ptr %290, i64 %293
+  %295 = load i16, ptr %294, align 2, !tbaa !31
+  store i16 %295, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 19), align 2, !tbaa !31
+  %296 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 3, i32 5
+  %297 = load i32, ptr %296, align 4, !tbaa !27
+  %298 = sext i32 %297 to i64
+  %299 = getelementptr inbounds ptr, ptr %12, i64 %298
+  %300 = load ptr, ptr %299, align 8, !tbaa !9
+  %301 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 3, i32 4
+  %302 = load i32, ptr %301, align 8, !tbaa !28
+  %303 = sext i32 %302 to i64
+  %304 = getelementptr inbounds i16, ptr %300, i64 %303
+  %305 = load i16, ptr %304, align 2, !tbaa !31
+  store i16 %305, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 20), align 8, !tbaa !31
+  %306 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 4, i32 5
+  %307 = load i32, ptr %306, align 4, !tbaa !27
+  %308 = sext i32 %307 to i64
+  %309 = getelementptr inbounds ptr, ptr %12, i64 %308
+  %310 = load ptr, ptr %309, align 8, !tbaa !9
+  %311 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 4, i32 4
+  %312 = load i32, ptr %311, align 16, !tbaa !28
+  %313 = sext i32 %312 to i64
+  %314 = getelementptr inbounds i16, ptr %310, i64 %313
+  %315 = load i16, ptr %314, align 2, !tbaa !31
+  store i16 %315, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 21), align 2, !tbaa !31
+  %316 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 5, i32 5
+  %317 = load i32, ptr %316, align 4, !tbaa !27
+  %318 = sext i32 %317 to i64
+  %319 = getelementptr inbounds ptr, ptr %12, i64 %318
+  %320 = load ptr, ptr %319, align 8, !tbaa !9
+  %321 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 5, i32 4
+  %322 = load i32, ptr %321, align 8, !tbaa !28
+  %323 = sext i32 %322 to i64
+  %324 = getelementptr inbounds i16, ptr %320, i64 %323
+  %325 = load i16, ptr %324, align 2, !tbaa !31
+  store i16 %325, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 22), align 4, !tbaa !31
+  %326 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 6, i32 5
+  %327 = load i32, ptr %326, align 4, !tbaa !27
+  %328 = sext i32 %327 to i64
+  %329 = getelementptr inbounds ptr, ptr %12, i64 %328
+  %330 = load ptr, ptr %329, align 8, !tbaa !9
+  %331 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 6, i32 4
+  %332 = load i32, ptr %331, align 16, !tbaa !28
+  %333 = sext i32 %332 to i64
+  %334 = getelementptr inbounds i16, ptr %330, i64 %333
+  %335 = load i16, ptr %334, align 2, !tbaa !31
+  store i16 %335, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 23), align 2, !tbaa !31
+  %336 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 7, i32 5
+  %337 = load i32, ptr %336, align 4, !tbaa !27
+  %338 = sext i32 %337 to i64
+  %339 = getelementptr inbounds ptr, ptr %12, i64 %338
+  %340 = load ptr, ptr %339, align 8, !tbaa !9
+  %341 = getelementptr inbounds [8 x %struct.pix_pos], ptr %6, i64 0, i64 7, i32 4
+  %342 = load i32, ptr %341, align 8, !tbaa !28
+  %343 = sext i32 %342 to i64
+  %344 = getelementptr inbounds i16, ptr %340, i64 %343
+  %345 = load i16, ptr %344, align 2, !tbaa !31
+  br label %353
 
-347:                                              ; preds = %265
-  %348 = load ptr, ptr @img, align 8, !tbaa !9
-  %349 = getelementptr inbounds %struct.ImageParameters, ptr %348, i64 0, i32 154
-  %350 = load i32, ptr %349, align 8, !tbaa !45
-  %351 = trunc i32 %350 to i16
-  store i16 %351, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 23), align 2, !tbaa !31
-  store i16 %351, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 22), align 4, !tbaa !31
-  store i16 %351, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 21), align 2, !tbaa !31
-  %352 = insertelement <4 x i16> poison, i16 %351, i64 0
-  %353 = shufflevector <4 x i16> %352, <4 x i16> poison, <4 x i32> zeroinitializer
-  store <4 x i16> %353, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 17), align 2, !tbaa !31
-  br label %354
+346:                                              ; preds = %264
+  %347 = load ptr, ptr @img, align 8, !tbaa !9
+  %348 = getelementptr inbounds %struct.ImageParameters, ptr %347, i64 0, i32 154
+  %349 = load i32, ptr %348, align 8, !tbaa !45
+  %350 = trunc i32 %349 to i16
+  store i16 %350, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 23), align 2, !tbaa !31
+  store i16 %350, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 22), align 4, !tbaa !31
+  store i16 %350, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 21), align 2, !tbaa !31
+  %351 = insertelement <4 x i16> poison, i16 %350, i64 0
+  %352 = shufflevector <4 x i16> %351, <4 x i16> poison, <4 x i32> zeroinitializer
+  store <4 x i16> %352, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 17), align 2, !tbaa !31
+  br label %353
 
-354:                                              ; preds = %347, %266
-  %355 = phi i16 [ %346, %266 ], [ %351, %347 ]
-  store i16 %355, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 24), align 16
-  br i1 %199, label %356, label %368
+353:                                              ; preds = %346, %265
+  %354 = phi i16 [ %345, %265 ], [ %350, %346 ]
+  store i16 %354, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 24), align 16
+  %355 = icmp ne i32 %192, 0
+  br i1 %355, label %356, label %368
 
-356:                                              ; preds = %354
+356:                                              ; preds = %353
   %357 = getelementptr inbounds %struct.pix_pos, ptr %9, i64 0, i32 5
   %358 = load i32, ptr %357, align 4, !tbaa !27
   %359 = sext i32 %358 to i64
@@ -2143,7 +2139,7 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   %367 = load ptr, ptr @img, align 8, !tbaa !9
   br label %373
 
-368:                                              ; preds = %354
+368:                                              ; preds = %353
   %369 = load ptr, ptr @img, align 8, !tbaa !9
   %370 = getelementptr inbounds %struct.ImageParameters, ptr %369, i64 0, i32 154
   %371 = load i32, ptr %370, align 8, !tbaa !45
@@ -2172,8 +2168,8 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   store i16 -1, ptr %383, align 8, !tbaa !31
   %384 = getelementptr inbounds %struct.ImageParameters, ptr %374, i64 0, i32 49, i64 8
   store i16 -1, ptr %384, align 8, !tbaa !31
-  call void @LowPassForIntra8x8Pred(ptr noundef nonnull @intrapred_luma8x8.PredPel, i32 noundef %194, i32 noundef %192, i32 noundef %193)
-  br i1 %198, label %385, label %393
+  call void @LowPassForIntra8x8Pred(ptr noundef nonnull @intrapred_luma8x8.PredPel, i32 noundef %192, i32 noundef %190, i32 noundef %191)
+  br i1 %196, label %385, label %393
 
 385:                                              ; preds = %373
   %386 = load <8 x i16>, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 1), align 2, !tbaa !31
@@ -2186,8 +2182,8 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   br label %413
 
 393:                                              ; preds = %373
-  %394 = icmp eq i32 %192, 0
-  %395 = select i1 %394, i1 %197, i1 false
+  %394 = icmp eq i32 %190, 0
+  %395 = select i1 %394, i1 %195, i1 false
   br i1 %395, label %396, label %402
 
 396:                                              ; preds = %393
@@ -2199,7 +2195,7 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   br label %413
 
 402:                                              ; preds = %393
-  %403 = select i1 %394, i1 true, i1 %197
+  %403 = select i1 %394, i1 true, i1 %195
   br i1 %403, label %410, label %404
 
 404:                                              ; preds = %402
@@ -2251,7 +2247,7 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   store <8 x i16> %432, ptr %430, align 2, !tbaa !31
   store <8 x i16> %432, ptr %431, align 2, !tbaa !31
   store <8 x i16> %432, ptr %376, align 2, !tbaa !31
-  br i1 %196, label %434, label %433
+  br i1 %194, label %434, label %433
 
 433:                                              ; preds = %413
   store i16 -1, ptr %376, align 2, !tbaa !31
@@ -2296,14 +2292,14 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   %463 = insertelement <8 x i16> poison, i16 %461, i64 0
   %464 = shufflevector <8 x i16> %463, <8 x i16> poison, <8 x i32> zeroinitializer
   store <8 x i16> %464, ptr %462, align 2, !tbaa !31
-  br i1 %197, label %466, label %465
+  br i1 %195, label %466, label %465
 
 465:                                              ; preds = %434
   store i16 -1, ptr %377, align 2, !tbaa !31
   br label %466
 
 466:                                              ; preds = %465, %434
-  br i1 %196, label %467, label %793
+  br i1 %194, label %467, label %793
 
 467:                                              ; preds = %466
   %468 = load i16, ptr getelementptr inbounds ([25 x i16], ptr @intrapred_luma8x8.PredPel, i64 0, i64 1), align 2, !tbaa !31
@@ -2762,7 +2758,7 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   br label %793
 
 793:                                              ; preds = %467, %466
-  %794 = and i1 %198, %199
+  %794 = and i1 %196, %355
   br i1 %794, label %795, label %1270
 
 795:                                              ; preds = %793
@@ -3431,7 +3427,7 @@ define dso_local void @intrapred_luma8x8(i32 noundef %0, i32 noundef %1, ptr noc
   br label %1271
 
 1270:                                             ; preds = %793
-  br i1 %197, label %1271, label %1410
+  br i1 %195, label %1271, label %1410
 
 1271:                                             ; preds = %795, %1270
   %1272 = load ptr, ptr @img, align 8, !tbaa !9
@@ -5210,7 +5206,7 @@ define dso_local void @LowPassForIntra8x8Pred(ptr nocapture noundef %0, i32 noun
   %107 = phi <8 x i16> [ %80, %48 ], [ %27, %4 ]
   %108 = phi <4 x i16> [ %92, %48 ], [ %30, %4 ]
   %109 = icmp eq i32 %1, 0
-  br i1 %109, label %138, label %110
+  br i1 %109, label %149, label %110
 
 110:                                              ; preds = %102
   %111 = icmp ne i32 %3, 0
@@ -5233,7 +5229,7 @@ define dso_local void @LowPassForIntra8x8Pred(ptr nocapture noundef %0, i32 noun
   br label %154
 
 126:                                              ; preds = %110
-  br i1 %24, label %140, label %127
+  br i1 %24, label %138, label %127
 
 127:                                              ; preds = %126
   br i1 %111, label %128, label %219
@@ -5250,32 +5246,32 @@ define dso_local void @LowPassForIntra8x8Pred(ptr nocapture noundef %0, i32 noun
   %137 = trunc i32 %136 to i16
   br label %154
 
-138:                                              ; preds = %102
-  %139 = icmp eq i32 %3, 0
-  br i1 %139, label %219, label %165
+138:                                              ; preds = %126
+  %139 = load i16, ptr %0, align 2, !tbaa !31
+  %140 = zext i16 %139 to i32
+  %141 = mul nuw nsw i32 %140, 3
+  %142 = load i16, ptr %6, align 2, !tbaa !31
+  %143 = zext i16 %142 to i32
+  %144 = add nuw nsw i32 %143, 2
+  %145 = add nuw nsw i32 %144, %141
+  %146 = lshr i32 %145, 2
+  %147 = trunc i32 %146 to i16
+  %148 = icmp eq i32 %3, 0
+  br i1 %148, label %219, label %151
 
-140:                                              ; preds = %126
-  %141 = load i16, ptr %0, align 2, !tbaa !31
-  %142 = zext i16 %141 to i32
-  %143 = mul nuw nsw i32 %142, 3
-  %144 = load i16, ptr %6, align 2, !tbaa !31
-  %145 = zext i16 %144 to i32
-  %146 = add nuw nsw i32 %145, 2
-  %147 = add nuw nsw i32 %146, %143
-  %148 = lshr i32 %147, 2
-  %149 = trunc i32 %148 to i16
+149:                                              ; preds = %102
   %150 = icmp eq i32 %3, 0
-  br i1 %150, label %219, label %151
+  br i1 %150, label %219, label %165
 
-151:                                              ; preds = %140
+151:                                              ; preds = %138
   %152 = load i16, ptr %18, align 2, !tbaa !31
   %153 = zext i16 %152 to i32
   br label %154
 
 154:                                              ; preds = %151, %113, %128
   %155 = phi i32 [ %153, %151 ], [ %115, %113 ], [ %133, %128 ]
-  %156 = phi i32 [ %142, %151 ], [ %117, %113 ], [ %130, %128 ]
-  %157 = phi i16 [ %149, %151 ], [ %125, %113 ], [ %137, %128 ]
+  %156 = phi i32 [ %140, %151 ], [ %117, %113 ], [ %130, %128 ]
+  %157 = phi i16 [ %147, %151 ], [ %125, %113 ], [ %137, %128 ]
   %158 = shl nuw nsw i32 %155, 1
   %159 = load i16, ptr %19, align 2, !tbaa !31
   %160 = zext i16 %159 to i32
@@ -5285,7 +5281,7 @@ define dso_local void @LowPassForIntra8x8Pred(ptr nocapture noundef %0, i32 noun
   %164 = add nuw nsw i32 %160, 2
   br label %173
 
-165:                                              ; preds = %138
+165:                                              ; preds = %149
   %166 = load i16, ptr %18, align 2, !tbaa !31
   %167 = zext i16 %166 to i32
   %168 = mul nuw nsw i32 %167, 3
@@ -5343,9 +5339,9 @@ define dso_local void @LowPassForIntra8x8Pred(ptr nocapture noundef %0, i32 noun
   %218 = trunc <8 x i32> %217 to <8 x i16>
   br label %219
 
-219:                                              ; preds = %127, %140, %173, %138
-  %220 = phi i16 [ %5, %138 ], [ %178, %173 ], [ %149, %140 ], [ %5, %127 ]
-  %221 = phi <8 x i16> [ %23, %138 ], [ %218, %173 ], [ %23, %140 ], [ %23, %127 ]
+219:                                              ; preds = %127, %149, %173, %138
+  %220 = phi i16 [ %5, %149 ], [ %178, %173 ], [ %147, %138 ], [ %5, %127 ]
+  %221 = phi <8 x i16> [ %23, %149 ], [ %218, %173 ], [ %23, %138 ], [ %23, %127 ]
   %222 = getelementptr inbounds i8, ptr %0, i64 24
   %223 = getelementptr inbounds i8, ptr %0, i64 8
   store i16 %220, ptr %0, align 2
@@ -5364,16 +5360,16 @@ declare i32 @writeCoeff4x4_CAVLC(i32 noundef, i32 noundef, i32 noundef, i32 noun
 declare i32 @writeLumaCoeff8x8_CABAC(i32 noundef, i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #8
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i8 @llvm.smin.i8(i8, i8) #8
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #8
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i8 @llvm.umin.i8(i8, i8) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v16i32(<16 x i32>) #8

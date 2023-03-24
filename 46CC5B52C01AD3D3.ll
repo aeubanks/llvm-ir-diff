@@ -238,7 +238,7 @@ define internal i32 @ljForce(ptr nocapture noundef %0) #3 {
   br i1 %124, label %132, label %128
 
 128:                                              ; preds = %211, %120, %111
-  %129 = phi double [ %113, %111 ], [ %113, %120 ], [ %207, %211 ]
+  %129 = phi double [ %113, %111 ], [ %113, %120 ], [ %189, %211 ]
   %130 = add nuw nsw i64 %112, 1
   %131 = icmp eq i64 %130, %110
   br i1 %131, label %215, label %111
@@ -252,97 +252,95 @@ define internal i32 @ljForce(ptr nocapture noundef %0) #3 {
 
 137:                                              ; preds = %211, %132
   %138 = phi i64 [ %212, %211 ], [ %91, %132 ]
-  %139 = phi double [ %207, %211 ], [ %113, %132 ]
+  %139 = phi double [ %189, %211 ], [ %113, %132 ]
   %140 = getelementptr inbounds i32, ptr %123, i64 %138
   %141 = load i32, ptr %140, align 4, !tbaa !33
   br label %142
 
-142:                                              ; preds = %206, %137
-  %143 = phi i64 [ %209, %206 ], [ %136, %137 ]
-  %144 = phi double [ %207, %206 ], [ %139, %137 ]
-  %145 = phi i32 [ %208, %206 ], [ 0, %137 ]
-  br i1 %135, label %146, label %150
+142:                                              ; preds = %188, %137
+  %143 = phi i64 [ %191, %188 ], [ %136, %137 ]
+  %144 = phi double [ %189, %188 ], [ %139, %137 ]
+  %145 = phi i32 [ %190, %188 ], [ 0, %137 ]
+  %146 = getelementptr inbounds i32, ptr %123, i64 %143
+  %147 = load i32, ptr %146, align 4, !tbaa !33
+  %148 = icmp sle i32 %147, %141
+  %149 = select i1 %135, i1 %148, i1 false
+  br i1 %149, label %188, label %193
 
-146:                                              ; preds = %142
-  %147 = getelementptr inbounds i32, ptr %123, i64 %143
-  %148 = load i32, ptr %147, align 4, !tbaa !33
-  %149 = icmp sgt i32 %148, %141
-  br i1 %149, label %150, label %206
-
-150:                                              ; preds = %146, %142
-  %151 = load ptr, ptr %125, align 8, !tbaa !35
-  %152 = getelementptr inbounds [3 x double], ptr %151, i64 %138, i64 0
-  %153 = getelementptr inbounds [3 x double], ptr %151, i64 %143, i64 0
-  %154 = load <2 x double>, ptr %152, align 8, !tbaa !15
-  %155 = load <2 x double>, ptr %153, align 8, !tbaa !15
-  %156 = fsub <2 x double> %154, %155
-  %157 = extractelement <2 x double> %156, i64 0
-  %158 = call double @llvm.fmuladd.f64(double %157, double %157, double 0.000000e+00)
-  %159 = extractelement <2 x double> %156, i64 1
-  %160 = call double @llvm.fmuladd.f64(double %159, double %159, double %158)
-  %161 = getelementptr inbounds [3 x double], ptr %151, i64 %138, i64 2
+150:                                              ; preds = %193
+  %151 = fdiv double 1.000000e+00, %209
+  %152 = fmul double %151, %151
+  %153 = fmul double %151, %152
+  %154 = fmul double %47, %153
+  %155 = fadd double %154, -1.000000e+00
+  %156 = call double @llvm.fmuladd.f64(double %154, double %155, double %58)
+  %157 = load ptr, ptr %126, align 8, !tbaa !30
+  %158 = getelementptr inbounds double, ptr %157, i64 %138
+  %159 = load double, ptr %158, align 8, !tbaa !15
+  %160 = call double @llvm.fmuladd.f64(double %156, double 5.000000e-01, double %159)
+  store double %160, ptr %158, align 8, !tbaa !15
+  %161 = getelementptr inbounds double, ptr %157, i64 %143
   %162 = load double, ptr %161, align 8, !tbaa !15
-  %163 = getelementptr inbounds [3 x double], ptr %151, i64 %143, i64 2
-  %164 = load double, ptr %163, align 8, !tbaa !15
-  %165 = fsub double %162, %164
-  %166 = call double @llvm.fmuladd.f64(double %165, double %165, double %160)
-  %167 = fcmp ogt double %166, %10
-  br i1 %167, label %206, label %168
-
-168:                                              ; preds = %150
-  %169 = fdiv double 1.000000e+00, %166
-  %170 = fmul double %169, %169
-  %171 = fmul double %169, %170
-  %172 = fmul double %47, %171
-  %173 = fadd double %172, -1.000000e+00
-  %174 = call double @llvm.fmuladd.f64(double %172, double %173, double %58)
-  %175 = load ptr, ptr %126, align 8, !tbaa !30
-  %176 = getelementptr inbounds double, ptr %175, i64 %138
-  %177 = load double, ptr %176, align 8, !tbaa !15
-  %178 = call double @llvm.fmuladd.f64(double %174, double 5.000000e-01, double %177)
-  store double %178, ptr %176, align 8, !tbaa !15
-  %179 = getelementptr inbounds double, ptr %175, i64 %143
+  %163 = call double @llvm.fmuladd.f64(double %156, double 5.000000e-01, double %162)
+  store double %163, ptr %161, align 8, !tbaa !15
+  %164 = call double @llvm.fmuladd.f64(double %156, double 5.000000e-01, double %144)
+  %165 = fmul double %59, %154
+  %166 = fmul double %151, %165
+  %167 = call double @llvm.fmuladd.f64(double %154, double 1.200000e+01, double -6.000000e+00)
+  %168 = fmul double %167, %166
+  %169 = load ptr, ptr %127, align 8, !tbaa !28
+  %170 = getelementptr inbounds [3 x double], ptr %169, i64 %138, i64 0
+  %171 = getelementptr inbounds [3 x double], ptr %169, i64 %143, i64 0
+  %172 = load <2 x double>, ptr %170, align 8, !tbaa !15
+  %173 = fneg <2 x double> %199
+  %174 = insertelement <2 x double> poison, double %168, i64 0
+  %175 = shufflevector <2 x double> %174, <2 x double> poison, <2 x i32> zeroinitializer
+  %176 = call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %173, <2 x double> %175, <2 x double> %172)
+  store <2 x double> %176, ptr %170, align 8, !tbaa !15
+  %177 = load <2 x double>, ptr %171, align 8, !tbaa !15
+  %178 = call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %199, <2 x double> %175, <2 x double> %177)
+  store <2 x double> %178, ptr %171, align 8, !tbaa !15
+  %179 = getelementptr inbounds [3 x double], ptr %169, i64 %138, i64 2
   %180 = load double, ptr %179, align 8, !tbaa !15
-  %181 = call double @llvm.fmuladd.f64(double %174, double 5.000000e-01, double %180)
-  store double %181, ptr %179, align 8, !tbaa !15
-  %182 = call double @llvm.fmuladd.f64(double %174, double 5.000000e-01, double %144)
-  %183 = fmul double %59, %172
-  %184 = fmul double %169, %183
-  %185 = call double @llvm.fmuladd.f64(double %172, double 1.200000e+01, double -6.000000e+00)
-  %186 = fmul double %185, %184
-  %187 = load ptr, ptr %127, align 8, !tbaa !28
-  %188 = getelementptr inbounds [3 x double], ptr %187, i64 %138, i64 0
-  %189 = getelementptr inbounds [3 x double], ptr %187, i64 %143, i64 0
-  %190 = load <2 x double>, ptr %188, align 8, !tbaa !15
-  %191 = fneg <2 x double> %156
-  %192 = insertelement <2 x double> poison, double %186, i64 0
-  %193 = shufflevector <2 x double> %192, <2 x double> poison, <2 x i32> zeroinitializer
-  %194 = call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %191, <2 x double> %193, <2 x double> %190)
-  store <2 x double> %194, ptr %188, align 8, !tbaa !15
-  %195 = load <2 x double>, ptr %189, align 8, !tbaa !15
-  %196 = call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %156, <2 x double> %193, <2 x double> %195)
-  store <2 x double> %196, ptr %189, align 8, !tbaa !15
-  %197 = getelementptr inbounds [3 x double], ptr %187, i64 %138, i64 2
-  %198 = load double, ptr %197, align 8, !tbaa !15
-  %199 = fneg double %165
-  %200 = call double @llvm.fmuladd.f64(double %199, double %186, double %198)
-  store double %200, ptr %197, align 8, !tbaa !15
-  %201 = getelementptr inbounds [3 x double], ptr %187, i64 %143, i64 2
-  %202 = load double, ptr %201, align 8, !tbaa !15
-  %203 = call double @llvm.fmuladd.f64(double %165, double %186, double %202)
-  store double %203, ptr %201, align 8, !tbaa !15
-  %204 = fadd double %144, %174
-  %205 = select i1 %135, double %204, double %182
-  br label %206
+  %181 = fneg double %208
+  %182 = call double @llvm.fmuladd.f64(double %181, double %168, double %180)
+  store double %182, ptr %179, align 8, !tbaa !15
+  %183 = getelementptr inbounds [3 x double], ptr %169, i64 %143, i64 2
+  %184 = load double, ptr %183, align 8, !tbaa !15
+  %185 = call double @llvm.fmuladd.f64(double %208, double %168, double %184)
+  store double %185, ptr %183, align 8, !tbaa !15
+  %186 = fadd double %144, %156
+  %187 = select i1 %135, double %186, double %164
+  br label %188
 
-206:                                              ; preds = %168, %150, %146
-  %207 = phi double [ %144, %146 ], [ %144, %150 ], [ %205, %168 ]
-  %208 = add nuw nsw i32 %145, 1
-  %209 = add nsw i64 %143, 1
-  %210 = icmp eq i32 %208, %118
-  br i1 %210, label %211, label %142
+188:                                              ; preds = %150, %193, %142
+  %189 = phi double [ %144, %193 ], [ %144, %142 ], [ %187, %150 ]
+  %190 = add nuw nsw i32 %145, 1
+  %191 = add nsw i64 %143, 1
+  %192 = icmp eq i32 %190, %118
+  br i1 %192, label %211, label %142
 
-211:                                              ; preds = %206
+193:                                              ; preds = %142
+  %194 = load ptr, ptr %125, align 8, !tbaa !35
+  %195 = getelementptr inbounds [3 x double], ptr %194, i64 %138, i64 0
+  %196 = getelementptr inbounds [3 x double], ptr %194, i64 %143, i64 0
+  %197 = load <2 x double>, ptr %195, align 8, !tbaa !15
+  %198 = load <2 x double>, ptr %196, align 8, !tbaa !15
+  %199 = fsub <2 x double> %197, %198
+  %200 = extractelement <2 x double> %199, i64 0
+  %201 = call double @llvm.fmuladd.f64(double %200, double %200, double 0.000000e+00)
+  %202 = extractelement <2 x double> %199, i64 1
+  %203 = call double @llvm.fmuladd.f64(double %202, double %202, double %201)
+  %204 = getelementptr inbounds [3 x double], ptr %194, i64 %138, i64 2
+  %205 = load double, ptr %204, align 8, !tbaa !15
+  %206 = getelementptr inbounds [3 x double], ptr %194, i64 %143, i64 2
+  %207 = load double, ptr %206, align 8, !tbaa !15
+  %208 = fsub double %205, %207
+  %209 = call double @llvm.fmuladd.f64(double %208, double %208, double %203)
+  %210 = fcmp ogt double %209, %10
+  br i1 %210, label %188, label %150
+
+211:                                              ; preds = %188
   %212 = add nuw nsw i64 %138, 1
   %213 = trunc i64 %212 to i32
   %214 = icmp eq i32 %109, %213
@@ -402,20 +400,20 @@ declare i32 @getNeighborBoxes(ptr noundef, i32 noundef, ptr noundef) local_unnam
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.fmuladd.f64(double, double, double) #9
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #13
+declare i32 @llvm.smax.i32(i32, i32) #12
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #13
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #12
 
 attributes #0 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -427,10 +425,10 @@ attributes #6 = { mustprogress nofree nounwind willreturn allockind("alloc,unini
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nofree nounwind }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind allocsize(0) }
 

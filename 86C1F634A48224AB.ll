@@ -239,85 +239,88 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
 97:                                               ; preds = %95, %92
   %98 = phi i32 [ %85, %95 ], [ %89, %92 ]
   %99 = icmp sgt i32 %93, 0
-  br i1 %99, label %100, label %108
+  br i1 %99, label %100, label %110
 
 100:                                              ; preds = %97
   %101 = icmp slt i32 %74, 0
-  %102 = zext i32 %75 to i64
-  %103 = tail call i32 @llvm.smin.i32(i32 %75, i32 1)
-  %104 = add i32 %103, -1
-  %105 = zext i32 %93 to i64
+  %102 = icmp sgt i32 %74, 0
+  %103 = zext i32 %74 to i64
+  %104 = zext i32 %93 to i64
+  %105 = zext i32 %75 to i64
   br label %106
 
 106:                                              ; preds = %100, %141
   %107 = phi i64 [ 0, %100 ], [ %144, %141 ]
-  br i1 %101, label %126, label %116
+  br i1 %101, label %108, label %118
 
-108:                                              ; preds = %141, %97
-  %109 = icmp sgt i32 %98, 0
-  br i1 %109, label %110, label %148
-
-110:                                              ; preds = %108
-  %111 = icmp eq i32 %85, 0
-  %112 = tail call i32 @llvm.smin.i32(i32 %77, i32 1)
-  %113 = add nsw i32 %112, -1
-  %114 = zext i32 %98 to i64
-  %115 = zext i32 %77 to i64
-  br label %146
-
-116:                                              ; preds = %106, %121
-  %117 = phi i64 [ %122, %121 ], [ 0, %106 ]
-  %118 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_l, i64 0, i64 %107, i64 %117
-  %119 = load double, ptr %118, align 8, !tbaa !22
-  %120 = fcmp une double %119, 0.000000e+00
-  br i1 %120, label %124, label %121
-
-121:                                              ; preds = %116
-  %122 = add nuw nsw i64 %117, 1
-  %123 = icmp eq i64 %122, %102
-  br i1 %123, label %126, label %116, !llvm.loop !26
-
-124:                                              ; preds = %116
-  %125 = trunc i64 %117 to i32
-  br label %126
-
-126:                                              ; preds = %121, %124, %106
-  %127 = phi i32 [ 0, %106 ], [ %125, %124 ], [ %75, %121 ]
-  %128 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind, i64 0, i64 %107
-  store i32 %127, ptr %128, align 8, !tbaa !13
-  br label %129
-
-129:                                              ; preds = %133, %126
-  %130 = phi i64 [ %134, %133 ], [ %102, %126 ]
-  %131 = trunc i64 %130 to i32
-  %132 = icmp sgt i32 %131, 1
-  br i1 %132, label %133, label %141
-
-133:                                              ; preds = %129
-  %134 = add nsw i64 %130, -1
-  %135 = and i64 %134, 4294967295
-  %136 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_l, i64 0, i64 %107, i64 %135
-  %137 = load double, ptr %136, align 8, !tbaa !22
-  %138 = fcmp une double %137, 0.000000e+00
-  br i1 %138, label %139, label %129, !llvm.loop !27
-
-139:                                              ; preds = %133
-  %140 = trunc i64 %134 to i32
+108:                                              ; preds = %106
+  %109 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind, i64 0, i64 %107
+  store i32 0, ptr %109, align 8, !tbaa !13
   br label %141
 
-141:                                              ; preds = %129, %139
-  %142 = phi i32 [ %140, %139 ], [ %104, %129 ]
+110:                                              ; preds = %141, %97
+  %111 = icmp sgt i32 %98, 0
+  br i1 %111, label %112, label %148
+
+112:                                              ; preds = %110
+  %113 = icmp eq i32 %85, 0
+  %114 = tail call i32 @llvm.smin.i32(i32 %77, i32 1)
+  %115 = add nsw i32 %114, -1
+  %116 = zext i32 %98 to i64
+  %117 = zext i32 %77 to i64
+  br label %146
+
+118:                                              ; preds = %106, %123
+  %119 = phi i64 [ %124, %123 ], [ 0, %106 ]
+  %120 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_l, i64 0, i64 %107, i64 %119
+  %121 = load double, ptr %120, align 8, !tbaa !22
+  %122 = fcmp une double %121, 0.000000e+00
+  br i1 %122, label %126, label %123
+
+123:                                              ; preds = %118
+  %124 = add nuw nsw i64 %119, 1
+  %125 = icmp eq i64 %124, %105
+  br i1 %125, label %128, label %118, !llvm.loop !26
+
+126:                                              ; preds = %118
+  %127 = trunc i64 %119 to i32
+  br label %128
+
+128:                                              ; preds = %123, %126
+  %129 = phi i32 [ %127, %126 ], [ %75, %123 ]
+  %130 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind, i64 0, i64 %107
+  store i32 %129, ptr %130, align 8, !tbaa !13
+  br i1 %102, label %131, label %141
+
+131:                                              ; preds = %128, %136
+  %132 = phi i64 [ %137, %136 ], [ %103, %128 ]
+  %133 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_l, i64 0, i64 %107, i64 %132
+  %134 = load double, ptr %133, align 8, !tbaa !22
+  %135 = fcmp une double %134, 0.000000e+00
+  br i1 %135, label %139, label %136
+
+136:                                              ; preds = %131
+  %137 = add nsw i64 %132, -1
+  %138 = icmp sgt i64 %132, 1
+  br i1 %138, label %131, label %141, !llvm.loop !27
+
+139:                                              ; preds = %131
+  %140 = trunc i64 %132 to i32
+  br label %141
+
+141:                                              ; preds = %136, %139, %108, %128
+  %142 = phi i32 [ %74, %128 ], [ %74, %108 ], [ %140, %139 ], [ 0, %136 ]
   %143 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind, i64 0, i64 %107, i64 1
   store i32 %142, ptr %143, align 4, !tbaa !13
   %144 = add nuw nsw i64 %107, 1
-  %145 = icmp eq i64 %144, %105
-  br i1 %145, label %108, label %106, !llvm.loop !28
+  %145 = icmp eq i64 %144, %104
+  br i1 %145, label %110, label %106, !llvm.loop !28
 
-146:                                              ; preds = %110, %175
-  %147 = phi i64 [ 0, %110 ], [ %178, %175 ]
-  br i1 %111, label %161, label %151
+146:                                              ; preds = %112, %175
+  %147 = phi i64 [ 0, %112 ], [ %178, %175 ]
+  br i1 %113, label %161, label %151
 
-148:                                              ; preds = %175, %108
+148:                                              ; preds = %175, %110
   br i1 %99, label %149, label %273
 
 149:                                              ; preds = %148
@@ -333,7 +336,7 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
 
 156:                                              ; preds = %151
   %157 = add nuw nsw i64 %152, 1
-  %158 = icmp eq i64 %157, %115
+  %158 = icmp eq i64 %157, %117
   br i1 %158, label %161, label %151, !llvm.loop !29
 
 159:                                              ; preds = %151
@@ -364,11 +367,11 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   br label %175
 
 175:                                              ; preds = %164, %173
-  %176 = phi i32 [ %174, %173 ], [ %113, %164 ]
+  %176 = phi i32 [ %174, %173 ], [ %115, %164 ]
   %177 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind_s, i64 0, i64 %147, i64 1
   store i32 %176, ptr %177, align 4, !tbaa !13
   %178 = add nuw nsw i64 %147, 1
-  %179 = icmp eq i64 %178, %114
+  %179 = icmp eq i64 %178, %116
   br i1 %179, label %148, label %146, !llvm.loop !31
 
 180:                                              ; preds = %149, %270
@@ -497,7 +500,7 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   %274 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 43
   %275 = load i32, ptr %274, align 8, !tbaa !38
   %276 = icmp eq i32 %275, 1
-  %277 = and i1 %276, %109
+  %277 = and i1 %276, %111
   br i1 %277, label %278, label %288
 
 278:                                              ; preds = %273, %278
@@ -659,7 +662,7 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   %394 = icmp eq i32 %393, 1
   %395 = select i1 %394, i32 4, i32 %391
   %396 = icmp sgt i32 %395, 0
-  br i1 %396, label %397, label %1496
+  br i1 %396, label %397, label %1541
 
 397:                                              ; preds = %389
   %398 = sext i32 %2 to i64
@@ -667,8 +670,8 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   %400 = zext i32 %395 to i64
   br label %401
 
-401:                                              ; preds = %397, %1359
-  %402 = phi i64 [ 0, %397 ], [ %1360, %1359 ]
+401:                                              ; preds = %397, %1364
+  %402 = phi i64 [ 0, %397 ], [ %1365, %1364 ]
   %403 = and i64 %402, 1
   %404 = getelementptr inbounds [3 x [256 x float]], ptr @L3psycho_anal.wsamp_S, i64 %403
   %405 = getelementptr inbounds [1024 x float], ptr @L3psycho_anal.wsamp_L, i64 %403
@@ -1294,10 +1297,10 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   store double 0.000000e+00, ptr %887, align 8, !tbaa !22
   %888 = load i32, ptr @L3psycho_anal.npart_l, align 4, !tbaa !13
   %889 = icmp sgt i32 %888, 0
-  br i1 %889, label %890, label %1004
+  br i1 %889, label %890, label %1009
 
-890:                                              ; preds = %886, %999
-  %891 = phi i64 [ %1000, %999 ], [ 0, %886 ]
+890:                                              ; preds = %886, %1004
+  %891 = phi i64 [ %1005, %1004 ], [ 0, %886 ]
   %892 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind, i64 0, i64 %891
   %893 = load i32, ptr %892, align 8, !tbaa !13
   %894 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind, i64 0, i64 %891, i64 1
@@ -1403,1053 +1406,1188 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   %976 = load double, ptr %975, align 8, !tbaa !22
   %977 = fmul double %976, 1.600000e+01
   %978 = fcmp olt double %974, %977
-  %979 = select i1 %978, double %974, double %977
-  %980 = fcmp olt double %971, %979
-  %981 = select i1 %980, double %971, double %979
-  %982 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.qthr_l, i64 0, i64 %891
-  %983 = load double, ptr %982, align 8, !tbaa !22
-  %984 = fcmp ogt double %983, %981
-  %985 = select i1 %984, double %983, double %981
-  %986 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %891
-  store double %985, ptr %986, align 8, !tbaa !22
+  br i1 %978, label %979, label %981
+
+979:                                              ; preds = %964
+  %980 = fcmp olt double %971, %974
+  br i1 %980, label %985, label %983
+
+981:                                              ; preds = %964
+  %982 = fcmp olt double %971, %977
+  br i1 %982, label %985, label %984
+
+983:                                              ; preds = %979
+  br label %985
+
+984:                                              ; preds = %981
+  br label %985
+
+985:                                              ; preds = %981, %979, %983, %984
+  %986 = phi double [ %974, %983 ], [ %977, %984 ], [ %971, %979 ], [ %971, %981 ]
+  %987 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.qthr_l, i64 0, i64 %891
+  %988 = load double, ptr %987, align 8, !tbaa !22
+  %989 = fcmp ogt double %988, %986
+  %990 = select i1 %989, double %988, double %986
+  %991 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %891
+  store double %990, ptr %991, align 8, !tbaa !22
   store double %973, ptr %975, align 8, !tbaa !22
   store double %971, ptr %972, align 8, !tbaa !22
-  %987 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %891
-  %988 = load double, ptr %987, align 8, !tbaa !22
-  %989 = fcmp olt double %985, %988
-  br i1 %989, label %990, label %999
+  %992 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %891
+  %993 = load double, ptr %992, align 8, !tbaa !22
+  %994 = fcmp olt double %990, %993
+  br i1 %994, label %995, label %1004
 
-990:                                              ; preds = %964
-  %991 = getelementptr inbounds [63 x i32], ptr @L3psycho_anal.numlines_l, i64 0, i64 %891
-  %992 = load i32, ptr %991, align 4, !tbaa !13
-  %993 = sitofp i32 %992 to double
-  %994 = fdiv double %985, %988
-  %995 = tail call double @log(double noundef %994) #11
-  %996 = load double, ptr %887, align 8, !tbaa !22
-  %997 = fneg double %993
-  %998 = tail call double @llvm.fmuladd.f64(double %997, double %995, double %996)
-  store double %998, ptr %887, align 8, !tbaa !22
-  br label %999
+995:                                              ; preds = %985
+  %996 = getelementptr inbounds [63 x i32], ptr @L3psycho_anal.numlines_l, i64 0, i64 %891
+  %997 = load i32, ptr %996, align 4, !tbaa !13
+  %998 = sitofp i32 %997 to double
+  %999 = fdiv double %990, %993
+  %1000 = tail call double @log(double noundef %999) #11
+  %1001 = load double, ptr %887, align 8, !tbaa !22
+  %1002 = fneg double %998
+  %1003 = tail call double @llvm.fmuladd.f64(double %1002, double %1000, double %1001)
+  store double %1003, ptr %887, align 8, !tbaa !22
+  br label %1004
 
-999:                                              ; preds = %990, %964
-  %1000 = add nuw nsw i64 %891, 1
-  %1001 = load i32, ptr @L3psycho_anal.npart_l, align 4, !tbaa !13
-  %1002 = sext i32 %1001 to i64
-  %1003 = icmp slt i64 %1000, %1002
-  br i1 %1003, label %890, label %1004, !llvm.loop !64
+1004:                                             ; preds = %995, %985
+  %1005 = add nuw nsw i64 %891, 1
+  %1006 = load i32, ptr @L3psycho_anal.npart_l, align 4, !tbaa !13
+  %1007 = sext i32 %1006 to i64
+  %1008 = icmp slt i64 %1005, %1007
+  br i1 %1008, label %890, label %1009, !llvm.loop !64
 
-1004:                                             ; preds = %999, %886
-  br i1 %406, label %1005, label %1061
+1009:                                             ; preds = %1004, %886
+  br i1 %406, label %1010, label %1066
 
-1005:                                             ; preds = %1004
-  %1006 = load i32, ptr %399, align 8, !tbaa !65
-  %1007 = icmp eq i32 %1006, 0
-  br i1 %1007, label %1010, label %1008
-
-1008:                                             ; preds = %1005
-  %1009 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %402
-  store i32 1, ptr %1009, align 4, !tbaa !13
-  br label %1061
-
-1010:                                             ; preds = %1005
-  %1011 = load double, ptr %887, align 8, !tbaa !22
-  %1012 = fcmp ogt double %1011, 3.000000e+03
-  br i1 %1012, label %1013, label %1015
+1010:                                             ; preds = %1009
+  %1011 = load i32, ptr %399, align 8, !tbaa !65
+  %1012 = icmp eq i32 %1011, 0
+  br i1 %1012, label %1015, label %1013
 
 1013:                                             ; preds = %1010
   %1014 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %402
-  store i32 0, ptr %1014, align 4, !tbaa !13
-  br label %1061
+  store i32 1, ptr %1014, align 4, !tbaa !13
+  br label %1066
 
-1015:                                             ; preds = %1010, %1031
-  %1016 = phi i64 [ %1041, %1031 ], [ 64, %1010 ]
-  %1017 = phi float [ %1040, %1031 ], [ 0.000000e+00, %1010 ]
-  %1018 = phi float [ %1037, %1031 ], [ 0.000000e+00, %1010 ]
-  %1019 = phi float [ %1034, %1031 ], [ 0.000000e+00, %1010 ]
-  %1020 = getelementptr inbounds [129 x float], ptr @L3psycho_anal.energy_s, i64 0, i64 %1016
-  %1021 = load float, ptr %1020, align 8, !tbaa !17
-  %1022 = fadd float %1019, %1021
-  %1023 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 1, i64 %1016
-  %1024 = load float, ptr %1023, align 4, !tbaa !17
-  %1025 = fadd float %1018, %1024
-  %1026 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 2, i64 %1016
-  %1027 = load float, ptr %1026, align 8, !tbaa !17
-  %1028 = fadd float %1017, %1027
-  %1029 = or i64 %1016, 1
-  %1030 = icmp eq i64 %1029, 129
-  br i1 %1030, label %1042, label %1031, !llvm.loop !66
+1015:                                             ; preds = %1010
+  %1016 = load double, ptr %887, align 8, !tbaa !22
+  %1017 = fcmp ogt double %1016, 3.000000e+03
+  br i1 %1017, label %1018, label %1020
 
-1031:                                             ; preds = %1015
-  %1032 = getelementptr inbounds [129 x float], ptr @L3psycho_anal.energy_s, i64 0, i64 %1029
-  %1033 = load float, ptr %1032, align 4, !tbaa !17
-  %1034 = fadd float %1022, %1033
-  %1035 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 1, i64 %1029
-  %1036 = load float, ptr %1035, align 8, !tbaa !17
-  %1037 = fadd float %1025, %1036
-  %1038 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 2, i64 %1029
-  %1039 = load float, ptr %1038, align 4, !tbaa !17
-  %1040 = fadd float %1028, %1039
-  %1041 = add nuw nsw i64 %1016, 2
-  br label %1015
+1018:                                             ; preds = %1015
+  %1019 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %402
+  store i32 0, ptr %1019, align 4, !tbaa !13
+  br label %1066
 
-1042:                                             ; preds = %1015
-  %1043 = fcmp olt float %1022, %1025
-  %1044 = select i1 %1043, float %1022, float %1025
-  %1045 = fcmp olt float %1044, %1028
-  %1046 = select i1 %1045, float %1044, float %1028
-  %1047 = fcmp ogt float %1022, %1025
-  %1048 = select i1 %1047, float %1022, float %1025
-  %1049 = fcmp ogt float %1048, %1028
-  %1050 = select i1 %1049, float %1048, float %1028
-  %1051 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %402
-  store i32 1, ptr %1051, align 4, !tbaa !13
-  %1052 = fmul float %1046, 3.000000e+01
-  %1053 = fcmp ogt float %1050, %1052
-  br i1 %1053, label %1054, label %1055
+1020:                                             ; preds = %1015, %1036
+  %1021 = phi i64 [ %1046, %1036 ], [ 64, %1015 ]
+  %1022 = phi float [ %1045, %1036 ], [ 0.000000e+00, %1015 ]
+  %1023 = phi float [ %1042, %1036 ], [ 0.000000e+00, %1015 ]
+  %1024 = phi float [ %1039, %1036 ], [ 0.000000e+00, %1015 ]
+  %1025 = getelementptr inbounds [129 x float], ptr @L3psycho_anal.energy_s, i64 0, i64 %1021
+  %1026 = load float, ptr %1025, align 8, !tbaa !17
+  %1027 = fadd float %1024, %1026
+  %1028 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 1, i64 %1021
+  %1029 = load float, ptr %1028, align 4, !tbaa !17
+  %1030 = fadd float %1023, %1029
+  %1031 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 2, i64 %1021
+  %1032 = load float, ptr %1031, align 8, !tbaa !17
+  %1033 = fadd float %1022, %1032
+  %1034 = or i64 %1021, 1
+  %1035 = icmp eq i64 %1034, 129
+  br i1 %1035, label %1047, label %1036, !llvm.loop !66
 
-1054:                                             ; preds = %1042
-  store i32 0, ptr %1051, align 4, !tbaa !13
-  br label %1061
+1036:                                             ; preds = %1020
+  %1037 = getelementptr inbounds [129 x float], ptr @L3psycho_anal.energy_s, i64 0, i64 %1034
+  %1038 = load float, ptr %1037, align 4, !tbaa !17
+  %1039 = fadd float %1027, %1038
+  %1040 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 1, i64 %1034
+  %1041 = load float, ptr %1040, align 8, !tbaa !17
+  %1042 = fadd float %1030, %1041
+  %1043 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 2, i64 %1034
+  %1044 = load float, ptr %1043, align 4, !tbaa !17
+  %1045 = fadd float %1033, %1044
+  %1046 = add nuw nsw i64 %1021, 2
+  br label %1020
 
-1055:                                             ; preds = %1042
-  %1056 = fmul float %1046, 1.000000e+01
-  %1057 = fcmp ogt float %1050, %1056
-  %1058 = fcmp ogt double %1011, 1.000000e+03
-  %1059 = select i1 %1057, i1 %1058, i1 false
-  br i1 %1059, label %1060, label %1061
+1047:                                             ; preds = %1020
+  %1048 = fcmp olt float %1027, %1030
+  %1049 = select i1 %1048, float %1027, float %1030
+  %1050 = fcmp olt float %1049, %1033
+  %1051 = select i1 %1050, float %1049, float %1033
+  %1052 = fcmp ogt float %1027, %1030
+  %1053 = select i1 %1052, float %1027, float %1030
+  %1054 = fcmp ogt float %1053, %1033
+  %1055 = select i1 %1054, float %1053, float %1033
+  %1056 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %402
+  store i32 1, ptr %1056, align 4, !tbaa !13
+  %1057 = fmul float %1051, 3.000000e+01
+  %1058 = fcmp ogt float %1055, %1057
+  br i1 %1058, label %1059, label %1060
 
-1060:                                             ; preds = %1055
-  store i32 0, ptr %1051, align 4, !tbaa !13
-  br label %1061
+1059:                                             ; preds = %1047
+  store i32 0, ptr %1056, align 4, !tbaa !13
+  br label %1066
 
-1061:                                             ; preds = %1054, %1060, %1055, %1008, %1013, %1004
-  %1062 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 %402
-  %1063 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 %402
-  br label %1071
+1060:                                             ; preds = %1047
+  %1061 = fmul float %1051, 1.000000e+01
+  %1062 = fcmp ogt float %1055, %1061
+  %1063 = fcmp ogt double %1016, 1.000000e+03
+  %1064 = select i1 %1062, i1 %1063, i1 false
+  br i1 %1064, label %1065, label %1066
 
-1064:                                             ; preds = %1145
-  %1065 = load i32, ptr @L3psycho_anal.npart_s_orig, align 4, !tbaa !13
-  %1066 = icmp sgt i32 %1065, 0
-  %1067 = load i32, ptr @L3psycho_anal.npart_s, align 4, !tbaa !13
-  %1068 = icmp sgt i32 %1067, 0
-  %1069 = zext i32 %1065 to i64
-  %1070 = zext i32 %1067 to i64
-  br label %1153
+1065:                                             ; preds = %1060
+  store i32 0, ptr %1056, align 4, !tbaa !13
+  br label %1066
 
-1071:                                             ; preds = %1061, %1145
-  %1072 = phi i64 [ 0, %1061 ], [ %1151, %1145 ]
-  %1073 = getelementptr inbounds [21 x double], ptr @L3psycho_anal.w1_l, i64 0, i64 %1072
-  %1074 = load double, ptr %1073, align 8, !tbaa !22
-  %1075 = getelementptr inbounds [21 x i32], ptr @L3psycho_anal.bu_l, i64 0, i64 %1072
-  %1076 = load i32, ptr %1075, align 4, !tbaa !13
-  %1077 = sext i32 %1076 to i64
-  %1078 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1077
+1066:                                             ; preds = %1059, %1065, %1060, %1013, %1018, %1009
+  %1067 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 %402
+  %1068 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 %402
+  br label %1076
+
+1069:                                             ; preds = %1150
+  %1070 = load i32, ptr @L3psycho_anal.npart_s_orig, align 4, !tbaa !13
+  %1071 = icmp sgt i32 %1070, 0
+  %1072 = load i32, ptr @L3psycho_anal.npart_s, align 4, !tbaa !13
+  %1073 = icmp sgt i32 %1072, 0
+  %1074 = zext i32 %1070 to i64
+  %1075 = zext i32 %1072 to i64
+  br label %1158
+
+1076:                                             ; preds = %1066, %1150
+  %1077 = phi i64 [ 0, %1066 ], [ %1156, %1150 ]
+  %1078 = getelementptr inbounds [21 x double], ptr @L3psycho_anal.w1_l, i64 0, i64 %1077
   %1079 = load double, ptr %1078, align 8, !tbaa !22
-  %1080 = getelementptr inbounds [21 x double], ptr @L3psycho_anal.w2_l, i64 0, i64 %1072
-  %1081 = load double, ptr %1080, align 8, !tbaa !22
-  %1082 = getelementptr inbounds [21 x i32], ptr @L3psycho_anal.bo_l, i64 0, i64 %1072
-  %1083 = load i32, ptr %1082, align 4, !tbaa !13
-  %1084 = sext i32 %1083 to i64
-  %1085 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1084
-  %1086 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1077
-  %1087 = load double, ptr %1086, align 8, !tbaa !22
-  %1088 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1084
-  %1089 = load double, ptr %1085, align 8, !tbaa !22
-  %1090 = load double, ptr %1088, align 8, !tbaa !22
-  %1091 = insertelement <2 x double> poison, double %1081, i64 0
-  %1092 = shufflevector <2 x double> %1091, <2 x double> poison, <2 x i32> zeroinitializer
-  %1093 = insertelement <2 x double> poison, double %1089, i64 0
-  %1094 = insertelement <2 x double> %1093, double %1090, i64 1
-  %1095 = fmul <2 x double> %1092, %1094
-  %1096 = insertelement <2 x double> poison, double %1074, i64 0
+  %1080 = getelementptr inbounds [21 x i32], ptr @L3psycho_anal.bu_l, i64 0, i64 %1077
+  %1081 = load i32, ptr %1080, align 4, !tbaa !13
+  %1082 = sext i32 %1081 to i64
+  %1083 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1082
+  %1084 = load double, ptr %1083, align 8, !tbaa !22
+  %1085 = getelementptr inbounds [21 x double], ptr @L3psycho_anal.w2_l, i64 0, i64 %1077
+  %1086 = load double, ptr %1085, align 8, !tbaa !22
+  %1087 = getelementptr inbounds [21 x i32], ptr @L3psycho_anal.bo_l, i64 0, i64 %1077
+  %1088 = load i32, ptr %1087, align 4, !tbaa !13
+  %1089 = sext i32 %1088 to i64
+  %1090 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1089
+  %1091 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1082
+  %1092 = load double, ptr %1091, align 8, !tbaa !22
+  %1093 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1089
+  %1094 = load double, ptr %1090, align 8, !tbaa !22
+  %1095 = load double, ptr %1093, align 8, !tbaa !22
+  %1096 = insertelement <2 x double> poison, double %1086, i64 0
   %1097 = shufflevector <2 x double> %1096, <2 x double> poison, <2 x i32> zeroinitializer
-  %1098 = insertelement <2 x double> poison, double %1079, i64 0
-  %1099 = insertelement <2 x double> %1098, double %1087, i64 1
-  %1100 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1097, <2 x double> %1099, <2 x double> %1095)
-  %1101 = add nsw i32 %1076, 1
-  %1102 = icmp slt i32 %1101, %1083
-  br i1 %1102, label %1103, label %1145
+  %1098 = insertelement <2 x double> poison, double %1094, i64 0
+  %1099 = insertelement <2 x double> %1098, double %1095, i64 1
+  %1100 = fmul <2 x double> %1097, %1099
+  %1101 = insertelement <2 x double> poison, double %1079, i64 0
+  %1102 = shufflevector <2 x double> %1101, <2 x double> poison, <2 x i32> zeroinitializer
+  %1103 = insertelement <2 x double> poison, double %1084, i64 0
+  %1104 = insertelement <2 x double> %1103, double %1092, i64 1
+  %1105 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1102, <2 x double> %1104, <2 x double> %1100)
+  %1106 = add nsw i32 %1081, 1
+  %1107 = icmp slt i32 %1106, %1088
+  br i1 %1107, label %1108, label %1150
 
-1103:                                             ; preds = %1071
-  %1104 = add nsw i64 %1077, 1
-  %1105 = xor i32 %1076, -1
-  %1106 = add i32 %1083, %1105
-  %1107 = add i32 %1083, -2
-  %1108 = and i32 %1106, 1
-  %1109 = icmp eq i32 %1108, 0
-  br i1 %1109, label %1119, label %1110
+1108:                                             ; preds = %1076
+  %1109 = add nsw i64 %1082, 1
+  %1110 = xor i32 %1081, -1
+  %1111 = add i32 %1088, %1110
+  %1112 = add i32 %1088, -2
+  %1113 = and i32 %1111, 1
+  %1114 = icmp eq i32 %1113, 0
+  br i1 %1114, label %1124, label %1115
 
-1110:                                             ; preds = %1103
-  %1111 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1104
-  %1112 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1104
-  %1113 = load double, ptr %1111, align 8, !tbaa !22
-  %1114 = load double, ptr %1112, align 8, !tbaa !22
-  %1115 = insertelement <2 x double> poison, double %1113, i64 0
-  %1116 = insertelement <2 x double> %1115, double %1114, i64 1
-  %1117 = fadd <2 x double> %1100, %1116
-  %1118 = add nsw i64 %1077, 2
-  br label %1119
+1115:                                             ; preds = %1108
+  %1116 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1109
+  %1117 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1109
+  %1118 = load double, ptr %1116, align 8, !tbaa !22
+  %1119 = load double, ptr %1117, align 8, !tbaa !22
+  %1120 = insertelement <2 x double> poison, double %1118, i64 0
+  %1121 = insertelement <2 x double> %1120, double %1119, i64 1
+  %1122 = fadd <2 x double> %1105, %1121
+  %1123 = add nsw i64 %1082, 2
+  br label %1124
 
-1119:                                             ; preds = %1110, %1103
-  %1120 = phi <2 x double> [ undef, %1103 ], [ %1117, %1110 ]
-  %1121 = phi i64 [ %1104, %1103 ], [ %1118, %1110 ]
-  %1122 = phi <2 x double> [ %1100, %1103 ], [ %1117, %1110 ]
-  %1123 = icmp eq i32 %1107, %1076
-  br i1 %1123, label %1145, label %1124
+1124:                                             ; preds = %1115, %1108
+  %1125 = phi <2 x double> [ undef, %1108 ], [ %1122, %1115 ]
+  %1126 = phi i64 [ %1109, %1108 ], [ %1123, %1115 ]
+  %1127 = phi <2 x double> [ %1105, %1108 ], [ %1122, %1115 ]
+  %1128 = icmp eq i32 %1112, %1081
+  br i1 %1128, label %1150, label %1129
 
-1124:                                             ; preds = %1119, %1124
-  %1125 = phi i64 [ %1142, %1124 ], [ %1121, %1119 ]
-  %1126 = phi <2 x double> [ %1141, %1124 ], [ %1122, %1119 ]
-  %1127 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1125
-  %1128 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1125
-  %1129 = load double, ptr %1127, align 8, !tbaa !22
-  %1130 = load double, ptr %1128, align 8, !tbaa !22
-  %1131 = insertelement <2 x double> poison, double %1129, i64 0
-  %1132 = insertelement <2 x double> %1131, double %1130, i64 1
-  %1133 = fadd <2 x double> %1126, %1132
-  %1134 = add nsw i64 %1125, 1
-  %1135 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1134
-  %1136 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1134
-  %1137 = load double, ptr %1135, align 8, !tbaa !22
-  %1138 = load double, ptr %1136, align 8, !tbaa !22
-  %1139 = insertelement <2 x double> poison, double %1137, i64 0
-  %1140 = insertelement <2 x double> %1139, double %1138, i64 1
-  %1141 = fadd <2 x double> %1133, %1140
-  %1142 = add nsw i64 %1125, 2
-  %1143 = trunc i64 %1142 to i32
-  %1144 = icmp eq i32 %1083, %1143
-  br i1 %1144, label %1145, label %1124, !llvm.loop !67
+1129:                                             ; preds = %1124, %1129
+  %1130 = phi i64 [ %1147, %1129 ], [ %1126, %1124 ]
+  %1131 = phi <2 x double> [ %1146, %1129 ], [ %1127, %1124 ]
+  %1132 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1130
+  %1133 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1130
+  %1134 = load double, ptr %1132, align 8, !tbaa !22
+  %1135 = load double, ptr %1133, align 8, !tbaa !22
+  %1136 = insertelement <2 x double> poison, double %1134, i64 0
+  %1137 = insertelement <2 x double> %1136, double %1135, i64 1
+  %1138 = fadd <2 x double> %1131, %1137
+  %1139 = add nsw i64 %1130, 1
+  %1140 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1139
+  %1141 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1139
+  %1142 = load double, ptr %1140, align 8, !tbaa !22
+  %1143 = load double, ptr %1141, align 8, !tbaa !22
+  %1144 = insertelement <2 x double> poison, double %1142, i64 0
+  %1145 = insertelement <2 x double> %1144, double %1143, i64 1
+  %1146 = fadd <2 x double> %1138, %1145
+  %1147 = add nsw i64 %1130, 2
+  %1148 = trunc i64 %1147 to i32
+  %1149 = icmp eq i32 %1088, %1148
+  br i1 %1149, label %1150, label %1129, !llvm.loop !67
 
-1145:                                             ; preds = %1119, %1124, %1071
-  %1146 = phi <2 x double> [ %1100, %1071 ], [ %1120, %1119 ], [ %1141, %1124 ]
-  %1147 = getelementptr inbounds [22 x double], ptr %1062, i64 0, i64 %1072
-  %1148 = extractelement <2 x double> %1146, i64 0
-  store double %1148, ptr %1147, align 8, !tbaa !22
-  %1149 = getelementptr inbounds [22 x double], ptr %1063, i64 0, i64 %1072
-  %1150 = extractelement <2 x double> %1146, i64 1
-  store double %1150, ptr %1149, align 8, !tbaa !22
-  %1151 = add nuw nsw i64 %1072, 1
-  %1152 = icmp eq i64 %1151, 21
-  br i1 %1152, label %1064, label %1071, !llvm.loop !68
+1150:                                             ; preds = %1124, %1129, %1076
+  %1151 = phi <2 x double> [ %1105, %1076 ], [ %1125, %1124 ], [ %1146, %1129 ]
+  %1152 = getelementptr inbounds [22 x double], ptr %1067, i64 0, i64 %1077
+  %1153 = extractelement <2 x double> %1151, i64 0
+  store double %1153, ptr %1152, align 8, !tbaa !22
+  %1154 = getelementptr inbounds [22 x double], ptr %1068, i64 0, i64 %1077
+  %1155 = extractelement <2 x double> %1151, i64 1
+  store double %1155, ptr %1154, align 8, !tbaa !22
+  %1156 = add nuw nsw i64 %1077, 1
+  %1157 = icmp eq i64 %1156, 21
+  br i1 %1157, label %1069, label %1076, !llvm.loop !68
 
-1153:                                             ; preds = %1064, %1356
-  %1154 = phi i64 [ 0, %1064 ], [ %1357, %1356 ]
-  br i1 %1066, label %1156, label %1155
+1158:                                             ; preds = %1069, %1361
+  %1159 = phi i64 [ 0, %1069 ], [ %1362, %1361 ]
+  br i1 %1071, label %1161, label %1160
 
-1155:                                             ; preds = %1215, %1153
-  br i1 %1068, label %1222, label %1273
+1160:                                             ; preds = %1220, %1158
+  br i1 %1073, label %1227, label %1278
 
-1156:                                             ; preds = %1153, %1215
-  %1157 = phi i64 [ %1220, %1215 ], [ 0, %1153 ]
-  %1158 = phi i32 [ %1217, %1215 ], [ 0, %1153 ]
-  %1159 = sext i32 %1158 to i64
-  %1160 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1154, i64 %1159
-  %1161 = load float, ptr %1160, align 4, !tbaa !17
-  %1162 = getelementptr inbounds [63 x i32], ptr @L3psycho_anal.numlines_s, i64 0, i64 %1157
-  %1163 = load i32, ptr %1162, align 4, !tbaa !13
-  %1164 = add i32 %1158, 1
-  %1165 = icmp sgt i32 %1163, 0
-  br i1 %1165, label %1166, label %1215
+1161:                                             ; preds = %1158, %1220
+  %1162 = phi i64 [ %1225, %1220 ], [ 0, %1158 ]
+  %1163 = phi i32 [ %1222, %1220 ], [ 0, %1158 ]
+  %1164 = sext i32 %1163 to i64
+  %1165 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1159, i64 %1164
+  %1166 = load float, ptr %1165, align 4, !tbaa !17
+  %1167 = getelementptr inbounds [63 x i32], ptr @L3psycho_anal.numlines_s, i64 0, i64 %1162
+  %1168 = load i32, ptr %1167, align 4, !tbaa !13
+  %1169 = add i32 %1163, 1
+  %1170 = icmp sgt i32 %1168, 0
+  br i1 %1170, label %1171, label %1220
 
-1166:                                             ; preds = %1156
-  %1167 = sext i32 %1164 to i64
-  %1168 = and i32 %1163, 3
-  %1169 = icmp eq i32 %1168, 0
-  br i1 %1169, label %1182, label %1170
+1171:                                             ; preds = %1161
+  %1172 = sext i32 %1169 to i64
+  %1173 = and i32 %1168, 3
+  %1174 = icmp eq i32 %1173, 0
+  br i1 %1174, label %1187, label %1175
 
-1170:                                             ; preds = %1166, %1170
-  %1171 = phi i64 [ %1179, %1170 ], [ %1167, %1166 ]
-  %1172 = phi float [ %1177, %1170 ], [ %1161, %1166 ]
-  %1173 = phi i32 [ %1178, %1170 ], [ %1163, %1166 ]
-  %1174 = phi i32 [ %1180, %1170 ], [ 0, %1166 ]
-  %1175 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1154, i64 %1171
-  %1176 = load float, ptr %1175, align 4, !tbaa !17
-  %1177 = fadd float %1172, %1176
-  %1178 = add nsw i32 %1173, -1
-  %1179 = add nsw i64 %1171, 1
-  %1180 = add i32 %1174, 1
-  %1181 = icmp eq i32 %1180, %1168
-  br i1 %1181, label %1182, label %1170, !llvm.loop !69
+1175:                                             ; preds = %1171, %1175
+  %1176 = phi i64 [ %1184, %1175 ], [ %1172, %1171 ]
+  %1177 = phi float [ %1182, %1175 ], [ %1166, %1171 ]
+  %1178 = phi i32 [ %1183, %1175 ], [ %1168, %1171 ]
+  %1179 = phi i32 [ %1185, %1175 ], [ 0, %1171 ]
+  %1180 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1159, i64 %1176
+  %1181 = load float, ptr %1180, align 4, !tbaa !17
+  %1182 = fadd float %1177, %1181
+  %1183 = add nsw i32 %1178, -1
+  %1184 = add nsw i64 %1176, 1
+  %1185 = add i32 %1179, 1
+  %1186 = icmp eq i32 %1185, %1173
+  br i1 %1186, label %1187, label %1175, !llvm.loop !69
 
-1182:                                             ; preds = %1170, %1166
-  %1183 = phi i64 [ %1167, %1166 ], [ %1179, %1170 ]
-  %1184 = phi float [ %1161, %1166 ], [ %1177, %1170 ]
-  %1185 = phi i32 [ %1163, %1166 ], [ %1178, %1170 ]
-  %1186 = phi float [ undef, %1166 ], [ %1177, %1170 ]
-  %1187 = icmp ult i32 %1163, 4
-  br i1 %1187, label %1211, label %1188
+1187:                                             ; preds = %1175, %1171
+  %1188 = phi i64 [ %1172, %1171 ], [ %1184, %1175 ]
+  %1189 = phi float [ %1166, %1171 ], [ %1182, %1175 ]
+  %1190 = phi i32 [ %1168, %1171 ], [ %1183, %1175 ]
+  %1191 = phi float [ undef, %1171 ], [ %1182, %1175 ]
+  %1192 = icmp ult i32 %1168, 4
+  br i1 %1192, label %1216, label %1193
 
-1188:                                             ; preds = %1182, %1188
-  %1189 = phi i64 [ %1208, %1188 ], [ %1183, %1182 ]
-  %1190 = phi float [ %1206, %1188 ], [ %1184, %1182 ]
-  %1191 = phi i32 [ %1207, %1188 ], [ %1185, %1182 ]
-  %1192 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1154, i64 %1189
-  %1193 = load float, ptr %1192, align 4, !tbaa !17
-  %1194 = fadd float %1190, %1193
-  %1195 = add nsw i64 %1189, 1
-  %1196 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1154, i64 %1195
-  %1197 = load float, ptr %1196, align 4, !tbaa !17
-  %1198 = fadd float %1194, %1197
-  %1199 = add nsw i64 %1189, 2
-  %1200 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1154, i64 %1199
-  %1201 = load float, ptr %1200, align 4, !tbaa !17
-  %1202 = fadd float %1198, %1201
-  %1203 = add nsw i64 %1189, 3
-  %1204 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1154, i64 %1203
-  %1205 = load float, ptr %1204, align 4, !tbaa !17
-  %1206 = fadd float %1202, %1205
-  %1207 = add nsw i32 %1191, -4
-  %1208 = add nsw i64 %1189, 4
-  %1209 = add i32 %1191, -5
-  %1210 = icmp ult i32 %1209, -2
-  br i1 %1210, label %1188, label %1211, !llvm.loop !70
+1193:                                             ; preds = %1187, %1193
+  %1194 = phi i64 [ %1213, %1193 ], [ %1188, %1187 ]
+  %1195 = phi float [ %1211, %1193 ], [ %1189, %1187 ]
+  %1196 = phi i32 [ %1212, %1193 ], [ %1190, %1187 ]
+  %1197 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1159, i64 %1194
+  %1198 = load float, ptr %1197, align 4, !tbaa !17
+  %1199 = fadd float %1195, %1198
+  %1200 = add nsw i64 %1194, 1
+  %1201 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1159, i64 %1200
+  %1202 = load float, ptr %1201, align 4, !tbaa !17
+  %1203 = fadd float %1199, %1202
+  %1204 = add nsw i64 %1194, 2
+  %1205 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1159, i64 %1204
+  %1206 = load float, ptr %1205, align 4, !tbaa !17
+  %1207 = fadd float %1203, %1206
+  %1208 = add nsw i64 %1194, 3
+  %1209 = getelementptr inbounds [3 x [129 x float]], ptr @L3psycho_anal.energy_s, i64 0, i64 %1159, i64 %1208
+  %1210 = load float, ptr %1209, align 4, !tbaa !17
+  %1211 = fadd float %1207, %1210
+  %1212 = add nsw i32 %1196, -4
+  %1213 = add nsw i64 %1194, 4
+  %1214 = add i32 %1196, -5
+  %1215 = icmp ult i32 %1214, -2
+  br i1 %1215, label %1193, label %1216, !llvm.loop !70
 
-1211:                                             ; preds = %1188, %1182
-  %1212 = phi float [ %1186, %1182 ], [ %1206, %1188 ]
-  %1213 = add i32 %1158, %1163
-  %1214 = add i32 %1213, 1
-  br label %1215
+1216:                                             ; preds = %1193, %1187
+  %1217 = phi float [ %1191, %1187 ], [ %1211, %1193 ]
+  %1218 = add i32 %1163, %1168
+  %1219 = add i32 %1218, 1
+  br label %1220
 
-1215:                                             ; preds = %1211, %1156
-  %1216 = phi float [ %1161, %1156 ], [ %1212, %1211 ]
-  %1217 = phi i32 [ %1164, %1156 ], [ %1214, %1211 ]
-  %1218 = fpext float %1216 to double
-  %1219 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1157
-  store double %1218, ptr %1219, align 8, !tbaa !22
-  %1220 = add nuw nsw i64 %1157, 1
-  %1221 = icmp eq i64 %1220, %1069
-  br i1 %1221, label %1155, label %1156, !llvm.loop !71
+1220:                                             ; preds = %1216, %1161
+  %1221 = phi float [ %1166, %1161 ], [ %1217, %1216 ]
+  %1222 = phi i32 [ %1169, %1161 ], [ %1219, %1216 ]
+  %1223 = fpext float %1221 to double
+  %1224 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1162
+  store double %1223, ptr %1224, align 8, !tbaa !22
+  %1225 = add nuw nsw i64 %1162, 1
+  %1226 = icmp eq i64 %1225, %1074
+  br i1 %1226, label %1160, label %1161, !llvm.loop !71
 
-1222:                                             ; preds = %1155, %1264
-  %1223 = phi i64 [ %1271, %1264 ], [ 0, %1155 ]
-  %1224 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind_s, i64 0, i64 %1223
-  %1225 = load i32, ptr %1224, align 8, !tbaa !13
-  %1226 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind_s, i64 0, i64 %1223, i64 1
-  %1227 = load i32, ptr %1226, align 4, !tbaa !13
-  %1228 = icmp slt i32 %1227, %1225
-  br i1 %1228, label %1264, label %1229
+1227:                                             ; preds = %1160, %1269
+  %1228 = phi i64 [ %1276, %1269 ], [ 0, %1160 ]
+  %1229 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind_s, i64 0, i64 %1228
+  %1230 = load i32, ptr %1229, align 8, !tbaa !13
+  %1231 = getelementptr inbounds [63 x [2 x i32]], ptr @L3psycho_anal.s3ind_s, i64 0, i64 %1228, i64 1
+  %1232 = load i32, ptr %1231, align 4, !tbaa !13
+  %1233 = icmp slt i32 %1232, %1230
+  br i1 %1233, label %1269, label %1234
 
-1229:                                             ; preds = %1222
-  %1230 = sext i32 %1225 to i64
-  %1231 = add i32 %1227, 1
-  %1232 = sub i32 %1231, %1225
-  %1233 = and i32 %1232, 1
-  %1234 = icmp eq i32 %1233, 0
-  br i1 %1234, label %1242, label %1235
+1234:                                             ; preds = %1227
+  %1235 = sext i32 %1230 to i64
+  %1236 = add i32 %1232, 1
+  %1237 = sub i32 %1236, %1230
+  %1238 = and i32 %1237, 1
+  %1239 = icmp eq i32 %1238, 0
+  br i1 %1239, label %1247, label %1240
 
-1235:                                             ; preds = %1229
-  %1236 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_s, i64 0, i64 %1223, i64 %1230
-  %1237 = load double, ptr %1236, align 8, !tbaa !22
-  %1238 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1230
-  %1239 = load double, ptr %1238, align 8, !tbaa !22
-  %1240 = tail call double @llvm.fmuladd.f64(double %1237, double %1239, double 0.000000e+00)
-  %1241 = add nsw i64 %1230, 1
-  br label %1242
+1240:                                             ; preds = %1234
+  %1241 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_s, i64 0, i64 %1228, i64 %1235
+  %1242 = load double, ptr %1241, align 8, !tbaa !22
+  %1243 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1235
+  %1244 = load double, ptr %1243, align 8, !tbaa !22
+  %1245 = tail call double @llvm.fmuladd.f64(double %1242, double %1244, double 0.000000e+00)
+  %1246 = add nsw i64 %1235, 1
+  br label %1247
 
-1242:                                             ; preds = %1235, %1229
-  %1243 = phi double [ undef, %1229 ], [ %1240, %1235 ]
-  %1244 = phi i64 [ %1230, %1229 ], [ %1241, %1235 ]
-  %1245 = phi double [ 0.000000e+00, %1229 ], [ %1240, %1235 ]
-  %1246 = icmp eq i32 %1227, %1225
-  br i1 %1246, label %1264, label %1247
+1247:                                             ; preds = %1240, %1234
+  %1248 = phi double [ undef, %1234 ], [ %1245, %1240 ]
+  %1249 = phi i64 [ %1235, %1234 ], [ %1246, %1240 ]
+  %1250 = phi double [ 0.000000e+00, %1234 ], [ %1245, %1240 ]
+  %1251 = icmp eq i32 %1232, %1230
+  br i1 %1251, label %1269, label %1252
 
-1247:                                             ; preds = %1242, %1247
-  %1248 = phi i64 [ %1261, %1247 ], [ %1244, %1242 ]
-  %1249 = phi double [ %1260, %1247 ], [ %1245, %1242 ]
-  %1250 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_s, i64 0, i64 %1223, i64 %1248
-  %1251 = load double, ptr %1250, align 8, !tbaa !22
-  %1252 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1248
-  %1253 = load double, ptr %1252, align 8, !tbaa !22
-  %1254 = tail call double @llvm.fmuladd.f64(double %1251, double %1253, double %1249)
-  %1255 = add nsw i64 %1248, 1
-  %1256 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_s, i64 0, i64 %1223, i64 %1255
-  %1257 = load double, ptr %1256, align 8, !tbaa !22
-  %1258 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1255
-  %1259 = load double, ptr %1258, align 8, !tbaa !22
-  %1260 = tail call double @llvm.fmuladd.f64(double %1257, double %1259, double %1254)
-  %1261 = add nsw i64 %1248, 2
-  %1262 = trunc i64 %1261 to i32
-  %1263 = icmp eq i32 %1231, %1262
-  br i1 %1263, label %1264, label %1247, !llvm.loop !72
+1252:                                             ; preds = %1247, %1252
+  %1253 = phi i64 [ %1266, %1252 ], [ %1249, %1247 ]
+  %1254 = phi double [ %1265, %1252 ], [ %1250, %1247 ]
+  %1255 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_s, i64 0, i64 %1228, i64 %1253
+  %1256 = load double, ptr %1255, align 8, !tbaa !22
+  %1257 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1253
+  %1258 = load double, ptr %1257, align 8, !tbaa !22
+  %1259 = tail call double @llvm.fmuladd.f64(double %1256, double %1258, double %1254)
+  %1260 = add nsw i64 %1253, 1
+  %1261 = getelementptr inbounds [64 x [64 x double]], ptr @L3psycho_anal.s3_s, i64 0, i64 %1228, i64 %1260
+  %1262 = load double, ptr %1261, align 8, !tbaa !22
+  %1263 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1260
+  %1264 = load double, ptr %1263, align 8, !tbaa !22
+  %1265 = tail call double @llvm.fmuladd.f64(double %1262, double %1264, double %1259)
+  %1266 = add nsw i64 %1253, 2
+  %1267 = trunc i64 %1266 to i32
+  %1268 = icmp eq i32 %1236, %1267
+  br i1 %1268, label %1269, label %1252, !llvm.loop !72
 
-1264:                                             ; preds = %1242, %1247, %1222
-  %1265 = phi double [ 0.000000e+00, %1222 ], [ %1243, %1242 ], [ %1260, %1247 ]
-  %1266 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.qthr_s, i64 0, i64 %1223
-  %1267 = load double, ptr %1266, align 8, !tbaa !22
-  %1268 = fcmp ogt double %1267, %1265
-  %1269 = select i1 %1268, double %1267, double %1265
-  %1270 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1223
-  store double %1269, ptr %1270, align 8, !tbaa !22
-  %1271 = add nuw nsw i64 %1223, 1
-  %1272 = icmp eq i64 %1271, %1070
-  br i1 %1272, label %1273, label %1222, !llvm.loop !73
+1269:                                             ; preds = %1247, %1252, %1227
+  %1270 = phi double [ 0.000000e+00, %1227 ], [ %1248, %1247 ], [ %1265, %1252 ]
+  %1271 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.qthr_s, i64 0, i64 %1228
+  %1272 = load double, ptr %1271, align 8, !tbaa !22
+  %1273 = fcmp ogt double %1272, %1270
+  %1274 = select i1 %1273, double %1272, double %1270
+  %1275 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1228
+  store double %1274, ptr %1275, align 8, !tbaa !22
+  %1276 = add nuw nsw i64 %1228, 1
+  %1277 = icmp eq i64 %1276, %1075
+  br i1 %1277, label %1278, label %1227, !llvm.loop !73
 
-1273:                                             ; preds = %1264, %1155
-  br label %1274
+1278:                                             ; preds = %1269, %1160
+  br label %1279
 
-1274:                                             ; preds = %1273, %1348
-  %1275 = phi i64 [ %1354, %1348 ], [ 0, %1273 ]
-  %1276 = getelementptr inbounds [12 x double], ptr @L3psycho_anal.w1_s, i64 0, i64 %1275
-  %1277 = load double, ptr %1276, align 8, !tbaa !22
-  %1278 = getelementptr inbounds [12 x i32], ptr @L3psycho_anal.bu_s, i64 0, i64 %1275
-  %1279 = load i32, ptr %1278, align 4, !tbaa !13
-  %1280 = sext i32 %1279 to i64
-  %1281 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1280
+1279:                                             ; preds = %1278, %1353
+  %1280 = phi i64 [ %1359, %1353 ], [ 0, %1278 ]
+  %1281 = getelementptr inbounds [12 x double], ptr @L3psycho_anal.w1_s, i64 0, i64 %1280
   %1282 = load double, ptr %1281, align 8, !tbaa !22
-  %1283 = getelementptr inbounds [12 x double], ptr @L3psycho_anal.w2_s, i64 0, i64 %1275
-  %1284 = load double, ptr %1283, align 8, !tbaa !22
-  %1285 = getelementptr inbounds [12 x i32], ptr @L3psycho_anal.bo_s, i64 0, i64 %1275
-  %1286 = load i32, ptr %1285, align 4, !tbaa !13
-  %1287 = sext i32 %1286 to i64
-  %1288 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1287
-  %1289 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1280
-  %1290 = load double, ptr %1289, align 8, !tbaa !22
-  %1291 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1287
-  %1292 = load double, ptr %1288, align 8, !tbaa !22
-  %1293 = load double, ptr %1291, align 8, !tbaa !22
-  %1294 = insertelement <2 x double> poison, double %1284, i64 0
-  %1295 = shufflevector <2 x double> %1294, <2 x double> poison, <2 x i32> zeroinitializer
-  %1296 = insertelement <2 x double> poison, double %1292, i64 0
-  %1297 = insertelement <2 x double> %1296, double %1293, i64 1
-  %1298 = fmul <2 x double> %1295, %1297
-  %1299 = insertelement <2 x double> poison, double %1277, i64 0
+  %1283 = getelementptr inbounds [12 x i32], ptr @L3psycho_anal.bu_s, i64 0, i64 %1280
+  %1284 = load i32, ptr %1283, align 4, !tbaa !13
+  %1285 = sext i32 %1284 to i64
+  %1286 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1285
+  %1287 = load double, ptr %1286, align 8, !tbaa !22
+  %1288 = getelementptr inbounds [12 x double], ptr @L3psycho_anal.w2_s, i64 0, i64 %1280
+  %1289 = load double, ptr %1288, align 8, !tbaa !22
+  %1290 = getelementptr inbounds [12 x i32], ptr @L3psycho_anal.bo_s, i64 0, i64 %1280
+  %1291 = load i32, ptr %1290, align 4, !tbaa !13
+  %1292 = sext i32 %1291 to i64
+  %1293 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1292
+  %1294 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1285
+  %1295 = load double, ptr %1294, align 8, !tbaa !22
+  %1296 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1292
+  %1297 = load double, ptr %1293, align 8, !tbaa !22
+  %1298 = load double, ptr %1296, align 8, !tbaa !22
+  %1299 = insertelement <2 x double> poison, double %1289, i64 0
   %1300 = shufflevector <2 x double> %1299, <2 x double> poison, <2 x i32> zeroinitializer
-  %1301 = insertelement <2 x double> poison, double %1282, i64 0
-  %1302 = insertelement <2 x double> %1301, double %1290, i64 1
-  %1303 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1300, <2 x double> %1302, <2 x double> %1298)
-  %1304 = add nsw i32 %1279, 1
-  %1305 = icmp slt i32 %1304, %1286
-  br i1 %1305, label %1306, label %1348
+  %1301 = insertelement <2 x double> poison, double %1297, i64 0
+  %1302 = insertelement <2 x double> %1301, double %1298, i64 1
+  %1303 = fmul <2 x double> %1300, %1302
+  %1304 = insertelement <2 x double> poison, double %1282, i64 0
+  %1305 = shufflevector <2 x double> %1304, <2 x double> poison, <2 x i32> zeroinitializer
+  %1306 = insertelement <2 x double> poison, double %1287, i64 0
+  %1307 = insertelement <2 x double> %1306, double %1295, i64 1
+  %1308 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1305, <2 x double> %1307, <2 x double> %1303)
+  %1309 = add nsw i32 %1284, 1
+  %1310 = icmp slt i32 %1309, %1291
+  br i1 %1310, label %1311, label %1353
 
-1306:                                             ; preds = %1274
-  %1307 = add nsw i64 %1280, 1
-  %1308 = xor i32 %1279, -1
-  %1309 = add i32 %1286, %1308
-  %1310 = add i32 %1286, -2
-  %1311 = and i32 %1309, 1
-  %1312 = icmp eq i32 %1311, 0
-  br i1 %1312, label %1322, label %1313
+1311:                                             ; preds = %1279
+  %1312 = add nsw i64 %1285, 1
+  %1313 = xor i32 %1284, -1
+  %1314 = add i32 %1291, %1313
+  %1315 = add i32 %1291, -2
+  %1316 = and i32 %1314, 1
+  %1317 = icmp eq i32 %1316, 0
+  br i1 %1317, label %1327, label %1318
 
-1313:                                             ; preds = %1306
-  %1314 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1307
-  %1315 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1307
-  %1316 = load double, ptr %1314, align 8, !tbaa !22
-  %1317 = load double, ptr %1315, align 8, !tbaa !22
-  %1318 = insertelement <2 x double> poison, double %1316, i64 0
-  %1319 = insertelement <2 x double> %1318, double %1317, i64 1
-  %1320 = fadd <2 x double> %1303, %1319
-  %1321 = add nsw i64 %1280, 2
-  br label %1322
+1318:                                             ; preds = %1311
+  %1319 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1312
+  %1320 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1312
+  %1321 = load double, ptr %1319, align 8, !tbaa !22
+  %1322 = load double, ptr %1320, align 8, !tbaa !22
+  %1323 = insertelement <2 x double> poison, double %1321, i64 0
+  %1324 = insertelement <2 x double> %1323, double %1322, i64 1
+  %1325 = fadd <2 x double> %1308, %1324
+  %1326 = add nsw i64 %1285, 2
+  br label %1327
 
-1322:                                             ; preds = %1313, %1306
-  %1323 = phi <2 x double> [ undef, %1306 ], [ %1320, %1313 ]
-  %1324 = phi i64 [ %1307, %1306 ], [ %1321, %1313 ]
-  %1325 = phi <2 x double> [ %1303, %1306 ], [ %1320, %1313 ]
-  %1326 = icmp eq i32 %1310, %1279
-  br i1 %1326, label %1348, label %1327
+1327:                                             ; preds = %1318, %1311
+  %1328 = phi <2 x double> [ undef, %1311 ], [ %1325, %1318 ]
+  %1329 = phi i64 [ %1312, %1311 ], [ %1326, %1318 ]
+  %1330 = phi <2 x double> [ %1308, %1311 ], [ %1325, %1318 ]
+  %1331 = icmp eq i32 %1315, %1284
+  br i1 %1331, label %1353, label %1332
 
-1327:                                             ; preds = %1322, %1327
-  %1328 = phi i64 [ %1345, %1327 ], [ %1324, %1322 ]
-  %1329 = phi <2 x double> [ %1344, %1327 ], [ %1325, %1322 ]
-  %1330 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1328
-  %1331 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1328
-  %1332 = load double, ptr %1330, align 8, !tbaa !22
-  %1333 = load double, ptr %1331, align 8, !tbaa !22
-  %1334 = insertelement <2 x double> poison, double %1332, i64 0
-  %1335 = insertelement <2 x double> %1334, double %1333, i64 1
-  %1336 = fadd <2 x double> %1329, %1335
-  %1337 = add nsw i64 %1328, 1
-  %1338 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1337
-  %1339 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1337
-  %1340 = load double, ptr %1338, align 8, !tbaa !22
-  %1341 = load double, ptr %1339, align 8, !tbaa !22
-  %1342 = insertelement <2 x double> poison, double %1340, i64 0
-  %1343 = insertelement <2 x double> %1342, double %1341, i64 1
-  %1344 = fadd <2 x double> %1336, %1343
-  %1345 = add nsw i64 %1328, 2
-  %1346 = trunc i64 %1345 to i32
-  %1347 = icmp eq i32 %1286, %1346
-  br i1 %1347, label %1348, label %1327, !llvm.loop !74
+1332:                                             ; preds = %1327, %1332
+  %1333 = phi i64 [ %1350, %1332 ], [ %1329, %1327 ]
+  %1334 = phi <2 x double> [ %1349, %1332 ], [ %1330, %1327 ]
+  %1335 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1333
+  %1336 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1333
+  %1337 = load double, ptr %1335, align 8, !tbaa !22
+  %1338 = load double, ptr %1336, align 8, !tbaa !22
+  %1339 = insertelement <2 x double> poison, double %1337, i64 0
+  %1340 = insertelement <2 x double> %1339, double %1338, i64 1
+  %1341 = fadd <2 x double> %1334, %1340
+  %1342 = add nsw i64 %1333, 1
+  %1343 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.eb, i64 0, i64 %1342
+  %1344 = getelementptr inbounds [63 x double], ptr @L3psycho_anal.thr, i64 0, i64 %1342
+  %1345 = load double, ptr %1343, align 8, !tbaa !22
+  %1346 = load double, ptr %1344, align 8, !tbaa !22
+  %1347 = insertelement <2 x double> poison, double %1345, i64 0
+  %1348 = insertelement <2 x double> %1347, double %1346, i64 1
+  %1349 = fadd <2 x double> %1341, %1348
+  %1350 = add nsw i64 %1333, 2
+  %1351 = trunc i64 %1350 to i32
+  %1352 = icmp eq i32 %1291, %1351
+  br i1 %1352, label %1353, label %1332, !llvm.loop !74
 
-1348:                                             ; preds = %1322, %1327, %1274
-  %1349 = phi <2 x double> [ %1303, %1274 ], [ %1323, %1322 ], [ %1344, %1327 ]
-  %1350 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 %402, i32 1, i64 %1275, i64 %1154
-  %1351 = extractelement <2 x double> %1349, i64 0
-  store double %1351, ptr %1350, align 8, !tbaa !22
-  %1352 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 %402, i32 1, i64 %1275, i64 %1154
-  %1353 = extractelement <2 x double> %1349, i64 1
-  store double %1353, ptr %1352, align 8, !tbaa !22
-  %1354 = add nuw nsw i64 %1275, 1
-  %1355 = icmp eq i64 %1354, 12
-  br i1 %1355, label %1356, label %1274, !llvm.loop !75
+1353:                                             ; preds = %1327, %1332, %1279
+  %1354 = phi <2 x double> [ %1308, %1279 ], [ %1328, %1327 ], [ %1349, %1332 ]
+  %1355 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 %402, i32 1, i64 %1280, i64 %1159
+  %1356 = extractelement <2 x double> %1354, i64 0
+  store double %1356, ptr %1355, align 8, !tbaa !22
+  %1357 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 %402, i32 1, i64 %1280, i64 %1159
+  %1358 = extractelement <2 x double> %1354, i64 1
+  store double %1358, ptr %1357, align 8, !tbaa !22
+  %1359 = add nuw nsw i64 %1280, 1
+  %1360 = icmp eq i64 %1359, 12
+  br i1 %1360, label %1361, label %1279, !llvm.loop !75
 
-1356:                                             ; preds = %1348
-  %1357 = add nuw nsw i64 %1154, 1
-  %1358 = icmp eq i64 %1357, 3
-  br i1 %1358, label %1359, label %1153, !llvm.loop !76
+1361:                                             ; preds = %1353
+  %1362 = add nuw nsw i64 %1159, 1
+  %1363 = icmp eq i64 %1362, 3
+  br i1 %1363, label %1364, label %1158, !llvm.loop !76
 
-1359:                                             ; preds = %1356
-  %1360 = add nuw nsw i64 %402, 1
-  %1361 = icmp eq i64 %1360, %400
-  br i1 %1361, label %1362, label %401, !llvm.loop !77
+1364:                                             ; preds = %1361
+  %1365 = add nuw nsw i64 %402, 1
+  %1366 = icmp eq i64 %1365, %400
+  br i1 %1366, label %1367, label %401, !llvm.loop !77
 
-1362:                                             ; preds = %1359
-  %1363 = icmp eq i32 %395, 4
-  br i1 %1363, label %1364, label %1494
+1367:                                             ; preds = %1364
+  %1368 = icmp eq i32 %395, 4
+  br i1 %1368, label %1369, label %1539
 
-1364:                                             ; preds = %1362, %1396
-  %1365 = phi i64 [ %1397, %1396 ], [ 0, %1362 ]
-  %1366 = getelementptr inbounds [22 x double], ptr @L3psycho_anal.thm, i64 0, i64 %1365
-  %1367 = load double, ptr %1366, align 8, !tbaa !22
-  %1368 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1), i64 0, i64 %1365
-  %1369 = load double, ptr %1368, align 8, !tbaa !22
-  %1370 = fmul double %1369, 1.580000e+00
-  %1371 = fcmp ugt double %1367, %1370
-  %1372 = fmul double %1367, 1.580000e+00
-  %1373 = fcmp ugt double %1369, %1372
-  %1374 = or i1 %1373, %1371
-  br i1 %1374, label %1396, label %1375
+1369:                                             ; preds = %1367, %1411
+  %1370 = phi i64 [ %1412, %1411 ], [ 0, %1367 ]
+  %1371 = getelementptr inbounds [22 x double], ptr @L3psycho_anal.thm, i64 0, i64 %1370
+  %1372 = load double, ptr %1371, align 8, !tbaa !22
+  %1373 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1), i64 0, i64 %1370
+  %1374 = load double, ptr %1373, align 8, !tbaa !22
+  %1375 = fmul double %1374, 1.580000e+00
+  %1376 = fcmp ole double %1372, %1375
+  %1377 = fmul double %1372, 1.580000e+00
+  %1378 = fcmp ole double %1374, %1377
+  %1379 = and i1 %1378, %1376
+  br i1 %1379, label %1380, label %1411
 
-1375:                                             ; preds = %1364
-  %1376 = getelementptr inbounds [21 x double], ptr @L3psycho_anal.mld_l, i64 0, i64 %1365
-  %1377 = load double, ptr %1376, align 8, !tbaa !22
-  %1378 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3), i64 0, i64 %1365
-  %1379 = load double, ptr %1378, align 8, !tbaa !22
-  %1380 = fmul double %1377, %1379
-  %1381 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2), i64 0, i64 %1365
+1380:                                             ; preds = %1369
+  %1381 = getelementptr inbounds [21 x double], ptr @L3psycho_anal.mld_l, i64 0, i64 %1370
   %1382 = load double, ptr %1381, align 8, !tbaa !22
-  %1383 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3), i64 0, i64 %1365
+  %1383 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3), i64 0, i64 %1370
   %1384 = load double, ptr %1383, align 8, !tbaa !22
-  %1385 = fcmp olt double %1384, %1380
-  %1386 = select i1 %1385, double %1384, double %1380
-  %1387 = fcmp ogt double %1382, %1386
-  %1388 = select i1 %1387, double %1382, double %1386
-  %1389 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2), i64 0, i64 %1365
-  %1390 = load double, ptr %1389, align 8, !tbaa !22
-  %1391 = fmul double %1377, %1390
-  %1392 = fcmp olt double %1382, %1391
-  %1393 = select i1 %1392, double %1382, double %1391
-  %1394 = fcmp ogt double %1384, %1393
-  %1395 = select i1 %1394, double %1384, double %1393
-  store double %1388, ptr %1381, align 8, !tbaa !22
-  store double %1395, ptr %1383, align 8, !tbaa !22
-  br label %1396
+  %1385 = fmul double %1382, %1384
+  %1386 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2), i64 0, i64 %1370
+  %1387 = load double, ptr %1386, align 8, !tbaa !22
+  %1388 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3), i64 0, i64 %1370
+  %1389 = load double, ptr %1388, align 8, !tbaa !22
+  %1390 = fcmp olt double %1389, %1385
+  br i1 %1390, label %1391, label %1393
 
-1396:                                             ; preds = %1364, %1375
-  %1397 = add nuw nsw i64 %1365, 1
-  %1398 = icmp eq i64 %1397, 21
-  br i1 %1398, label %1399, label %1364, !llvm.loop !78
+1391:                                             ; preds = %1380
+  %1392 = fcmp ogt double %1387, %1389
+  br i1 %1392, label %1397, label %1395
 
-1399:                                             ; preds = %1396, %1491
-  %1400 = phi i64 [ %1492, %1491 ], [ 0, %1396 ]
-  %1401 = getelementptr inbounds [12 x double], ptr @L3psycho_anal.mld_s, i64 0, i64 %1400
-  %1402 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 %1400, i64 0
-  %1403 = load double, ptr %1402, align 8, !tbaa !22
-  %1404 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 %1400, i64 0
-  %1405 = load double, ptr %1404, align 8, !tbaa !22
-  %1406 = fmul double %1405, 1.580000e+00
-  %1407 = fcmp ugt double %1403, %1406
-  %1408 = fmul double %1403, 1.580000e+00
-  %1409 = fcmp ugt double %1405, %1408
-  %1410 = or i1 %1409, %1407
-  br i1 %1410, label %1431, label %1411
+1393:                                             ; preds = %1380
+  %1394 = fcmp ogt double %1387, %1385
+  br i1 %1394, label %1397, label %1396
 
-1411:                                             ; preds = %1399
-  %1412 = load double, ptr %1401, align 8, !tbaa !22
-  %1413 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3, i32 1, i64 %1400, i64 0
-  %1414 = load double, ptr %1413, align 8, !tbaa !22
-  %1415 = fmul double %1412, %1414
-  %1416 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2, i32 1, i64 %1400, i64 0
-  %1417 = load double, ptr %1416, align 8, !tbaa !22
-  %1418 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3, i32 1, i64 %1400, i64 0
-  %1419 = load double, ptr %1418, align 8, !tbaa !22
-  %1420 = fcmp olt double %1419, %1415
-  %1421 = select i1 %1420, double %1419, double %1415
-  %1422 = fcmp ogt double %1417, %1421
-  %1423 = select i1 %1422, double %1417, double %1421
-  %1424 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2, i32 1, i64 %1400, i64 0
-  %1425 = load double, ptr %1424, align 8, !tbaa !22
-  %1426 = fmul double %1412, %1425
-  %1427 = fcmp olt double %1417, %1426
-  %1428 = select i1 %1427, double %1417, double %1426
-  %1429 = fcmp ogt double %1419, %1428
-  %1430 = select i1 %1429, double %1419, double %1428
-  store double %1423, ptr %1416, align 8, !tbaa !22
-  store double %1430, ptr %1418, align 8, !tbaa !22
-  br label %1431
+1395:                                             ; preds = %1391
+  br label %1397
 
-1431:                                             ; preds = %1399, %1411
-  %1432 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 %1400, i64 1
-  %1433 = load double, ptr %1432, align 8, !tbaa !22
-  %1434 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 %1400, i64 1
-  %1435 = load double, ptr %1434, align 8, !tbaa !22
-  %1436 = fmul double %1435, 1.580000e+00
-  %1437 = fcmp ugt double %1433, %1436
-  %1438 = fmul double %1433, 1.580000e+00
-  %1439 = fcmp ugt double %1435, %1438
-  %1440 = or i1 %1439, %1437
-  br i1 %1440, label %1461, label %1441
+1396:                                             ; preds = %1393
+  br label %1397
 
-1441:                                             ; preds = %1431
-  %1442 = load double, ptr %1401, align 8, !tbaa !22
-  %1443 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3, i32 1, i64 %1400, i64 1
-  %1444 = load double, ptr %1443, align 8, !tbaa !22
-  %1445 = fmul double %1442, %1444
-  %1446 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2, i32 1, i64 %1400, i64 1
-  %1447 = load double, ptr %1446, align 8, !tbaa !22
-  %1448 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3, i32 1, i64 %1400, i64 1
-  %1449 = load double, ptr %1448, align 8, !tbaa !22
-  %1450 = fcmp olt double %1449, %1445
-  %1451 = select i1 %1450, double %1449, double %1445
-  %1452 = fcmp ogt double %1447, %1451
-  %1453 = select i1 %1452, double %1447, double %1451
-  %1454 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2, i32 1, i64 %1400, i64 1
-  %1455 = load double, ptr %1454, align 8, !tbaa !22
-  %1456 = fmul double %1442, %1455
-  %1457 = fcmp olt double %1447, %1456
-  %1458 = select i1 %1457, double %1447, double %1456
-  %1459 = fcmp ogt double %1449, %1458
-  %1460 = select i1 %1459, double %1449, double %1458
-  store double %1453, ptr %1446, align 8, !tbaa !22
-  store double %1460, ptr %1448, align 8, !tbaa !22
-  br label %1461
+1397:                                             ; preds = %1393, %1391, %1395, %1396
+  %1398 = phi double [ %1389, %1395 ], [ %1385, %1396 ], [ %1387, %1391 ], [ %1387, %1393 ]
+  %1399 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2), i64 0, i64 %1370
+  %1400 = load double, ptr %1399, align 8, !tbaa !22
+  %1401 = fmul double %1382, %1400
+  %1402 = fcmp olt double %1387, %1401
+  br i1 %1402, label %1403, label %1405
 
-1461:                                             ; preds = %1441, %1431
-  %1462 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 %1400, i64 2
-  %1463 = load double, ptr %1462, align 8, !tbaa !22
-  %1464 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 %1400, i64 2
-  %1465 = load double, ptr %1464, align 8, !tbaa !22
-  %1466 = fmul double %1465, 1.580000e+00
-  %1467 = fcmp ugt double %1463, %1466
-  %1468 = fmul double %1463, 1.580000e+00
-  %1469 = fcmp ugt double %1465, %1468
-  %1470 = or i1 %1469, %1467
-  br i1 %1470, label %1491, label %1471
+1403:                                             ; preds = %1397
+  %1404 = fcmp ogt double %1389, %1387
+  br i1 %1404, label %1409, label %1407
 
-1471:                                             ; preds = %1461
-  %1472 = load double, ptr %1401, align 8, !tbaa !22
-  %1473 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3, i32 1, i64 %1400, i64 2
+1405:                                             ; preds = %1397
+  %1406 = fcmp ogt double %1389, %1401
+  br i1 %1406, label %1409, label %1408
+
+1407:                                             ; preds = %1403
+  br label %1409
+
+1408:                                             ; preds = %1405
+  br label %1409
+
+1409:                                             ; preds = %1405, %1403, %1407, %1408
+  %1410 = phi double [ %1387, %1407 ], [ %1401, %1408 ], [ %1389, %1403 ], [ %1389, %1405 ]
+  store double %1398, ptr %1386, align 8, !tbaa !22
+  store double %1410, ptr %1388, align 8, !tbaa !22
+  br label %1411
+
+1411:                                             ; preds = %1369, %1409
+  %1412 = add nuw nsw i64 %1370, 1
+  %1413 = icmp eq i64 %1412, 21
+  br i1 %1413, label %1414, label %1369, !llvm.loop !78
+
+1414:                                             ; preds = %1411, %1536
+  %1415 = phi i64 [ %1537, %1536 ], [ 0, %1411 ]
+  %1416 = getelementptr inbounds [12 x double], ptr @L3psycho_anal.mld_s, i64 0, i64 %1415
+  %1417 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 %1415, i64 0
+  %1418 = load double, ptr %1417, align 8, !tbaa !22
+  %1419 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 %1415, i64 0
+  %1420 = load double, ptr %1419, align 8, !tbaa !22
+  %1421 = fmul double %1420, 1.580000e+00
+  %1422 = fcmp ole double %1418, %1421
+  %1423 = fmul double %1418, 1.580000e+00
+  %1424 = fcmp ole double %1420, %1423
+  %1425 = and i1 %1424, %1422
+  br i1 %1425, label %1426, label %1456
+
+1426:                                             ; preds = %1414
+  %1427 = load double, ptr %1416, align 8, !tbaa !22
+  %1428 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3, i32 1, i64 %1415, i64 0
+  %1429 = load double, ptr %1428, align 8, !tbaa !22
+  %1430 = fmul double %1427, %1429
+  %1431 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2, i32 1, i64 %1415, i64 0
+  %1432 = load double, ptr %1431, align 8, !tbaa !22
+  %1433 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3, i32 1, i64 %1415, i64 0
+  %1434 = load double, ptr %1433, align 8, !tbaa !22
+  %1435 = fcmp olt double %1434, %1430
+  br i1 %1435, label %1436, label %1438
+
+1436:                                             ; preds = %1426
+  %1437 = fcmp ogt double %1432, %1434
+  br i1 %1437, label %1442, label %1440
+
+1438:                                             ; preds = %1426
+  %1439 = fcmp ogt double %1432, %1430
+  br i1 %1439, label %1442, label %1441
+
+1440:                                             ; preds = %1436
+  br label %1442
+
+1441:                                             ; preds = %1438
+  br label %1442
+
+1442:                                             ; preds = %1438, %1436, %1440, %1441
+  %1443 = phi double [ %1434, %1440 ], [ %1430, %1441 ], [ %1432, %1436 ], [ %1432, %1438 ]
+  %1444 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2, i32 1, i64 %1415, i64 0
+  %1445 = load double, ptr %1444, align 8, !tbaa !22
+  %1446 = fmul double %1427, %1445
+  %1447 = fcmp olt double %1432, %1446
+  br i1 %1447, label %1448, label %1450
+
+1448:                                             ; preds = %1442
+  %1449 = fcmp ogt double %1434, %1432
+  br i1 %1449, label %1454, label %1452
+
+1450:                                             ; preds = %1442
+  %1451 = fcmp ogt double %1434, %1446
+  br i1 %1451, label %1454, label %1453
+
+1452:                                             ; preds = %1448
+  br label %1454
+
+1453:                                             ; preds = %1450
+  br label %1454
+
+1454:                                             ; preds = %1450, %1448, %1452, %1453
+  %1455 = phi double [ %1432, %1452 ], [ %1446, %1453 ], [ %1434, %1448 ], [ %1434, %1450 ]
+  store double %1443, ptr %1431, align 8, !tbaa !22
+  store double %1455, ptr %1433, align 8, !tbaa !22
+  br label %1456
+
+1456:                                             ; preds = %1414, %1454
+  %1457 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 %1415, i64 1
+  %1458 = load double, ptr %1457, align 8, !tbaa !22
+  %1459 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 %1415, i64 1
+  %1460 = load double, ptr %1459, align 8, !tbaa !22
+  %1461 = fmul double %1460, 1.580000e+00
+  %1462 = fcmp ole double %1458, %1461
+  %1463 = fmul double %1458, 1.580000e+00
+  %1464 = fcmp ole double %1460, %1463
+  %1465 = and i1 %1464, %1462
+  br i1 %1465, label %1466, label %1496
+
+1466:                                             ; preds = %1456
+  %1467 = load double, ptr %1416, align 8, !tbaa !22
+  %1468 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3, i32 1, i64 %1415, i64 1
+  %1469 = load double, ptr %1468, align 8, !tbaa !22
+  %1470 = fmul double %1467, %1469
+  %1471 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2, i32 1, i64 %1415, i64 1
+  %1472 = load double, ptr %1471, align 8, !tbaa !22
+  %1473 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3, i32 1, i64 %1415, i64 1
   %1474 = load double, ptr %1473, align 8, !tbaa !22
-  %1475 = fmul double %1472, %1474
-  %1476 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2, i32 1, i64 %1400, i64 2
-  %1477 = load double, ptr %1476, align 8, !tbaa !22
-  %1478 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3, i32 1, i64 %1400, i64 2
-  %1479 = load double, ptr %1478, align 8, !tbaa !22
-  %1480 = fcmp olt double %1479, %1475
-  %1481 = select i1 %1480, double %1479, double %1475
-  %1482 = fcmp ogt double %1477, %1481
-  %1483 = select i1 %1482, double %1477, double %1481
-  %1484 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2, i32 1, i64 %1400, i64 2
+  %1475 = fcmp olt double %1474, %1470
+  br i1 %1475, label %1479, label %1476
+
+1476:                                             ; preds = %1466
+  %1477 = fcmp ogt double %1472, %1470
+  br i1 %1477, label %1482, label %1478
+
+1478:                                             ; preds = %1476
+  br label %1482
+
+1479:                                             ; preds = %1466
+  %1480 = fcmp ogt double %1472, %1474
+  br i1 %1480, label %1482, label %1481
+
+1481:                                             ; preds = %1479
+  br label %1482
+
+1482:                                             ; preds = %1481, %1479, %1478, %1476
+  %1483 = phi double [ %1474, %1481 ], [ %1470, %1478 ], [ %1472, %1479 ], [ %1472, %1476 ]
+  %1484 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2, i32 1, i64 %1415, i64 1
   %1485 = load double, ptr %1484, align 8, !tbaa !22
-  %1486 = fmul double %1472, %1485
-  %1487 = fcmp olt double %1477, %1486
-  %1488 = select i1 %1487, double %1477, double %1486
-  %1489 = fcmp ogt double %1479, %1488
-  %1490 = select i1 %1489, double %1479, double %1488
-  store double %1483, ptr %1476, align 8, !tbaa !22
-  store double %1490, ptr %1478, align 8, !tbaa !22
-  br label %1491
+  %1486 = fmul double %1467, %1485
+  %1487 = fcmp olt double %1472, %1486
+  br i1 %1487, label %1491, label %1488
 
-1491:                                             ; preds = %1471, %1461
-  %1492 = add nuw nsw i64 %1400, 1
-  %1493 = icmp eq i64 %1492, 12
-  br i1 %1493, label %1494, label %1399, !llvm.loop !79
+1488:                                             ; preds = %1482
+  %1489 = fcmp ogt double %1474, %1486
+  br i1 %1489, label %1494, label %1490
 
-1494:                                             ; preds = %1491, %1362
-  %1495 = load i32, ptr %392, align 4, !tbaa !46
+1490:                                             ; preds = %1488
+  br label %1494
+
+1491:                                             ; preds = %1482
+  %1492 = fcmp ogt double %1474, %1472
+  br i1 %1492, label %1494, label %1493
+
+1493:                                             ; preds = %1491
+  br label %1494
+
+1494:                                             ; preds = %1493, %1491, %1490, %1488
+  %1495 = phi double [ %1472, %1493 ], [ %1486, %1490 ], [ %1474, %1491 ], [ %1474, %1488 ]
+  store double %1483, ptr %1471, align 8, !tbaa !22
+  store double %1495, ptr %1473, align 8, !tbaa !22
   br label %1496
 
-1496:                                             ; preds = %389, %1494
-  %1497 = phi i32 [ %1495, %1494 ], [ %393, %389 ]
-  %1498 = phi i1 [ %1363, %1494 ], [ false, %389 ]
-  %1499 = icmp eq i32 %1497, 1
-  br i1 %1499, label %1500, label %1693
+1496:                                             ; preds = %1494, %1456
+  %1497 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 %1415, i64 2
+  %1498 = load double, ptr %1497, align 8, !tbaa !22
+  %1499 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 %1415, i64 2
+  %1500 = load double, ptr %1499, align 8, !tbaa !22
+  %1501 = fmul double %1500, 1.580000e+00
+  %1502 = fcmp ole double %1498, %1501
+  %1503 = fmul double %1498, 1.580000e+00
+  %1504 = fcmp ole double %1500, %1503
+  %1505 = and i1 %1504, %1502
+  br i1 %1505, label %1506, label %1536
 
-1500:                                             ; preds = %1496, %1517
-  %1501 = phi i64 [ %1521, %1517 ], [ 5, %1496 ]
-  %1502 = phi double [ %1520, %1517 ], [ 0.000000e+00, %1496 ]
-  %1503 = phi double [ %1519, %1517 ], [ 0.000000e+00, %1496 ]
-  %1504 = getelementptr inbounds [22 x double], ptr @L3psycho_anal.thm, i64 0, i64 %1501
-  %1505 = load double, ptr %1504, align 8, !tbaa !22
-  %1506 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1), i64 0, i64 %1501
-  %1507 = load double, ptr %1506, align 8, !tbaa !22
-  %1508 = fcmp olt double %1505, %1507
-  %1509 = select i1 %1508, double %1505, double %1507
-  %1510 = fcmp ogt double %1505, %1507
-  %1511 = select i1 %1510, double %1505, double %1507
-  %1512 = fmul double %1509, 1.000000e+03
-  %1513 = fcmp ult double %1511, %1512
-  br i1 %1513, label %1514, label %1517
+1506:                                             ; preds = %1496
+  %1507 = load double, ptr %1416, align 8, !tbaa !22
+  %1508 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 3, i32 1, i64 %1415, i64 2
+  %1509 = load double, ptr %1508, align 8, !tbaa !22
+  %1510 = fmul double %1507, %1509
+  %1511 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 2, i32 1, i64 %1415, i64 2
+  %1512 = load double, ptr %1511, align 8, !tbaa !22
+  %1513 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 3, i32 1, i64 %1415, i64 2
+  %1514 = load double, ptr %1513, align 8, !tbaa !22
+  %1515 = fcmp olt double %1514, %1510
+  br i1 %1515, label %1519, label %1516
 
-1514:                                             ; preds = %1500
-  %1515 = fdiv double %1511, %1509
-  %1516 = tail call double @log10(double noundef %1515) #11
-  br label %1517
+1516:                                             ; preds = %1506
+  %1517 = fcmp ogt double %1512, %1510
+  br i1 %1517, label %1522, label %1518
 
-1517:                                             ; preds = %1500, %1514
-  %1518 = phi double [ %1516, %1514 ], [ 3.000000e+00, %1500 ]
-  %1519 = fadd double %1503, %1518
-  %1520 = fadd double %1502, 1.000000e+00
-  %1521 = add nuw nsw i64 %1501, 1
-  %1522 = icmp eq i64 %1521, 21
-  br i1 %1522, label %1523, label %1500, !llvm.loop !80
+1518:                                             ; preds = %1516
+  br label %1522
 
-1523:                                             ; preds = %1517
-  %1524 = fdiv double %1519, %1520
-  %1525 = fmul double %1524, 0x3FE6666666666666
-  %1526 = fcmp olt double %1525, 5.000000e-01
-  br label %1527
+1519:                                             ; preds = %1506
+  %1520 = fcmp ogt double %1512, %1514
+  br i1 %1520, label %1522, label %1521
 
-1527:                                             ; preds = %1523, %1679
-  %1528 = phi i64 [ 0, %1523 ], [ %1683, %1679 ]
-  %1529 = phi <2 x double> [ zeroinitializer, %1523 ], [ %1682, %1679 ]
-  %1530 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 3, i64 %1528
-  %1531 = load double, ptr %1530, align 8, !tbaa !22
-  %1532 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 3, i64 %1528
-  %1533 = load double, ptr %1532, align 8, !tbaa !22
-  %1534 = fcmp olt double %1531, %1533
-  %1535 = select i1 %1534, double %1531, double %1533
-  %1536 = fcmp ogt double %1531, %1533
-  %1537 = select i1 %1536, double %1531, double %1533
-  %1538 = fmul double %1535, 1.000000e+03
-  %1539 = fcmp ult double %1537, %1538
-  br i1 %1539, label %1540, label %1543
+1521:                                             ; preds = %1519
+  br label %1522
 
-1540:                                             ; preds = %1527
-  %1541 = fdiv double %1537, %1535
-  %1542 = tail call double @log10(double noundef %1541) #11
-  br label %1543
+1522:                                             ; preds = %1521, %1519, %1518, %1516
+  %1523 = phi double [ %1514, %1521 ], [ %1510, %1518 ], [ %1512, %1519 ], [ %1512, %1516 ]
+  %1524 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.en, i64 0, i64 2, i32 1, i64 %1415, i64 2
+  %1525 = load double, ptr %1524, align 8, !tbaa !22
+  %1526 = fmul double %1507, %1525
+  %1527 = fcmp olt double %1512, %1526
+  br i1 %1527, label %1531, label %1528
 
-1543:                                             ; preds = %1527, %1540
-  %1544 = phi double [ %1542, %1540 ], [ 3.000000e+00, %1527 ]
-  %1545 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1544, i64 1
-  %1546 = fadd <2 x double> %1529, %1545
-  %1547 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 4, i64 %1528
-  %1548 = load double, ptr %1547, align 8, !tbaa !22
-  %1549 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 4, i64 %1528
+1528:                                             ; preds = %1522
+  %1529 = fcmp ogt double %1514, %1526
+  br i1 %1529, label %1534, label %1530
+
+1530:                                             ; preds = %1528
+  br label %1534
+
+1531:                                             ; preds = %1522
+  %1532 = fcmp ogt double %1514, %1512
+  br i1 %1532, label %1534, label %1533
+
+1533:                                             ; preds = %1531
+  br label %1534
+
+1534:                                             ; preds = %1533, %1531, %1530, %1528
+  %1535 = phi double [ %1512, %1533 ], [ %1526, %1530 ], [ %1514, %1531 ], [ %1514, %1528 ]
+  store double %1523, ptr %1511, align 8, !tbaa !22
+  store double %1535, ptr %1513, align 8, !tbaa !22
+  br label %1536
+
+1536:                                             ; preds = %1534, %1496
+  %1537 = add nuw nsw i64 %1415, 1
+  %1538 = icmp eq i64 %1537, 12
+  br i1 %1538, label %1539, label %1414, !llvm.loop !79
+
+1539:                                             ; preds = %1536, %1367
+  %1540 = load i32, ptr %392, align 4, !tbaa !46
+  br label %1541
+
+1541:                                             ; preds = %389, %1539
+  %1542 = phi i32 [ %1540, %1539 ], [ %393, %389 ]
+  %1543 = phi i1 [ %1368, %1539 ], [ false, %389 ]
+  %1544 = icmp eq i32 %1542, 1
+  br i1 %1544, label %1545, label %1738
+
+1545:                                             ; preds = %1541, %1562
+  %1546 = phi i64 [ %1566, %1562 ], [ 5, %1541 ]
+  %1547 = phi double [ %1565, %1562 ], [ 0.000000e+00, %1541 ]
+  %1548 = phi double [ %1564, %1562 ], [ 0.000000e+00, %1541 ]
+  %1549 = getelementptr inbounds [22 x double], ptr @L3psycho_anal.thm, i64 0, i64 %1546
   %1550 = load double, ptr %1549, align 8, !tbaa !22
-  %1551 = fcmp olt double %1548, %1550
-  %1552 = select i1 %1551, double %1548, double %1550
-  %1553 = fcmp ogt double %1548, %1550
-  %1554 = select i1 %1553, double %1548, double %1550
-  %1555 = fmul double %1552, 1.000000e+03
-  %1556 = fcmp ult double %1554, %1555
-  br i1 %1556, label %1557, label %1560
+  %1551 = getelementptr inbounds [22 x double], ptr getelementptr inbounds ([4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1), i64 0, i64 %1546
+  %1552 = load double, ptr %1551, align 8, !tbaa !22
+  %1553 = fcmp olt double %1550, %1552
+  %1554 = select i1 %1553, double %1550, double %1552
+  %1555 = fcmp ogt double %1550, %1552
+  %1556 = select i1 %1555, double %1550, double %1552
+  %1557 = fmul double %1554, 1.000000e+03
+  %1558 = fcmp ult double %1556, %1557
+  br i1 %1558, label %1559, label %1562
 
-1557:                                             ; preds = %1543
-  %1558 = fdiv double %1554, %1552
-  %1559 = tail call double @log10(double noundef %1558) #11
-  br label %1560
+1559:                                             ; preds = %1545
+  %1560 = fdiv double %1556, %1554
+  %1561 = tail call double @log10(double noundef %1560) #11
+  br label %1562
 
-1560:                                             ; preds = %1557, %1543
-  %1561 = phi double [ %1559, %1557 ], [ 3.000000e+00, %1543 ]
-  %1562 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1561, i64 1
-  %1563 = fadd <2 x double> %1546, %1562
-  %1564 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 5, i64 %1528
-  %1565 = load double, ptr %1564, align 8, !tbaa !22
-  %1566 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 5, i64 %1528
-  %1567 = load double, ptr %1566, align 8, !tbaa !22
-  %1568 = fcmp olt double %1565, %1567
-  %1569 = select i1 %1568, double %1565, double %1567
-  %1570 = fcmp ogt double %1565, %1567
-  %1571 = select i1 %1570, double %1565, double %1567
-  %1572 = fmul double %1569, 1.000000e+03
-  %1573 = fcmp ult double %1571, %1572
-  br i1 %1573, label %1574, label %1577
+1562:                                             ; preds = %1545, %1559
+  %1563 = phi double [ %1561, %1559 ], [ 3.000000e+00, %1545 ]
+  %1564 = fadd double %1548, %1563
+  %1565 = fadd double %1547, 1.000000e+00
+  %1566 = add nuw nsw i64 %1546, 1
+  %1567 = icmp eq i64 %1566, 21
+  br i1 %1567, label %1568, label %1545, !llvm.loop !80
 
-1574:                                             ; preds = %1560
-  %1575 = fdiv double %1571, %1569
-  %1576 = tail call double @log10(double noundef %1575) #11
-  br label %1577
+1568:                                             ; preds = %1562
+  %1569 = fdiv double %1564, %1565
+  %1570 = fmul double %1569, 0x3FE6666666666666
+  %1571 = fcmp olt double %1570, 5.000000e-01
+  br label %1572
 
-1577:                                             ; preds = %1574, %1560
-  %1578 = phi double [ %1576, %1574 ], [ 3.000000e+00, %1560 ]
-  %1579 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1578, i64 1
-  %1580 = fadd <2 x double> %1563, %1579
-  %1581 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 6, i64 %1528
-  %1582 = load double, ptr %1581, align 8, !tbaa !22
-  %1583 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 6, i64 %1528
-  %1584 = load double, ptr %1583, align 8, !tbaa !22
-  %1585 = fcmp olt double %1582, %1584
-  %1586 = select i1 %1585, double %1582, double %1584
-  %1587 = fcmp ogt double %1582, %1584
-  %1588 = select i1 %1587, double %1582, double %1584
-  %1589 = fmul double %1586, 1.000000e+03
-  %1590 = fcmp ult double %1588, %1589
-  br i1 %1590, label %1591, label %1594
+1572:                                             ; preds = %1568, %1724
+  %1573 = phi i64 [ 0, %1568 ], [ %1728, %1724 ]
+  %1574 = phi <2 x double> [ zeroinitializer, %1568 ], [ %1727, %1724 ]
+  %1575 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 3, i64 %1573
+  %1576 = load double, ptr %1575, align 8, !tbaa !22
+  %1577 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 3, i64 %1573
+  %1578 = load double, ptr %1577, align 8, !tbaa !22
+  %1579 = fcmp olt double %1576, %1578
+  %1580 = select i1 %1579, double %1576, double %1578
+  %1581 = fcmp ogt double %1576, %1578
+  %1582 = select i1 %1581, double %1576, double %1578
+  %1583 = fmul double %1580, 1.000000e+03
+  %1584 = fcmp ult double %1582, %1583
+  br i1 %1584, label %1585, label %1588
 
-1591:                                             ; preds = %1577
-  %1592 = fdiv double %1588, %1586
-  %1593 = tail call double @log10(double noundef %1592) #11
-  br label %1594
+1585:                                             ; preds = %1572
+  %1586 = fdiv double %1582, %1580
+  %1587 = tail call double @log10(double noundef %1586) #11
+  br label %1588
 
-1594:                                             ; preds = %1591, %1577
-  %1595 = phi double [ %1593, %1591 ], [ 3.000000e+00, %1577 ]
-  %1596 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1595, i64 1
-  %1597 = fadd <2 x double> %1580, %1596
-  %1598 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 7, i64 %1528
-  %1599 = load double, ptr %1598, align 8, !tbaa !22
-  %1600 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 7, i64 %1528
-  %1601 = load double, ptr %1600, align 8, !tbaa !22
-  %1602 = fcmp olt double %1599, %1601
-  %1603 = select i1 %1602, double %1599, double %1601
-  %1604 = fcmp ogt double %1599, %1601
-  %1605 = select i1 %1604, double %1599, double %1601
-  %1606 = fmul double %1603, 1.000000e+03
-  %1607 = fcmp ult double %1605, %1606
-  br i1 %1607, label %1608, label %1611
+1588:                                             ; preds = %1572, %1585
+  %1589 = phi double [ %1587, %1585 ], [ 3.000000e+00, %1572 ]
+  %1590 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1589, i64 1
+  %1591 = fadd <2 x double> %1574, %1590
+  %1592 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 4, i64 %1573
+  %1593 = load double, ptr %1592, align 8, !tbaa !22
+  %1594 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 4, i64 %1573
+  %1595 = load double, ptr %1594, align 8, !tbaa !22
+  %1596 = fcmp olt double %1593, %1595
+  %1597 = select i1 %1596, double %1593, double %1595
+  %1598 = fcmp ogt double %1593, %1595
+  %1599 = select i1 %1598, double %1593, double %1595
+  %1600 = fmul double %1597, 1.000000e+03
+  %1601 = fcmp ult double %1599, %1600
+  br i1 %1601, label %1602, label %1605
 
-1608:                                             ; preds = %1594
-  %1609 = fdiv double %1605, %1603
-  %1610 = tail call double @log10(double noundef %1609) #11
-  br label %1611
+1602:                                             ; preds = %1588
+  %1603 = fdiv double %1599, %1597
+  %1604 = tail call double @log10(double noundef %1603) #11
+  br label %1605
 
-1611:                                             ; preds = %1608, %1594
-  %1612 = phi double [ %1610, %1608 ], [ 3.000000e+00, %1594 ]
-  %1613 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1612, i64 1
-  %1614 = fadd <2 x double> %1597, %1613
-  %1615 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 8, i64 %1528
-  %1616 = load double, ptr %1615, align 8, !tbaa !22
-  %1617 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 8, i64 %1528
-  %1618 = load double, ptr %1617, align 8, !tbaa !22
-  %1619 = fcmp olt double %1616, %1618
-  %1620 = select i1 %1619, double %1616, double %1618
-  %1621 = fcmp ogt double %1616, %1618
-  %1622 = select i1 %1621, double %1616, double %1618
-  %1623 = fmul double %1620, 1.000000e+03
-  %1624 = fcmp ult double %1622, %1623
-  br i1 %1624, label %1625, label %1628
+1605:                                             ; preds = %1602, %1588
+  %1606 = phi double [ %1604, %1602 ], [ 3.000000e+00, %1588 ]
+  %1607 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1606, i64 1
+  %1608 = fadd <2 x double> %1591, %1607
+  %1609 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 5, i64 %1573
+  %1610 = load double, ptr %1609, align 8, !tbaa !22
+  %1611 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 5, i64 %1573
+  %1612 = load double, ptr %1611, align 8, !tbaa !22
+  %1613 = fcmp olt double %1610, %1612
+  %1614 = select i1 %1613, double %1610, double %1612
+  %1615 = fcmp ogt double %1610, %1612
+  %1616 = select i1 %1615, double %1610, double %1612
+  %1617 = fmul double %1614, 1.000000e+03
+  %1618 = fcmp ult double %1616, %1617
+  br i1 %1618, label %1619, label %1622
 
-1625:                                             ; preds = %1611
-  %1626 = fdiv double %1622, %1620
-  %1627 = tail call double @log10(double noundef %1626) #11
-  br label %1628
+1619:                                             ; preds = %1605
+  %1620 = fdiv double %1616, %1614
+  %1621 = tail call double @log10(double noundef %1620) #11
+  br label %1622
 
-1628:                                             ; preds = %1625, %1611
-  %1629 = phi double [ %1627, %1625 ], [ 3.000000e+00, %1611 ]
-  %1630 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1629, i64 1
-  %1631 = fadd <2 x double> %1614, %1630
-  %1632 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 9, i64 %1528
-  %1633 = load double, ptr %1632, align 8, !tbaa !22
-  %1634 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 9, i64 %1528
-  %1635 = load double, ptr %1634, align 8, !tbaa !22
-  %1636 = fcmp olt double %1633, %1635
-  %1637 = select i1 %1636, double %1633, double %1635
-  %1638 = fcmp ogt double %1633, %1635
-  %1639 = select i1 %1638, double %1633, double %1635
-  %1640 = fmul double %1637, 1.000000e+03
-  %1641 = fcmp ult double %1639, %1640
-  br i1 %1641, label %1642, label %1645
+1622:                                             ; preds = %1619, %1605
+  %1623 = phi double [ %1621, %1619 ], [ 3.000000e+00, %1605 ]
+  %1624 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1623, i64 1
+  %1625 = fadd <2 x double> %1608, %1624
+  %1626 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 6, i64 %1573
+  %1627 = load double, ptr %1626, align 8, !tbaa !22
+  %1628 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 6, i64 %1573
+  %1629 = load double, ptr %1628, align 8, !tbaa !22
+  %1630 = fcmp olt double %1627, %1629
+  %1631 = select i1 %1630, double %1627, double %1629
+  %1632 = fcmp ogt double %1627, %1629
+  %1633 = select i1 %1632, double %1627, double %1629
+  %1634 = fmul double %1631, 1.000000e+03
+  %1635 = fcmp ult double %1633, %1634
+  br i1 %1635, label %1636, label %1639
 
-1642:                                             ; preds = %1628
-  %1643 = fdiv double %1639, %1637
-  %1644 = tail call double @log10(double noundef %1643) #11
-  br label %1645
+1636:                                             ; preds = %1622
+  %1637 = fdiv double %1633, %1631
+  %1638 = tail call double @log10(double noundef %1637) #11
+  br label %1639
 
-1645:                                             ; preds = %1642, %1628
-  %1646 = phi double [ %1644, %1642 ], [ 3.000000e+00, %1628 ]
-  %1647 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1646, i64 1
-  %1648 = fadd <2 x double> %1631, %1647
-  %1649 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 10, i64 %1528
-  %1650 = load double, ptr %1649, align 8, !tbaa !22
-  %1651 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 10, i64 %1528
-  %1652 = load double, ptr %1651, align 8, !tbaa !22
-  %1653 = fcmp olt double %1650, %1652
-  %1654 = select i1 %1653, double %1650, double %1652
-  %1655 = fcmp ogt double %1650, %1652
-  %1656 = select i1 %1655, double %1650, double %1652
-  %1657 = fmul double %1654, 1.000000e+03
-  %1658 = fcmp ult double %1656, %1657
-  br i1 %1658, label %1659, label %1662
+1639:                                             ; preds = %1636, %1622
+  %1640 = phi double [ %1638, %1636 ], [ 3.000000e+00, %1622 ]
+  %1641 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1640, i64 1
+  %1642 = fadd <2 x double> %1625, %1641
+  %1643 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 7, i64 %1573
+  %1644 = load double, ptr %1643, align 8, !tbaa !22
+  %1645 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 7, i64 %1573
+  %1646 = load double, ptr %1645, align 8, !tbaa !22
+  %1647 = fcmp olt double %1644, %1646
+  %1648 = select i1 %1647, double %1644, double %1646
+  %1649 = fcmp ogt double %1644, %1646
+  %1650 = select i1 %1649, double %1644, double %1646
+  %1651 = fmul double %1648, 1.000000e+03
+  %1652 = fcmp ult double %1650, %1651
+  br i1 %1652, label %1653, label %1656
 
-1659:                                             ; preds = %1645
-  %1660 = fdiv double %1656, %1654
-  %1661 = tail call double @log10(double noundef %1660) #11
-  br label %1662
+1653:                                             ; preds = %1639
+  %1654 = fdiv double %1650, %1648
+  %1655 = tail call double @log10(double noundef %1654) #11
+  br label %1656
 
-1662:                                             ; preds = %1659, %1645
-  %1663 = phi double [ %1661, %1659 ], [ 3.000000e+00, %1645 ]
-  %1664 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1663, i64 1
-  %1665 = fadd <2 x double> %1648, %1664
-  %1666 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 11, i64 %1528
-  %1667 = load double, ptr %1666, align 8, !tbaa !22
-  %1668 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 11, i64 %1528
-  %1669 = load double, ptr %1668, align 8, !tbaa !22
-  %1670 = fcmp olt double %1667, %1669
-  %1671 = select i1 %1670, double %1667, double %1669
-  %1672 = fcmp ogt double %1667, %1669
-  %1673 = select i1 %1672, double %1667, double %1669
-  %1674 = fmul double %1671, 1.000000e+03
-  %1675 = fcmp ult double %1673, %1674
-  br i1 %1675, label %1676, label %1679
+1656:                                             ; preds = %1653, %1639
+  %1657 = phi double [ %1655, %1653 ], [ 3.000000e+00, %1639 ]
+  %1658 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1657, i64 1
+  %1659 = fadd <2 x double> %1642, %1658
+  %1660 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 8, i64 %1573
+  %1661 = load double, ptr %1660, align 8, !tbaa !22
+  %1662 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 8, i64 %1573
+  %1663 = load double, ptr %1662, align 8, !tbaa !22
+  %1664 = fcmp olt double %1661, %1663
+  %1665 = select i1 %1664, double %1661, double %1663
+  %1666 = fcmp ogt double %1661, %1663
+  %1667 = select i1 %1666, double %1661, double %1663
+  %1668 = fmul double %1665, 1.000000e+03
+  %1669 = fcmp ult double %1667, %1668
+  br i1 %1669, label %1670, label %1673
 
-1676:                                             ; preds = %1662
-  %1677 = fdiv double %1673, %1671
-  %1678 = tail call double @log10(double noundef %1677) #11
-  br label %1679
+1670:                                             ; preds = %1656
+  %1671 = fdiv double %1667, %1665
+  %1672 = tail call double @log10(double noundef %1671) #11
+  br label %1673
 
-1679:                                             ; preds = %1676, %1662
-  %1680 = phi double [ %1678, %1676 ], [ 3.000000e+00, %1662 ]
-  %1681 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1680, i64 1
-  %1682 = fadd <2 x double> %1665, %1681
-  %1683 = add nuw nsw i64 %1528, 1
-  %1684 = icmp eq i64 %1683, 3
-  br i1 %1684, label %1685, label %1527, !llvm.loop !81
+1673:                                             ; preds = %1670, %1656
+  %1674 = phi double [ %1672, %1670 ], [ 3.000000e+00, %1656 ]
+  %1675 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1674, i64 1
+  %1676 = fadd <2 x double> %1659, %1675
+  %1677 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 9, i64 %1573
+  %1678 = load double, ptr %1677, align 8, !tbaa !22
+  %1679 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 9, i64 %1573
+  %1680 = load double, ptr %1679, align 8, !tbaa !22
+  %1681 = fcmp olt double %1678, %1680
+  %1682 = select i1 %1681, double %1678, double %1680
+  %1683 = fcmp ogt double %1678, %1680
+  %1684 = select i1 %1683, double %1678, double %1680
+  %1685 = fmul double %1682, 1.000000e+03
+  %1686 = fcmp ult double %1684, %1685
+  br i1 %1686, label %1687, label %1690
 
-1685:                                             ; preds = %1679
-  %1686 = select i1 %1526, double %1525, double 5.000000e-01
-  %1687 = extractelement <2 x double> %1682, i64 0
-  %1688 = extractelement <2 x double> %1682, i64 1
-  %1689 = fdiv double %1688, %1687
-  %1690 = fmul double %1689, 0x3FE6666666666666
-  %1691 = fcmp olt double %1690, 5.000000e-01
-  %1692 = select i1 %1691, double %1690, double 5.000000e-01
-  br label %1693
+1687:                                             ; preds = %1673
+  %1688 = fdiv double %1684, %1682
+  %1689 = tail call double @log10(double noundef %1688) #11
+  br label %1690
 
-1693:                                             ; preds = %1685, %1496
-  %1694 = phi double [ %1692, %1685 ], [ 0.000000e+00, %1496 ]
-  %1695 = phi double [ %1686, %1685 ], [ 0.000000e+00, %1496 ]
-  %1696 = load i32, ptr %390, align 4, !tbaa !45
-  %1697 = icmp sgt i32 %1696, 0
-  br i1 %1697, label %1698, label %1751
+1690:                                             ; preds = %1687, %1673
+  %1691 = phi double [ %1689, %1687 ], [ 3.000000e+00, %1673 ]
+  %1692 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1691, i64 1
+  %1693 = fadd <2 x double> %1676, %1692
+  %1694 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 10, i64 %1573
+  %1695 = load double, ptr %1694, align 8, !tbaa !22
+  %1696 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 10, i64 %1573
+  %1697 = load double, ptr %1696, align 8, !tbaa !22
+  %1698 = fcmp olt double %1695, %1697
+  %1699 = select i1 %1698, double %1695, double %1697
+  %1700 = fcmp ogt double %1695, %1697
+  %1701 = select i1 %1700, double %1695, double %1697
+  %1702 = fmul double %1699, 1.000000e+03
+  %1703 = fcmp ult double %1701, %1702
+  br i1 %1703, label %1704, label %1707
 
-1698:                                             ; preds = %1693
-  %1699 = zext i32 %1696 to i64
-  %1700 = shl nuw nsw i64 %1699, 2
-  call void @llvm.memset.p0.i64(ptr nonnull align 4 %13, i8 0, i64 %1700, i1 false), !tbaa !13
-  %1701 = icmp eq i32 %1696, 2
-  br i1 %1701, label %1702, label %1717
+1704:                                             ; preds = %1690
+  %1705 = fdiv double %1701, %1699
+  %1706 = tail call double @log10(double noundef %1705) #11
+  br label %1707
 
-1702:                                             ; preds = %1698
-  %1703 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 36
-  %1704 = load i32, ptr %1703, align 4, !tbaa !82
-  %1705 = icmp eq i32 %1704, 0
-  br i1 %1705, label %1709, label %1706
+1707:                                             ; preds = %1704, %1690
+  %1708 = phi double [ %1706, %1704 ], [ 3.000000e+00, %1690 ]
+  %1709 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1708, i64 1
+  %1710 = fadd <2 x double> %1693, %1709
+  %1711 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 0, i32 1, i64 11, i64 %1573
+  %1712 = load double, ptr %1711, align 8, !tbaa !22
+  %1713 = getelementptr inbounds [4 x %struct.III_psy_xmin], ptr @L3psycho_anal.thm, i64 0, i64 1, i32 1, i64 11, i64 %1573
+  %1714 = load double, ptr %1713, align 8, !tbaa !22
+  %1715 = fcmp olt double %1712, %1714
+  %1716 = select i1 %1715, double %1712, double %1714
+  %1717 = fcmp ogt double %1712, %1714
+  %1718 = select i1 %1717, double %1712, double %1714
+  %1719 = fmul double %1716, 1.000000e+03
+  %1720 = fcmp ult double %1718, %1719
+  br i1 %1720, label %1721, label %1724
 
-1706:                                             ; preds = %1702
-  %1707 = load i32, ptr %392, align 4, !tbaa !46
-  %1708 = icmp eq i32 %1707, 1
-  br i1 %1708, label %1709, label %1717
+1721:                                             ; preds = %1707
+  %1722 = fdiv double %1718, %1716
+  %1723 = tail call double @log10(double noundef %1722) #11
+  br label %1724
 
-1709:                                             ; preds = %1706, %1702
-  %1710 = load i32, ptr %14, align 4, !tbaa !13
-  %1711 = icmp ne i32 %1710, 0
-  %1712 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 1
-  %1713 = load i32, ptr %1712, align 4
-  %1714 = icmp ne i32 %1713, 0
-  %1715 = select i1 %1711, i1 %1714, i1 false
-  br i1 %1715, label %1717, label %1716
+1724:                                             ; preds = %1721, %1707
+  %1725 = phi double [ %1723, %1721 ], [ 3.000000e+00, %1707 ]
+  %1726 = insertelement <2 x double> <double 1.000000e+00, double poison>, double %1725, i64 1
+  %1727 = fadd <2 x double> %1710, %1726
+  %1728 = add nuw nsw i64 %1573, 1
+  %1729 = icmp eq i64 %1728, 3
+  br i1 %1729, label %1730, label %1572, !llvm.loop !81
 
-1716:                                             ; preds = %1709
+1730:                                             ; preds = %1724
+  %1731 = select i1 %1571, double %1570, double 5.000000e-01
+  %1732 = extractelement <2 x double> %1727, i64 0
+  %1733 = extractelement <2 x double> %1727, i64 1
+  %1734 = fdiv double %1733, %1732
+  %1735 = fmul double %1734, 0x3FE6666666666666
+  %1736 = fcmp olt double %1735, 5.000000e-01
+  %1737 = select i1 %1736, double %1735, double 5.000000e-01
+  br label %1738
+
+1738:                                             ; preds = %1730, %1541
+  %1739 = phi double [ %1737, %1730 ], [ 0.000000e+00, %1541 ]
+  %1740 = phi double [ %1731, %1730 ], [ 0.000000e+00, %1541 ]
+  %1741 = load i32, ptr %390, align 4, !tbaa !45
+  %1742 = icmp sgt i32 %1741, 0
+  br i1 %1742, label %1743, label %1796
+
+1743:                                             ; preds = %1738
+  %1744 = zext i32 %1741 to i64
+  %1745 = shl nuw nsw i64 %1744, 2
+  call void @llvm.memset.p0.i64(ptr nonnull align 4 %13, i8 0, i64 %1745, i1 false), !tbaa !13
+  %1746 = icmp eq i32 %1741, 2
+  br i1 %1746, label %1747, label %1762
+
+1747:                                             ; preds = %1743
+  %1748 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 36
+  %1749 = load i32, ptr %1748, align 4, !tbaa !82
+  %1750 = icmp eq i32 %1749, 0
+  br i1 %1750, label %1754, label %1751
+
+1751:                                             ; preds = %1747
+  %1752 = load i32, ptr %392, align 4, !tbaa !46
+  %1753 = icmp eq i32 %1752, 1
+  br i1 %1753, label %1754, label %1762
+
+1754:                                             ; preds = %1751, %1747
+  %1755 = load i32, ptr %14, align 4, !tbaa !13
+  %1756 = icmp ne i32 %1755, 0
+  %1757 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 1
+  %1758 = load i32, ptr %1757, align 4
+  %1759 = icmp ne i32 %1758, 0
+  %1760 = select i1 %1756, i1 %1759, i1 false
+  br i1 %1760, label %1762, label %1761
+
+1761:                                             ; preds = %1754
   store i32 0, ptr %14, align 4, !tbaa !13
-  store i32 0, ptr %1712, align 4, !tbaa !13
-  br label %1717
+  store i32 0, ptr %1757, align 4, !tbaa !13
+  br label %1762
 
-1717:                                             ; preds = %1709, %1716, %1706, %1698
-  br label %1718
+1762:                                             ; preds = %1754, %1761, %1751, %1743
+  br label %1763
 
-1718:                                             ; preds = %1717, %1742
-  %1719 = phi i64 [ %1747, %1742 ], [ 0, %1717 ]
-  %1720 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %1719
-  %1721 = load i32, ptr %1720, align 4, !tbaa !13
-  %1722 = icmp eq i32 %1721, 0
-  br i1 %1722, label %1736, label %1723
+1763:                                             ; preds = %1762, %1787
+  %1764 = phi i64 [ %1792, %1787 ], [ 0, %1762 ]
+  %1765 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 %1764
+  %1766 = load i32, ptr %1765, align 4, !tbaa !13
+  %1767 = icmp eq i32 %1766, 0
+  br i1 %1767, label %1781, label %1768
 
-1723:                                             ; preds = %1718
-  %1724 = getelementptr inbounds [2 x i32], ptr @L3psycho_anal.blocktype_old, i64 0, i64 %1719
-  %1725 = load i32, ptr %1724, align 4, !tbaa !13
-  switch i32 %1725, label %1726 [
-    i32 0, label %1729
-    i32 3, label %1729
-    i32 2, label %1731
-    i32 1, label %1733
+1768:                                             ; preds = %1763
+  %1769 = getelementptr inbounds [2 x i32], ptr @L3psycho_anal.blocktype_old, i64 0, i64 %1764
+  %1770 = load i32, ptr %1769, align 4, !tbaa !13
+  switch i32 %1770, label %1771 [
+    i32 0, label %1774
+    i32 3, label %1774
+    i32 2, label %1776
+    i32 1, label %1778
   ]
 
-1726:                                             ; preds = %1723
-  %1727 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1719
-  %1728 = load i32, ptr %1727, align 4, !tbaa !13
-  br label %1742
+1771:                                             ; preds = %1768
+  %1772 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1764
+  %1773 = load i32, ptr %1772, align 4, !tbaa !13
+  br label %1787
 
-1729:                                             ; preds = %1723, %1723
-  %1730 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1719
-  store i32 0, ptr %1730, align 4, !tbaa !13
-  br label %1742
+1774:                                             ; preds = %1768, %1768
+  %1775 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1764
+  store i32 0, ptr %1775, align 4, !tbaa !13
+  br label %1787
 
-1731:                                             ; preds = %1723
-  %1732 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1719
-  store i32 3, ptr %1732, align 4, !tbaa !13
-  br label %1742
+1776:                                             ; preds = %1768
+  %1777 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1764
+  store i32 3, ptr %1777, align 4, !tbaa !13
+  br label %1787
 
-1733:                                             ; preds = %1723
-  %1734 = load ptr, ptr @stderr, align 8, !tbaa !15
-  %1735 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 25, i64 1, ptr %1734) #12
+1778:                                             ; preds = %1768
+  %1779 = load ptr, ptr @stderr, align 8, !tbaa !15
+  %1780 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 25, i64 1, ptr %1779) #12
   tail call void @abort() #13
   unreachable
 
-1736:                                             ; preds = %1718
-  %1737 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1719
-  store i32 2, ptr %1737, align 4, !tbaa !13
-  %1738 = getelementptr inbounds [2 x i32], ptr @L3psycho_anal.blocktype_old, i64 0, i64 %1719
-  %1739 = load i32, ptr %1738, align 4, !tbaa !13
-  switch i32 %1739, label %1742 [
-    i32 0, label %1740
-    i32 3, label %1741
+1781:                                             ; preds = %1763
+  %1782 = getelementptr inbounds [2 x i32], ptr %13, i64 0, i64 %1764
+  store i32 2, ptr %1782, align 4, !tbaa !13
+  %1783 = getelementptr inbounds [2 x i32], ptr @L3psycho_anal.blocktype_old, i64 0, i64 %1764
+  %1784 = load i32, ptr %1783, align 4, !tbaa !13
+  switch i32 %1784, label %1787 [
+    i32 0, label %1785
+    i32 3, label %1786
   ]
 
-1740:                                             ; preds = %1736
-  br label %1742
+1785:                                             ; preds = %1781
+  br label %1787
 
-1741:                                             ; preds = %1736
-  br label %1742
+1786:                                             ; preds = %1781
+  br label %1787
 
-1742:                                             ; preds = %1726, %1736, %1740, %1741, %1729, %1731
-  %1743 = phi i32 [ 2, %1736 ], [ 2, %1740 ], [ 2, %1741 ], [ 0, %1729 ], [ 3, %1731 ], [ %1728, %1726 ]
-  %1744 = phi i32 [ %1739, %1736 ], [ 1, %1740 ], [ 2, %1741 ], [ %1725, %1729 ], [ 2, %1731 ], [ %1725, %1726 ]
-  %1745 = getelementptr inbounds [2 x i32], ptr @L3psycho_anal.blocktype_old, i64 0, i64 %1719
-  %1746 = getelementptr inbounds i32, ptr %10, i64 %1719
-  store i32 %1744, ptr %1746, align 4, !tbaa !13
-  store i32 %1743, ptr %1745, align 4, !tbaa !13
-  %1747 = add nuw nsw i64 %1719, 1
-  %1748 = load i32, ptr %390, align 4, !tbaa !45
-  %1749 = sext i32 %1748 to i64
-  %1750 = icmp slt i64 %1747, %1749
-  br i1 %1750, label %1718, label %1751, !llvm.loop !83
+1787:                                             ; preds = %1771, %1781, %1785, %1786, %1774, %1776
+  %1788 = phi i32 [ 2, %1781 ], [ 2, %1785 ], [ 2, %1786 ], [ 0, %1774 ], [ 3, %1776 ], [ %1773, %1771 ]
+  %1789 = phi i32 [ %1784, %1781 ], [ 1, %1785 ], [ 2, %1786 ], [ %1770, %1774 ], [ 2, %1776 ], [ %1770, %1771 ]
+  %1790 = getelementptr inbounds [2 x i32], ptr @L3psycho_anal.blocktype_old, i64 0, i64 %1764
+  %1791 = getelementptr inbounds i32, ptr %10, i64 %1764
+  store i32 %1789, ptr %1791, align 4, !tbaa !13
+  store i32 %1788, ptr %1790, align 4, !tbaa !13
+  %1792 = add nuw nsw i64 %1764, 1
+  %1793 = load i32, ptr %390, align 4, !tbaa !45
+  %1794 = sext i32 %1793 to i64
+  %1795 = icmp slt i64 %1792, %1794
+  br i1 %1795, label %1763, label %1796, !llvm.loop !83
 
-1751:                                             ; preds = %1742, %1693
-  %1752 = load i32, ptr %10, align 4, !tbaa !13
-  %1753 = icmp eq i32 %1752, 2
-  %1754 = load double, ptr @L3psycho_anal.ms_ratio_s_old, align 8
-  %1755 = load double, ptr @L3psycho_anal.ms_ratio_l_old, align 8
-  %1756 = select i1 %1753, double %1754, double %1755
-  store double %1756, ptr %3, align 8, !tbaa !22
-  store double %1694, ptr @L3psycho_anal.ms_ratio_s_old, align 8, !tbaa !22
-  store double %1695, ptr @L3psycho_anal.ms_ratio_l_old, align 8, !tbaa !22
-  store double %1695, ptr %4, align 8, !tbaa !22
-  br i1 %1498, label %1757, label %1768
+1796:                                             ; preds = %1787, %1738
+  %1797 = load i32, ptr %10, align 4, !tbaa !13
+  %1798 = icmp eq i32 %1797, 2
+  %1799 = load double, ptr @L3psycho_anal.ms_ratio_s_old, align 8
+  %1800 = load double, ptr @L3psycho_anal.ms_ratio_l_old, align 8
+  %1801 = select i1 %1798, double %1799, double %1800
+  store double %1801, ptr %3, align 8, !tbaa !22
+  store double %1739, ptr @L3psycho_anal.ms_ratio_s_old, align 8, !tbaa !22
+  store double %1740, ptr @L3psycho_anal.ms_ratio_l_old, align 8, !tbaa !22
+  store double %1740, ptr %4, align 8, !tbaa !22
+  br i1 %1543, label %1802, label %1813
 
-1757:                                             ; preds = %1751
-  %1758 = getelementptr inbounds [4 x float], ptr %12, i64 0, i64 3
-  %1759 = load float, ptr %1758, align 4, !tbaa !17
-  %1760 = getelementptr inbounds [4 x float], ptr %12, i64 0, i64 2
-  %1761 = load float, ptr %1760, align 8, !tbaa !17
-  %1762 = fadd float %1759, %1761
-  %1763 = load double, ptr @L3psycho_anal.ms_ener_ratio_old, align 8, !tbaa !22
-  store double %1763, ptr %5, align 8, !tbaa !22
+1802:                                             ; preds = %1796
+  %1803 = getelementptr inbounds [4 x float], ptr %12, i64 0, i64 3
+  %1804 = load float, ptr %1803, align 4, !tbaa !17
+  %1805 = getelementptr inbounds [4 x float], ptr %12, i64 0, i64 2
+  %1806 = load float, ptr %1805, align 8, !tbaa !17
+  %1807 = fadd float %1804, %1806
+  %1808 = load double, ptr @L3psycho_anal.ms_ener_ratio_old, align 8, !tbaa !22
+  store double %1808, ptr %5, align 8, !tbaa !22
   store double 0.000000e+00, ptr @L3psycho_anal.ms_ener_ratio_old, align 8, !tbaa !22
-  %1764 = fcmp ogt float %1762, 0.000000e+00
-  br i1 %1764, label %1765, label %1769
+  %1809 = fcmp ogt float %1807, 0.000000e+00
+  br i1 %1809, label %1810, label %1814
 
-1765:                                             ; preds = %1757
-  %1766 = fdiv float %1759, %1762
-  %1767 = fpext float %1766 to double
-  store double %1767, ptr @L3psycho_anal.ms_ener_ratio_old, align 8, !tbaa !22
-  br label %1769
+1810:                                             ; preds = %1802
+  %1811 = fdiv float %1804, %1807
+  %1812 = fpext float %1811 to double
+  store double %1812, ptr @L3psycho_anal.ms_ener_ratio_old, align 8, !tbaa !22
+  br label %1814
 
-1768:                                             ; preds = %1751
+1813:                                             ; preds = %1796
   store double 0.000000e+00, ptr %5, align 8, !tbaa !22
-  br label %1769
+  br label %1814
 
-1769:                                             ; preds = %1757, %1765, %1768
+1814:                                             ; preds = %1802, %1810, %1813
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #11
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #11
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %12) #11
@@ -3401,6 +3539,9 @@ declare void @abort() local_unnamed_addr #3
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare double @llvm.sqrt.f64(double) #10
+
 declare float @sqrtf(float) local_unnamed_addr
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -3411,9 +3552,6 @@ declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare double @llvm.sqrt.f64(double) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #10

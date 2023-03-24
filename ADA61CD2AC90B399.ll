@@ -1419,10 +1419,10 @@ define dso_local noundef i32 @_ZNK14btTriangleMesh15getNumTrianglesEv(ptr nocapt
   %3 = load i8, ptr %2, align 8, !tbaa !48, !range !64, !noundef !65
   %4 = icmp eq i8 %3, 0
   %5 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 4, i32 2
-  %6 = load i32, ptr %5, align 4
-  %7 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 2
-  %8 = load i32, ptr %7, align 4
-  %9 = select i1 %4, i32 %8, i32 %6
+  %6 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 2
+  %7 = load i32, ptr %6, align 4
+  %8 = load i32, ptr %5, align 4
+  %9 = select i1 %4, i32 %7, i32 %8
   %10 = sdiv i32 %9, 3
   ret i32 %10
 }

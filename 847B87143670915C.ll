@@ -423,804 +423,810 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %122 = load i32, ptr @Frame_Store_Flag, align 4
   %123 = icmp ne i32 %122, 0
   %124 = select i1 %121, i1 %123, i1 false
-  %125 = zext i1 %124 to i32
-  store i32 %125, ptr @Display_Progressive_Flag, align 4, !tbaa !5
-  %126 = icmp eq i32 %119, -1
-  br i1 %126, label %127, label %128
+  br i1 %124, label %125, label %126
 
-127:                                              ; preds = %118
+125:                                              ; preds = %118
+  store i32 1, ptr @Display_Progressive_Flag, align 4, !tbaa !5
+  br label %129
+
+126:                                              ; preds = %118
+  store i32 0, ptr @Display_Progressive_Flag, align 4, !tbaa !5
+  %127 = icmp eq i32 %119, -1
+  br i1 %127, label %128, label %129
+
+128:                                              ; preds = %126
   store i32 9, ptr @Output_Type, align 4, !tbaa !5
   store ptr @.str.13, ptr @Output_Picture_Filename, align 8, !tbaa !9
-  br label %128
+  br label %129
 
-128:                                              ; preds = %118, %127
+129:                                              ; preds = %125, %126, %128
   store ptr @base, ptr @ld, align 8, !tbaa !9
-  %129 = load ptr, ptr @Main_Bitstream_Filename, align 8, !tbaa !9
-  %130 = tail call i32 (ptr, i32, ...) @open(ptr noundef %129, i32 noundef 0) #17
-  store i32 %130, ptr @base, align 8, !tbaa !14
-  %131 = icmp slt i32 %130, 0
-  br i1 %131, label %132, label %136
+  %130 = load ptr, ptr @Main_Bitstream_Filename, align 8, !tbaa !9
+  %131 = tail call i32 (ptr, i32, ...) @open(ptr noundef %130, i32 noundef 0) #17
+  store i32 %131, ptr @base, align 8, !tbaa !14
+  %132 = icmp slt i32 %131, 0
+  br i1 %132, label %133, label %137
 
-132:                                              ; preds = %128
-  %133 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %134 = load ptr, ptr @Main_Bitstream_Filename, align 8, !tbaa !9
-  %135 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %133, ptr noundef nonnull @.str, ptr noundef %134) #18
+133:                                              ; preds = %129
+  %134 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %135 = load ptr, ptr @Main_Bitstream_Filename, align 8, !tbaa !9
+  %136 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %134, ptr noundef nonnull @.str, ptr noundef %135) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-136:                                              ; preds = %128
-  %137 = icmp eq i32 %130, 0
-  br i1 %137, label %157, label %138
+137:                                              ; preds = %129
+  %138 = icmp eq i32 %131, 0
+  br i1 %138, label %158, label %139
 
-138:                                              ; preds = %136
+139:                                              ; preds = %137
   tail call void @Initialize_Buffer() #17
-  %139 = tail call i32 @Show_Bits(i32 noundef 8) #17
-  %140 = icmp eq i32 %139, 71
-  br i1 %140, label %141, label %144
+  %140 = tail call i32 @Show_Bits(i32 noundef 8) #17
+  %141 = icmp eq i32 %140, 71
+  br i1 %141, label %142, label %145
 
-141:                                              ; preds = %138
+142:                                              ; preds = %139
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(52) @Error_Text, ptr noundef nonnull align 1 dereferenceable(52) @.str.1, i64 52, i1 false)
-  %142 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %143 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %142, ptr noundef nonnull @Error_Text) #18
+  %143 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %144 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %143, ptr noundef nonnull @Error_Text) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-144:                                              ; preds = %138
+145:                                              ; preds = %139
   tail call void @next_start_code() #17
-  %145 = tail call i32 @Show_Bits(i32 noundef 32) #17
-  switch i32 %145, label %147 [
-    i32 435, label %150
-    i32 442, label %146
-    i32 480, label %146
+  %146 = tail call i32 @Show_Bits(i32 noundef 32) #17
+  switch i32 %146, label %148 [
+    i32 435, label %151
+    i32 442, label %147
+    i32 480, label %147
   ]
 
-146:                                              ; preds = %144, %144
+147:                                              ; preds = %145, %145
   store i32 1, ptr @System_Stream_Flag, align 4, !tbaa !5
-  br label %150
+  br label %151
 
-147:                                              ; preds = %144
+148:                                              ; preds = %145
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(33) @Error_Text, ptr noundef nonnull align 1 dereferenceable(33) @.str.2, i64 33, i1 false)
-  %148 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %149 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %148, ptr noundef nonnull @Error_Text) #18
+  %149 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %150 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %149, ptr noundef nonnull @Error_Text) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-150:                                              ; preds = %144, %146
-  %151 = load i32, ptr @base, align 8, !tbaa !14
-  %152 = tail call i64 @lseek(i32 noundef %151, i64 noundef 0, i32 noundef 0) #17
+151:                                              ; preds = %145, %147
+  %152 = load i32, ptr @base, align 8, !tbaa !14
+  %153 = tail call i64 @lseek(i32 noundef %152, i64 noundef 0, i32 noundef 0) #17
   tail call void @Initialize_Buffer() #17
-  %153 = load i32, ptr @base, align 8, !tbaa !14
-  %154 = icmp eq i32 %153, 0
-  br i1 %154, label %157, label %155
+  %154 = load i32, ptr @base, align 8, !tbaa !14
+  %155 = icmp eq i32 %154, 0
+  br i1 %155, label %158, label %156
 
-155:                                              ; preds = %150
-  %156 = tail call i64 @lseek(i32 noundef %153, i64 noundef 0, i32 noundef 0) #17
-  br label %157
+156:                                              ; preds = %151
+  %157 = tail call i64 @lseek(i32 noundef %154, i64 noundef 0, i32 noundef 0) #17
+  br label %158
 
-157:                                              ; preds = %136, %155, %150
+158:                                              ; preds = %137, %156, %151
   tail call void @Initialize_Buffer() #17
-  %158 = load i32, ptr @Two_Streams, align 4, !tbaa !5
-  %159 = icmp eq i32 %158, 0
-  br i1 %159, label %170, label %160
+  %159 = load i32, ptr @Two_Streams, align 4, !tbaa !5
+  %160 = icmp eq i32 %159, 0
+  br i1 %160, label %171, label %161
 
-160:                                              ; preds = %157
+161:                                              ; preds = %158
   store ptr @enhan, ptr @ld, align 8, !tbaa !9
-  %161 = load ptr, ptr @Enhancement_Layer_Bitstream_Filename, align 8, !tbaa !9
-  %162 = tail call i32 (ptr, i32, ...) @open(ptr noundef %161, i32 noundef 0) #17
-  store i32 %162, ptr @enhan, align 8, !tbaa !14
-  %163 = icmp slt i32 %162, 0
-  br i1 %163, label %164, label %169
+  %162 = load ptr, ptr @Enhancement_Layer_Bitstream_Filename, align 8, !tbaa !9
+  %163 = tail call i32 (ptr, i32, ...) @open(ptr noundef %162, i32 noundef 0) #17
+  store i32 %163, ptr @enhan, align 8, !tbaa !14
+  %164 = icmp slt i32 %163, 0
+  br i1 %164, label %165, label %170
 
-164:                                              ; preds = %160
-  %165 = load ptr, ptr @Enhancement_Layer_Bitstream_Filename, align 8, !tbaa !9
-  %166 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @Error_Text, ptr noundef nonnull dereferenceable(1) @.str.3, ptr noundef %165) #17
-  %167 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %168 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %167, ptr noundef nonnull @Error_Text) #18
+165:                                              ; preds = %161
+  %166 = load ptr, ptr @Enhancement_Layer_Bitstream_Filename, align 8, !tbaa !9
+  %167 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @Error_Text, ptr noundef nonnull dereferenceable(1) @.str.3, ptr noundef %166) #17
+  %168 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %169 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %168, ptr noundef nonnull @Error_Text) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-169:                                              ; preds = %160
+170:                                              ; preds = %161
   tail call void @Initialize_Buffer() #17
   store ptr @base, ptr @ld, align 8, !tbaa !9
-  br label %170
+  br label %171
 
-170:                                              ; preds = %169, %157
-  %171 = tail call noalias dereferenceable_or_null(1024) ptr @malloc(i64 noundef 1024) #19
-  store ptr %171, ptr @Clip, align 8, !tbaa !9
-  %172 = icmp eq ptr %171, null
-  br i1 %172, label %173, label %176
+171:                                              ; preds = %170, %158
+  %172 = tail call noalias dereferenceable_or_null(1024) ptr @malloc(i64 noundef 1024) #19
+  store ptr %172, ptr @Clip, align 8, !tbaa !9
+  %173 = icmp eq ptr %172, null
+  br i1 %173, label %174, label %177
 
-173:                                              ; preds = %170
-  %174 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %175 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 21, i64 1, ptr %174) #18
+174:                                              ; preds = %171
+  %175 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %176 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 21, i64 1, ptr %175) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-176:                                              ; preds = %170
-  %177 = getelementptr inbounds i8, ptr %171, i64 384
-  store ptr %177, ptr @Clip, align 8, !tbaa !9
-  br label %178
+177:                                              ; preds = %171
+  %178 = getelementptr inbounds i8, ptr %172, i64 384
+  store ptr %178, ptr @Clip, align 8, !tbaa !9
+  br label %179
 
-178:                                              ; preds = %178, %176
-  %179 = phi i64 [ -384, %176 ], [ %193, %178 ]
-  %180 = trunc i64 %179 to i32
-  %181 = tail call i32 @llvm.smin.i32(i32 %180, i32 255)
-  %182 = tail call i32 @llvm.smax.i32(i32 %181, i32 0)
-  %183 = trunc i32 %182 to i8
-  %184 = load ptr, ptr @Clip, align 8, !tbaa !9
-  %185 = getelementptr inbounds i8, ptr %184, i64 %179
-  store i8 %183, ptr %185, align 1, !tbaa !11
-  %186 = or i64 %179, 1
-  %187 = trunc i64 %186 to i32
-  %188 = tail call i32 @llvm.smin.i32(i32 %187, i32 255)
-  %189 = tail call i32 @llvm.smax.i32(i32 %188, i32 0)
-  %190 = trunc i32 %189 to i8
-  %191 = load ptr, ptr @Clip, align 8, !tbaa !9
-  %192 = getelementptr inbounds i8, ptr %191, i64 %186
-  store i8 %190, ptr %192, align 1, !tbaa !11
-  %193 = add nsw i64 %179, 2
-  %194 = icmp eq i64 %193, 640
-  br i1 %194, label %195, label %178, !llvm.loop !16
+179:                                              ; preds = %179, %177
+  %180 = phi i64 [ -384, %177 ], [ %194, %179 ]
+  %181 = trunc i64 %180 to i32
+  %182 = tail call i32 @llvm.smin.i32(i32 %181, i32 255)
+  %183 = tail call i32 @llvm.smax.i32(i32 %182, i32 0)
+  %184 = trunc i32 %183 to i8
+  %185 = load ptr, ptr @Clip, align 8, !tbaa !9
+  %186 = getelementptr inbounds i8, ptr %185, i64 %180
+  store i8 %184, ptr %186, align 1, !tbaa !11
+  %187 = or i64 %180, 1
+  %188 = trunc i64 %187 to i32
+  %189 = tail call i32 @llvm.smin.i32(i32 %188, i32 255)
+  %190 = tail call i32 @llvm.smax.i32(i32 %189, i32 0)
+  %191 = trunc i32 %190 to i8
+  %192 = load ptr, ptr @Clip, align 8, !tbaa !9
+  %193 = getelementptr inbounds i8, ptr %192, i64 %187
+  store i8 %191, ptr %193, align 1, !tbaa !11
+  %194 = add nsw i64 %180, 2
+  %195 = icmp eq i64 %194, 640
+  br i1 %195, label %196, label %179, !llvm.loop !16
 
-195:                                              ; preds = %178
-  %196 = load i32, ptr @Reference_IDCT_Flag, align 4, !tbaa !5
-  %197 = icmp eq i32 %196, 0
-  br i1 %197, label %199, label %198
+196:                                              ; preds = %179
+  %197 = load i32, ptr @Reference_IDCT_Flag, align 4, !tbaa !5
+  %198 = icmp eq i32 %197, 0
+  br i1 %198, label %200, label %199
 
-198:                                              ; preds = %195
+199:                                              ; preds = %196
   tail call void @Initialize_Reference_IDCT() #17
-  br label %200
-
-199:                                              ; preds = %195
-  tail call void @Initialize_Fast_IDCT() #17
-  br label %200
-
-200:                                              ; preds = %198, %199
   br label %201
 
-201:                                              ; preds = %542, %200
-  %202 = phi i32 [ 0, %200 ], [ %486, %542 ]
-  store ptr @base, ptr @ld, align 8, !tbaa !9
-  %203 = tail call i32 @Get_Hdr() #17
-  %204 = load i32, ptr @Two_Streams, align 4, !tbaa !5
-  %205 = icmp eq i32 %204, 0
-  br i1 %205, label %216, label %206
+200:                                              ; preds = %196
+  tail call void @Initialize_Fast_IDCT() #17
+  br label %201
 
-206:                                              ; preds = %201
+201:                                              ; preds = %199, %200
+  br label %202
+
+202:                                              ; preds = %543, %201
+  %203 = phi i32 [ 0, %201 ], [ %487, %543 ]
+  store ptr @base, ptr @ld, align 8, !tbaa !9
+  %204 = tail call i32 @Get_Hdr() #17
+  %205 = load i32, ptr @Two_Streams, align 4, !tbaa !5
+  %206 = icmp eq i32 %205, 0
+  br i1 %206, label %217, label %207
+
+207:                                              ; preds = %202
   store ptr @enhan, ptr @ld, align 8, !tbaa !9
-  %207 = tail call i32 @Get_Hdr() #17
-  %208 = icmp eq i32 %207, %203
-  %209 = load i32, ptr @Quiet_Flag, align 4
-  %210 = icmp ne i32 %209, 0
-  %211 = select i1 %208, i1 true, i1 %210
-  br i1 %211, label %215, label %212
+  %208 = tail call i32 @Get_Hdr() #17
+  %209 = icmp eq i32 %208, %204
+  %210 = load i32, ptr @Quiet_Flag, align 4
+  %211 = icmp ne i32 %210, 0
+  %212 = select i1 %209, i1 true, i1 %211
+  br i1 %212, label %216, label %213
 
-212:                                              ; preds = %206
-  %213 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %214 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 20, i64 1, ptr %213) #18
-  br label %215
-
-215:                                              ; preds = %212, %206
-  store ptr @base, ptr @ld, align 8, !tbaa !9
+213:                                              ; preds = %207
+  %214 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %215 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 20, i64 1, ptr %214) #18
   br label %216
 
-216:                                              ; preds = %215, %201
-  %217 = icmp eq i32 %203, 1
-  br i1 %217, label %218, label %543
+216:                                              ; preds = %213, %207
+  store ptr @base, ptr @ld, align 8, !tbaa !9
+  br label %217
 
-218:                                              ; preds = %216
-  %219 = load i32, ptr @Two_Streams, align 4, !tbaa !5
-  %220 = icmp ne i32 %219, 0
-  %221 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @enhan, i64 0, i32 17), align 4
-  %222 = icmp ne i32 %221, 3
-  %223 = select i1 %220, i1 %222, i1 false
-  %224 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4
-  %225 = freeze i32 %224
-  %226 = icmp ne i32 %225, 1
-  %227 = and i1 %223, %226
-  br i1 %227, label %228, label %231
+217:                                              ; preds = %216, %202
+  %218 = icmp eq i32 %204, 1
+  br i1 %218, label %219, label %544
 
-228:                                              ; preds = %218
-  %229 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %230 = tail call i64 @fwrite(ptr nonnull @.str.21, i64 29, i64 1, ptr %229) #18
+219:                                              ; preds = %217
+  %220 = load i32, ptr @Two_Streams, align 4, !tbaa !5
+  %221 = icmp ne i32 %220, 0
+  %222 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @enhan, i64 0, i32 17), align 4
+  %223 = icmp ne i32 %222, 3
+  %224 = select i1 %221, i1 %223, i1 false
+  %225 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4
+  %226 = freeze i32 %225
+  %227 = icmp ne i32 %226, 1
+  %228 = and i1 %224, %227
+  br i1 %228, label %229, label %232
+
+229:                                              ; preds = %219
+  %230 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %231 = tail call i64 @fwrite(ptr nonnull @.str.21, i64 29, i64 1, ptr %230) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-231:                                              ; preds = %218
-  %232 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 16), align 8, !tbaa !17
-  %233 = icmp eq i32 %232, 0
-  br i1 %233, label %234, label %238
+232:                                              ; preds = %219
+  %233 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 16), align 8, !tbaa !17
+  %234 = icmp eq i32 %233, 0
+  br i1 %234, label %235, label %239
 
-234:                                              ; preds = %231
+235:                                              ; preds = %232
   store i32 1, ptr @progressive_sequence, align 4, !tbaa !5
   store i32 1, ptr @progressive_frame, align 4, !tbaa !5
   store i32 3, ptr @picture_structure, align 4, !tbaa !5
   store i32 1, ptr @frame_pred_frame_dct, align 4, !tbaa !5
   store i32 1, ptr @chroma_format, align 4, !tbaa !5
   store i32 5, ptr @matrix_coefficients, align 4, !tbaa !5
-  %235 = load i32, ptr @horizontal_size, align 4, !tbaa !5
-  %236 = add nsw i32 %235, 15
-  %237 = sdiv i32 %236, 16
-  store i32 %237, ptr @mb_width, align 4, !tbaa !5
-  br label %249
+  %236 = load i32, ptr @horizontal_size, align 4, !tbaa !5
+  %237 = add nsw i32 %236, 15
+  %238 = sdiv i32 %237, 16
+  store i32 %238, ptr @mb_width, align 4, !tbaa !5
+  br label %250
 
-238:                                              ; preds = %231
-  %239 = load i32, ptr @progressive_sequence, align 4
-  %240 = load i32, ptr @horizontal_size, align 4, !tbaa !5
-  %241 = add nsw i32 %240, 15
-  %242 = sdiv i32 %241, 16
-  store i32 %242, ptr @mb_width, align 4, !tbaa !5
-  %243 = icmp eq i32 %239, 0
-  br i1 %243, label %244, label %249
+239:                                              ; preds = %232
+  %240 = load i32, ptr @progressive_sequence, align 4
+  %241 = load i32, ptr @horizontal_size, align 4, !tbaa !5
+  %242 = add nsw i32 %241, 15
+  %243 = sdiv i32 %242, 16
+  store i32 %243, ptr @mb_width, align 4, !tbaa !5
+  %244 = icmp eq i32 %240, 0
+  br i1 %244, label %245, label %250
 
-244:                                              ; preds = %238
-  %245 = load i32, ptr @vertical_size, align 4, !tbaa !5
-  %246 = add nsw i32 %245, 31
-  %247 = sdiv i32 %246, 32
-  %248 = shl nsw i32 %247, 1
-  br label %254
+245:                                              ; preds = %239
+  %246 = load i32, ptr @vertical_size, align 4, !tbaa !5
+  %247 = add nsw i32 %246, 31
+  %248 = sdiv i32 %247, 32
+  %249 = shl nsw i32 %248, 1
+  br label %255
 
-249:                                              ; preds = %238, %234
-  %250 = phi i32 [ %237, %234 ], [ %242, %238 ]
-  %251 = load i32, ptr @vertical_size, align 4, !tbaa !5
-  %252 = add nsw i32 %251, 15
-  %253 = sdiv i32 %252, 16
-  br label %254
+250:                                              ; preds = %239, %235
+  %251 = phi i32 [ %238, %235 ], [ %243, %239 ]
+  %252 = load i32, ptr @vertical_size, align 4, !tbaa !5
+  %253 = add nsw i32 %252, 15
+  %254 = sdiv i32 %253, 16
+  br label %255
 
-254:                                              ; preds = %249, %244
-  %255 = phi i32 [ %242, %244 ], [ %250, %249 ]
-  %256 = phi i32 [ %248, %244 ], [ %253, %249 ]
-  store i32 %256, ptr @mb_height, align 4, !tbaa !5
-  %257 = shl nsw i32 %255, 4
-  store i32 %257, ptr @Coded_Picture_Width, align 4, !tbaa !5
+255:                                              ; preds = %250, %245
+  %256 = phi i32 [ %243, %245 ], [ %251, %250 ]
+  %257 = phi i32 [ %249, %245 ], [ %254, %250 ]
+  store i32 %257, ptr @mb_height, align 4, !tbaa !5
   %258 = shl nsw i32 %256, 4
-  store i32 %258, ptr @Coded_Picture_Height, align 4, !tbaa !5
-  %259 = load i32, ptr @chroma_format, align 4, !tbaa !5
-  %260 = icmp eq i32 %259, 3
-  %261 = shl nsw i32 %255, 3
-  %262 = select i1 %260, i32 %257, i32 %261
-  store i32 %262, ptr @Chroma_Width, align 4, !tbaa !5
-  %263 = icmp eq i32 %259, 1
-  %264 = zext i1 %263 to i32
-  %265 = ashr i32 %258, %264
-  store i32 %265, ptr @Chroma_Height, align 4, !tbaa !5
-  %266 = add nsw i32 %259, -1
-  %267 = sext i32 %266 to i64
-  %268 = getelementptr inbounds [3 x i32], ptr @Initialize_Sequence.Table_6_20, i64 0, i64 %267
-  %269 = load i32, ptr %268, align 4, !tbaa !5
-  store i32 %269, ptr @block_count, align 4, !tbaa !5
-  %270 = mul nsw i32 %258, %257
-  %271 = mul nsw i32 %265, %262
-  %272 = load i32, ptr @Ersatz_Flag, align 4
-  %273 = freeze i32 %272
-  %274 = icmp eq i32 %273, 0
-  %275 = icmp eq i32 %225, 2
-  %276 = load i32, ptr @lower_layer_prediction_horizontal_size, align 4
-  %277 = load i32, ptr @lower_layer_prediction_vertical_size, align 4
-  %278 = mul nsw i32 %277, %276
-  %279 = sext i32 %270 to i64
-  %280 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %280, ptr @backward_reference_frame, align 16, !tbaa !9
-  %281 = icmp eq ptr %280, null
-  br i1 %275, label %282, label %386
+  store i32 %258, ptr @Coded_Picture_Width, align 4, !tbaa !5
+  %259 = shl nsw i32 %257, 4
+  store i32 %259, ptr @Coded_Picture_Height, align 4, !tbaa !5
+  %260 = load i32, ptr @chroma_format, align 4, !tbaa !5
+  %261 = icmp eq i32 %260, 3
+  %262 = shl nsw i32 %256, 3
+  %263 = select i1 %261, i32 %258, i32 %262
+  store i32 %263, ptr @Chroma_Width, align 4, !tbaa !5
+  %264 = icmp eq i32 %260, 1
+  %265 = shl nsw i32 %257, 3
+  %266 = select i1 %264, i32 %265, i32 %259
+  store i32 %266, ptr @Chroma_Height, align 4, !tbaa !5
+  %267 = add nsw i32 %260, -1
+  %268 = sext i32 %267 to i64
+  %269 = getelementptr inbounds [3 x i32], ptr @Initialize_Sequence.Table_6_20, i64 0, i64 %268
+  %270 = load i32, ptr %269, align 4, !tbaa !5
+  store i32 %270, ptr @block_count, align 4, !tbaa !5
+  %271 = mul nsw i32 %259, %258
+  %272 = mul nsw i32 %263, %266
+  %273 = load i32, ptr @Ersatz_Flag, align 4
+  %274 = freeze i32 %273
+  %275 = icmp eq i32 %274, 0
+  %276 = icmp eq i32 %226, 2
+  %277 = load i32, ptr @lower_layer_prediction_horizontal_size, align 4
+  %278 = load i32, ptr @lower_layer_prediction_vertical_size, align 4
+  %279 = mul nsw i32 %278, %277
+  %280 = sext i32 %271 to i64
+  %281 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %281, ptr @backward_reference_frame, align 16, !tbaa !9
+  %282 = icmp eq ptr %281, null
+  br i1 %276, label %283, label %387
 
-282:                                              ; preds = %254
-  br i1 %274, label %284, label %283
+283:                                              ; preds = %255
+  br i1 %275, label %285, label %284
 
-283:                                              ; preds = %282
-  br i1 %281, label %414, label %331
+284:                                              ; preds = %283
+  br i1 %282, label %415, label %332
 
-284:                                              ; preds = %282
-  br i1 %281, label %414, label %285
+285:                                              ; preds = %283
+  br i1 %282, label %415, label %286
 
-285:                                              ; preds = %284
-  %286 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %286, ptr @forward_reference_frame, align 16, !tbaa !9
-  %287 = icmp eq ptr %286, null
-  br i1 %287, label %420, label %288
+286:                                              ; preds = %285
+  %287 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %287, ptr @forward_reference_frame, align 16, !tbaa !9
+  %288 = icmp eq ptr %287, null
+  br i1 %288, label %421, label %289
 
-288:                                              ; preds = %285
-  %289 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %289, ptr @auxframe, align 16, !tbaa !9
-  %290 = icmp eq ptr %289, null
-  br i1 %290, label %426, label %291
+289:                                              ; preds = %286
+  %290 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %290, ptr @auxframe, align 16, !tbaa !9
+  %291 = icmp eq ptr %290, null
+  br i1 %291, label %427, label %292
 
-291:                                              ; preds = %288
-  %292 = sext i32 %278 to i64
-  %293 = tail call noalias ptr @malloc(i64 noundef %292) #19
-  store ptr %293, ptr @llframe0, align 16, !tbaa !9
-  %294 = icmp eq ptr %293, null
-  br i1 %294, label %460, label %295
+292:                                              ; preds = %289
+  %293 = sext i32 %279 to i64
+  %294 = tail call noalias ptr @malloc(i64 noundef %293) #19
+  store ptr %294, ptr @llframe0, align 16, !tbaa !9
+  %295 = icmp eq ptr %294, null
+  br i1 %295, label %461, label %296
 
-295:                                              ; preds = %291
-  %296 = tail call noalias ptr @malloc(i64 noundef %292) #19
-  store ptr %296, ptr @llframe1, align 16, !tbaa !9
-  %297 = icmp eq ptr %296, null
-  br i1 %297, label %463, label %298
+296:                                              ; preds = %292
+  %297 = tail call noalias ptr @malloc(i64 noundef %293) #19
+  store ptr %297, ptr @llframe1, align 16, !tbaa !9
+  %298 = icmp eq ptr %297, null
+  br i1 %298, label %464, label %299
 
-298:                                              ; preds = %295
-  %299 = sext i32 %271 to i64
-  %300 = tail call noalias ptr @malloc(i64 noundef %299) #19
-  store ptr %300, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %301 = icmp eq ptr %300, null
-  br i1 %301, label %414, label %302
+299:                                              ; preds = %296
+  %300 = sext i32 %272 to i64
+  %301 = tail call noalias ptr @malloc(i64 noundef %300) #19
+  store ptr %301, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %302 = icmp eq ptr %301, null
+  br i1 %302, label %415, label %303
 
-302:                                              ; preds = %298
-  %303 = tail call noalias ptr @malloc(i64 noundef %299) #19
-  store ptr %303, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %304 = icmp eq ptr %303, null
-  br i1 %304, label %420, label %305
+303:                                              ; preds = %299
+  %304 = tail call noalias ptr @malloc(i64 noundef %300) #19
+  store ptr %304, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %305 = icmp eq ptr %304, null
+  br i1 %305, label %421, label %306
 
-305:                                              ; preds = %302
-  %306 = tail call noalias ptr @malloc(i64 noundef %299) #19
-  store ptr %306, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
-  %307 = icmp eq ptr %306, null
-  br i1 %307, label %426, label %308
+306:                                              ; preds = %303
+  %307 = tail call noalias ptr @malloc(i64 noundef %300) #19
+  store ptr %307, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
+  %308 = icmp eq ptr %307, null
+  br i1 %308, label %427, label %309
 
-308:                                              ; preds = %305
-  %309 = sdiv i32 %278, 4
-  %310 = sext i32 %309 to i64
-  %311 = tail call noalias ptr @malloc(i64 noundef %310) #19
-  store ptr %311, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 1), align 8, !tbaa !9
-  %312 = icmp eq ptr %311, null
-  br i1 %312, label %460, label %313
+309:                                              ; preds = %306
+  %310 = sdiv i32 %279, 4
+  %311 = sext i32 %310 to i64
+  %312 = tail call noalias ptr @malloc(i64 noundef %311) #19
+  store ptr %312, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 1), align 8, !tbaa !9
+  %313 = icmp eq ptr %312, null
+  br i1 %313, label %461, label %314
 
-313:                                              ; preds = %308
-  %314 = tail call noalias ptr @malloc(i64 noundef %310) #19
-  store ptr %314, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 1), align 8, !tbaa !9
-  %315 = icmp eq ptr %314, null
-  br i1 %315, label %463, label %316
+314:                                              ; preds = %309
+  %315 = tail call noalias ptr @malloc(i64 noundef %311) #19
+  store ptr %315, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 1), align 8, !tbaa !9
+  %316 = icmp eq ptr %315, null
+  br i1 %316, label %464, label %317
 
-316:                                              ; preds = %313
-  %317 = tail call noalias ptr @malloc(i64 noundef %299) #19
-  store ptr %317, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %318 = icmp eq ptr %317, null
-  br i1 %318, label %414, label %319
+317:                                              ; preds = %314
+  %318 = tail call noalias ptr @malloc(i64 noundef %300) #19
+  store ptr %318, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %319 = icmp eq ptr %318, null
+  br i1 %319, label %415, label %320
 
-319:                                              ; preds = %316
-  %320 = tail call noalias ptr @malloc(i64 noundef %299) #19
-  store ptr %320, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %321 = icmp eq ptr %320, null
-  br i1 %321, label %420, label %322
+320:                                              ; preds = %317
+  %321 = tail call noalias ptr @malloc(i64 noundef %300) #19
+  store ptr %321, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %322 = icmp eq ptr %321, null
+  br i1 %322, label %421, label %323
 
-322:                                              ; preds = %319
-  %323 = tail call noalias ptr @malloc(i64 noundef %299) #19
-  store ptr %323, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
-  %324 = icmp eq ptr %323, null
-  br i1 %324, label %426, label %325
+323:                                              ; preds = %320
+  %324 = tail call noalias ptr @malloc(i64 noundef %300) #19
+  store ptr %324, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
+  %325 = icmp eq ptr %324, null
+  br i1 %325, label %427, label %326
 
-325:                                              ; preds = %322
-  %326 = tail call noalias ptr @malloc(i64 noundef %310) #19
-  store ptr %326, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 2), align 16, !tbaa !9
-  %327 = icmp eq ptr %326, null
-  br i1 %327, label %460, label %328
+326:                                              ; preds = %323
+  %327 = tail call noalias ptr @malloc(i64 noundef %311) #19
+  store ptr %327, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 2), align 16, !tbaa !9
+  %328 = icmp eq ptr %327, null
+  br i1 %328, label %461, label %329
 
-328:                                              ; preds = %325
-  %329 = tail call noalias ptr @malloc(i64 noundef %310) #19
-  store ptr %329, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 2), align 16, !tbaa !9
-  %330 = icmp eq ptr %329, null
-  br i1 %330, label %463, label %466
+329:                                              ; preds = %326
+  %330 = tail call noalias ptr @malloc(i64 noundef %311) #19
+  store ptr %330, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 2), align 16, !tbaa !9
+  %331 = icmp eq ptr %330, null
+  br i1 %331, label %464, label %467
 
-331:                                              ; preds = %283
-  %332 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %332, ptr @forward_reference_frame, align 16, !tbaa !9
-  %333 = icmp eq ptr %332, null
-  br i1 %333, label %420, label %334
+332:                                              ; preds = %284
+  %333 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %333, ptr @forward_reference_frame, align 16, !tbaa !9
+  %334 = icmp eq ptr %333, null
+  br i1 %334, label %421, label %335
 
-334:                                              ; preds = %331
-  %335 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %335, ptr @auxframe, align 16, !tbaa !9
-  %336 = icmp eq ptr %335, null
-  br i1 %336, label %426, label %337
+335:                                              ; preds = %332
+  %336 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %336, ptr @auxframe, align 16, !tbaa !9
+  %337 = icmp eq ptr %336, null
+  br i1 %337, label %427, label %338
 
-337:                                              ; preds = %334
-  %338 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %338, ptr @substitute_frame, align 16, !tbaa !9
-  %339 = icmp eq ptr %338, null
-  br i1 %339, label %432, label %340
+338:                                              ; preds = %335
+  %339 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %339, ptr @substitute_frame, align 16, !tbaa !9
+  %340 = icmp eq ptr %339, null
+  br i1 %340, label %433, label %341
 
-340:                                              ; preds = %337
-  %341 = sext i32 %278 to i64
-  %342 = tail call noalias ptr @malloc(i64 noundef %341) #19
-  store ptr %342, ptr @llframe0, align 16, !tbaa !9
-  %343 = icmp eq ptr %342, null
-  br i1 %343, label %460, label %344
+341:                                              ; preds = %338
+  %342 = sext i32 %279 to i64
+  %343 = tail call noalias ptr @malloc(i64 noundef %342) #19
+  store ptr %343, ptr @llframe0, align 16, !tbaa !9
+  %344 = icmp eq ptr %343, null
+  br i1 %344, label %461, label %345
 
-344:                                              ; preds = %340
-  %345 = tail call noalias ptr @malloc(i64 noundef %341) #19
-  store ptr %345, ptr @llframe1, align 16, !tbaa !9
-  %346 = icmp eq ptr %345, null
-  br i1 %346, label %463, label %347
+345:                                              ; preds = %341
+  %346 = tail call noalias ptr @malloc(i64 noundef %342) #19
+  store ptr %346, ptr @llframe1, align 16, !tbaa !9
+  %347 = icmp eq ptr %346, null
+  br i1 %347, label %464, label %348
 
-347:                                              ; preds = %344
-  %348 = sext i32 %271 to i64
-  %349 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %349, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %350 = icmp eq ptr %349, null
-  br i1 %350, label %414, label %351
+348:                                              ; preds = %345
+  %349 = sext i32 %272 to i64
+  %350 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %350, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %351 = icmp eq ptr %350, null
+  br i1 %351, label %415, label %352
 
-351:                                              ; preds = %347
-  %352 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %352, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %353 = icmp eq ptr %352, null
-  br i1 %353, label %420, label %354
+352:                                              ; preds = %348
+  %353 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %353, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %354 = icmp eq ptr %353, null
+  br i1 %354, label %421, label %355
 
-354:                                              ; preds = %351
-  %355 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %355, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
-  %356 = icmp eq ptr %355, null
-  br i1 %356, label %426, label %357
+355:                                              ; preds = %352
+  %356 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %356, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
+  %357 = icmp eq ptr %356, null
+  br i1 %357, label %427, label %358
 
-357:                                              ; preds = %354
-  %358 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %358, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 1), align 8, !tbaa !9
-  %359 = icmp eq ptr %358, null
-  br i1 %359, label %432, label %360
+358:                                              ; preds = %355
+  %359 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %359, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 1), align 8, !tbaa !9
+  %360 = icmp eq ptr %359, null
+  br i1 %360, label %433, label %361
 
-360:                                              ; preds = %357
-  %361 = sdiv i32 %278, 4
-  %362 = sext i32 %361 to i64
-  %363 = tail call noalias ptr @malloc(i64 noundef %362) #19
-  store ptr %363, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 1), align 8, !tbaa !9
-  %364 = icmp eq ptr %363, null
-  br i1 %364, label %460, label %365
+361:                                              ; preds = %358
+  %362 = sdiv i32 %279, 4
+  %363 = sext i32 %362 to i64
+  %364 = tail call noalias ptr @malloc(i64 noundef %363) #19
+  store ptr %364, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 1), align 8, !tbaa !9
+  %365 = icmp eq ptr %364, null
+  br i1 %365, label %461, label %366
 
-365:                                              ; preds = %360
-  %366 = tail call noalias ptr @malloc(i64 noundef %362) #19
-  store ptr %366, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 1), align 8, !tbaa !9
-  %367 = icmp eq ptr %366, null
-  br i1 %367, label %463, label %368
+366:                                              ; preds = %361
+  %367 = tail call noalias ptr @malloc(i64 noundef %363) #19
+  store ptr %367, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 1), align 8, !tbaa !9
+  %368 = icmp eq ptr %367, null
+  br i1 %368, label %464, label %369
 
-368:                                              ; preds = %365
-  %369 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %369, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %370 = icmp eq ptr %369, null
-  br i1 %370, label %414, label %371
+369:                                              ; preds = %366
+  %370 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %370, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %371 = icmp eq ptr %370, null
+  br i1 %371, label %415, label %372
 
-371:                                              ; preds = %368
-  %372 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %372, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %373 = icmp eq ptr %372, null
-  br i1 %373, label %420, label %374
+372:                                              ; preds = %369
+  %373 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %373, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %374 = icmp eq ptr %373, null
+  br i1 %374, label %421, label %375
 
-374:                                              ; preds = %371
-  %375 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %375, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
-  %376 = icmp eq ptr %375, null
-  br i1 %376, label %426, label %377
+375:                                              ; preds = %372
+  %376 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %376, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
+  %377 = icmp eq ptr %376, null
+  br i1 %377, label %427, label %378
 
-377:                                              ; preds = %374
-  %378 = tail call noalias ptr @malloc(i64 noundef %348) #19
-  store ptr %378, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 2), align 16, !tbaa !9
-  %379 = icmp eq ptr %378, null
-  br i1 %379, label %432, label %380
+378:                                              ; preds = %375
+  %379 = tail call noalias ptr @malloc(i64 noundef %349) #19
+  store ptr %379, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 2), align 16, !tbaa !9
+  %380 = icmp eq ptr %379, null
+  br i1 %380, label %433, label %381
 
-380:                                              ; preds = %377
-  %381 = tail call noalias ptr @malloc(i64 noundef %362) #19
-  store ptr %381, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 2), align 16, !tbaa !9
-  %382 = icmp eq ptr %381, null
-  br i1 %382, label %460, label %383
+381:                                              ; preds = %378
+  %382 = tail call noalias ptr @malloc(i64 noundef %363) #19
+  store ptr %382, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 2), align 16, !tbaa !9
+  %383 = icmp eq ptr %382, null
+  br i1 %383, label %461, label %384
 
-383:                                              ; preds = %380
-  %384 = tail call noalias ptr @malloc(i64 noundef %362) #19
-  store ptr %384, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 2), align 16, !tbaa !9
-  %385 = icmp eq ptr %384, null
-  br i1 %385, label %463, label %466
+384:                                              ; preds = %381
+  %385 = tail call noalias ptr @malloc(i64 noundef %363) #19
+  store ptr %385, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 2), align 16, !tbaa !9
+  %386 = icmp eq ptr %385, null
+  br i1 %386, label %464, label %467
 
-386:                                              ; preds = %254
-  br i1 %274, label %388, label %387
+387:                                              ; preds = %255
+  br i1 %275, label %389, label %388
 
-387:                                              ; preds = %386
-  br i1 %281, label %414, label %417
+388:                                              ; preds = %387
+  br i1 %282, label %415, label %418
 
-388:                                              ; preds = %386
-  br i1 %281, label %414, label %389
+389:                                              ; preds = %387
+  br i1 %282, label %415, label %390
 
-389:                                              ; preds = %388
-  %390 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %390, ptr @forward_reference_frame, align 16, !tbaa !9
-  %391 = icmp eq ptr %390, null
-  br i1 %391, label %420, label %392
+390:                                              ; preds = %389
+  %391 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %391, ptr @forward_reference_frame, align 16, !tbaa !9
+  %392 = icmp eq ptr %391, null
+  br i1 %392, label %421, label %393
 
-392:                                              ; preds = %389
-  %393 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %393, ptr @auxframe, align 16, !tbaa !9
-  %394 = icmp eq ptr %393, null
-  br i1 %394, label %426, label %395
+393:                                              ; preds = %390
+  %394 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %394, ptr @auxframe, align 16, !tbaa !9
+  %395 = icmp eq ptr %394, null
+  br i1 %395, label %427, label %396
 
-395:                                              ; preds = %392
-  %396 = sext i32 %271 to i64
-  %397 = tail call noalias ptr @malloc(i64 noundef %396) #19
-  store ptr %397, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %398 = icmp eq ptr %397, null
-  br i1 %398, label %414, label %399
+396:                                              ; preds = %393
+  %397 = sext i32 %272 to i64
+  %398 = tail call noalias ptr @malloc(i64 noundef %397) #19
+  store ptr %398, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %399 = icmp eq ptr %398, null
+  br i1 %399, label %415, label %400
 
-399:                                              ; preds = %395
-  %400 = tail call noalias ptr @malloc(i64 noundef %396) #19
-  store ptr %400, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %401 = icmp eq ptr %400, null
-  br i1 %401, label %420, label %402
+400:                                              ; preds = %396
+  %401 = tail call noalias ptr @malloc(i64 noundef %397) #19
+  store ptr %401, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %402 = icmp eq ptr %401, null
+  br i1 %402, label %421, label %403
 
-402:                                              ; preds = %399
-  %403 = tail call noalias ptr @malloc(i64 noundef %396) #19
-  store ptr %403, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
-  %404 = icmp eq ptr %403, null
-  br i1 %404, label %426, label %405
+403:                                              ; preds = %400
+  %404 = tail call noalias ptr @malloc(i64 noundef %397) #19
+  store ptr %404, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
+  %405 = icmp eq ptr %404, null
+  br i1 %405, label %427, label %406
 
-405:                                              ; preds = %402
-  %406 = tail call noalias ptr @malloc(i64 noundef %396) #19
-  store ptr %406, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %407 = icmp eq ptr %406, null
-  br i1 %407, label %414, label %408
+406:                                              ; preds = %403
+  %407 = tail call noalias ptr @malloc(i64 noundef %397) #19
+  store ptr %407, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %408 = icmp eq ptr %407, null
+  br i1 %408, label %415, label %409
 
-408:                                              ; preds = %405
-  %409 = tail call noalias ptr @malloc(i64 noundef %396) #19
-  store ptr %409, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %410 = icmp eq ptr %409, null
-  br i1 %410, label %420, label %411
+409:                                              ; preds = %406
+  %410 = tail call noalias ptr @malloc(i64 noundef %397) #19
+  store ptr %410, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %411 = icmp eq ptr %410, null
+  br i1 %411, label %421, label %412
 
-411:                                              ; preds = %408
-  %412 = tail call noalias ptr @malloc(i64 noundef %396) #19
-  store ptr %412, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
-  %413 = icmp eq ptr %412, null
-  br i1 %413, label %426, label %479
+412:                                              ; preds = %409
+  %413 = tail call noalias ptr @malloc(i64 noundef %397) #19
+  store ptr %413, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
+  %414 = icmp eq ptr %413, null
+  br i1 %414, label %427, label %480
 
-414:                                              ; preds = %448, %435, %405, %395, %388, %387, %368, %347, %316, %298, %284, %283
-  %415 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %416 = tail call i64 @fwrite(ptr nonnull @.str.22, i64 41, i64 1, ptr %415) #18
+415:                                              ; preds = %449, %436, %406, %396, %389, %388, %369, %348, %317, %299, %285, %284
+  %416 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %417 = tail call i64 @fwrite(ptr nonnull @.str.22, i64 41, i64 1, ptr %416) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-417:                                              ; preds = %387
-  %418 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %418, ptr @forward_reference_frame, align 16, !tbaa !9
-  %419 = icmp eq ptr %418, null
-  br i1 %419, label %420, label %423
+418:                                              ; preds = %388
+  %419 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %419, ptr @forward_reference_frame, align 16, !tbaa !9
+  %420 = icmp eq ptr %419, null
+  br i1 %420, label %421, label %424
 
-420:                                              ; preds = %451, %439, %417, %408, %399, %389, %371, %351, %331, %319, %302, %285
-  %421 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %422 = tail call i64 @fwrite(ptr nonnull @.str.23, i64 40, i64 1, ptr %421) #18
+421:                                              ; preds = %452, %440, %418, %409, %400, %390, %372, %352, %332, %320, %303, %286
+  %422 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %423 = tail call i64 @fwrite(ptr nonnull @.str.23, i64 40, i64 1, ptr %422) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-423:                                              ; preds = %417
-  %424 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %424, ptr @auxframe, align 16, !tbaa !9
-  %425 = icmp eq ptr %424, null
-  br i1 %425, label %426, label %429
+424:                                              ; preds = %418
+  %425 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %425, ptr @auxframe, align 16, !tbaa !9
+  %426 = icmp eq ptr %425, null
+  br i1 %426, label %427, label %430
 
-426:                                              ; preds = %454, %442, %423, %411, %402, %392, %374, %354, %334, %322, %305, %288
-  %427 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %428 = tail call i64 @fwrite(ptr nonnull @.str.24, i64 25, i64 1, ptr %427) #18
+427:                                              ; preds = %455, %443, %424, %412, %403, %393, %375, %355, %335, %323, %306, %289
+  %428 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %429 = tail call i64 @fwrite(ptr nonnull @.str.24, i64 25, i64 1, ptr %428) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-429:                                              ; preds = %423
-  %430 = tail call noalias ptr @malloc(i64 noundef %279) #19
-  store ptr %430, ptr @substitute_frame, align 16, !tbaa !9
-  %431 = icmp eq ptr %430, null
-  br i1 %431, label %432, label %435
+430:                                              ; preds = %424
+  %431 = tail call noalias ptr @malloc(i64 noundef %280) #19
+  store ptr %431, ptr @substitute_frame, align 16, !tbaa !9
+  %432 = icmp eq ptr %431, null
+  br i1 %432, label %433, label %436
 
-432:                                              ; preds = %457, %445, %429, %377, %357, %337
-  %433 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %434 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 33, i64 1, ptr %433) #18
+433:                                              ; preds = %458, %446, %430, %378, %358, %338
+  %434 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %435 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 33, i64 1, ptr %434) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-435:                                              ; preds = %429
-  %436 = sext i32 %271 to i64
-  %437 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %437, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %438 = icmp eq ptr %437, null
-  br i1 %438, label %414, label %439
+436:                                              ; preds = %430
+  %437 = sext i32 %272 to i64
+  %438 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %438, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %439 = icmp eq ptr %438, null
+  br i1 %439, label %415, label %440
 
-439:                                              ; preds = %435
-  %440 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %440, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  %441 = icmp eq ptr %440, null
-  br i1 %441, label %420, label %442
+440:                                              ; preds = %436
+  %441 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %441, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+  %442 = icmp eq ptr %441, null
+  br i1 %442, label %421, label %443
 
-442:                                              ; preds = %439
-  %443 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %443, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
-  %444 = icmp eq ptr %443, null
-  br i1 %444, label %426, label %445
+443:                                              ; preds = %440
+  %444 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %444, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
+  %445 = icmp eq ptr %444, null
+  br i1 %445, label %427, label %446
 
-445:                                              ; preds = %442
-  %446 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %446, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 1), align 8, !tbaa !9
-  %447 = icmp eq ptr %446, null
-  br i1 %447, label %432, label %448
+446:                                              ; preds = %443
+  %447 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %447, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 1), align 8, !tbaa !9
+  %448 = icmp eq ptr %447, null
+  br i1 %448, label %433, label %449
 
-448:                                              ; preds = %445
-  %449 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %449, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %450 = icmp eq ptr %449, null
-  br i1 %450, label %414, label %451
+449:                                              ; preds = %446
+  %450 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %450, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %451 = icmp eq ptr %450, null
+  br i1 %451, label %415, label %452
 
-451:                                              ; preds = %448
-  %452 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %452, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  %453 = icmp eq ptr %452, null
-  br i1 %453, label %420, label %454
+452:                                              ; preds = %449
+  %453 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %453, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+  %454 = icmp eq ptr %453, null
+  br i1 %454, label %421, label %455
 
-454:                                              ; preds = %451
-  %455 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %455, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
-  %456 = icmp eq ptr %455, null
-  br i1 %456, label %426, label %457
+455:                                              ; preds = %452
+  %456 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %456, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
+  %457 = icmp eq ptr %456, null
+  br i1 %457, label %427, label %458
 
-457:                                              ; preds = %454
-  %458 = tail call noalias ptr @malloc(i64 noundef %436) #19
-  store ptr %458, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 2), align 16, !tbaa !9
-  %459 = icmp eq ptr %458, null
-  br i1 %459, label %432, label %479
+458:                                              ; preds = %455
+  %459 = tail call noalias ptr @malloc(i64 noundef %437) #19
+  store ptr %459, ptr getelementptr inbounds ([3 x ptr], ptr @substitute_frame, i64 0, i64 2), align 16, !tbaa !9
+  %460 = icmp eq ptr %459, null
+  br i1 %460, label %433, label %480
 
-460:                                              ; preds = %380, %360, %340, %325, %308, %291
-  %461 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %462 = tail call i64 @fwrite(ptr nonnull @.str.26, i64 23, i64 1, ptr %461) #18
+461:                                              ; preds = %381, %361, %341, %326, %309, %292
+  %462 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %463 = tail call i64 @fwrite(ptr nonnull @.str.26, i64 23, i64 1, ptr %462) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-463:                                              ; preds = %383, %365, %344, %328, %313, %295
-  %464 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %465 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 23, i64 1, ptr %464) #18
+464:                                              ; preds = %384, %366, %345, %329, %314, %296
+  %465 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %466 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 23, i64 1, ptr %465) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-466:                                              ; preds = %383, %328
-  %467 = load i32, ptr @vertical_subsampling_factor_n, align 4, !tbaa !5
-  %468 = mul nsw i32 %467, %277
-  %469 = load i32, ptr @vertical_subsampling_factor_m, align 4, !tbaa !5
-  %470 = sdiv i32 %468, %469
-  %471 = mul nsw i32 %470, %276
-  %472 = sext i32 %471 to i64
-  %473 = shl nsw i64 %472, 1
-  %474 = tail call noalias ptr @malloc(i64 noundef %473) #19
-  store ptr %474, ptr @lltmp, align 8, !tbaa !9
-  %475 = icmp eq ptr %474, null
-  br i1 %475, label %476, label %479
+467:                                              ; preds = %384, %329
+  %468 = load i32, ptr @vertical_subsampling_factor_n, align 4, !tbaa !5
+  %469 = mul nsw i32 %468, %278
+  %470 = load i32, ptr @vertical_subsampling_factor_m, align 4, !tbaa !5
+  %471 = sdiv i32 %469, %470
+  %472 = mul nsw i32 %471, %277
+  %473 = sext i32 %472 to i64
+  %474 = shl nsw i64 %473, 1
+  %475 = tail call noalias ptr @malloc(i64 noundef %474) #19
+  store ptr %475, ptr @lltmp, align 8, !tbaa !9
+  %476 = icmp eq ptr %475, null
+  br i1 %476, label %477, label %480
 
-476:                                              ; preds = %466
-  %477 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %478 = tail call i64 @fwrite(ptr nonnull @.str.28, i64 20, i64 1, ptr %477) #18
+477:                                              ; preds = %467
+  %478 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %479 = tail call i64 @fwrite(ptr nonnull @.str.28, i64 20, i64 1, ptr %478) #18
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-479:                                              ; preds = %466, %457, %411
-  tail call void @Decode_Picture(i32 noundef %202, i32 noundef 0) #17
-  %480 = load i32, ptr @Second_Field, align 4, !tbaa !5
-  %481 = icmp eq i32 %480, 0
-  %482 = zext i1 %481 to i32
-  %483 = add nsw i32 %202, %482
-  br label %484
+480:                                              ; preds = %467, %458, %412
+  tail call void @Decode_Picture(i32 noundef %203, i32 noundef 0) #17
+  %481 = load i32, ptr @Second_Field, align 4, !tbaa !5
+  %482 = icmp eq i32 %481, 0
+  %483 = zext i1 %482 to i32
+  %484 = add nsw i32 %203, %483
+  br label %485
 
-484:                                              ; preds = %502, %479
-  %485 = phi i32 [ %482, %479 ], [ %506, %502 ]
-  %486 = phi i32 [ %483, %479 ], [ %507, %502 ]
+485:                                              ; preds = %503, %480
+  %486 = phi i32 [ %483, %480 ], [ %507, %503 ]
+  %487 = phi i32 [ %484, %480 ], [ %508, %503 ]
   store ptr @base, ptr @ld, align 8, !tbaa !9
-  %487 = tail call i32 @Get_Hdr() #17
-  %488 = load i32, ptr @Two_Streams, align 4, !tbaa !5
-  %489 = icmp eq i32 %488, 0
-  br i1 %489, label %500, label %490
+  %488 = tail call i32 @Get_Hdr() #17
+  %489 = load i32, ptr @Two_Streams, align 4, !tbaa !5
+  %490 = icmp eq i32 %489, 0
+  br i1 %490, label %501, label %491
 
-490:                                              ; preds = %484
+491:                                              ; preds = %485
   store ptr @enhan, ptr @ld, align 8, !tbaa !9
-  %491 = tail call i32 @Get_Hdr() #17
-  %492 = icmp eq i32 %491, %487
-  %493 = load i32, ptr @Quiet_Flag, align 4
-  %494 = icmp ne i32 %493, 0
-  %495 = select i1 %492, i1 true, i1 %494
-  br i1 %495, label %499, label %496
+  %492 = tail call i32 @Get_Hdr() #17
+  %493 = icmp eq i32 %492, %488
+  %494 = load i32, ptr @Quiet_Flag, align 4
+  %495 = icmp ne i32 %494, 0
+  %496 = select i1 %493, i1 true, i1 %495
+  br i1 %496, label %500, label %497
 
-496:                                              ; preds = %490
-  %497 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %498 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 20, i64 1, ptr %497) #18
-  br label %499
-
-499:                                              ; preds = %496, %490
-  store ptr @base, ptr @ld, align 8, !tbaa !9
+497:                                              ; preds = %491
+  %498 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %499 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 20, i64 1, ptr %498) #18
   br label %500
 
-500:                                              ; preds = %499, %484
-  %501 = icmp eq i32 %487, 0
-  br i1 %501, label %508, label %502
+500:                                              ; preds = %497, %491
+  store ptr @base, ptr @ld, align 8, !tbaa !9
+  br label %501
 
-502:                                              ; preds = %500
-  tail call void @Decode_Picture(i32 noundef %486, i32 noundef %485) #17
-  %503 = load i32, ptr @Second_Field, align 4, !tbaa !5
-  %504 = icmp eq i32 %503, 0
-  %505 = zext i1 %504 to i32
-  %506 = add nuw nsw i32 %485, %505
-  %507 = add nsw i32 %486, %505
-  br label %484, !llvm.loop !18
+501:                                              ; preds = %500, %485
+  %502 = icmp eq i32 %488, 0
+  br i1 %502, label %509, label %503
 
-508:                                              ; preds = %500
-  %509 = icmp eq i32 %485, 0
-  br i1 %509, label %511, label %510
+503:                                              ; preds = %501
+  tail call void @Decode_Picture(i32 noundef %487, i32 noundef %486) #17
+  %504 = load i32, ptr @Second_Field, align 4, !tbaa !5
+  %505 = icmp eq i32 %504, 0
+  %506 = zext i1 %505 to i32
+  %507 = add nuw nsw i32 %486, %506
+  %508 = add nsw i32 %487, %506
+  br label %485, !llvm.loop !18
 
-510:                                              ; preds = %508
-  tail call void @Output_Last_Frame_of_Sequence(i32 noundef %486) #17
-  br label %511
+509:                                              ; preds = %501
+  %510 = icmp eq i32 %486, 0
+  br i1 %510, label %512, label %511
 
-511:                                              ; preds = %510, %508
+511:                                              ; preds = %509
+  tail call void @Output_Last_Frame_of_Sequence(i32 noundef %487) #17
+  br label %512
+
+512:                                              ; preds = %511, %509
   store i32 0, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 16), align 8, !tbaa !17
-  %512 = load ptr, ptr @backward_reference_frame, align 16, !tbaa !9
-  tail call void @free(ptr noundef %512) #17
-  %513 = load ptr, ptr @forward_reference_frame, align 16, !tbaa !9
+  %513 = load ptr, ptr @backward_reference_frame, align 16, !tbaa !9
   tail call void @free(ptr noundef %513) #17
-  %514 = load ptr, ptr @auxframe, align 16, !tbaa !9
+  %514 = load ptr, ptr @forward_reference_frame, align 16, !tbaa !9
   tail call void @free(ptr noundef %514) #17
-  %515 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
-  %516 = icmp eq i32 %515, 2
-  br i1 %516, label %517, label %520
+  %515 = load ptr, ptr @auxframe, align 16, !tbaa !9
+  tail call void @free(ptr noundef %515) #17
+  %516 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
+  %517 = icmp eq i32 %516, 2
+  br i1 %517, label %518, label %521
 
-517:                                              ; preds = %511
-  %518 = load ptr, ptr @llframe0, align 16, !tbaa !9
-  tail call void @free(ptr noundef %518) #17
-  %519 = load ptr, ptr @llframe1, align 16, !tbaa !9
+518:                                              ; preds = %512
+  %519 = load ptr, ptr @llframe0, align 16, !tbaa !9
   tail call void @free(ptr noundef %519) #17
-  br label %520
+  %520 = load ptr, ptr @llframe1, align 16, !tbaa !9
+  tail call void @free(ptr noundef %520) #17
+  br label %521
 
-520:                                              ; preds = %517, %511
-  %521 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
-  tail call void @free(ptr noundef %521) #17
-  %522 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
+521:                                              ; preds = %518, %512
+  %522 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
   tail call void @free(ptr noundef %522) #17
-  %523 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
+  %523 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 1), align 8, !tbaa !9
   tail call void @free(ptr noundef %523) #17
-  %524 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
-  %525 = icmp eq i32 %524, 2
-  br i1 %525, label %526, label %529
+  %524 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 1), align 8, !tbaa !9
+  tail call void @free(ptr noundef %524) #17
+  %525 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
+  %526 = icmp eq i32 %525, 2
+  br i1 %526, label %527, label %530
 
-526:                                              ; preds = %520
-  %527 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 1), align 8, !tbaa !9
-  tail call void @free(ptr noundef %527) #17
-  %528 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 1), align 8, !tbaa !9
+527:                                              ; preds = %521
+  %528 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 1), align 8, !tbaa !9
   tail call void @free(ptr noundef %528) #17
-  br label %529
+  %529 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 1), align 8, !tbaa !9
+  tail call void @free(ptr noundef %529) #17
+  br label %530
 
-529:                                              ; preds = %526, %520
-  %530 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
-  tail call void @free(ptr noundef %530) #17
-  %531 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
+530:                                              ; preds = %527, %521
+  %531 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @backward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
   tail call void @free(ptr noundef %531) #17
-  %532 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
+  %532 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @forward_reference_frame, i64 0, i64 2), align 16, !tbaa !9
   tail call void @free(ptr noundef %532) #17
-  %533 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
-  %534 = icmp eq i32 %533, 2
-  br i1 %534, label %535, label %542
+  %533 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @auxframe, i64 0, i64 2), align 16, !tbaa !9
+  tail call void @free(ptr noundef %533) #17
+  %534 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
+  %535 = icmp eq i32 %534, 2
+  br i1 %535, label %536, label %543
 
-535:                                              ; preds = %529
-  %536 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 2), align 16, !tbaa !9
-  tail call void @free(ptr noundef %536) #17
-  %537 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 2), align 16, !tbaa !9
+536:                                              ; preds = %530
+  %537 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe0, i64 0, i64 2), align 16, !tbaa !9
   tail call void @free(ptr noundef %537) #17
-  %538 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
-  %539 = icmp eq i32 %538, 2
-  br i1 %539, label %540, label %542
+  %538 = load ptr, ptr getelementptr inbounds ([3 x ptr], ptr @llframe1, i64 0, i64 2), align 16, !tbaa !9
+  tail call void @free(ptr noundef %538) #17
+  %539 = load i32, ptr getelementptr inbounds (%struct.layer_data, ptr @base, i64 0, i32 17), align 4, !tbaa !19
+  %540 = icmp eq i32 %539, 2
+  br i1 %540, label %541, label %543
 
-540:                                              ; preds = %535
-  %541 = load ptr, ptr @lltmp, align 8, !tbaa !9
-  tail call void @free(ptr noundef %541) #17
-  br label %542
+541:                                              ; preds = %536
+  %542 = load ptr, ptr @lltmp, align 8, !tbaa !9
+  tail call void @free(ptr noundef %542) #17
+  br label %543
 
-542:                                              ; preds = %540, %535, %529
-  br label %201
+543:                                              ; preds = %541, %536, %530
+  br label %202
 
-543:                                              ; preds = %216
-  %544 = load i32, ptr @base, align 8, !tbaa !14
-  %545 = tail call i32 @close(i32 noundef %544) #17
-  %546 = load i32, ptr @Two_Streams, align 4, !tbaa !5
-  %547 = icmp eq i32 %546, 0
-  br i1 %547, label %551, label %548
+544:                                              ; preds = %217
+  %545 = load i32, ptr @base, align 8, !tbaa !14
+  %546 = tail call i32 @close(i32 noundef %545) #17
+  %547 = load i32, ptr @Two_Streams, align 4, !tbaa !5
+  %548 = icmp eq i32 %547, 0
+  br i1 %548, label %552, label %549
 
-548:                                              ; preds = %543
-  %549 = load i32, ptr @enhan, align 8, !tbaa !14
-  %550 = tail call i32 @close(i32 noundef %549) #17
-  br label %551
+549:                                              ; preds = %544
+  %550 = load i32, ptr @enhan, align 8, !tbaa !14
+  %551 = tail call i32 @close(i32 noundef %550) #17
+  br label %552
 
-551:                                              ; preds = %548, %543
+552:                                              ; preds = %549, %544
   ret i32 0
 }
 
@@ -1300,20 +1306,20 @@ declare void @Output_Last_Frame_of_Sequence(i32 noundef) local_unnamed_addr #4
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #11
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #13
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #13
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #14
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #14
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #14
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1327,9 +1333,9 @@ attributes #8 = { mustprogress nofree nounwind willreturn allockind("alloc,unini
 attributes #9 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nofree nounwind }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { nounwind willreturn memory(none) }
 attributes #17 = { nounwind }

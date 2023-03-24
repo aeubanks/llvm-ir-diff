@@ -1564,7 +1564,7 @@ define dso_local void @UseParameterSet(i32 noundef %0) local_unnamed_addr #0 {
   br label %28
 
 28:                                               ; preds = %19, %25
-  %29 = phi i32 [ %23, %19 ], [ %27, %25 ]
+  %29 = phi i32 [ %27, %25 ], [ %23, %19 ]
   %30 = icmp eq i32 %29, 1
   br i1 %30, label %31, label %36
 

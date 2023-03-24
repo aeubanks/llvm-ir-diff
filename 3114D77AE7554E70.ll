@@ -2510,8 +2510,8 @@ define linkonce_odr dso_local void @_ZN7ADomainC2Eii(ptr noundef nonnull align 8
   %68 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 13
   store i32 %67, ptr %68, align 4, !tbaa !147
   %69 = add i32 %64, %40
-  %70 = shl i32 %69, 1
-  %71 = add i32 %70, 2
+  %70 = shl nsw i32 %69, 1
+  %71 = add nsw i32 %70, 2
   %72 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 14
   store i32 %71, ptr %72, align 8, !tbaa !148
   %73 = xor i32 %69, -1
@@ -2531,192 +2531,194 @@ define linkonce_odr dso_local void @_ZN7ADomainC2Eii(ptr noundef nonnull align 8
   %84 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 18
   store ptr %83, ptr %84, align 8, !tbaa !85
   %85 = icmp sgt i32 %65, 0
-  br i1 %85, label %86, label %87
+  br i1 %85, label %86, label %89
 
 86:                                               ; preds = %63
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 4 %83, i8 -1, i64 %81, i1 false), !tbaa !116
-  br label %87
+  %87 = zext i32 %65 to i64
+  %88 = shl nuw nsw i64 %87, 2
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 4 %83, i8 -1, i64 %88, i1 false), !tbaa !116
+  br label %89
 
-87:                                               ; preds = %86, %63
-  %88 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 19
-  store i32 0, ptr %88, align 8, !tbaa !150
-  br i1 %42, label %89, label %140
-
-89:                                               ; preds = %87
-  %90 = icmp sgt i32 %34, 1
-  br i1 %90, label %91, label %212
+89:                                               ; preds = %86, %63
+  %90 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 19
+  store i32 0, ptr %90, align 8, !tbaa !150
+  br i1 %42, label %91, label %142
 
 91:                                               ; preds = %89
-  %92 = add i32 %34, -2
-  %93 = zext i32 %92 to i64
-  %94 = add nuw nsw i64 %93, 1
-  %95 = icmp ult i32 %92, 7
-  %96 = and i64 %94, -8
-  %97 = trunc i64 %96 to i32
-  %98 = or i32 %97, 2
-  %99 = icmp eq i64 %94, %96
-  br label %100
+  %92 = icmp sgt i32 %34, 1
+  br i1 %92, label %93, label %214
 
-100:                                              ; preds = %91, %136
-  %101 = phi i32 [ %138, %136 ], [ 2, %91 ]
-  %102 = phi i64 [ %137, %136 ], [ 0, %91 ]
-  %103 = mul nsw i32 %40, %101
-  %104 = shl i64 %102, 32
-  %105 = ashr exact i64 %104, 32
-  br i1 %95, label %125, label %106
+93:                                               ; preds = %91
+  %94 = add i32 %34, -2
+  %95 = zext i32 %94 to i64
+  %96 = add nuw nsw i64 %95, 1
+  %97 = icmp ult i32 %94, 7
+  %98 = and i64 %96, -8
+  %99 = trunc i64 %98 to i32
+  %100 = or i32 %99, 2
+  %101 = icmp eq i64 %96, %98
+  br label %102
 
-106:                                              ; preds = %100
-  %107 = add nsw i64 %105, %96
-  %108 = insertelement <4 x i32> poison, i32 %103, i64 0
-  %109 = shufflevector <4 x i32> %108, <4 x i32> poison, <4 x i32> zeroinitializer
-  %110 = add i32 %103, 4
-  %111 = insertelement <4 x i32> poison, i32 %110, i64 0
-  %112 = shufflevector <4 x i32> %111, <4 x i32> poison, <4 x i32> zeroinitializer
-  br label %113
+102:                                              ; preds = %93, %138
+  %103 = phi i32 [ %140, %138 ], [ 2, %93 ]
+  %104 = phi i64 [ %139, %138 ], [ 0, %93 ]
+  %105 = mul nsw i32 %40, %103
+  %106 = shl i64 %104, 32
+  %107 = ashr exact i64 %106, 32
+  br i1 %97, label %127, label %108
 
-113:                                              ; preds = %113, %106
-  %114 = phi i64 [ 0, %106 ], [ %121, %113 ]
-  %115 = phi <4 x i32> [ <i32 2, i32 3, i32 4, i32 5>, %106 ], [ %122, %113 ]
-  %116 = add i64 %105, %114
-  %117 = add nsw <4 x i32> %109, %115
-  %118 = add <4 x i32> %112, %115
-  %119 = getelementptr inbounds i32, ptr %83, i64 %116
-  store <4 x i32> %117, ptr %119, align 4, !tbaa !116
-  %120 = getelementptr inbounds i32, ptr %119, i64 4
-  store <4 x i32> %118, ptr %120, align 4, !tbaa !116
-  %121 = add nuw i64 %114, 8
-  %122 = add <4 x i32> %115, <i32 8, i32 8, i32 8, i32 8>
-  %123 = icmp eq i64 %121, %96
-  br i1 %123, label %124, label %113, !llvm.loop !151
+108:                                              ; preds = %102
+  %109 = add nsw i64 %107, %98
+  %110 = insertelement <4 x i32> poison, i32 %105, i64 0
+  %111 = shufflevector <4 x i32> %110, <4 x i32> poison, <4 x i32> zeroinitializer
+  %112 = add i32 %105, 4
+  %113 = insertelement <4 x i32> poison, i32 %112, i64 0
+  %114 = shufflevector <4 x i32> %113, <4 x i32> poison, <4 x i32> zeroinitializer
+  br label %115
 
-124:                                              ; preds = %113
-  br i1 %99, label %136, label %125
+115:                                              ; preds = %115, %108
+  %116 = phi i64 [ 0, %108 ], [ %123, %115 ]
+  %117 = phi <4 x i32> [ <i32 2, i32 3, i32 4, i32 5>, %108 ], [ %124, %115 ]
+  %118 = add i64 %107, %116
+  %119 = add nsw <4 x i32> %111, %117
+  %120 = add <4 x i32> %114, %117
+  %121 = getelementptr inbounds i32, ptr %83, i64 %118
+  store <4 x i32> %119, ptr %121, align 4, !tbaa !116
+  %122 = getelementptr inbounds i32, ptr %121, i64 4
+  store <4 x i32> %120, ptr %122, align 4, !tbaa !116
+  %123 = add nuw i64 %116, 8
+  %124 = add <4 x i32> %117, <i32 8, i32 8, i32 8, i32 8>
+  %125 = icmp eq i64 %123, %98
+  br i1 %125, label %126, label %115, !llvm.loop !151
 
-125:                                              ; preds = %100, %124
-  %126 = phi i64 [ %105, %100 ], [ %107, %124 ]
-  %127 = phi i32 [ 2, %100 ], [ %98, %124 ]
-  br label %128
+126:                                              ; preds = %115
+  br i1 %101, label %138, label %127
 
-128:                                              ; preds = %125, %128
-  %129 = phi i64 [ %133, %128 ], [ %126, %125 ]
-  %130 = phi i32 [ %134, %128 ], [ %127, %125 ]
-  %131 = add nsw i32 %103, %130
-  %132 = getelementptr inbounds i32, ptr %83, i64 %129
-  store i32 %131, ptr %132, align 4, !tbaa !116
-  %133 = add nsw i64 %129, 1
-  %134 = add nuw nsw i32 %130, 1
-  %135 = icmp eq i32 %130, %34
-  br i1 %135, label %136, label %128, !llvm.loop !152
+127:                                              ; preds = %102, %126
+  %128 = phi i64 [ %107, %102 ], [ %109, %126 ]
+  %129 = phi i32 [ 2, %102 ], [ %100, %126 ]
+  br label %130
 
-136:                                              ; preds = %128, %124
-  %137 = phi i64 [ %107, %124 ], [ %133, %128 ]
-  %138 = add nuw nsw i32 %101, 1
-  %139 = icmp eq i32 %101, %34
-  br i1 %139, label %209, label %100, !llvm.loop !119
+130:                                              ; preds = %127, %130
+  %131 = phi i64 [ %135, %130 ], [ %128, %127 ]
+  %132 = phi i32 [ %136, %130 ], [ %129, %127 ]
+  %133 = add nsw i32 %105, %132
+  %134 = getelementptr inbounds i32, ptr %83, i64 %131
+  store i32 %133, ptr %134, align 4, !tbaa !116
+  %135 = add nsw i64 %131, 1
+  %136 = add nuw nsw i32 %132, 1
+  %137 = icmp eq i32 %132, %34
+  br i1 %137, label %138, label %130, !llvm.loop !152
 
-140:                                              ; preds = %87
-  %141 = icmp eq i32 %2, 3
-  br i1 %141, label %142, label %212
+138:                                              ; preds = %130, %126
+  %139 = phi i64 [ %109, %126 ], [ %135, %130 ]
+  %140 = add nuw nsw i32 %103, 1
+  %141 = icmp eq i32 %103, %34
+  br i1 %141, label %211, label %102, !llvm.loop !119
 
-142:                                              ; preds = %140
-  %143 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 5
-  %144 = load i32, ptr %143, align 4, !tbaa !125
-  %145 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 8
-  %146 = load i32, ptr %145, align 8, !tbaa !126
-  %147 = icmp slt i32 %144, %146
-  %148 = icmp sgt i32 %34, 1
-  %149 = select i1 %147, i1 %148, i1 false
-  br i1 %149, label %150, label %212
+142:                                              ; preds = %89
+  %143 = icmp eq i32 %2, 3
+  br i1 %143, label %144, label %214
 
-150:                                              ; preds = %142
-  %151 = add i32 %34, -2
-  %152 = zext i32 %151 to i64
-  %153 = add nuw nsw i64 %152, 1
-  %154 = icmp ult i32 %151, 7
-  %155 = and i64 %153, -8
-  %156 = trunc i64 %155 to i32
-  %157 = or i32 %156, 2
-  %158 = icmp eq i64 %153, %155
-  br label %159
+144:                                              ; preds = %142
+  %145 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 5
+  %146 = load i32, ptr %145, align 4, !tbaa !125
+  %147 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 8
+  %148 = load i32, ptr %147, align 8, !tbaa !126
+  %149 = icmp slt i32 %146, %148
+  %150 = icmp sgt i32 %34, 1
+  %151 = select i1 %149, i1 %150, i1 false
+  br i1 %151, label %152, label %214
 
-159:                                              ; preds = %150, %206
-  %160 = phi i32 [ %207, %206 ], [ %144, %150 ]
-  %161 = phi i64 [ %203, %206 ], [ 0, %150 ]
-  %162 = mul nsw i32 %64, %160
-  br label %163
+152:                                              ; preds = %144
+  %153 = add i32 %34, -2
+  %154 = zext i32 %153 to i64
+  %155 = add nuw nsw i64 %154, 1
+  %156 = icmp ult i32 %153, 7
+  %157 = and i64 %155, -8
+  %158 = trunc i64 %157 to i32
+  %159 = or i32 %158, 2
+  %160 = icmp eq i64 %155, %157
+  br label %161
 
-163:                                              ; preds = %202, %159
-  %164 = phi i32 [ 2, %159 ], [ %204, %202 ]
-  %165 = phi i64 [ %161, %159 ], [ %203, %202 ]
-  %166 = mul nsw i32 %40, %164
-  %167 = shl i64 %165, 32
-  %168 = ashr exact i64 %167, 32
-  br i1 %154, label %190, label %169
+161:                                              ; preds = %152, %208
+  %162 = phi i32 [ %209, %208 ], [ %146, %152 ]
+  %163 = phi i64 [ %205, %208 ], [ 0, %152 ]
+  %164 = mul nsw i32 %64, %162
+  br label %165
 
-169:                                              ; preds = %163
-  %170 = add nsw i64 %168, %155
-  %171 = add i32 %162, %166
-  %172 = insertelement <4 x i32> poison, i32 %171, i64 0
-  %173 = shufflevector <4 x i32> %172, <4 x i32> poison, <4 x i32> zeroinitializer
-  %174 = add i32 %162, %166
-  %175 = add i32 %174, 4
-  %176 = insertelement <4 x i32> poison, i32 %175, i64 0
-  %177 = shufflevector <4 x i32> %176, <4 x i32> poison, <4 x i32> zeroinitializer
-  br label %178
+165:                                              ; preds = %204, %161
+  %166 = phi i32 [ 2, %161 ], [ %206, %204 ]
+  %167 = phi i64 [ %163, %161 ], [ %205, %204 ]
+  %168 = mul nsw i32 %40, %166
+  %169 = shl i64 %167, 32
+  %170 = ashr exact i64 %169, 32
+  br i1 %156, label %192, label %171
 
-178:                                              ; preds = %178, %169
-  %179 = phi i64 [ 0, %169 ], [ %186, %178 ]
-  %180 = phi <4 x i32> [ <i32 2, i32 3, i32 4, i32 5>, %169 ], [ %187, %178 ]
-  %181 = add i64 %168, %179
-  %182 = add <4 x i32> %173, %180
-  %183 = add <4 x i32> %177, %180
-  %184 = getelementptr inbounds i32, ptr %83, i64 %181
-  store <4 x i32> %182, ptr %184, align 4, !tbaa !116
-  %185 = getelementptr inbounds i32, ptr %184, i64 4
-  store <4 x i32> %183, ptr %185, align 4, !tbaa !116
-  %186 = add nuw i64 %179, 8
-  %187 = add <4 x i32> %180, <i32 8, i32 8, i32 8, i32 8>
-  %188 = icmp eq i64 %186, %155
-  br i1 %188, label %189, label %178, !llvm.loop !153
+171:                                              ; preds = %165
+  %172 = add nsw i64 %170, %157
+  %173 = add i32 %164, %168
+  %174 = insertelement <4 x i32> poison, i32 %173, i64 0
+  %175 = shufflevector <4 x i32> %174, <4 x i32> poison, <4 x i32> zeroinitializer
+  %176 = add i32 %164, %168
+  %177 = add i32 %176, 4
+  %178 = insertelement <4 x i32> poison, i32 %177, i64 0
+  %179 = shufflevector <4 x i32> %178, <4 x i32> poison, <4 x i32> zeroinitializer
+  br label %180
 
-189:                                              ; preds = %178
-  br i1 %158, label %202, label %190
+180:                                              ; preds = %180, %171
+  %181 = phi i64 [ 0, %171 ], [ %188, %180 ]
+  %182 = phi <4 x i32> [ <i32 2, i32 3, i32 4, i32 5>, %171 ], [ %189, %180 ]
+  %183 = add i64 %170, %181
+  %184 = add <4 x i32> %175, %182
+  %185 = add <4 x i32> %179, %182
+  %186 = getelementptr inbounds i32, ptr %83, i64 %183
+  store <4 x i32> %184, ptr %186, align 4, !tbaa !116
+  %187 = getelementptr inbounds i32, ptr %186, i64 4
+  store <4 x i32> %185, ptr %187, align 4, !tbaa !116
+  %188 = add nuw i64 %181, 8
+  %189 = add <4 x i32> %182, <i32 8, i32 8, i32 8, i32 8>
+  %190 = icmp eq i64 %188, %157
+  br i1 %190, label %191, label %180, !llvm.loop !153
 
-190:                                              ; preds = %163, %189
-  %191 = phi i64 [ %168, %163 ], [ %170, %189 ]
-  %192 = phi i32 [ 2, %163 ], [ %157, %189 ]
-  br label %193
+191:                                              ; preds = %180
+  br i1 %160, label %204, label %192
 
-193:                                              ; preds = %190, %193
-  %194 = phi i64 [ %199, %193 ], [ %191, %190 ]
-  %195 = phi i32 [ %200, %193 ], [ %192, %190 ]
-  %196 = add nsw i32 %166, %195
-  %197 = add nsw i32 %196, %162
-  %198 = getelementptr inbounds i32, ptr %83, i64 %194
-  store i32 %197, ptr %198, align 4, !tbaa !116
-  %199 = add nsw i64 %194, 1
-  %200 = add nuw nsw i32 %195, 1
-  %201 = icmp eq i32 %195, %34
-  br i1 %201, label %202, label %193, !llvm.loop !154
+192:                                              ; preds = %165, %191
+  %193 = phi i64 [ %170, %165 ], [ %172, %191 ]
+  %194 = phi i32 [ 2, %165 ], [ %159, %191 ]
+  br label %195
 
-202:                                              ; preds = %193, %189
-  %203 = phi i64 [ %170, %189 ], [ %199, %193 ]
-  %204 = add nuw nsw i32 %164, 1
-  %205 = icmp eq i32 %164, %34
-  br i1 %205, label %206, label %163, !llvm.loop !155
+195:                                              ; preds = %192, %195
+  %196 = phi i64 [ %201, %195 ], [ %193, %192 ]
+  %197 = phi i32 [ %202, %195 ], [ %194, %192 ]
+  %198 = add nsw i32 %168, %197
+  %199 = add nsw i32 %198, %164
+  %200 = getelementptr inbounds i32, ptr %83, i64 %196
+  store i32 %199, ptr %200, align 4, !tbaa !116
+  %201 = add nsw i64 %196, 1
+  %202 = add nuw nsw i32 %197, 1
+  %203 = icmp eq i32 %197, %34
+  br i1 %203, label %204, label %195, !llvm.loop !154
 
-206:                                              ; preds = %202
-  %207 = add nsw i32 %160, 1
-  %208 = icmp eq i32 %207, %146
-  br i1 %208, label %209, label %159, !llvm.loop !156
+204:                                              ; preds = %195, %191
+  %205 = phi i64 [ %172, %191 ], [ %201, %195 ]
+  %206 = add nuw nsw i32 %166, 1
+  %207 = icmp eq i32 %166, %34
+  br i1 %207, label %208, label %165, !llvm.loop !155
 
-209:                                              ; preds = %206, %136
-  %210 = phi i64 [ %137, %136 ], [ %203, %206 ]
-  %211 = trunc i64 %210 to i32
-  store i32 %211, ptr %88, align 8, !tbaa !150
-  br label %212
+208:                                              ; preds = %204
+  %209 = add nsw i32 %162, 1
+  %210 = icmp eq i32 %209, %148
+  br i1 %210, label %211, label %161, !llvm.loop !156
 
-212:                                              ; preds = %209, %142, %89, %140
+211:                                              ; preds = %208, %138
+  %212 = phi i64 [ %139, %138 ], [ %205, %208 ]
+  %213 = trunc i64 %212 to i32
+  store i32 %213, ptr %90, align 8, !tbaa !150
+  br label %214
+
+214:                                              ; preds = %211, %144, %91, %142
   ret void
 }
 

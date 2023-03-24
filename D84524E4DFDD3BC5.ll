@@ -312,87 +312,87 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #8
   %7 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 1
   %8 = load i8, ptr %7, align 8, !tbaa !9
-  switch i8 %8, label %585 [
+  switch i8 %8, label %590 [
     i8 11, label %9
     i8 12, label %22
     i8 19, label %28
     i8 18, label %26
     i8 17, label %27
-    i8 82, label %175
-    i8 2, label %294
-    i8 6, label %342
-    i8 7, label %342
-    i8 5, label %470
-    i8 4, label %403
-    i8 20, label %404
-    i8 21, label %405
-    i8 22, label %406
-    i8 23, label %407
-    i8 24, label %408
-    i8 25, label %409
-    i8 26, label %410
-    i8 27, label %411
-    i8 28, label %412
-    i8 29, label %413
-    i8 30, label %414
-    i8 31, label %415
-    i8 32, label %416
-    i8 33, label %417
-    i8 34, label %418
-    i8 35, label %419
-    i8 36, label %420
-    i8 37, label %421
-    i8 38, label %422
-    i8 39, label %423
-    i8 40, label %424
-    i8 41, label %425
-    i8 44, label %426
-    i8 42, label %427
-    i8 43, label %428
-    i8 45, label %429
-    i8 46, label %430
-    i8 47, label %431
-    i8 48, label %432
-    i8 49, label %433
-    i8 50, label %434
-    i8 51, label %435
-    i8 52, label %436
-    i8 55, label %437
-    i8 56, label %438
-    i8 58, label %439
-    i8 59, label %440
-    i8 60, label %441
-    i8 61, label %442
-    i8 62, label %443
-    i8 63, label %444
-    i8 64, label %445
-    i8 65, label %446
-    i8 66, label %447
-    i8 67, label %448
-    i8 68, label %449
-    i8 69, label %450
-    i8 70, label %451
-    i8 71, label %452
-    i8 72, label %453
-    i8 73, label %454
-    i8 74, label %455
-    i8 75, label %456
-    i8 76, label %457
-    i8 77, label %458
-    i8 78, label %459
-    i8 79, label %460
-    i8 80, label %461
-    i8 92, label %462
-    i8 93, label %463
-    i8 94, label %464
-    i8 95, label %465
-    i8 96, label %466
-    i8 97, label %467
-    i8 98, label %468
-    i8 99, label %469
-    i8 54, label %518
-    i8 53, label %518
-    i8 57, label %583
+    i8 82, label %176
+    i8 2, label %295
+    i8 6, label %347
+    i8 7, label %347
+    i8 5, label %475
+    i8 4, label %408
+    i8 20, label %409
+    i8 21, label %410
+    i8 22, label %411
+    i8 23, label %412
+    i8 24, label %413
+    i8 25, label %414
+    i8 26, label %415
+    i8 27, label %416
+    i8 28, label %417
+    i8 29, label %418
+    i8 30, label %419
+    i8 31, label %420
+    i8 32, label %421
+    i8 33, label %422
+    i8 34, label %423
+    i8 35, label %424
+    i8 36, label %425
+    i8 37, label %426
+    i8 38, label %427
+    i8 39, label %428
+    i8 40, label %429
+    i8 41, label %430
+    i8 44, label %431
+    i8 42, label %432
+    i8 43, label %433
+    i8 45, label %434
+    i8 46, label %435
+    i8 47, label %436
+    i8 48, label %437
+    i8 49, label %438
+    i8 50, label %439
+    i8 51, label %440
+    i8 52, label %441
+    i8 55, label %442
+    i8 56, label %443
+    i8 58, label %444
+    i8 59, label %445
+    i8 60, label %446
+    i8 61, label %447
+    i8 62, label %448
+    i8 63, label %449
+    i8 64, label %450
+    i8 65, label %451
+    i8 66, label %452
+    i8 67, label %453
+    i8 68, label %454
+    i8 69, label %455
+    i8 70, label %456
+    i8 71, label %457
+    i8 72, label %458
+    i8 73, label %459
+    i8 74, label %460
+    i8 75, label %461
+    i8 76, label %462
+    i8 77, label %463
+    i8 78, label %464
+    i8 79, label %465
+    i8 80, label %466
+    i8 92, label %467
+    i8 93, label %468
+    i8 94, label %469
+    i8 95, label %470
+    i8 96, label %471
+    i8 97, label %472
+    i8 98, label %473
+    i8 99, label %474
+    i8 54, label %523
+    i8 53, label %523
+    i8 57, label %588
   ]
 
 9:                                                ; preds = %4
@@ -408,17 +408,17 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %17 = tail call i32 @fputc(i32 123, ptr %15)
   %18 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
   %19 = tail call i32 @fputc(i32 125, ptr %18)
-  br label %591
+  br label %595
 
 20:                                               ; preds = %9
   %21 = tail call i32 @fputs(ptr noundef nonnull %10, ptr noundef %15)
-  br label %591
+  br label %595
 
 22:                                               ; preds = %4
   %23 = tail call ptr @StringQuotedWord(ptr noundef nonnull %0) #8
   %24 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
   %25 = tail call i32 @fputs(ptr noundef %23, ptr noundef %24)
-  br label %591
+  br label %595
 
 26:                                               ; preds = %4
   br label %28
@@ -440,11 +440,11 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %35 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
   %36 = load ptr, ptr %35, align 8, !tbaa !9
   %37 = icmp eq ptr %36, %0
-  br i1 %37, label %171, label %38
+  br i1 %37, label %172, label %38
 
-38:                                               ; preds = %34, %166
-  %39 = phi ptr [ %169, %166 ], [ %36, %34 ]
-  %40 = phi i32 [ %167, %166 ], [ %29, %34 ]
+38:                                               ; preds = %34, %167
+  %39 = phi ptr [ %170, %167 ], [ %36, %34 ]
+  %40 = phi i32 [ %168, %167 ], [ %29, %34 ]
   br label %41
 
 41:                                               ; preds = %38, %41
@@ -453,10 +453,10 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %44 = load ptr, ptr %43, align 8, !tbaa !9
   %45 = getelementptr inbounds %struct.word_type, ptr %44, i64 0, i32 1
   %46 = load i8, ptr %45, align 8, !tbaa !9
-  switch i8 %46, label %136 [
+  switch i8 %46, label %137 [
     i8 0, label %41
     i8 1, label %47
-  ]
+  ], !llvm.loop !14
 
 47:                                               ; preds = %41
   %48 = getelementptr inbounds %struct.LIST, ptr %44, i64 0, i32 1
@@ -488,7 +488,7 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %66 = load i8, ptr %58, align 2, !tbaa !9
   %67 = zext i8 %66 to i32
   %68 = icmp ult i32 %62, %67
-  br i1 %68, label %61, label %69, !llvm.loop !14
+  br i1 %68, label %61, label %69, !llvm.loop !16
 
 69:                                               ; preds = %61, %57
   %70 = phi i8 [ 0, %57 ], [ %66, %61 ]
@@ -509,7 +509,7 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %82 = load i8, ptr %74, align 1, !tbaa !9
   %83 = zext i8 %82 to i32
   %84 = icmp ult i32 %78, %83
-  br i1 %84, label %77, label %85, !llvm.loop !16
+  br i1 %84, label %77, label %85, !llvm.loop !17
 
 85:                                               ; preds = %77, %69
   %86 = phi i8 [ 0, %69 ], [ %82, %77 ]
@@ -519,7 +519,7 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %90 = sub nsw i32 0, %87
   %91 = icmp eq i32 %89, %90
   %92 = select i1 %91, i32 103, i32 7
-  br label %166
+  br label %167
 
 93:                                               ; preds = %47, %93
   %94 = phi ptr [ %96, %93 ], [ %49, %47 ]
@@ -528,7 +528,7 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %97 = getelementptr inbounds %struct.word_type, ptr %96, i64 0, i32 1
   %98 = load i8, ptr %97, align 8, !tbaa !9
   %99 = icmp eq i8 %98, 0
-  br i1 %99, label %93, label %100, !llvm.loop !17
+  br i1 %99, label %93, label %100, !llvm.loop !18
 
 100:                                              ; preds = %93
   %101 = getelementptr inbounds %struct.word_type, ptr %96, i64 0, i32 1
@@ -563,803 +563,809 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %123 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
   %124 = tail call i32 @fputs(ptr noundef %122, ptr noundef %123)
   %125 = load i8, ptr %101, align 8, !tbaa !9
-  %126 = add i8 %125, -11
-  %127 = icmp ult i8 %126, 2
-  br i1 %127, label %128, label %132
+  %126 = zext i8 %125 to i32
+  %127 = add nsw i32 %126, -11
+  %128 = icmp ult i32 %127, 2
+  br i1 %128, label %129, label %133
 
-128:                                              ; preds = %111
-  %129 = getelementptr inbounds %struct.word_type, ptr %96, i64 0, i32 4
-  %130 = load i8, ptr %129, align 1
-  %131 = icmp eq i8 %130, 0
-  br i1 %131, label %133, label %132
+129:                                              ; preds = %111
+  %130 = getelementptr inbounds %struct.word_type, ptr %96, i64 0, i32 4
+  %131 = load i8, ptr %130, align 1
+  %132 = icmp eq i8 %131, 0
+  br i1 %132, label %134, label %133
 
-132:                                              ; preds = %111, %128
+133:                                              ; preds = %111, %129
   tail call fastcc void @WriteObject(ptr noundef nonnull %96, i32 noundef 105, ptr noundef %2, i16 noundef zeroext %3)
-  br label %133
+  br label %134
 
-133:                                              ; preds = %132, %128
-  %134 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %135 = tail call i32 @fputc(i32 32, ptr %134)
-  br label %166
+134:                                              ; preds = %133, %129
+  %135 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %136 = tail call i32 @fputc(i32 32, ptr %135)
+  br label %167
 
-136:                                              ; preds = %41
-  %137 = load i8, ptr %7, align 8, !tbaa !9
-  %138 = icmp eq i8 %137, 17
-  br i1 %138, label %139, label %165
+137:                                              ; preds = %41
+  %138 = load i8, ptr %7, align 8, !tbaa !9
+  %139 = icmp eq i8 %138, 17
+  br i1 %139, label %140, label %166
 
-139:                                              ; preds = %136
-  %140 = getelementptr inbounds %struct.LIST, ptr %39, i64 0, i32 1
-  %141 = load ptr, ptr %140, align 8, !tbaa !9
-  %142 = icmp eq ptr %141, %0
-  br i1 %142, label %162, label %143
+140:                                              ; preds = %137
+  %141 = getelementptr inbounds %struct.LIST, ptr %39, i64 0, i32 1
+  %142 = load ptr, ptr %141, align 8, !tbaa !9
+  %143 = icmp eq ptr %142, %0
+  br i1 %143, label %163, label %144
 
-143:                                              ; preds = %139, %143
-  %144 = phi ptr [ %146, %143 ], [ %141, %139 ]
-  %145 = getelementptr inbounds [2 x %struct.LIST], ptr %144, i64 0, i64 1
-  %146 = load ptr, ptr %145, align 8, !tbaa !9
-  %147 = getelementptr inbounds %struct.word_type, ptr %146, i64 0, i32 1
-  %148 = load i8, ptr %147, align 8, !tbaa !9
-  switch i8 %148, label %149 [
-    i8 0, label %143
-    i8 1, label %152
-  ]
+144:                                              ; preds = %140, %144
+  %145 = phi ptr [ %147, %144 ], [ %142, %140 ]
+  %146 = getelementptr inbounds [2 x %struct.LIST], ptr %145, i64 0, i64 1
+  %147 = load ptr, ptr %146, align 8, !tbaa !9
+  %148 = getelementptr inbounds %struct.word_type, ptr %147, i64 0, i32 1
+  %149 = load i8, ptr %148, align 8, !tbaa !9
+  switch i8 %149, label %150 [
+    i8 0, label %144
+    i8 1, label %153
+  ], !llvm.loop !19
 
-149:                                              ; preds = %143
-  %150 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %151 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %150, ptr noundef nonnull @.str.16) #8
-  br label %152
+150:                                              ; preds = %144
+  %151 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %152 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %151, ptr noundef nonnull @.str.16) #8
+  br label %153
 
-152:                                              ; preds = %143, %149
-  %153 = getelementptr inbounds i8, ptr %146, i64 42
-  %154 = load i8, ptr %153, align 2, !tbaa !9
-  %155 = zext i8 %154 to i32
-  %156 = getelementptr inbounds i8, ptr %146, i64 41
-  %157 = load i8, ptr %156, align 1, !tbaa !9
-  %158 = zext i8 %157 to i32
-  %159 = sub nsw i32 0, %158
-  %160 = icmp eq i32 %155, %159
-  %161 = select i1 %160, i32 103, i32 7
-  br label %162
+153:                                              ; preds = %144, %150
+  %154 = getelementptr inbounds i8, ptr %147, i64 42
+  %155 = load i8, ptr %154, align 2, !tbaa !9
+  %156 = zext i8 %155 to i32
+  %157 = getelementptr inbounds i8, ptr %147, i64 41
+  %158 = load i8, ptr %157, align 1, !tbaa !9
+  %159 = zext i8 %158 to i32
+  %160 = sub nsw i32 0, %159
+  %161 = icmp eq i32 %156, %160
+  %162 = select i1 %161, i32 103, i32 7
+  br label %163
 
-162:                                              ; preds = %139, %152
-  %163 = phi i32 [ %161, %152 ], [ %29, %139 ]
-  %164 = tail call i32 @llvm.smax.i32(i32 %40, i32 %163)
-  tail call fastcc void @WriteObject(ptr noundef %44, i32 noundef %164, ptr noundef %2, i16 noundef zeroext %3)
-  br label %166
+163:                                              ; preds = %140, %153
+  %164 = phi i32 [ %162, %153 ], [ %29, %140 ]
+  %165 = tail call i32 @llvm.smax.i32(i32 %40, i32 %164)
+  tail call fastcc void @WriteObject(ptr noundef %44, i32 noundef %165, ptr noundef %2, i16 noundef zeroext %3)
+  br label %167
 
-165:                                              ; preds = %136
+166:                                              ; preds = %137
   tail call fastcc void @WriteObject(ptr noundef nonnull %44, i32 noundef %29, ptr noundef %2, i16 noundef zeroext %3)
-  br label %166
+  br label %167
 
-166:                                              ; preds = %133, %85, %165, %162
-  %167 = phi i32 [ %92, %85 ], [ %29, %133 ], [ %40, %162 ], [ %40, %165 ]
-  %168 = getelementptr inbounds %struct.LIST, ptr %39, i64 0, i32 1
-  %169 = load ptr, ptr %168, align 8, !tbaa !9
-  %170 = icmp eq ptr %169, %0
-  br i1 %170, label %171, label %38, !llvm.loop !18
+167:                                              ; preds = %134, %85, %166, %163
+  %168 = phi i32 [ %92, %85 ], [ %29, %134 ], [ %40, %163 ], [ %40, %166 ]
+  %169 = getelementptr inbounds %struct.LIST, ptr %39, i64 0, i32 1
+  %170 = load ptr, ptr %169, align 8, !tbaa !9
+  %171 = icmp eq ptr %170, %0
+  br i1 %171, label %172, label %38, !llvm.loop !20
 
-171:                                              ; preds = %166, %34
-  br i1 %30, label %172, label %591
+172:                                              ; preds = %167, %34
+  br i1 %30, label %173, label %595
 
-172:                                              ; preds = %171
-  %173 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %174 = tail call i32 @fputc(i32 125, ptr %173)
-  br label %591
+173:                                              ; preds = %172
+  %174 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %175 = tail call i32 @fputc(i32 125, ptr %174)
+  br label %595
 
-175:                                              ; preds = %4
-  %176 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
-  %177 = load ptr, ptr %176, align 8, !tbaa !9
-  %178 = icmp eq ptr %177, %0
-  br i1 %178, label %179, label %186
+176:                                              ; preds = %4
+  %177 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
+  %178 = load ptr, ptr %177, align 8, !tbaa !9
+  %179 = icmp eq ptr %178, %0
+  br i1 %179, label %180, label %187
 
-179:                                              ; preds = %175
-  %180 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %181 = tail call i64 @fwrite(ptr nonnull @.str.17, i64 3, i64 1, ptr %180)
-  %182 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %183 = tail call i32 @fputc(i32 10, ptr %182)
-  %184 = load i32, ptr %2, align 4, !tbaa !12
-  %185 = add nsw i32 %184, 1
-  store i32 %185, ptr %2, align 4, !tbaa !12
-  br label %591
+180:                                              ; preds = %176
+  %181 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %182 = tail call i64 @fwrite(ptr nonnull @.str.17, i64 3, i64 1, ptr %181)
+  %183 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %184 = tail call i32 @fputc(i32 10, ptr %183)
+  %185 = load i32, ptr %2, align 4, !tbaa !12
+  %186 = add nsw i32 %185, 1
+  store i32 %186, ptr %2, align 4, !tbaa !12
+  br label %595
 
-186:                                              ; preds = %175
-  %187 = call i32 @EnvWriteRetrieve(ptr noundef nonnull %0, i16 noundef zeroext %3, ptr noundef nonnull %5, ptr noundef nonnull %6) #8
-  %188 = icmp eq i32 %187, 0
-  %189 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  br i1 %188, label %200, label %190
+187:                                              ; preds = %176
+  %188 = call i32 @EnvWriteRetrieve(ptr noundef nonnull %0, i16 noundef zeroext %3, ptr noundef nonnull %5, ptr noundef nonnull %6) #8
+  %189 = icmp eq i32 %188, 0
+  %190 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  br i1 %189, label %201, label %191
 
-190:                                              ; preds = %186
-  %191 = call i64 @fwrite(ptr nonnull @.str.18, i64 3, i64 1, ptr %189)
-  %192 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %193 = load i32, ptr %5, align 4, !tbaa !12
-  %194 = load i32, ptr %6, align 4, !tbaa !12
-  %195 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %192, ptr noundef nonnull @.str.19, i32 noundef %193, i32 noundef %194)
-  %196 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %197 = call i32 @fputc(i32 10, ptr %196)
-  %198 = load i32, ptr %2, align 4, !tbaa !12
-  %199 = add nsw i32 %198, 1
-  store i32 %199, ptr %2, align 4, !tbaa !12
-  br label %591
+191:                                              ; preds = %187
+  %192 = call i64 @fwrite(ptr nonnull @.str.18, i64 3, i64 1, ptr %190)
+  %193 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %194 = load i32, ptr %5, align 4, !tbaa !12
+  %195 = load i32, ptr %6, align 4, !tbaa !12
+  %196 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %193, ptr noundef nonnull @.str.19, i32 noundef %194, i32 noundef %195)
+  %197 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %198 = call i32 @fputc(i32 10, ptr %197)
+  %199 = load i32, ptr %2, align 4, !tbaa !12
+  %200 = add nsw i32 %199, 1
+  store i32 %200, ptr %2, align 4, !tbaa !12
+  br label %595
 
-200:                                              ; preds = %186
-  %201 = call i64 @ftell(ptr noundef %189)
-  %202 = trunc i64 %201 to i32
-  %203 = load i32, ptr %2, align 4, !tbaa !12
-  call void @EnvWriteInsert(ptr noundef nonnull %0, i16 noundef zeroext %3, i32 noundef %202, i32 noundef %203) #8
-  %204 = load ptr, ptr %176, align 8, !tbaa !9
-  %205 = load ptr, ptr %0, align 8, !tbaa !9
-  %206 = icmp eq ptr %204, %205
-  br i1 %206, label %207, label %241
+201:                                              ; preds = %187
+  %202 = call i64 @ftell(ptr noundef %190)
+  %203 = trunc i64 %202 to i32
+  %204 = load i32, ptr %2, align 4, !tbaa !12
+  call void @EnvWriteInsert(ptr noundef nonnull %0, i16 noundef zeroext %3, i32 noundef %203, i32 noundef %204) #8
+  %205 = load ptr, ptr %177, align 8, !tbaa !9
+  %206 = load ptr, ptr %0, align 8, !tbaa !9
+  %207 = icmp eq ptr %205, %206
+  br i1 %207, label %208, label %242
 
-207:                                              ; preds = %200, %207
-  %208 = phi ptr [ %210, %207 ], [ %204, %200 ]
-  %209 = getelementptr inbounds [2 x %struct.LIST], ptr %208, i64 0, i64 1
-  %210 = load ptr, ptr %209, align 8, !tbaa !9
-  %211 = getelementptr inbounds %struct.word_type, ptr %210, i64 0, i32 1
-  %212 = load i8, ptr %211, align 8, !tbaa !9
-  switch i8 %212, label %213 [
-    i8 0, label %207
-    i8 2, label %216
-  ]
+208:                                              ; preds = %201, %208
+  %209 = phi ptr [ %211, %208 ], [ %205, %201 ]
+  %210 = getelementptr inbounds [2 x %struct.LIST], ptr %209, i64 0, i64 1
+  %211 = load ptr, ptr %210, align 8, !tbaa !9
+  %212 = getelementptr inbounds %struct.word_type, ptr %211, i64 0, i32 1
+  %213 = load i8, ptr %212, align 8, !tbaa !9
+  switch i8 %213, label %214 [
+    i8 0, label %208
+    i8 2, label %217
+  ], !llvm.loop !21
 
-213:                                              ; preds = %207
-  %214 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %215 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %214, ptr noundef nonnull @.str.20) #8
-  br label %216
+214:                                              ; preds = %208
+  %215 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %216 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %215, ptr noundef nonnull @.str.20) #8
+  br label %217
 
-216:                                              ; preds = %207, %213
-  %217 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %218 = call i32 @fputc(i32 123, ptr %217)
-  %219 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %220 = call i32 @fputc(i32 32, ptr %219)
-  %221 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %222 = call i64 @fwrite(ptr nonnull @.str.21, i64 3, i64 1, ptr %221)
-  %223 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %224 = call i32 @fputc(i32 32, ptr %223)
-  %225 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %226 = call i32 @fputc(i32 123, ptr %225)
-  %227 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %228 = call i32 @fputc(i32 32, ptr %227)
-  call fastcc void @WriteObject(ptr noundef nonnull %210, i32 noundef 0, ptr noundef nonnull %2, i16 noundef zeroext %3)
-  %229 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %230 = call i32 @fputc(i32 32, ptr %229)
-  %231 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %232 = call i32 @fputc(i32 125, ptr %231)
-  %233 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %234 = call i32 @fputc(i32 32, ptr %233)
-  %235 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %236 = call i32 @fputc(i32 125, ptr %235)
-  %237 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %238 = call i32 @fputc(i32 10, ptr %237)
-  %239 = load i32, ptr %2, align 4, !tbaa !12
-  %240 = add nsw i32 %239, 1
-  store i32 %240, ptr %2, align 4, !tbaa !12
-  br label %591
+217:                                              ; preds = %208, %214
+  %218 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %219 = call i32 @fputc(i32 123, ptr %218)
+  %220 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %221 = call i32 @fputc(i32 32, ptr %220)
+  %222 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %223 = call i64 @fwrite(ptr nonnull @.str.21, i64 3, i64 1, ptr %222)
+  %224 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %225 = call i32 @fputc(i32 32, ptr %224)
+  %226 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %227 = call i32 @fputc(i32 123, ptr %226)
+  %228 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %229 = call i32 @fputc(i32 32, ptr %228)
+  call fastcc void @WriteObject(ptr noundef nonnull %211, i32 noundef 0, ptr noundef nonnull %2, i16 noundef zeroext %3)
+  %230 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %231 = call i32 @fputc(i32 32, ptr %230)
+  %232 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %233 = call i32 @fputc(i32 125, ptr %232)
+  %234 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %235 = call i32 @fputc(i32 32, ptr %234)
+  %236 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %237 = call i32 @fputc(i32 125, ptr %236)
+  %238 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %239 = call i32 @fputc(i32 10, ptr %238)
+  %240 = load i32, ptr %2, align 4, !tbaa !12
+  %241 = add nsw i32 %240, 1
+  store i32 %241, ptr %2, align 4, !tbaa !12
+  br label %595
 
-241:                                              ; preds = %200, %241
-  %242 = phi ptr [ %244, %241 ], [ %205, %200 ]
-  %243 = getelementptr inbounds [2 x %struct.LIST], ptr %242, i64 0, i64 1
-  %244 = load ptr, ptr %243, align 8, !tbaa !9
-  %245 = getelementptr inbounds %struct.word_type, ptr %244, i64 0, i32 1
-  %246 = load i8, ptr %245, align 8, !tbaa !9
-  switch i8 %246, label %247 [
-    i8 0, label %241
-    i8 82, label %250
-  ]
+242:                                              ; preds = %201, %242
+  %243 = phi ptr [ %245, %242 ], [ %206, %201 ]
+  %244 = getelementptr inbounds [2 x %struct.LIST], ptr %243, i64 0, i64 1
+  %245 = load ptr, ptr %244, align 8, !tbaa !9
+  %246 = getelementptr inbounds %struct.word_type, ptr %245, i64 0, i32 1
+  %247 = load i8, ptr %246, align 8, !tbaa !9
+  switch i8 %247, label %248 [
+    i8 0, label %242
+    i8 82, label %251
+  ], !llvm.loop !22
 
-247:                                              ; preds = %241
-  %248 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %249 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %248, ptr noundef nonnull @.str.22) #8
-  br label %250
+248:                                              ; preds = %242
+  %249 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %250 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %249, ptr noundef nonnull @.str.22) #8
+  br label %251
 
-250:                                              ; preds = %241, %247
-  %251 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %252 = call i32 @fputc(i32 123, ptr %251)
-  %253 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %254 = call i32 @fputc(i32 32, ptr %253)
-  %255 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %256 = call i64 @fwrite(ptr nonnull @.str.23, i64 3, i64 1, ptr %255)
-  %257 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %258 = call i32 @fputc(i32 32, ptr %257)
-  %259 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %260 = call i32 @fputc(i32 123, ptr %259)
-  %261 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %262 = call i32 @fputc(i32 32, ptr %261)
-  call fastcc void @WriteObject(ptr noundef nonnull %244, i32 noundef 0, ptr noundef nonnull %2, i16 noundef zeroext %3)
-  %263 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %264 = call i32 @fputc(i32 32, ptr %263)
-  %265 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %266 = call i32 @fputc(i32 125, ptr %265)
-  %267 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %268 = call i32 @fputc(i32 10, ptr %267)
-  %269 = load i32, ptr %2, align 4, !tbaa !12
-  %270 = add nsw i32 %269, 1
-  store i32 %270, ptr %2, align 4, !tbaa !12
-  %271 = load ptr, ptr %176, align 8, !tbaa !9
-  br label %272
+251:                                              ; preds = %242, %248
+  %252 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %253 = call i32 @fputc(i32 123, ptr %252)
+  %254 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %255 = call i32 @fputc(i32 32, ptr %254)
+  %256 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %257 = call i64 @fwrite(ptr nonnull @.str.23, i64 3, i64 1, ptr %256)
+  %258 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %259 = call i32 @fputc(i32 32, ptr %258)
+  %260 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %261 = call i32 @fputc(i32 123, ptr %260)
+  %262 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %263 = call i32 @fputc(i32 32, ptr %262)
+  call fastcc void @WriteObject(ptr noundef nonnull %245, i32 noundef 0, ptr noundef nonnull %2, i16 noundef zeroext %3)
+  %264 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %265 = call i32 @fputc(i32 32, ptr %264)
+  %266 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %267 = call i32 @fputc(i32 125, ptr %266)
+  %268 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %269 = call i32 @fputc(i32 10, ptr %268)
+  %270 = load i32, ptr %2, align 4, !tbaa !12
+  %271 = add nsw i32 %270, 1
+  store i32 %271, ptr %2, align 4, !tbaa !12
+  %272 = load ptr, ptr %177, align 8, !tbaa !9
+  br label %273
 
-272:                                              ; preds = %272, %250
-  %273 = phi ptr [ %271, %250 ], [ %275, %272 ]
-  %274 = getelementptr inbounds [2 x %struct.LIST], ptr %273, i64 0, i64 1
-  %275 = load ptr, ptr %274, align 8, !tbaa !9
-  %276 = getelementptr inbounds %struct.word_type, ptr %275, i64 0, i32 1
-  %277 = load i8, ptr %276, align 8, !tbaa !9
-  switch i8 %277, label %278 [
-    i8 0, label %272
-    i8 2, label %281
-  ]
+273:                                              ; preds = %273, %251
+  %274 = phi ptr [ %272, %251 ], [ %276, %273 ]
+  %275 = getelementptr inbounds [2 x %struct.LIST], ptr %274, i64 0, i64 1
+  %276 = load ptr, ptr %275, align 8, !tbaa !9
+  %277 = getelementptr inbounds %struct.word_type, ptr %276, i64 0, i32 1
+  %278 = load i8, ptr %277, align 8, !tbaa !9
+  switch i8 %278, label %279 [
+    i8 0, label %273
+    i8 2, label %282
+  ], !llvm.loop !23
 
-278:                                              ; preds = %272
-  %279 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %280 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %279, ptr noundef nonnull @.str.24) #8
-  br label %281
+279:                                              ; preds = %273
+  %280 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %281 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %280, ptr noundef nonnull @.str.24) #8
+  br label %282
 
-281:                                              ; preds = %272, %278
-  %282 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %283 = call i32 @fputc(i32 123, ptr %282)
-  call fastcc void @WriteObject(ptr noundef nonnull %275, i32 noundef 0, ptr noundef nonnull %2, i16 noundef zeroext %3)
-  %284 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %285 = call i32 @fputc(i32 125, ptr %284)
-  %286 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %287 = call i32 @fputc(i32 32, ptr %286)
-  %288 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %289 = call i32 @fputc(i32 125, ptr %288)
-  %290 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %291 = call i32 @fputc(i32 10, ptr %290)
-  %292 = load i32, ptr %2, align 4, !tbaa !12
-  %293 = add nsw i32 %292, 1
-  store i32 %293, ptr %2, align 4, !tbaa !12
-  br label %591
+282:                                              ; preds = %273, %279
+  %283 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %284 = call i32 @fputc(i32 123, ptr %283)
+  call fastcc void @WriteObject(ptr noundef nonnull %276, i32 noundef 0, ptr noundef nonnull %2, i16 noundef zeroext %3)
+  %285 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %286 = call i32 @fputc(i32 125, ptr %285)
+  %287 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %288 = call i32 @fputc(i32 32, ptr %287)
+  %289 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %290 = call i32 @fputc(i32 125, ptr %289)
+  %291 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %292 = call i32 @fputc(i32 10, ptr %291)
+  %293 = load i32, ptr %2, align 4, !tbaa !12
+  %294 = add nsw i32 %293, 1
+  store i32 %294, ptr %2, align 4, !tbaa !12
+  br label %595
 
-294:                                              ; preds = %4
-  %295 = getelementptr inbounds %struct.closure_type, ptr %0, i64 0, i32 5
-  %296 = load ptr, ptr %295, align 8, !tbaa !9
-  %297 = load ptr, ptr %0, align 8, !tbaa !9
-  %298 = icmp eq ptr %297, %0
-  br i1 %298, label %305, label %299
+295:                                              ; preds = %4
+  %296 = getelementptr inbounds %struct.closure_type, ptr %0, i64 0, i32 5
+  %297 = load ptr, ptr %296, align 8, !tbaa !9
+  %298 = load ptr, ptr %0, align 8, !tbaa !9
+  %299 = icmp eq ptr %298, %0
+  br i1 %299, label %306, label %300
 
-299:                                              ; preds = %294, %299
-  %300 = phi ptr [ %302, %299 ], [ %297, %294 ]
-  %301 = getelementptr inbounds [2 x %struct.LIST], ptr %300, i64 0, i64 1
-  %302 = load ptr, ptr %301, align 8, !tbaa !9
-  %303 = getelementptr inbounds %struct.word_type, ptr %302, i64 0, i32 1
-  %304 = load i8, ptr %303, align 8, !tbaa !9
-  switch i8 %304, label %305 [
-    i8 0, label %299
-    i8 82, label %317
-  ]
+300:                                              ; preds = %295, %300
+  %301 = phi ptr [ %303, %300 ], [ %298, %295 ]
+  %302 = getelementptr inbounds [2 x %struct.LIST], ptr %301, i64 0, i64 1
+  %303 = load ptr, ptr %302, align 8, !tbaa !9
+  %304 = getelementptr inbounds %struct.word_type, ptr %303, i64 0, i32 1
+  %305 = load i8, ptr %304, align 8, !tbaa !9
+  switch i8 %305, label %306 [
+    i8 0, label %300
+    i8 82, label %321
+  ], !llvm.loop !24
 
-305:                                              ; preds = %299, %294
-  %306 = getelementptr inbounds %struct.word_type, ptr %296, i64 0, i32 2
-  %307 = load i8, ptr %306, align 8, !tbaa !9
-  %308 = zext i8 %307 to i32
-  %309 = icmp sgt i32 %308, %1
-  br i1 %309, label %334, label %310
+306:                                              ; preds = %300, %295
+  %307 = getelementptr inbounds %struct.word_type, ptr %297, i64 0, i32 2
+  %308 = load i8, ptr %307, align 8, !tbaa !9
+  %309 = zext i8 %308 to i32
+  %310 = icmp sgt i32 %309, %1
+  br i1 %310, label %338, label %311
 
-310:                                              ; preds = %305
-  %311 = getelementptr inbounds i8, ptr %296, i64 41
-  %312 = load i24, ptr %311, align 1
-  %313 = and i24 %312, 12
-  %314 = icmp ne i24 %313, 0
-  %315 = icmp sgt i32 %1, 102
-  %316 = or i1 %315, %314
-  br i1 %316, label %336, label %590
+311:                                              ; preds = %306
+  %312 = getelementptr inbounds i8, ptr %297, i64 41
+  %313 = load i24, ptr %312, align 1
+  %314 = and i24 %313, 4
+  %315 = icmp eq i24 %314, 0
+  br i1 %315, label %316, label %341
 
-317:                                              ; preds = %299
-  %318 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %319 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 3, i64 1, ptr %318)
-  %320 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %321 = tail call i32 @fputc(i32 32, ptr %320)
+316:                                              ; preds = %311
+  %317 = and i24 %313, 8
+  %318 = icmp ne i24 %317, 0
+  %319 = icmp sgt i32 %1, 102
+  %320 = or i1 %319, %318
+  br i1 %320, label %341, label %340
+
+321:                                              ; preds = %300
   %322 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %323 = tail call i32 @fputc(i32 123, ptr %322)
+  %323 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 3, i64 1, ptr %322)
   %324 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %325 = tail call i32 @fputc(i32 10, ptr %324)
-  %326 = load i32, ptr %2, align 4, !tbaa !12
-  %327 = add nsw i32 %326, 1
-  store i32 %327, ptr %2, align 4, !tbaa !12
-  tail call fastcc void @WriteObject(ptr noundef nonnull %302, i32 noundef 0, ptr noundef %2, i16 noundef zeroext %3)
+  %325 = tail call i32 @fputc(i32 32, ptr %324)
+  %326 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %327 = tail call i32 @fputc(i32 123, ptr %326)
   %328 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %329 = tail call i32 @fputc(i32 125, ptr %328)
-  %330 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %331 = tail call i32 @fputc(i32 10, ptr %330)
-  %332 = load i32, ptr %2, align 4, !tbaa !12
-  %333 = add nsw i32 %332, 1
-  store i32 %333, ptr %2, align 4, !tbaa !12
-  br label %336
+  %329 = tail call i32 @fputc(i32 10, ptr %328)
+  %330 = load i32, ptr %2, align 4, !tbaa !12
+  %331 = add nsw i32 %330, 1
+  store i32 %331, ptr %2, align 4, !tbaa !12
+  tail call fastcc void @WriteObject(ptr noundef nonnull %303, i32 noundef 0, ptr noundef %2, i16 noundef zeroext %3)
+  %332 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %333 = tail call i32 @fputc(i32 125, ptr %332)
+  %334 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %335 = tail call i32 @fputc(i32 10, ptr %334)
+  %336 = load i32, ptr %2, align 4, !tbaa !12
+  %337 = add nsw i32 %336, 1
+  store i32 %337, ptr %2, align 4, !tbaa !12
+  br label %341
 
-334:                                              ; preds = %305
-  %335 = icmp sgt i32 %1, 102
-  br i1 %335, label %336, label %590
+338:                                              ; preds = %306
+  %339 = icmp sgt i32 %1, 102
+  br i1 %339, label %341, label %340
 
-336:                                              ; preds = %310, %317, %334
-  %337 = phi ptr [ %302, %317 ], [ null, %334 ], [ null, %310 ]
-  %338 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %339 = tail call i32 @fputc(i32 123, ptr %338)
-  tail call fastcc void @WriteClosure(ptr noundef nonnull %0, ptr noundef %2, i16 noundef zeroext %3, ptr noundef %337)
-  %340 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %341 = tail call i32 @fputc(i32 125, ptr %340)
-  br label %591
+340:                                              ; preds = %316, %338
+  tail call fastcc void @WriteClosure(ptr noundef nonnull %0, ptr noundef %2, i16 noundef zeroext %3, ptr noundef null)
+  br label %595
 
-342:                                              ; preds = %4, %4
-  %343 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
-  %344 = load ptr, ptr %343, align 8, !tbaa !9
-  br label %345
+341:                                              ; preds = %316, %311, %338, %321
+  %342 = phi ptr [ %303, %321 ], [ null, %338 ], [ null, %311 ], [ null, %316 ]
+  %343 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %344 = tail call i32 @fputc(i32 123, ptr %343)
+  tail call fastcc void @WriteClosure(ptr noundef nonnull %0, ptr noundef %2, i16 noundef zeroext %3, ptr noundef %342)
+  %345 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %346 = tail call i32 @fputc(i32 125, ptr %345)
+  br label %595
 
-345:                                              ; preds = %345, %342
-  %346 = phi ptr [ %344, %342 ], [ %348, %345 ]
-  %347 = getelementptr inbounds [2 x %struct.LIST], ptr %346, i64 0, i64 1
-  %348 = load ptr, ptr %347, align 8, !tbaa !9
-  %349 = getelementptr inbounds %struct.word_type, ptr %348, i64 0, i32 1
-  %350 = load i8, ptr %349, align 8, !tbaa !9
-  switch i8 %350, label %351 [
-    i8 0, label %345
-    i8 2, label %354
-  ]
+347:                                              ; preds = %4, %4
+  %348 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
+  %349 = load ptr, ptr %348, align 8, !tbaa !9
+  br label %350
 
-351:                                              ; preds = %345
-  %352 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %353 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %352, ptr noundef nonnull @.str.26) #8
-  br label %354
+350:                                              ; preds = %350, %347
+  %351 = phi ptr [ %349, %347 ], [ %353, %350 ]
+  %352 = getelementptr inbounds [2 x %struct.LIST], ptr %351, i64 0, i64 1
+  %353 = load ptr, ptr %352, align 8, !tbaa !9
+  %354 = getelementptr inbounds %struct.word_type, ptr %353, i64 0, i32 1
+  %355 = load i8, ptr %354, align 8, !tbaa !9
+  switch i8 %355, label %356 [
+    i8 0, label %350
+    i8 2, label %359
+  ], !llvm.loop !25
 
-354:                                              ; preds = %345, %351
-  %355 = icmp sgt i32 %1, 99
-  br i1 %355, label %356, label %359
-
-356:                                              ; preds = %354
-  %357 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %358 = tail call i32 @fputc(i32 123, ptr %357)
+356:                                              ; preds = %350
+  %357 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %358 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %357, ptr noundef nonnull @.str.26) #8
   br label %359
 
-359:                                              ; preds = %356, %354
-  %360 = getelementptr inbounds %struct.closure_type, ptr %348, i64 0, i32 5
-  %361 = load ptr, ptr %360, align 8, !tbaa !9
-  %362 = getelementptr inbounds i8, ptr %361, i64 41
-  %363 = load i24, ptr %362, align 1
-  %364 = and i24 %363, 65536
-  %365 = icmp eq i24 %364, 0
-  br i1 %365, label %366, label %381
+359:                                              ; preds = %350, %356
+  %360 = icmp sgt i32 %1, 99
+  br i1 %360, label %361, label %364
 
-366:                                              ; preds = %359
-  %367 = getelementptr inbounds %struct.symbol_type, ptr %361, i64 0, i32 3
-  %368 = load ptr, ptr %367, align 8, !tbaa !9
-  %369 = load ptr, ptr @StartSym, align 8, !tbaa !5
-  %370 = icmp eq ptr %368, %369
-  br i1 %370, label %381, label %371
+361:                                              ; preds = %359
+  %362 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %363 = tail call i32 @fputc(i32 123, ptr %362)
+  br label %364
 
-371:                                              ; preds = %366
-  %372 = getelementptr inbounds %struct.word_type, ptr %368, i64 0, i32 1
-  %373 = load i8, ptr %372, align 8, !tbaa !9
-  %374 = icmp eq i8 %373, -113
-  br i1 %374, label %375, label %381
+364:                                              ; preds = %361, %359
+  %365 = getelementptr inbounds %struct.closure_type, ptr %353, i64 0, i32 5
+  %366 = load ptr, ptr %365, align 8, !tbaa !9
+  %367 = getelementptr inbounds i8, ptr %366, i64 41
+  %368 = load i24, ptr %367, align 1
+  %369 = and i24 %368, 65536
+  %370 = icmp eq i24 %369, 0
+  br i1 %370, label %371, label %386
 
-375:                                              ; preds = %371
-  %376 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %377 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 3, i64 1, ptr %376)
-  %378 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %379 = tail call i32 @fputc(i32 32, ptr %378)
-  %380 = load ptr, ptr %360, align 8, !tbaa !9
-  br label %381
+371:                                              ; preds = %364
+  %372 = getelementptr inbounds %struct.symbol_type, ptr %366, i64 0, i32 3
+  %373 = load ptr, ptr %372, align 8, !tbaa !9
+  %374 = load ptr, ptr @StartSym, align 8, !tbaa !5
+  %375 = icmp eq ptr %373, %374
+  br i1 %375, label %386, label %376
 
-381:                                              ; preds = %359, %366, %375, %371
-  %382 = phi ptr [ %361, %359 ], [ %361, %366 ], [ %380, %375 ], [ %361, %371 ]
-  %383 = tail call ptr @SymName(ptr noundef %382) #8
-  %384 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %385 = tail call i32 @fputs(ptr noundef %383, ptr noundef %384)
-  %386 = load i8, ptr %7, align 8, !tbaa !9
-  %387 = icmp eq i8 %386, 6
-  %388 = select i1 %387, ptr @.str.28, ptr @.str.29
+376:                                              ; preds = %371
+  %377 = getelementptr inbounds %struct.word_type, ptr %373, i64 0, i32 1
+  %378 = load i8, ptr %377, align 8, !tbaa !9
+  %379 = icmp eq i8 %378, -113
+  br i1 %379, label %380, label %386
+
+380:                                              ; preds = %376
+  %381 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %382 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 3, i64 1, ptr %381)
+  %383 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %384 = tail call i32 @fputc(i32 32, ptr %383)
+  %385 = load ptr, ptr %365, align 8, !tbaa !9
+  br label %386
+
+386:                                              ; preds = %364, %371, %380, %376
+  %387 = phi ptr [ %366, %364 ], [ %366, %371 ], [ %385, %380 ], [ %366, %376 ]
+  %388 = tail call ptr @SymName(ptr noundef %387) #8
   %389 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %390 = tail call i32 @fputs(ptr noundef nonnull %388, ptr noundef %389)
-  %391 = load ptr, ptr %0, align 8, !tbaa !9
-  br label %392
+  %390 = tail call i32 @fputs(ptr noundef %388, ptr noundef %389)
+  %391 = load i8, ptr %7, align 8, !tbaa !9
+  %392 = icmp eq i8 %391, 6
+  %393 = select i1 %392, ptr @.str.28, ptr @.str.29
+  %394 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %395 = tail call i32 @fputs(ptr noundef nonnull %393, ptr noundef %394)
+  %396 = load ptr, ptr %0, align 8, !tbaa !9
+  br label %397
 
-392:                                              ; preds = %392, %381
-  %393 = phi ptr [ %391, %381 ], [ %395, %392 ]
-  %394 = getelementptr inbounds [2 x %struct.LIST], ptr %393, i64 0, i64 1
-  %395 = load ptr, ptr %394, align 8, !tbaa !9
-  %396 = getelementptr inbounds %struct.word_type, ptr %395, i64 0, i32 1
-  %397 = load i8, ptr %396, align 8, !tbaa !9
-  %398 = icmp eq i8 %397, 0
-  br i1 %398, label %392, label %399, !llvm.loop !19
+397:                                              ; preds = %397, %386
+  %398 = phi ptr [ %396, %386 ], [ %400, %397 ]
+  %399 = getelementptr inbounds [2 x %struct.LIST], ptr %398, i64 0, i64 1
+  %400 = load ptr, ptr %399, align 8, !tbaa !9
+  %401 = getelementptr inbounds %struct.word_type, ptr %400, i64 0, i32 1
+  %402 = load i8, ptr %401, align 8, !tbaa !9
+  %403 = icmp eq i8 %402, 0
+  br i1 %403, label %397, label %404, !llvm.loop !26
 
-399:                                              ; preds = %392
-  tail call fastcc void @WriteObject(ptr noundef nonnull %395, i32 noundef 105, ptr noundef %2, i16 noundef zeroext %3)
-  br i1 %355, label %400, label %591
+404:                                              ; preds = %397
+  tail call fastcc void @WriteObject(ptr noundef nonnull %400, i32 noundef 105, ptr noundef %2, i16 noundef zeroext %3)
+  br i1 %360, label %405, label %595
 
-400:                                              ; preds = %399
-  %401 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %402 = tail call i32 @fputc(i32 125, ptr %401)
-  br label %591
-
-403:                                              ; preds = %4
-  br label %470
-
-404:                                              ; preds = %4
-  br label %470
-
-405:                                              ; preds = %4
-  br label %470
-
-406:                                              ; preds = %4
-  br label %470
-
-407:                                              ; preds = %4
-  br label %470
+405:                                              ; preds = %404
+  %406 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %407 = tail call i32 @fputc(i32 125, ptr %406)
+  br label %595
 
 408:                                              ; preds = %4
-  br label %470
+  br label %475
 
 409:                                              ; preds = %4
-  br label %470
+  br label %475
 
 410:                                              ; preds = %4
-  br label %470
+  br label %475
 
 411:                                              ; preds = %4
-  br label %470
+  br label %475
 
 412:                                              ; preds = %4
-  br label %470
+  br label %475
 
 413:                                              ; preds = %4
-  br label %470
+  br label %475
 
 414:                                              ; preds = %4
-  br label %470
+  br label %475
 
 415:                                              ; preds = %4
-  br label %470
+  br label %475
 
 416:                                              ; preds = %4
-  br label %470
+  br label %475
 
 417:                                              ; preds = %4
-  br label %470
+  br label %475
 
 418:                                              ; preds = %4
-  br label %470
+  br label %475
 
 419:                                              ; preds = %4
-  br label %470
+  br label %475
 
 420:                                              ; preds = %4
-  br label %470
+  br label %475
 
 421:                                              ; preds = %4
-  br label %470
+  br label %475
 
 422:                                              ; preds = %4
-  br label %470
+  br label %475
 
 423:                                              ; preds = %4
-  br label %470
+  br label %475
 
 424:                                              ; preds = %4
-  br label %470
+  br label %475
 
 425:                                              ; preds = %4
-  br label %470
+  br label %475
 
 426:                                              ; preds = %4
-  br label %470
+  br label %475
 
 427:                                              ; preds = %4
-  br label %470
+  br label %475
 
 428:                                              ; preds = %4
-  br label %470
+  br label %475
 
 429:                                              ; preds = %4
-  br label %470
+  br label %475
 
 430:                                              ; preds = %4
-  br label %470
+  br label %475
 
 431:                                              ; preds = %4
-  br label %470
+  br label %475
 
 432:                                              ; preds = %4
-  br label %470
+  br label %475
 
 433:                                              ; preds = %4
-  br label %470
+  br label %475
 
 434:                                              ; preds = %4
-  br label %470
+  br label %475
 
 435:                                              ; preds = %4
-  br label %470
+  br label %475
 
 436:                                              ; preds = %4
-  br label %470
+  br label %475
 
 437:                                              ; preds = %4
-  br label %470
+  br label %475
 
 438:                                              ; preds = %4
-  br label %470
+  br label %475
 
 439:                                              ; preds = %4
-  br label %470
+  br label %475
 
 440:                                              ; preds = %4
-  br label %470
+  br label %475
 
 441:                                              ; preds = %4
-  br label %470
+  br label %475
 
 442:                                              ; preds = %4
-  br label %470
+  br label %475
 
 443:                                              ; preds = %4
-  br label %470
+  br label %475
 
 444:                                              ; preds = %4
-  br label %470
+  br label %475
 
 445:                                              ; preds = %4
-  br label %470
+  br label %475
 
 446:                                              ; preds = %4
-  br label %470
+  br label %475
 
 447:                                              ; preds = %4
-  br label %470
+  br label %475
 
 448:                                              ; preds = %4
-  br label %470
+  br label %475
 
 449:                                              ; preds = %4
-  br label %470
+  br label %475
 
 450:                                              ; preds = %4
-  br label %470
+  br label %475
 
 451:                                              ; preds = %4
-  br label %470
+  br label %475
 
 452:                                              ; preds = %4
-  br label %470
+  br label %475
 
 453:                                              ; preds = %4
-  br label %470
+  br label %475
 
 454:                                              ; preds = %4
-  br label %470
+  br label %475
 
 455:                                              ; preds = %4
-  br label %470
+  br label %475
 
 456:                                              ; preds = %4
-  br label %470
+  br label %475
 
 457:                                              ; preds = %4
-  br label %470
+  br label %475
 
 458:                                              ; preds = %4
-  br label %470
+  br label %475
 
 459:                                              ; preds = %4
-  br label %470
+  br label %475
 
 460:                                              ; preds = %4
-  br label %470
+  br label %475
 
 461:                                              ; preds = %4
-  br label %470
+  br label %475
 
 462:                                              ; preds = %4
-  br label %470
+  br label %475
 
 463:                                              ; preds = %4
-  br label %470
+  br label %475
 
 464:                                              ; preds = %4
-  br label %470
+  br label %475
 
 465:                                              ; preds = %4
-  br label %470
+  br label %475
 
 466:                                              ; preds = %4
-  br label %470
+  br label %475
 
 467:                                              ; preds = %4
-  br label %470
+  br label %475
 
 468:                                              ; preds = %4
-  br label %470
+  br label %475
 
 469:                                              ; preds = %4
-  br label %470
+  br label %475
 
-470:                                              ; preds = %4, %469, %468, %467, %466, %465, %464, %463, %462, %461, %460, %459, %458, %457, %456, %455, %454, %453, %452, %451, %450, %449, %448, %447, %446, %445, %444, %443, %442, %441, %440, %439, %438, %437, %436, %435, %434, %433, %432, %431, %430, %429, %428, %427, %426, %425, %424, %423, %422, %421, %420, %419, %418, %417, %416, %415, %414, %413, %412, %411, %410, %409, %408, %407, %406, %405, %404, %403
-  %471 = phi ptr [ @.str.97, %469 ], [ @.str.96, %468 ], [ @.str.95, %467 ], [ @.str.94, %466 ], [ @.str.93, %465 ], [ @.str.92, %464 ], [ @.str.91, %463 ], [ @.str.90, %462 ], [ @.str.89, %461 ], [ @.str.88, %460 ], [ @.str.87, %459 ], [ @.str.86, %458 ], [ @.str.85, %457 ], [ @.str.84, %456 ], [ @.str.83, %455 ], [ @.str.82, %454 ], [ @.str.81, %453 ], [ @.str.80, %452 ], [ @.str.79, %451 ], [ @.str.78, %450 ], [ @.str.77, %449 ], [ @.str.76, %448 ], [ @.str.75, %447 ], [ @.str.74, %446 ], [ @.str.73, %445 ], [ @.str.72, %444 ], [ @.str.71, %443 ], [ @.str.70, %442 ], [ @.str.69, %441 ], [ @.str.68, %440 ], [ @.str.67, %439 ], [ @.str.66, %438 ], [ @.str.65, %437 ], [ @.str.64, %436 ], [ @.str.63, %435 ], [ @.str.62, %434 ], [ @.str.61, %433 ], [ @.str.60, %432 ], [ @.str.59, %431 ], [ @.str.58, %430 ], [ @.str.57, %429 ], [ @.str.56, %428 ], [ @.str.55, %427 ], [ @.str.54, %426 ], [ @.str.53, %425 ], [ @.str.52, %424 ], [ @.str.51, %423 ], [ @.str.50, %422 ], [ @.str.49, %421 ], [ @.str.48, %420 ], [ @.str.47, %419 ], [ @.str.46, %418 ], [ @.str.45, %417 ], [ @.str.44, %416 ], [ @.str.43, %415 ], [ @.str.42, %414 ], [ @.str.41, %413 ], [ @.str.40, %412 ], [ @.str.39, %411 ], [ @.str.38, %410 ], [ @.str.37, %409 ], [ @.str.36, %408 ], [ @.str.35, %407 ], [ @.str.34, %406 ], [ @.str.33, %405 ], [ @.str.32, %404 ], [ @.str.31, %403 ], [ @.str.30, %4 ]
-  %472 = icmp sgt i32 %1, 99
-  br i1 %472, label %473, label %476
+470:                                              ; preds = %4
+  br label %475
 
-473:                                              ; preds = %470
-  %474 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %475 = tail call i32 @fputc(i32 123, ptr %474)
-  br label %476
+471:                                              ; preds = %4
+  br label %475
 
-476:                                              ; preds = %473, %470
-  %477 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
-  %478 = load ptr, ptr %477, align 8, !tbaa !9
-  %479 = load ptr, ptr %0, align 8, !tbaa !9
-  %480 = icmp eq ptr %478, %479
-  br i1 %480, label %491, label %481
+472:                                              ; preds = %4
+  br label %475
 
-481:                                              ; preds = %476, %481
-  %482 = phi ptr [ %484, %481 ], [ %478, %476 ]
-  %483 = getelementptr inbounds [2 x %struct.LIST], ptr %482, i64 0, i64 1
-  %484 = load ptr, ptr %483, align 8, !tbaa !9
-  %485 = getelementptr inbounds %struct.word_type, ptr %484, i64 0, i32 1
-  %486 = load i8, ptr %485, align 8, !tbaa !9
-  %487 = icmp eq i8 %486, 0
-  br i1 %487, label %481, label %488, !llvm.loop !20
+473:                                              ; preds = %4
+  br label %475
 
-488:                                              ; preds = %481
-  tail call fastcc void @WriteObject(ptr noundef nonnull %484, i32 noundef 100, ptr noundef %2, i16 noundef zeroext %3)
-  %489 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %490 = tail call i32 @fputc(i32 32, ptr %489)
-  br label %491
+474:                                              ; preds = %4
+  br label %475
 
-491:                                              ; preds = %488, %476
-  %492 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %493 = tail call i32 @fputs(ptr noundef nonnull %471, ptr noundef %492)
-  %494 = load ptr, ptr %0, align 8, !tbaa !9
-  %495 = icmp eq ptr %494, %0
-  br i1 %495, label %514, label %496
+475:                                              ; preds = %4, %474, %473, %472, %471, %470, %469, %468, %467, %466, %465, %464, %463, %462, %461, %460, %459, %458, %457, %456, %455, %454, %453, %452, %451, %450, %449, %448, %447, %446, %445, %444, %443, %442, %441, %440, %439, %438, %437, %436, %435, %434, %433, %432, %431, %430, %429, %428, %427, %426, %425, %424, %423, %422, %421, %420, %419, %418, %417, %416, %415, %414, %413, %412, %411, %410, %409, %408
+  %476 = phi ptr [ @.str.97, %474 ], [ @.str.96, %473 ], [ @.str.95, %472 ], [ @.str.94, %471 ], [ @.str.93, %470 ], [ @.str.92, %469 ], [ @.str.91, %468 ], [ @.str.90, %467 ], [ @.str.89, %466 ], [ @.str.88, %465 ], [ @.str.87, %464 ], [ @.str.86, %463 ], [ @.str.85, %462 ], [ @.str.84, %461 ], [ @.str.83, %460 ], [ @.str.82, %459 ], [ @.str.81, %458 ], [ @.str.80, %457 ], [ @.str.79, %456 ], [ @.str.78, %455 ], [ @.str.77, %454 ], [ @.str.76, %453 ], [ @.str.75, %452 ], [ @.str.74, %451 ], [ @.str.73, %450 ], [ @.str.72, %449 ], [ @.str.71, %448 ], [ @.str.70, %447 ], [ @.str.69, %446 ], [ @.str.68, %445 ], [ @.str.67, %444 ], [ @.str.66, %443 ], [ @.str.65, %442 ], [ @.str.64, %441 ], [ @.str.63, %440 ], [ @.str.62, %439 ], [ @.str.61, %438 ], [ @.str.60, %437 ], [ @.str.59, %436 ], [ @.str.58, %435 ], [ @.str.57, %434 ], [ @.str.56, %433 ], [ @.str.55, %432 ], [ @.str.54, %431 ], [ @.str.53, %430 ], [ @.str.52, %429 ], [ @.str.51, %428 ], [ @.str.50, %427 ], [ @.str.49, %426 ], [ @.str.48, %425 ], [ @.str.47, %424 ], [ @.str.46, %423 ], [ @.str.45, %422 ], [ @.str.44, %421 ], [ @.str.43, %420 ], [ @.str.42, %419 ], [ @.str.41, %418 ], [ @.str.40, %417 ], [ @.str.39, %416 ], [ @.str.38, %415 ], [ @.str.37, %414 ], [ @.str.36, %413 ], [ @.str.35, %412 ], [ @.str.34, %411 ], [ @.str.33, %410 ], [ @.str.32, %409 ], [ @.str.31, %408 ], [ @.str.30, %4 ]
+  %477 = icmp sgt i32 %1, 99
+  br i1 %477, label %478, label %481
 
-496:                                              ; preds = %491, %496
-  %497 = phi ptr [ %499, %496 ], [ %494, %491 ]
-  %498 = getelementptr inbounds [2 x %struct.LIST], ptr %497, i64 0, i64 1
-  %499 = load ptr, ptr %498, align 8, !tbaa !9
-  %500 = getelementptr inbounds %struct.word_type, ptr %499, i64 0, i32 1
-  %501 = load i8, ptr %500, align 8, !tbaa !9
-  %502 = icmp eq i8 %501, 0
-  br i1 %502, label %496, label %503, !llvm.loop !21
+478:                                              ; preds = %475
+  %479 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %480 = tail call i32 @fputc(i32 123, ptr %479)
+  br label %481
 
-503:                                              ; preds = %496
-  %504 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %505 = tail call i32 @fputc(i32 32, ptr %504)
-  %506 = load i8, ptr %7, align 8, !tbaa !9
-  %507 = icmp eq i8 %506, 92
-  br i1 %507, label %508, label %513
+481:                                              ; preds = %478, %475
+  %482 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
+  %483 = load ptr, ptr %482, align 8, !tbaa !9
+  %484 = load ptr, ptr %0, align 8, !tbaa !9
+  %485 = icmp eq ptr %483, %484
+  br i1 %485, label %496, label %486
 
-508:                                              ; preds = %503
+486:                                              ; preds = %481, %486
+  %487 = phi ptr [ %489, %486 ], [ %483, %481 ]
+  %488 = getelementptr inbounds [2 x %struct.LIST], ptr %487, i64 0, i64 1
+  %489 = load ptr, ptr %488, align 8, !tbaa !9
+  %490 = getelementptr inbounds %struct.word_type, ptr %489, i64 0, i32 1
+  %491 = load i8, ptr %490, align 8, !tbaa !9
+  %492 = icmp eq i8 %491, 0
+  br i1 %492, label %486, label %493, !llvm.loop !27
+
+493:                                              ; preds = %486
+  tail call fastcc void @WriteObject(ptr noundef nonnull %489, i32 noundef 100, ptr noundef %2, i16 noundef zeroext %3)
+  %494 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %495 = tail call i32 @fputc(i32 32, ptr %494)
+  br label %496
+
+496:                                              ; preds = %493, %481
+  %497 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %498 = tail call i32 @fputs(ptr noundef nonnull %476, ptr noundef %497)
+  %499 = load ptr, ptr %0, align 8, !tbaa !9
+  %500 = icmp eq ptr %499, %0
+  br i1 %500, label %519, label %501
+
+501:                                              ; preds = %496, %501
+  %502 = phi ptr [ %504, %501 ], [ %499, %496 ]
+  %503 = getelementptr inbounds [2 x %struct.LIST], ptr %502, i64 0, i64 1
+  %504 = load ptr, ptr %503, align 8, !tbaa !9
+  %505 = getelementptr inbounds %struct.word_type, ptr %504, i64 0, i32 1
+  %506 = load i8, ptr %505, align 8, !tbaa !9
+  %507 = icmp eq i8 %506, 0
+  br i1 %507, label %501, label %508, !llvm.loop !28
+
+508:                                              ; preds = %501
   %509 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %510 = tail call i32 @fputc(i32 123, ptr %509)
-  tail call fastcc void @WriteObject(ptr noundef nonnull %499, i32 noundef 0, ptr noundef %2, i16 noundef zeroext %3)
-  %511 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %512 = tail call i32 @fputc(i32 125, ptr %511)
-  br label %514
+  %510 = tail call i32 @fputc(i32 32, ptr %509)
+  %511 = load i8, ptr %7, align 8, !tbaa !9
+  %512 = icmp eq i8 %511, 92
+  br i1 %512, label %513, label %518
 
-513:                                              ; preds = %503
-  tail call fastcc void @WriteObject(ptr noundef nonnull %499, i32 noundef 100, ptr noundef %2, i16 noundef zeroext %3)
-  br label %514
-
-514:                                              ; preds = %508, %513, %491
-  br i1 %472, label %515, label %591
-
-515:                                              ; preds = %514
+513:                                              ; preds = %508
+  %514 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %515 = tail call i32 @fputc(i32 123, ptr %514)
+  tail call fastcc void @WriteObject(ptr noundef nonnull %504, i32 noundef 0, ptr noundef %2, i16 noundef zeroext %3)
   %516 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
   %517 = tail call i32 @fputc(i32 125, ptr %516)
-  br label %591
+  br label %519
 
-518:                                              ; preds = %4, %4
-  %519 = icmp eq i8 %8, 53
-  %520 = select i1 %519, ptr @.str.98, ptr @.str.99
+518:                                              ; preds = %508
+  tail call fastcc void @WriteObject(ptr noundef nonnull %504, i32 noundef 100, ptr noundef %2, i16 noundef zeroext %3)
+  br label %519
+
+519:                                              ; preds = %513, %518, %496
+  br i1 %477, label %520, label %595
+
+520:                                              ; preds = %519
   %521 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %522 = tail call i32 @fputs(ptr noundef nonnull %520, ptr noundef %521)
-  %523 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %524 = tail call i32 @fputc(i32 32, ptr %523)
-  %525 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %526 = tail call i64 @fwrite(ptr nonnull @.str.100, i64 6, i64 1, ptr %525)
-  %527 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %528 = tail call i32 @fputc(i32 10, ptr %527)
-  %529 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
-  %530 = load ptr, ptr %529, align 8, !tbaa !9
-  br label %531
+  %522 = tail call i32 @fputc(i32 125, ptr %521)
+  br label %595
 
-531:                                              ; preds = %531, %518
-  %532 = phi ptr [ %530, %518 ], [ %534, %531 ]
-  %533 = getelementptr inbounds [2 x %struct.LIST], ptr %532, i64 0, i64 1
-  %534 = load ptr, ptr %533, align 8, !tbaa !9
-  %535 = getelementptr inbounds %struct.word_type, ptr %534, i64 0, i32 1
-  %536 = load i8, ptr %535, align 8, !tbaa !9
-  switch i8 %536, label %543 [
-    i8 0, label %531
-    i8 11, label %537
-    i8 19, label %546
-  ]
+523:                                              ; preds = %4, %4
+  %524 = icmp eq i8 %8, 53
+  %525 = select i1 %524, ptr @.str.98, ptr @.str.99
+  %526 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %527 = tail call i32 @fputs(ptr noundef nonnull %525, ptr noundef %526)
+  %528 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %529 = tail call i32 @fputc(i32 32, ptr %528)
+  %530 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %531 = tail call i64 @fwrite(ptr nonnull @.str.100, i64 6, i64 1, ptr %530)
+  %532 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %533 = tail call i32 @fputc(i32 10, ptr %532)
+  %534 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
+  %535 = load ptr, ptr %534, align 8, !tbaa !9
+  br label %536
 
-537:                                              ; preds = %531
-  %538 = getelementptr inbounds %struct.word_type, ptr %534, i64 0, i32 4
-  %539 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %540 = tail call i32 @fputs(ptr noundef nonnull %538, ptr noundef %539)
-  %541 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %542 = tail call i32 @fputc(i32 32, ptr %541)
-  br label %573
+536:                                              ; preds = %536, %523
+  %537 = phi ptr [ %535, %523 ], [ %539, %536 ]
+  %538 = getelementptr inbounds [2 x %struct.LIST], ptr %537, i64 0, i64 1
+  %539 = load ptr, ptr %538, align 8, !tbaa !9
+  %540 = getelementptr inbounds %struct.word_type, ptr %539, i64 0, i32 1
+  %541 = load i8, ptr %540, align 8, !tbaa !9
+  switch i8 %541, label %548 [
+    i8 0, label %536
+    i8 11, label %542
+    i8 19, label %551
+  ], !llvm.loop !29
 
-543:                                              ; preds = %531
-  %544 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %545 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %544, ptr noundef nonnull @.str.101) #8
-  br label %546
+542:                                              ; preds = %536
+  %543 = getelementptr inbounds %struct.word_type, ptr %539, i64 0, i32 4
+  %544 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %545 = tail call i32 @fputs(ptr noundef nonnull %543, ptr noundef %544)
+  %546 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %547 = tail call i32 @fputc(i32 32, ptr %546)
+  br label %578
 
-546:                                              ; preds = %531, %543
-  %547 = getelementptr inbounds %struct.LIST, ptr %534, i64 0, i32 1
-  %548 = load ptr, ptr %547, align 8, !tbaa !9
-  %549 = icmp eq ptr %548, %534
-  br i1 %549, label %573, label %550
+548:                                              ; preds = %536
+  %549 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %550 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %549, ptr noundef nonnull @.str.101) #8
+  br label %551
 
-550:                                              ; preds = %546, %569
-  %551 = phi ptr [ %571, %569 ], [ %548, %546 ]
-  br label %552
+551:                                              ; preds = %536, %548
+  %552 = getelementptr inbounds %struct.LIST, ptr %539, i64 0, i32 1
+  %553 = load ptr, ptr %552, align 8, !tbaa !9
+  %554 = icmp eq ptr %553, %539
+  br i1 %554, label %578, label %555
 
-552:                                              ; preds = %550, %552
-  %553 = phi ptr [ %555, %552 ], [ %551, %550 ]
-  %554 = getelementptr inbounds [2 x %struct.LIST], ptr %553, i64 0, i64 1
-  %555 = load ptr, ptr %554, align 8, !tbaa !9
-  %556 = getelementptr inbounds %struct.word_type, ptr %555, i64 0, i32 1
-  %557 = load i8, ptr %556, align 8, !tbaa !9
-  switch i8 %557, label %558 [
-    i8 0, label %552
-    i8 1, label %569
-    i8 11, label %561
-  ]
+555:                                              ; preds = %551, %574
+  %556 = phi ptr [ %576, %574 ], [ %553, %551 ]
+  br label %557
 
-558:                                              ; preds = %552
-  %559 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %560 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %559, ptr noundef nonnull @.str.102) #8
-  br label %561
+557:                                              ; preds = %555, %557
+  %558 = phi ptr [ %560, %557 ], [ %556, %555 ]
+  %559 = getelementptr inbounds [2 x %struct.LIST], ptr %558, i64 0, i64 1
+  %560 = load ptr, ptr %559, align 8, !tbaa !9
+  %561 = getelementptr inbounds %struct.word_type, ptr %560, i64 0, i32 1
+  %562 = load i8, ptr %561, align 8, !tbaa !9
+  switch i8 %562, label %563 [
+    i8 0, label %557
+    i8 1, label %574
+    i8 11, label %566
+  ], !llvm.loop !30
 
-561:                                              ; preds = %552, %558
-  %562 = getelementptr inbounds %struct.word_type, ptr %555, i64 0, i32 4
-  %563 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %564 = tail call i32 @fputs(ptr noundef nonnull %562, ptr noundef %563)
-  %565 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %566 = tail call i32 @fputc(i32 10, ptr %565)
-  %567 = load i32, ptr %2, align 4, !tbaa !12
-  %568 = add nsw i32 %567, 1
-  store i32 %568, ptr %2, align 4, !tbaa !12
-  br label %569
+563:                                              ; preds = %557
+  %564 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %565 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.13, i32 noundef 0, ptr noundef %564, ptr noundef nonnull @.str.102) #8
+  br label %566
 
-569:                                              ; preds = %552, %561
-  %570 = getelementptr inbounds %struct.LIST, ptr %551, i64 0, i32 1
-  %571 = load ptr, ptr %570, align 8, !tbaa !9
-  %572 = icmp eq ptr %571, %534
-  br i1 %572, label %573, label %550, !llvm.loop !22
+566:                                              ; preds = %557, %563
+  %567 = getelementptr inbounds %struct.word_type, ptr %560, i64 0, i32 4
+  %568 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %569 = tail call i32 @fputs(ptr noundef nonnull %567, ptr noundef %568)
+  %570 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %571 = tail call i32 @fputc(i32 10, ptr %570)
+  %572 = load i32, ptr %2, align 4, !tbaa !12
+  %573 = add nsw i32 %572, 1
+  store i32 %573, ptr %2, align 4, !tbaa !12
+  br label %574
 
-573:                                              ; preds = %569, %546, %537
-  %574 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %575 = tail call i64 @fwrite(ptr nonnull @.str.103, i64 4, i64 1, ptr %574)
-  %576 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %577 = tail call i32 @fputc(i32 32, ptr %576)
-  %578 = load i8, ptr %7, align 8, !tbaa !9
-  %579 = icmp eq i8 %578, 53
-  %580 = select i1 %579, ptr @.str.98, ptr @.str.99
+574:                                              ; preds = %557, %566
+  %575 = getelementptr inbounds %struct.LIST, ptr %556, i64 0, i32 1
+  %576 = load ptr, ptr %575, align 8, !tbaa !9
+  %577 = icmp eq ptr %576, %539
+  br i1 %577, label %578, label %555, !llvm.loop !31
+
+578:                                              ; preds = %574, %551, %542
+  %579 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %580 = tail call i64 @fwrite(ptr nonnull @.str.103, i64 4, i64 1, ptr %579)
   %581 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  %582 = tail call i32 @fputs(ptr noundef nonnull %580, ptr noundef %581)
-  br label %591
+  %582 = tail call i32 @fputc(i32 32, ptr %581)
+  %583 = load i8, ptr %7, align 8, !tbaa !9
+  %584 = icmp eq i8 %583, 53
+  %585 = select i1 %584, ptr @.str.98, ptr @.str.99
+  %586 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  %587 = tail call i32 @fputs(ptr noundef nonnull %585, ptr noundef %586)
+  br label %595
 
-583:                                              ; preds = %4
-  %584 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
-  tail call void @FilterWrite(ptr noundef nonnull %0, ptr noundef %584, ptr noundef %2) #8
-  br label %591
+588:                                              ; preds = %4
+  %589 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
+  tail call void @FilterWrite(ptr noundef nonnull %0, ptr noundef %589, ptr noundef %2) #8
+  br label %595
 
-585:                                              ; preds = %4
-  %586 = zext i8 %8 to i32
-  %587 = load ptr, ptr @no_fpos, align 8, !tbaa !5
-  %588 = tail call ptr @Image(i32 noundef %586) #8
-  %589 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 3, ptr noundef nonnull @.str.104, i32 noundef 0, ptr noundef %587, ptr noundef nonnull @.str.105, ptr noundef %588) #8
-  br label %591
+590:                                              ; preds = %4
+  %591 = zext i8 %8 to i32
+  %592 = load ptr, ptr @no_fpos, align 8, !tbaa !5
+  %593 = tail call ptr @Image(i32 noundef %591) #8
+  %594 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 3, ptr noundef nonnull @.str.104, i32 noundef 0, ptr noundef %592, ptr noundef nonnull @.str.105, ptr noundef %593) #8
+  br label %595
 
-590:                                              ; preds = %310, %334
-  tail call fastcc void @WriteClosure(ptr noundef nonnull %0, ptr noundef %2, i16 noundef zeroext %3, ptr noundef null)
-  br label %591
-
-591:                                              ; preds = %590, %514, %515, %399, %400, %336, %179, %216, %281, %190, %171, %172, %16, %20, %585, %583, %573, %22
+595:                                              ; preds = %340, %519, %520, %404, %405, %341, %180, %217, %282, %191, %172, %173, %16, %20, %590, %588, %578, %22
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #8
   ret void
@@ -1397,7 +1403,7 @@ define dso_local void @CloseFiles() local_unnamed_addr #0 {
   %17 = call i32 @remove(ptr noundef nonnull %1) #8
   %18 = call zeroext i16 @NextFile(i16 noundef zeroext %12) #8
   %19 = icmp eq i16 %18, 0
-  br i1 %19, label %20, label %11, !llvm.loop !23
+  br i1 %19, label %20, label %11, !llvm.loop !32
 
 20:                                               ; preds = %11, %8
   %21 = call zeroext i16 @FirstFile(i32 noundef 3) #8
@@ -1439,7 +1445,7 @@ define dso_local void @CloseFiles() local_unnamed_addr #0 {
 44:                                               ; preds = %23, %41, %38
   %45 = call zeroext i16 @NextFile(i16 noundef zeroext %24) #8
   %46 = icmp eq i16 %45, 0
-  br i1 %46, label %47, label %23, !llvm.loop !24
+  br i1 %46, label %47, label %23, !llvm.loop !33
 
 47:                                               ; preds = %44, %20
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %2) #8
@@ -1511,7 +1517,7 @@ define internal fastcc void @WriteClosure(ptr noundef %0, ptr noundef %1, i16 no
   switch i8 %31, label %208 [
     i8 0, label %26
     i8 10, label %32
-  ]
+  ], !llvm.loop !34
 
 32:                                               ; preds = %26
   %33 = getelementptr inbounds %struct.closure_type, ptr %29, i64 0, i32 5
@@ -1547,7 +1553,7 @@ define internal fastcc void @WriteClosure(ptr noundef %0, ptr noundef %1, i16 no
   %51 = getelementptr inbounds %struct.word_type, ptr %50, i64 0, i32 1
   %52 = load i8, ptr %51, align 8, !tbaa !9
   %53 = icmp eq i8 %52, 0
-  br i1 %53, label %47, label %54, !llvm.loop !25
+  br i1 %53, label %47, label %54, !llvm.loop !35
 
 54:                                               ; preds = %47
   %55 = load i8, ptr %21, align 8, !tbaa !9
@@ -1580,7 +1586,7 @@ define internal fastcc void @WriteClosure(ptr noundef %0, ptr noundef %1, i16 no
   %73 = getelementptr inbounds %struct.word_type, ptr %72, i64 0, i32 1
   %74 = load i8, ptr %73, align 8, !tbaa !9
   %75 = icmp eq i8 %74, 0
-  br i1 %75, label %69, label %76, !llvm.loop !26
+  br i1 %75, label %69, label %76, !llvm.loop !36
 
 76:                                               ; preds = %69
   %77 = icmp eq i32 %24, 0
@@ -1681,7 +1687,7 @@ define internal fastcc void @WriteClosure(ptr noundef %0, ptr noundef %1, i16 no
   %144 = getelementptr inbounds %struct.word_type, ptr %143, i64 0, i32 1
   %145 = load i8, ptr %144, align 8, !tbaa !9
   %146 = icmp eq i8 %145, 0
-  br i1 %146, label %140, label %147, !llvm.loop !27
+  br i1 %146, label %140, label %147, !llvm.loop !37
 
 147:                                              ; preds = %140
   %148 = getelementptr inbounds %struct.word_type, ptr %143, i64 0, i32 1
@@ -1786,7 +1792,7 @@ define internal fastcc void @WriteClosure(ptr noundef %0, ptr noundef %1, i16 no
   %211 = getelementptr inbounds %struct.LIST, ptr %23, i64 0, i32 1
   %212 = load ptr, ptr %211, align 8, !tbaa !9
   %213 = icmp eq ptr %212, %0
-  br i1 %213, label %214, label %22, !llvm.loop !28
+  br i1 %213, label %214, label %22, !llvm.loop !38
 
 214:                                              ; preds = %208
   %215 = icmp eq i32 %210, 0
@@ -1873,7 +1879,7 @@ define internal fastcc void @OptimizeParameterList(ptr noundef readonly %0, ptr 
   switch i8 %22, label %52 [
     i8 0, label %17
     i8 10, label %23
-  ]
+  ], !llvm.loop !39
 
 23:                                               ; preds = %17
   %24 = getelementptr inbounds %struct.LIST, ptr %20, i64 0, i32 1
@@ -1890,7 +1896,7 @@ define internal fastcc void @OptimizeParameterList(ptr noundef readonly %0, ptr 
     i8 0, label %26
     i8 2, label %32
     i8 17, label %33
-  ]
+  ], !llvm.loop !40
 
 32:                                               ; preds = %26
   tail call fastcc void @Optimize(ptr noundef nonnull %29, ptr noundef nonnull %1)
@@ -1917,7 +1923,7 @@ define internal fastcc void @OptimizeParameterList(ptr noundef readonly %0, ptr 
   switch i8 %46, label %49 [
     i8 0, label %41
     i8 2, label %47
-  ]
+  ], !llvm.loop !41
 
 47:                                               ; preds = %41
   tail call fastcc void @Optimize(ptr noundef nonnull %44, ptr noundef nonnull %1)
@@ -1927,13 +1933,13 @@ define internal fastcc void @OptimizeParameterList(ptr noundef readonly %0, ptr 
 49:                                               ; preds = %41, %47
   %50 = phi ptr [ %48, %47 ], [ %40, %41 ]
   %51 = icmp eq ptr %50, %29
-  br i1 %51, label %52, label %37, !llvm.loop !29
+  br i1 %51, label %52, label %37, !llvm.loop !42
 
 52:                                               ; preds = %17, %26, %49, %33, %32
   %53 = getelementptr inbounds %struct.LIST, ptr %16, i64 0, i32 1
   %54 = load ptr, ptr %53, align 8, !tbaa !9
   %55 = icmp eq ptr %54, %0
-  br i1 %55, label %56, label %15, !llvm.loop !30
+  br i1 %55, label %56, label %15, !llvm.loop !43
 
 56:                                               ; preds = %52, %11, %9
   ret void
@@ -2059,3 +2065,16 @@ attributes #9 = { nounwind willreturn memory(read) }
 !28 = distinct !{!28, !15}
 !29 = distinct !{!29, !15}
 !30 = distinct !{!30, !15}
+!31 = distinct !{!31, !15}
+!32 = distinct !{!32, !15}
+!33 = distinct !{!33, !15}
+!34 = distinct !{!34, !15}
+!35 = distinct !{!35, !15}
+!36 = distinct !{!36, !15}
+!37 = distinct !{!37, !15}
+!38 = distinct !{!38, !15}
+!39 = distinct !{!39, !15}
+!40 = distinct !{!40, !15}
+!41 = distinct !{!41, !15}
+!42 = distinct !{!42, !15}
+!43 = distinct !{!43, !15}

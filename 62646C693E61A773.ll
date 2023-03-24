@@ -716,8 +716,8 @@ define dso_local noundef i32 @_ZN23CExtractCallbackConsole13ExtractResultEi(ptr 
   %60 = call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %59, ptr noundef nonnull @_Z4endlR13CStdOutStream)
   br label %61
 
-61:                                               ; preds = %16, %12, %25, %25, %58
-  %62 = phi i32 [ 0, %58 ], [ %1, %25 ], [ %1, %25 ], [ 0, %12 ], [ 0, %16 ]
+61:                                               ; preds = %25, %25, %16, %12, %58
+  %62 = phi i32 [ 0, %58 ], [ 0, %12 ], [ 0, %16 ], [ %1, %25 ], [ %1, %25 ]
   ret i32 %62
 }
 

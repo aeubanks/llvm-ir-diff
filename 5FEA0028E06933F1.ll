@@ -70,17 +70,17 @@ define dso_local i32 @yylex() local_unnamed_addr #2 {
   %3 = load ptr, ptr @stdin, align 8, !tbaa !5
   %4 = tail call i32 @getc(ptr noundef %3)
   switch i32 %4, label %154 [
-    i32 -1, label %210
+    i32 -1, label %208
     i32 32, label %5
     i32 12, label %5
     i32 9, label %5
     i32 10, label %6
-    i32 40, label %208
-    i32 41, label %208
-    i32 44, label %208
-    i32 58, label %208
-    i32 59, label %208
-    i32 61, label %208
+    i32 40, label %210
+    i32 41, label %210
+    i32 44, label %210
+    i32 58, label %210
+    i32 59, label %210
+    i32 61, label %210
     i32 47, label %9
     i32 37, label %35
   ]
@@ -224,12 +224,12 @@ define dso_local i32 @yylex() local_unnamed_addr #2 {
   %68 = tail call i32 @fputc(i32 noundef %62, ptr noundef %67)
   %69 = icmp ne i32 %62, %43
   %70 = icmp ne i32 %60, 0
-  %71 = or i1 %70, %69
+  %71 = select i1 %69, i1 true, i1 %70
   br i1 %71, label %72, label %112
 
 72:                                               ; preds = %66
   %73 = icmp ne i32 %62, 92
-  %74 = or i1 %70, %73
+  %74 = select i1 %73, i1 true, i1 %70
   %75 = xor i1 %74, true
   %76 = zext i1 %75 to i32
   br label %59
@@ -448,12 +448,12 @@ define dso_local i32 @yylex() local_unnamed_addr #2 {
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-208:                                              ; preds = %2, %2, %2, %2, %2, %2, %35
-  %209 = phi i32 [ 261, %35 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ]
+208:                                              ; preds = %35, %2
+  %209 = phi i32 [ 0, %2 ], [ 261, %35 ]
   br label %210
 
-210:                                              ; preds = %2, %208, %145, %142, %137, %0, %202, %181
-  %211 = phi i32 [ 263, %181 ], [ 262, %202 ], [ 0, %0 ], [ 258, %137 ], [ 260, %142 ], [ 259, %145 ], [ %209, %208 ], [ 0, %2 ]
+210:                                              ; preds = %2, %2, %2, %2, %2, %2, %208, %145, %142, %137, %0, %202, %181
+  %211 = phi i32 [ 263, %181 ], [ 262, %202 ], [ 0, %0 ], [ 258, %137 ], [ 260, %142 ], [ 259, %145 ], [ %209, %208 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ], [ %4, %2 ]
   ret i32 %211
 }
 

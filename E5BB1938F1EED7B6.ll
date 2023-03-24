@@ -264,7 +264,7 @@ define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %0) local_unna
   tail call void @no_mem_exit(ptr noundef nonnull @.str.2) #12
   br label %29
 
-29:                                               ; preds = %28, %24
+29:                                               ; preds = %24, %28
   store <4 x i32> <i32 2, i32 0, i32 0, i32 0>, ptr %16, align 8, !tbaa !24
   %30 = load i32, ptr %0, align 8, !tbaa !30
   %31 = icmp eq i32 %30, 4
@@ -284,7 +284,7 @@ define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %0) local_unna
   %40 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 8
   store i32 305419896, ptr %40, align 8, !tbaa !20
   %41 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 1
-  %42 = load i32, ptr %41, align 4, !tbaa !31
+  %42 = load i32, ptr %41, align 4, !tbaa !24
   %43 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 10
   store i32 %42, ptr %43, align 8, !tbaa !22
   %44 = load ptr, ptr %14, align 8, !tbaa !29
@@ -308,7 +308,7 @@ define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %0) local_unna
   %55 = add i32 %42, 12
   %56 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 12
   store i32 %55, ptr %56, align 8, !tbaa !23
-  %57 = load ptr, ptr @f, align 8, !tbaa !32
+  %57 = load ptr, ptr @f, align 8, !tbaa !31
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #12
   store i32 -1, ptr %2, align 4, !tbaa !24
   %58 = tail call i64 @fwrite(ptr noundef nonnull %56, i64 noundef 4, i64 noundef 1, ptr noundef %57)
@@ -345,7 +345,7 @@ define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %0) local_unna
   %75 = load ptr, ptr %26, align 8, !tbaa !21
   tail call void @free(ptr noundef %75) #12
   tail call void @free(ptr noundef nonnull %16) #12
-  %76 = load i32, ptr %41, align 4, !tbaa !31
+  %76 = load i32, ptr %41, align 4, !tbaa !32
   %77 = shl i32 %76, 3
   ret i32 %77
 }
@@ -391,7 +391,7 @@ define dso_local void @RTPUpdateTimestamp(i32 noundef %0) local_unnamed_addr #10
 ; Function Attrs: nounwind uwtable
 define dso_local void @OpenRTPFile(ptr noundef %0) local_unnamed_addr #5 {
   %2 = tail call noalias ptr @fopen64(ptr noundef %0, ptr noundef nonnull @.str.5)
-  store ptr %2, ptr @f, align 8, !tbaa !32
+  store ptr %2, ptr @f, align 8, !tbaa !31
   %3 = icmp eq ptr %2, null
   br i1 %3, label %4, label %6
 
@@ -409,7 +409,7 @@ declare noalias noundef ptr @fopen64(ptr nocapture noundef readonly, ptr nocaptu
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @CloseRTPFile() local_unnamed_addr #3 {
-  %1 = load ptr, ptr @f, align 8, !tbaa !32
+  %1 = load ptr, ptr @f, align 8, !tbaa !31
   %2 = tail call i32 @fclose(ptr noundef %1)
   ret void
 }
@@ -473,5 +473,5 @@ attributes #14 = { noreturn nounwind }
 !28 = !{!26, !8, i64 12}
 !29 = !{!26, !10, i64 24}
 !30 = !{!26, !7, i64 0}
-!31 = !{!26, !7, i64 4}
-!32 = !{!10, !10, i64 0}
+!31 = !{!10, !10, i64 0}
+!32 = !{!26, !7, i64 4}

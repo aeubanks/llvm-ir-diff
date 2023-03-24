@@ -29,25 +29,25 @@ $_ZNK14btConcaveShape9getMarginEv = comdat any
 define dso_local void @_ZN18btStaticPlaneShapeC2ERK9btVector3f(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %1, float noundef %2) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
   tail call void @_ZN14btConcaveShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(28) %0)
   store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV18btStaticPlaneShape, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %4 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %5 = load float, ptr %4, align 4, !tbaa !8
-  %6 = load <2 x float>, ptr %1, align 4, !tbaa !8
-  %7 = fmul <2 x float> %6, %6
-  %8 = extractelement <2 x float> %7, i64 1
-  %9 = extractelement <2 x float> %6, i64 0
-  %10 = tail call float @llvm.fmuladd.f32(float %9, float %9, float %8)
-  %11 = tail call float @llvm.fmuladd.f32(float %5, float %5, float %10)
-  %12 = tail call float @llvm.sqrt.f32(float %11)
-  %13 = fdiv float 1.000000e+00, %12
-  %14 = insertelement <2 x float> poison, float %13, i64 0
-  %15 = shufflevector <2 x float> %14, <2 x float> poison, <2 x i32> zeroinitializer
-  %16 = fmul <2 x float> %6, %15
-  %17 = fmul float %5, %13
-  %18 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %17, i64 0
-  %19 = getelementptr inbounds %class.btStaticPlaneShape, ptr %0, i64 0, i32 3
-  store <2 x float> %16, ptr %19, align 4
+  %4 = getelementptr inbounds %class.btStaticPlaneShape, ptr %0, i64 0, i32 3
+  %5 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %6 = load float, ptr %5, align 4, !tbaa !8
+  %7 = load <2 x float>, ptr %1, align 4, !tbaa !8
+  %8 = fmul <2 x float> %7, %7
+  %9 = extractelement <2 x float> %8, i64 1
+  %10 = extractelement <2 x float> %7, i64 0
+  %11 = tail call float @llvm.fmuladd.f32(float %10, float %10, float %9)
+  %12 = tail call float @llvm.fmuladd.f32(float %6, float %6, float %11)
+  %13 = tail call float @llvm.sqrt.f32(float %12)
+  %14 = fdiv float 1.000000e+00, %13
+  %15 = insertelement <2 x float> poison, float %14, i64 0
+  %16 = shufflevector <2 x float> %15, <2 x float> poison, <2 x i32> zeroinitializer
+  %17 = fmul <2 x float> %7, %16
+  %18 = fmul float %6, %14
+  %19 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %18, i64 0
+  store <2 x float> %17, ptr %4, align 4
   %20 = getelementptr inbounds %class.btStaticPlaneShape, ptr %0, i64 0, i32 3, i32 0, i64 2
-  store <2 x float> %18, ptr %20, align 4
+  store <2 x float> %19, ptr %20, align 4
   %21 = getelementptr inbounds %class.btStaticPlaneShape, ptr %0, i64 0, i32 4
   store float %2, ptr %21, align 4, !tbaa !11
   %22 = getelementptr inbounds %class.btStaticPlaneShape, ptr %0, i64 0, i32 5

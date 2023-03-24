@@ -474,7 +474,7 @@ define dso_local i32 @get_audio(ptr nocapture noundef readonly %0, ptr noundef %
   br i1 %127, label %128, label %113, !llvm.loop !35
 
 128:                                              ; preds = %75, %113, %100, %61, %96, %35, %34, %29
-  %129 = phi i32 [ %32, %29 ], [ 0, %34 ], [ %39, %35 ], [ %39, %96 ], [ %39, %61 ], [ %39, %100 ], [ %39, %113 ], [ %39, %75 ]
+  %129 = phi i32 [ 0, %34 ], [ %32, %29 ], [ %39, %35 ], [ %39, %96 ], [ %39, %61 ], [ %39, %100 ], [ %39, %113 ], [ %39, %75 ]
   %130 = load i64, ptr @num_samples, align 8, !tbaa !16
   %131 = icmp eq i64 %130, 4294967295
   br i1 %131, label %136, label %132
@@ -505,8 +505,8 @@ define dso_local i32 @read_samples_mp3(ptr nocapture noundef readnone %0, ptr no
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 2 dereferenceable(4608) %2, i8 0, i64 4608, i1 false)
   br label %9
 
-9:                                                ; preds = %8, %4
-  %10 = phi i32 [ %6, %4 ], [ 0, %8 ]
+9:                                                ; preds = %4, %8
+  %10 = phi i32 [ 0, %8 ], [ %6, %4 ]
   ret i32 %10
 }
 
@@ -607,7 +607,7 @@ define dso_local i32 @fskip(ptr nocapture noundef %0, i64 noundef %1, i32 nounde
 
 6:                                                ; preds = %3, %6
   %7 = phi i64 [ %10, %6 ], [ %1, %3 ]
-  %8 = tail call i64 @llvm.smin.i64(i64 %7, i64 1024)
+  %8 = tail call i64 @llvm.umin.i64(i64 %7, i64 1024)
   %9 = call i64 @fread(ptr noundef nonnull %4, i64 noundef 1, i64 noundef %8, ptr noundef %0)
   %10 = sub i64 %7, %9
   %11 = icmp sgt i64 %10, 0
@@ -679,26 +679,26 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   br i1 %22, label %178, label %23
 
 23:                                               ; preds = %20
-  %24 = tail call i32 @Read16BitsLowHigh(ptr noundef %1) #12
+  %24 = zext i32 %21 to i64
   %25 = tail call i32 @Read16BitsLowHigh(ptr noundef %1) #12
-  %26 = trunc i32 %25 to i16
-  %27 = tail call i32 @Read32Bits(ptr noundef %1) #12
+  %26 = tail call i32 @Read16BitsLowHigh(ptr noundef %1) #12
+  %27 = trunc i32 %26 to i16
   %28 = tail call i32 @Read32Bits(ptr noundef %1) #12
-  %29 = tail call i32 @Read16BitsLowHigh(ptr noundef %1) #12
+  %29 = tail call i32 @Read32Bits(ptr noundef %1) #12
   %30 = tail call i32 @Read16BitsLowHigh(ptr noundef %1) #12
-  %31 = trunc i32 %30 to i16
-  %32 = icmp eq i32 %21, 16
-  br i1 %32, label %59, label %33
+  %31 = tail call i32 @Read16BitsLowHigh(ptr noundef %1) #12
+  %32 = trunc i32 %31 to i16
+  %33 = add nsw i64 %24, -16
+  %34 = icmp eq i64 %33, 0
+  br i1 %34, label %59, label %35
 
-33:                                               ; preds = %23
-  %34 = zext i32 %21 to i64
-  %35 = add nsw i64 %34, -16
+35:                                               ; preds = %23
   call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %7) #12
   br label %36
 
-36:                                               ; preds = %36, %33
-  %37 = phi i64 [ %40, %36 ], [ %35, %33 ]
-  %38 = tail call i64 @llvm.smin.i64(i64 %37, i64 1024)
+36:                                               ; preds = %36, %35
+  %37 = phi i64 [ %40, %36 ], [ %33, %35 ]
+  %38 = tail call i64 @llvm.umin.i64(i64 %37, i64 1024)
   %39 = call i64 @fread(ptr noundef nonnull %7, i64 noundef 1, i64 noundef %38, ptr noundef %1)
   %40 = sub i64 %37, %39
   %41 = icmp sgt i64 %40, 0
@@ -719,7 +719,7 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
 
 49:                                               ; preds = %45, %49
   %50 = phi i64 [ %53, %49 ], [ %47, %45 ]
-  %51 = tail call i64 @llvm.smin.i64(i64 %50, i64 1024)
+  %51 = tail call i64 @llvm.umin.i64(i64 %50, i64 1024)
   %52 = call i64 @fread(ptr noundef nonnull %6, i64 noundef 1, i64 noundef %51, ptr noundef %1)
   %53 = sub i64 %50, %52
   %54 = icmp sgt i64 %53, 0
@@ -733,9 +733,9 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   br i1 %58, label %59, label %178
 
 59:                                               ; preds = %55, %42, %23
-  %60 = phi i16 [ %18, %55 ], [ %26, %23 ], [ %26, %42 ]
-  %61 = phi i32 [ %17, %55 ], [ %27, %23 ], [ %27, %42 ]
-  %62 = phi i16 [ %16, %55 ], [ %31, %23 ], [ %31, %42 ]
+  %60 = phi i16 [ %27, %42 ], [ %27, %23 ], [ %18, %55 ]
+  %61 = phi i32 [ %28, %42 ], [ %28, %23 ], [ %17, %55 ]
+  %62 = phi i16 [ %32, %42 ], [ %32, %23 ], [ %16, %55 ]
   %63 = add nuw nsw i32 %15, 1
   %64 = icmp eq i32 %63, 20
   br i1 %64, label %178, label %14, !llvm.loop !38
@@ -807,7 +807,7 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
 
 106:                                              ; preds = %93, %106
   %107 = phi i64 [ %110, %106 ], [ %104, %93 ]
-  %108 = tail call i64 @llvm.smin.i64(i64 %107, i64 1024)
+  %108 = tail call i64 @llvm.umin.i64(i64 %107, i64 1024)
   %109 = call i64 @fread(ptr noundef nonnull %5, i64 noundef 1, i64 noundef %108, ptr noundef %1)
   %110 = sub i64 %107, %109
   %111 = icmp sgt i64 %110, 0
@@ -831,7 +831,7 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
 
 122:                                              ; preds = %116, %122
   %123 = phi i64 [ %126, %122 ], [ %119, %116 ]
-  %124 = tail call i64 @llvm.smin.i64(i64 %123, i64 1024)
+  %124 = tail call i64 @llvm.umin.i64(i64 %123, i64 1024)
   %125 = call i64 @fread(ptr noundef nonnull %4, i64 noundef 1, i64 noundef %124, ptr noundef %1)
   %126 = sub i64 %123, %125
   %127 = icmp sgt i64 %126, 0
@@ -853,7 +853,7 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
 
 136:                                              ; preds = %132, %136
   %137 = phi i64 [ %140, %136 ], [ %134, %132 ]
-  %138 = tail call i64 @llvm.smin.i64(i64 %137, i64 1024)
+  %138 = tail call i64 @llvm.umin.i64(i64 %137, i64 1024)
   %139 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef %138, ptr noundef %1)
   %140 = sub i64 %137, %139
   %141 = icmp sgt i64 %140, 0
@@ -867,11 +867,11 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   br i1 %145, label %146, label %178
 
 146:                                              ; preds = %142, %112
-  %147 = phi i64 [ %90, %142 ], [ %99, %112 ]
-  %148 = phi i16 [ %89, %142 ], [ %101, %112 ]
-  %149 = phi i16 [ %88, %142 ], [ %97, %112 ]
-  %150 = phi float [ %87, %142 ], [ %103, %112 ]
-  %151 = phi i64 [ %134, %142 ], [ %95, %112 ]
+  %147 = phi i64 [ %99, %112 ], [ %90, %142 ]
+  %148 = phi i16 [ %101, %112 ], [ %89, %142 ]
+  %149 = phi i16 [ %97, %112 ], [ %88, %142 ]
+  %150 = phi float [ %103, %112 ], [ %87, %142 ]
+  %151 = phi i64 [ %95, %112 ], [ %134, %142 ]
   %152 = sub i64 %91, %151
   %153 = icmp sgt i64 %152, 0
   br i1 %153, label %85, label %178
@@ -887,39 +887,39 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   unreachable
 
 159:                                              ; preds = %154
-  %160 = add i16 %88, -1
-  %161 = icmp ult i16 %160, 2
-  br i1 %161, label %165, label %162
+  %160 = sext i16 %88 to i32
+  %161 = add nsw i32 %160, -1
+  %162 = icmp ult i32 %161, 2
+  br i1 %162, label %166, label %163
 
-162:                                              ; preds = %159
-  %163 = load ptr, ptr @stderr, align 8, !tbaa !18
-  %164 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %163, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.10) #14
+163:                                              ; preds = %159
+  %164 = load ptr, ptr @stderr, align 8, !tbaa !18
+  %165 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %164, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.10) #14
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-165:                                              ; preds = %159
-  %166 = icmp eq i32 %120, 0
-  br i1 %166, label %170, label %167
+166:                                              ; preds = %159
+  %167 = icmp eq i32 %120, 0
+  br i1 %167, label %171, label %168
 
-167:                                              ; preds = %165
-  %168 = load ptr, ptr @stderr, align 8, !tbaa !18
-  %169 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %168, ptr noundef nonnull @.str.15, i32 noundef 0, ptr noundef nonnull @.str.10) #14
+168:                                              ; preds = %166
+  %169 = load ptr, ptr @stderr, align 8, !tbaa !18
+  %170 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %169, ptr noundef nonnull @.str.15, i32 noundef 0, ptr noundef nonnull @.str.10) #14
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-170:                                              ; preds = %165
-  %171 = icmp eq i32 %118, 0
-  br i1 %171, label %175, label %172
+171:                                              ; preds = %166
+  %172 = icmp eq i32 %118, 0
+  br i1 %172, label %176, label %173
 
-172:                                              ; preds = %170
-  %173 = load ptr, ptr @stderr, align 8, !tbaa !18
-  %174 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %173, ptr noundef nonnull @.str.16, i32 noundef 0, ptr noundef nonnull @.str.10) #14
+173:                                              ; preds = %171
+  %174 = load ptr, ptr @stderr, align 8, !tbaa !18
+  %175 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %174, ptr noundef nonnull @.str.16, i32 noundef 0, ptr noundef nonnull @.str.10) #14
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-175:                                              ; preds = %170
-  %176 = zext i16 %88 to i32
-  store i32 %176, ptr @num_channels, align 4, !tbaa !15
+176:                                              ; preds = %171
+  store i32 %160, ptr @num_channels, align 4, !tbaa !15
   %177 = fptosi float %87 to i32
   store i32 %177, ptr @samp_freq, align 4, !tbaa !15
   store i64 %90, ptr @num_samples, align 8, !tbaa !16
@@ -937,7 +937,7 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   store i32 4, ptr %9, align 8, !tbaa !19
   br label %183
 
-183:                                              ; preds = %72, %175, %181, %178
+183:                                              ; preds = %72, %176, %181, %178
   ret void
 }
 
@@ -967,20 +967,23 @@ declare i32 @Read16BitsHighLow(ptr noundef) local_unnamed_addr #3
 
 declare double @ReadIeeeExtendedHighLow(ptr noundef) local_unnamed_addr #3
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #10
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.usub.sat.i64(i64, i64) #11
+declare i32 @llvm.smax.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
+declare i64 @llvm.usub.sat.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #11
+declare i64 @llvm.smin.i64(i64, i64) #10
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -992,8 +995,8 @@ attributes #6 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-b
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }
 attributes #14 = { cold }

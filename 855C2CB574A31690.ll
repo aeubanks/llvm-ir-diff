@@ -757,32 +757,32 @@ define linkonce_odr dso_local void @_ZSt11__make_heapIN9__gnu_cxx17__normal_iter
   %4 = ptrtoint ptr %1 to i64
   %5 = ptrtoint ptr %0 to i64
   %6 = sub i64 %4, %5
-  %7 = freeze i64 %6
-  %8 = icmp slt i64 %7, 16
-  br i1 %8, label %101, label %9
+  %7 = icmp slt i64 %6, 16
+  br i1 %7, label %101, label %8
 
-9:                                                ; preds = %3
-  %10 = lshr exact i64 %7, 3
-  %11 = add nsw i64 %10, -2
-  %12 = lshr i64 %11, 1
-  %13 = add nsw i64 %10, -1
-  %14 = lshr i64 %13, 1
-  %15 = and i64 %7, 8
-  %16 = icmp eq i64 %15, 0
-  br i1 %16, label %17, label %21
+8:                                                ; preds = %3
+  %9 = lshr exact i64 %6, 3
+  %10 = add nsw i64 %9, -2
+  %11 = lshr i64 %10, 1
+  %12 = add nsw i64 %9, -1
+  %13 = lshr i64 %12, 1
+  %14 = and i64 %6, 8
+  %15 = icmp eq i64 %14, 0
+  %16 = lshr i64 %10, 1
+  br i1 %15, label %17, label %64
 
-17:                                               ; preds = %9
-  %18 = or i64 %11, 1
+17:                                               ; preds = %8
+  %18 = or i64 %10, 1
   %19 = getelementptr inbounds double, ptr %0, i64 %18
-  %20 = getelementptr inbounds double, ptr %0, i64 %12
-  br label %58
+  %20 = getelementptr inbounds double, ptr %0, i64 %16
+  br label %21
 
-21:                                               ; preds = %9, %53
-  %22 = phi i64 [ %57, %53 ], [ %12, %9 ]
+21:                                               ; preds = %17, %59
+  %22 = phi i64 [ %63, %59 ], [ %11, %17 ]
   %23 = getelementptr inbounds double, ptr %0, i64 %22
   %24 = load double, ptr %23, align 8, !tbaa !9
-  %25 = icmp sgt i64 %14, %22
-  br i1 %25, label %26, label %53
+  %25 = icmp sgt i64 %13, %22
+  br i1 %25, label %26, label %41
 
 26:                                               ; preds = %21, %26
   %27 = phi i64 [ %36, %26 ], [ %22, %21 ]
@@ -799,100 +799,100 @@ define linkonce_odr dso_local void @_ZSt11__make_heapIN9__gnu_cxx17__normal_iter
   %38 = load double, ptr %37, align 8, !tbaa !9
   %39 = getelementptr inbounds double, ptr %0, i64 %27
   store double %38, ptr %39, align 8, !tbaa !9
-  %40 = icmp slt i64 %36, %14
+  %40 = icmp slt i64 %36, %13
   br i1 %40, label %26, label %41, !llvm.loop !31
 
-41:                                               ; preds = %26
-  %42 = icmp sgt i64 %36, %22
-  br i1 %42, label %43, label %53
+41:                                               ; preds = %26, %21
+  %42 = phi i64 [ %22, %21 ], [ %36, %26 ]
+  %43 = icmp eq i64 %42, %16
+  br i1 %43, label %44, label %46
 
-43:                                               ; preds = %41, %50
-  %44 = phi i64 [ %46, %50 ], [ %36, %41 ]
-  %45 = add nsw i64 %44, -1
-  %46 = sdiv i64 %45, 2
-  %47 = getelementptr inbounds double, ptr %0, i64 %46
-  %48 = load double, ptr %47, align 8, !tbaa !9
-  %49 = fcmp olt double %48, %24
-  br i1 %49, label %50, label %53
+44:                                               ; preds = %41
+  %45 = load double, ptr %19, align 8, !tbaa !9
+  store double %45, ptr %20, align 8, !tbaa !9
+  br label %46
 
-50:                                               ; preds = %43
-  %51 = getelementptr inbounds double, ptr %0, i64 %44
-  store double %48, ptr %51, align 8, !tbaa !9
-  %52 = icmp sgt i64 %46, %22
-  br i1 %52, label %43, label %53, !llvm.loop !32
+46:                                               ; preds = %44, %41
+  %47 = phi i64 [ %18, %44 ], [ %42, %41 ]
+  %48 = icmp sgt i64 %47, %22
+  br i1 %48, label %49, label %59
 
-53:                                               ; preds = %43, %50, %21, %41
-  %54 = phi i64 [ %36, %41 ], [ %22, %21 ], [ %46, %50 ], [ %44, %43 ]
-  %55 = getelementptr inbounds double, ptr %0, i64 %54
-  store double %24, ptr %55, align 8, !tbaa !9
-  %56 = icmp eq i64 %22, 0
-  %57 = add nsw i64 %22, -1
-  br i1 %56, label %101, label %21, !llvm.loop !34
+49:                                               ; preds = %46, %56
+  %50 = phi i64 [ %52, %56 ], [ %47, %46 ]
+  %51 = add nsw i64 %50, -1
+  %52 = sdiv i64 %51, 2
+  %53 = getelementptr inbounds double, ptr %0, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !9
+  %55 = fcmp olt double %54, %24
+  br i1 %55, label %56, label %59
 
-58:                                               ; preds = %17, %96
-  %59 = phi i64 [ %100, %96 ], [ %12, %17 ]
-  %60 = getelementptr inbounds double, ptr %0, i64 %59
-  %61 = load double, ptr %60, align 8, !tbaa !9
-  %62 = icmp sgt i64 %14, %59
-  br i1 %62, label %63, label %78
+56:                                               ; preds = %49
+  %57 = getelementptr inbounds double, ptr %0, i64 %50
+  store double %54, ptr %57, align 8, !tbaa !9
+  %58 = icmp sgt i64 %52, %22
+  br i1 %58, label %49, label %59, !llvm.loop !32
 
-63:                                               ; preds = %58, %63
-  %64 = phi i64 [ %73, %63 ], [ %59, %58 ]
-  %65 = shl i64 %64, 1
-  %66 = add i64 %65, 2
-  %67 = getelementptr inbounds double, ptr %0, i64 %66
-  %68 = or i64 %65, 1
-  %69 = getelementptr inbounds double, ptr %0, i64 %68
-  %70 = load double, ptr %67, align 8, !tbaa !9
-  %71 = load double, ptr %69, align 8, !tbaa !9
-  %72 = fcmp olt double %70, %71
-  %73 = select i1 %72, i64 %68, i64 %66
-  %74 = getelementptr inbounds double, ptr %0, i64 %73
-  %75 = load double, ptr %74, align 8, !tbaa !9
-  %76 = getelementptr inbounds double, ptr %0, i64 %64
-  store double %75, ptr %76, align 8, !tbaa !9
-  %77 = icmp slt i64 %73, %14
-  br i1 %77, label %63, label %78, !llvm.loop !31
+59:                                               ; preds = %49, %56, %46
+  %60 = phi i64 [ %47, %46 ], [ %52, %56 ], [ %50, %49 ]
+  %61 = getelementptr inbounds double, ptr %0, i64 %60
+  store double %24, ptr %61, align 8, !tbaa !9
+  %62 = icmp eq i64 %22, 0
+  %63 = add nsw i64 %22, -1
+  br i1 %62, label %101, label %21, !llvm.loop !34
 
-78:                                               ; preds = %63, %58
-  %79 = phi i64 [ %59, %58 ], [ %73, %63 ]
-  %80 = icmp eq i64 %79, %12
-  br i1 %80, label %81, label %83
+64:                                               ; preds = %8, %96
+  %65 = phi i64 [ %100, %96 ], [ %11, %8 ]
+  %66 = getelementptr inbounds double, ptr %0, i64 %65
+  %67 = load double, ptr %66, align 8, !tbaa !9
+  %68 = icmp sgt i64 %13, %65
+  br i1 %68, label %69, label %96
 
-81:                                               ; preds = %78
-  %82 = load double, ptr %19, align 8, !tbaa !9
-  store double %82, ptr %20, align 8, !tbaa !9
-  br label %83
+69:                                               ; preds = %64, %69
+  %70 = phi i64 [ %79, %69 ], [ %65, %64 ]
+  %71 = shl i64 %70, 1
+  %72 = add i64 %71, 2
+  %73 = getelementptr inbounds double, ptr %0, i64 %72
+  %74 = or i64 %71, 1
+  %75 = getelementptr inbounds double, ptr %0, i64 %74
+  %76 = load double, ptr %73, align 8, !tbaa !9
+  %77 = load double, ptr %75, align 8, !tbaa !9
+  %78 = fcmp olt double %76, %77
+  %79 = select i1 %78, i64 %74, i64 %72
+  %80 = getelementptr inbounds double, ptr %0, i64 %79
+  %81 = load double, ptr %80, align 8, !tbaa !9
+  %82 = getelementptr inbounds double, ptr %0, i64 %70
+  store double %81, ptr %82, align 8, !tbaa !9
+  %83 = icmp slt i64 %79, %13
+  br i1 %83, label %69, label %84, !llvm.loop !31
 
-83:                                               ; preds = %81, %78
-  %84 = phi i64 [ %18, %81 ], [ %79, %78 ]
-  %85 = icmp sgt i64 %84, %59
+84:                                               ; preds = %69
+  %85 = icmp sgt i64 %79, %65
   br i1 %85, label %86, label %96
 
-86:                                               ; preds = %83, %93
-  %87 = phi i64 [ %89, %93 ], [ %84, %83 ]
+86:                                               ; preds = %84, %93
+  %87 = phi i64 [ %89, %93 ], [ %79, %84 ]
   %88 = add nsw i64 %87, -1
   %89 = sdiv i64 %88, 2
   %90 = getelementptr inbounds double, ptr %0, i64 %89
   %91 = load double, ptr %90, align 8, !tbaa !9
-  %92 = fcmp olt double %91, %61
+  %92 = fcmp olt double %91, %67
   br i1 %92, label %93, label %96
 
 93:                                               ; preds = %86
   %94 = getelementptr inbounds double, ptr %0, i64 %87
   store double %91, ptr %94, align 8, !tbaa !9
-  %95 = icmp sgt i64 %89, %59
+  %95 = icmp sgt i64 %89, %65
   br i1 %95, label %86, label %96, !llvm.loop !32
 
-96:                                               ; preds = %86, %93, %83
-  %97 = phi i64 [ %84, %83 ], [ %89, %93 ], [ %87, %86 ]
+96:                                               ; preds = %86, %93, %64, %84
+  %97 = phi i64 [ %79, %84 ], [ %65, %64 ], [ %89, %93 ], [ %87, %86 ]
   %98 = getelementptr inbounds double, ptr %0, i64 %97
-  store double %61, ptr %98, align 8, !tbaa !9
-  %99 = icmp eq i64 %59, 0
-  %100 = add nsw i64 %59, -1
-  br i1 %99, label %101, label %58, !llvm.loop !34
+  store double %67, ptr %98, align 8, !tbaa !9
+  %99 = icmp eq i64 %65, 0
+  %100 = add nsw i64 %65, -1
+  br i1 %99, label %101, label %64, !llvm.loop !34
 
-101:                                              ; preds = %53, %96, %3
+101:                                              ; preds = %96, %59, %3
   ret void
 }
 

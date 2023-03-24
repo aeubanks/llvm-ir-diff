@@ -600,7 +600,7 @@ define dso_local void @findAndRecordAllPaths(ptr noundef %0, ptr noundef %1, ptr
   br label %97
 
 97:                                               ; preds = %95, %92
-  %98 = phi ptr [ %96, %95 ], [ %93, %92 ]
+  %98 = phi ptr [ %93, %92 ], [ %96, %95 ]
   %99 = tail call zeroext i1 @Stats_logPath(ptr noundef %98, ptr noundef nonnull %3) #10
   br label %100
 
@@ -1147,8 +1147,8 @@ define dso_local i32 @findAndLogAllPossibleLegs(ptr noundef readonly %0, ptr nou
   %193 = icmp slt i64 %177, %192
   br i1 %193, label %175, label %194, !llvm.loop !74
 
-194:                                              ; preds = %187, %152, %149, %142, %146, %2
-  %195 = phi i32 [ 0, %2 ], [ %118, %146 ], [ %118, %142 ], [ %118, %149 ], [ %118, %152 ], [ %118, %187 ]
+194:                                              ; preds = %187, %142, %146, %149, %152, %2
+  %195 = phi i32 [ 0, %2 ], [ %118, %152 ], [ %118, %149 ], [ %118, %146 ], [ %118, %142 ], [ %118, %187 ]
   call void @llvm.lifetime.end.p0(i64 50, ptr nonnull %3) #10
   ret i32 %195
 }

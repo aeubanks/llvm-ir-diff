@@ -76,7 +76,7 @@ define dso_local i32 @hypre_StructCopy(ptr nocapture noundef readonly %0, ptr no
   %59 = select i1 %57, i32 0, i32 %58
   %60 = getelementptr inbounds %struct.hypre_Box_struct, ptr %27, i64 %21, i32 1
   %61 = load i32, ptr %60, align 4, !tbaa !19
-  %62 = sub nsw i32 %61, %51
+  %62 = sub i32 %61, %51
   %63 = icmp slt i32 %62, 0
   %64 = add nsw i32 %62, 1
   %65 = select i1 %63, i32 0, i32 %64
@@ -92,7 +92,7 @@ define dso_local i32 @hypre_StructCopy(ptr nocapture noundef readonly %0, ptr no
   %75 = select i1 %73, i32 0, i32 %74
   %76 = getelementptr inbounds %struct.hypre_Box_struct, ptr %25, i64 %21, i32 1
   %77 = load i32, ptr %76, align 4, !tbaa !19
-  %78 = sub nsw i32 %77, %67
+  %78 = sub i32 %77, %67
   %79 = icmp slt i32 %78, 0
   %80 = add nsw i32 %78, 1
   %81 = select i1 %79, i32 0, i32 %80

@@ -131,11 +131,11 @@ define hidden void @_ZN9benchmark19LocalDateTimeStringB5cxx11Ev(ptr noalias sret
 13:                                               ; preds = %1
   %14 = call i64 @strtol(ptr nocapture noundef nonnull %4, ptr noundef null, i32 noundef 10) #16
   %15 = icmp slt i64 %14, 0
-  %16 = select i1 %15, i32 45, i32 43
-  %17 = call i64 @llvm.abs.i64(i64 %14, i1 true)
-  %18 = udiv i64 %17, 100
-  %19 = urem i64 %17, 100
-  %20 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 41, ptr noundef nonnull @.str.4, i32 noundef %16, i64 noundef %18, i64 noundef %19) #16
+  %16 = call i64 @llvm.abs.i64(i64 %14, i1 true)
+  %17 = select i1 %15, i32 45, i32 43
+  %18 = udiv i64 %16, 100
+  %19 = urem i64 %16, 100
+  %20 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 41, ptr noundef nonnull @.str.4, i32 noundef %17, i64 noundef %18, i64 noundef %19) #16
   %21 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %22 = icmp eq i8 %21, 0
   br i1 %22, label %23, label %29, !prof !12

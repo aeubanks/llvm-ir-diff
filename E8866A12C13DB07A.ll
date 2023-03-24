@@ -108,8 +108,8 @@ define dso_local ptr @gs_state_alloc(ptr noundef %0, ptr noundef %1) local_unnam
   %50 = select i1 %49, ptr null, ptr %3
   br label %51
 
-51:                                               ; preds = %28, %24, %20, %16, %12, %8, %5, %32, %2
-  %52 = phi ptr [ null, %2 ], [ %50, %32 ], [ null, %5 ], [ null, %8 ], [ null, %12 ], [ null, %16 ], [ null, %20 ], [ null, %24 ], [ null, %28 ]
+51:                                               ; preds = %32, %28, %24, %20, %16, %12, %8, %5, %2
+  %52 = phi ptr [ null, %2 ], [ null, %5 ], [ null, %8 ], [ null, %12 ], [ null, %16 ], [ null, %20 ], [ null, %24 ], [ null, %28 ], [ %50, %32 ]
   ret ptr %52
 }
 

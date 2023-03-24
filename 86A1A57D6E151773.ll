@@ -151,7 +151,7 @@ define dso_local i32 @dyn_decomp(ptr nocapture noundef readonly %0, ptr noundef 
   %95 = zext i8 %94 to i32
   %96 = or i32 %92, %95
   %97 = and i32 %76, 7
-  %98 = add nsw i32 %97, %4
+  %98 = add i32 %97, %4
   %99 = icmp sgt i32 %98, 32
   br i1 %99, label %100, label %111
 
@@ -271,22 +271,22 @@ define dso_local i32 @dyn_decomp(ptr nocapture noundef readonly %0, ptr noundef 
   %194 = shl nsw i32 -1, %193
   %195 = xor i32 %194, -1
   %196 = and i32 %12, %195
-  %197 = add nuw nsw i32 %182, 1
-  %198 = shl i32 %180, %197
-  %199 = sub i32 32, %193
-  %200 = lshr i32 %198, %199
-  %201 = mul i32 %196, %182
-  %202 = icmp ugt i32 %200, 1
-  %203 = tail call i32 @llvm.usub.sat.i32(i32 %200, i32 1)
-  %204 = add i32 %201, %203
-  %205 = zext i1 %202 to i32
-  %206 = add i32 %182, %137
-  %207 = add i32 %206, %193
-  %208 = add i32 %207, %205
+  %197 = add i32 %182, %137
+  %198 = add nuw nsw i32 %182, 1
+  %199 = shl i32 %180, %198
+  %200 = sub i32 32, %193
+  %201 = lshr i32 %199, %200
+  %202 = add i32 %197, %193
+  %203 = mul i32 %196, %182
+  %204 = icmp ugt i32 %201, 1
+  %205 = tail call i32 @llvm.usub.sat.i32(i32 %201, i32 1)
+  %206 = add i32 %203, %205
+  %207 = zext i1 %204 to i32
+  %208 = add i32 %202, %207
   br label %209
 
 209:                                              ; preds = %184, %188
-  %210 = phi i32 [ %186, %184 ], [ %204, %188 ]
+  %210 = phi i32 [ %186, %184 ], [ %206, %188 ]
   %211 = phi i32 [ %187, %184 ], [ %208, %188 ]
   %212 = add i32 %210, %146
   %213 = icmp ugt i32 %212, %3
@@ -315,11 +315,11 @@ define dso_local i32 @dyn_decomp(ptr nocapture noundef readonly %0, ptr noundef 
   br label %229
 
 229:                                              ; preds = %224, %135
-  %230 = phi i32 [ %211, %224 ], [ %137, %135 ]
-  %231 = phi i32 [ %225, %224 ], [ %146, %135 ]
-  %232 = phi i32 [ %228, %224 ], [ 0, %135 ]
-  %233 = phi i32 [ 0, %224 ], [ %153, %135 ]
-  %234 = phi ptr [ %226, %224 ], [ %145, %135 ]
+  %230 = phi i32 [ %137, %135 ], [ %211, %224 ]
+  %231 = phi i32 [ %146, %135 ], [ %225, %224 ]
+  %232 = phi i32 [ 0, %135 ], [ %228, %224 ]
+  %233 = phi i32 [ %153, %135 ], [ 0, %224 ]
+  %234 = phi ptr [ %145, %135 ], [ %226, %224 ]
   %235 = icmp ult i32 %231, %3
   br i1 %235, label %36, label %236, !llvm.loop !25
 
@@ -336,8 +336,8 @@ define dso_local i32 @dyn_decomp(ptr nocapture noundef readonly %0, ptr noundef 
   %244 = select i1 %243, i32 -50, i32 %238
   br label %245
 
-245:                                              ; preds = %6, %236
-  %246 = phi i32 [ %244, %236 ], [ -50, %6 ]
+245:                                              ; preds = %236, %6
+  %246 = phi i32 [ -50, %6 ], [ %244, %236 ]
   ret i32 %246
 }
 

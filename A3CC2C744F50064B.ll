@@ -739,11 +739,11 @@ define dso_local void @maktab() local_unnamed_addr #0 {
   %476 = icmp ne i32 %475, 0
   %477 = select i1 %474, i1 true, i1 %476
   %478 = load i32, ptr @dboxflg, align 4
-  %479 = icmp ne i32 %478, 0
-  %480 = select i1 %477, i1 true, i1 %479
-  %481 = load i32, ptr @left1flg, align 4
+  %479 = load i32, ptr @left1flg, align 4
+  %480 = freeze i32 %479
+  %481 = or i32 %478, %480
   %482 = icmp ne i32 %481, 0
-  %483 = select i1 %480, i1 true, i1 %482
+  %483 = select i1 %477, i1 true, i1 %482
   %484 = zext i1 %483 to i32
   br label %485
 
@@ -951,10 +951,10 @@ declare void @putfont(ptr noundef) local_unnamed_addr #3
 declare void @putsize(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
+declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #4
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #5

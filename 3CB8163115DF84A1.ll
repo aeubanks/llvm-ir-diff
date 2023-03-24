@@ -157,135 +157,149 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @add_segments(ptr noundef %0, ptr noundef %1, ptr noundef %2, i32 noundef %3) local_unnamed_addr #5 {
   %5 = icmp eq i32 %3, 0
-  br i1 %5, label %6, label %53
+  br i1 %5, label %6, label %56
 
 6:                                                ; preds = %4
   %7 = getelementptr inbounds %struct.DCEL_segment, ptr %2, i64 0, i32 3
   br label %8
 
-8:                                                ; preds = %38, %6
-  %9 = phi ptr [ %1, %6 ], [ %42, %38 ]
-  %10 = phi ptr [ %0, %6 ], [ %39, %38 ]
+8:                                                ; preds = %40, %6
+  %9 = phi ptr [ %1, %6 ], [ %45, %40 ]
+  %10 = phi ptr [ %0, %6 ], [ %41, %40 ]
   %11 = load i64, ptr %9, align 8
   %12 = load i64, ptr %10, align 8
   %13 = icmp eq i64 %11, %12
-  %14 = getelementptr inbounds %struct.DCEL_segment, ptr %9, i64 0, i32 1
-  %15 = select i1 %13, ptr %14, ptr %9
-  %16 = load i64, ptr %15, align 8
-  %17 = getelementptr inbounds %struct.DCEL_segment, ptr %10, i64 0, i32 1
-  %18 = load i64, ptr %17, align 8
-  %19 = trunc i64 %12 to i32
-  %20 = lshr i64 %12, 32
-  %21 = trunc i64 %20 to i32
-  %22 = trunc i64 %18 to i32
-  %23 = lshr i64 %18, 32
-  %24 = trunc i64 %23 to i32
-  %25 = trunc i64 %16 to i32
-  %26 = lshr i64 %16, 32
-  %27 = trunc i64 %26 to i32
-  %28 = sub nsw i32 %24, %27
-  %29 = mul nsw i32 %28, %19
-  %30 = sub i32 %25, %22
-  %31 = mul i32 %30, %21
-  %32 = mul nsw i32 %27, %22
-  %33 = mul nsw i32 %24, %25
-  %34 = add i32 %31, %32
-  %35 = sub i32 %34, %33
-  %36 = add i32 %35, %29
-  %37 = icmp sgt i32 %36, -1
-  br i1 %37, label %100, label %38
+  br i1 %13, label %14, label %17
 
-38:                                               ; preds = %8
-  %39 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
-  store i64 %16, ptr %39, align 8, !tbaa.struct !15
-  %40 = getelementptr inbounds %struct.DCEL_segment, ptr %39, i64 0, i32 1
-  store i64 %18, ptr %40, align 8
-  %41 = getelementptr inbounds %struct.DCEL_segment, ptr %9, i64 0, i32 2
-  %42 = load ptr, ptr %41, align 8, !tbaa !17
-  %43 = getelementptr inbounds %struct.DCEL_segment, ptr %39, i64 0, i32 2
-  store ptr %42, ptr %43, align 8, !tbaa !17
-  %44 = getelementptr inbounds %struct.DCEL_segment, ptr %39, i64 0, i32 3
-  store ptr %10, ptr %44, align 8, !tbaa !18
-  %45 = getelementptr inbounds %struct.DCEL_segment, ptr %39, i64 0, i32 4
-  store ptr %9, ptr %45, align 8, !tbaa !9
-  %46 = getelementptr inbounds %struct.DCEL_segment, ptr %39, i64 0, i32 5
-  store ptr %2, ptr %46, align 8, !tbaa !19
-  %47 = getelementptr inbounds %struct.DCEL_segment, ptr %10, i64 0, i32 5
-  store ptr %39, ptr %47, align 8, !tbaa !19
-  %48 = load i64, ptr %42, align 8
-  %49 = icmp eq i64 %48, %16
-  %50 = getelementptr inbounds %struct.DCEL_segment, ptr %42, i64 0, i32 5
-  %51 = getelementptr inbounds %struct.DCEL_segment, ptr %42, i64 0, i32 4
-  %52 = select i1 %49, ptr %51, ptr %50
-  store ptr %39, ptr %52, align 8, !tbaa !5
-  store ptr %39, ptr %41, align 8, !tbaa !17
-  store ptr %39, ptr %7, align 8, !tbaa !18
+14:                                               ; preds = %8
+  %15 = getelementptr inbounds %struct.DCEL_segment, ptr %9, i64 0, i32 1
+  %16 = load i64, ptr %15, align 8, !tbaa.struct !15
+  br label %17
+
+17:                                               ; preds = %14, %8
+  %18 = phi i64 [ %16, %14 ], [ %11, %8 ]
+  %19 = getelementptr inbounds %struct.DCEL_segment, ptr %10, i64 0, i32 1
+  %20 = load i64, ptr %19, align 8
+  %21 = trunc i64 %12 to i32
+  %22 = lshr i64 %12, 32
+  %23 = trunc i64 %22 to i32
+  %24 = trunc i64 %20 to i32
+  %25 = lshr i64 %20, 32
+  %26 = trunc i64 %25 to i32
+  %27 = trunc i64 %18 to i32
+  %28 = lshr i64 %18, 32
+  %29 = trunc i64 %28 to i32
+  %30 = sub nsw i32 %26, %29
+  %31 = mul nsw i32 %30, %21
+  %32 = sub i32 %27, %24
+  %33 = mul i32 %32, %23
+  %34 = mul nsw i32 %29, %24
+  %35 = mul nsw i32 %26, %27
+  %36 = add i32 %33, %34
+  %37 = sub i32 %36, %35
+  %38 = add i32 %37, %31
+  %39 = icmp slt i32 %38, 0
+  br i1 %39, label %40, label %106
+
+40:                                               ; preds = %17
+  %41 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
+  store i64 %18, ptr %41, align 8, !tbaa.struct !15
+  %42 = getelementptr inbounds %struct.DCEL_segment, ptr %41, i64 0, i32 1
+  %43 = load i64, ptr %19, align 8
+  store i64 %43, ptr %42, align 8
+  %44 = getelementptr inbounds %struct.DCEL_segment, ptr %9, i64 0, i32 2
+  %45 = load ptr, ptr %44, align 8, !tbaa !17
+  %46 = getelementptr inbounds %struct.DCEL_segment, ptr %41, i64 0, i32 2
+  store ptr %45, ptr %46, align 8, !tbaa !17
+  %47 = getelementptr inbounds %struct.DCEL_segment, ptr %41, i64 0, i32 3
+  store ptr %10, ptr %47, align 8, !tbaa !18
+  %48 = getelementptr inbounds %struct.DCEL_segment, ptr %41, i64 0, i32 4
+  store ptr %9, ptr %48, align 8, !tbaa !9
+  %49 = getelementptr inbounds %struct.DCEL_segment, ptr %41, i64 0, i32 5
+  store ptr %2, ptr %49, align 8, !tbaa !19
+  %50 = getelementptr inbounds %struct.DCEL_segment, ptr %10, i64 0, i32 5
+  store ptr %41, ptr %50, align 8, !tbaa !19
+  %51 = load i64, ptr %45, align 8
+  %52 = icmp eq i64 %51, %18
+  %53 = getelementptr inbounds %struct.DCEL_segment, ptr %45, i64 0, i32 5
+  %54 = getelementptr inbounds %struct.DCEL_segment, ptr %45, i64 0, i32 4
+  %55 = select i1 %52, ptr %54, ptr %53
+  store ptr %41, ptr %55, align 8, !tbaa !5
+  store ptr %41, ptr %44, align 8, !tbaa !17
+  store ptr %41, ptr %7, align 8, !tbaa !18
   br label %8
 
-53:                                               ; preds = %4
-  %54 = getelementptr inbounds %struct.DCEL_segment, ptr %2, i64 0, i32 5
-  br label %55
+56:                                               ; preds = %4
+  %57 = getelementptr inbounds %struct.DCEL_segment, ptr %2, i64 0, i32 5
+  br label %58
 
-55:                                               ; preds = %53, %85
-  %56 = phi ptr [ %86, %85 ], [ %0, %53 ]
-  %57 = phi ptr [ %89, %85 ], [ %1, %53 ]
-  %58 = load i64, ptr %57, align 8
-  %59 = load i64, ptr %56, align 8
-  %60 = icmp eq i64 %58, %59
-  %61 = getelementptr inbounds %struct.DCEL_segment, ptr %57, i64 0, i32 1
-  %62 = select i1 %60, ptr %61, ptr %57
-  %63 = load i64, ptr %62, align 8
-  %64 = getelementptr inbounds %struct.DCEL_segment, ptr %56, i64 0, i32 1
-  %65 = load i64, ptr %64, align 8
-  %66 = trunc i64 %59 to i32
-  %67 = lshr i64 %59, 32
-  %68 = trunc i64 %67 to i32
-  %69 = trunc i64 %65 to i32
-  %70 = lshr i64 %65, 32
-  %71 = trunc i64 %70 to i32
-  %72 = trunc i64 %63 to i32
-  %73 = lshr i64 %63, 32
-  %74 = trunc i64 %73 to i32
-  %75 = sub nsw i32 %71, %74
-  %76 = mul nsw i32 %75, %66
-  %77 = sub i32 %72, %69
-  %78 = mul i32 %77, %68
-  %79 = mul nsw i32 %74, %69
-  %80 = mul nsw i32 %71, %72
-  %81 = add i32 %78, %79
-  %82 = sub i32 %81, %80
-  %83 = add i32 %82, %76
-  %84 = icmp slt i32 %83, 1
-  br i1 %84, label %100, label %85
+58:                                               ; preds = %56, %90
+  %59 = phi ptr [ %91, %90 ], [ %0, %56 ]
+  %60 = phi ptr [ %95, %90 ], [ %1, %56 ]
+  %61 = load i64, ptr %60, align 8
+  %62 = load i64, ptr %59, align 8
+  %63 = icmp eq i64 %61, %62
+  br i1 %63, label %64, label %67
 
-85:                                               ; preds = %55
-  %86 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
-  store i64 %63, ptr %86, align 8, !tbaa.struct !15
-  %87 = getelementptr inbounds %struct.DCEL_segment, ptr %86, i64 0, i32 1
-  store i64 %65, ptr %87, align 8
-  %88 = getelementptr inbounds %struct.DCEL_segment, ptr %57, i64 0, i32 4
-  %89 = load ptr, ptr %88, align 8, !tbaa !9
-  %90 = getelementptr inbounds %struct.DCEL_segment, ptr %86, i64 0, i32 4
-  store ptr %89, ptr %90, align 8, !tbaa !9
-  %91 = getelementptr inbounds %struct.DCEL_segment, ptr %86, i64 0, i32 5
-  store ptr %56, ptr %91, align 8, !tbaa !19
-  %92 = getelementptr inbounds %struct.DCEL_segment, ptr %86, i64 0, i32 2
-  store ptr %57, ptr %92, align 8, !tbaa !17
-  %93 = getelementptr inbounds %struct.DCEL_segment, ptr %86, i64 0, i32 3
-  store ptr %2, ptr %93, align 8, !tbaa !18
-  %94 = getelementptr inbounds %struct.DCEL_segment, ptr %56, i64 0, i32 3
-  store ptr %86, ptr %94, align 8, !tbaa !18
-  %95 = load i64, ptr %89, align 8
-  %96 = icmp eq i64 %95, %63
-  %97 = getelementptr inbounds %struct.DCEL_segment, ptr %89, i64 0, i32 3
-  %98 = getelementptr inbounds %struct.DCEL_segment, ptr %89, i64 0, i32 2
-  %99 = select i1 %96, ptr %98, ptr %97
-  store ptr %86, ptr %99, align 8, !tbaa !5
-  store ptr %86, ptr %88, align 8, !tbaa !9
-  store ptr %86, ptr %54, align 8, !tbaa !19
-  br label %55
+64:                                               ; preds = %58
+  %65 = getelementptr inbounds %struct.DCEL_segment, ptr %60, i64 0, i32 1
+  %66 = load i64, ptr %65, align 8, !tbaa.struct !15
+  br label %67
 
-100:                                              ; preds = %55, %8
+67:                                               ; preds = %58, %64
+  %68 = phi i64 [ %66, %64 ], [ %61, %58 ]
+  %69 = getelementptr inbounds %struct.DCEL_segment, ptr %59, i64 0, i32 1
+  %70 = load i64, ptr %69, align 8
+  %71 = trunc i64 %62 to i32
+  %72 = lshr i64 %62, 32
+  %73 = trunc i64 %72 to i32
+  %74 = trunc i64 %70 to i32
+  %75 = lshr i64 %70, 32
+  %76 = trunc i64 %75 to i32
+  %77 = trunc i64 %68 to i32
+  %78 = lshr i64 %68, 32
+  %79 = trunc i64 %78 to i32
+  %80 = sub nsw i32 %76, %79
+  %81 = mul nsw i32 %80, %71
+  %82 = sub i32 %77, %74
+  %83 = mul i32 %82, %73
+  %84 = mul nsw i32 %79, %74
+  %85 = mul nsw i32 %76, %77
+  %86 = add i32 %83, %84
+  %87 = sub i32 %86, %85
+  %88 = add i32 %87, %81
+  %89 = icmp sgt i32 %88, 0
+  br i1 %89, label %90, label %106
+
+90:                                               ; preds = %67
+  %91 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
+  store i64 %68, ptr %91, align 8, !tbaa.struct !15
+  %92 = getelementptr inbounds %struct.DCEL_segment, ptr %91, i64 0, i32 1
+  %93 = load i64, ptr %69, align 8
+  store i64 %93, ptr %92, align 8
+  %94 = getelementptr inbounds %struct.DCEL_segment, ptr %60, i64 0, i32 4
+  %95 = load ptr, ptr %94, align 8, !tbaa !9
+  %96 = getelementptr inbounds %struct.DCEL_segment, ptr %91, i64 0, i32 4
+  store ptr %95, ptr %96, align 8, !tbaa !9
+  %97 = getelementptr inbounds %struct.DCEL_segment, ptr %91, i64 0, i32 5
+  store ptr %59, ptr %97, align 8, !tbaa !19
+  %98 = getelementptr inbounds %struct.DCEL_segment, ptr %91, i64 0, i32 2
+  store ptr %60, ptr %98, align 8, !tbaa !17
+  %99 = getelementptr inbounds %struct.DCEL_segment, ptr %91, i64 0, i32 3
+  store ptr %2, ptr %99, align 8, !tbaa !18
+  %100 = getelementptr inbounds %struct.DCEL_segment, ptr %59, i64 0, i32 3
+  store ptr %91, ptr %100, align 8, !tbaa !18
+  %101 = load i64, ptr %95, align 8
+  %102 = icmp eq i64 %101, %68
+  %103 = getelementptr inbounds %struct.DCEL_segment, ptr %95, i64 0, i32 3
+  %104 = getelementptr inbounds %struct.DCEL_segment, ptr %95, i64 0, i32 2
+  %105 = select i1 %102, ptr %104, ptr %103
+  store ptr %91, ptr %105, align 8, !tbaa !5
+  store ptr %91, ptr %94, align 8, !tbaa !9
+  store ptr %91, ptr %57, align 8, !tbaa !19
+  br label %58
+
+106:                                              ; preds = %67, %17
   ret void
 }
 
@@ -297,7 +311,7 @@ define dso_local ptr @construct_ch() local_unnamed_addr #2 {
   store i32 0, ptr @CHno, align 4, !tbaa !16
   %1 = load ptr, ptr @Splaytree, align 8, !tbaa !5
   %2 = icmp eq ptr %1, null
-  br i1 %2, label %134, label %3
+  br i1 %2, label %140, label %3
 
 3:                                                ; preds = %0
   %4 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
@@ -318,18 +332,18 @@ define dso_local ptr @construct_ch() local_unnamed_addr #2 {
 
 13:                                               ; preds = %3
   store i64 %5, ptr %12, align 8
-  br label %129
+  br label %135
 
 14:                                               ; preds = %3
   %15 = tail call i64 @delete_min(ptr noundef nonnull @Splaytree) #7
   store i64 %15, ptr %12, align 8, !tbaa.struct !15
   %16 = load ptr, ptr @Splaytree, align 8, !tbaa !5
   %17 = icmp eq ptr %16, null
-  br i1 %17, label %129, label %18
+  br i1 %17, label %135, label %18
 
-18:                                               ; preds = %14, %125
-  %19 = phi ptr [ %78, %125 ], [ %4, %14 ]
-  %20 = phi ptr [ %126, %125 ], [ %4, %14 ]
+18:                                               ; preds = %14, %131
+  %19 = phi ptr [ %81, %131 ], [ %4, %14 ]
+  %20 = phi ptr [ %132, %131 ], [ %4, %14 ]
   %21 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
   %22 = getelementptr inbounds %struct.DCEL_segment, ptr %19, i64 0, i32 1
   %23 = load i64, ptr %22, align 8
@@ -351,146 +365,160 @@ define dso_local ptr @construct_ch() local_unnamed_addr #2 {
   store ptr %21, ptr %31, align 8, !tbaa !19
   br label %32
 
-32:                                               ; preds = %62, %18
-  %33 = phi ptr [ %19, %18 ], [ %66, %62 ]
-  %34 = phi ptr [ %21, %18 ], [ %63, %62 ]
+32:                                               ; preds = %64, %18
+  %33 = phi ptr [ %19, %18 ], [ %69, %64 ]
+  %34 = phi ptr [ %21, %18 ], [ %65, %64 ]
   %35 = load i64, ptr %33, align 8
   %36 = load i64, ptr %34, align 8
   %37 = icmp eq i64 %35, %36
-  %38 = getelementptr inbounds %struct.DCEL_segment, ptr %33, i64 0, i32 1
-  %39 = select i1 %37, ptr %38, ptr %33
-  %40 = load i64, ptr %39, align 8
-  %41 = getelementptr inbounds %struct.DCEL_segment, ptr %34, i64 0, i32 1
-  %42 = load i64, ptr %41, align 8
-  %43 = trunc i64 %36 to i32
-  %44 = lshr i64 %36, 32
-  %45 = trunc i64 %44 to i32
-  %46 = trunc i64 %42 to i32
-  %47 = lshr i64 %42, 32
-  %48 = trunc i64 %47 to i32
-  %49 = trunc i64 %40 to i32
-  %50 = lshr i64 %40, 32
-  %51 = trunc i64 %50 to i32
-  %52 = sub nsw i32 %48, %51
-  %53 = mul nsw i32 %52, %43
-  %54 = sub i32 %49, %46
-  %55 = mul i32 %54, %45
-  %56 = mul nsw i32 %51, %46
-  %57 = mul nsw i32 %48, %49
-  %58 = add i32 %55, %56
-  %59 = sub i32 %58, %57
-  %60 = add i32 %59, %53
-  %61 = icmp sgt i32 %60, -1
-  br i1 %61, label %77, label %62
+  br i1 %37, label %38, label %41
 
-62:                                               ; preds = %32
-  %63 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
-  store i64 %40, ptr %63, align 8, !tbaa.struct !15
-  %64 = getelementptr inbounds %struct.DCEL_segment, ptr %63, i64 0, i32 1
-  store i64 %42, ptr %64, align 8
-  %65 = getelementptr inbounds %struct.DCEL_segment, ptr %33, i64 0, i32 2
-  %66 = load ptr, ptr %65, align 8, !tbaa !17
-  %67 = getelementptr inbounds %struct.DCEL_segment, ptr %63, i64 0, i32 2
-  store ptr %66, ptr %67, align 8, !tbaa !17
-  %68 = getelementptr inbounds %struct.DCEL_segment, ptr %63, i64 0, i32 3
-  store ptr %34, ptr %68, align 8, !tbaa !18
-  %69 = getelementptr inbounds %struct.DCEL_segment, ptr %63, i64 0, i32 4
-  store ptr %33, ptr %69, align 8, !tbaa !9
-  %70 = getelementptr inbounds %struct.DCEL_segment, ptr %63, i64 0, i32 5
-  store ptr %21, ptr %70, align 8, !tbaa !19
-  %71 = getelementptr inbounds %struct.DCEL_segment, ptr %34, i64 0, i32 5
-  store ptr %63, ptr %71, align 8, !tbaa !19
-  %72 = load i64, ptr %66, align 8
-  %73 = icmp eq i64 %72, %40
-  %74 = getelementptr inbounds %struct.DCEL_segment, ptr %66, i64 0, i32 5
-  %75 = getelementptr inbounds %struct.DCEL_segment, ptr %66, i64 0, i32 4
-  %76 = select i1 %73, ptr %75, ptr %74
-  store ptr %63, ptr %76, align 8, !tbaa !5
-  store ptr %63, ptr %65, align 8, !tbaa !17
-  store ptr %63, ptr %28, align 8, !tbaa !18
+38:                                               ; preds = %32
+  %39 = getelementptr inbounds %struct.DCEL_segment, ptr %33, i64 0, i32 1
+  %40 = load i64, ptr %39, align 8, !tbaa.struct !15
+  br label %41
+
+41:                                               ; preds = %38, %32
+  %42 = phi i64 [ %40, %38 ], [ %35, %32 ]
+  %43 = getelementptr inbounds %struct.DCEL_segment, ptr %34, i64 0, i32 1
+  %44 = load i64, ptr %43, align 8
+  %45 = trunc i64 %36 to i32
+  %46 = lshr i64 %36, 32
+  %47 = trunc i64 %46 to i32
+  %48 = trunc i64 %44 to i32
+  %49 = lshr i64 %44, 32
+  %50 = trunc i64 %49 to i32
+  %51 = trunc i64 %42 to i32
+  %52 = lshr i64 %42, 32
+  %53 = trunc i64 %52 to i32
+  %54 = sub nsw i32 %50, %53
+  %55 = mul nsw i32 %54, %45
+  %56 = sub i32 %51, %48
+  %57 = mul i32 %56, %47
+  %58 = mul nsw i32 %53, %48
+  %59 = mul nsw i32 %50, %51
+  %60 = add i32 %57, %58
+  %61 = sub i32 %60, %59
+  %62 = add i32 %61, %55
+  %63 = icmp slt i32 %62, 0
+  br i1 %63, label %64, label %80
+
+64:                                               ; preds = %41
+  %65 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
+  store i64 %42, ptr %65, align 8, !tbaa.struct !15
+  %66 = getelementptr inbounds %struct.DCEL_segment, ptr %65, i64 0, i32 1
+  %67 = load i64, ptr %43, align 8
+  store i64 %67, ptr %66, align 8
+  %68 = getelementptr inbounds %struct.DCEL_segment, ptr %33, i64 0, i32 2
+  %69 = load ptr, ptr %68, align 8, !tbaa !17
+  %70 = getelementptr inbounds %struct.DCEL_segment, ptr %65, i64 0, i32 2
+  store ptr %69, ptr %70, align 8, !tbaa !17
+  %71 = getelementptr inbounds %struct.DCEL_segment, ptr %65, i64 0, i32 3
+  store ptr %34, ptr %71, align 8, !tbaa !18
+  %72 = getelementptr inbounds %struct.DCEL_segment, ptr %65, i64 0, i32 4
+  store ptr %33, ptr %72, align 8, !tbaa !9
+  %73 = getelementptr inbounds %struct.DCEL_segment, ptr %65, i64 0, i32 5
+  store ptr %21, ptr %73, align 8, !tbaa !19
+  %74 = getelementptr inbounds %struct.DCEL_segment, ptr %34, i64 0, i32 5
+  store ptr %65, ptr %74, align 8, !tbaa !19
+  %75 = load i64, ptr %69, align 8
+  %76 = icmp eq i64 %75, %42
+  %77 = getelementptr inbounds %struct.DCEL_segment, ptr %69, i64 0, i32 5
+  %78 = getelementptr inbounds %struct.DCEL_segment, ptr %69, i64 0, i32 4
+  %79 = select i1 %76, ptr %78, ptr %77
+  store ptr %65, ptr %79, align 8, !tbaa !5
+  store ptr %65, ptr %68, align 8, !tbaa !17
+  store ptr %65, ptr %28, align 8, !tbaa !18
   br label %32
 
-77:                                               ; preds = %32
-  %78 = load ptr, ptr %28, align 8, !tbaa !18
-  %79 = getelementptr inbounds %struct.DCEL_segment, ptr %78, i64 0, i32 5
-  br label %80
+80:                                               ; preds = %41
+  %81 = load ptr, ptr %28, align 8, !tbaa !18
+  %82 = getelementptr inbounds %struct.DCEL_segment, ptr %81, i64 0, i32 5
+  br label %83
 
-80:                                               ; preds = %110, %77
-  %81 = phi ptr [ %111, %110 ], [ %21, %77 ]
-  %82 = phi ptr [ %114, %110 ], [ %20, %77 ]
-  %83 = load i64, ptr %82, align 8
-  %84 = load i64, ptr %81, align 8
-  %85 = icmp eq i64 %83, %84
-  %86 = getelementptr inbounds %struct.DCEL_segment, ptr %82, i64 0, i32 1
-  %87 = select i1 %85, ptr %86, ptr %82
-  %88 = load i64, ptr %87, align 8
-  %89 = getelementptr inbounds %struct.DCEL_segment, ptr %81, i64 0, i32 1
-  %90 = load i64, ptr %89, align 8
-  %91 = trunc i64 %84 to i32
-  %92 = lshr i64 %84, 32
-  %93 = trunc i64 %92 to i32
-  %94 = trunc i64 %90 to i32
-  %95 = lshr i64 %90, 32
-  %96 = trunc i64 %95 to i32
-  %97 = trunc i64 %88 to i32
-  %98 = lshr i64 %88, 32
-  %99 = trunc i64 %98 to i32
-  %100 = sub nsw i32 %96, %99
-  %101 = mul nsw i32 %100, %91
-  %102 = sub i32 %97, %94
-  %103 = mul i32 %102, %93
-  %104 = mul nsw i32 %99, %94
-  %105 = mul nsw i32 %96, %97
-  %106 = add i32 %103, %104
-  %107 = sub i32 %106, %105
-  %108 = add i32 %107, %101
-  %109 = icmp slt i32 %108, 1
-  br i1 %109, label %125, label %110
+83:                                               ; preds = %115, %80
+  %84 = phi ptr [ %116, %115 ], [ %21, %80 ]
+  %85 = phi ptr [ %120, %115 ], [ %20, %80 ]
+  %86 = load i64, ptr %85, align 8
+  %87 = load i64, ptr %84, align 8
+  %88 = icmp eq i64 %86, %87
+  br i1 %88, label %89, label %92
 
-110:                                              ; preds = %80
-  %111 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
-  store i64 %88, ptr %111, align 8, !tbaa.struct !15
-  %112 = getelementptr inbounds %struct.DCEL_segment, ptr %111, i64 0, i32 1
-  store i64 %90, ptr %112, align 8
-  %113 = getelementptr inbounds %struct.DCEL_segment, ptr %82, i64 0, i32 4
-  %114 = load ptr, ptr %113, align 8, !tbaa !9
-  %115 = getelementptr inbounds %struct.DCEL_segment, ptr %111, i64 0, i32 4
-  store ptr %114, ptr %115, align 8, !tbaa !9
-  %116 = getelementptr inbounds %struct.DCEL_segment, ptr %111, i64 0, i32 5
-  store ptr %81, ptr %116, align 8, !tbaa !19
-  %117 = getelementptr inbounds %struct.DCEL_segment, ptr %111, i64 0, i32 2
-  store ptr %82, ptr %117, align 8, !tbaa !17
-  %118 = getelementptr inbounds %struct.DCEL_segment, ptr %111, i64 0, i32 3
-  store ptr %78, ptr %118, align 8, !tbaa !18
-  %119 = getelementptr inbounds %struct.DCEL_segment, ptr %81, i64 0, i32 3
-  store ptr %111, ptr %119, align 8, !tbaa !18
-  %120 = load i64, ptr %114, align 8
-  %121 = icmp eq i64 %120, %88
-  %122 = getelementptr inbounds %struct.DCEL_segment, ptr %114, i64 0, i32 3
-  %123 = getelementptr inbounds %struct.DCEL_segment, ptr %114, i64 0, i32 2
-  %124 = select i1 %121, ptr %123, ptr %122
-  store ptr %111, ptr %124, align 8, !tbaa !5
-  store ptr %111, ptr %113, align 8, !tbaa !9
-  store ptr %111, ptr %79, align 8, !tbaa !19
-  br label %80
+89:                                               ; preds = %83
+  %90 = getelementptr inbounds %struct.DCEL_segment, ptr %85, i64 0, i32 1
+  %91 = load i64, ptr %90, align 8, !tbaa.struct !15
+  br label %92
 
-125:                                              ; preds = %80
-  %126 = load ptr, ptr %79, align 8, !tbaa !19
-  %127 = load ptr, ptr @Splaytree, align 8, !tbaa !5
-  %128 = icmp eq ptr %127, null
-  br i1 %128, label %129, label %18, !llvm.loop !20
+92:                                               ; preds = %89, %83
+  %93 = phi i64 [ %91, %89 ], [ %86, %83 ]
+  %94 = getelementptr inbounds %struct.DCEL_segment, ptr %84, i64 0, i32 1
+  %95 = load i64, ptr %94, align 8
+  %96 = trunc i64 %87 to i32
+  %97 = lshr i64 %87, 32
+  %98 = trunc i64 %97 to i32
+  %99 = trunc i64 %95 to i32
+  %100 = lshr i64 %95, 32
+  %101 = trunc i64 %100 to i32
+  %102 = trunc i64 %93 to i32
+  %103 = lshr i64 %93, 32
+  %104 = trunc i64 %103 to i32
+  %105 = sub nsw i32 %101, %104
+  %106 = mul nsw i32 %105, %96
+  %107 = sub i32 %102, %99
+  %108 = mul i32 %107, %98
+  %109 = mul nsw i32 %104, %99
+  %110 = mul nsw i32 %101, %102
+  %111 = add i32 %108, %109
+  %112 = sub i32 %111, %110
+  %113 = add i32 %112, %106
+  %114 = icmp sgt i32 %113, 0
+  br i1 %114, label %115, label %131
 
-129:                                              ; preds = %125, %14, %13
-  %130 = phi ptr [ %4, %13 ], [ %4, %14 ], [ %126, %125 ]
-  %131 = phi ptr [ %4, %13 ], [ %4, %14 ], [ %78, %125 ]
+115:                                              ; preds = %92
+  %116 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
+  store i64 %93, ptr %116, align 8, !tbaa.struct !15
+  %117 = getelementptr inbounds %struct.DCEL_segment, ptr %116, i64 0, i32 1
+  %118 = load i64, ptr %94, align 8
+  store i64 %118, ptr %117, align 8
+  %119 = getelementptr inbounds %struct.DCEL_segment, ptr %85, i64 0, i32 4
+  %120 = load ptr, ptr %119, align 8, !tbaa !9
+  %121 = getelementptr inbounds %struct.DCEL_segment, ptr %116, i64 0, i32 4
+  store ptr %120, ptr %121, align 8, !tbaa !9
+  %122 = getelementptr inbounds %struct.DCEL_segment, ptr %116, i64 0, i32 5
+  store ptr %84, ptr %122, align 8, !tbaa !19
+  %123 = getelementptr inbounds %struct.DCEL_segment, ptr %116, i64 0, i32 2
+  store ptr %85, ptr %123, align 8, !tbaa !17
+  %124 = getelementptr inbounds %struct.DCEL_segment, ptr %116, i64 0, i32 3
+  store ptr %81, ptr %124, align 8, !tbaa !18
+  %125 = getelementptr inbounds %struct.DCEL_segment, ptr %84, i64 0, i32 3
+  store ptr %116, ptr %125, align 8, !tbaa !18
+  %126 = load i64, ptr %120, align 8
+  %127 = icmp eq i64 %126, %93
+  %128 = getelementptr inbounds %struct.DCEL_segment, ptr %120, i64 0, i32 3
+  %129 = getelementptr inbounds %struct.DCEL_segment, ptr %120, i64 0, i32 2
+  %130 = select i1 %127, ptr %129, ptr %128
+  store ptr %116, ptr %130, align 8, !tbaa !5
+  store ptr %116, ptr %119, align 8, !tbaa !9
+  store ptr %116, ptr %82, align 8, !tbaa !19
+  br label %83
+
+131:                                              ; preds = %92
+  %132 = load ptr, ptr %82, align 8, !tbaa !19
+  %133 = load ptr, ptr @Splaytree, align 8, !tbaa !5
+  %134 = icmp eq ptr %133, null
+  br i1 %134, label %135, label %18, !llvm.loop !20
+
+135:                                              ; preds = %131, %14, %13
+  %136 = phi ptr [ %4, %13 ], [ %4, %14 ], [ %132, %131 ]
+  %137 = phi ptr [ %4, %13 ], [ %4, %14 ], [ %81, %131 ]
   tail call void @free_tree(ptr noundef null) #7
-  %132 = tail call ptr @get_points_on_hull(ptr noundef nonnull %131, ptr noundef %130)
-  %133 = tail call ptr @remove_points(ptr noundef %132) #7
-  br label %134
+  %138 = tail call ptr @get_points_on_hull(ptr noundef nonnull %137, ptr noundef %136)
+  %139 = tail call ptr @remove_points(ptr noundef %138) #7
+  br label %140
 
-134:                                              ; preds = %0, %129
-  %135 = phi ptr [ %133, %129 ], [ undef, %0 ]
-  ret ptr %135
+140:                                              ; preds = %0, %135
+  %141 = phi ptr [ %139, %135 ], [ undef, %0 ]
+  ret ptr %141
 }
 
 declare i64 @delete_min(ptr noundef) local_unnamed_addr #4

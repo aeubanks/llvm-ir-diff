@@ -450,8 +450,8 @@ define dso_local i32 @cli_scanrtf(i32 noundef %0, ptr noundef %1) local_unnamed_
   %229 = call i32 %226(ptr noundef nonnull %3, ptr noundef %1) #11
   br label %230
 
-230:                                              ; preds = %228, %225, %217, %220
-  %231 = phi i64 [ %221, %220 ], [ %212, %217 ], [ %221, %225 ], [ %221, %228 ]
+230:                                              ; preds = %228, %225, %220, %217
+  %231 = phi i64 [ %221, %228 ], [ %221, %225 ], [ %221, %220 ], [ %212, %217 ]
   %232 = icmp eq i64 %231, 0
   br i1 %232, label %233, label %211
 
@@ -535,8 +535,8 @@ define dso_local i32 @cli_scanrtf(i32 noundef %0, ptr noundef %1) local_unnamed_
   %276 = call i32 %273(ptr noundef nonnull %3, ptr noundef %1) #11
   br label %277
 
-277:                                              ; preds = %275, %272, %264, %267
-  %278 = phi i64 [ %268, %267 ], [ %259, %264 ], [ %268, %272 ], [ %268, %275 ]
+277:                                              ; preds = %275, %272, %267, %264
+  %278 = phi i64 [ %268, %275 ], [ %268, %272 ], [ %268, %267 ], [ %259, %264 ]
   %279 = icmp eq i64 %278, 0
   br i1 %279, label %280, label %258
 
@@ -1533,8 +1533,8 @@ define internal i32 @rtf_object_process(ptr nocapture noundef readonly %0, ptr n
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %375) #11
   br label %376
 
-376:                                              ; preds = %27, %108, %263, %206, %325, %370, %344, %352, %365, %374, %97, %3
-  %377 = phi i32 [ 0, %3 ], [ 0, %97 ], [ 0, %374 ], [ 0, %108 ], [ 0, %263 ], [ -114, %206 ], [ %328, %325 ], [ 0, %370 ], [ -123, %344 ], [ -123, %352 ], [ %367, %365 ], [ 0, %27 ]
+376:                                              ; preds = %27, %108, %263, %206, %325, %370, %352, %365, %344, %374, %97, %3
+  %377 = phi i32 [ 0, %3 ], [ 0, %97 ], [ 0, %374 ], [ -123, %344 ], [ 0, %108 ], [ 0, %263 ], [ -114, %206 ], [ %328, %325 ], [ 0, %370 ], [ -123, %352 ], [ %367, %365 ], [ 0, %27 ]
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %4) #11
   ret i32 %377
 }

@@ -1059,15 +1059,15 @@ define dso_local noundef float @_ZN20HourlyWorkerOvertime8EarningsEv(ptr nocaptu
   %3 = load float, ptr %2, align 8, !tbaa !47
   %4 = fcmp ogt float %3, 4.000000e+01
   %5 = fadd float %3, -4.000000e+01
-  %6 = fpext float %5 to double
-  %7 = select i1 %4, double %6, double 0.000000e+00
-  %8 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %9 = load float, ptr %8, align 4, !tbaa !43
-  %10 = fmul float %3, %9
-  %11 = fpext float %10 to double
-  %12 = fpext float %9 to double
-  %13 = fmul double %12, 5.000000e-01
-  %14 = tail call double @llvm.fmuladd.f64(double %13, double %7, double %11)
+  %6 = select i1 %4, float %5, float 0.000000e+00
+  %7 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
+  %8 = load float, ptr %7, align 4, !tbaa !43
+  %9 = fmul float %3, %8
+  %10 = fpext float %9 to double
+  %11 = fpext float %8 to double
+  %12 = fmul double %11, 5.000000e-01
+  %13 = fpext float %6 to double
+  %14 = tail call double @llvm.fmuladd.f64(double %12, double %13, double %10)
   %15 = fptrunc double %14 to float
   ret float %15
 }
@@ -1295,8 +1295,8 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %130 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %129, ptr noundef nonnull @.str.10, i32 noundef %34) #29
   br label %196
 
-131:                                              ; preds = %112, %90, %68, %47, %121
-  %132 = phi ptr [ %36, %47 ], [ %57, %68 ], [ %79, %90 ], [ %101, %112 ], [ %123, %121 ]
+131:                                              ; preds = %121, %112, %90, %68, %47
+  %132 = phi ptr [ %101, %112 ], [ %79, %90 ], [ %57, %68 ], [ %36, %47 ], [ %123, %121 ]
   %133 = call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
   store ptr %132, ptr %133, align 8, !tbaa !23
   %134 = getelementptr inbounds %class.EmployeeNode, ptr %133, i64 0, i32 1

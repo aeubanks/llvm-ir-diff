@@ -569,8 +569,8 @@ define dso_local ptr @subs_CompList(ptr nocapture noundef readonly %0) local_unn
   %142 = icmp eq ptr %133, null
   br i1 %142, label %143, label %131, !llvm.loop !5
 
-143:                                              ; preds = %46, %131, %52, %66, %129, %1
-  %144 = phi ptr [ null, %1 ], [ %38, %129 ], [ %122, %52 ], [ %122, %66 ], [ %38, %131 ], [ %47, %46 ]
+143:                                              ; preds = %46, %131, %52, %66, %1, %129
+  %144 = phi ptr [ %38, %129 ], [ null, %1 ], [ %122, %52 ], [ %122, %66 ], [ %38, %131 ], [ %47, %46 ]
   ret ptr %144
 }
 

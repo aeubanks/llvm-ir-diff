@@ -106,9 +106,9 @@ define dso_local i32 @FORMAT3_4(i32 noundef %0, i32 noundef %1) local_unnamed_ad
   call void (i32, i32, ptr, ...) @BYTES_TO_BITS(i32 noundef %52, i32 noundef 1, ptr noundef nonnull %53) #3
   br label %54
 
-54:                                               ; preds = %6, %34, %45
-  %55 = phi i1 [ false, %45 ], [ true, %34 ], [ true, %6 ]
-  %56 = phi i32 [ 4, %45 ], [ 3, %34 ], [ 3, %6 ]
+54:                                               ; preds = %34, %45, %6
+  %55 = phi i1 [ true, %34 ], [ false, %45 ], [ true, %6 ]
+  %56 = phi i32 [ 3, %34 ], [ 4, %45 ], [ 3, %6 ]
   %57 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !9
   %58 = add nsw i32 %57, %56
   store i32 %58, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !9

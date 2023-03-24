@@ -51,7 +51,7 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %8 = load i16, ptr %0, align 8, !tbaa !17
   %9 = icmp ne i16 %8, 10
   %10 = icmp ult i32 %7, 32
-  %11 = or i1 %9, %10
+  %11 = select i1 %9, i1 true, i1 %10
   br i1 %11, label %42, label %12
 
 12:                                               ; preds = %3
@@ -71,10 +71,10 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %24 = getelementptr inbounds i8, ptr %18, i64 4
   %25 = add i32 %19, -4
   %26 = tail call i32 @llvm.umin.i32(i32 %25, i32 %23)
-  %27 = icmp ne i16 %20, 1
-  %28 = icmp ult i32 %26, 24
-  %29 = select i1 %27, i1 true, i1 %28
-  br i1 %29, label %37, label %30
+  %27 = icmp eq i16 %20, 1
+  %28 = icmp ugt i32 %26, 23
+  %29 = select i1 %27, i1 %28, i1 false
+  br i1 %29, label %30, label %37
 
 30:                                               ; preds = %17
   %31 = shl nsw i32 %1, 3
@@ -92,7 +92,7 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %39 = getelementptr inbounds i8, ptr %24, i64 %38
   %40 = sub i32 %25, %26
   %41 = icmp ugt i32 %40, 4
-  br i1 %41, label %17, label %42
+  br i1 %41, label %17, label %42, !llvm.loop !23
 
 42:                                               ; preds = %37, %30, %3
   %43 = phi i1 [ false, %3 ], [ true, %30 ], [ false, %37 ]
@@ -108,14 +108,14 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %7 = load i16, ptr %0, align 8, !tbaa !17
   %8 = icmp ne i16 %7, 21589
   %9 = icmp ult i32 %6, 5
-  %10 = or i1 %8, %9
+  %10 = select i1 %8, i1 true, i1 %9
   br i1 %10, label %49, label %11
 
 11:                                               ; preds = %3
   %12 = getelementptr inbounds %"struct.NArchive::NZip::CExtraSubBlock", ptr %0, i64 0, i32 1, i32 2
   %13 = load ptr, ptr %12, align 8, !tbaa !20
   %14 = getelementptr inbounds i8, ptr %13, i64 1
-  %15 = load i8, ptr %13, align 1, !tbaa !23
+  %15 = load i8, ptr %13, align 1, !tbaa !25
   %16 = add i32 %6, -1
   %17 = zext i8 %15 to i32
   %18 = and i32 %17, 1
@@ -186,52 +186,52 @@ declare noundef zeroext i1 @_ZN8NArchive9NItemName12HasTailSlashERK11CStringBase
 define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip5CItem5IsDirEv(ptr noundef nonnull align 8 dereferenceable(179) %0) local_unnamed_addr #3 align 2 {
   %2 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %0, i64 0, i32 7
   %3 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 1, i32 1
-  %4 = load i8, ptr %3, align 1, !tbaa !24
-  %5 = icmp eq i8 %4, 0
-  %6 = icmp eq i8 %4, 11
-  %7 = or i1 %5, %6
-  %8 = zext i1 %7 to i32
-  %9 = tail call noundef zeroext i1 @_ZN8NArchive9NItemName12HasTailSlashERK11CStringBaseIcEj(ptr noundef nonnull align 8 dereferenceable(16) %2, i32 noundef %8)
-  br i1 %9, label %25, label %10
+  %4 = load i8, ptr %3, align 1, !tbaa !26
+  %5 = freeze i8 %4
+  %6 = icmp eq i8 %5, 0
+  %7 = icmp eq i8 %5, 11
+  %8 = or i1 %6, %7
+  %9 = zext i1 %8 to i32
+  %10 = tail call noundef zeroext i1 @_ZN8NArchive9NItemName12HasTailSlashERK11CStringBaseIcEj(ptr noundef nonnull align 8 dereferenceable(16) %2, i32 noundef %9)
+  br i1 %10, label %25, label %11
 
-10:                                               ; preds = %1
-  %11 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 11
-  %12 = load i8, ptr %11, align 1, !tbaa !34, !range !35, !noundef !36
-  %13 = icmp eq i8 %12, 0
-  br i1 %13, label %25, label %14
+11:                                               ; preds = %1
+  %12 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 11
+  %13 = load i8, ptr %12, align 1, !tbaa !36, !range !37, !noundef !38
+  %14 = icmp eq i8 %13, 0
+  br i1 %14, label %25, label %15
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 3
-  %16 = load i8, ptr %3, align 1, !tbaa !24
-  switch i8 %16, label %25 [
-    i8 1, label %17
-    i8 0, label %21
-    i8 11, label %21
-    i8 6, label %21
-    i8 14, label %21
+15:                                               ; preds = %11
+  %16 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 3
+  %17 = load i32, ptr %16, align 4, !tbaa !39
+  %18 = load i8, ptr %3, align 1, !tbaa !26
+  switch i8 %18, label %25 [
+    i8 1, label %19
+    i8 0, label %22
+    i8 11, label %22
+    i8 6, label %22
+    i8 14, label %22
   ]
 
-17:                                               ; preds = %14
-  %18 = load i32, ptr %15, align 4, !tbaa !37
-  %19 = and i32 %18, 201326592
-  %20 = icmp eq i32 %19, 134217728
+19:                                               ; preds = %15
+  %20 = and i32 %17, 201326592
+  %21 = icmp eq i32 %20, 134217728
   br label %25
 
-21:                                               ; preds = %14, %14, %14, %14
-  %22 = load i32, ptr %15, align 4, !tbaa !37
-  %23 = and i32 %22, 16
+22:                                               ; preds = %15, %15, %15, %15
+  %23 = and i32 %17, 16
   %24 = icmp ne i32 %23, 0
   br label %25
 
-25:                                               ; preds = %21, %17, %14, %10, %1
-  %26 = phi i1 [ true, %1 ], [ false, %10 ], [ %24, %21 ], [ %20, %17 ], [ false, %14 ]
+25:                                               ; preds = %19, %22, %15, %11, %1
+  %26 = phi i1 [ true, %1 ], [ false, %11 ], [ %24, %22 ], [ false, %15 ], [ %21, %19 ]
   ret i1 %26
 }
 
 ; Function Attrs: mustprogress uwtable
 define dso_local noundef i32 @_ZNK8NArchive4NZip5CItem16GetWinAttributesEv(ptr noundef nonnull align 8 dereferenceable(179) %0) local_unnamed_addr #3 align 2 {
   %2 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 1, i32 1
-  %3 = load i8, ptr %2, align 1, !tbaa !24
+  %3 = load i8, ptr %2, align 1, !tbaa !26
   switch i8 %3, label %19 [
     i8 0, label %4
     i8 11, label %4
@@ -240,24 +240,24 @@ define dso_local noundef i32 @_ZNK8NArchive4NZip5CItem16GetWinAttributesEv(ptr n
 
 4:                                                ; preds = %1, %1
   %5 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 11
-  %6 = load i8, ptr %5, align 1, !tbaa !34, !range !35, !noundef !36
+  %6 = load i8, ptr %5, align 1, !tbaa !36, !range !37, !noundef !38
   %7 = icmp eq i8 %6, 0
   br i1 %7, label %19, label %8
 
 8:                                                ; preds = %4
   %9 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 3
-  %10 = load i32, ptr %9, align 4, !tbaa !37
+  %10 = load i32, ptr %9, align 4, !tbaa !39
   br label %19
 
 11:                                               ; preds = %1
   %12 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 3
-  %13 = load i32, ptr %12, align 4, !tbaa !37
+  %13 = load i32, ptr %12, align 4, !tbaa !39
   %14 = and i32 %13, -65536
   %15 = and i32 %13, 1073741824
   %16 = icmp eq i32 %15, 0
   %17 = select i1 %16, i32 32768, i32 32784
   %18 = or i32 %17, %14
-  br label %46
+  br label %43
 
 19:                                               ; preds = %1, %4, %8
   %20 = phi i32 [ %10, %8 ], [ 0, %4 ], [ 0, %1 ]
@@ -267,46 +267,43 @@ define dso_local noundef i32 @_ZNK8NArchive4NZip5CItem16GetWinAttributesEv(ptr n
   %24 = or i1 %22, %23
   %25 = zext i1 %24 to i32
   %26 = tail call noundef zeroext i1 @_ZN8NArchive9NItemName12HasTailSlashERK11CStringBaseIcEj(ptr noundef nonnull align 8 dereferenceable(16) %21, i32 noundef %25)
-  br i1 %26, label %44, label %27
+  br i1 %26, label %41, label %27
 
 27:                                               ; preds = %19
   %28 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 11
-  %29 = load i8, ptr %28, align 1, !tbaa !34, !range !35, !noundef !36
+  %29 = load i8, ptr %28, align 1, !tbaa !36, !range !37, !noundef !38
   %30 = icmp eq i8 %29, 0
-  br i1 %30, label %46, label %31
+  br i1 %30, label %43, label %31
 
 31:                                               ; preds = %27
   %32 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %0, i64 0, i32 3
-  %33 = load i8, ptr %2, align 1, !tbaa !24
-  switch i8 %33, label %46 [
-    i8 1, label %39
-    i8 0, label %34
-    i8 11, label %34
-    i8 6, label %34
-    i8 14, label %34
+  %33 = load i32, ptr %32, align 4, !tbaa !39
+  %34 = load i8, ptr %2, align 1, !tbaa !26
+  switch i8 %34, label %43 [
+    i8 1, label %38
+    i8 0, label %35
+    i8 11, label %35
+    i8 6, label %35
+    i8 14, label %35
   ]
 
-34:                                               ; preds = %31, %31, %31, %31
-  %35 = load i32, ptr %32, align 4, !tbaa !37
-  %36 = freeze i32 %35
-  %37 = and i32 %36, 16
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %46, label %44
+35:                                               ; preds = %31, %31, %31, %31
+  %36 = and i32 %33, 16
+  %37 = icmp eq i32 %36, 0
+  br i1 %37, label %43, label %41
 
-39:                                               ; preds = %31
-  %40 = load i32, ptr %32, align 4, !tbaa !37
-  %41 = freeze i32 %40
-  %42 = and i32 %41, 201326592
-  %43 = icmp eq i32 %42, 134217728
-  br i1 %43, label %44, label %46
+38:                                               ; preds = %31
+  %39 = and i32 %33, 201326592
+  %40 = icmp eq i32 %39, 134217728
+  br i1 %40, label %41, label %43
 
-44:                                               ; preds = %19, %34, %39
-  %45 = or i32 %20, 16
-  br label %46
+41:                                               ; preds = %19, %35, %38
+  %42 = or i32 %20, 16
+  br label %43
 
-46:                                               ; preds = %31, %27, %44, %39, %34, %11
-  %47 = phi i32 [ %18, %11 ], [ %45, %44 ], [ %20, %39 ], [ %20, %34 ], [ %20, %27 ], [ %20, %31 ]
-  ret i32 %47
+43:                                               ; preds = %11, %31, %27, %38, %41, %35
+  %44 = phi i32 [ %42, %41 ], [ %20, %38 ], [ %20, %35 ], [ %20, %27 ], [ %20, %31 ], [ %18, %11 ]
+  ret i32 %44
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
@@ -315,49 +312,49 @@ define dso_local void @_ZN8NArchive4NZip10CLocalItem11SetFlagBitsEiii(ptr nocapt
   %6 = xor i32 %5, -1
   %7 = shl i32 %6, %1
   %8 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %0, i64 0, i32 1
-  %9 = load i16, ptr %8, align 2, !tbaa !38
+  %9 = load i16, ptr %8, align 2, !tbaa !40
   %10 = trunc i32 %7 to i16
   %11 = xor i16 %10, -1
   %12 = and i16 %9, %11
   %13 = shl i32 %3, %1
   %14 = trunc i32 %13 to i16
   %15 = or i16 %12, %14
-  store i16 %15, ptr %8, align 2, !tbaa !38
+  store i16 %15, ptr %8, align 2, !tbaa !40
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN8NArchive4NZip10CLocalItem10SetBitMaskEib(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, i32 noundef %1, i1 noundef zeroext %2) local_unnamed_addr #5 align 2 {
   %4 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %0, i64 0, i32 1
-  %5 = load i16, ptr %4, align 2, !tbaa !38
+  %5 = load i16, ptr %4, align 2, !tbaa !40
   %6 = trunc i32 %1 to i16
   %7 = xor i16 %6, -1
   %8 = and i16 %5, %7
   %9 = or i16 %5, %6
   %10 = select i1 %2, i16 %9, i16 %8
-  store i16 %10, ptr %4, align 2, !tbaa !38
+  store i16 %10, ptr %4, align 2, !tbaa !40
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN8NArchive4NZip10CLocalItem12SetEncryptedEb(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, i1 noundef zeroext %1) local_unnamed_addr #5 align 2 {
   %3 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %0, i64 0, i32 1
-  %4 = load i16, ptr %3, align 2, !tbaa !38
+  %4 = load i16, ptr %3, align 2, !tbaa !40
   %5 = and i16 %4, -2
   %6 = zext i1 %1 to i16
   %7 = or i16 %5, %6
-  store i16 %7, ptr %3, align 2, !tbaa !38
+  store i16 %7, ptr %3, align 2, !tbaa !40
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN8NArchive4NZip10CLocalItem7SetUtf8Eb(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, i1 noundef zeroext %1) local_unnamed_addr #5 align 2 {
   %3 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %0, i64 0, i32 1
-  %4 = load i16, ptr %3, align 2, !tbaa !38
+  %4 = load i16, ptr %3, align 2, !tbaa !40
   %5 = and i16 %4, -2049
   %6 = select i1 %1, i16 2048, i16 0
   %7 = or i16 %5, %6
-  store i16 %7, ptr %3, align 2, !tbaa !38
+  store i16 %7, ptr %3, align 2, !tbaa !40
   ret void
 }
 
@@ -398,19 +395,21 @@ attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memo
 !20 = !{!14, !16, i64 16}
 !21 = !{!19, !19, i64 0}
 !22 = !{!11, !11, i64 0}
-!23 = !{!7, !7, i64 0}
-!24 = !{!25, !7, i64 81}
-!25 = !{!"_ZTSN8NArchive4NZip5CItemE", !26, i64 0, !6, i64 80, !19, i64 82, !11, i64 84, !27, i64 88, !10, i64 96, !10, i64 104, !10, i64 112, !29, i64 120, !14, i64 152, !33, i64 176, !33, i64 177, !33, i64 178}
-!26 = !{!"_ZTSN8NArchive4NZip10CLocalItemE", !6, i64 0, !19, i64 2, !19, i64 4, !11, i64 8, !11, i64 12, !27, i64 16, !27, i64 24, !28, i64 32, !29, i64 48}
-!27 = !{!"long long", !7, i64 0}
-!28 = !{!"_ZTS11CStringBaseIcE", !16, i64 0, !11, i64 8, !11, i64 12}
-!29 = !{!"_ZTSN8NArchive4NZip11CExtraBlockE", !30, i64 0}
-!30 = !{!"_ZTS13CObjectVectorIN8NArchive4NZip14CExtraSubBlockEE", !31, i64 0}
-!31 = !{!"_ZTS13CRecordVectorIPvE", !32, i64 0}
-!32 = !{!"_ZTS17CBaseRecordVector", !11, i64 8, !11, i64 12, !16, i64 16, !15, i64 24}
-!33 = !{!"bool", !7, i64 0}
-!34 = !{!25, !33, i64 177}
-!35 = !{i8 0, i8 2}
-!36 = !{}
-!37 = !{!25, !11, i64 84}
-!38 = !{!26, !19, i64 2}
+!23 = distinct !{!23, !24}
+!24 = !{!"llvm.loop.mustprogress"}
+!25 = !{!7, !7, i64 0}
+!26 = !{!27, !7, i64 81}
+!27 = !{!"_ZTSN8NArchive4NZip5CItemE", !28, i64 0, !6, i64 80, !19, i64 82, !11, i64 84, !29, i64 88, !10, i64 96, !10, i64 104, !10, i64 112, !31, i64 120, !14, i64 152, !35, i64 176, !35, i64 177, !35, i64 178}
+!28 = !{!"_ZTSN8NArchive4NZip10CLocalItemE", !6, i64 0, !19, i64 2, !19, i64 4, !11, i64 8, !11, i64 12, !29, i64 16, !29, i64 24, !30, i64 32, !31, i64 48}
+!29 = !{!"long long", !7, i64 0}
+!30 = !{!"_ZTS11CStringBaseIcE", !16, i64 0, !11, i64 8, !11, i64 12}
+!31 = !{!"_ZTSN8NArchive4NZip11CExtraBlockE", !32, i64 0}
+!32 = !{!"_ZTS13CObjectVectorIN8NArchive4NZip14CExtraSubBlockEE", !33, i64 0}
+!33 = !{!"_ZTS13CRecordVectorIPvE", !34, i64 0}
+!34 = !{!"_ZTS17CBaseRecordVector", !11, i64 8, !11, i64 12, !16, i64 16, !15, i64 24}
+!35 = !{!"bool", !7, i64 0}
+!36 = !{!27, !35, i64 177}
+!37 = !{i8 0, i8 2}
+!38 = !{}
+!39 = !{!27, !11, i64 84}
+!40 = !{!28, !19, i64 2}

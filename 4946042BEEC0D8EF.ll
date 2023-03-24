@@ -148,34 +148,34 @@ define dso_local noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr 
   %14 = load ptr, ptr %13, align 8, !tbaa !25
   %15 = icmp eq ptr %14, null
   %16 = load i8, ptr %1, align 1, !tbaa !20
-  br i1 %15, label %17, label %20
+  %17 = sext i8 %16 to i32
+  br i1 %15, label %18, label %21
 
-17:                                               ; preds = %12
-  switch i8 %16, label %45 [
-    i8 35, label %18
-    i8 105, label %19
-    i8 101, label %19
-    i8 100, label %19
-    i8 119, label %19
+18:                                               ; preds = %12
+  switch i32 %17, label %45 [
+    i32 35, label %19
+    i32 105, label %20
+    i32 101, label %20
+    i32 100, label %20
+    i32 119, label %20
   ]
 
-18:                                               ; preds = %17
+19:                                               ; preds = %18
   store i8 1, ptr %3, align 1, !tbaa !27
   br label %45
 
-19:                                               ; preds = %17, %17, %17, %17
+20:                                               ; preds = %18, %18, %18, %18
   store ptr %1, ptr %13, align 8, !tbaa !25
   br label %45
 
-20:                                               ; preds = %12
-  %21 = sext i8 %16 to i32
-  %22 = tail call i32 @isalnum(i32 noundef %21) #19
-  %23 = icmp ne i32 %22, 0
-  %24 = icmp eq i8 %16, 95
-  %25 = select i1 %23, i1 true, i1 %24
-  br i1 %25, label %45, label %26
+21:                                               ; preds = %12
+  %22 = tail call i32 @isalnum(i32 noundef %17) #19
+  %23 = icmp eq i32 %22, 0
+  %24 = icmp ne i8 %16, 95
+  %25 = and i1 %24, %23
+  br i1 %25, label %26, label %45
 
-26:                                               ; preds = %20
+26:                                               ; preds = %21
   %27 = ptrtoint ptr %1 to i64
   %28 = ptrtoint ptr %14 to i64
   %29 = sub i64 %27, %28
@@ -213,8 +213,8 @@ define dso_local noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr 
   store ptr null, ptr %13, align 8, !tbaa !25
   br label %45
 
-45:                                               ; preds = %17, %19, %18, %43, %20, %6, %11
-  %46 = phi i1 [ false, %6 ], [ false, %11 ], [ false, %20 ], [ %44, %43 ], [ false, %18 ], [ false, %19 ], [ false, %17 ]
+45:                                               ; preds = %18, %20, %19, %43, %21, %6, %11
+  %46 = phi i1 [ false, %6 ], [ false, %11 ], [ false, %21 ], [ %44, %43 ], [ false, %19 ], [ false, %20 ], [ false, %18 ]
   ret i1 %46
 }
 
@@ -244,7 +244,7 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
 5:                                                ; preds = %3
   %6 = load i8, ptr %1, align 1, !tbaa !20
   %7 = icmp eq i8 %6, 0
-  br i1 %7, label %278, label %8
+  br i1 %7, label %280, label %8
 
 8:                                                ; preds = %5
   %9 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 2
@@ -252,12 +252,12 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
   %11 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 1
   %12 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 11
   %13 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 12
-  %14 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 5
-  %15 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 6
-  %16 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 10
-  %17 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
-  %18 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 13
-  %19 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 14
+  %14 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 13
+  %15 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 14
+  %16 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 5
+  %17 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 6
+  %18 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 10
+  %19 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
   %20 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 19
   %21 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 9
   %22 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 15
@@ -266,7 +266,7 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
 23:                                               ; preds = %3
   %24 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 5
   store i32 0, ptr %24, align 8, !tbaa !22
-  br label %280
+  br label %282
 
 25:                                               ; preds = %3
   %26 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 1
@@ -297,15 +297,15 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
   store i32 %45, ptr %29, align 8, !tbaa !21
   %46 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
   store i8 10, ptr %46, align 1, !tbaa !24
-  br label %280
+  br label %282
 
-47:                                               ; preds = %8, %270
-  %48 = phi i8 [ %6, %8 ], [ %276, %270 ]
-  %49 = phi ptr [ %1, %8 ], [ %50, %270 ]
+47:                                               ; preds = %8, %272
+  %48 = phi i8 [ %6, %8 ], [ %278, %272 ]
+  %49 = phi ptr [ %1, %8 ], [ %50, %272 ]
   %50 = getelementptr inbounds i8, ptr %49, i64 1
   %51 = sext i8 %48 to i32
   switch i32 %51, label %55 [
-    i32 0, label %280
+    i32 0, label %282
     i32 10, label %52
   ]
 
@@ -323,12 +323,12 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
   br i1 %58, label %59, label %83
 
 59:                                               ; preds = %55
-  %60 = load i32, ptr %14, align 8, !tbaa !22
+  %60 = load i32, ptr %16, align 8, !tbaa !22
   %61 = icmp sgt i32 %60, 199
   br i1 %61, label %62, label %80
 
 62:                                               ; preds = %59
-  %63 = load i8, ptr %15, align 4, !tbaa !23, !range !29, !noundef !30
+  %63 = load i8, ptr %17, align 4, !tbaa !23, !range !29, !noundef !30
   %64 = icmp eq i8 %63, 0
   br i1 %64, label %76, label %65
 
@@ -356,13 +356,13 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
 77:                                               ; preds = %76, %65
   %78 = phi i8 [ 0, %65 ], [ 1, %76 ]
   %79 = phi i32 [ 0, %65 ], [ %60, %76 ]
-  store i8 %78, ptr %15, align 4, !tbaa !23
+  store i8 %78, ptr %17, align 4, !tbaa !23
   br label %80
 
 80:                                               ; preds = %77, %76, %76, %59
   %81 = phi i32 [ %60, %76 ], [ %60, %76 ], [ %60, %59 ], [ %79, %77 ]
   %82 = add nsw i32 %81, 1
-  store i32 %82, ptr %14, align 8, !tbaa !22
+  store i32 %82, ptr %16, align 8, !tbaa !22
   br label %88
 
 83:                                               ; preds = %55
@@ -389,7 +389,7 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
   br i1 %97, label %98, label %103
 
 98:                                               ; preds = %96
-  %99 = load i32, ptr %16, align 4, !tbaa !39
+  %99 = load i32, ptr %18, align 4, !tbaa !39
   %100 = and i32 %99, 1
   %101 = icmp eq i32 %100, 0
   br i1 %101, label %102, label %103
@@ -401,8 +401,8 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
 103:                                              ; preds = %91, %102, %98, %96
   %104 = load ptr, ptr %11, align 8, !tbaa !8
   %105 = tail call i32 @putc(i32 noundef %51, ptr noundef %104)
-  store i8 %48, ptr %17, align 1, !tbaa !24
-  br label %270
+  store i8 %48, ptr %19, align 1, !tbaa !24
+  br label %272
 
 106:                                              ; preds = %88
   %107 = load i8, ptr %13, align 1, !tbaa !40, !range !29, !noundef !30
@@ -412,14 +412,14 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
 109:                                              ; preds = %91
   %110 = load i8, ptr %13, align 1, !tbaa !40, !range !29, !noundef !30
   %111 = icmp eq i8 %110, 0
-  br i1 %111, label %122, label %119
+  br i1 %111, label %125, label %119
 
 112:                                              ; preds = %106
   %113 = icmp eq i8 %48, 39
   br i1 %113, label %114, label %119
 
 114:                                              ; preds = %112
-  %115 = load i32, ptr %16, align 4, !tbaa !39
+  %115 = load i32, ptr %18, align 4, !tbaa !39
   %116 = and i32 %115, 1
   %117 = icmp eq i32 %116, 0
   br i1 %117, label %118, label %119
@@ -431,348 +431,354 @@ define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef 
 119:                                              ; preds = %109, %118, %114, %112
   %120 = load ptr, ptr %11, align 8, !tbaa !8
   %121 = tail call i32 @putc(i32 noundef %51, ptr noundef %120)
-  store i8 %48, ptr %17, align 1, !tbaa !24
-  br label %270
+  store i8 %48, ptr %19, align 1, !tbaa !24
+  br label %272
 
-122:                                              ; preds = %109, %106
-  %123 = load i8, ptr %18, align 2, !tbaa !41, !range !29, !noundef !30
+122:                                              ; preds = %106
+  %123 = load i8, ptr %14, align 2, !tbaa !41, !range !29, !noundef !30
   %124 = icmp eq i8 %123, 0
-  br i1 %124, label %135, label %125
+  br i1 %124, label %136, label %128
 
-125:                                              ; preds = %122
-  %126 = icmp eq i8 %48, 47
-  %127 = load i8, ptr %17, align 1
-  %128 = icmp eq i8 %127, 42
-  %129 = select i1 %126, i1 %128, i1 false
-  br i1 %129, label %130, label %131
+125:                                              ; preds = %109
+  %126 = load i8, ptr %14, align 2, !tbaa !41, !range !29, !noundef !30
+  %127 = icmp eq i8 %126, 0
+  br i1 %127, label %139, label %133
 
-130:                                              ; preds = %125
-  store i8 0, ptr %18, align 2, !tbaa !41
-  br label %132
-
-131:                                              ; preds = %125
-  switch i32 %51, label %132 [
-    i32 11, label %270
-    i32 13, label %270
-    i32 8, label %270
+128:                                              ; preds = %122
+  switch i32 %51, label %133 [
+    i32 47, label %129
+    i32 11, label %272
+    i32 13, label %272
+    i32 8, label %272
   ]
 
-132:                                              ; preds = %130, %131
-  %133 = load ptr, ptr %11, align 8, !tbaa !8
-  %134 = tail call i32 @putc(i32 noundef %51, ptr noundef %133)
-  store i8 %48, ptr %17, align 1, !tbaa !24
-  br label %270
+129:                                              ; preds = %128
+  %130 = load i8, ptr %19, align 1, !tbaa !24
+  %131 = icmp eq i8 %130, 42
+  br i1 %131, label %132, label %133
 
-135:                                              ; preds = %122
-  %136 = load i8, ptr %19, align 1, !tbaa !42, !range !29, !noundef !30
-  %137 = icmp eq i8 %136, 0
-  br i1 %137, label %145, label %138
+132:                                              ; preds = %129
+  store i8 0, ptr %14, align 2, !tbaa !41
+  br label %133
 
-138:                                              ; preds = %135
-  %139 = icmp eq i8 %48, 10
-  br i1 %139, label %140, label %141
+133:                                              ; preds = %128, %125, %129, %132
+  %134 = load ptr, ptr %11, align 8, !tbaa !8
+  %135 = tail call i32 @putc(i32 noundef %51, ptr noundef %134)
+  store i8 %48, ptr %19, align 1, !tbaa !24
+  br label %272
 
-140:                                              ; preds = %138
-  store i8 0, ptr %19, align 1, !tbaa !42
-  br label %142
+136:                                              ; preds = %122
+  %137 = load i8, ptr %15, align 1, !tbaa !42, !range !29, !noundef !30
+  %138 = icmp eq i8 %137, 0
+  br i1 %138, label %147, label %142
 
-141:                                              ; preds = %138
-  switch i32 %51, label %142 [
-    i32 11, label %270
-    i32 13, label %270
-    i32 8, label %270
+139:                                              ; preds = %125
+  %140 = load i8, ptr %15, align 1, !tbaa !42, !range !29, !noundef !30
+  %141 = icmp eq i8 %140, 0
+  br i1 %141, label %147, label %144
+
+142:                                              ; preds = %136
+  switch i32 %51, label %144 [
+    i32 10, label %143
+    i32 11, label %272
+    i32 13, label %272
+    i32 8, label %272
   ]
 
-142:                                              ; preds = %140, %141
-  %143 = load ptr, ptr %11, align 8, !tbaa !8
-  %144 = tail call i32 @putc(i32 noundef %51, ptr noundef %143)
-  store i8 %48, ptr %17, align 1, !tbaa !24
-  br label %270
+143:                                              ; preds = %142
+  store i8 0, ptr %15, align 1, !tbaa !42
+  br label %144
 
-145:                                              ; preds = %135
-  %146 = load i8, ptr %20, align 8, !tbaa !26, !range !29, !noundef !30
-  %147 = icmp eq i8 %146, 0
-  br i1 %147, label %148, label %154
+144:                                              ; preds = %142, %139, %143
+  %145 = load ptr, ptr %11, align 8, !tbaa !8
+  %146 = tail call i32 @putc(i32 noundef %51, ptr noundef %145)
+  store i8 %48, ptr %19, align 1, !tbaa !24
+  br label %272
 
-148:                                              ; preds = %145
-  %149 = tail call noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr noundef nonnull align 8 dereferenceable(90) %0, ptr noundef nonnull %49)
-  %150 = zext i1 %149 to i8
-  store i8 %150, ptr %20, align 8, !tbaa !26
-  br i1 %149, label %151, label %154
+147:                                              ; preds = %139, %136
+  %148 = load i8, ptr %20, align 8, !tbaa !26, !range !29, !noundef !30
+  %149 = icmp eq i8 %148, 0
+  br i1 %149, label %150, label %156
 
-151:                                              ; preds = %148
-  %152 = load i32, ptr %21, align 8, !tbaa !43
-  %153 = add nsw i32 %152, 1
-  store i32 %153, ptr %21, align 8, !tbaa !43
-  br label %154
+150:                                              ; preds = %147
+  %151 = tail call noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr noundef nonnull align 8 dereferenceable(90) %0, ptr noundef nonnull %49)
+  %152 = zext i1 %151 to i8
+  store i8 %152, ptr %20, align 8, !tbaa !26
+  br i1 %151, label %153, label %156
 
-154:                                              ; preds = %148, %151, %145
-  %155 = phi i1 [ true, %148 ], [ false, %151 ], [ false, %145 ]
-  switch i32 %51, label %203 [
-    i32 59, label %156
-    i32 123, label %160
-    i32 40, label %164
-    i32 11, label %165
-    i32 125, label %168
-    i32 41, label %168
-    i32 13, label %173
-    i32 8, label %178
-    i32 32, label %179
-    i32 9, label %179
+153:                                              ; preds = %150
+  %154 = load i32, ptr %21, align 8, !tbaa !43
+  %155 = add nsw i32 %154, 1
+  store i32 %155, ptr %21, align 8, !tbaa !43
+  br label %156
+
+156:                                              ; preds = %150, %153, %147
+  %157 = phi i1 [ true, %150 ], [ false, %153 ], [ false, %147 ]
+  switch i32 %51, label %205 [
+    i32 59, label %158
+    i32 123, label %162
+    i32 40, label %166
+    i32 11, label %167
+    i32 125, label %170
+    i32 41, label %170
+    i32 13, label %175
+    i32 8, label %180
+    i32 32, label %181
+    i32 9, label %181
   ]
 
-156:                                              ; preds = %154
-  br i1 %155, label %203, label %157
+158:                                              ; preds = %156
+  br i1 %157, label %205, label %159
 
-157:                                              ; preds = %156
-  %158 = load i32, ptr %21, align 8, !tbaa !43
-  %159 = add nsw i32 %158, -1
-  store i32 %159, ptr %21, align 8, !tbaa !43
+159:                                              ; preds = %158
+  %160 = load i32, ptr %21, align 8, !tbaa !43
+  %161 = add nsw i32 %160, -1
+  store i32 %161, ptr %21, align 8, !tbaa !43
   store i8 0, ptr %20, align 8, !tbaa !26
-  br label %203
+  br label %205
 
-160:                                              ; preds = %154
-  br i1 %155, label %164, label %161
+162:                                              ; preds = %156
+  br i1 %157, label %166, label %163
 
-161:                                              ; preds = %160
-  %162 = load i32, ptr %21, align 8, !tbaa !43
-  %163 = add nsw i32 %162, -1
-  store i32 %163, ptr %21, align 8, !tbaa !43
+163:                                              ; preds = %162
+  %164 = load i32, ptr %21, align 8, !tbaa !43
+  %165 = add nsw i32 %164, -1
+  store i32 %165, ptr %21, align 8, !tbaa !43
   store i8 0, ptr %20, align 8, !tbaa !26
-  br label %164
+  br label %166
 
-164:                                              ; preds = %160, %161, %154
-  br label %203
+166:                                              ; preds = %162, %163, %156
+  br label %205
 
-165:                                              ; preds = %154
-  %166 = load i32, ptr %21, align 8, !tbaa !43
-  %167 = add nsw i32 %166, 1
-  store i32 %167, ptr %21, align 8, !tbaa !43
-  br label %270
+167:                                              ; preds = %156
+  %168 = load i32, ptr %21, align 8, !tbaa !43
+  %169 = add nsw i32 %168, 1
+  store i32 %169, ptr %21, align 8, !tbaa !43
+  br label %272
 
-168:                                              ; preds = %154, %154
-  %169 = load i32, ptr %21, align 8, !tbaa !43
-  %170 = icmp eq i32 %169, 0
-  br i1 %170, label %203, label %171
+170:                                              ; preds = %156, %156
+  %171 = load i32, ptr %21, align 8, !tbaa !43
+  %172 = icmp eq i32 %171, 0
+  br i1 %172, label %205, label %173
 
-171:                                              ; preds = %168
-  %172 = add nsw i32 %169, -1
-  store i32 %172, ptr %21, align 8, !tbaa !43
-  br label %203
+173:                                              ; preds = %170
+  %174 = add nsw i32 %171, -1
+  store i32 %174, ptr %21, align 8, !tbaa !43
+  br label %205
 
-173:                                              ; preds = %154
-  %174 = load i32, ptr %21, align 8, !tbaa !43
-  %175 = icmp eq i32 %174, 0
-  br i1 %175, label %270, label %176
+175:                                              ; preds = %156
+  %176 = load i32, ptr %21, align 8, !tbaa !43
+  %177 = icmp eq i32 %176, 0
+  br i1 %177, label %272, label %178
 
-176:                                              ; preds = %173
-  %177 = add nsw i32 %174, -1
-  store i32 %177, ptr %21, align 8, !tbaa !43
-  br label %270
+178:                                              ; preds = %175
+  %179 = add nsw i32 %176, -1
+  store i32 %179, ptr %21, align 8, !tbaa !43
+  br label %272
 
-178:                                              ; preds = %154
-  store i8 %48, ptr %17, align 1, !tbaa !24
-  br label %270
+180:                                              ; preds = %156
+  store i8 %48, ptr %19, align 1, !tbaa !24
+  br label %272
 
-179:                                              ; preds = %154, %154
-  %180 = load i8, ptr %17, align 1, !tbaa !24
-  %181 = sext i8 %180 to i32
-  %182 = icmp eq i8 %180, 8
-  %183 = load i8, ptr %10, align 1
-  %184 = icmp eq i8 %183, 0
-  %185 = select i1 %182, i1 true, i1 %184
-  br i1 %185, label %203, label %186
+181:                                              ; preds = %156, %156
+  %182 = load i8, ptr %19, align 1, !tbaa !24
+  %183 = sext i8 %182 to i32
+  %184 = icmp eq i8 %182, 8
+  %185 = load i8, ptr %10, align 1
+  %186 = icmp eq i8 %185, 0
+  %187 = select i1 %184, i1 true, i1 %186
+  br i1 %187, label %205, label %188
 
-186:                                              ; preds = %179
-  %187 = tail call i32 @isspace(i32 noundef %181) #19
-  %188 = icmp eq i32 %187, 0
-  br i1 %188, label %189, label %270
+188:                                              ; preds = %181
+  %189 = tail call i32 @isspace(i32 noundef %183) #19
+  %190 = icmp eq i32 %189, 0
+  br i1 %190, label %191, label %272
 
-189:                                              ; preds = %186
-  %190 = tail call i32 @isalnum(i32 noundef %181) #19
-  %191 = freeze i32 %190
-  %192 = icmp eq i32 %191, 0
-  br i1 %192, label %193, label %194
+191:                                              ; preds = %188
+  %192 = tail call i32 @isalnum(i32 noundef %183) #19
+  %193 = freeze i32 %192
+  %194 = icmp eq i32 %193, 0
+  br i1 %194, label %195, label %196
 
-193:                                              ; preds = %189
-  switch i8 %180, label %270 [
-    i8 125, label %194
-    i8 95, label %194
-    i8 41, label %194
-    i8 39, label %194
-    i8 34, label %194
+195:                                              ; preds = %191
+  switch i32 %183, label %272 [
+    i32 125, label %196
+    i32 95, label %196
+    i32 41, label %196
+    i32 39, label %196
+    i32 34, label %196
   ]
 
-194:                                              ; preds = %193, %193, %193, %193, %193, %189
-  %195 = getelementptr inbounds i8, ptr %49, i64 2
-  %196 = load i8, ptr %195, align 1, !tbaa !20
-  %197 = sext i8 %196 to i32
-  %198 = tail call i32 @isalnum(i32 noundef %197) #19
-  %199 = freeze i32 %198
-  %200 = icmp eq i32 %199, 0
-  br i1 %200, label %201, label %203
+196:                                              ; preds = %195, %195, %195, %195, %195, %191
+  %197 = getelementptr inbounds i8, ptr %49, i64 2
+  %198 = load i8, ptr %197, align 1, !tbaa !20
+  %199 = sext i8 %198 to i32
+  %200 = tail call i32 @isalnum(i32 noundef %199) #19
+  %201 = freeze i32 %200
+  %202 = icmp eq i32 %201, 0
+  br i1 %202, label %203, label %205
 
-201:                                              ; preds = %194
-  switch i8 %196, label %202 [
-    i8 95, label %203
-    i8 39, label %203
-    i8 34, label %203
+203:                                              ; preds = %196
+  switch i32 %199, label %204 [
+    i32 95, label %205
+    i32 39, label %205
+    i32 34, label %205
   ]
 
-202:                                              ; preds = %201
+204:                                              ; preds = %203
   store i8 1, ptr %22, align 4, !tbaa !44
-  br label %270
+  br label %272
 
-203:                                              ; preds = %201, %201, %201, %194, %154, %179, %168, %171, %156, %157, %164
-  %204 = phi i8 [ %48, %154 ], [ %48, %179 ], [ %48, %171 ], [ %48, %168 ], [ %48, %164 ], [ %48, %157 ], [ %48, %156 ], [ 32, %201 ], [ 32, %194 ], [ 32, %201 ], [ 32, %201 ]
-  %205 = phi i32 [ 0, %154 ], [ 0, %179 ], [ 0, %171 ], [ 0, %168 ], [ 1, %164 ], [ 0, %157 ], [ 0, %156 ], [ 0, %201 ], [ 0, %194 ], [ 0, %201 ], [ 0, %201 ]
-  %206 = load i8, ptr %17, align 1, !tbaa !24
-  %207 = freeze i8 %206
-  %208 = icmp eq i8 %207, 10
-  %209 = sext i8 %204 to i32
-  br i1 %208, label %210, label %230
+205:                                              ; preds = %203, %203, %203, %196, %156, %181, %170, %173, %158, %159, %166
+  %206 = phi i8 [ %48, %156 ], [ %48, %181 ], [ %48, %173 ], [ %48, %170 ], [ %48, %166 ], [ %48, %159 ], [ %48, %158 ], [ 32, %203 ], [ 32, %196 ], [ 32, %203 ], [ 32, %203 ]
+  %207 = phi i32 [ 0, %156 ], [ 0, %181 ], [ 0, %173 ], [ 0, %170 ], [ 1, %166 ], [ 0, %159 ], [ 0, %158 ], [ 0, %203 ], [ 0, %196 ], [ 0, %203 ], [ 0, %203 ]
+  %208 = load i8, ptr %19, align 1, !tbaa !24
+  %209 = freeze i8 %208
+  %210 = icmp eq i8 %209, 10
+  %211 = sext i8 %206 to i32
+  br i1 %210, label %212, label %232
 
-210:                                              ; preds = %203
-  switch i8 %204, label %211 [
-    i8 35, label %230
-    i8 10, label %230
+212:                                              ; preds = %205
+  switch i32 %211, label %213 [
+    i32 35, label %232
+    i32 10, label %232
   ]
 
-211:                                              ; preds = %210
-  %212 = load i32, ptr %21, align 8, !tbaa !43
-  %213 = load i32, ptr @_ZN14kc_filePrinter12indent_levelE, align 4, !tbaa !45
-  %214 = mul nsw i32 %213, %212
-  %215 = icmp sgt i32 %214, 0
-  br i1 %215, label %216, label %230
+213:                                              ; preds = %212
+  %214 = load i32, ptr %21, align 8, !tbaa !43
+  %215 = load i32, ptr @_ZN14kc_filePrinter12indent_levelE, align 4, !tbaa !45
+  %216 = mul nsw i32 %215, %214
+  %217 = icmp sgt i32 %216, 0
+  br i1 %217, label %218, label %232
 
-216:                                              ; preds = %211, %225
-  %217 = phi i32 [ %228, %225 ], [ %214, %211 ]
-  %218 = icmp ugt i32 %217, 7
-  br i1 %218, label %225, label %219
+218:                                              ; preds = %213, %227
+  %219 = phi i32 [ %230, %227 ], [ %216, %213 ]
+  %220 = icmp ugt i32 %219, 7
+  br i1 %220, label %227, label %221
 
-219:                                              ; preds = %216, %219
-  %220 = phi i32 [ %223, %219 ], [ 0, %216 ]
-  %221 = load ptr, ptr %11, align 8, !tbaa !8
-  %222 = tail call i32 @putc(i32 noundef 32, ptr noundef %221)
-  %223 = add nuw nsw i32 %220, 1
-  %224 = icmp eq i32 %223, %217
-  br i1 %224, label %230, label %219, !llvm.loop !46
+221:                                              ; preds = %218, %221
+  %222 = phi i32 [ %225, %221 ], [ 0, %218 ]
+  %223 = load ptr, ptr %11, align 8, !tbaa !8
+  %224 = tail call i32 @putc(i32 noundef 32, ptr noundef %223)
+  %225 = add nuw nsw i32 %222, 1
+  %226 = icmp eq i32 %225, %219
+  br i1 %226, label %232, label %221, !llvm.loop !46
 
-225:                                              ; preds = %216
-  %226 = load ptr, ptr %11, align 8, !tbaa !8
-  %227 = tail call i32 @putc(i32 noundef 9, ptr noundef %226)
-  %228 = add nsw i32 %217, -8
-  %229 = icmp eq i32 %228, 0
-  br i1 %229, label %230, label %216, !llvm.loop !48
+227:                                              ; preds = %218
+  %228 = load ptr, ptr %11, align 8, !tbaa !8
+  %229 = tail call i32 @putc(i32 noundef 9, ptr noundef %228)
+  %230 = add nsw i32 %219, -8
+  %231 = icmp eq i32 %230, 0
+  br i1 %231, label %232, label %218, !llvm.loop !48
 
-230:                                              ; preds = %225, %219, %211, %210, %210, %203
-  %231 = tail call i32 @isspace(i32 noundef %209) #19
-  %232 = icmp eq i32 %231, 0
-  br i1 %232, label %233, label %234
+232:                                              ; preds = %227, %221, %213, %212, %212, %205
+  %233 = tail call i32 @isspace(i32 noundef %211) #19
+  %234 = icmp eq i32 %233, 0
+  br i1 %234, label %235, label %236
 
-233:                                              ; preds = %230
+235:                                              ; preds = %232
   store i8 0, ptr %10, align 1, !tbaa !37
-  br label %234
+  br label %236
 
-234:                                              ; preds = %233, %230
-  switch i8 %204, label %253 [
-    i8 34, label %235
-    i8 39, label %240
-    i8 47, label %245
-    i8 42, label %249
+236:                                              ; preds = %235, %232
+  switch i32 %211, label %255 [
+    i32 34, label %237
+    i32 39, label %242
+    i32 47, label %247
+    i32 42, label %251
   ]
 
-235:                                              ; preds = %234
-  %236 = load i32, ptr %16, align 4, !tbaa !39
-  %237 = and i32 %236, 1
-  %238 = icmp eq i32 %237, 0
-  br i1 %238, label %239, label %253
+237:                                              ; preds = %236
+  %238 = load i32, ptr %18, align 4, !tbaa !39
+  %239 = and i32 %238, 1
+  %240 = icmp eq i32 %239, 0
+  br i1 %240, label %241, label %255
 
-239:                                              ; preds = %235
+241:                                              ; preds = %237
   store i8 1, ptr %12, align 8, !tbaa !38
-  br label %253
+  br label %255
 
-240:                                              ; preds = %234
-  %241 = load i32, ptr %16, align 4, !tbaa !39
-  %242 = and i32 %241, 1
-  %243 = icmp eq i32 %242, 0
-  br i1 %243, label %244, label %253
+242:                                              ; preds = %236
+  %243 = load i32, ptr %18, align 4, !tbaa !39
+  %244 = and i32 %243, 1
+  %245 = icmp eq i32 %244, 0
+  br i1 %245, label %246, label %255
 
-244:                                              ; preds = %240
+246:                                              ; preds = %242
   store i8 1, ptr %13, align 1, !tbaa !40
-  br label %253
+  br label %255
 
-245:                                              ; preds = %234
-  %246 = load i8, ptr %17, align 1, !tbaa !24
-  %247 = icmp eq i8 %246, 47
-  br i1 %247, label %248, label %253
+247:                                              ; preds = %236
+  %248 = load i8, ptr %19, align 1, !tbaa !24
+  %249 = icmp eq i8 %248, 47
+  br i1 %249, label %250, label %255
 
-248:                                              ; preds = %245
-  store i8 1, ptr %19, align 1, !tbaa !42
-  br label %253
+250:                                              ; preds = %247
+  store i8 1, ptr %15, align 1, !tbaa !42
+  br label %255
 
-249:                                              ; preds = %234
-  %250 = load i8, ptr %17, align 1, !tbaa !24
-  %251 = icmp eq i8 %250, 47
-  br i1 %251, label %252, label %253
+251:                                              ; preds = %236
+  %252 = load i8, ptr %19, align 1, !tbaa !24
+  %253 = icmp eq i8 %252, 47
+  br i1 %253, label %254, label %255
 
-252:                                              ; preds = %249
-  store i8 1, ptr %18, align 2, !tbaa !41
-  br label %253
+254:                                              ; preds = %251
+  store i8 1, ptr %14, align 2, !tbaa !41
+  br label %255
 
-253:                                              ; preds = %245, %240, %235, %234, %244, %249, %252, %248, %239
-  %254 = load i8, ptr %22, align 4, !tbaa !44, !range !29, !noundef !30
-  %255 = icmp eq i8 %254, 0
-  br i1 %255, label %265, label %256
+255:                                              ; preds = %236, %237, %242, %247, %246, %251, %254, %250, %241
+  %256 = load i8, ptr %22, align 4, !tbaa !44, !range !29, !noundef !30
+  %257 = icmp eq i8 %256, 0
+  br i1 %257, label %267, label %258
 
-256:                                              ; preds = %253
-  %257 = tail call i32 @isalnum(i32 noundef %209) #19
-  %258 = freeze i32 %257
-  %259 = icmp eq i32 %258, 0
-  br i1 %259, label %260, label %261
+258:                                              ; preds = %255
+  %259 = tail call i32 @isalnum(i32 noundef %211) #19
+  %260 = freeze i32 %259
+  %261 = icmp eq i32 %260, 0
+  br i1 %261, label %262, label %263
 
-260:                                              ; preds = %256
-  switch i8 %204, label %264 [
-    i8 95, label %261
-    i8 39, label %261
-    i8 34, label %261
+262:                                              ; preds = %258
+  switch i32 %211, label %266 [
+    i32 95, label %263
+    i32 39, label %263
+    i32 34, label %263
   ]
 
-261:                                              ; preds = %260, %260, %260, %256
-  %262 = load ptr, ptr %11, align 8, !tbaa !8
-  %263 = tail call i32 @putc(i32 noundef 32, ptr noundef %262)
-  br label %264
+263:                                              ; preds = %262, %262, %262, %258
+  %264 = load ptr, ptr %11, align 8, !tbaa !8
+  %265 = tail call i32 @putc(i32 noundef 32, ptr noundef %264)
+  br label %266
 
-264:                                              ; preds = %260, %261
+266:                                              ; preds = %262, %263
   store i8 0, ptr %22, align 4, !tbaa !44
-  br label %265
+  br label %267
 
-265:                                              ; preds = %264, %253
-  %266 = load ptr, ptr %11, align 8, !tbaa !8
-  %267 = tail call i32 @putc(i32 noundef %209, ptr noundef %266)
-  store i8 %204, ptr %17, align 1, !tbaa !24
-  %268 = load i32, ptr %21, align 8, !tbaa !43
-  %269 = add nsw i32 %268, %205
-  store i32 %269, ptr %21, align 8, !tbaa !43
-  br label %270
+267:                                              ; preds = %266, %255
+  %268 = load ptr, ptr %11, align 8, !tbaa !8
+  %269 = tail call i32 @putc(i32 noundef %211, ptr noundef %268)
+  store i8 %206, ptr %19, align 1, !tbaa !24
+  %270 = load i32, ptr %21, align 8, !tbaa !43
+  %271 = add nsw i32 %270, %207
+  store i32 %271, ptr %21, align 8, !tbaa !43
+  br label %272
 
-270:                                              ; preds = %193, %165, %178, %265, %176, %173, %186, %202, %119, %141, %141, %141, %142, %132, %131, %131, %131, %103
-  %271 = phi i8 [ %48, %103 ], [ %48, %119 ], [ %48, %132 ], [ %48, %131 ], [ %48, %131 ], [ %48, %131 ], [ %48, %142 ], [ %48, %141 ], [ %48, %141 ], [ %48, %141 ], [ %204, %265 ], [ %48, %186 ], [ %48, %202 ], [ %48, %178 ], [ %48, %176 ], [ %48, %173 ], [ %48, %165 ], [ %48, %193 ]
-  %272 = icmp eq i8 %271, 92
-  %273 = load i32, ptr %16, align 4
-  %274 = add nsw i32 %273, 1
-  %275 = select i1 %272, i32 %274, i32 0
-  store i32 %275, ptr %16, align 4, !tbaa !39
-  %276 = load i8, ptr %50, align 1, !tbaa !20
-  %277 = icmp eq i8 %276, 0
-  br i1 %277, label %278, label %47, !llvm.loop !49
+272:                                              ; preds = %195, %142, %142, %142, %128, %128, %128, %167, %180, %267, %178, %175, %188, %204, %119, %144, %133, %103
+  %273 = phi i8 [ %48, %103 ], [ %48, %119 ], [ %48, %133 ], [ %48, %144 ], [ %206, %267 ], [ %48, %188 ], [ %48, %204 ], [ %48, %180 ], [ %48, %178 ], [ %48, %175 ], [ %48, %167 ], [ %48, %128 ], [ %48, %128 ], [ %48, %128 ], [ %48, %142 ], [ %48, %142 ], [ %48, %142 ], [ %48, %195 ]
+  %274 = icmp eq i8 %273, 92
+  %275 = load i32, ptr %18, align 4
+  %276 = add nsw i32 %275, 1
+  %277 = select i1 %274, i32 %276, i32 0
+  store i32 %277, ptr %18, align 4, !tbaa !39
+  %278 = load i8, ptr %50, align 1, !tbaa !20
+  %279 = icmp eq i8 %278, 0
+  br i1 %279, label %280, label %47, !llvm.loop !49
 
-278:                                              ; preds = %270, %5
-  %279 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 18
-  store ptr null, ptr %279, align 8, !tbaa !25
-  br label %280
+280:                                              ; preds = %272, %5
+  %281 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 18
+  store ptr null, ptr %281, align 8, !tbaa !25
+  br label %282
 
-280:                                              ; preds = %47, %23, %43, %278
+282:                                              ; preds = %47, %23, %43, %280
   ret void
 }
 
@@ -1199,11 +1205,11 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #2
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #2
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

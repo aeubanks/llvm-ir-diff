@@ -227,7 +227,7 @@ define internal fastcc void @GCTM(ptr noundef %0) unnamed_addr #0 {
   %54 = load ptr, ptr %45, align 8, !tbaa !32
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 2
   store ptr %55, ptr %45, align 8, !tbaa !32
-  tail call void @luaD_call(ptr noundef nonnull %0, ptr noundef %54, i32 noundef 0) #7
+  tail call void @luaD_call(ptr noundef nonnull %0, ptr noundef nonnull %54, i32 noundef 0) #7
   store i8 %39, ptr %38, align 1, !tbaa !29
   store i64 %41, ptr %40, align 8, !tbaa !30
   br label %56

@@ -337,11 +337,11 @@ define dso_local void @alloc_free(ptr noundef %0, i32 noundef %1, i32 noundef %2
 
 33:                                               ; preds = %30
   %34 = load i32, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 12), align 8, !tbaa !27
-  %35 = icmp ne i32 %34, 0
+  %35 = icmp eq i32 %34, 0
   %36 = load i32, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 0, i32 4), align 8
-  %37 = icmp slt i32 %36, %34
-  %38 = select i1 %35, i1 %37, i1 false
-  br i1 %38, label %39, label %44
+  %37 = icmp sge i32 %36, %34
+  %38 = select i1 %35, i1 true, i1 %37
+  br i1 %38, label %44, label %39
 
 39:                                               ; preds = %33
   %40 = load ptr, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 11), align 8, !tbaa !39
@@ -367,11 +367,11 @@ define dso_local void @alloc_free(ptr noundef %0, i32 noundef %1, i32 noundef %2
 
 54:                                               ; preds = %47
   %55 = load i32, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 12), align 8, !tbaa !27
-  %56 = icmp ne i32 %55, 0
+  %56 = icmp eq i32 %55, 0
   %57 = load i32, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 0, i32 4), align 8
-  %58 = icmp slt i32 %57, %55
-  %59 = select i1 %56, i1 %58, i1 false
-  br i1 %59, label %60, label %65
+  %58 = icmp sge i32 %57, %55
+  %59 = select i1 %56, i1 true, i1 %58
+  br i1 %59, label %65, label %60
 
 60:                                               ; preds = %54
   %61 = load ptr, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 11), align 8, !tbaa !39
@@ -442,7 +442,7 @@ define dso_local void @alloc_free(ptr noundef %0, i32 noundef %1, i32 noundef %2
   %102 = icmp ugt ptr %52, %0
   br i1 %102, label %103, label %111
 
-103:                                              ; preds = %88, %92, %101
+103:                                              ; preds = %92, %88, %101
   %104 = add i32 %49, -1
   %105 = icmp ult i32 %104, 255
   br i1 %105, label %106, label %111
@@ -456,7 +456,7 @@ define dso_local void @alloc_free(ptr noundef %0, i32 noundef %1, i32 noundef %2
   store ptr %0, ptr %109, align 8, !tbaa !30
   br label %111
 
-111:                                              ; preds = %18, %97, %76, %72, %25, %8, %103, %106, %101, %88, %92, %60, %65, %39, %44
+111:                                              ; preds = %18, %76, %97, %72, %92, %88, %103, %106, %101, %60, %65, %39, %44, %25, %8
   ret void
 }
 
@@ -575,8 +575,8 @@ define dso_local ptr @alloc_grow(ptr noundef %0, i32 noundef %1, i32 noundef %2,
   tail call void @alloc_free(ptr noundef %0, i32 noundef %1, i32 noundef %3, ptr poison)
   br label %53
 
-53:                                               ; preds = %25, %46, %48, %5, %51
-  %54 = phi ptr [ %49, %51 ], [ %0, %5 ], [ null, %48 ], [ %29, %25 ], [ %0, %46 ]
+53:                                               ; preds = %48, %25, %46, %5, %51
+  %54 = phi ptr [ %49, %51 ], [ %0, %5 ], [ %0, %46 ], [ %29, %25 ], [ null, %48 ]
   ret ptr %54
 }
 

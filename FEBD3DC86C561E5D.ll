@@ -380,151 +380,155 @@ define dso_local i32 @check_next_mb_and_get_field_mode_CABAC(ptr nocapture nound
   br i1 %11, label %84, label %85
 
 84:                                               ; preds = %59
-  br i1 %83, label %86, label %90
+  br i1 %83, label %86, label %93
 
 85:                                               ; preds = %59
-  br i1 %83, label %129, label %90
+  br i1 %83, label %90, label %93
 
 86:                                               ; preds = %84
   %87 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
   %88 = load i32, ptr %87, align 8, !tbaa !37
   %89 = icmp eq i32 %88, 0
-  br i1 %89, label %129, label %90
+  br i1 %89, label %90, label %93
 
-90:                                               ; preds = %84, %85, %86
-  %91 = load ptr, ptr %73, align 8, !tbaa !20
-  %92 = getelementptr inbounds %struct.Slice, ptr %91, i64 0, i32 10
-  %93 = load ptr, ptr %92, align 8, !tbaa !21
-  %94 = load ptr, ptr %15, align 8, !tbaa !9
-  %95 = load i32, ptr %12, align 4, !tbaa !15
-  %96 = zext i32 %95 to i64
-  %97 = getelementptr inbounds %struct.macroblock, ptr %94, i64 %96, i32 26
-  %98 = load i32, ptr %97, align 4, !tbaa !23
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %106, label %100
+90:                                               ; preds = %85, %86
+  %91 = load i32, ptr %12, align 4, !tbaa !15
+  %92 = add i32 %91, -1
+  br label %132
 
-100:                                              ; preds = %90
-  %101 = getelementptr inbounds %struct.macroblock, ptr %94, i64 %96, i32 22
-  %102 = load i32, ptr %101, align 4, !tbaa !26
-  %103 = sext i32 %102 to i64
-  %104 = getelementptr inbounds %struct.macroblock, ptr %94, i64 %103, i32 20
-  %105 = load i32, ptr %104, align 4, !tbaa !27
-  br label %106
+93:                                               ; preds = %84, %85, %86
+  %94 = load ptr, ptr %73, align 8, !tbaa !20
+  %95 = getelementptr inbounds %struct.Slice, ptr %94, i64 0, i32 10
+  %96 = load ptr, ptr %95, align 8, !tbaa !21
+  %97 = load ptr, ptr %15, align 8, !tbaa !9
+  %98 = load i32, ptr %12, align 4, !tbaa !15
+  %99 = zext i32 %98 to i64
+  %100 = getelementptr inbounds %struct.macroblock, ptr %97, i64 %99, i32 26
+  %101 = load i32, ptr %100, align 4, !tbaa !23
+  %102 = icmp eq i32 %101, 0
+  br i1 %102, label %109, label %103
 
-106:                                              ; preds = %100, %90
-  %107 = phi i32 [ %105, %100 ], [ 0, %90 ]
-  %108 = getelementptr inbounds %struct.macroblock, ptr %94, i64 %96, i32 27
-  %109 = load i32, ptr %108, align 8, !tbaa !28
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %117, label %111
+103:                                              ; preds = %93
+  %104 = getelementptr inbounds %struct.macroblock, ptr %97, i64 %99, i32 22
+  %105 = load i32, ptr %104, align 4, !tbaa !26
+  %106 = sext i32 %105 to i64
+  %107 = getelementptr inbounds %struct.macroblock, ptr %97, i64 %106, i32 20
+  %108 = load i32, ptr %107, align 4, !tbaa !27
+  br label %109
 
-111:                                              ; preds = %106
-  %112 = getelementptr inbounds %struct.macroblock, ptr %94, i64 %96, i32 23
-  %113 = load i32, ptr %112, align 8, !tbaa !29
-  %114 = sext i32 %113 to i64
-  %115 = getelementptr inbounds %struct.macroblock, ptr %94, i64 %114, i32 20
-  %116 = load i32, ptr %115, align 4, !tbaa !27
-  br label %117
+109:                                              ; preds = %103, %93
+  %110 = phi i32 [ %108, %103 ], [ 0, %93 ]
+  %111 = getelementptr inbounds %struct.macroblock, ptr %97, i64 %99, i32 27
+  %112 = load i32, ptr %111, align 8, !tbaa !28
+  %113 = icmp eq i32 %112, 0
+  br i1 %113, label %120, label %114
 
-117:                                              ; preds = %106, %111
-  %118 = phi i32 [ %116, %111 ], [ 0, %106 ]
-  %119 = add nsw i32 %118, %107
-  %120 = sext i32 %119 to i64
-  %121 = getelementptr inbounds %struct.MotionInfoContexts, ptr %93, i64 0, i32 5, i64 %120
-  %122 = call i32 @biari_decode_symbol(ptr noundef nonnull %8, ptr noundef nonnull %121) #12
-  %123 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  store i32 %122, ptr %123, align 4, !tbaa !30
-  %124 = load ptr, ptr %15, align 8, !tbaa !9
-  %125 = load i32, ptr %12, align 4, !tbaa !15
-  %126 = add i32 %125, -1
-  %127 = zext i32 %126 to i64
-  %128 = getelementptr inbounds %struct.macroblock, ptr %124, i64 %127, i32 20
-  store i32 %122, ptr %128, align 4, !tbaa !27
-  br label %129
+114:                                              ; preds = %109
+  %115 = getelementptr inbounds %struct.macroblock, ptr %97, i64 %99, i32 23
+  %116 = load i32, ptr %115, align 8, !tbaa !29
+  %117 = sext i32 %116 to i64
+  %118 = getelementptr inbounds %struct.macroblock, ptr %97, i64 %117, i32 20
+  %119 = load i32, ptr %118, align 4, !tbaa !27
+  br label %120
 
-129:                                              ; preds = %85, %117, %86
-  %130 = phi i32 [ 0, %117 ], [ 1, %86 ], [ 1, %85 ]
-  %131 = load i32, ptr %12, align 4, !tbaa !15
-  %132 = add i32 %131, -1
-  store i32 %132, ptr %12, align 4, !tbaa !15
+120:                                              ; preds = %109, %114
+  %121 = phi i32 [ %119, %114 ], [ 0, %109 ]
+  %122 = add nsw i32 %121, %110
+  %123 = sext i32 %122 to i64
+  %124 = getelementptr inbounds %struct.MotionInfoContexts, ptr %96, i64 0, i32 5, i64 %123
+  %125 = call i32 @biari_decode_symbol(ptr noundef nonnull %8, ptr noundef nonnull %124) #12
+  %126 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
+  store i32 %125, ptr %126, align 4, !tbaa !30
+  %127 = load ptr, ptr %15, align 8, !tbaa !9
+  %128 = load i32, ptr %12, align 4, !tbaa !15
+  %129 = add i32 %128, -1
+  %130 = zext i32 %129 to i64
+  %131 = getelementptr inbounds %struct.macroblock, ptr %127, i64 %130, i32 20
+  store i32 %125, ptr %131, align 4, !tbaa !27
+  br label %132
+
+132:                                              ; preds = %90, %120
+  %133 = phi i32 [ 1, %90 ], [ 0, %120 ]
+  %134 = phi i32 [ %92, %90 ], [ %129, %120 ]
+  store i32 %134, ptr %12, align 4, !tbaa !15
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %8, ptr noundef nonnull align 8 dereferenceable(40) %62, i64 40, i1 false)
-  %133 = load ptr, ptr %68, align 8, !tbaa !35
-  store i32 %70, ptr %133, align 4, !tbaa !19
-  %134 = load ptr, ptr %73, align 8, !tbaa !20
-  %135 = getelementptr inbounds %struct.Slice, ptr %134, i64 0, i32 10
-  %136 = load ptr, ptr %135, align 8, !tbaa !21
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %136, ptr noundef nonnull align 2 dereferenceable(44) %63, i64 44, i1 false)
-  %137 = load ptr, ptr %73, align 8, !tbaa !20
-  %138 = getelementptr inbounds %struct.Slice, ptr %137, i64 0, i32 10
-  %139 = load ptr, ptr %138, align 8, !tbaa !21
-  %140 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %139, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %140, ptr noundef nonnull align 2 dereferenceable(44) %64, i64 44, i1 false)
-  %141 = load ptr, ptr %73, align 8, !tbaa !20
-  %142 = getelementptr inbounds %struct.Slice, ptr %141, i64 0, i32 10
-  %143 = load ptr, ptr %142, align 8, !tbaa !21
-  %144 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %143, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %144, ptr noundef nonnull align 2 dereferenceable(44) %65, i64 44, i1 false)
-  %145 = load ptr, ptr %73, align 8, !tbaa !20
-  %146 = getelementptr inbounds %struct.Slice, ptr %145, i64 0, i32 10
-  %147 = load ptr, ptr %146, align 8, !tbaa !21
-  %148 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %147, i64 0, i64 3
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %148, ptr noundef nonnull align 2 dereferenceable(44) %66, i64 44, i1 false)
-  %149 = load ptr, ptr %73, align 8, !tbaa !20
-  %150 = getelementptr inbounds %struct.Slice, ptr %149, i64 0, i32 10
-  %151 = load ptr, ptr %150, align 8, !tbaa !21
-  %152 = getelementptr inbounds %struct.MotionInfoContexts, ptr %151, i64 0, i32 5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(16) %152, ptr noundef nonnull align 2 dereferenceable(16) %67, i64 16, i1 false)
-  %153 = load ptr, ptr @img, align 8, !tbaa !5
-  %154 = getelementptr inbounds %struct.img_par, ptr %153, i64 0, i32 39
-  %155 = load ptr, ptr %154, align 8, !tbaa !9
-  %156 = getelementptr inbounds %struct.img_par, ptr %153, i64 0, i32 1
-  %157 = load i32, ptr %156, align 4, !tbaa !15
-  %158 = zext i32 %157 to i64
+  %135 = load ptr, ptr %68, align 8, !tbaa !35
+  store i32 %70, ptr %135, align 4, !tbaa !19
+  %136 = load ptr, ptr %73, align 8, !tbaa !20
+  %137 = getelementptr inbounds %struct.Slice, ptr %136, i64 0, i32 10
+  %138 = load ptr, ptr %137, align 8, !tbaa !21
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %138, ptr noundef nonnull align 2 dereferenceable(44) %63, i64 44, i1 false)
+  %139 = load ptr, ptr %73, align 8, !tbaa !20
+  %140 = getelementptr inbounds %struct.Slice, ptr %139, i64 0, i32 10
+  %141 = load ptr, ptr %140, align 8, !tbaa !21
+  %142 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %141, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %142, ptr noundef nonnull align 2 dereferenceable(44) %64, i64 44, i1 false)
+  %143 = load ptr, ptr %73, align 8, !tbaa !20
+  %144 = getelementptr inbounds %struct.Slice, ptr %143, i64 0, i32 10
+  %145 = load ptr, ptr %144, align 8, !tbaa !21
+  %146 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %145, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %146, ptr noundef nonnull align 2 dereferenceable(44) %65, i64 44, i1 false)
+  %147 = load ptr, ptr %73, align 8, !tbaa !20
+  %148 = getelementptr inbounds %struct.Slice, ptr %147, i64 0, i32 10
+  %149 = load ptr, ptr %148, align 8, !tbaa !21
+  %150 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %149, i64 0, i64 3
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(44) %150, ptr noundef nonnull align 2 dereferenceable(44) %66, i64 44, i1 false)
+  %151 = load ptr, ptr %73, align 8, !tbaa !20
+  %152 = getelementptr inbounds %struct.Slice, ptr %151, i64 0, i32 10
+  %153 = load ptr, ptr %152, align 8, !tbaa !21
+  %154 = getelementptr inbounds %struct.MotionInfoContexts, ptr %153, i64 0, i32 5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(16) %154, ptr noundef nonnull align 2 dereferenceable(16) %67, i64 16, i1 false)
+  %155 = load ptr, ptr @img, align 8, !tbaa !5
+  %156 = getelementptr inbounds %struct.img_par, ptr %155, i64 0, i32 39
+  %157 = load ptr, ptr %156, align 8, !tbaa !9
+  %158 = getelementptr inbounds %struct.img_par, ptr %155, i64 0, i32 1
+  %159 = load i32, ptr %158, align 4, !tbaa !15
+  %160 = zext i32 %159 to i64
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #12
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #12
-  %159 = load ptr, ptr @getNeighbour, align 8, !tbaa !5
-  call void %159(i32 noundef %157, i32 noundef -1, i32 noundef 0, i32 noundef 0, ptr noundef nonnull %5) #12
-  %160 = load ptr, ptr @getNeighbour, align 8, !tbaa !5
-  %161 = load ptr, ptr @img, align 8, !tbaa !5
-  %162 = getelementptr inbounds %struct.img_par, ptr %161, i64 0, i32 1
-  %163 = load i32, ptr %162, align 4, !tbaa !15
-  call void %160(i32 noundef %163, i32 noundef 0, i32 noundef -1, i32 noundef 0, ptr noundef nonnull %4) #12
-  %164 = load i32, ptr %4, align 4, !tbaa !16
-  %165 = icmp eq i32 %164, 0
-  br i1 %165, label %174, label %166
+  %161 = load ptr, ptr @getNeighbour, align 8, !tbaa !5
+  call void %161(i32 noundef %159, i32 noundef -1, i32 noundef 0, i32 noundef 0, ptr noundef nonnull %5) #12
+  %162 = load ptr, ptr @getNeighbour, align 8, !tbaa !5
+  %163 = load ptr, ptr @img, align 8, !tbaa !5
+  %164 = getelementptr inbounds %struct.img_par, ptr %163, i64 0, i32 1
+  %165 = load i32, ptr %164, align 4, !tbaa !15
+  call void %162(i32 noundef %165, i32 noundef 0, i32 noundef -1, i32 noundef 0, ptr noundef nonnull %4) #12
+  %166 = load i32, ptr %4, align 4, !tbaa !16
+  %167 = icmp eq i32 %166, 0
+  br i1 %167, label %176, label %168
 
-166:                                              ; preds = %129
-  %167 = load ptr, ptr @img, align 8, !tbaa !5
-  %168 = getelementptr inbounds %struct.img_par, ptr %167, i64 0, i32 39
-  %169 = load ptr, ptr %168, align 8, !tbaa !9
-  %170 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 1
-  %171 = load i32, ptr %170, align 4, !tbaa !18
-  %172 = sext i32 %171 to i64
-  %173 = getelementptr inbounds %struct.macroblock, ptr %169, i64 %172
-  br label %174
+168:                                              ; preds = %132
+  %169 = load ptr, ptr @img, align 8, !tbaa !5
+  %170 = getelementptr inbounds %struct.img_par, ptr %169, i64 0, i32 39
+  %171 = load ptr, ptr %170, align 8, !tbaa !9
+  %172 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 1
+  %173 = load i32, ptr %172, align 4, !tbaa !18
+  %174 = sext i32 %173 to i64
+  %175 = getelementptr inbounds %struct.macroblock, ptr %171, i64 %174
+  br label %176
 
-174:                                              ; preds = %166, %129
-  %175 = phi ptr [ %173, %166 ], [ null, %129 ]
-  %176 = getelementptr inbounds %struct.macroblock, ptr %155, i64 %158, i32 4
-  store ptr %175, ptr %176, align 8
-  %177 = load i32, ptr %5, align 4, !tbaa !16
-  %178 = icmp eq i32 %177, 0
-  br i1 %178, label %187, label %179
+176:                                              ; preds = %168, %132
+  %177 = phi ptr [ %175, %168 ], [ null, %132 ]
+  %178 = getelementptr inbounds %struct.macroblock, ptr %157, i64 %160, i32 4
+  store ptr %177, ptr %178, align 8
+  %179 = load i32, ptr %5, align 4, !tbaa !16
+  %180 = icmp eq i32 %179, 0
+  br i1 %180, label %189, label %181
 
-179:                                              ; preds = %174
-  %180 = load ptr, ptr @img, align 8, !tbaa !5
-  %181 = getelementptr inbounds %struct.img_par, ptr %180, i64 0, i32 39
-  %182 = load ptr, ptr %181, align 8, !tbaa !9
-  %183 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 1
-  %184 = load i32, ptr %183, align 4, !tbaa !18
-  %185 = sext i32 %184 to i64
-  %186 = getelementptr inbounds %struct.macroblock, ptr %182, i64 %185
-  br label %187
+181:                                              ; preds = %176
+  %182 = load ptr, ptr @img, align 8, !tbaa !5
+  %183 = getelementptr inbounds %struct.img_par, ptr %182, i64 0, i32 39
+  %184 = load ptr, ptr %183, align 8, !tbaa !9
+  %185 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 1
+  %186 = load i32, ptr %185, align 4, !tbaa !18
+  %187 = sext i32 %186 to i64
+  %188 = getelementptr inbounds %struct.macroblock, ptr %184, i64 %187
+  br label %189
 
-187:                                              ; preds = %174, %179
-  %188 = phi ptr [ %186, %179 ], [ null, %174 ]
-  %189 = getelementptr inbounds %struct.macroblock, ptr %155, i64 %158, i32 5
-  store ptr %188, ptr %189, align 8
+189:                                              ; preds = %176, %181
+  %190 = phi ptr [ %188, %181 ], [ null, %176 ]
+  %191 = getelementptr inbounds %struct.macroblock, ptr %157, i64 %160, i32 5
+  store ptr %190, ptr %191, align 8
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #12
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #12
   call void @free(ptr noundef nonnull %62) #12
@@ -533,7 +537,7 @@ define dso_local i32 @check_next_mb_and_get_field_mode_CABAC(ptr nocapture nound
   call void @free(ptr noundef nonnull %65) #12
   call void @free(ptr noundef nonnull %66) #12
   call void @free(ptr noundef nonnull %67) #12
-  ret i32 %130
+  ret i32 %133
 }
 
 declare void @CheckAvailabilityOfNeighbors() local_unnamed_addr #4
@@ -994,13 +998,13 @@ define dso_local void @readB8_typeInfo_CABAC(ptr nocapture noundef writeonly %0,
   %60 = zext i1 %59 to i32
   br label %61
 
-61:                                               ; preds = %50, %44, %42, %56
+61:                                               ; preds = %50, %44, %56, %42
   %62 = phi i32 [ %43, %42 ], [ %60, %56 ], [ %49, %44 ], [ %55, %50 ]
   %63 = add nuw nsw i32 %62, 1
   br label %64
 
-64:                                               ; preds = %24, %15, %19, %11, %61
-  %65 = phi i32 [ %63, %61 ], [ 0, %11 ], [ %23, %19 ], [ 1, %15 ], [ 0, %24 ]
+64:                                               ; preds = %19, %24, %15, %11, %61
+  %65 = phi i32 [ %63, %61 ], [ 0, %11 ], [ 1, %15 ], [ 0, %24 ], [ %23, %19 ]
   %66 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
   store i32 %65, ptr %66, align 4, !tbaa !30
   ret void
@@ -1065,370 +1069,378 @@ define dso_local void @readMB_typeInfo_CABAC(ptr nocapture noundef writeonly %0,
   %13 = getelementptr inbounds %struct.img_par, ptr %1, i64 0, i32 1
   %14 = load i32, ptr %13, align 4, !tbaa !15
   %15 = zext i32 %14 to i64
-  switch i32 %5, label %149 [
+  switch i32 %5, label %153 [
     i32 2, label %16
-    i32 4, label %71
+    i32 4, label %75
   ]
 
 16:                                               ; preds = %3
   %17 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 4
   %18 = load ptr, ptr %17, align 8, !tbaa !38
   %19 = icmp eq ptr %18, null
-  br i1 %19, label %26, label %20
+  br i1 %19, label %28, label %20
 
 20:                                               ; preds = %16
   %21 = getelementptr inbounds %struct.macroblock, ptr %18, i64 0, i32 6
   %22 = load i32, ptr %21, align 8, !tbaa !52
-  %23 = and i32 %22, -5
-  %24 = icmp ne i32 %23, 9
-  %25 = zext i1 %24 to i32
-  br label %26
+  %23 = freeze i32 %22
+  %24 = icmp eq i32 %23, 9
+  br i1 %24, label %28, label %25
 
-26:                                               ; preds = %16, %20
-  %27 = phi i32 [ %25, %20 ], [ 0, %16 ]
-  %28 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 5
-  %29 = load ptr, ptr %28, align 8, !tbaa !40
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %37, label %31
+25:                                               ; preds = %20
+  %26 = icmp ne i32 %23, 13
+  %27 = zext i1 %26 to i32
+  br label %28
 
-31:                                               ; preds = %26
-  %32 = getelementptr inbounds %struct.macroblock, ptr %29, i64 0, i32 6
-  %33 = load i32, ptr %32, align 8, !tbaa !52
-  %34 = and i32 %33, -5
-  %35 = icmp ne i32 %34, 9
-  %36 = zext i1 %35 to i32
-  br label %37
+28:                                               ; preds = %25, %20, %16
+  %29 = phi i32 [ 0, %16 ], [ 0, %20 ], [ %27, %25 ]
+  %30 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 5
+  %31 = load ptr, ptr %30, align 8, !tbaa !40
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %41, label %33
 
-37:                                               ; preds = %26, %31
-  %38 = phi i32 [ %36, %31 ], [ 0, %26 ]
-  %39 = add nuw nsw i32 %38, %27
-  %40 = zext i32 %39 to i64
-  %41 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 %40
-  %42 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef %41) #12
-  %43 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 6
-  store i32 %39, ptr %43, align 8, !tbaa !46
-  %44 = icmp eq i32 %42, 0
-  br i1 %44, label %271, label %45
+33:                                               ; preds = %28
+  %34 = getelementptr inbounds %struct.macroblock, ptr %31, i64 0, i32 6
+  %35 = load i32, ptr %34, align 8, !tbaa !52
+  %36 = freeze i32 %35
+  %37 = icmp eq i32 %36, 9
+  br i1 %37, label %41, label %38
 
-45:                                               ; preds = %37
-  %46 = tail call i32 @biari_decode_final(ptr noundef %2) #12
-  %47 = icmp eq i32 %46, 1
-  br i1 %47, label %271, label %48
+38:                                               ; preds = %33
+  %39 = icmp ne i32 %36, 13
+  %40 = zext i1 %39 to i32
+  br label %41
 
-48:                                               ; preds = %45
-  %49 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 4
-  %50 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %49) #12
-  %51 = mul nsw i32 %50, 12
-  %52 = or i32 %51, 1
-  %53 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 5
+41:                                               ; preds = %38, %33, %28
+  %42 = phi i32 [ 0, %28 ], [ 0, %33 ], [ %40, %38 ]
+  %43 = add nuw nsw i32 %42, %29
+  %44 = zext i32 %43 to i64
+  %45 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 %44
+  %46 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef %45) #12
+  %47 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 6
+  store i32 %43, ptr %47, align 8, !tbaa !46
+  %48 = icmp eq i32 %46, 0
+  br i1 %48, label %275, label %49
+
+49:                                               ; preds = %41
+  %50 = tail call i32 @biari_decode_final(ptr noundef %2) #12
+  %51 = icmp eq i32 %50, 1
+  br i1 %51, label %275, label %52
+
+52:                                               ; preds = %49
+  %53 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 4
   %54 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %53) #12
-  %55 = icmp eq i32 %54, 0
-  br i1 %55, label %62, label %56
-
-56:                                               ; preds = %48
-  %57 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 6
+  %55 = mul nsw i32 %54, 12
+  %56 = or i32 %55, 1
+  %57 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 5
   %58 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %57) #12
   %59 = icmp eq i32 %58, 0
-  %60 = select i1 %59, i32 5, i32 9
-  %61 = add i32 %60, %51
-  br label %62
+  br i1 %59, label %66, label %60
 
-62:                                               ; preds = %56, %48
-  %63 = phi i32 [ %52, %48 ], [ %61, %56 ]
-  %64 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 7
-  %65 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %64) #12
-  %66 = shl nsw i32 %65, 1
-  %67 = add nsw i32 %66, %63
-  %68 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 8
+60:                                               ; preds = %52
+  %61 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 6
+  %62 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %61) #12
+  %63 = icmp eq i32 %62, 0
+  %64 = select i1 %63, i32 5, i32 9
+  %65 = add i32 %64, %55
+  br label %66
+
+66:                                               ; preds = %60, %52
+  %67 = phi i32 [ %56, %52 ], [ %65, %60 ]
+  %68 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 7
   %69 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %68) #12
-  %70 = add nsw i32 %67, %69
-  br label %271
+  %70 = shl nsw i32 %69, 1
+  %71 = add nsw i32 %70, %67
+  %72 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 8
+  %73 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %72) #12
+  %74 = add nsw i32 %71, %73
+  br label %275
 
-71:                                               ; preds = %3
-  %72 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 4
-  %73 = load ptr, ptr %72, align 8, !tbaa !38
-  %74 = icmp eq ptr %73, null
-  br i1 %74, label %80, label %75
+75:                                               ; preds = %3
+  %76 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 4
+  %77 = load ptr, ptr %76, align 8, !tbaa !38
+  %78 = icmp eq ptr %77, null
+  br i1 %78, label %84, label %79
 
-75:                                               ; preds = %71
-  %76 = getelementptr inbounds %struct.macroblock, ptr %73, i64 0, i32 6
-  %77 = load i32, ptr %76, align 8, !tbaa !52
-  %78 = icmp ne i32 %77, 12
-  %79 = zext i1 %78 to i32
-  br label %80
+79:                                               ; preds = %75
+  %80 = getelementptr inbounds %struct.macroblock, ptr %77, i64 0, i32 6
+  %81 = load i32, ptr %80, align 8, !tbaa !52
+  %82 = icmp ne i32 %81, 12
+  %83 = zext i1 %82 to i32
+  br label %84
 
-80:                                               ; preds = %71, %75
-  %81 = phi i32 [ %79, %75 ], [ 0, %71 ]
-  %82 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 5
-  %83 = load ptr, ptr %82, align 8, !tbaa !40
-  %84 = icmp eq ptr %83, null
-  br i1 %84, label %90, label %85
+84:                                               ; preds = %75, %79
+  %85 = phi i32 [ %83, %79 ], [ 0, %75 ]
+  %86 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 5
+  %87 = load ptr, ptr %86, align 8, !tbaa !40
+  %88 = icmp eq ptr %87, null
+  br i1 %88, label %94, label %89
 
-85:                                               ; preds = %80
-  %86 = getelementptr inbounds %struct.macroblock, ptr %83, i64 0, i32 6
-  %87 = load i32, ptr %86, align 8, !tbaa !52
-  %88 = icmp ne i32 %87, 12
-  %89 = zext i1 %88 to i32
-  br label %90
+89:                                               ; preds = %84
+  %90 = getelementptr inbounds %struct.macroblock, ptr %87, i64 0, i32 6
+  %91 = load i32, ptr %90, align 8, !tbaa !52
+  %92 = icmp ne i32 %91, 12
+  %93 = zext i1 %92 to i32
+  br label %94
 
-90:                                               ; preds = %80, %85
-  %91 = phi i32 [ %89, %85 ], [ 0, %80 ]
-  %92 = add nuw nsw i32 %91, %81
-  %93 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1
-  %94 = zext i32 %92 to i64
-  %95 = getelementptr inbounds %struct.BiContextType, ptr %93, i64 %94
-  %96 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %95) #12
-  %97 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 6
-  store i32 %92, ptr %97, align 8, !tbaa !46
-  %98 = icmp eq i32 %96, 0
-  br i1 %98, label %271, label %99
+94:                                               ; preds = %84, %89
+  %95 = phi i32 [ %93, %89 ], [ 0, %84 ]
+  %96 = add nuw nsw i32 %95, %85
+  %97 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1
+  %98 = zext i32 %96 to i64
+  %99 = getelementptr inbounds %struct.BiContextType, ptr %97, i64 %98
+  %100 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %99) #12
+  %101 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 6
+  store i32 %96, ptr %101, align 8, !tbaa !46
+  %102 = icmp eq i32 %100, 0
+  br i1 %102, label %275, label %103
 
-99:                                               ; preds = %90
-  %100 = load ptr, ptr %72, align 8, !tbaa !38
-  %101 = icmp eq ptr %100, null
-  br i1 %101, label %107, label %102
+103:                                              ; preds = %94
+  %104 = load ptr, ptr %76, align 8, !tbaa !38
+  %105 = icmp eq ptr %104, null
+  br i1 %105, label %111, label %106
 
-102:                                              ; preds = %99
-  %103 = getelementptr inbounds %struct.macroblock, ptr %100, i64 0, i32 6
-  %104 = load i32, ptr %103, align 8, !tbaa !52
-  %105 = icmp ne i32 %104, 9
-  %106 = zext i1 %105 to i32
-  br label %107
+106:                                              ; preds = %103
+  %107 = getelementptr inbounds %struct.macroblock, ptr %104, i64 0, i32 6
+  %108 = load i32, ptr %107, align 8, !tbaa !52
+  %109 = icmp ne i32 %108, 9
+  %110 = zext i1 %109 to i32
+  br label %111
 
-107:                                              ; preds = %99, %102
-  %108 = phi i32 [ %106, %102 ], [ 0, %99 ]
-  %109 = load ptr, ptr %82, align 8, !tbaa !40
-  %110 = icmp eq ptr %109, null
-  br i1 %110, label %116, label %111
+111:                                              ; preds = %103, %106
+  %112 = phi i32 [ %110, %106 ], [ 0, %103 ]
+  %113 = load ptr, ptr %86, align 8, !tbaa !40
+  %114 = icmp eq ptr %113, null
+  br i1 %114, label %120, label %115
 
-111:                                              ; preds = %107
-  %112 = getelementptr inbounds %struct.macroblock, ptr %109, i64 0, i32 6
-  %113 = load i32, ptr %112, align 8, !tbaa !52
-  %114 = icmp ne i32 %113, 9
-  %115 = zext i1 %114 to i32
-  br label %116
+115:                                              ; preds = %111
+  %116 = getelementptr inbounds %struct.macroblock, ptr %113, i64 0, i32 6
+  %117 = load i32, ptr %116, align 8, !tbaa !52
+  %118 = icmp ne i32 %117, 9
+  %119 = zext i1 %118 to i32
+  br label %120
 
-116:                                              ; preds = %107, %111
-  %117 = phi i32 [ %115, %111 ], [ 0, %107 ]
-  %118 = add nuw nsw i32 %117, %108
-  %119 = zext i32 %118 to i64
-  %120 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 %119
-  %121 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef %120) #12
-  store i32 %118, ptr %97, align 8, !tbaa !46
-  %122 = icmp eq i32 %121, 0
-  br i1 %122, label %271, label %123
+120:                                              ; preds = %111, %115
+  %121 = phi i32 [ %119, %115 ], [ 0, %111 ]
+  %122 = add nuw nsw i32 %121, %112
+  %123 = zext i32 %122 to i64
+  %124 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 %123
+  %125 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef %124) #12
+  store i32 %122, ptr %101, align 8, !tbaa !46
+  %126 = icmp eq i32 %125, 0
+  br i1 %126, label %275, label %127
 
-123:                                              ; preds = %116
-  %124 = tail call i32 @biari_decode_final(ptr noundef %2) #12
-  %125 = icmp eq i32 %124, 1
-  br i1 %125, label %271, label %126
+127:                                              ; preds = %120
+  %128 = tail call i32 @biari_decode_final(ptr noundef %2) #12
+  %129 = icmp eq i32 %128, 1
+  br i1 %129, label %275, label %130
 
-126:                                              ; preds = %123
-  %127 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 4
-  %128 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %127) #12
-  %129 = mul nsw i32 %128, 12
-  %130 = or i32 %129, 2
-  %131 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 5
+130:                                              ; preds = %127
+  %131 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 4
   %132 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %131) #12
-  %133 = icmp eq i32 %132, 0
-  br i1 %133, label %140, label %134
-
-134:                                              ; preds = %126
-  %135 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 6
+  %133 = mul nsw i32 %132, 12
+  %134 = or i32 %133, 2
+  %135 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 5
   %136 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %135) #12
   %137 = icmp eq i32 %136, 0
-  %138 = select i1 %137, i32 6, i32 10
-  %139 = add i32 %138, %129
-  br label %140
+  br i1 %137, label %144, label %138
 
-140:                                              ; preds = %134, %126
-  %141 = phi i32 [ %130, %126 ], [ %139, %134 ]
-  %142 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 7
-  %143 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %142) #12
-  %144 = shl nsw i32 %143, 1
-  %145 = add nsw i32 %144, %141
-  %146 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 8
+138:                                              ; preds = %130
+  %139 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 6
+  %140 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %139) #12
+  %141 = icmp eq i32 %140, 0
+  %142 = select i1 %141, i32 6, i32 10
+  %143 = add i32 %142, %133
+  br label %144
+
+144:                                              ; preds = %138, %130
+  %145 = phi i32 [ %134, %130 ], [ %143, %138 ]
+  %146 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 7
   %147 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %146) #12
-  %148 = add nsw i32 %145, %147
-  br label %271
+  %148 = shl nsw i32 %147, 1
+  %149 = add nsw i32 %148, %145
+  %150 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 8
+  %151 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %150) #12
+  %152 = add nsw i32 %149, %151
+  br label %275
 
-149:                                              ; preds = %3
-  br i1 %6, label %150, label %209
+153:                                              ; preds = %3
+  br i1 %6, label %154, label %220
 
-150:                                              ; preds = %149
-  %151 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 4
-  %152 = load ptr, ptr %151, align 8, !tbaa !38
-  %153 = icmp eq ptr %152, null
-  br i1 %153, label %159, label %154
+154:                                              ; preds = %153
+  %155 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 4
+  %156 = load ptr, ptr %155, align 8, !tbaa !38
+  %157 = icmp eq ptr %156, null
+  br i1 %157, label %163, label %158
 
-154:                                              ; preds = %150
-  %155 = getelementptr inbounds %struct.macroblock, ptr %152, i64 0, i32 6
-  %156 = load i32, ptr %155, align 8, !tbaa !52
-  %157 = icmp ne i32 %156, 0
-  %158 = zext i1 %157 to i64
-  br label %159
+158:                                              ; preds = %154
+  %159 = getelementptr inbounds %struct.macroblock, ptr %156, i64 0, i32 6
+  %160 = load i32, ptr %159, align 8, !tbaa !52
+  %161 = icmp ne i32 %160, 0
+  %162 = zext i1 %161 to i64
+  br label %163
 
-159:                                              ; preds = %150, %154
-  %160 = phi i64 [ %158, %154 ], [ 0, %150 ]
-  %161 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 5
-  %162 = load ptr, ptr %161, align 8, !tbaa !40
-  %163 = icmp eq ptr %162, null
-  br i1 %163, label %169, label %164
+163:                                              ; preds = %154, %158
+  %164 = phi i64 [ %162, %158 ], [ 0, %154 ]
+  %165 = getelementptr inbounds %struct.macroblock, ptr %12, i64 %15, i32 5
+  %166 = load ptr, ptr %165, align 8, !tbaa !40
+  %167 = icmp eq ptr %166, null
+  br i1 %167, label %173, label %168
 
-164:                                              ; preds = %159
-  %165 = getelementptr inbounds %struct.macroblock, ptr %162, i64 0, i32 6
-  %166 = load i32, ptr %165, align 8, !tbaa !52
-  %167 = icmp ne i32 %166, 0
-  %168 = zext i1 %167 to i64
-  br label %169
+168:                                              ; preds = %163
+  %169 = getelementptr inbounds %struct.macroblock, ptr %166, i64 0, i32 6
+  %170 = load i32, ptr %169, align 8, !tbaa !52
+  %171 = icmp ne i32 %170, 0
+  %172 = zext i1 %171 to i64
+  br label %173
 
-169:                                              ; preds = %159, %164
-  %170 = phi i64 [ %168, %164 ], [ 0, %159 ]
-  %171 = add nuw nsw i64 %170, %160
-  %172 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 %171
-  %173 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %172) #12
-  %174 = icmp eq i32 %173, 0
-  br i1 %174, label %271, label %175
-
-175:                                              ; preds = %169
-  %176 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 4
+173:                                              ; preds = %163, %168
+  %174 = phi i64 [ %172, %168 ], [ 0, %163 ]
+  %175 = add nuw nsw i64 %174, %164
+  %176 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 %175
   %177 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %176) #12
   %178 = icmp eq i32 %177, 0
-  br i1 %178, label %204, label %179
+  br i1 %178, label %275, label %179
 
-179:                                              ; preds = %175
-  %180 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 5
+179:                                              ; preds = %173
+  %180 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 4
   %181 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %180) #12
   %182 = icmp eq i32 %181, 0
-  %183 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 6
-  %184 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %183) #12
-  %185 = icmp eq i32 %184, 0
-  %186 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %183) #12
-  %187 = icmp eq i32 %186, 0
-  %188 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %183) #12
-  br i1 %182, label %231, label %189
+  br i1 %182, label %215, label %183
 
-189:                                              ; preds = %179
-  %190 = select i1 %185, i32 12, i32 20
-  %191 = add nuw nsw i32 %190, 4
-  %192 = select i1 %187, i32 %190, i32 %191
-  %193 = icmp eq i32 %188, 0
-  %194 = or i32 %192, 2
-  %195 = select i1 %193, i32 %192, i32 %194
-  switch i32 %195, label %197 [
-    i32 24, label %239
-    i32 26, label %196
+183:                                              ; preds = %179
+  %184 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 5
+  %185 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %184) #12
+  %186 = icmp eq i32 %185, 0
+  %187 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 6
+  %188 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %187) #12
+  %189 = icmp eq i32 %188, 0
+  %190 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %187) #12
+  %191 = icmp eq i32 %190, 0
+  %192 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %187) #12
+  br i1 %186, label %207, label %193
+
+193:                                              ; preds = %183
+  %194 = select i1 %189, i32 12, i32 20
+  %195 = add nuw nsw i32 %194, 4
+  %196 = select i1 %191, i32 %194, i32 %195
+  %197 = icmp eq i32 %192, 0
+  %198 = or i32 %196, 2
+  %199 = select i1 %197, i32 %196, i32 %198
+  switch i32 %199, label %200 [
+    i32 24, label %243
+    i32 26, label %242
   ]
 
-196:                                              ; preds = %189
-  br label %239
+200:                                              ; preds = %193
+  %201 = icmp eq i32 %199, 22
+  %202 = select i1 %201, i32 23, i32 %199
+  %203 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %187) #12
+  %204 = icmp ne i32 %203, 0
+  %205 = zext i1 %204 to i32
+  %206 = add nuw nsw i32 %202, %205
+  br label %243
 
-197:                                              ; preds = %189
-  %198 = icmp eq i32 %195, 22
-  %199 = select i1 %198, i32 23, i32 %195
-  %200 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %183) #12
-  %201 = icmp ne i32 %200, 0
-  %202 = zext i1 %201 to i32
-  %203 = add nuw nsw i32 %199, %202
-  br label %239
+207:                                              ; preds = %183
+  %208 = select i1 %189, i32 3, i32 7
+  %209 = add nuw nsw i32 %208, 2
+  %210 = select i1 %191, i32 %208, i32 %209
+  %211 = icmp ne i32 %192, 0
+  %212 = zext i1 %211 to i32
+  %213 = add nuw nsw i32 %210, %212
+  %214 = icmp ult i32 %213, 7
+  br i1 %214, label %275, label %243
 
-204:                                              ; preds = %175
-  %205 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 6
-  %206 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %205) #12
-  %207 = icmp eq i32 %206, 0
-  %208 = select i1 %207, i32 1, i32 2
-  br label %271
+215:                                              ; preds = %179
+  %216 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 2, i64 6
+  %217 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %216) #12
+  %218 = icmp eq i32 %217, 0
+  %219 = select i1 %218, i32 1, i32 2
+  br label %275
 
-209:                                              ; preds = %149
-  %210 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 4
-  %211 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %210) #12
-  %212 = icmp eq i32 %211, 0
-  br i1 %212, label %217, label %213
+220:                                              ; preds = %153
+  %221 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 4
+  %222 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %221) #12
+  %223 = icmp eq i32 %222, 0
+  br i1 %223, label %228, label %224
 
-213:                                              ; preds = %209
-  %214 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 7
-  %215 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %214) #12
-  %216 = icmp eq i32 %215, 0
-  br i1 %216, label %271, label %239
+224:                                              ; preds = %220
+  %225 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 7
+  %226 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %225) #12
+  %227 = icmp eq i32 %226, 0
+  br i1 %227, label %275, label %243
 
-217:                                              ; preds = %209
-  %218 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 5
-  %219 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %218) #12
-  %220 = icmp eq i32 %219, 0
-  br i1 %220, label %226, label %221
+228:                                              ; preds = %220
+  %229 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 5
+  %230 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %229) #12
+  %231 = icmp eq i32 %230, 0
+  br i1 %231, label %237, label %232
 
-221:                                              ; preds = %217
-  %222 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 7
-  %223 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %222) #12
-  %224 = icmp eq i32 %223, 0
-  %225 = select i1 %224, i32 3, i32 2
-  br label %271
+232:                                              ; preds = %228
+  %233 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 7
+  %234 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %233) #12
+  %235 = icmp eq i32 %234, 0
+  %236 = select i1 %235, i32 3, i32 2
+  br label %275
 
-226:                                              ; preds = %217
-  %227 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 6
-  %228 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %227) #12
-  %229 = icmp eq i32 %228, 0
-  %230 = select i1 %229, i32 1, i32 4
-  br label %271
+237:                                              ; preds = %228
+  %238 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 6
+  %239 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %238) #12
+  %240 = icmp eq i32 %239, 0
+  %241 = select i1 %240, i32 1, i32 4
+  br label %275
 
-231:                                              ; preds = %179
-  %232 = select i1 %185, i32 3, i32 7
-  %233 = add nuw nsw i32 %232, 2
-  %234 = select i1 %187, i32 %232, i32 %233
-  %235 = icmp ne i32 %188, 0
-  %236 = zext i1 %235 to i32
-  %237 = add nuw nsw i32 %234, %236
-  %238 = icmp ult i32 %237, 7
-  br i1 %238, label %271, label %239
+242:                                              ; preds = %193
+  br label %243
 
-239:                                              ; preds = %213, %197, %189, %196, %231
-  %240 = phi i32 [ %237, %231 ], [ 7, %213 ], [ %203, %197 ], [ 11, %189 ], [ 22, %196 ]
-  %241 = load i32, ptr %4, align 4, !tbaa !32
-  %242 = icmp eq i32 %241, 1
-  %243 = icmp ult i32 %240, 24
-  %244 = select i1 %242, i1 %243, i1 false
-  br i1 %244, label %271, label %245
+243:                                              ; preds = %200, %193, %242, %224, %207
+  %244 = phi i32 [ %213, %207 ], [ 7, %224 ], [ 11, %193 ], [ 22, %242 ], [ %206, %200 ]
+  %245 = load i32, ptr %4, align 4, !tbaa !32
+  %246 = icmp eq i32 %245, 1
+  %247 = icmp ult i32 %244, 24
+  %248 = select i1 %246, i1 %247, i1 false
+  br i1 %248, label %275, label %249
 
-245:                                              ; preds = %239
-  %246 = tail call i32 @biari_decode_final(ptr noundef %2) #12
-  %247 = icmp eq i32 %246, 1
-  br i1 %247, label %248, label %250
+249:                                              ; preds = %243
+  %250 = tail call i32 @biari_decode_final(ptr noundef %2) #12
+  %251 = icmp eq i32 %250, 1
+  br i1 %251, label %252, label %254
 
-248:                                              ; preds = %245
-  %249 = select i1 %6, i32 48, i32 31
-  br label %271
+252:                                              ; preds = %249
+  %253 = select i1 %6, i32 48, i32 31
+  br label %275
 
-250:                                              ; preds = %245
-  %251 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 8
-  %252 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %251) #12
-  %253 = mul nsw i32 %252, 12
-  %254 = add nsw i32 %253, %240
-  %255 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 9
+254:                                              ; preds = %249
+  %255 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 8
   %256 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %255) #12
-  %257 = icmp eq i32 %256, 0
-  br i1 %257, label %263, label %258
+  %257 = mul nsw i32 %256, 12
+  %258 = add nsw i32 %257, %244
+  %259 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 9
+  %260 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %259) #12
+  %261 = icmp eq i32 %260, 0
+  br i1 %261, label %267, label %262
 
-258:                                              ; preds = %250
-  %259 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %255) #12
-  %260 = icmp eq i32 %259, 0
-  %261 = select i1 %260, i32 4, i32 8
-  %262 = add nsw i32 %261, %254
-  br label %263
+262:                                              ; preds = %254
+  %263 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %259) #12
+  %264 = icmp eq i32 %263, 0
+  %265 = select i1 %264, i32 4, i32 8
+  %266 = add nsw i32 %265, %258
+  br label %267
 
-263:                                              ; preds = %258, %250
-  %264 = phi i32 [ %254, %250 ], [ %262, %258 ]
-  %265 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 10
-  %266 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %265) #12
-  %267 = shl nsw i32 %266, 1
-  %268 = add nsw i32 %267, %264
-  %269 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %265) #12
-  %270 = add nsw i32 %268, %269
-  br label %271
+267:                                              ; preds = %262, %254
+  %268 = phi i32 [ %258, %254 ], [ %266, %262 ]
+  %269 = getelementptr inbounds [4 x [11 x %struct.BiContextType]], ptr %10, i64 0, i64 1, i64 10
+  %270 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %269) #12
+  %271 = shl nsw i32 %270, 1
+  %272 = add nsw i32 %271, %268
+  %273 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %269) #12
+  %274 = add nsw i32 %272, %273
+  br label %275
 
-271:                                              ; preds = %213, %226, %221, %169, %204, %248, %231, %239, %123, %116, %90, %45, %37, %140, %263, %62
-  %272 = phi i32 [ %70, %62 ], [ %148, %140 ], [ %270, %263 ], [ 0, %37 ], [ 25, %45 ], [ 0, %90 ], [ 1, %116 ], [ 26, %123 ], [ %240, %239 ], [ %237, %231 ], [ %249, %248 ], [ %230, %226 ], [ %225, %221 ], [ 0, %169 ], [ %208, %204 ], [ 6, %213 ]
-  %273 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  store i32 %272, ptr %273, align 4, !tbaa !30
+275:                                              ; preds = %252, %237, %232, %215, %224, %173, %207, %243, %127, %120, %94, %49, %41, %144, %267, %66
+  %276 = phi i32 [ %74, %66 ], [ %152, %144 ], [ %274, %267 ], [ 0, %41 ], [ 25, %49 ], [ 0, %94 ], [ 1, %120 ], [ 26, %127 ], [ %244, %243 ], [ %213, %207 ], [ 0, %173 ], [ 6, %224 ], [ %219, %215 ], [ %236, %232 ], [ %241, %237 ], [ %253, %252 ]
+  %277 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
+  store i32 %276, ptr %277, align 4, !tbaa !30
   ret void
 }
 
@@ -1599,8 +1611,8 @@ define dso_local void @readRefFrame_CABAC(ptr nocapture noundef %0, ptr nocaptur
   %104 = select i1 %103, i32 2, i32 0
   br label %105
 
-105:                                              ; preds = %91, %65, %74, %58, %3
-  %106 = phi i32 [ 0, %3 ], [ 0, %58 ], [ 0, %74 ], [ 0, %65 ], [ %104, %91 ]
+105:                                              ; preds = %91, %58, %65, %74, %3
+  %106 = phi i32 [ 0, %3 ], [ 0, %74 ], [ 0, %65 ], [ 0, %58 ], [ %104, %91 ]
   %107 = load i32, ptr %4, align 4, !tbaa !16
   %108 = icmp eq i32 %107, 0
   br i1 %108, label %156, label %109
@@ -1673,8 +1685,8 @@ define dso_local void @readRefFrame_CABAC(ptr nocapture noundef %0, ptr nocaptur
   %155 = zext i1 %154 to i32
   br label %156
 
-156:                                              ; preds = %142, %116, %125, %109, %105
-  %157 = phi i32 [ 0, %105 ], [ 0, %109 ], [ 0, %125 ], [ 0, %116 ], [ %155, %142 ]
+156:                                              ; preds = %142, %109, %116, %125, %105
+  %157 = phi i32 [ 0, %105 ], [ 0, %125 ], [ 0, %116 ], [ 0, %109 ], [ %155, %142 ]
   %158 = or i32 %106, %157
   %159 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 6
   store i32 %158, ptr %159, align 8, !tbaa !46
@@ -1751,13 +1763,13 @@ define dso_local void @readDquant_CABAC(ptr nocapture noundef writeonly %0, ptr 
   %12 = getelementptr inbounds %struct.BiContextType, ptr %10, i64 %11
   %13 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %12) #12
   %14 = icmp eq i32 %13, 0
-  br i1 %14, label %28, label %15
+  br i1 %14, label %31, label %15
 
 15:                                               ; preds = %3
   %16 = getelementptr inbounds %struct.MotionInfoContexts, ptr %7, i64 0, i32 4, i64 2
   %17 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %16) #12
   %18 = icmp eq i32 %17, 0
-  br i1 %18, label %28, label %19
+  br i1 %18, label %34, label %19
 
 19:                                               ; preds = %15
   %20 = getelementptr inbounds %struct.MotionInfoContexts, ptr %7, i64 0, i32 4, i64 3
@@ -1771,17 +1783,19 @@ define dso_local void @readDquant_CABAC(ptr nocapture noundef writeonly %0, ptr 
   br i1 %25, label %26, label %21, !llvm.loop !59
 
 26:                                               ; preds = %21
-  %27 = add i32 %22, 2
-  br label %28
+  %27 = add i32 %22, 3
+  %28 = sdiv i32 %27, 2
+  %29 = and i32 %22, 1
+  %30 = icmp eq i32 %29, 0
+  br i1 %30, label %31, label %34
 
-28:                                               ; preds = %15, %26, %3
-  %29 = phi i32 [ 0, %3 ], [ 1, %15 ], [ %27, %26 ]
-  %30 = add nsw i32 %29, 1
-  %31 = sdiv i32 %30, 2
-  %32 = and i32 %29, 1
-  %33 = icmp eq i32 %32, 0
-  %34 = sub nsw i32 0, %31
-  %35 = select i1 %33, i32 %34, i32 %31
+31:                                               ; preds = %3, %26
+  %32 = phi i32 [ %28, %26 ], [ 0, %3 ]
+  %33 = sub nsw i32 0, %32
+  br label %34
+
+34:                                               ; preds = %15, %31, %26
+  %35 = phi i32 [ %33, %31 ], [ %28, %26 ], [ 1, %15 ]
   %36 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
   store i32 %35, ptr %36, align 4, !tbaa !30
   store i32 %35, ptr @last_dquant, align 4, !tbaa !19
@@ -2136,7 +2150,7 @@ define dso_local void @readCIPredMode_CABAC(ptr nocapture noundef writeonly %0, 
   br label %54
 
 54:                                               ; preds = %50, %46, %39
-  %55 = phi i32 [ 0, %39 ], [ %53, %50 ], [ 1, %46 ]
+  %55 = phi i32 [ 0, %39 ], [ 1, %46 ], [ %53, %50 ]
   %56 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
   store i32 %55, ptr %56, align 4, !tbaa !30
   ret void
@@ -2174,8 +2188,8 @@ define dso_local i32 @unary_bin_max_decode(ptr noundef %0, ptr noundef %1, i32 n
   %24 = select i1 %22, i32 %23, i32 %16
   br label %25
 
-25:                                               ; preds = %7, %4, %20
-  %26 = phi i32 [ %24, %20 ], [ 0, %4 ], [ %5, %7 ]
+25:                                               ; preds = %20, %7, %4
+  %26 = phi i32 [ 0, %4 ], [ %5, %7 ], [ %24, %20 ]
   ret i32 %26
 }
 
@@ -2184,345 +2198,333 @@ define dso_local i32 @read_and_store_CBP_block_bit(ptr nocapture noundef %0, ptr
   %5 = alloca %struct.pix_pos, align 4
   %6 = alloca %struct.pix_pos, align 4
   %7 = add i32 %3, -1
-  %8 = icmp ult i32 %7, 5
-  %9 = icmp eq i32 %3, 0
-  switch i32 %3, label %20 [
-    i32 7, label %10
-    i32 8, label %15
-    i32 6, label %15
-    i32 9, label %15
+  %8 = icmp ult i32 %7, 4
+  br i1 %8, label %13, label %9
+
+9:                                                ; preds = %4
+  %10 = icmp eq i32 %3, 5
+  %11 = icmp eq i32 %3, 0
+  %12 = icmp eq i32 %3, 7
+  br i1 %12, label %16, label %13
+
+13:                                               ; preds = %4, %9
+  %14 = phi i1 [ %10, %9 ], [ true, %4 ]
+  %15 = phi i1 [ %11, %9 ], [ false, %4 ]
+  switch i32 %3, label %26 [
+    i32 8, label %21
+    i32 6, label %21
+    i32 9, label %21
   ]
 
-10:                                               ; preds = %4
-  %11 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 43
-  %12 = load i32, ptr %11, align 4, !tbaa !64
-  %13 = icmp eq i32 %12, 0
-  %14 = icmp ne i32 %12, 0
-  br label %20
+16:                                               ; preds = %9
+  %17 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 43
+  %18 = load i32, ptr %17, align 4, !tbaa !64
+  %19 = icmp eq i32 %18, 0
+  %20 = icmp ne i32 %18, 0
+  br label %26
 
-15:                                               ; preds = %4, %4, %4
-  %16 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 43
-  %17 = load i32, ptr %16, align 4, !tbaa !64
-  %18 = icmp eq i32 %17, 0
-  %19 = icmp ne i32 %17, 0
-  br label %20
+21:                                               ; preds = %13, %13, %13
+  %22 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 43
+  %23 = load i32, ptr %22, align 4, !tbaa !64
+  %24 = icmp eq i32 %23, 0
+  %25 = icmp ne i32 %23, 0
+  br label %26
 
-20:                                               ; preds = %4, %10, %15
-  %21 = phi i1 [ %18, %15 ], [ false, %10 ], [ false, %4 ]
-  %22 = phi i1 [ false, %15 ], [ %14, %10 ], [ false, %4 ]
-  %23 = phi i1 [ false, %15 ], [ %13, %10 ], [ false, %4 ]
-  %24 = phi i1 [ %19, %15 ], [ false, %10 ], [ false, %4 ]
-  %25 = select i1 %8, i1 true, i1 %23
-  %26 = select i1 %25, i1 true, i1 %22
-  br i1 %26, label %27, label %32
+26:                                               ; preds = %16, %13, %21
+  %27 = phi i1 [ %24, %21 ], [ false, %16 ], [ false, %13 ]
+  %28 = phi i1 [ false, %21 ], [ %19, %16 ], [ false, %13 ]
+  %29 = phi i1 [ %14, %21 ], [ %10, %16 ], [ %14, %13 ]
+  %30 = phi i1 [ %15, %21 ], [ %11, %16 ], [ %15, %13 ]
+  %31 = phi i1 [ false, %21 ], [ %20, %16 ], [ false, %13 ]
+  %32 = phi i1 [ %25, %21 ], [ false, %16 ], [ false, %13 ]
+  %33 = select i1 %29, i1 true, i1 %28
+  %34 = select i1 %33, i1 true, i1 %31
+  br i1 %34, label %35, label %40
 
-27:                                               ; preds = %20
-  %28 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 41
-  %29 = load i32, ptr %28, align 4, !tbaa !42
-  %30 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 40
-  %31 = load i32, ptr %30, align 8, !tbaa !41
-  br label %32
+35:                                               ; preds = %26
+  %36 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 41
+  %37 = load i32, ptr %36, align 4, !tbaa !42
+  %38 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 40
+  %39 = load i32, ptr %38, align 8, !tbaa !41
+  br label %40
 
-32:                                               ; preds = %20, %27
-  %33 = phi i32 [ %29, %27 ], [ 0, %20 ]
-  %34 = phi i32 [ %31, %27 ], [ 0, %20 ]
-  br i1 %9, label %35, label %40
+40:                                               ; preds = %26, %35
+  %41 = phi i32 [ %37, %35 ], [ 0, %26 ]
+  %42 = phi i32 [ %39, %35 ], [ 0, %26 ]
+  %43 = or i1 %29, %30
+  br i1 %43, label %44, label %75
 
-35:                                               ; preds = %32
-  %36 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 42
-  %37 = load i32, ptr %36, align 8, !tbaa !65
-  %38 = icmp ne i32 %37, 0
-  %39 = zext i1 %38 to i32
+44:                                               ; preds = %40
+  %45 = xor i1 %30, true
+  %46 = zext i1 %45 to i32
+  %47 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 42
+  %48 = load i32, ptr %47, align 8, !tbaa !65
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #12
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #12
-  br label %55
+  %49 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 1
+  %50 = load i32, ptr %49, align 4, !tbaa !15
+  %51 = shl i32 %42, 2
+  %52 = add nsw i32 %51, -1
+  %53 = shl i32 %41, 2
+  call void @getLuma4x4Neighbour(i32 noundef %50, i32 noundef %52, i32 noundef %53, ptr noundef nonnull %5) #12
+  %54 = load i32, ptr %49, align 4, !tbaa !15
+  %55 = add nsw i32 %53, -1
+  call void @getLuma4x4Neighbour(i32 noundef %54, i32 noundef %51, i32 noundef %55, ptr noundef nonnull %6) #12
+  br i1 %29, label %56, label %108
 
-40:                                               ; preds = %32
-  %41 = icmp ult i32 %3, 6
-  %42 = select i1 %41, i1 true, i1 %21
-  br i1 %42, label %50, label %43
-
-43:                                               ; preds = %40
-  %44 = select i1 %23, i32 19, i32 35
-  %45 = select i1 %24, i32 18, i32 %44
-  %46 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 42
-  %47 = load i32, ptr %46, align 8, !tbaa !65
-  %48 = icmp ne i32 %47, 0
-  %49 = zext i1 %48 to i32
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #12
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #12
-  br label %85
-
-50:                                               ; preds = %40
-  %51 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 42
-  %52 = load i32, ptr %51, align 8, !tbaa !65
-  %53 = icmp ne i32 %52, 0
-  %54 = zext i1 %53 to i32
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #12
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #12
-  br i1 %41, label %55, label %85
-
-55:                                               ; preds = %35, %50
-  %56 = phi i32 [ %39, %35 ], [ %54, %50 ]
-  %57 = phi i32 [ 0, %35 ], [ 1, %50 ]
-  %58 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 1
-  %59 = load i32, ptr %58, align 4, !tbaa !15
-  %60 = shl i32 %34, 2
-  %61 = add nsw i32 %60, -1
-  %62 = shl i32 %33, 2
-  call void @getLuma4x4Neighbour(i32 noundef %59, i32 noundef %61, i32 noundef %62, ptr noundef nonnull %5) #12
-  %63 = load i32, ptr %58, align 4, !tbaa !15
-  %64 = add nsw i32 %62, -1
-  call void @getLuma4x4Neighbour(i32 noundef %63, i32 noundef %60, i32 noundef %64, ptr noundef nonnull %6) #12
-  br i1 %8, label %65, label %115
-
-65:                                               ; preds = %55
-  %66 = load i32, ptr %5, align 4, !tbaa !16
+56:                                               ; preds = %44
+  %57 = load i32, ptr %5, align 4, !tbaa !16
+  %58 = icmp eq i32 %57, 0
+  %59 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 3
+  %60 = load i32, ptr %59, align 4
+  %61 = shl nsw i32 %60, 2
+  %62 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 2
+  %63 = load i32, ptr %62, align 4
+  %64 = add nsw i32 %61, %63
+  %65 = select i1 %58, i32 0, i32 %64
+  %66 = load i32, ptr %6, align 4, !tbaa !16
   %67 = icmp eq i32 %66, 0
-  %68 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 3
-  %69 = load i32, ptr %68, align 4
-  %70 = shl nsw i32 %69, 2
-  %71 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 2
-  %72 = load i32, ptr %71, align 4
-  %73 = add nsw i32 %70, %72
-  %74 = select i1 %67, i32 0, i32 %73
-  %75 = load i32, ptr %6, align 4, !tbaa !16
-  %76 = icmp eq i32 %75, 0
-  %77 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 3
-  %78 = load i32, ptr %77, align 4
-  %79 = shl nsw i32 %78, 2
-  %80 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 2
-  %81 = load i32, ptr %80, align 4
-  %82 = add nsw i32 %79, %81
-  %83 = select i1 %76, i32 0, i32 %82
-  %84 = icmp eq i32 %3, 2
-  br i1 %84, label %185, label %115
+  br i1 %67, label %108, label %68
 
-85:                                               ; preds = %43, %50
-  %86 = phi i32 [ %49, %43 ], [ %54, %50 ]
-  %87 = phi i32 [ %45, %43 ], [ 17, %50 ]
-  %88 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 1
-  %89 = load i32, ptr %88, align 4, !tbaa !15
-  %90 = shl i32 %34, 2
-  %91 = add nsw i32 %90, -1
-  %92 = shl i32 %33, 2
-  call void @getChroma4x4Neighbour(i32 noundef %89, i32 noundef %91, i32 noundef %92, ptr noundef nonnull %5) #12
-  %93 = load i32, ptr %88, align 4, !tbaa !15
-  %94 = add nsw i32 %92, -1
-  call void @getChroma4x4Neighbour(i32 noundef %93, i32 noundef %90, i32 noundef %94, ptr noundef nonnull %6) #12
-  %95 = select i1 %23, i1 true, i1 %22
-  br i1 %95, label %96, label %115
+68:                                               ; preds = %56
+  %69 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 3
+  %70 = load i32, ptr %69, align 4, !tbaa !43
+  %71 = shl nsw i32 %70, 2
+  %72 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 2
+  %73 = load i32, ptr %72, align 4, !tbaa !44
+  %74 = add nsw i32 %71, %73
+  br label %108
 
-96:                                               ; preds = %85
-  %97 = load i32, ptr %5, align 4, !tbaa !16
-  %98 = icmp eq i32 %97, 0
-  %99 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 3
-  %100 = load i32, ptr %99, align 4
-  %101 = shl nsw i32 %100, 2
-  %102 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 2
-  %103 = load i32, ptr %102, align 4
-  %104 = add nsw i32 %101, %103
-  %105 = select i1 %98, i32 0, i32 %104
-  %106 = load i32, ptr %6, align 4, !tbaa !16
-  %107 = icmp eq i32 %106, 0
-  br i1 %107, label %140, label %108
+75:                                               ; preds = %40
+  %76 = select i1 %28, i32 19, i32 35
+  %77 = select i1 %32, i32 18, i32 %76
+  %78 = select i1 %27, i32 17, i32 %77
+  %79 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 42
+  %80 = load i32, ptr %79, align 8, !tbaa !65
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #12
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #12
+  %81 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 1
+  %82 = load i32, ptr %81, align 4, !tbaa !15
+  %83 = shl i32 %42, 2
+  %84 = add nsw i32 %83, -1
+  %85 = shl i32 %41, 2
+  call void @getChroma4x4Neighbour(i32 noundef %82, i32 noundef %84, i32 noundef %85, ptr noundef nonnull %5) #12
+  %86 = load i32, ptr %81, align 4, !tbaa !15
+  %87 = add nsw i32 %85, -1
+  call void @getChroma4x4Neighbour(i32 noundef %86, i32 noundef %83, i32 noundef %87, ptr noundef nonnull %6) #12
+  %88 = select i1 %28, i1 true, i1 %31
+  br i1 %88, label %89, label %108
 
-108:                                              ; preds = %96
-  %109 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 3
-  %110 = load i32, ptr %109, align 4, !tbaa !43
-  %111 = shl nsw i32 %110, 2
-  %112 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 2
-  %113 = load i32, ptr %112, align 4, !tbaa !44
-  %114 = add nsw i32 %111, %113
-  br label %115
+89:                                               ; preds = %75
+  %90 = load i32, ptr %5, align 4, !tbaa !16
+  %91 = icmp eq i32 %90, 0
+  %92 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 3
+  %93 = load i32, ptr %92, align 4
+  %94 = shl nsw i32 %93, 2
+  %95 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 2
+  %96 = load i32, ptr %95, align 4
+  %97 = add nsw i32 %94, %96
+  %98 = select i1 %91, i32 0, i32 %97
+  %99 = load i32, ptr %6, align 4, !tbaa !16
+  %100 = icmp eq i32 %99, 0
+  br i1 %100, label %108, label %101
 
-115:                                              ; preds = %108, %85, %55, %65
-  %116 = phi i32 [ 0, %55 ], [ %114, %108 ], [ 0, %85 ], [ %83, %65 ]
-  %117 = phi i32 [ 0, %55 ], [ %105, %108 ], [ 0, %85 ], [ %74, %65 ]
-  %118 = phi i32 [ %57, %55 ], [ %87, %108 ], [ %87, %85 ], [ %57, %65 ]
-  %119 = phi i32 [ %56, %55 ], [ %86, %108 ], [ %86, %85 ], [ %56, %65 ]
-  %120 = load i32, ptr %6, align 4, !tbaa !16
-  %121 = icmp eq i32 %120, 0
-  br i1 %121, label %140, label %122
+101:                                              ; preds = %89
+  %102 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 3
+  %103 = load i32, ptr %102, align 4, !tbaa !43
+  %104 = shl nsw i32 %103, 2
+  %105 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 2
+  %106 = load i32, ptr %105, align 4, !tbaa !44
+  %107 = add nsw i32 %104, %106
+  br label %108
 
-122:                                              ; preds = %115
-  %123 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 39
-  %124 = load ptr, ptr %123, align 8, !tbaa !9
-  %125 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 1
-  %126 = load i32, ptr %125, align 4, !tbaa !18
-  %127 = sext i32 %126 to i64
-  %128 = getelementptr inbounds %struct.macroblock, ptr %124, i64 %127, i32 6
-  %129 = load i32, ptr %128, align 8, !tbaa !52
-  %130 = icmp eq i32 %129, 14
-  br i1 %130, label %140, label %131
+108:                                              ; preds = %75, %101, %89, %44, %68, %56
+  %109 = phi i32 [ %48, %68 ], [ %48, %56 ], [ %48, %44 ], [ %80, %101 ], [ %80, %89 ], [ %80, %75 ]
+  %110 = phi i32 [ %46, %68 ], [ %46, %56 ], [ %46, %44 ], [ %78, %101 ], [ %78, %89 ], [ %78, %75 ]
+  %111 = phi i32 [ %65, %68 ], [ %65, %56 ], [ 0, %44 ], [ %98, %101 ], [ %98, %89 ], [ 0, %75 ]
+  %112 = phi i32 [ %74, %68 ], [ 0, %56 ], [ 0, %44 ], [ %107, %101 ], [ 0, %89 ], [ 0, %75 ]
+  %113 = icmp ne i32 %109, 0
+  %114 = zext i1 %113 to i32
+  %115 = icmp eq i32 %3, 2
+  br i1 %115, label %175, label %116
 
-131:                                              ; preds = %122
-  %132 = getelementptr inbounds %struct.macroblock, ptr %124, i64 %127, i32 10
-  %133 = load i64, ptr %132, align 8, !tbaa !66
-  %134 = add nsw i32 %118, %116
-  %135 = zext i32 %134 to i64
-  %136 = shl nuw i64 1, %135
-  %137 = and i64 %133, %136
-  %138 = ashr i64 %137, %135
-  %139 = trunc i64 %138 to i32
-  br label %140
+116:                                              ; preds = %108
+  %117 = load i32, ptr %6, align 4, !tbaa !16
+  %118 = icmp eq i32 %117, 0
+  br i1 %118, label %137, label %119
 
-140:                                              ; preds = %96, %122, %131, %115
-  %141 = phi i32 [ %119, %131 ], [ %119, %115 ], [ %119, %122 ], [ %86, %96 ]
-  %142 = phi i32 [ %118, %131 ], [ %118, %115 ], [ %118, %122 ], [ %87, %96 ]
-  %143 = phi i32 [ %117, %131 ], [ %117, %115 ], [ %117, %122 ], [ %105, %96 ]
-  %144 = phi i32 [ %139, %131 ], [ %119, %115 ], [ 1, %122 ], [ %86, %96 ]
-  %145 = load i32, ptr %5, align 4, !tbaa !16
-  %146 = icmp eq i32 %145, 0
-  br i1 %146, label %165, label %147
+119:                                              ; preds = %116
+  %120 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 39
+  %121 = load ptr, ptr %120, align 8, !tbaa !9
+  %122 = getelementptr inbounds %struct.pix_pos, ptr %6, i64 0, i32 1
+  %123 = load i32, ptr %122, align 4, !tbaa !18
+  %124 = sext i32 %123 to i64
+  %125 = getelementptr inbounds %struct.macroblock, ptr %121, i64 %124, i32 6
+  %126 = load i32, ptr %125, align 8, !tbaa !52
+  %127 = icmp eq i32 %126, 14
+  br i1 %127, label %137, label %128
 
-147:                                              ; preds = %140
-  %148 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 39
-  %149 = load ptr, ptr %148, align 8, !tbaa !9
-  %150 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 1
-  %151 = load i32, ptr %150, align 4, !tbaa !18
-  %152 = sext i32 %151 to i64
-  %153 = getelementptr inbounds %struct.macroblock, ptr %149, i64 %152, i32 6
-  %154 = load i32, ptr %153, align 8, !tbaa !52
-  %155 = icmp eq i32 %154, 14
-  br i1 %155, label %165, label %156
+128:                                              ; preds = %119
+  %129 = getelementptr inbounds %struct.macroblock, ptr %121, i64 %124, i32 10
+  %130 = load i64, ptr %129, align 8, !tbaa !66
+  %131 = add nsw i32 %112, %110
+  %132 = zext i32 %131 to i64
+  %133 = shl nuw i64 1, %132
+  %134 = and i64 %130, %133
+  %135 = ashr i64 %134, %132
+  %136 = trunc i64 %135 to i32
+  br label %137
 
-156:                                              ; preds = %147
-  %157 = getelementptr inbounds %struct.macroblock, ptr %149, i64 %152, i32 10
-  %158 = load i64, ptr %157, align 8, !tbaa !66
-  %159 = add nsw i32 %143, %142
-  %160 = zext i32 %159 to i64
-  %161 = shl nuw i64 1, %160
-  %162 = and i64 %158, %161
-  %163 = ashr i64 %162, %160
-  %164 = trunc i64 %163 to i32
-  br label %165
+137:                                              ; preds = %119, %128, %116
+  %138 = phi i32 [ %136, %128 ], [ %114, %116 ], [ 1, %119 ]
+  %139 = load i32, ptr %5, align 4, !tbaa !16
+  %140 = icmp eq i32 %139, 0
+  br i1 %140, label %159, label %141
 
-165:                                              ; preds = %140, %156, %147
-  %166 = phi i32 [ %164, %156 ], [ %141, %140 ], [ 1, %147 ]
-  %167 = shl nsw i32 %144, 1
-  %168 = add nsw i32 %166, %167
-  %169 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 38
-  %170 = load ptr, ptr %169, align 8, !tbaa !20
-  %171 = getelementptr inbounds %struct.Slice, ptr %170, i64 0, i32 11
-  %172 = load ptr, ptr %171, align 8, !tbaa !53
-  %173 = sext i32 %3 to i64
-  %174 = getelementptr inbounds [10 x i32], ptr @type2ctx_bcbp, i64 0, i64 %173
-  %175 = load i32, ptr %174, align 4, !tbaa !19
-  %176 = sext i32 %175 to i64
-  %177 = getelementptr inbounds %struct.TextureInfoContexts, ptr %172, i64 0, i32 3, i64 %176
-  %178 = sext i32 %168 to i64
-  %179 = getelementptr inbounds %struct.BiContextType, ptr %177, i64 %178
-  %180 = call i32 @biari_decode_symbol(ptr noundef %1, ptr noundef nonnull %179) #12
-  br i1 %9, label %201, label %181
+141:                                              ; preds = %137
+  %142 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 39
+  %143 = load ptr, ptr %142, align 8, !tbaa !9
+  %144 = getelementptr inbounds %struct.pix_pos, ptr %5, i64 0, i32 1
+  %145 = load i32, ptr %144, align 4, !tbaa !18
+  %146 = sext i32 %145 to i64
+  %147 = getelementptr inbounds %struct.macroblock, ptr %143, i64 %146, i32 6
+  %148 = load i32, ptr %147, align 8, !tbaa !52
+  %149 = icmp eq i32 %148, 14
+  br i1 %149, label %159, label %150
 
-181:                                              ; preds = %165
-  %182 = icmp ult i32 %3, 6
-  br i1 %182, label %183, label %190
+150:                                              ; preds = %141
+  %151 = getelementptr inbounds %struct.macroblock, ptr %143, i64 %146, i32 10
+  %152 = load i64, ptr %151, align 8, !tbaa !66
+  %153 = add nsw i32 %111, %110
+  %154 = zext i32 %153 to i64
+  %155 = shl nuw i64 1, %154
+  %156 = and i64 %152, %155
+  %157 = ashr i64 %156, %154
+  %158 = trunc i64 %157 to i32
+  br label %159
 
-183:                                              ; preds = %181
-  %184 = shl nsw i32 %33, 2
-  br label %185
+159:                                              ; preds = %141, %150, %137
+  %160 = phi i32 [ %158, %150 ], [ %114, %137 ], [ 1, %141 ]
+  %161 = shl nsw i32 %138, 1
+  %162 = add nsw i32 %160, %161
+  %163 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 38
+  %164 = load ptr, ptr %163, align 8, !tbaa !20
+  %165 = getelementptr inbounds %struct.Slice, ptr %164, i64 0, i32 11
+  %166 = load ptr, ptr %165, align 8, !tbaa !53
+  %167 = sext i32 %3 to i64
+  %168 = getelementptr inbounds [10 x i32], ptr @type2ctx_bcbp, i64 0, i64 %167
+  %169 = load i32, ptr %168, align 4, !tbaa !19
+  %170 = sext i32 %169 to i64
+  %171 = getelementptr inbounds %struct.TextureInfoContexts, ptr %166, i64 0, i32 3, i64 %170
+  %172 = sext i32 %162 to i64
+  %173 = getelementptr inbounds %struct.BiContextType, ptr %171, i64 %172
+  %174 = call i32 @biari_decode_symbol(ptr noundef %1, ptr noundef nonnull %173) #12
+  br label %175
 
-185:                                              ; preds = %183, %65
-  %186 = phi i32 [ %184, %183 ], [ %62, %65 ]
-  %187 = phi i32 [ %180, %183 ], [ 1, %65 ]
-  %188 = or i32 %186, 1
-  %189 = add nsw i32 %188, %34
-  br label %201
+175:                                              ; preds = %159, %108
+  %176 = phi i32 [ %174, %159 ], [ 1, %108 ]
+  br i1 %30, label %193, label %177
 
-190:                                              ; preds = %181
-  %191 = select i1 %21, i1 true, i1 %24
-  %192 = select i1 %21, i32 17, i32 18
-  br i1 %191, label %201, label %193
+177:                                              ; preds = %175
+  br i1 %29, label %178, label %182
 
-193:                                              ; preds = %190
-  %194 = shl nsw i32 %33, 2
-  br i1 %23, label %195, label %198
+178:                                              ; preds = %177
+  %179 = shl nsw i32 %41, 2
+  %180 = or i32 %179, 1
+  %181 = add nsw i32 %180, %42
+  br label %193
 
-195:                                              ; preds = %193
-  %196 = add nsw i32 %194, 19
-  %197 = add nsw i32 %196, %34
-  br label %201
+182:                                              ; preds = %177
+  %183 = select i1 %27, i1 true, i1 %32
+  %184 = select i1 %27, i32 17, i32 18
+  br i1 %183, label %193, label %185
 
-198:                                              ; preds = %193
-  %199 = add nsw i32 %194, 35
-  %200 = add nsw i32 %199, %34
-  br label %201
+185:                                              ; preds = %182
+  %186 = shl nsw i32 %41, 2
+  br i1 %28, label %187, label %190
 
-201:                                              ; preds = %190, %185, %198, %195, %165
-  %202 = phi i32 [ %180, %165 ], [ %187, %185 ], [ %180, %190 ], [ %180, %195 ], [ %180, %198 ]
-  %203 = phi i32 [ 0, %165 ], [ %189, %185 ], [ %192, %190 ], [ %197, %195 ], [ %200, %198 ]
-  %204 = icmp eq i32 %202, 0
-  br i1 %204, label %250, label %205
+187:                                              ; preds = %185
+  %188 = add nsw i32 %186, 19
+  %189 = add nsw i32 %188, %42
+  br label %193
 
-205:                                              ; preds = %201
-  switch i32 %3, label %244 [
-    i32 2, label %206
-    i32 3, label %224
-    i32 4, label %234
+190:                                              ; preds = %185
+  %191 = add nsw i32 %186, 35
+  %192 = add nsw i32 %191, %42
+  br label %193
+
+193:                                              ; preds = %182, %178, %190, %187, %175
+  %194 = phi i32 [ 0, %175 ], [ %181, %178 ], [ %184, %182 ], [ %189, %187 ], [ %192, %190 ]
+  %195 = icmp eq i32 %176, 0
+  br i1 %195, label %241, label %196
+
+196:                                              ; preds = %193
+  switch i32 %3, label %235 [
+    i32 2, label %197
+    i32 3, label %215
+    i32 4, label %225
   ]
 
-206:                                              ; preds = %205
-  %207 = zext i32 %203 to i64
-  %208 = shl nuw i64 1, %207
-  %209 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
-  %210 = load i64, ptr %209, align 8, !tbaa !66
-  %211 = add nsw i32 %203, 1
-  %212 = zext i32 %211 to i64
-  %213 = shl nuw i64 1, %212
-  %214 = add nsw i32 %203, 4
-  %215 = zext i32 %214 to i64
-  %216 = shl nuw i64 1, %215
-  %217 = add nsw i32 %203, 5
-  %218 = zext i32 %217 to i64
-  %219 = shl nuw i64 1, %218
-  %220 = or i64 %213, %208
-  %221 = or i64 %220, %216
-  %222 = or i64 %221, %219
-  %223 = or i64 %222, %210
-  store i64 %223, ptr %209, align 8, !tbaa !66
-  br label %250
+197:                                              ; preds = %196
+  %198 = zext i32 %194 to i64
+  %199 = shl nuw i64 1, %198
+  %200 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
+  %201 = load i64, ptr %200, align 8, !tbaa !66
+  %202 = add nsw i32 %194, 1
+  %203 = zext i32 %202 to i64
+  %204 = shl nuw i64 1, %203
+  %205 = add nsw i32 %194, 4
+  %206 = zext i32 %205 to i64
+  %207 = shl nuw i64 1, %206
+  %208 = add nsw i32 %194, 5
+  %209 = zext i32 %208 to i64
+  %210 = shl nuw i64 1, %209
+  %211 = or i64 %204, %199
+  %212 = or i64 %211, %207
+  %213 = or i64 %212, %210
+  %214 = or i64 %213, %201
+  store i64 %214, ptr %200, align 8, !tbaa !66
+  br label %241
 
-224:                                              ; preds = %205
-  %225 = zext i32 %203 to i64
-  %226 = shl nuw i64 1, %225
-  %227 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
-  %228 = load i64, ptr %227, align 8, !tbaa !66
-  %229 = add nsw i32 %203, 1
-  %230 = zext i32 %229 to i64
-  %231 = shl nuw i64 1, %230
-  %232 = or i64 %231, %226
-  %233 = or i64 %232, %228
-  store i64 %233, ptr %227, align 8, !tbaa !66
-  br label %250
+215:                                              ; preds = %196
+  %216 = zext i32 %194 to i64
+  %217 = shl nuw i64 1, %216
+  %218 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
+  %219 = load i64, ptr %218, align 8, !tbaa !66
+  %220 = add nsw i32 %194, 1
+  %221 = zext i32 %220 to i64
+  %222 = shl nuw i64 1, %221
+  %223 = or i64 %222, %217
+  %224 = or i64 %223, %219
+  store i64 %224, ptr %218, align 8, !tbaa !66
+  br label %241
 
-234:                                              ; preds = %205
-  %235 = zext i32 %203 to i64
-  %236 = shl nuw i64 1, %235
-  %237 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
-  %238 = load i64, ptr %237, align 8, !tbaa !66
-  %239 = add nsw i32 %203, 4
-  %240 = zext i32 %239 to i64
-  %241 = shl nuw i64 1, %240
-  %242 = or i64 %241, %236
-  %243 = or i64 %242, %238
-  store i64 %243, ptr %237, align 8, !tbaa !66
-  br label %250
+225:                                              ; preds = %196
+  %226 = zext i32 %194 to i64
+  %227 = shl nuw i64 1, %226
+  %228 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
+  %229 = load i64, ptr %228, align 8, !tbaa !66
+  %230 = add nsw i32 %194, 4
+  %231 = zext i32 %230 to i64
+  %232 = shl nuw i64 1, %231
+  %233 = or i64 %232, %227
+  %234 = or i64 %233, %229
+  store i64 %234, ptr %228, align 8, !tbaa !66
+  br label %241
 
-244:                                              ; preds = %205
-  %245 = zext i32 %203 to i64
-  %246 = shl nuw i64 1, %245
-  %247 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
-  %248 = load i64, ptr %247, align 8, !tbaa !66
-  %249 = or i64 %248, %246
-  store i64 %249, ptr %247, align 8, !tbaa !66
-  br label %250
+235:                                              ; preds = %196
+  %236 = zext i32 %194 to i64
+  %237 = shl nuw i64 1, %236
+  %238 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 10
+  %239 = load i64, ptr %238, align 8, !tbaa !66
+  %240 = or i64 %239, %237
+  store i64 %240, ptr %238, align 8, !tbaa !66
+  br label %241
 
-250:                                              ; preds = %206, %234, %244, %224, %201
+241:                                              ; preds = %197, %225, %235, %215, %193
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %6) #12
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #12
-  ret i32 %202
+  ret i32 %176
 }
 
 declare void @getChroma4x4Neighbour(i32 noundef, i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #4
@@ -2532,144 +2534,141 @@ define dso_local i32 @read_significance_map(ptr nocapture noundef readonly %0, p
   %6 = sext i32 %3 to i64
   %7 = getelementptr inbounds [10 x i32], ptr @maxpos, i64 0, i64 %6
   %8 = load i32, ptr %7, align 4, !tbaa !19
-  %9 = add nsw i32 %8, -1
-  %10 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 36
-  %11 = load i32, ptr %10, align 8, !tbaa !67
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %17
+  %9 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 36
+  %10 = load i32, ptr %9, align 8, !tbaa !67
+  %11 = icmp eq i32 %10, 0
+  br i1 %11, label %12, label %16
 
-13:                                               ; preds = %5
-  %14 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 20
-  %15 = load i32, ptr %14, align 4, !tbaa !27
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %30, label %17
+12:                                               ; preds = %5
+  %13 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 20
+  %14 = load i32, ptr %13, align 4, !tbaa !27
+  %15 = icmp eq i32 %14, 0
+  br i1 %15, label %29, label %16
 
-17:                                               ; preds = %5, %13
-  %18 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 38
-  %19 = load ptr, ptr %18, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.Slice, ptr %19, i64 0, i32 11
-  %21 = load ptr, ptr %20, align 8, !tbaa !53
-  %22 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
-  %23 = load i32, ptr %22, align 4, !tbaa !19
-  %24 = sext i32 %23 to i64
-  %25 = getelementptr inbounds %struct.TextureInfoContexts, ptr %21, i64 0, i32 8, i64 %24
-  %26 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
-  %27 = load i32, ptr %26, align 4, !tbaa !19
-  %28 = sext i32 %27 to i64
-  %29 = getelementptr inbounds %struct.TextureInfoContexts, ptr %21, i64 0, i32 9, i64 %28
-  br label %43
+16:                                               ; preds = %5, %12
+  %17 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 38
+  %18 = load ptr, ptr %17, align 8, !tbaa !20
+  %19 = getelementptr inbounds %struct.Slice, ptr %18, i64 0, i32 11
+  %20 = load ptr, ptr %19, align 8, !tbaa !53
+  %21 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
+  %22 = load i32, ptr %21, align 4, !tbaa !19
+  %23 = sext i32 %22 to i64
+  %24 = getelementptr inbounds %struct.TextureInfoContexts, ptr %20, i64 0, i32 8, i64 %23
+  %25 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
+  %26 = load i32, ptr %25, align 4, !tbaa !19
+  %27 = sext i32 %26 to i64
+  %28 = getelementptr inbounds %struct.TextureInfoContexts, ptr %20, i64 0, i32 9, i64 %27
+  br label %42
 
-30:                                               ; preds = %13
-  %31 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 38
-  %32 = load ptr, ptr %31, align 8, !tbaa !20
-  %33 = getelementptr inbounds %struct.Slice, ptr %32, i64 0, i32 11
-  %34 = load ptr, ptr %33, align 8, !tbaa !53
-  %35 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
-  %36 = load i32, ptr %35, align 4, !tbaa !19
-  %37 = sext i32 %36 to i64
-  %38 = getelementptr inbounds %struct.TextureInfoContexts, ptr %34, i64 0, i32 4, i64 %37
-  %39 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
-  %40 = load i32, ptr %39, align 4, !tbaa !19
-  %41 = sext i32 %40 to i64
-  %42 = getelementptr inbounds %struct.TextureInfoContexts, ptr %34, i64 0, i32 5, i64 %41
-  br label %43
+29:                                               ; preds = %12
+  %30 = getelementptr inbounds %struct.img_par, ptr %2, i64 0, i32 38
+  %31 = load ptr, ptr %30, align 8, !tbaa !20
+  %32 = getelementptr inbounds %struct.Slice, ptr %31, i64 0, i32 11
+  %33 = load ptr, ptr %32, align 8, !tbaa !53
+  %34 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
+  %35 = load i32, ptr %34, align 4, !tbaa !19
+  %36 = sext i32 %35 to i64
+  %37 = getelementptr inbounds %struct.TextureInfoContexts, ptr %33, i64 0, i32 4, i64 %36
+  %38 = getelementptr inbounds [10 x i32], ptr @type2ctx_last, i64 0, i64 %6
+  %39 = load i32, ptr %38, align 4, !tbaa !19
+  %40 = sext i32 %39 to i64
+  %41 = getelementptr inbounds %struct.TextureInfoContexts, ptr %33, i64 0, i32 5, i64 %40
+  br label %42
 
-43:                                               ; preds = %30, %17
-  %44 = phi ptr [ %25, %17 ], [ %38, %30 ]
-  %45 = phi ptr [ @pos2ctx_map_int, %17 ], [ @pos2ctx_map, %30 ]
-  %46 = phi ptr [ %29, %17 ], [ %42, %30 ]
-  switch i32 %3, label %49 [
-    i32 7, label %47
-    i32 1, label %47
-  ]
+42:                                               ; preds = %29, %16
+  %43 = phi ptr [ %24, %16 ], [ %37, %29 ]
+  %44 = phi ptr [ @pos2ctx_map_int, %16 ], [ @pos2ctx_map, %29 ]
+  %45 = phi ptr [ %28, %16 ], [ %41, %29 ]
+  %46 = icmp ne i32 %3, 1
+  %47 = icmp ne i32 %3, 7
+  %48 = and i1 %46, %47
+  %49 = sext i1 %48 to i32
+  %50 = add i32 %8, %49
+  %51 = xor i1 %48, true
+  %52 = zext i1 %51 to i32
+  %53 = sext i1 %51 to i64
+  %54 = getelementptr i32, ptr %4, i64 %53
+  %55 = icmp sgt i32 %50, %52
+  br i1 %55, label %56, label %101
 
-47:                                               ; preds = %43, %43
-  %48 = getelementptr inbounds i32, ptr %4, i64 -1
-  br label %49
+56:                                               ; preds = %42
+  %57 = getelementptr inbounds ptr, ptr %44, i64 %6
+  %58 = load ptr, ptr %57, align 8, !tbaa !5
+  %59 = shl i64 %6, 2
+  %60 = shl nsw i64 %53, 2
+  %61 = add nsw i64 %60, 4
+  %62 = getelementptr i8, ptr %4, i64 %61
+  %63 = add i32 %50, 1
+  br label %64
 
-49:                                               ; preds = %43, %47
-  %50 = phi i32 [ %9, %43 ], [ %8, %47 ]
-  %51 = phi i32 [ 0, %43 ], [ 1, %47 ]
-  %52 = phi ptr [ %4, %43 ], [ %48, %47 ]
-  %53 = icmp slt i32 %51, %50
-  br i1 %53, label %54, label %97
+64:                                               ; preds = %56, %96
+  %65 = phi i32 [ %52, %56 ], [ %99, %96 ]
+  %66 = phi i32 [ 0, %56 ], [ %97, %96 ]
+  %67 = sext i32 %65 to i64
+  %68 = getelementptr inbounds i32, ptr %58, i64 %67
+  %69 = load i32, ptr %68, align 4, !tbaa !19
+  %70 = sext i32 %69 to i64
+  %71 = getelementptr inbounds %struct.BiContextType, ptr %43, i64 %70
+  %72 = tail call i32 @biari_decode_symbol(ptr noundef %1, ptr noundef nonnull %71) #12
+  %73 = icmp eq i32 %72, 0
+  %74 = getelementptr inbounds i32, ptr %54, i64 %67
+  br i1 %73, label %95, label %75
 
-54:                                               ; preds = %49
-  %55 = getelementptr inbounds ptr, ptr %45, i64 %6
-  %56 = load ptr, ptr %55, align 8, !tbaa !5
-  %57 = shl i64 %6, 2
-  %58 = getelementptr i8, ptr %52, i64 4
-  %59 = add i32 %50, 1
-  br label %60
+75:                                               ; preds = %64
+  store i32 1, ptr %74, align 4, !tbaa !19
+  %76 = add nsw i32 %66, 1
+  %77 = call ptr @llvm.load.relative.i64(ptr @reltable.read_significance_map, i64 %59)
+  %78 = getelementptr inbounds i32, ptr %77, i64 %67
+  %79 = load i32, ptr %78, align 4, !tbaa !19
+  %80 = sext i32 %79 to i64
+  %81 = getelementptr inbounds %struct.BiContextType, ptr %45, i64 %80
+  %82 = tail call i32 @biari_decode_symbol(ptr noundef %1, ptr noundef nonnull %81) #12
+  %83 = icmp eq i32 %82, 0
+  br i1 %83, label %96, label %84
 
-60:                                               ; preds = %54, %92
-  %61 = phi i32 [ %51, %54 ], [ %95, %92 ]
-  %62 = phi i32 [ 0, %54 ], [ %93, %92 ]
-  %63 = sext i32 %61 to i64
-  %64 = getelementptr inbounds i32, ptr %56, i64 %63
-  %65 = load i32, ptr %64, align 4, !tbaa !19
-  %66 = sext i32 %65 to i64
-  %67 = getelementptr inbounds %struct.BiContextType, ptr %44, i64 %66
-  %68 = tail call i32 @biari_decode_symbol(ptr noundef %1, ptr noundef nonnull %67) #12
-  %69 = icmp eq i32 %68, 0
-  %70 = getelementptr inbounds i32, ptr %52, i64 %63
-  br i1 %69, label %91, label %71
+84:                                               ; preds = %75
+  %85 = add nsw i32 %65, 1
+  %86 = icmp slt i32 %65, %50
+  br i1 %86, label %87, label %96
 
-71:                                               ; preds = %60
-  store i32 1, ptr %70, align 4, !tbaa !19
-  %72 = add nsw i32 %62, 1
-  %73 = call ptr @llvm.load.relative.i64(ptr @reltable.read_significance_map, i64 %57)
-  %74 = getelementptr inbounds i32, ptr %73, i64 %63
-  %75 = load i32, ptr %74, align 4, !tbaa !19
-  %76 = sext i32 %75 to i64
-  %77 = getelementptr inbounds %struct.BiContextType, ptr %46, i64 %76
-  %78 = tail call i32 @biari_decode_symbol(ptr noundef %1, ptr noundef nonnull %77) #12
-  %79 = icmp eq i32 %78, 0
-  br i1 %79, label %92, label %80
+87:                                               ; preds = %84
+  %88 = shl nsw i64 %67, 2
+  %89 = getelementptr i8, ptr %62, i64 %88
+  %90 = xor i32 %65, -1
+  %91 = add i32 %50, %90
+  %92 = zext i32 %91 to i64
+  %93 = shl nuw nsw i64 %92, 2
+  %94 = add nuw nsw i64 %93, 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(1) %89, i8 0, i64 %94, i1 false), !tbaa !19
+  br label %96
 
-80:                                               ; preds = %71
-  %81 = add nsw i32 %61, 1
-  %82 = icmp slt i32 %61, %50
-  br i1 %82, label %83, label %92
+95:                                               ; preds = %64
+  store i32 0, ptr %74, align 4, !tbaa !19
+  br label %96
 
-83:                                               ; preds = %80
-  %84 = shl nsw i64 %63, 2
-  %85 = getelementptr i8, ptr %58, i64 %84
-  %86 = xor i32 %61, -1
-  %87 = add i32 %50, %86
-  %88 = zext i32 %87 to i64
-  %89 = shl nuw nsw i64 %88, 2
-  %90 = add nuw nsw i64 %89, 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(1) %85, i8 0, i64 %90, i1 false), !tbaa !19
-  br label %92
+96:                                               ; preds = %87, %84, %95, %75
+  %97 = phi i32 [ %76, %75 ], [ %66, %95 ], [ %76, %84 ], [ %76, %87 ]
+  %98 = phi i32 [ %65, %75 ], [ %65, %95 ], [ %85, %84 ], [ %63, %87 ]
+  %99 = add nsw i32 %98, 1
+  %100 = icmp slt i32 %99, %50
+  br i1 %100, label %64, label %101, !llvm.loop !68
 
-91:                                               ; preds = %60
-  store i32 0, ptr %70, align 4, !tbaa !19
-  br label %92
+101:                                              ; preds = %96, %42
+  %102 = phi i32 [ 0, %42 ], [ %97, %96 ]
+  %103 = phi i32 [ %52, %42 ], [ %99, %96 ]
+  %104 = icmp sgt i32 %103, %50
+  br i1 %104, label %109, label %105
 
-92:                                               ; preds = %83, %80, %91, %71
-  %93 = phi i32 [ %72, %71 ], [ %62, %91 ], [ %72, %80 ], [ %72, %83 ]
-  %94 = phi i32 [ %61, %71 ], [ %61, %91 ], [ %81, %80 ], [ %59, %83 ]
-  %95 = add nsw i32 %94, 1
-  %96 = icmp slt i32 %95, %50
-  br i1 %96, label %60, label %97, !llvm.loop !68
+105:                                              ; preds = %101
+  %106 = sext i32 %103 to i64
+  %107 = getelementptr inbounds i32, ptr %54, i64 %106
+  store i32 1, ptr %107, align 4, !tbaa !19
+  %108 = add nsw i32 %102, 1
+  br label %109
 
-97:                                               ; preds = %92, %49
-  %98 = phi i32 [ 0, %49 ], [ %93, %92 ]
-  %99 = phi i32 [ %51, %49 ], [ %95, %92 ]
-  %100 = icmp sgt i32 %99, %50
-  br i1 %100, label %105, label %101
-
-101:                                              ; preds = %97
-  %102 = sext i32 %99 to i64
-  %103 = getelementptr inbounds i32, ptr %52, i64 %102
-  store i32 1, ptr %103, align 4, !tbaa !19
-  %104 = add nsw i32 %98, 1
-  br label %105
-
-105:                                              ; preds = %101, %97
-  %106 = phi i32 [ %104, %101 ], [ %98, %97 ]
-  ret i32 %106
+109:                                              ; preds = %105, %101
+  %110 = phi i32 [ %108, %105 ], [ %102, %101 ]
+  ret i32 %110
 }
 
 ; Function Attrs: nounwind uwtable
@@ -2839,7 +2838,7 @@ define dso_local void @readRunLevel_CABAC(ptr nocapture noundef %0, ptr nocaptur
   %15 = tail call i32 @read_and_store_CBP_block_bit(ptr noundef %9, ptr noundef %2, ptr noundef nonnull %1, i32 noundef %14)
   store i32 %15, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
   %16 = icmp eq i32 %15, 0
-  br i1 %16, label %48, label %17
+  br i1 %16, label %40, label %17
 
 17:                                               ; preds = %12
   %18 = load i32, ptr %13, align 8, !tbaa !46
@@ -2853,7 +2852,7 @@ define dso_local void @readRunLevel_CABAC(ptr nocapture noundef %0, ptr nocaptur
 22:                                               ; preds = %17, %3
   %23 = phi i32 [ %21, %17 ], [ %10, %3 ]
   %24 = icmp eq i32 %23, 0
-  br i1 %24, label %48, label %25
+  br i1 %24, label %40, label %25
 
 25:                                               ; preds = %22
   %26 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
@@ -2863,7 +2862,7 @@ define dso_local void @readRunLevel_CABAC(ptr nocapture noundef %0, ptr nocaptur
   %29 = getelementptr inbounds [64 x i32], ptr @readRunLevel_CABAC.coeff, i64 0, i64 %28
   %30 = load i32, ptr %29, align 4, !tbaa !19
   %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %42
+  br i1 %31, label %32, label %45
 
 32:                                               ; preds = %25, %32
   %33 = phi i64 [ %35, %32 ], [ %28, %25 ]
@@ -2874,33 +2873,33 @@ define dso_local void @readRunLevel_CABAC(ptr nocapture noundef %0, ptr nocaptur
   %37 = getelementptr inbounds [64 x i32], ptr @readRunLevel_CABAC.coeff, i64 0, i64 %35
   %38 = load i32, ptr %37, align 4, !tbaa !19
   %39 = icmp eq i32 %38, 0
-  br i1 %39, label %32, label %40, !llvm.loop !71
+  br i1 %39, label %32, label %43, !llvm.loop !71
 
-40:                                               ; preds = %32
-  %41 = trunc i64 %35 to i32
-  br label %42
-
-42:                                               ; preds = %40, %25
-  %43 = phi i32 [ %41, %40 ], [ %27, %25 ]
-  %44 = phi i32 [ %38, %40 ], [ %30, %25 ]
-  %45 = add nsw i32 %43, 1
-  store i32 %45, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
-  %46 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  store i32 %44, ptr %46, align 4, !tbaa !30
-  %47 = add nsw i32 %23, -1
-  store i32 %47, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
-  br label %51
-
-48:                                               ; preds = %12, %22
-  %49 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  store i32 0, ptr %49, align 8, !tbaa !37
-  %50 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  store i32 0, ptr %50, align 4, !tbaa !30
+40:                                               ; preds = %22, %12
+  %41 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
+  store i32 0, ptr %41, align 8, !tbaa !37
+  %42 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
+  store i32 0, ptr %42, align 4, !tbaa !30
   store i32 -1, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
   store i32 0, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
   br label %51
 
-51:                                               ; preds = %42, %48
+43:                                               ; preds = %32
+  %44 = trunc i64 %35 to i32
+  br label %45
+
+45:                                               ; preds = %43, %25
+  %46 = phi i32 [ %44, %43 ], [ %27, %25 ]
+  %47 = phi i32 [ %38, %43 ], [ %30, %25 ]
+  %48 = add nsw i32 %46, 1
+  store i32 %48, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
+  %49 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
+  store i32 %47, ptr %49, align 4, !tbaa !30
+  %50 = add nsw i32 %23, -1
+  store i32 %50, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
+  br label %51
+
+51:                                               ; preds = %45, %40
   ret void
 }
 
@@ -2923,7 +2922,7 @@ declare i32 @arideco_bits_read(ptr noundef) local_unnamed_addr #4
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @cabac_startcode_follows(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
   %3 = icmp eq i32 %1, 0
-  br i1 %3, label %19, label %4
+  br i1 %3, label %20, label %4
 
 4:                                                ; preds = %2
   %5 = getelementptr inbounds %struct.img_par, ptr %0, i64 0, i32 38
@@ -2938,13 +2937,14 @@ define dso_local i32 @cabac_startcode_follows(ptr nocapture noundef readonly %0,
   %14 = load ptr, ptr %13, align 8, !tbaa !75
   %15 = getelementptr inbounds %struct.datapartition, ptr %14, i64 %12, i32 1
   %16 = tail call i32 @biari_decode_final(ptr noundef nonnull %15) #12
-  %17 = icmp eq i32 %16, 1
-  %18 = zext i1 %17 to i32
-  br label %19
+  %17 = freeze i32 %16
+  %18 = icmp eq i32 %17, 1
+  %19 = zext i1 %18 to i32
+  br label %20
 
-19:                                               ; preds = %2, %4
-  %20 = phi i32 [ %18, %4 ], [ 0, %2 ]
-  ret i32 %20
+20:                                               ; preds = %4, %2
+  %21 = phi i32 [ 0, %2 ], [ %19, %4 ]
+  ret i32 %21
 }
 
 ; Function Attrs: nounwind uwtable
@@ -3025,11 +3025,11 @@ define dso_local void @readIPCMBytes_CABAC(ptr nocapture noundef %0, ptr nocaptu
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #9
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #11

@@ -1600,8 +1600,8 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7OpenSeqEP19ISequential
   tail call void @__cxa_end_catch() #17
   resume { ptr, i32 } %51
 
-52:                                               ; preds = %33, %44, %43
-  %53 = phi i32 [ -2147024882, %43 ], [ %45, %44 ], [ 0, %33 ]
+52:                                               ; preds = %44, %33, %43
+  %53 = phi i32 [ -2147024882, %43 ], [ 0, %33 ], [ %45, %44 ]
   ret i32 %53
 
 54:                                               ; preds = %41
@@ -1889,34 +1889,32 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   %7 = alloca %class.CMyComPtr.1, align 8
   %8 = alloca %struct.CByteInBufWrap, align 8
   %9 = alloca %"struct.NArchive::NPpmd::CPpmdCpp", align 8
-  switch i32 %2, label %13 [
-    i32 0, label %310
-    i32 -1, label %14
+  switch i32 %2, label %310 [
+    i32 0, label %311
+    i32 -1, label %13
     i32 1, label %10
   ]
 
 10:                                               ; preds = %5
   %11 = load i32, ptr %1, align 4, !tbaa !5
   %12 = icmp eq i32 %11, 0
-  br i1 %12, label %14, label %13
+  br i1 %12, label %13, label %311
 
 13:                                               ; preds = %5, %10
-  br label %310
-
-14:                                               ; preds = %5, %10
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #17
   store i64 0, ptr %6, align 8, !tbaa !93
-  %15 = load ptr, ptr %4, align 8, !tbaa !76
-  %16 = getelementptr inbounds ptr, ptr %15, i64 6
-  %17 = load ptr, ptr %16, align 8
-  %18 = call noundef i32 %17(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull %6)
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %308
+  %14 = load ptr, ptr %4, align 8, !tbaa !76
+  %15 = getelementptr inbounds ptr, ptr %14, i64 6
+  %16 = load ptr, ptr %15, align 8
+  %17 = call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull %6)
+  %18 = icmp eq i32 %17, 0
+  br i1 %18, label %19, label %308
 
-20:                                               ; preds = %14
+19:                                               ; preds = %13
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #17
   store ptr null, ptr %7, align 8, !tbaa !94
-  %21 = icmp ne i32 %3, 0
+  %20 = icmp eq i32 %3, 0
+  %21 = xor i1 %20, true
   %22 = zext i1 %21 to i32
   %23 = load ptr, ptr %4, align 8, !tbaa !76
   %24 = getelementptr inbounds ptr, ptr %23, i64 7
@@ -1924,20 +1922,20 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   %26 = invoke noundef i32 %25(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 0, ptr noundef nonnull %7, i32 noundef %22)
           to label %27 unwind label %29
 
-27:                                               ; preds = %20
+27:                                               ; preds = %19
   %28 = icmp eq i32 %26, 0
   br i1 %28, label %31, label %281
 
-29:                                               ; preds = %20
+29:                                               ; preds = %19
   %30 = landingpad { ptr, i32 }
           cleanup
   br label %295
 
 31:                                               ; preds = %27
   %32 = load ptr, ptr %7, align 8
-  %33 = icmp ne ptr %32, null
-  %34 = select i1 %21, i1 true, i1 %33
-  br i1 %34, label %37, label %293
+  %33 = icmp eq ptr %32, null
+  %34 = select i1 %20, i1 %33, i1 false
+  br i1 %34, label %293, label %37
 
 35:                                               ; preds = %37
   %36 = landingpad { ptr, i32 }
@@ -2253,16 +2251,16 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   %204 = load i32, ptr %9, align 8, !tbaa !107
   %205 = icmp eq i32 %204, 7
   %206 = getelementptr inbounds %"struct.NArchive::NPpmd::CPpmdCpp", ptr %9, i64 0, i32 1, i32 2
-  %207 = getelementptr inbounds %"struct.NArchive::NPpmd::CPpmdCpp", ptr %9, i64 0, i32 3, i32 19
-  %208 = load i32, ptr %206, align 4
-  %209 = load i32, ptr %207, align 4
-  %210 = select i1 %205, i32 %208, i32 %209
+  %207 = load i32, ptr %206, align 4
+  %208 = getelementptr inbounds %"struct.NArchive::NPpmd::CPpmdCpp", ptr %9, i64 0, i32 3, i32 19
+  %209 = load i32, ptr %208, align 4
+  %210 = select i1 %205, i32 %207, i32 %209
   %211 = icmp eq i32 %210, 0
   %212 = select i1 %211, i32 0, i32 2
   br label %213
 
-213:                                              ; preds = %110, %203, %201
-  %214 = phi i32 [ 2, %201 ], [ %212, %203 ], [ 2, %110 ]
+213:                                              ; preds = %110, %201, %203
+  %214 = phi i32 [ %212, %203 ], [ 2, %201 ], [ 2, %110 ]
   %215 = load i32, ptr %108, align 4, !tbaa !100
   br label %216
 
@@ -2350,9 +2348,9 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   call void @__clang_call_terminate(ptr %261) #20
   unreachable
 
-262:                                              ; preds = %80, %248, %76, %78, %57
-  %263 = phi ptr [ %54, %78 ], [ %54, %76 ], [ null, %57 ], [ %54, %248 ], [ %54, %80 ]
-  %264 = phi { ptr, i32 } [ %79, %78 ], [ %77, %76 ], [ %58, %57 ], [ %249, %248 ], [ %81, %80 ]
+262:                                              ; preds = %76, %78, %248, %80, %57
+  %263 = phi ptr [ null, %57 ], [ %54, %80 ], [ %54, %248 ], [ %54, %78 ], [ %54, %76 ]
+  %264 = phi { ptr, i32 } [ %58, %57 ], [ %81, %80 ], [ %249, %248 ], [ %79, %78 ], [ %77, %76 ]
   invoke void @MidFree(ptr noundef %263)
           to label %274 unwind label %265
 
@@ -2446,14 +2444,17 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #17
   resume { ptr, i32 } %296
 
-308:                                              ; preds = %14, %293
-  %309 = phi i32 [ %294, %293 ], [ %18, %14 ]
+308:                                              ; preds = %13, %293
+  %309 = phi i32 [ %294, %293 ], [ %17, %13 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #17
-  br label %310
+  br label %311
 
-310:                                              ; preds = %5, %308, %13
-  %311 = phi i32 [ -2147024809, %13 ], [ %309, %308 ], [ %2, %5 ]
-  ret i32 %311
+310:                                              ; preds = %5
+  br label %311
+
+311:                                              ; preds = %5, %310, %10, %308
+  %312 = phi i32 [ %309, %308 ], [ %2, %5 ], [ -2147024809, %10 ], [ -2147024809, %310 ]
+  ret i32 %312
 }
 
 declare void @_ZN14CByteInBufWrapC1Ev(ptr noundef nonnull align 8 dereferenceable(64)) unnamed_addr #2

@@ -197,7 +197,7 @@ define internal fastcc ptr @gtequal_adj_neighbor(ptr nocapture noundef readonly 
   %5 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 1
   %6 = load i32, ptr %5, align 4, !tbaa !15
   %7 = icmp eq ptr %4, null
-  br i1 %7, label %43, label %8
+  br i1 %7, label %41, label %8
 
 8:                                                ; preds = %2
   switch i32 %1, label %20 [
@@ -229,57 +229,58 @@ define internal fastcc ptr @gtequal_adj_neighbor(ptr nocapture noundef readonly 
 20:                                               ; preds = %9, %12, %15, %8, %18
   %21 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %4, i32 noundef %1)
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %43, label %23
+  br i1 %22, label %41, label %23
 
 23:                                               ; preds = %9, %12, %15, %18, %20
   %24 = phi ptr [ %21, %20 ], [ %4, %18 ], [ %4, %15 ], [ %4, %12 ], [ %4, %9 ]
   %25 = load i32, ptr %24, align 8, !tbaa !13
   %26 = icmp eq i32 %25, 2
-  br i1 %26, label %27, label %43
+  br i1 %26, label %27, label %41
 
 27:                                               ; preds = %23
-  %28 = and i32 %1, -3
-  %29 = icmp eq i32 %28, 1
-  br i1 %29, label %30, label %31
-
-30:                                               ; preds = %27
-  switch i32 %6, label %32 [
-    i32 2, label %36
-    i32 1, label %34
-    i32 3, label %38
+  switch i32 %1, label %29 [
+    i32 3, label %28
+    i32 1, label %28
   ]
 
-31:                                               ; preds = %27
-  switch i32 %6, label %38 [
+28:                                               ; preds = %27, %27
+  switch i32 %6, label %36 [
+    i32 0, label %30
+    i32 1, label %32
     i32 2, label %34
-    i32 1, label %36
-    i32 3, label %32
   ]
 
-32:                                               ; preds = %31, %30
-  %33 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 3
-  br label %40
+29:                                               ; preds = %27
+  switch i32 %6, label %36 [
+    i32 2, label %32
+    i32 1, label %34
+    i32 3, label %30
+  ]
 
-34:                                               ; preds = %31, %30
-  %35 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 2
-  br label %40
+30:                                               ; preds = %29, %28
+  %31 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 3
+  br label %38
 
-36:                                               ; preds = %31, %30
-  %37 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 5
-  br label %40
+32:                                               ; preds = %29, %28
+  %33 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 2
+  br label %38
 
-38:                                               ; preds = %30, %31
-  %39 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 4
-  br label %40
+34:                                               ; preds = %28, %29
+  %35 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 5
+  br label %38
 
-40:                                               ; preds = %32, %34, %36, %38
-  %41 = phi ptr [ %39, %38 ], [ %37, %36 ], [ %35, %34 ], [ %33, %32 ]
-  %42 = load ptr, ptr %41, align 8, !tbaa !16
-  br label %43
+36:                                               ; preds = %28, %29
+  %37 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 4
+  br label %38
 
-43:                                               ; preds = %2, %20, %23, %40
-  %44 = phi ptr [ %42, %40 ], [ %24, %23 ], [ null, %20 ], [ null, %2 ]
-  ret ptr %44
+38:                                               ; preds = %30, %32, %34, %36
+  %39 = phi ptr [ %37, %36 ], [ %35, %34 ], [ %33, %32 ], [ %31, %30 ]
+  %40 = load ptr, ptr %39, align 8, !tbaa !16
+  br label %41
+
+41:                                               ; preds = %2, %20, %23, %38
+  %42 = phi ptr [ %40, %38 ], [ %24, %23 ], [ null, %20 ], [ null, %2 ]
+  ret ptr %42
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable

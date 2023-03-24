@@ -8531,8 +8531,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %5282 = icmp eq i32 %5281, 10000
   br i1 %5282, label %5283, label %3437, !llvm.loop !17
 
-5283:                                             ; preds = %5243, %5351
-  %5284 = phi i64 [ %5352, %5351 ], [ 0, %5243 ]
+5283:                                             ; preds = %5243, %5344
+  %5284 = phi i64 [ %5345, %5344 ], [ 0, %5243 ]
   %5285 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 0
   %5286 = load i32, ptr %5285, align 4, !tbaa !11
   %5287 = sitofp i32 %5286 to double
@@ -8541,85 +8541,85 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %5290 = sitofp i32 %5289 to double
   %5291 = fsub double %5287, %5290
   %5292 = call double @llvm.fabs.f64(double %5291)
-  %5293 = fcmp ule double %5292, 1.000000e-05
-  br i1 %5293, label %5301, label %5294
+  %5293 = fcmp ogt double %5292, 1.000000e-05
+  br i1 %5293, label %5347, label %5294
 
-5294:                                             ; preds = %5283, %5301, %5311, %5321, %5331, %5341
-  %5295 = phi i32 [ 0, %5283 ], [ 1, %5301 ], [ 2, %5311 ], [ 3, %5321 ], [ 4, %5331 ], [ 5, %5341 ]
-  %5296 = phi double [ %5287, %5283 ], [ %5304, %5301 ], [ %5314, %5311 ], [ %5324, %5321 ], [ %5334, %5331 ], [ %5344, %5341 ]
-  %5297 = phi double [ %5290, %5283 ], [ %5307, %5301 ], [ %5317, %5311 ], [ %5327, %5321 ], [ %5337, %5331 ], [ %5347, %5341 ]
-  %5298 = trunc i64 %5284 to i32
-  %5299 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %5300 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5299, ptr noundef nonnull @.str.2, i32 noundef %5298, i32 noundef %5295, double noundef %5296, i32 noundef %5298, i32 noundef %5295, double noundef %5297, double noundef 1.000000e-05) #12
-  br label %5428
+5294:                                             ; preds = %5283
+  %5295 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 1
+  %5296 = load i32, ptr %5295, align 4, !tbaa !11
+  %5297 = sitofp i32 %5296 to double
+  %5298 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 1
+  %5299 = load i32, ptr %5298, align 4, !tbaa !11
+  %5300 = sitofp i32 %5299 to double
+  %5301 = fsub double %5297, %5300
+  %5302 = call double @llvm.fabs.f64(double %5301)
+  %5303 = fcmp ogt double %5302, 1.000000e-05
+  br i1 %5303, label %5347, label %5304
 
-5301:                                             ; preds = %5283
-  %5302 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 1
-  %5303 = load i32, ptr %5302, align 4, !tbaa !11
-  %5304 = sitofp i32 %5303 to double
-  %5305 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 1
+5304:                                             ; preds = %5294
+  %5305 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 2
   %5306 = load i32, ptr %5305, align 4, !tbaa !11
   %5307 = sitofp i32 %5306 to double
-  %5308 = fsub double %5304, %5307
-  %5309 = call double @llvm.fabs.f64(double %5308)
-  %5310 = fcmp ule double %5309, 1.000000e-05
-  br i1 %5310, label %5311, label %5294
+  %5308 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 2
+  %5309 = load i32, ptr %5308, align 4, !tbaa !11
+  %5310 = sitofp i32 %5309 to double
+  %5311 = fsub double %5307, %5310
+  %5312 = call double @llvm.fabs.f64(double %5311)
+  %5313 = fcmp ogt double %5312, 1.000000e-05
+  br i1 %5313, label %5347, label %5314
 
-5311:                                             ; preds = %5301
-  %5312 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 2
-  %5313 = load i32, ptr %5312, align 4, !tbaa !11
-  %5314 = sitofp i32 %5313 to double
-  %5315 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 2
+5314:                                             ; preds = %5304
+  %5315 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 3
   %5316 = load i32, ptr %5315, align 4, !tbaa !11
   %5317 = sitofp i32 %5316 to double
-  %5318 = fsub double %5314, %5317
-  %5319 = call double @llvm.fabs.f64(double %5318)
-  %5320 = fcmp ule double %5319, 1.000000e-05
-  br i1 %5320, label %5321, label %5294
+  %5318 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 3
+  %5319 = load i32, ptr %5318, align 4, !tbaa !11
+  %5320 = sitofp i32 %5319 to double
+  %5321 = fsub double %5317, %5320
+  %5322 = call double @llvm.fabs.f64(double %5321)
+  %5323 = fcmp ogt double %5322, 1.000000e-05
+  br i1 %5323, label %5347, label %5324
 
-5321:                                             ; preds = %5311
-  %5322 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 3
-  %5323 = load i32, ptr %5322, align 4, !tbaa !11
-  %5324 = sitofp i32 %5323 to double
-  %5325 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 3
+5324:                                             ; preds = %5314
+  %5325 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 4
   %5326 = load i32, ptr %5325, align 4, !tbaa !11
   %5327 = sitofp i32 %5326 to double
-  %5328 = fsub double %5324, %5327
-  %5329 = call double @llvm.fabs.f64(double %5328)
-  %5330 = fcmp ule double %5329, 1.000000e-05
-  br i1 %5330, label %5331, label %5294
+  %5328 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 4
+  %5329 = load i32, ptr %5328, align 4, !tbaa !11
+  %5330 = sitofp i32 %5329 to double
+  %5331 = fsub double %5327, %5330
+  %5332 = call double @llvm.fabs.f64(double %5331)
+  %5333 = fcmp ogt double %5332, 1.000000e-05
+  br i1 %5333, label %5347, label %5334
 
-5331:                                             ; preds = %5321
-  %5332 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 4
-  %5333 = load i32, ptr %5332, align 4, !tbaa !11
-  %5334 = sitofp i32 %5333 to double
-  %5335 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 4
+5334:                                             ; preds = %5324
+  %5335 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 5
   %5336 = load i32, ptr %5335, align 4, !tbaa !11
   %5337 = sitofp i32 %5336 to double
-  %5338 = fsub double %5334, %5337
-  %5339 = call double @llvm.fabs.f64(double %5338)
-  %5340 = fcmp ule double %5339, 1.000000e-05
-  br i1 %5340, label %5341, label %5294
+  %5338 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 5
+  %5339 = load i32, ptr %5338, align 4, !tbaa !11
+  %5340 = sitofp i32 %5339 to double
+  %5341 = fsub double %5337, %5340
+  %5342 = call double @llvm.fabs.f64(double %5341)
+  %5343 = fcmp ogt double %5342, 1.000000e-05
+  br i1 %5343, label %5347, label %5344
 
-5341:                                             ; preds = %5331
-  %5342 = getelementptr inbounds [6 x i32], ptr %28, i64 %5284, i64 5
-  %5343 = load i32, ptr %5342, align 4, !tbaa !11
-  %5344 = sitofp i32 %5343 to double
-  %5345 = getelementptr inbounds [6 x i32], ptr %37, i64 %5284, i64 5
-  %5346 = load i32, ptr %5345, align 4, !tbaa !11
-  %5347 = sitofp i32 %5346 to double
-  %5348 = fsub double %5344, %5347
-  %5349 = call double @llvm.fabs.f64(double %5348)
-  %5350 = fcmp ule double %5349, 1.000000e-05
-  br i1 %5350, label %5351, label %5294
+5344:                                             ; preds = %5334
+  %5345 = add nuw nsw i64 %5284, 1
+  %5346 = icmp eq i64 %5345, 6
+  br i1 %5346, label %5354, label %5283, !llvm.loop !18
 
-5351:                                             ; preds = %5341
-  %5352 = add nuw nsw i64 %5284, 1
-  %5353 = icmp eq i64 %5352, 6
-  br i1 %5353, label %5354, label %5283, !llvm.loop !18
+5347:                                             ; preds = %5334, %5324, %5314, %5304, %5294, %5283
+  %5348 = phi i32 [ 0, %5283 ], [ 1, %5294 ], [ 2, %5304 ], [ 3, %5314 ], [ 4, %5324 ], [ 5, %5334 ]
+  %5349 = phi double [ %5287, %5283 ], [ %5297, %5294 ], [ %5307, %5304 ], [ %5317, %5314 ], [ %5327, %5324 ], [ %5337, %5334 ]
+  %5350 = phi double [ %5290, %5283 ], [ %5300, %5294 ], [ %5310, %5304 ], [ %5320, %5314 ], [ %5330, %5324 ], [ %5340, %5334 ]
+  %5351 = trunc i64 %5284 to i32
+  %5352 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %5353 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5352, ptr noundef nonnull @.str.2, i32 noundef %5351, i32 noundef %5348, double noundef %5349, i32 noundef %5351, i32 noundef %5348, double noundef %5350, double noundef 1.000000e-05) #12
+  br label %5428
 
-5354:                                             ; preds = %5351, %5422
-  %5355 = phi i64 [ %5423, %5422 ], [ 0, %5351 ]
+5354:                                             ; preds = %5344, %5422
+  %5355 = phi i64 [ %5423, %5422 ], [ 0, %5344 ]
   %5356 = load ptr, ptr @stderr, align 8, !tbaa !9
   %5357 = getelementptr inbounds [6 x i32], ptr %37, i64 %5355, i64 0
   %5358 = load i32, ptr %5357, align 4, !tbaa !11
@@ -8726,8 +8726,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   call void @free(ptr noundef %55) #11
   br label %5428
 
-5428:                                             ; preds = %5294, %5425
-  %5429 = phi i32 [ 0, %5425 ], [ 1, %5294 ]
+5428:                                             ; preds = %5425, %5347
+  %5429 = phi i32 [ 0, %5425 ], [ 1, %5347 ]
   ret i32 %5429
 }
 

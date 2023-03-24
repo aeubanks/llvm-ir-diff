@@ -265,8 +265,8 @@ define dso_local ptr @release(i32 noundef %0) local_unnamed_addr #3 {
   %21 = select i1 %20, ptr %7, ptr %17
   br label %22
 
-22:                                               ; preds = %9, %11
-  %23 = phi ptr [ %21, %11 ], [ null, %9 ]
+22:                                               ; preds = %11, %9
+  %23 = phi ptr [ null, %9 ], [ %21, %11 ]
   ret ptr %23
 }
 
@@ -331,8 +331,8 @@ define dso_local ptr @qpkt(ptr noundef %0) local_unnamed_addr #3 {
   %38 = phi ptr [ %27, %21 ], [ %36, %35 ]
   br label %39
 
-39:                                               ; preds = %11, %21, %37
-  %40 = phi ptr [ %38, %37 ], [ %9, %21 ], [ null, %11 ]
+39:                                               ; preds = %21, %37, %11
+  %40 = phi ptr [ null, %11 ], [ %38, %37 ], [ %9, %21 ]
   ret ptr %40
 }
 
@@ -430,7 +430,7 @@ define dso_local ptr @idlefn(ptr nocapture readnone %0) #3 {
   br label %52
 
 52:                                               ; preds = %41, %39, %24, %22, %5
-  %53 = phi ptr [ %12, %5 ], [ %34, %24 ], [ null, %22 ], [ %51, %41 ], [ null, %39 ]
+  %53 = phi ptr [ %12, %5 ], [ null, %22 ], [ %34, %24 ], [ null, %39 ], [ %51, %41 ]
   ret ptr %53
 }
 
@@ -544,7 +544,7 @@ define dso_local ptr @workfn(ptr noundef %0) #3 {
   br label %74
 
 74:                                               ; preds = %72, %56, %46, %3
-  %75 = phi ptr [ %4, %3 ], [ %73, %72 ], [ %44, %56 ], [ null, %46 ]
+  %75 = phi ptr [ %4, %3 ], [ null, %46 ], [ %73, %72 ], [ %44, %56 ]
   ret ptr %75
 }
 
@@ -732,7 +732,7 @@ define dso_local ptr @handlerfn(ptr noundef %0) #3 {
   br label %116
 
 116:                                              ; preds = %109, %93, %83, %59, %43, %33, %111
-  %117 = phi ptr [ %112, %111 ], [ null, %83 ], [ %81, %93 ], [ %110, %109 ], [ null, %33 ], [ %31, %43 ], [ %60, %59 ]
+  %117 = phi ptr [ %112, %111 ], [ %81, %93 ], [ %110, %109 ], [ null, %83 ], [ %31, %43 ], [ %60, %59 ], [ null, %33 ]
   ret ptr %117
 }
 
@@ -856,7 +856,7 @@ define dso_local ptr @devfn(ptr noundef %0) #3 {
   br label %74
 
 74:                                               ; preds = %48, %32, %22, %66, %6
-  %75 = phi ptr [ %7, %6 ], [ %73, %66 ], [ %49, %48 ], [ %20, %32 ], [ null, %22 ]
+  %75 = phi ptr [ %7, %6 ], [ %73, %66 ], [ null, %22 ], [ %49, %48 ], [ %20, %32 ]
   ret ptr %75
 }
 
@@ -1011,14 +1011,14 @@ define dso_local i32 @main() local_unnamed_addr #5 {
   ret i32 %73
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #8
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(readwrite, argmem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1028,8 +1028,8 @@ attributes #4 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #5 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nounwind allocsize(0) }
 attributes #11 = { nounwind }
 

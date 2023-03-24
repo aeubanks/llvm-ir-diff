@@ -319,7 +319,7 @@ define dso_local noundef zeroext i1 @_ZN16CInOutTempBuffer11WriteToFileEPKvj(ptr
   br label %35
 
 35:                                               ; preds = %33, %27, %16, %34
-  %36 = phi i1 [ true, %34 ], [ false, %16 ], [ false, %27 ], [ false, %33 ]
+  %36 = phi i1 [ false, %33 ], [ false, %27 ], [ false, %16 ], [ true, %34 ]
   %37 = load ptr, ptr %4, align 8, !tbaa !13
   %38 = icmp eq ptr %37, null
   br i1 %38, label %40, label %39
@@ -427,7 +427,7 @@ define dso_local noundef i32 @_ZN16CInOutTempBuffer13WriteToStreamEP20ISequentia
   %4 = alloca i32, align 4
   %5 = getelementptr inbounds %class.CInOutTempBuffer, ptr %0, i64 0, i32 1
   %6 = tail call noundef zeroext i1 @_ZN8NWindows5NFile3NIO9CFileBase5CloseEv(ptr noundef nonnull align 8 dereferenceable(1084) %5)
-  br i1 %6, label %7, label %101
+  br i1 %6, label %7, label %102
 
 7:                                                ; preds = %2
   %8 = getelementptr inbounds %class.CInOutTempBuffer, ptr %0, i64 0, i32 3
@@ -441,7 +441,7 @@ define dso_local noundef i32 @_ZN16CInOutTempBuffer13WriteToStreamEP20ISequentia
   %14 = zext i32 %9 to i64
   %15 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %1, ptr noundef %13, i64 noundef %14)
   %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %101
+  br i1 %16, label %17, label %102
 
 17:                                               ; preds = %11
   %18 = load ptr, ptr %12, align 8, !tbaa !26
@@ -543,8 +543,8 @@ define dso_local noundef i32 @_ZN16CInOutTempBuffer13WriteToStreamEP20ISequentia
   %72 = invoke i32 @CrcUpdate(i32 noundef %50, ptr noundef %69, i64 noundef %71)
           to label %75 unwind label %54
 
-73:                                               ; preds = %64, %53
-  %74 = phi i32 [ -2147467259, %53 ], [ %63, %64 ]
+73:                                               ; preds = %53, %64
+  %74 = phi i32 [ %63, %64 ], [ -2147467259, %53 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #16
   br label %86
 
@@ -573,7 +573,7 @@ define dso_local noundef i32 @_ZN16CInOutTempBuffer13WriteToStreamEP20ISequentia
   %87 = phi i32 [ -2147467259, %39 ], [ %74, %73 ]
   call void @_ZN8NWindows5NFile3NIO9CFileBaseD2Ev(ptr noundef nonnull align 8 dereferenceable(1084) %3) #16
   call void @llvm.lifetime.end.p0(i64 1088, ptr nonnull %3) #16
-  br label %101
+  br label %102
 
 88:                                               ; preds = %81, %46
   %89 = phi { ptr, i32 } [ %82, %81 ], [ %47, %46 ]
@@ -587,16 +587,19 @@ define dso_local noundef i32 @_ZN16CInOutTempBuffer13WriteToStreamEP20ISequentia
   %93 = getelementptr inbounds %class.CInOutTempBuffer, ptr %0, i64 0, i32 9
   %94 = load i32, ptr %93, align 8, !tbaa !33
   %95 = icmp eq i32 %94, %91
-  %96 = getelementptr inbounds %class.CInOutTempBuffer, ptr %0, i64 0, i32 8
-  %97 = load i64, ptr %96, align 8
-  %98 = icmp eq i64 %92, %97
-  %99 = select i1 %95, i1 %98, i1 false
-  %100 = select i1 %99, i32 0, i32 -2147467259
-  br label %101
+  br i1 %95, label %96, label %102
 
-101:                                              ; preds = %86, %90, %11, %2
-  %102 = phi i32 [ -2147467259, %2 ], [ %100, %90 ], [ %87, %86 ], [ %15, %11 ]
-  ret i32 %102
+96:                                               ; preds = %90
+  %97 = getelementptr inbounds %class.CInOutTempBuffer, ptr %0, i64 0, i32 8
+  %98 = load i64, ptr %97, align 8, !tbaa !32
+  %99 = icmp eq i64 %92, %98
+  %100 = freeze i1 %99
+  %101 = select i1 %100, i32 0, i32 -2147467259
+  br label %102
+
+102:                                              ; preds = %96, %90, %11, %86, %2
+  %103 = phi i32 [ -2147467259, %2 ], [ %87, %86 ], [ %15, %11 ], [ -2147467259, %90 ], [ %101, %96 ]
+  ret i32 %103
 }
 
 declare noundef zeroext i1 @_ZN8NWindows5NFile3NIO9CFileBase5CloseEv(ptr noundef nonnull align 8 dereferenceable(1084)) unnamed_addr #7
@@ -855,11 +858,11 @@ define linkonce_odr dso_local void @_ZN8NWindows5NFile3NIO7CInFileD0Ev(ptr nound
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #13
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #14
 
 attributes #0 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -874,8 +877,8 @@ attributes #9 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-siz
 attributes #10 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { noinline noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #15 = { builtin allocsize(0) }
 attributes #16 = { nounwind }
 attributes #17 = { builtin nounwind }

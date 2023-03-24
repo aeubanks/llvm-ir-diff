@@ -119,7 +119,7 @@ define dso_local void @Substitute_Frame_Buffer(i32 noundef %0, i32 noundef %1) l
   br label %55
 
 55:                                               ; preds = %46, %53
-  %56 = xor i1 %50, true
+  %56 = icmp ne i32 %49, 3
   %57 = icmp eq i32 %48, 3
   %58 = select i1 %57, i1 true, i1 %47
   %59 = select i1 %56, i1 %58, i1 false
@@ -247,7 +247,7 @@ define internal fastcc void @Read_Frame(ptr noundef %0, ptr nocapture noundef re
   %76 = icmp slt i32 %74, %75
   br i1 %76, label %65, label %77, !llvm.loop !14
 
-77:                                               ; preds = %65, %36, %51
+77:                                               ; preds = %65, %51, %36
   %78 = tail call i32 @fclose(ptr noundef nonnull %13)
   br label %126
 

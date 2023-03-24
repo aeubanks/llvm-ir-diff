@@ -63,7 +63,7 @@ define dso_local i32 @LoopThread_Create(ptr noundef %0) local_unnamed_addr #1 {
   br label %12
 
 12:                                               ; preds = %6, %1, %10
-  %13 = phi i32 [ %4, %1 ], [ %8, %6 ], [ %11, %10 ]
+  %13 = phi i32 [ %11, %10 ], [ %4, %1 ], [ %8, %6 ]
   ret i32 %13
 }
 
@@ -187,13 +187,13 @@ define dso_local i32 @MtProgress_Set(ptr noundef %0, i32 noundef %1, i64 noundef
   %26 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 3
   %27 = load i32, ptr %26, align 8, !tbaa !26
   %28 = icmp eq i32 %27, 0
-  br i1 %28, label %29, label %43
+  br i1 %28, label %29, label %44
 
 29:                                               ; preds = %25
   %30 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 2
   %31 = load ptr, ptr %30, align 8, !tbaa !27
   %32 = icmp eq ptr %31, null
-  br i1 %32, label %41, label %33
+  br i1 %32, label %42, label %33
 
 33:                                               ; preds = %29
   %34 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 1
@@ -201,19 +201,20 @@ define dso_local i32 @MtProgress_Set(ptr noundef %0, i32 noundef %1, i64 noundef
   %36 = load i64, ptr %0, align 8, !tbaa !22
   %37 = load ptr, ptr %31, align 8, !tbaa !28
   %38 = tail call i32 %37(ptr noundef nonnull %31, i64 noundef %36, i64 noundef %35) #6
-  %39 = icmp eq i32 %38, 0
-  %40 = select i1 %39, i32 0, i32 10
-  br label %41
+  %39 = freeze i32 %38
+  %40 = icmp eq i32 %39, 0
+  %41 = select i1 %40, i32 0, i32 10
+  br label %42
 
-41:                                               ; preds = %29, %33
-  %42 = phi i32 [ 0, %29 ], [ %40, %33 ]
-  store i32 %42, ptr %26, align 8, !tbaa !26
-  br label %43
+42:                                               ; preds = %29, %33
+  %43 = phi i32 [ 0, %29 ], [ %41, %33 ]
+  store i32 %43, ptr %26, align 8, !tbaa !26
+  br label %44
 
-43:                                               ; preds = %41, %25
-  %44 = phi i32 [ %42, %41 ], [ %27, %25 ]
-  %45 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %5) #6
-  ret i32 %44
+44:                                               ; preds = %42, %25
+  %45 = phi i32 [ %43, %42 ], [ %27, %25 ]
+  %46 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %5) #6
+  ret i32 %45
 }
 
 ; Function Attrs: nounwind
@@ -294,13 +295,13 @@ define dso_local void @MtCoder_Destruct(ptr noundef %0) local_unnamed_addr #1 {
   %6 = tail call i32 @Event_Close(ptr noundef nonnull %5) #6
   %7 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 10
   %8 = tail call i32 @Event_Close(ptr noundef nonnull %7) #6
-  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 0, i32 1
-  %10 = load i32, ptr %9, align 8, !tbaa !41
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %25, label %12
+  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6
+  %10 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 0, i32 1
+  %11 = load i32, ptr %10, align 8, !tbaa !41
+  %12 = icmp eq i32 %11, 0
+  br i1 %12, label %25, label %13
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6
+13:                                               ; preds = %2
   %14 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 3
   store i32 1, ptr %14, align 8, !tbaa !16
   %15 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 1
@@ -308,12 +309,12 @@ define dso_local void @MtCoder_Destruct(ptr noundef %0) local_unnamed_addr #1 {
   %17 = icmp eq i32 %16, 0
   br i1 %17, label %18, label %20
 
-18:                                               ; preds = %12
-  %19 = tail call i32 @Thread_Wait(ptr noundef nonnull %13) #6
+18:                                               ; preds = %13
+  %19 = tail call i32 @Thread_Wait(ptr noundef nonnull %9) #6
   br label %20
 
-20:                                               ; preds = %18, %12
-  %21 = tail call i32 @Thread_Close(ptr noundef nonnull %13) #6
+20:                                               ; preds = %18, %13
+  %21 = tail call i32 @Thread_Close(ptr noundef nonnull %9) #6
   %22 = tail call i32 @Event_Close(ptr noundef nonnull %15) #6
   %23 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 2
   %24 = tail call i32 @Event_Close(ptr noundef nonnull %23) #6
@@ -583,8 +584,8 @@ define dso_local i32 @MtCoder_Code(ptr noundef %0) local_unnamed_addr #1 {
   %139 = icmp eq i64 %138, %133
   br i1 %139, label %140, label %134, !llvm.loop !58
 
-140:                                              ; preds = %107, %95, %103, %134, %124
-  %141 = phi i32 [ %126, %124 ], [ %126, %134 ], [ 12, %103 ], [ 12, %95 ], [ 12, %107 ]
+140:                                              ; preds = %103, %95, %107, %134, %124
+  %141 = phi i32 [ %126, %124 ], [ %126, %134 ], [ 12, %107 ], [ 12, %95 ], [ 12, %103 ]
   br i1 %11, label %152, label %142
 
 142:                                              ; preds = %140
@@ -610,7 +611,7 @@ define dso_local i32 @MtCoder_Code(ptr noundef %0) local_unnamed_addr #1 {
   br label %156
 
 156:                                              ; preds = %82, %76, %61, %34, %154, %152
-  %157 = phi i32 [ %155, %154 ], [ %141, %152 ], [ 2, %34 ], [ 2, %61 ], [ 12, %76 ], [ 12, %82 ]
+  %157 = phi i32 [ %155, %154 ], [ %141, %152 ], [ 12, %82 ], [ 12, %76 ], [ 2, %61 ], [ 2, %34 ]
   ret i32 %157
 }
 
@@ -628,14 +629,14 @@ define internal i32 @ThreadFunc(ptr noundef %0) #1 {
   %11 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 8
   br label %12
 
-12:                                               ; preds = %152, %1
+12:                                               ; preds = %150, %1
   %13 = load ptr, ptr %0, align 8, !tbaa !30
   %14 = load i32, ptr %4, align 8, !tbaa !38
   %15 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 2
   %16 = load i32, ptr %15, align 8, !tbaa !45
   %17 = call i32 @Event_Wait(ptr noundef nonnull %5) #6
   %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %119
+  br i1 %18, label %19, label %117
 
 19:                                               ; preds = %12
   %20 = load ptr, ptr %0, align 8, !tbaa !30
@@ -662,7 +663,7 @@ define internal i32 @ThreadFunc(ptr noundef %0) #1 {
   %38 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %32, i32 9
   %39 = call i32 @Event_Set(ptr noundef nonnull %38) #6
   %40 = icmp eq i32 %39, 0
-  br i1 %40, label %153, label %124
+  br i1 %40, label %151, label %122
 
 41:                                               ; preds = %19
   %42 = load i64, ptr %20, align 8, !tbaa !50
@@ -671,164 +672,165 @@ define internal i32 @ThreadFunc(ptr noundef %0) #1 {
   store i64 %43, ptr %3, align 8, !tbaa !60
   %44 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 3
   %45 = load ptr, ptr %44, align 8, !tbaa !61
-  %46 = load ptr, ptr %8, align 8, !tbaa !33
-  br label %47
+  %46 = icmp eq i64 %42, 0
+  br i1 %46, label %66, label %47
 
-47:                                               ; preds = %53, %41
-  %48 = phi i64 [ 0, %41 ], [ %57, %53 ]
-  %49 = phi i64 [ %42, %41 ], [ %59, %53 ]
-  %50 = phi ptr [ %46, %41 ], [ %58, %53 ]
-  %51 = phi i32 [ undef, %41 ], [ %64, %53 ]
-  %52 = icmp eq i64 %49, 0
-  br i1 %52, label %68, label %53
+47:                                               ; preds = %41
+  %48 = load ptr, ptr %8, align 8, !tbaa !33
+  br label %49
 
-53:                                               ; preds = %47
+49:                                               ; preds = %60, %47
+  %50 = phi i64 [ %56, %60 ], [ 0, %47 ]
+  %51 = phi ptr [ %62, %60 ], [ %48, %47 ]
+  %52 = phi i64 [ %61, %60 ], [ %42, %47 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #6
-  store i64 %49, ptr %2, align 8, !tbaa !60
-  %54 = load ptr, ptr %45, align 8, !tbaa !28
-  %55 = call i32 %54(ptr noundef nonnull %45, ptr noundef %50, ptr noundef nonnull %2) #6
-  %56 = load i64, ptr %2, align 8, !tbaa !60
-  %57 = add i64 %56, %48
-  %58 = getelementptr inbounds i8, ptr %50, i64 %56
-  %59 = sub i64 %49, %56
-  %60 = icmp eq i32 %55, 0
-  %61 = icmp ne i64 %56, 0
-  %62 = select i1 %61, i1 %60, i1 false
-  %63 = select i1 %62, i32 %51, i32 0
-  %64 = select i1 %60, i32 %63, i32 %55
-  %65 = select i1 %60, i1 %61, i1 false
+  store i64 %52, ptr %2, align 8, !tbaa !60
+  %53 = load ptr, ptr %45, align 8, !tbaa !28
+  %54 = call i32 %53(ptr noundef nonnull %45, ptr noundef %51, ptr noundef nonnull %2) #6
+  %55 = load i64, ptr %2, align 8, !tbaa !60
+  %56 = add i64 %55, %50
+  %57 = icmp ne i32 %54, 0
+  %58 = icmp eq i64 %55, 0
+  %59 = select i1 %57, i1 true, i1 %58
+  br i1 %59, label %64, label %60
+
+60:                                               ; preds = %49
+  %61 = sub i64 %52, %55
+  %62 = getelementptr inbounds i8, ptr %51, i64 %55
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #6
-  br i1 %65, label %47, label %66, !llvm.loop !62
+  %63 = icmp eq i64 %61, 0
+  br i1 %63, label %66, label %49, !llvm.loop !62
 
-66:                                               ; preds = %53
-  %67 = icmp eq i32 %64, 0
-  br i1 %67, label %68, label %113
+64:                                               ; preds = %49
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #6
+  %65 = icmp eq i32 %54, 0
+  br i1 %65, label %66, label %111
 
-68:                                               ; preds = %47, %66
-  %69 = phi i64 [ %57, %66 ], [ %48, %47 ]
-  %70 = load ptr, ptr %0, align 8, !tbaa !30
-  %71 = load i64, ptr %70, align 8, !tbaa !50
-  %72 = icmp ne i64 %69, %71
-  %73 = zext i1 %72 to i32
-  %74 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 7
-  store i32 %73, ptr %74, align 8, !tbaa !54
-  %75 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 9
-  %76 = call i32 @Event_Set(ptr noundef nonnull %75) #6
-  %77 = icmp eq i32 %76, 0
-  br i1 %77, label %78, label %113
+66:                                               ; preds = %60, %64, %41
+  %67 = phi i64 [ %56, %64 ], [ 0, %41 ], [ %56, %60 ]
+  %68 = load ptr, ptr %0, align 8, !tbaa !30
+  %69 = load i64, ptr %68, align 8, !tbaa !50
+  %70 = icmp ne i64 %67, %69
+  %71 = zext i1 %70 to i32
+  %72 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 7
+  store i32 %71, ptr %72, align 8, !tbaa !54
+  %73 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 9
+  %74 = call i32 @Event_Set(ptr noundef nonnull %73) #6
+  %75 = icmp eq i32 %74, 0
+  br i1 %75, label %76, label %111
 
-78:                                               ; preds = %68
-  %79 = load ptr, ptr %0, align 8, !tbaa !30
-  %80 = getelementptr inbounds %struct._CMtCoder, ptr %79, i64 0, i32 7
-  %81 = load ptr, ptr %80, align 8, !tbaa !63
-  %82 = load ptr, ptr %81, align 8, !tbaa !28
-  %83 = load i32, ptr %4, align 8, !tbaa !38
-  %84 = load ptr, ptr %9, align 8, !tbaa !32
-  %85 = load ptr, ptr %8, align 8, !tbaa !33
-  %86 = call i32 %82(ptr noundef nonnull %81, i32 noundef %83, ptr noundef %84, ptr noundef nonnull %3, ptr noundef %85, i64 noundef %69, i32 noundef %73) #6
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %88, label %113
+76:                                               ; preds = %66
+  %77 = load ptr, ptr %0, align 8, !tbaa !30
+  %78 = getelementptr inbounds %struct._CMtCoder, ptr %77, i64 0, i32 7
+  %79 = load ptr, ptr %78, align 8, !tbaa !63
+  %80 = load ptr, ptr %79, align 8, !tbaa !28
+  %81 = load i32, ptr %4, align 8, !tbaa !38
+  %82 = load ptr, ptr %9, align 8, !tbaa !32
+  %83 = load ptr, ptr %8, align 8, !tbaa !33
+  %84 = call i32 %80(ptr noundef nonnull %79, i32 noundef %81, ptr noundef %82, ptr noundef nonnull %3, ptr noundef %83, i64 noundef %67, i32 noundef %71) #6
+  %85 = icmp eq i32 %84, 0
+  br i1 %85, label %86, label %111
 
-88:                                               ; preds = %78
-  %89 = load ptr, ptr %0, align 8, !tbaa !30
-  %90 = load i32, ptr %4, align 8, !tbaa !38
-  %91 = zext i32 %90 to i64
-  %92 = getelementptr inbounds %struct._CMtCoder, ptr %89, i64 0, i32 10, i32 5, i64 %91
-  store i64 0, ptr %92, align 8, !tbaa !20
-  %93 = getelementptr inbounds %struct._CMtCoder, ptr %89, i64 0, i32 10, i32 6, i64 %91
-  store i64 0, ptr %93, align 8, !tbaa !20
-  %94 = call i32 @Event_Wait(ptr noundef nonnull %10) #6
-  %95 = icmp eq i32 %94, 0
-  br i1 %95, label %96, label %113
+86:                                               ; preds = %76
+  %87 = load ptr, ptr %0, align 8, !tbaa !30
+  %88 = load i32, ptr %4, align 8, !tbaa !38
+  %89 = zext i32 %88 to i64
+  %90 = getelementptr inbounds %struct._CMtCoder, ptr %87, i64 0, i32 10, i32 5, i64 %89
+  store i64 0, ptr %90, align 8, !tbaa !20
+  %91 = getelementptr inbounds %struct._CMtCoder, ptr %87, i64 0, i32 10, i32 6, i64 %89
+  store i64 0, ptr %91, align 8, !tbaa !20
+  %92 = call i32 @Event_Wait(ptr noundef nonnull %10) #6
+  %93 = icmp eq i32 %92, 0
+  br i1 %93, label %94, label %111
 
-96:                                               ; preds = %88
-  %97 = load i32, ptr %11, align 4, !tbaa !55
-  %98 = icmp eq i32 %97, 0
-  br i1 %98, label %99, label %113
+94:                                               ; preds = %86
+  %95 = load i32, ptr %11, align 4, !tbaa !55
+  %96 = icmp eq i32 %95, 0
+  br i1 %96, label %97, label %111
 
-99:                                               ; preds = %96
-  %100 = load ptr, ptr %0, align 8, !tbaa !30
-  %101 = getelementptr inbounds %struct._CMtCoder, ptr %100, i64 0, i32 4
-  %102 = load ptr, ptr %101, align 8, !tbaa !64
-  %103 = load ptr, ptr %102, align 8, !tbaa !28
-  %104 = load ptr, ptr %9, align 8, !tbaa !32
+97:                                               ; preds = %94
+  %98 = load ptr, ptr %0, align 8, !tbaa !30
+  %99 = getelementptr inbounds %struct._CMtCoder, ptr %98, i64 0, i32 4
+  %100 = load ptr, ptr %99, align 8, !tbaa !64
+  %101 = load ptr, ptr %100, align 8, !tbaa !28
+  %102 = load ptr, ptr %9, align 8, !tbaa !32
+  %103 = load i64, ptr %3, align 8, !tbaa !60
+  %104 = call i64 %101(ptr noundef nonnull %100, ptr noundef %102, i64 noundef %103) #6
   %105 = load i64, ptr %3, align 8, !tbaa !60
-  %106 = call i64 %103(ptr noundef nonnull %102, ptr noundef %104, i64 noundef %105) #6
-  %107 = load i64, ptr %3, align 8, !tbaa !60
-  %108 = icmp eq i64 %106, %107
-  br i1 %108, label %109, label %113
+  %106 = icmp eq i64 %104, %105
+  br i1 %106, label %107, label %111
 
-109:                                              ; preds = %99
-  %110 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 10
-  %111 = call i32 @Event_Set(ptr noundef nonnull %110) #6
-  %112 = icmp eq i32 %111, 0
-  br i1 %112, label %152, label %113
+107:                                              ; preds = %97
+  %108 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 10
+  %109 = call i32 @Event_Set(ptr noundef nonnull %108) #6
+  %110 = icmp eq i32 %109, 0
+  br i1 %110, label %150, label %111
 
-113:                                              ; preds = %109, %78, %66, %68, %88, %96, %99
-  %114 = phi i32 [ 9, %99 ], [ 11, %96 ], [ 12, %88 ], [ 12, %68 ], [ %64, %66 ], [ %86, %78 ], [ 12, %109 ]
-  %115 = add i32 %16, -1
-  %116 = icmp eq i32 %14, %115
-  %117 = add i32 %14, 1
-  %118 = select i1 %116, i32 0, i32 %117
+111:                                              ; preds = %107, %64, %66, %76, %86, %94, %97
+  %112 = phi i32 [ 9, %97 ], [ 11, %94 ], [ 12, %86 ], [ %84, %76 ], [ 12, %66 ], [ %54, %64 ], [ 12, %107 ]
+  %113 = add i32 %16, -1
+  %114 = icmp eq i32 %14, %113
+  %115 = add i32 %14, 1
+  %116 = select i1 %114, i32 0, i32 %115
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #6
-  br label %124
+  br label %122
 
-119:                                              ; preds = %12
-  %120 = add i32 %16, -1
-  %121 = icmp eq i32 %14, %120
-  %122 = add i32 %14, 1
-  %123 = select i1 %121, i32 0, i32 %122
-  br label %124
+117:                                              ; preds = %12
+  %118 = add i32 %16, -1
+  %119 = icmp eq i32 %14, %118
+  %120 = add i32 %14, 1
+  %121 = select i1 %119, i32 0, i32 %120
+  br label %122
 
-124:                                              ; preds = %119, %31, %113
-  %125 = phi i32 [ %118, %113 ], [ %36, %31 ], [ %123, %119 ]
-  %126 = phi i32 [ %114, %113 ], [ 12, %31 ], [ 12, %119 ]
-  %127 = zext i32 %125 to i64
-  %128 = load ptr, ptr %0, align 8, !tbaa !30
-  %129 = getelementptr inbounds %struct._CMtCoder, ptr %128, i64 0, i32 8
-  %130 = call i32 @pthread_mutex_lock(ptr noundef nonnull %129) #6
-  %131 = getelementptr inbounds %struct._CMtCoder, ptr %128, i64 0, i32 9
-  %132 = load i32, ptr %131, align 8, !tbaa !46
-  %133 = icmp eq i32 %132, 0
-  br i1 %133, label %134, label %135
+122:                                              ; preds = %117, %31, %111
+  %123 = phi i32 [ %116, %111 ], [ %36, %31 ], [ %121, %117 ]
+  %124 = phi i32 [ %112, %111 ], [ 12, %31 ], [ 12, %117 ]
+  %125 = zext i32 %123 to i64
+  %126 = load ptr, ptr %0, align 8, !tbaa !30
+  %127 = getelementptr inbounds %struct._CMtCoder, ptr %126, i64 0, i32 8
+  %128 = call i32 @pthread_mutex_lock(ptr noundef nonnull %127) #6
+  %129 = getelementptr inbounds %struct._CMtCoder, ptr %126, i64 0, i32 9
+  %130 = load i32, ptr %129, align 8, !tbaa !46
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %132, label %133
 
-134:                                              ; preds = %124
-  store i32 %126, ptr %131, align 8, !tbaa !46
-  br label %135
+132:                                              ; preds = %122
+  store i32 %124, ptr %129, align 8, !tbaa !46
+  br label %133
 
-135:                                              ; preds = %124, %134
-  %136 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %129) #6
-  %137 = load ptr, ptr %0, align 8, !tbaa !30
-  %138 = getelementptr inbounds %struct._CMtCoder, ptr %137, i64 0, i32 10, i32 4
-  %139 = call i32 @pthread_mutex_lock(ptr noundef nonnull %138) #6
-  %140 = getelementptr inbounds %struct._CMtCoder, ptr %137, i64 0, i32 10, i32 3
-  %141 = load i32, ptr %140, align 8, !tbaa !26
-  %142 = icmp eq i32 %141, 0
-  br i1 %142, label %143, label %144
+133:                                              ; preds = %122, %132
+  %134 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %127) #6
+  %135 = load ptr, ptr %0, align 8, !tbaa !30
+  %136 = getelementptr inbounds %struct._CMtCoder, ptr %135, i64 0, i32 10, i32 4
+  %137 = call i32 @pthread_mutex_lock(ptr noundef nonnull %136) #6
+  %138 = getelementptr inbounds %struct._CMtCoder, ptr %135, i64 0, i32 10, i32 3
+  %139 = load i32, ptr %138, align 8, !tbaa !26
+  %140 = icmp eq i32 %139, 0
+  br i1 %140, label %141, label %142
 
-143:                                              ; preds = %135
-  store i32 %126, ptr %140, align 8, !tbaa !26
-  br label %144
+141:                                              ; preds = %133
+  store i32 %124, ptr %138, align 8, !tbaa !26
+  br label %142
 
-144:                                              ; preds = %143, %135
-  %145 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %138) #6
-  %146 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %127, i32 7
-  store i32 1, ptr %146, align 8, !tbaa !54
-  %147 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %127, i32 8
-  store i32 1, ptr %147, align 4, !tbaa !55
-  %148 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %127, i32 9
+142:                                              ; preds = %133, %141
+  %143 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %136) #6
+  %144 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 7
+  store i32 1, ptr %144, align 8, !tbaa !54
+  %145 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 8
+  store i32 1, ptr %145, align 4, !tbaa !55
+  %146 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 9
+  %147 = call i32 @Event_Set(ptr noundef nonnull %146) #6
+  %148 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 10
   %149 = call i32 @Event_Set(ptr noundef nonnull %148) #6
-  %150 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %127, i32 10
-  %151 = call i32 @Event_Set(ptr noundef nonnull %150) #6
-  br label %153
+  br label %151
 
-152:                                              ; preds = %109
+150:                                              ; preds = %107
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #6
-  br i1 %72, label %153, label %12
+  br i1 %70, label %151, label %12
 
-153:                                              ; preds = %152, %31, %144
-  %154 = phi i32 [ %126, %144 ], [ 0, %31 ], [ 0, %152 ]
-  ret i32 %154
+151:                                              ; preds = %150, %31, %142
+  %152 = phi i32 [ %124, %142 ], [ 0, %31 ], [ 0, %150 ]
+  ret i32 %152
 }
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)

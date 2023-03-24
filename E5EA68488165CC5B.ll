@@ -831,7 +831,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %613 = fdiv float 2.000000e+00, %612
   br label %614
 
-614:                                              ; preds = %608, %577
+614:                                              ; preds = %577, %608
   %615 = phi float [ %612, %608 ], [ 0.000000e+00, %577 ]
   %616 = phi float [ %613, %608 ], [ 0.000000e+00, %577 ]
   store float %615, ptr getelementptr inbounds ([9 x [15 x float]], ptr @atime, i64 0, i64 3), align 4
@@ -844,7 +844,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   br label %621
 
 621:                                              ; preds = %614, %807
-  %622 = phi i32 [ %808, %807 ], [ 0, %614 ]
+  %622 = phi i32 [ 0, %614 ], [ %808, %807 ]
   br label %623
 
 623:                                              ; preds = %621, %649
@@ -1082,7 +1082,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   br label %815
 
 815:                                              ; preds = %1001, %810
-  %816 = phi i32 [ %1002, %1001 ], [ 0, %810 ]
+  %816 = phi i32 [ 0, %810 ], [ %1002, %1001 ]
   br label %817
 
 817:                                              ; preds = %843, %815
@@ -1320,7 +1320,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   br label %1009
 
 1009:                                             ; preds = %1195, %1004
-  %1010 = phi i32 [ %1196, %1195 ], [ 0, %1004 ]
+  %1010 = phi i32 [ 0, %1004 ], [ %1196, %1195 ]
   br label %1011
 
 1011:                                             ; preds = %1037, %1009
@@ -2684,245 +2684,245 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %2046 = tail call i64 @fwrite(ptr nonnull @.str.21, i64 30, i64 1, ptr %2045) #14
   %2047 = tail call i64 @clock() #13
   %2048 = sitofp i64 %2047 to float
-  %2049 = fdiv float %2048, 1.000000e+06
-  br label %2050
+  br label %2049
 
-2050:                                             ; preds = %2041, %2236
-  %2051 = phi i32 [ %2237, %2236 ], [ 0, %2041 ]
-  br label %2052
+2049:                                             ; preds = %2041, %2235
+  %2050 = phi i32 [ 0, %2041 ], [ %2236, %2235 ]
+  br label %2051
 
-2052:                                             ; preds = %2050, %2078
-  %2053 = phi i64 [ %2079, %2078 ], [ 0, %2050 ]
-  %2054 = phi i32 [ %2069, %2078 ], [ 1325, %2050 ]
-  %2055 = mul nuw nsw i64 %2053, 200
-  br label %2056
+2051:                                             ; preds = %2049, %2077
+  %2052 = phi i64 [ %2078, %2077 ], [ 0, %2049 ]
+  %2053 = phi i32 [ %2068, %2077 ], [ 1325, %2049 ]
+  %2054 = mul nuw nsw i64 %2052, 200
+  br label %2055
 
-2056:                                             ; preds = %2056, %2052
-  %2057 = phi i64 [ 0, %2052 ], [ %2076, %2056 ]
-  %2058 = phi i32 [ %2054, %2052 ], [ %2069, %2056 ]
-  %2059 = mul nuw nsw i32 %2058, 3125
-  %2060 = and i32 %2059, 65535
-  %2061 = add nsw i32 %2060, -32768
-  %2062 = sitofp i32 %2061 to double
-  %2063 = fmul double %2062, 0x3F10000000000000
-  %2064 = fptrunc double %2063 to float
-  %2065 = add nuw nsw i64 %2057, %2055
-  %2066 = getelementptr inbounds float, ptr @main.aa, i64 %2065
-  store float %2064, ptr %2066, align 8, !tbaa !9
-  %2067 = or i64 %2057, 1
-  %2068 = mul nsw i32 %2058, 761
-  %2069 = and i32 %2068, 65535
-  %2070 = add nsw i32 %2069, -32768
-  %2071 = sitofp i32 %2070 to double
-  %2072 = fmul double %2071, 0x3F10000000000000
-  %2073 = fptrunc double %2072 to float
-  %2074 = add nuw nsw i64 %2067, %2055
-  %2075 = getelementptr inbounds float, ptr @main.aa, i64 %2074
-  store float %2073, ptr %2075, align 4, !tbaa !9
-  %2076 = add nuw nsw i64 %2057, 2
-  %2077 = icmp eq i64 %2076, 100
-  br i1 %2077, label %2078, label %2056, !llvm.loop !11
+2055:                                             ; preds = %2055, %2051
+  %2056 = phi i64 [ 0, %2051 ], [ %2075, %2055 ]
+  %2057 = phi i32 [ %2053, %2051 ], [ %2068, %2055 ]
+  %2058 = mul nuw nsw i32 %2057, 3125
+  %2059 = and i32 %2058, 65535
+  %2060 = add nsw i32 %2059, -32768
+  %2061 = sitofp i32 %2060 to double
+  %2062 = fmul double %2061, 0x3F10000000000000
+  %2063 = fptrunc double %2062 to float
+  %2064 = add nuw nsw i64 %2056, %2054
+  %2065 = getelementptr inbounds float, ptr @main.aa, i64 %2064
+  store float %2063, ptr %2065, align 8, !tbaa !9
+  %2066 = or i64 %2056, 1
+  %2067 = mul nsw i32 %2057, 761
+  %2068 = and i32 %2067, 65535
+  %2069 = add nsw i32 %2068, -32768
+  %2070 = sitofp i32 %2069 to double
+  %2071 = fmul double %2070, 0x3F10000000000000
+  %2072 = fptrunc double %2071 to float
+  %2073 = add nuw nsw i64 %2066, %2054
+  %2074 = getelementptr inbounds float, ptr @main.aa, i64 %2073
+  store float %2072, ptr %2074, align 4, !tbaa !9
+  %2075 = add nuw nsw i64 %2056, 2
+  %2076 = icmp eq i64 %2075, 100
+  br i1 %2076, label %2077, label %2055, !llvm.loop !11
 
-2078:                                             ; preds = %2056
-  %2079 = add nuw nsw i64 %2053, 1
-  %2080 = icmp eq i64 %2079, 100
-  br i1 %2080, label %2081, label %2052, !llvm.loop !13
+2077:                                             ; preds = %2055
+  %2078 = add nuw nsw i64 %2052, 1
+  %2079 = icmp eq i64 %2078, 100
+  br i1 %2079, label %2080, label %2051, !llvm.loop !13
 
-2081:                                             ; preds = %2078
+2080:                                             ; preds = %2077
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(400) @main.b, i8 0, i64 400, i1 false), !tbaa !9
-  %2082 = load <4 x float>, ptr @main.b, align 16, !tbaa !9
-  %2083 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 4), align 16, !tbaa !9
-  %2084 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 8), align 16, !tbaa !9
-  %2085 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 12), align 16, !tbaa !9
-  %2086 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 16), align 16, !tbaa !9
-  %2087 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 20), align 16, !tbaa !9
-  %2088 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 24), align 16, !tbaa !9
-  %2089 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 28), align 16, !tbaa !9
-  %2090 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 32), align 16, !tbaa !9
-  %2091 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 36), align 16, !tbaa !9
-  %2092 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 40), align 16, !tbaa !9
-  %2093 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 44), align 16, !tbaa !9
-  %2094 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 48), align 16, !tbaa !9
-  %2095 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 52), align 16, !tbaa !9
-  %2096 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 56), align 16, !tbaa !9
-  %2097 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 60), align 16, !tbaa !9
-  %2098 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 64), align 16, !tbaa !9
-  %2099 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 68), align 16, !tbaa !9
-  %2100 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 72), align 16, !tbaa !9
-  %2101 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 76), align 16, !tbaa !9
-  %2102 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 80), align 16, !tbaa !9
-  %2103 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 84), align 16, !tbaa !9
-  %2104 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 88), align 16, !tbaa !9
-  %2105 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 92), align 16, !tbaa !9
-  %2106 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 96), align 16, !tbaa !9
-  br label %2107
+  %2081 = load <4 x float>, ptr @main.b, align 16, !tbaa !9
+  %2082 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 4), align 16, !tbaa !9
+  %2083 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 8), align 16, !tbaa !9
+  %2084 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 12), align 16, !tbaa !9
+  %2085 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 16), align 16, !tbaa !9
+  %2086 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 20), align 16, !tbaa !9
+  %2087 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 24), align 16, !tbaa !9
+  %2088 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 28), align 16, !tbaa !9
+  %2089 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 32), align 16, !tbaa !9
+  %2090 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 36), align 16, !tbaa !9
+  %2091 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 40), align 16, !tbaa !9
+  %2092 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 44), align 16, !tbaa !9
+  %2093 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 48), align 16, !tbaa !9
+  %2094 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 52), align 16, !tbaa !9
+  %2095 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 56), align 16, !tbaa !9
+  %2096 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 60), align 16, !tbaa !9
+  %2097 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 64), align 16, !tbaa !9
+  %2098 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 68), align 16, !tbaa !9
+  %2099 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 72), align 16, !tbaa !9
+  %2100 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 76), align 16, !tbaa !9
+  %2101 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 80), align 16, !tbaa !9
+  %2102 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 84), align 16, !tbaa !9
+  %2103 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 88), align 16, !tbaa !9
+  %2104 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 92), align 16, !tbaa !9
+  %2105 = load <4 x float>, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 96), align 16, !tbaa !9
+  br label %2106
 
-2107:                                             ; preds = %2107, %2081
-  %2108 = phi <4 x float> [ %2106, %2081 ], [ %2233, %2107 ]
-  %2109 = phi <4 x float> [ %2105, %2081 ], [ %2229, %2107 ]
-  %2110 = phi <4 x float> [ %2104, %2081 ], [ %2225, %2107 ]
-  %2111 = phi <4 x float> [ %2103, %2081 ], [ %2221, %2107 ]
-  %2112 = phi <4 x float> [ %2102, %2081 ], [ %2217, %2107 ]
-  %2113 = phi <4 x float> [ %2101, %2081 ], [ %2213, %2107 ]
-  %2114 = phi <4 x float> [ %2100, %2081 ], [ %2209, %2107 ]
-  %2115 = phi <4 x float> [ %2099, %2081 ], [ %2205, %2107 ]
-  %2116 = phi <4 x float> [ %2098, %2081 ], [ %2201, %2107 ]
-  %2117 = phi <4 x float> [ %2097, %2081 ], [ %2197, %2107 ]
-  %2118 = phi <4 x float> [ %2096, %2081 ], [ %2193, %2107 ]
-  %2119 = phi <4 x float> [ %2095, %2081 ], [ %2189, %2107 ]
-  %2120 = phi <4 x float> [ %2094, %2081 ], [ %2185, %2107 ]
-  %2121 = phi <4 x float> [ %2093, %2081 ], [ %2181, %2107 ]
-  %2122 = phi <4 x float> [ %2092, %2081 ], [ %2177, %2107 ]
-  %2123 = phi <4 x float> [ %2091, %2081 ], [ %2173, %2107 ]
-  %2124 = phi <4 x float> [ %2090, %2081 ], [ %2169, %2107 ]
-  %2125 = phi <4 x float> [ %2089, %2081 ], [ %2165, %2107 ]
-  %2126 = phi <4 x float> [ %2088, %2081 ], [ %2161, %2107 ]
-  %2127 = phi <4 x float> [ %2087, %2081 ], [ %2157, %2107 ]
-  %2128 = phi <4 x float> [ %2086, %2081 ], [ %2153, %2107 ]
-  %2129 = phi <4 x float> [ %2085, %2081 ], [ %2149, %2107 ]
-  %2130 = phi <4 x float> [ %2084, %2081 ], [ %2145, %2107 ]
-  %2131 = phi <4 x float> [ %2083, %2081 ], [ %2141, %2107 ]
-  %2132 = phi <4 x float> [ %2082, %2081 ], [ %2137, %2107 ]
-  %2133 = phi i64 [ 0, %2081 ], [ %2234, %2107 ]
-  %2134 = mul nuw nsw i64 %2133, 200
-  %2135 = getelementptr inbounds float, ptr @main.aa, i64 %2134
-  %2136 = load <4 x float>, ptr %2135, align 16, !tbaa !9
-  %2137 = fadd <4 x float> %2132, %2136
-  %2138 = or i64 %2134, 4
-  %2139 = getelementptr inbounds float, ptr @main.aa, i64 %2138
-  %2140 = load <4 x float>, ptr %2139, align 16, !tbaa !9
-  %2141 = fadd <4 x float> %2131, %2140
-  %2142 = add nuw nsw i64 %2134, 8
-  %2143 = getelementptr inbounds float, ptr @main.aa, i64 %2142
-  %2144 = load <4 x float>, ptr %2143, align 16, !tbaa !9
-  %2145 = fadd <4 x float> %2130, %2144
-  %2146 = add nuw nsw i64 %2134, 12
-  %2147 = getelementptr inbounds float, ptr @main.aa, i64 %2146
-  %2148 = load <4 x float>, ptr %2147, align 16, !tbaa !9
-  %2149 = fadd <4 x float> %2129, %2148
-  %2150 = add nuw nsw i64 %2134, 16
-  %2151 = getelementptr inbounds float, ptr @main.aa, i64 %2150
-  %2152 = load <4 x float>, ptr %2151, align 16, !tbaa !9
-  %2153 = fadd <4 x float> %2128, %2152
-  %2154 = add nuw nsw i64 %2134, 20
-  %2155 = getelementptr inbounds float, ptr @main.aa, i64 %2154
-  %2156 = load <4 x float>, ptr %2155, align 16, !tbaa !9
-  %2157 = fadd <4 x float> %2127, %2156
-  %2158 = add nuw nsw i64 %2134, 24
-  %2159 = getelementptr inbounds float, ptr @main.aa, i64 %2158
-  %2160 = load <4 x float>, ptr %2159, align 16, !tbaa !9
-  %2161 = fadd <4 x float> %2126, %2160
-  %2162 = add nuw nsw i64 %2134, 28
-  %2163 = getelementptr inbounds float, ptr @main.aa, i64 %2162
-  %2164 = load <4 x float>, ptr %2163, align 16, !tbaa !9
-  %2165 = fadd <4 x float> %2125, %2164
-  %2166 = add nuw nsw i64 %2134, 32
-  %2167 = getelementptr inbounds float, ptr @main.aa, i64 %2166
-  %2168 = load <4 x float>, ptr %2167, align 16, !tbaa !9
-  %2169 = fadd <4 x float> %2124, %2168
-  %2170 = add nuw nsw i64 %2134, 36
-  %2171 = getelementptr inbounds float, ptr @main.aa, i64 %2170
-  %2172 = load <4 x float>, ptr %2171, align 16, !tbaa !9
-  %2173 = fadd <4 x float> %2123, %2172
-  %2174 = add nuw nsw i64 %2134, 40
-  %2175 = getelementptr inbounds float, ptr @main.aa, i64 %2174
-  %2176 = load <4 x float>, ptr %2175, align 16, !tbaa !9
-  %2177 = fadd <4 x float> %2122, %2176
-  %2178 = add nuw nsw i64 %2134, 44
-  %2179 = getelementptr inbounds float, ptr @main.aa, i64 %2178
-  %2180 = load <4 x float>, ptr %2179, align 16, !tbaa !9
-  %2181 = fadd <4 x float> %2121, %2180
-  %2182 = add nuw nsw i64 %2134, 48
-  %2183 = getelementptr inbounds float, ptr @main.aa, i64 %2182
-  %2184 = load <4 x float>, ptr %2183, align 16, !tbaa !9
-  %2185 = fadd <4 x float> %2120, %2184
-  %2186 = add nuw nsw i64 %2134, 52
-  %2187 = getelementptr inbounds float, ptr @main.aa, i64 %2186
-  %2188 = load <4 x float>, ptr %2187, align 16, !tbaa !9
-  %2189 = fadd <4 x float> %2119, %2188
-  %2190 = add nuw nsw i64 %2134, 56
-  %2191 = getelementptr inbounds float, ptr @main.aa, i64 %2190
-  %2192 = load <4 x float>, ptr %2191, align 16, !tbaa !9
-  %2193 = fadd <4 x float> %2118, %2192
-  %2194 = add nuw nsw i64 %2134, 60
-  %2195 = getelementptr inbounds float, ptr @main.aa, i64 %2194
-  %2196 = load <4 x float>, ptr %2195, align 16, !tbaa !9
-  %2197 = fadd <4 x float> %2117, %2196
-  %2198 = add nuw nsw i64 %2134, 64
-  %2199 = getelementptr inbounds float, ptr @main.aa, i64 %2198
-  %2200 = load <4 x float>, ptr %2199, align 16, !tbaa !9
-  %2201 = fadd <4 x float> %2116, %2200
-  %2202 = add nuw nsw i64 %2134, 68
-  %2203 = getelementptr inbounds float, ptr @main.aa, i64 %2202
-  %2204 = load <4 x float>, ptr %2203, align 16, !tbaa !9
-  %2205 = fadd <4 x float> %2115, %2204
-  %2206 = add nuw nsw i64 %2134, 72
-  %2207 = getelementptr inbounds float, ptr @main.aa, i64 %2206
-  %2208 = load <4 x float>, ptr %2207, align 16, !tbaa !9
-  %2209 = fadd <4 x float> %2114, %2208
-  %2210 = add nuw nsw i64 %2134, 76
-  %2211 = getelementptr inbounds float, ptr @main.aa, i64 %2210
-  %2212 = load <4 x float>, ptr %2211, align 16, !tbaa !9
-  %2213 = fadd <4 x float> %2113, %2212
-  %2214 = add nuw nsw i64 %2134, 80
-  %2215 = getelementptr inbounds float, ptr @main.aa, i64 %2214
-  %2216 = load <4 x float>, ptr %2215, align 16, !tbaa !9
-  %2217 = fadd <4 x float> %2112, %2216
-  %2218 = add nuw nsw i64 %2134, 84
-  %2219 = getelementptr inbounds float, ptr @main.aa, i64 %2218
-  %2220 = load <4 x float>, ptr %2219, align 16, !tbaa !9
-  %2221 = fadd <4 x float> %2111, %2220
-  %2222 = add nuw nsw i64 %2134, 88
-  %2223 = getelementptr inbounds float, ptr @main.aa, i64 %2222
-  %2224 = load <4 x float>, ptr %2223, align 16, !tbaa !9
-  %2225 = fadd <4 x float> %2110, %2224
-  %2226 = add nuw nsw i64 %2134, 92
-  %2227 = getelementptr inbounds float, ptr @main.aa, i64 %2226
-  %2228 = load <4 x float>, ptr %2227, align 16, !tbaa !9
-  %2229 = fadd <4 x float> %2109, %2228
-  %2230 = add nuw nsw i64 %2134, 96
-  %2231 = getelementptr inbounds float, ptr @main.aa, i64 %2230
-  %2232 = load <4 x float>, ptr %2231, align 16, !tbaa !9
-  %2233 = fadd <4 x float> %2108, %2232
-  %2234 = add nuw nsw i64 %2133, 1
-  %2235 = icmp eq i64 %2234, 100
-  br i1 %2235, label %2236, label %2107, !llvm.loop !14
+2106:                                             ; preds = %2106, %2080
+  %2107 = phi <4 x float> [ %2105, %2080 ], [ %2232, %2106 ]
+  %2108 = phi <4 x float> [ %2104, %2080 ], [ %2228, %2106 ]
+  %2109 = phi <4 x float> [ %2103, %2080 ], [ %2224, %2106 ]
+  %2110 = phi <4 x float> [ %2102, %2080 ], [ %2220, %2106 ]
+  %2111 = phi <4 x float> [ %2101, %2080 ], [ %2216, %2106 ]
+  %2112 = phi <4 x float> [ %2100, %2080 ], [ %2212, %2106 ]
+  %2113 = phi <4 x float> [ %2099, %2080 ], [ %2208, %2106 ]
+  %2114 = phi <4 x float> [ %2098, %2080 ], [ %2204, %2106 ]
+  %2115 = phi <4 x float> [ %2097, %2080 ], [ %2200, %2106 ]
+  %2116 = phi <4 x float> [ %2096, %2080 ], [ %2196, %2106 ]
+  %2117 = phi <4 x float> [ %2095, %2080 ], [ %2192, %2106 ]
+  %2118 = phi <4 x float> [ %2094, %2080 ], [ %2188, %2106 ]
+  %2119 = phi <4 x float> [ %2093, %2080 ], [ %2184, %2106 ]
+  %2120 = phi <4 x float> [ %2092, %2080 ], [ %2180, %2106 ]
+  %2121 = phi <4 x float> [ %2091, %2080 ], [ %2176, %2106 ]
+  %2122 = phi <4 x float> [ %2090, %2080 ], [ %2172, %2106 ]
+  %2123 = phi <4 x float> [ %2089, %2080 ], [ %2168, %2106 ]
+  %2124 = phi <4 x float> [ %2088, %2080 ], [ %2164, %2106 ]
+  %2125 = phi <4 x float> [ %2087, %2080 ], [ %2160, %2106 ]
+  %2126 = phi <4 x float> [ %2086, %2080 ], [ %2156, %2106 ]
+  %2127 = phi <4 x float> [ %2085, %2080 ], [ %2152, %2106 ]
+  %2128 = phi <4 x float> [ %2084, %2080 ], [ %2148, %2106 ]
+  %2129 = phi <4 x float> [ %2083, %2080 ], [ %2144, %2106 ]
+  %2130 = phi <4 x float> [ %2082, %2080 ], [ %2140, %2106 ]
+  %2131 = phi <4 x float> [ %2081, %2080 ], [ %2136, %2106 ]
+  %2132 = phi i64 [ 0, %2080 ], [ %2233, %2106 ]
+  %2133 = mul nuw nsw i64 %2132, 200
+  %2134 = getelementptr inbounds float, ptr @main.aa, i64 %2133
+  %2135 = load <4 x float>, ptr %2134, align 16, !tbaa !9
+  %2136 = fadd <4 x float> %2131, %2135
+  %2137 = or i64 %2133, 4
+  %2138 = getelementptr inbounds float, ptr @main.aa, i64 %2137
+  %2139 = load <4 x float>, ptr %2138, align 16, !tbaa !9
+  %2140 = fadd <4 x float> %2130, %2139
+  %2141 = add nuw nsw i64 %2133, 8
+  %2142 = getelementptr inbounds float, ptr @main.aa, i64 %2141
+  %2143 = load <4 x float>, ptr %2142, align 16, !tbaa !9
+  %2144 = fadd <4 x float> %2129, %2143
+  %2145 = add nuw nsw i64 %2133, 12
+  %2146 = getelementptr inbounds float, ptr @main.aa, i64 %2145
+  %2147 = load <4 x float>, ptr %2146, align 16, !tbaa !9
+  %2148 = fadd <4 x float> %2128, %2147
+  %2149 = add nuw nsw i64 %2133, 16
+  %2150 = getelementptr inbounds float, ptr @main.aa, i64 %2149
+  %2151 = load <4 x float>, ptr %2150, align 16, !tbaa !9
+  %2152 = fadd <4 x float> %2127, %2151
+  %2153 = add nuw nsw i64 %2133, 20
+  %2154 = getelementptr inbounds float, ptr @main.aa, i64 %2153
+  %2155 = load <4 x float>, ptr %2154, align 16, !tbaa !9
+  %2156 = fadd <4 x float> %2126, %2155
+  %2157 = add nuw nsw i64 %2133, 24
+  %2158 = getelementptr inbounds float, ptr @main.aa, i64 %2157
+  %2159 = load <4 x float>, ptr %2158, align 16, !tbaa !9
+  %2160 = fadd <4 x float> %2125, %2159
+  %2161 = add nuw nsw i64 %2133, 28
+  %2162 = getelementptr inbounds float, ptr @main.aa, i64 %2161
+  %2163 = load <4 x float>, ptr %2162, align 16, !tbaa !9
+  %2164 = fadd <4 x float> %2124, %2163
+  %2165 = add nuw nsw i64 %2133, 32
+  %2166 = getelementptr inbounds float, ptr @main.aa, i64 %2165
+  %2167 = load <4 x float>, ptr %2166, align 16, !tbaa !9
+  %2168 = fadd <4 x float> %2123, %2167
+  %2169 = add nuw nsw i64 %2133, 36
+  %2170 = getelementptr inbounds float, ptr @main.aa, i64 %2169
+  %2171 = load <4 x float>, ptr %2170, align 16, !tbaa !9
+  %2172 = fadd <4 x float> %2122, %2171
+  %2173 = add nuw nsw i64 %2133, 40
+  %2174 = getelementptr inbounds float, ptr @main.aa, i64 %2173
+  %2175 = load <4 x float>, ptr %2174, align 16, !tbaa !9
+  %2176 = fadd <4 x float> %2121, %2175
+  %2177 = add nuw nsw i64 %2133, 44
+  %2178 = getelementptr inbounds float, ptr @main.aa, i64 %2177
+  %2179 = load <4 x float>, ptr %2178, align 16, !tbaa !9
+  %2180 = fadd <4 x float> %2120, %2179
+  %2181 = add nuw nsw i64 %2133, 48
+  %2182 = getelementptr inbounds float, ptr @main.aa, i64 %2181
+  %2183 = load <4 x float>, ptr %2182, align 16, !tbaa !9
+  %2184 = fadd <4 x float> %2119, %2183
+  %2185 = add nuw nsw i64 %2133, 52
+  %2186 = getelementptr inbounds float, ptr @main.aa, i64 %2185
+  %2187 = load <4 x float>, ptr %2186, align 16, !tbaa !9
+  %2188 = fadd <4 x float> %2118, %2187
+  %2189 = add nuw nsw i64 %2133, 56
+  %2190 = getelementptr inbounds float, ptr @main.aa, i64 %2189
+  %2191 = load <4 x float>, ptr %2190, align 16, !tbaa !9
+  %2192 = fadd <4 x float> %2117, %2191
+  %2193 = add nuw nsw i64 %2133, 60
+  %2194 = getelementptr inbounds float, ptr @main.aa, i64 %2193
+  %2195 = load <4 x float>, ptr %2194, align 16, !tbaa !9
+  %2196 = fadd <4 x float> %2116, %2195
+  %2197 = add nuw nsw i64 %2133, 64
+  %2198 = getelementptr inbounds float, ptr @main.aa, i64 %2197
+  %2199 = load <4 x float>, ptr %2198, align 16, !tbaa !9
+  %2200 = fadd <4 x float> %2115, %2199
+  %2201 = add nuw nsw i64 %2133, 68
+  %2202 = getelementptr inbounds float, ptr @main.aa, i64 %2201
+  %2203 = load <4 x float>, ptr %2202, align 16, !tbaa !9
+  %2204 = fadd <4 x float> %2114, %2203
+  %2205 = add nuw nsw i64 %2133, 72
+  %2206 = getelementptr inbounds float, ptr @main.aa, i64 %2205
+  %2207 = load <4 x float>, ptr %2206, align 16, !tbaa !9
+  %2208 = fadd <4 x float> %2113, %2207
+  %2209 = add nuw nsw i64 %2133, 76
+  %2210 = getelementptr inbounds float, ptr @main.aa, i64 %2209
+  %2211 = load <4 x float>, ptr %2210, align 16, !tbaa !9
+  %2212 = fadd <4 x float> %2112, %2211
+  %2213 = add nuw nsw i64 %2133, 80
+  %2214 = getelementptr inbounds float, ptr @main.aa, i64 %2213
+  %2215 = load <4 x float>, ptr %2214, align 16, !tbaa !9
+  %2216 = fadd <4 x float> %2111, %2215
+  %2217 = add nuw nsw i64 %2133, 84
+  %2218 = getelementptr inbounds float, ptr @main.aa, i64 %2217
+  %2219 = load <4 x float>, ptr %2218, align 16, !tbaa !9
+  %2220 = fadd <4 x float> %2110, %2219
+  %2221 = add nuw nsw i64 %2133, 88
+  %2222 = getelementptr inbounds float, ptr @main.aa, i64 %2221
+  %2223 = load <4 x float>, ptr %2222, align 16, !tbaa !9
+  %2224 = fadd <4 x float> %2109, %2223
+  %2225 = add nuw nsw i64 %2133, 92
+  %2226 = getelementptr inbounds float, ptr @main.aa, i64 %2225
+  %2227 = load <4 x float>, ptr %2226, align 16, !tbaa !9
+  %2228 = fadd <4 x float> %2108, %2227
+  %2229 = add nuw nsw i64 %2133, 96
+  %2230 = getelementptr inbounds float, ptr @main.aa, i64 %2229
+  %2231 = load <4 x float>, ptr %2230, align 16, !tbaa !9
+  %2232 = fadd <4 x float> %2107, %2231
+  %2233 = add nuw nsw i64 %2132, 1
+  %2234 = icmp eq i64 %2233, 100
+  br i1 %2234, label %2235, label %2106, !llvm.loop !14
 
-2236:                                             ; preds = %2107
-  store <4 x float> %2137, ptr @main.b, align 16, !tbaa !9
-  store <4 x float> %2141, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 4), align 16, !tbaa !9
-  store <4 x float> %2145, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 8), align 16, !tbaa !9
-  store <4 x float> %2149, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 12), align 16, !tbaa !9
-  store <4 x float> %2153, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 16), align 16, !tbaa !9
-  store <4 x float> %2157, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 20), align 16, !tbaa !9
-  store <4 x float> %2161, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 24), align 16, !tbaa !9
-  store <4 x float> %2165, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 28), align 16, !tbaa !9
-  store <4 x float> %2169, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 32), align 16, !tbaa !9
-  store <4 x float> %2173, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 36), align 16, !tbaa !9
-  store <4 x float> %2177, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 40), align 16, !tbaa !9
-  store <4 x float> %2181, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 44), align 16, !tbaa !9
-  store <4 x float> %2185, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 48), align 16, !tbaa !9
-  store <4 x float> %2189, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 52), align 16, !tbaa !9
-  store <4 x float> %2193, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 56), align 16, !tbaa !9
-  store <4 x float> %2197, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 60), align 16, !tbaa !9
-  store <4 x float> %2201, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 64), align 16, !tbaa !9
-  store <4 x float> %2205, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 68), align 16, !tbaa !9
-  store <4 x float> %2209, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 72), align 16, !tbaa !9
-  store <4 x float> %2213, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 76), align 16, !tbaa !9
-  store <4 x float> %2217, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 80), align 16, !tbaa !9
-  store <4 x float> %2221, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 84), align 16, !tbaa !9
-  store <4 x float> %2225, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 88), align 16, !tbaa !9
-  store <4 x float> %2229, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 92), align 16, !tbaa !9
-  store <4 x float> %2233, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 96), align 16, !tbaa !9
-  %2237 = add nuw nsw i32 %2051, 1
-  %2238 = icmp eq i32 %2237, 400
-  br i1 %2238, label %2239, label %2050, !llvm.loop !47
+2235:                                             ; preds = %2106
+  store <4 x float> %2136, ptr @main.b, align 16, !tbaa !9
+  store <4 x float> %2140, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 4), align 16, !tbaa !9
+  store <4 x float> %2144, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 8), align 16, !tbaa !9
+  store <4 x float> %2148, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 12), align 16, !tbaa !9
+  store <4 x float> %2152, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 16), align 16, !tbaa !9
+  store <4 x float> %2156, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 20), align 16, !tbaa !9
+  store <4 x float> %2160, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 24), align 16, !tbaa !9
+  store <4 x float> %2164, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 28), align 16, !tbaa !9
+  store <4 x float> %2168, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 32), align 16, !tbaa !9
+  store <4 x float> %2172, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 36), align 16, !tbaa !9
+  store <4 x float> %2176, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 40), align 16, !tbaa !9
+  store <4 x float> %2180, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 44), align 16, !tbaa !9
+  store <4 x float> %2184, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 48), align 16, !tbaa !9
+  store <4 x float> %2188, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 52), align 16, !tbaa !9
+  store <4 x float> %2192, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 56), align 16, !tbaa !9
+  store <4 x float> %2196, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 60), align 16, !tbaa !9
+  store <4 x float> %2200, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 64), align 16, !tbaa !9
+  store <4 x float> %2204, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 68), align 16, !tbaa !9
+  store <4 x float> %2208, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 72), align 16, !tbaa !9
+  store <4 x float> %2212, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 76), align 16, !tbaa !9
+  store <4 x float> %2216, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 80), align 16, !tbaa !9
+  store <4 x float> %2220, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 84), align 16, !tbaa !9
+  store <4 x float> %2224, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 88), align 16, !tbaa !9
+  store <4 x float> %2228, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 92), align 16, !tbaa !9
+  store <4 x float> %2232, ptr getelementptr inbounds ([200 x float], ptr @main.b, i64 0, i64 96), align 16, !tbaa !9
+  %2236 = add nuw nsw i32 %2050, 1
+  %2237 = icmp eq i32 %2236, 400
+  br i1 %2237, label %2238, label %2049, !llvm.loop !47
 
-2239:                                             ; preds = %2236
+2238:                                             ; preds = %2235
+  %2239 = fdiv float %2048, 1.000000e+06
   %2240 = tail call i64 @clock() #13
   %2241 = sitofp i64 %2240 to float
   %2242 = fdiv float %2241, 1.000000e+06
-  %2243 = fsub float %2242, %2049
+  %2243 = fsub float %2242, %2239
   %2244 = fdiv float %2243, 4.000000e+02
   %2245 = load ptr, ptr @stderr, align 8, !tbaa !5
   %2246 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2245, ptr noundef nonnull @.str.16, double noundef 0.000000e+00) #14
@@ -2939,7 +2939,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   store i32 7, ptr @main.j, align 4, !tbaa !15
   br label %2256
 
-2256:                                             ; preds = %2239, %2712
+2256:                                             ; preds = %2238, %2712
   %2257 = tail call i64 @clock() #13
   %2258 = sitofp i64 %2257 to float
   %2259 = fdiv float %2258, 1.000000e+06
@@ -6474,17 +6474,17 @@ define dso_local float @ddot(i32 noundef %0, ptr nocapture noundef readonly %1, 
   ret float %122
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare float @llvm.fabs.f32(float) #11
+declare float @llvm.fabs.f32(float) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x float> @llvm.fabs.v2f32(<2 x float>) #11
+declare <2 x float> @llvm.fabs.v2f32(<2 x float>) #10
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -6496,8 +6496,8 @@ attributes #6 = { nofree norecurse nosync nounwind memory(argmem: readwrite) uwt
 attributes #7 = { mustprogress nofree nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree norecurse nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #13 = { nounwind }
 attributes #14 = { cold }

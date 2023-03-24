@@ -14,17 +14,17 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.12 = private unnamed_addr constant [28 x i8] c"     DEFLATED to\0A(x - %g)*(\00", align 1
 @.str.13 = private unnamed_addr constant [5 x i8] c"%g)\0A\00", align 1
 @.str.14 = private unnamed_addr constant [39 x i8] c"\0A  ROOT = %g (from quadratic formula)\0A\00", align 1
-@str.15 = private unnamed_addr constant [18 x i8] c"Find all roots of\00", align 1
-@str.16 = private unnamed_addr constant [21 x i8] c"using NEWTON method.\00", align 1
-@str.17 = private unnamed_addr constant [63 x i8] c"==============================================================\00", align 1
-@str.18 = private unnamed_addr constant [9 x i8] c"No roots\00", align 1
-@str.21 = private unnamed_addr constant [59 x i8] c"----> Refine Root on the Orginal Polynomial (non-deflated)\00", align 1
+@str = private unnamed_addr constant [9 x i8] c"No roots\00", align 1
+@str.17 = private unnamed_addr constant [59 x i8] c"----> Refine Root on the Orginal Polynomial (non-deflated)\00", align 1
+@str.19 = private unnamed_addr constant [18 x i8] c"Find all roots of\00", align 1
+@str.20 = private unnamed_addr constant [21 x i8] c"using NEWTON method.\00", align 1
+@str.21 = private unnamed_addr constant [63 x i8] c"==============================================================\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
   %1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef 0x40337AAE58825399, double noundef 0x401CF55906D75FA4)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   %4 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
   %5 = tail call double @d_abs(double noundef %4) #8
   %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %5)
@@ -49,8 +49,8 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %25 = load double, ptr @main.A, align 16, !tbaa !5
   %26 = tail call double @d_abs(double noundef %25) #8
   %27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %26)
-  %28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   %30 = load double, ptr @main.A, align 16, !tbaa !5
   %31 = tail call double @d_abs(double noundef %30) #8
   %32 = fadd double %31, 0.000000e+00
@@ -111,7 +111,7 @@ define dso_local void @allroots(i32 noundef %0, ptr noundef %1, i32 noundef %2, 
   ]
 
 24:                                               ; preds = %18
-  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %65
 
 26:                                               ; preds = %18
@@ -178,7 +178,7 @@ define dso_local void @deflat(i32 noundef %0, ptr noundef %1, i32 noundef %2, pt
   br i1 %6, label %12, label %7
 
 7:                                                ; preds = %5
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   %9 = fadd double %4, -5.000000e-01
   %10 = fadd double %4, 5.000000e-01
   %11 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %9, double noundef %10) #8
@@ -222,7 +222,7 @@ define dso_local void @deflat(i32 noundef %0, ptr noundef %1, i32 noundef %2, pt
 
 38:                                               ; preds = %35, %42, %12
   %39 = icmp sgt i32 %2, 0
-  br i1 %39, label %40, label %73
+  br i1 %39, label %40, label %74
 
 40:                                               ; preds = %38
   %41 = zext i32 %2 to i64
@@ -249,98 +249,100 @@ define dso_local void @deflat(i32 noundef %0, ptr noundef %1, i32 noundef %2, pt
   br i1 %57, label %38, label %42, !llvm.loop !11
 
 58:                                               ; preds = %40, %58
-  %59 = phi i64 [ %41, %40 ], [ %64, %58 ]
-  %60 = getelementptr inbounds double, ptr %3, i64 %59
-  %61 = load double, ptr %60, align 8, !tbaa !5
-  %62 = tail call double @d_abs(double noundef %61) #8
-  %63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %62)
-  %64 = add nsw i64 %59, -1
-  %65 = and i64 %64, 4294967295
-  %66 = getelementptr inbounds double, ptr %3, i64 %65
-  %67 = load double, ptr %66, align 8, !tbaa !5
-  %68 = fcmp olt double %67, 0.000000e+00
-  %69 = trunc i64 %59 to i32
-  %70 = select i1 %68, ptr @.str.4, ptr @.str.5
-  %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %70, i32 noundef %69)
-  %72 = icmp ugt i64 %59, 1
-  br i1 %72, label %58, label %73, !llvm.loop !12
+  %59 = phi i64 [ %41, %40 ], [ %72, %58 ]
+  %60 = trunc i64 %59 to i32
+  %61 = getelementptr inbounds double, ptr %3, i64 %59
+  %62 = load double, ptr %61, align 8, !tbaa !5
+  %63 = tail call double @d_abs(double noundef %62) #8
+  %64 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %63)
+  %65 = add nuw i64 %59, 4294967295
+  %66 = and i64 %65, 4294967295
+  %67 = getelementptr inbounds double, ptr %3, i64 %66
+  %68 = load double, ptr %67, align 8, !tbaa !5
+  %69 = fcmp olt double %68, 0.000000e+00
+  %70 = select i1 %69, ptr @.str.4, ptr @.str.5
+  %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %70, i32 noundef %60)
+  %72 = add nsw i64 %59, -1
+  %73 = icmp sgt i64 %59, 1
+  br i1 %73, label %58, label %74, !llvm.loop !12
 
-73:                                               ; preds = %58, %38
-  %74 = load double, ptr %3, align 8, !tbaa !5
-  %75 = tail call double @d_abs(double noundef %74) #8
-  %76 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %75)
-  %77 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, double noundef %4)
-  br i1 %20, label %78, label %95
+74:                                               ; preds = %58, %38
+  %75 = load double, ptr %3, align 8, !tbaa !5
+  %76 = tail call double @d_abs(double noundef %75) #8
+  %77 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %76)
+  %78 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, double noundef %4)
+  br i1 %20, label %79, label %97
 
-78:                                               ; preds = %73
-  %79 = zext i32 %17 to i64
-  br label %80
+79:                                               ; preds = %74
+  %80 = zext i32 %17 to i64
+  br label %81
 
-80:                                               ; preds = %78, %80
-  %81 = phi i64 [ %79, %78 ], [ %86, %80 ]
-  %82 = getelementptr inbounds double, ptr %14, i64 %81
-  %83 = load double, ptr %82, align 8, !tbaa !5
-  %84 = tail call double @d_abs(double noundef %83) #8
-  %85 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %84)
-  %86 = add nsw i64 %81, -1
-  %87 = and i64 %86, 4294967295
-  %88 = getelementptr inbounds double, ptr %14, i64 %87
-  %89 = load double, ptr %88, align 8, !tbaa !5
-  %90 = fcmp olt double %89, 0.000000e+00
-  %91 = trunc i64 %81 to i32
-  %92 = select i1 %90, ptr @.str.4, ptr @.str.5
-  %93 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %92, i32 noundef %91)
-  %94 = icmp ugt i64 %81, 1
-  br i1 %94, label %80, label %95, !llvm.loop !13
+81:                                               ; preds = %79, %81
+  %82 = phi i64 [ %80, %79 ], [ %95, %81 ]
+  %83 = trunc i64 %82 to i32
+  %84 = getelementptr inbounds double, ptr %14, i64 %82
+  %85 = load double, ptr %84, align 8, !tbaa !5
+  %86 = tail call double @d_abs(double noundef %85) #8
+  %87 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %86)
+  %88 = add nuw i64 %82, 4294967295
+  %89 = and i64 %88, 4294967295
+  %90 = getelementptr inbounds double, ptr %14, i64 %89
+  %91 = load double, ptr %90, align 8, !tbaa !5
+  %92 = fcmp olt double %91, 0.000000e+00
+  %93 = select i1 %92, ptr @.str.4, ptr @.str.5
+  %94 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %93, i32 noundef %83)
+  %95 = add nsw i64 %82, -1
+  %96 = icmp sgt i64 %82, 1
+  br i1 %96, label %81, label %97, !llvm.loop !13
 
-95:                                               ; preds = %80, %73
-  %96 = load double, ptr %14, align 8, !tbaa !5
-  %97 = tail call double @d_abs(double noundef %96) #8
-  %98 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, double noundef %97)
-  %99 = icmp eq i32 %2, 3
-  br i1 %99, label %100, label %134
+97:                                               ; preds = %81, %74
+  %98 = load double, ptr %14, align 8, !tbaa !5
+  %99 = tail call double @d_abs(double noundef %98) #8
+  %100 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, double noundef %99)
+  %101 = icmp eq i32 %2, 3
+  br i1 %101, label %102, label %136
 
-100:                                              ; preds = %95
-  %101 = getelementptr inbounds double, ptr %14, i64 1
-  %102 = load double, ptr %101, align 8, !tbaa !5
-  %103 = getelementptr inbounds double, ptr %14, i64 2
+102:                                              ; preds = %97
+  %103 = getelementptr inbounds double, ptr %14, i64 1
   %104 = load double, ptr %103, align 8, !tbaa !5
-  %105 = fmul double %104, -4.000000e+00
-  %106 = fmul double %105, %96
-  %107 = tail call double @llvm.fmuladd.f64(double %102, double %102, double %106)
-  %108 = tail call double @sqrt(double noundef %107) #8
-  %109 = fsub double %108, %102
-  %110 = load double, ptr %103, align 8, !tbaa !5
-  %111 = fmul double %110, 2.000000e+00
-  %112 = fdiv double %109, %111
-  %113 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, double noundef %112)
-  %114 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  %115 = fadd double %112, -5.000000e-01
-  %116 = fadd double %112, 5.000000e-01
-  %117 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %115, double noundef %116) #8
-  %118 = load double, ptr %101, align 8, !tbaa !5
-  %119 = fneg double %118
-  %120 = load double, ptr %14, align 8, !tbaa !5
-  %121 = fmul double %110, -4.000000e+00
-  %122 = fmul double %121, %120
-  %123 = tail call double @llvm.fmuladd.f64(double %118, double %118, double %122)
-  %124 = tail call double @sqrt(double noundef %123) #8
-  %125 = fsub double %119, %124
-  %126 = load double, ptr %103, align 8, !tbaa !5
-  %127 = fmul double %126, 2.000000e+00
-  %128 = fdiv double %125, %127
-  %129 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %128)
-  %130 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  %131 = fadd double %128, -5.000000e-01
-  %132 = fadd double %128, 5.000000e-01
-  %133 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %131, double noundef %132) #8
-  br label %135
+  %105 = getelementptr inbounds double, ptr %14, i64 2
+  %106 = load double, ptr %105, align 8, !tbaa !5
+  %107 = fmul double %106, -4.000000e+00
+  %108 = fmul double %107, %98
+  %109 = tail call double @llvm.fmuladd.f64(double %104, double %104, double %108)
+  %110 = tail call double @sqrt(double noundef %109) #8
+  %111 = fsub double %110, %104
+  %112 = load double, ptr %105, align 8, !tbaa !5
+  %113 = fmul double %112, 2.000000e+00
+  %114 = fdiv double %111, %113
+  %115 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, double noundef %114)
+  %116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %117 = fadd double %114, -5.000000e-01
+  %118 = fadd double %114, 5.000000e-01
+  %119 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %117, double noundef %118) #8
+  %120 = load double, ptr %103, align 8, !tbaa !5
+  %121 = fneg double %120
+  %122 = load double, ptr %14, align 8, !tbaa !5
+  %123 = fmul double %112, -4.000000e+00
+  %124 = fmul double %123, %122
+  %125 = tail call double @llvm.fmuladd.f64(double %120, double %120, double %124)
+  %126 = tail call double @sqrt(double noundef %125) #8
+  %127 = fsub double %121, %126
+  %128 = load double, ptr %105, align 8, !tbaa !5
+  %129 = fmul double %128, 2.000000e+00
+  %130 = fdiv double %127, %129
+  %131 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %130)
+  %132 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %133 = fadd double %130, -5.000000e-01
+  %134 = fadd double %130, 5.000000e-01
+  %135 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %133, double noundef %134) #8
+  br label %137
 
-134:                                              ; preds = %95
+136:                                              ; preds = %97
   tail call void @allroots(i32 noundef %0, ptr noundef %1, i32 noundef %17, ptr noundef nonnull %14)
-  br label %135
+  br label %137
 
-135:                                              ; preds = %134, %100
+137:                                              ; preds = %136, %102
   tail call void @free(ptr noundef nonnull %14) #8
   ret void
 }

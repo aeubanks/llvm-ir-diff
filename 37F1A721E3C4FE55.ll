@@ -11,47 +11,48 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @Lzma2Dec_AllocateProbs(ptr noundef %0, i8 noundef zeroext %1, ptr noundef %2) local_unnamed_addr #0 {
   %4 = alloca [5 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %4) #5
-  %5 = zext i8 %1 to i32
-  %6 = icmp ugt i8 %1, 40
-  br i1 %6, label %29, label %7
+  %5 = icmp ugt i8 %1, 40
+  br i1 %5, label %30, label %6
 
-7:                                                ; preds = %3
-  %8 = icmp eq i8 %1, 40
-  br i1 %8, label %15, label %9
+6:                                                ; preds = %3
+  %7 = icmp eq i8 %1, 40
+  br i1 %7, label %16, label %8
 
-9:                                                ; preds = %7
-  %10 = and i32 %5, 1
-  %11 = or i32 %10, 2
-  %12 = lshr i32 %5, 1
-  %13 = add nuw nsw i32 %12, 11
-  %14 = shl nuw i32 %11, %13
-  br label %15
+8:                                                ; preds = %6
+  %9 = and i8 %1, 1
+  %10 = or i8 %9, 2
+  %11 = zext i8 %10 to i32
+  %12 = lshr i8 %1, 1
+  %13 = add nuw nsw i8 %12, 11
+  %14 = zext i8 %13 to i32
+  %15 = shl nuw i32 %11, %14
+  br label %16
 
-15:                                               ; preds = %7, %9
-  %16 = phi i32 [ %14, %9 ], [ -1, %7 ]
+16:                                               ; preds = %6, %8
+  %17 = phi i32 [ %15, %8 ], [ -1, %6 ]
   store i8 4, ptr %4, align 1, !tbaa !5
-  %17 = trunc i32 %16 to i8
-  %18 = getelementptr inbounds i8, ptr %4, i64 1
-  store i8 %17, ptr %18, align 1, !tbaa !5
-  %19 = lshr i32 %16, 8
-  %20 = trunc i32 %19 to i8
-  %21 = getelementptr inbounds i8, ptr %4, i64 2
-  store i8 %20, ptr %21, align 1, !tbaa !5
-  %22 = lshr i32 %16, 16
-  %23 = trunc i32 %22 to i8
-  %24 = getelementptr inbounds i8, ptr %4, i64 3
-  store i8 %23, ptr %24, align 1, !tbaa !5
-  %25 = lshr i32 %16, 24
-  %26 = trunc i32 %25 to i8
-  %27 = getelementptr inbounds i8, ptr %4, i64 4
-  store i8 %26, ptr %27, align 1, !tbaa !5
-  %28 = call i32 @LzmaDec_AllocateProbs(ptr noundef %0, ptr noundef nonnull %4, i32 noundef 5, ptr noundef %2) #5
-  br label %29
+  %18 = trunc i32 %17 to i8
+  %19 = getelementptr inbounds i8, ptr %4, i64 1
+  store i8 %18, ptr %19, align 1, !tbaa !5
+  %20 = lshr i32 %17, 8
+  %21 = trunc i32 %20 to i8
+  %22 = getelementptr inbounds i8, ptr %4, i64 2
+  store i8 %21, ptr %22, align 1, !tbaa !5
+  %23 = lshr i32 %17, 16
+  %24 = trunc i32 %23 to i8
+  %25 = getelementptr inbounds i8, ptr %4, i64 3
+  store i8 %24, ptr %25, align 1, !tbaa !5
+  %26 = lshr i32 %17, 24
+  %27 = trunc i32 %26 to i8
+  %28 = getelementptr inbounds i8, ptr %4, i64 4
+  store i8 %27, ptr %28, align 1, !tbaa !5
+  %29 = call i32 @LzmaDec_AllocateProbs(ptr noundef %0, ptr noundef nonnull %4, i32 noundef 5, ptr noundef %2) #5
+  br label %30
 
-29:                                               ; preds = %3, %15
-  %30 = phi i32 [ %28, %15 ], [ 4, %3 ]
+30:                                               ; preds = %3, %16
+  %31 = phi i32 [ %29, %16 ], [ 4, %3 ]
   call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %4) #5
-  ret i32 %30
+  ret i32 %31
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -66,47 +67,48 @@ declare i32 @LzmaDec_AllocateProbs(ptr noundef, ptr noundef, i32 noundef, ptr no
 define dso_local i32 @Lzma2Dec_Allocate(ptr noundef %0, i8 noundef zeroext %1, ptr noundef %2) local_unnamed_addr #0 {
   %4 = alloca [5 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %4) #5
-  %5 = zext i8 %1 to i32
-  %6 = icmp ugt i8 %1, 40
-  br i1 %6, label %29, label %7
+  %5 = icmp ugt i8 %1, 40
+  br i1 %5, label %30, label %6
 
-7:                                                ; preds = %3
-  %8 = icmp eq i8 %1, 40
-  br i1 %8, label %15, label %9
+6:                                                ; preds = %3
+  %7 = icmp eq i8 %1, 40
+  br i1 %7, label %16, label %8
 
-9:                                                ; preds = %7
-  %10 = and i32 %5, 1
-  %11 = or i32 %10, 2
-  %12 = lshr i32 %5, 1
-  %13 = add nuw nsw i32 %12, 11
-  %14 = shl nuw i32 %11, %13
-  br label %15
+8:                                                ; preds = %6
+  %9 = and i8 %1, 1
+  %10 = or i8 %9, 2
+  %11 = zext i8 %10 to i32
+  %12 = lshr i8 %1, 1
+  %13 = add nuw nsw i8 %12, 11
+  %14 = zext i8 %13 to i32
+  %15 = shl nuw i32 %11, %14
+  br label %16
 
-15:                                               ; preds = %7, %9
-  %16 = phi i32 [ %14, %9 ], [ -1, %7 ]
+16:                                               ; preds = %6, %8
+  %17 = phi i32 [ %15, %8 ], [ -1, %6 ]
   store i8 4, ptr %4, align 1, !tbaa !5
-  %17 = trunc i32 %16 to i8
-  %18 = getelementptr inbounds i8, ptr %4, i64 1
-  store i8 %17, ptr %18, align 1, !tbaa !5
-  %19 = lshr i32 %16, 8
-  %20 = trunc i32 %19 to i8
-  %21 = getelementptr inbounds i8, ptr %4, i64 2
-  store i8 %20, ptr %21, align 1, !tbaa !5
-  %22 = lshr i32 %16, 16
-  %23 = trunc i32 %22 to i8
-  %24 = getelementptr inbounds i8, ptr %4, i64 3
-  store i8 %23, ptr %24, align 1, !tbaa !5
-  %25 = lshr i32 %16, 24
-  %26 = trunc i32 %25 to i8
-  %27 = getelementptr inbounds i8, ptr %4, i64 4
-  store i8 %26, ptr %27, align 1, !tbaa !5
-  %28 = call i32 @LzmaDec_Allocate(ptr noundef %0, ptr noundef nonnull %4, i32 noundef 5, ptr noundef %2) #5
-  br label %29
+  %18 = trunc i32 %17 to i8
+  %19 = getelementptr inbounds i8, ptr %4, i64 1
+  store i8 %18, ptr %19, align 1, !tbaa !5
+  %20 = lshr i32 %17, 8
+  %21 = trunc i32 %20 to i8
+  %22 = getelementptr inbounds i8, ptr %4, i64 2
+  store i8 %21, ptr %22, align 1, !tbaa !5
+  %23 = lshr i32 %17, 16
+  %24 = trunc i32 %23 to i8
+  %25 = getelementptr inbounds i8, ptr %4, i64 3
+  store i8 %24, ptr %25, align 1, !tbaa !5
+  %26 = lshr i32 %17, 24
+  %27 = trunc i32 %26 to i8
+  %28 = getelementptr inbounds i8, ptr %4, i64 4
+  store i8 %27, ptr %28, align 1, !tbaa !5
+  %29 = call i32 @LzmaDec_Allocate(ptr noundef %0, ptr noundef nonnull %4, i32 noundef 5, ptr noundef %2) #5
+  br label %30
 
-29:                                               ; preds = %3, %15
-  %30 = phi i32 [ %28, %15 ], [ 4, %3 ]
+30:                                               ; preds = %3, %16
+  %31 = phi i32 [ %29, %16 ], [ 4, %3 ]
   call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %4) #5
-  ret i32 %30
+  ret i32 %31
 }
 
 declare i32 @LzmaDec_Allocate(ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
@@ -459,10 +461,10 @@ define dso_local i32 @Lzma2Dec_DecodeToDic(ptr noundef %0, i64 noundef %1, ptr n
   %195 = sub i32 %194, %193
   store i32 %195, ptr %18, align 8, !tbaa !22
   %196 = load i64, ptr %13, align 8, !tbaa !19
-  %197 = sub i64 %30, %196
+  %197 = sub i64 %196, %30
   %198 = trunc i64 %197 to i32
   %199 = load i32, ptr %20, align 4, !tbaa !21
-  %200 = add i32 %199, %198
+  %200 = sub i32 %199, %198
   store i32 %200, ptr %20, align 4, !tbaa !21
   %201 = icmp eq i32 %189, 0
   br i1 %201, label %202, label %221
@@ -474,17 +476,17 @@ define dso_local i32 @Lzma2Dec_DecodeToDic(ptr noundef %0, i64 noundef %1, ptr n
 
 205:                                              ; preds = %202
   %206 = icmp eq i64 %190, 0
-  %207 = icmp eq i64 %30, %196
+  %207 = icmp eq i64 %196, %30
   %208 = select i1 %206, i1 %207, i1 false
   br i1 %208, label %209, label %217
 
 209:                                              ; preds = %205
-  %210 = icmp eq i32 %203, 4
-  %211 = icmp eq i32 %200, 0
-  %212 = select i1 %210, i1 %211, i1 false
-  %213 = icmp eq i32 %194, %193
-  %214 = select i1 %212, i1 %213, i1 false
-  br i1 %214, label %215, label %221
+  %210 = icmp ne i32 %203, 4
+  %211 = icmp ne i32 %199, %198
+  %212 = select i1 %210, i1 true, i1 %211
+  %213 = icmp ne i32 %194, %193
+  %214 = select i1 %212, i1 true, i1 %213
+  br i1 %214, label %221, label %215
 
 215:                                              ; preds = %209
   store i32 0, ptr %9, align 8, !tbaa !8
@@ -500,8 +502,8 @@ define dso_local i32 @Lzma2Dec_DecodeToDic(ptr noundef %0, i64 noundef %1, ptr n
   store i32 2, ptr %5, align 4, !tbaa !5
   br label %223
 
-221:                                              ; preds = %131, %122, %187, %202, %209, %176, %172, %115
-  %222 = phi i32 [ 0, %115 ], [ 1, %131 ], [ 1, %122 ], [ %189, %187 ], [ 0, %202 ], [ 1, %209 ], [ 1, %176 ], [ 1, %172 ]
+221:                                              ; preds = %122, %131, %187, %202, %209, %176, %172, %115
+  %222 = phi i32 [ 0, %115 ], [ 1, %122 ], [ 1, %131 ], [ %189, %187 ], [ 0, %202 ], [ 1, %209 ], [ 1, %176 ], [ 1, %172 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #5
   br label %232
 
@@ -543,11 +545,11 @@ define dso_local i32 @Lzma2Dec_DecodeToBuf(ptr noundef %0, ptr nocapture noundef
   %13 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 2
   br label %14
 
-14:                                               ; preds = %42, %7
-  %15 = phi ptr [ %3, %7 ], [ %46, %42 ]
-  %16 = phi i64 [ %9, %7 ], [ %43, %42 ]
-  %17 = phi i64 [ %10, %7 ], [ %45, %42 ]
-  %18 = phi ptr [ %1, %7 ], [ %44, %42 ]
+14:                                               ; preds = %49, %7
+  %15 = phi ptr [ %3, %7 ], [ %32, %49 ]
+  %16 = phi i64 [ %9, %7 ], [ %41, %49 ]
+  %17 = phi i64 [ %10, %7 ], [ %33, %49 ]
+  %18 = phi ptr [ %1, %7 ], [ %40, %49 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #5
   store i64 %17, ptr %8, align 8, !tbaa !18
   %19 = load i64, ptr %11, align 8, !tbaa !19
@@ -568,36 +570,36 @@ define dso_local i32 @Lzma2Dec_DecodeToBuf(ptr noundef %0, ptr nocapture noundef
   %29 = select i1 %26, i32 0, i32 %5
   %30 = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %0, i64 noundef %28, ptr noundef %15, ptr noundef nonnull %8, i32 noundef %29, ptr noundef %6)
   %31 = load i64, ptr %8, align 8, !tbaa !18
-  %32 = load i64, ptr %4, align 8, !tbaa !18
-  %33 = add i64 %32, %31
-  store i64 %33, ptr %4, align 8, !tbaa !18
-  %34 = load i64, ptr %11, align 8, !tbaa !19
-  %35 = sub i64 %34, %24
-  %36 = load ptr, ptr %13, align 8, !tbaa !34
-  %37 = getelementptr inbounds i8, ptr %36, i64 %24
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %18, ptr align 1 %37, i64 %35, i1 false)
-  %38 = load i64, ptr %2, align 8, !tbaa !18
-  %39 = add i64 %38, %35
-  store i64 %39, ptr %2, align 8, !tbaa !18
-  %40 = icmp eq i32 %30, 0
-  br i1 %40, label %42, label %41
+  %32 = getelementptr inbounds i8, ptr %15, i64 %31
+  %33 = sub i64 %17, %31
+  %34 = load i64, ptr %4, align 8, !tbaa !18
+  %35 = add i64 %34, %31
+  store i64 %35, ptr %4, align 8, !tbaa !18
+  %36 = load i64, ptr %11, align 8, !tbaa !19
+  %37 = sub i64 %36, %24
+  %38 = load ptr, ptr %13, align 8, !tbaa !34
+  %39 = getelementptr inbounds i8, ptr %38, i64 %24
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %18, ptr align 1 %39, i64 %37, i1 false)
+  %40 = getelementptr inbounds i8, ptr %18, i64 %37
+  %41 = sub i64 %16, %37
+  %42 = load i64, ptr %2, align 8, !tbaa !18
+  %43 = add i64 %42, %37
+  store i64 %43, ptr %2, align 8, !tbaa !18
+  %44 = icmp eq i32 %30, 0
+  br i1 %44, label %45, label %50
 
-41:                                               ; preds = %23
+45:                                               ; preds = %23
+  %46 = icmp eq i64 %36, %24
+  %47 = icmp eq i64 %41, 0
+  %48 = select i1 %46, i1 true, i1 %47
+  br i1 %48, label %50, label %49
+
+49:                                               ; preds = %45
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #5
-  br label %50
+  br label %14
 
-42:                                               ; preds = %23
-  %43 = sub i64 %16, %35
-  %44 = getelementptr inbounds i8, ptr %18, i64 %35
-  %45 = sub i64 %17, %31
-  %46 = getelementptr inbounds i8, ptr %15, i64 %31
-  %47 = icmp ne i64 %34, %24
-  %48 = icmp ne i64 %43, 0
-  %49 = select i1 %47, i1 %48, i1 false
+50:                                               ; preds = %23, %45
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #5
-  br i1 %49, label %14, label %50
-
-50:                                               ; preds = %42, %41
   ret i32 %30
 }
 
@@ -621,69 +623,70 @@ define dso_local i32 @Lzma2Decode(ptr noundef %0, ptr nocapture noundef %1, ptr 
   store ptr %0, ptr %13, align 8, !tbaa !34
   %15 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 7
   store i64 %11, ptr %15, align 8, !tbaa !33
-  %16 = zext i8 %4 to i32
-  %17 = icmp ugt i8 %4, 40
-  br i1 %17, label %52, label %18
+  %16 = icmp ugt i8 %4, 40
+  br i1 %16, label %53, label %17
 
-18:                                               ; preds = %8
-  %19 = icmp eq i8 %4, 40
-  br i1 %19, label %26, label %20
+17:                                               ; preds = %8
+  %18 = icmp eq i8 %4, 40
+  br i1 %18, label %27, label %19
 
-20:                                               ; preds = %18
-  %21 = and i32 %16, 1
-  %22 = or i32 %21, 2
-  %23 = lshr i32 %16, 1
-  %24 = add nuw nsw i32 %23, 11
-  %25 = shl nuw i32 %22, %24
-  br label %26
+19:                                               ; preds = %17
+  %20 = and i8 %4, 1
+  %21 = or i8 %20, 2
+  %22 = zext i8 %21 to i32
+  %23 = lshr i8 %4, 1
+  %24 = add nuw nsw i8 %23, 11
+  %25 = zext i8 %24 to i32
+  %26 = shl nuw i32 %22, %25
+  br label %27
 
-26:                                               ; preds = %18, %20
-  %27 = phi i32 [ %25, %20 ], [ -1, %18 ]
+27:                                               ; preds = %17, %19
+  %28 = phi i32 [ %26, %19 ], [ -1, %17 ]
   store i8 4, ptr %10, align 1, !tbaa !5
-  %28 = trunc i32 %27 to i8
-  %29 = getelementptr inbounds i8, ptr %10, i64 1
-  store i8 %28, ptr %29, align 1, !tbaa !5
-  %30 = lshr i32 %27, 8
-  %31 = trunc i32 %30 to i8
-  %32 = getelementptr inbounds i8, ptr %10, i64 2
-  store i8 %31, ptr %32, align 1, !tbaa !5
-  %33 = lshr i32 %27, 16
-  %34 = trunc i32 %33 to i8
-  %35 = getelementptr inbounds i8, ptr %10, i64 3
-  store i8 %34, ptr %35, align 1, !tbaa !5
-  %36 = lshr i32 %27, 24
-  %37 = trunc i32 %36 to i8
-  %38 = getelementptr inbounds i8, ptr %10, i64 4
-  store i8 %37, ptr %38, align 1, !tbaa !5
-  %39 = call i32 @LzmaDec_AllocateProbs(ptr noundef nonnull %9, ptr noundef nonnull %10, i32 noundef 5, ptr noundef %7) #5
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %41, label %52
+  %29 = trunc i32 %28 to i8
+  %30 = getelementptr inbounds i8, ptr %10, i64 1
+  store i8 %29, ptr %30, align 1, !tbaa !5
+  %31 = lshr i32 %28, 8
+  %32 = trunc i32 %31 to i8
+  %33 = getelementptr inbounds i8, ptr %10, i64 2
+  store i8 %32, ptr %33, align 1, !tbaa !5
+  %34 = lshr i32 %28, 16
+  %35 = trunc i32 %34 to i8
+  %36 = getelementptr inbounds i8, ptr %10, i64 3
+  store i8 %35, ptr %36, align 1, !tbaa !5
+  %37 = lshr i32 %28, 24
+  %38 = trunc i32 %37 to i8
+  %39 = getelementptr inbounds i8, ptr %10, i64 4
+  store i8 %38, ptr %39, align 1, !tbaa !5
+  %40 = call i32 @LzmaDec_AllocateProbs(ptr noundef nonnull %9, ptr noundef nonnull %10, i32 noundef 5, ptr noundef %7) #5
+  %41 = icmp eq i32 %40, 0
+  br i1 %41, label %42, label %53
 
-41:                                               ; preds = %26
+42:                                               ; preds = %27
   store i64 %12, ptr %3, align 8, !tbaa !18
-  %42 = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %9, i64 noundef %11, ptr noundef %2, ptr noundef nonnull %3, i32 noundef %5, ptr noundef nonnull %6)
-  %43 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 6
-  %44 = load i64, ptr %43, align 8, !tbaa !19
-  store i64 %44, ptr %1, align 8, !tbaa !18
-  %45 = icmp eq i32 %42, 0
-  br i1 %45, label %46, label %50
+  %43 = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %9, i64 noundef %11, ptr noundef %2, ptr noundef nonnull %3, i32 noundef %5, ptr noundef nonnull %6)
+  %44 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 6
+  %45 = load i64, ptr %44, align 8, !tbaa !19
+  store i64 %45, ptr %1, align 8, !tbaa !18
+  %46 = icmp eq i32 %43, 0
+  br i1 %46, label %47, label %51
 
-46:                                               ; preds = %41
-  %47 = load i32, ptr %6, align 4, !tbaa !5
-  %48 = icmp eq i32 %47, 3
-  %49 = select i1 %48, i32 6, i32 0
-  br label %50
+47:                                               ; preds = %42
+  %48 = load i32, ptr %6, align 4, !tbaa !5
+  %49 = icmp eq i32 %48, 3
+  %50 = select i1 %49, i32 6, i32 0
+  br label %51
 
-50:                                               ; preds = %46, %41
-  %51 = phi i32 [ %42, %41 ], [ %49, %46 ]
+51:                                               ; preds = %47, %42
+  %52 = phi i32 [ %43, %42 ], [ %50, %47 ]
   call void @LzmaDec_FreeProbs(ptr noundef nonnull %9, ptr noundef %7) #5
-  br label %52
+  br label %53
 
-52:                                               ; preds = %8, %26, %50
-  %53 = phi i32 [ %51, %50 ], [ %39, %26 ], [ 4, %8 ]
+53:                                               ; preds = %27, %8, %51
+  %54 = phi i32 [ %52, %51 ], [ 4, %8 ], [ %40, %27 ]
   call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %10) #5
   call void @llvm.lifetime.end.p0(i64 168, ptr nonnull %9) #5
-  ret i32 %53
+  ret i32 %54
 }
 
 declare void @LzmaDec_FreeProbs(ptr noundef, ptr noundef) local_unnamed_addr #2

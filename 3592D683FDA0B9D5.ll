@@ -28,7 +28,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @switch.table.gs_image_init.2 = private unnamed_addr constant [9 x i32] [i32 4, i32 3, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1], align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_image_init(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, ptr noundef %6) local_unnamed_addr #0 {
+define dso_local i32 @gs_image_init(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, ptr noundef %6) local_unnamed_addr #0 {
   %8 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 19
   %9 = load i8, ptr %8, align 4, !tbaa !5
   %10 = icmp eq i8 %9, 0
@@ -86,7 +86,7 @@ define dso_local i32 @gs_image_init(ptr noundef %0, ptr noundef %1, i32 noundef 
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @image_init(ptr noundef writeonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, ptr noundef %6, ptr noundef %7, i64 noundef %8, i64 noundef %9) local_unnamed_addr #0 {
+define dso_local i32 @image_init(ptr nocapture noundef writeonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, ptr noundef %6, ptr noundef %7, i64 noundef %8, i64 noundef %9) local_unnamed_addr #0 {
   %11 = alloca %struct.gs_matrix_s, align 8
   call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %11) #8
   %12 = add nsw i32 %1, 8
@@ -242,7 +242,7 @@ define dso_local i32 @image_init(ptr noundef writeonly %0, i32 noundef %1, i32 n
   store i32 -1, ptr %110, align 8, !tbaa !41
   %111 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 16
   %112 = add nsw i32 %93, -4
-  %113 = icmp eq i32 %93, 4
+  %113 = icmp eq i32 %112, 0
   br i1 %113, label %130, label %92, !llvm.loop !43
 
 114:                                              ; preds = %89
@@ -325,17 +325,17 @@ define dso_local i32 @image_init(ptr noundef writeonly %0, i32 noundef %1, i32 n
 
 162:                                              ; preds = %158
   %163 = add nsw i64 %159, %67
-  %164 = icmp slt i64 %163, %139
-  %165 = icmp slt i64 %143, %67
-  %166 = select i1 %164, i1 true, i1 %165
-  br i1 %166, label %201, label %172
+  %164 = icmp sge i64 %163, %139
+  %165 = icmp sge i64 %143, %67
+  %166 = select i1 %164, i1 %165, i1 false
+  br i1 %166, label %172, label %184
 
 167:                                              ; preds = %158
-  %168 = icmp sgt i64 %139, %67
+  %168 = icmp sle i64 %139, %67
   %169 = add nsw i64 %159, %67
-  %170 = icmp sgt i64 %169, %143
-  %171 = select i1 %168, i1 true, i1 %170
-  br i1 %171, label %201, label %172
+  %170 = icmp sle i64 %169, %143
+  %171 = select i1 %168, i1 %170, i1 false
+  br i1 %171, label %172, label %184
 
 172:                                              ; preds = %167, %162
   %173 = icmp slt i64 %160, 0
@@ -346,84 +346,81 @@ define dso_local i32 @image_init(ptr noundef writeonly %0, i32 noundef %1, i32 n
   %176 = icmp sge i64 %175, %141
   %177 = icmp sge i64 %145, %72
   %178 = select i1 %176, i1 %177, i1 false
-  br label %185
+  br label %186
 
 179:                                              ; preds = %172
-  %180 = icmp sgt i64 %141, %72
+  %180 = icmp sle i64 %141, %72
   %181 = add nsw i64 %160, %72
   %182 = icmp sle i64 %181, %145
-  br i1 %180, label %183, label %185
+  %183 = select i1 %180, i1 %182, i1 false
+  br label %186
 
-183:                                              ; preds = %179
-  %184 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
-  store i32 0, ptr %184, align 8, !tbaa !54
-  br label %203
+184:                                              ; preds = %167, %162
+  %185 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
+  store i32 0, ptr %185, align 8, !tbaa !54
+  br label %202
 
-185:                                              ; preds = %179, %174
-  %186 = phi i1 [ %178, %174 ], [ %182, %179 ]
-  %187 = zext i1 %186 to i32
-  %188 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
-  store i32 %187, ptr %188, align 8, !tbaa !54
-  %189 = xor i1 %186, true
-  %190 = or i1 %49, %189
-  br i1 %190, label %203, label %191
+186:                                              ; preds = %174, %179
+  %187 = phi i1 [ %178, %174 ], [ %183, %179 ]
+  %188 = zext i1 %187 to i32
+  %189 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
+  store i32 %188, ptr %189, align 8, !tbaa !54
+  %190 = xor i1 %187, true
+  %191 = or i1 %49, %190
+  br i1 %191, label %202, label %192
 
-191:                                              ; preds = %185
-  %192 = icmp eq i64 %8, -1
-  %193 = icmp eq i64 %9, -1
-  %194 = or i1 %192, %193
-  br i1 %194, label %195, label %203
+192:                                              ; preds = %186
+  %193 = icmp eq i64 %8, -1
+  %194 = icmp eq i64 %9, -1
+  %195 = or i1 %193, %194
+  br i1 %195, label %196, label %202
 
-195:                                              ; preds = %191
-  %196 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 14
-  %197 = load ptr, ptr %196, align 8, !tbaa !55
-  %198 = getelementptr inbounds %struct.gx_device_color_s, ptr %197, i64 0, i32 2
-  %199 = load i32, ptr %198, align 8, !tbaa !41
-  %200 = icmp ne i32 %199, 0
-  br label %203
+196:                                              ; preds = %192
+  %197 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 14
+  %198 = load ptr, ptr %197, align 8, !tbaa !55
+  %199 = getelementptr inbounds %struct.gx_device_color_s, ptr %198, i64 0, i32 2
+  %200 = load i32, ptr %199, align 8, !tbaa !41
+  %201 = icmp ne i32 %200, 0
+  br label %202
 
-201:                                              ; preds = %162, %167
-  %202 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
-  store i32 0, ptr %202, align 8, !tbaa !54
-  br label %203
+202:                                              ; preds = %186, %184, %196, %192
+  %203 = phi i1 [ true, %186 ], [ %201, %196 ], [ false, %192 ], [ true, %184 ]
+  %204 = zext i1 %203 to i32
+  %205 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 17
+  store i32 %204, ptr %205, align 8, !tbaa !56
+  %206 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 20
+  %207 = load i8, ptr %206, align 1, !tbaa !57
+  %208 = icmp eq i8 %207, 0
+  br i1 %208, label %209, label %225
 
-203:                                              ; preds = %185, %183, %201, %195, %191
-  %204 = phi i1 [ true, %185 ], [ %200, %195 ], [ false, %191 ], [ true, %201 ], [ true, %183 ]
-  %205 = zext i1 %204 to i32
-  %206 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 17
-  store i32 %205, ptr %206, align 8, !tbaa !56
-  %207 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 20
-  %208 = load i8, ptr %207, align 1, !tbaa !57
-  %209 = icmp eq i8 %208, 0
-  br i1 %209, label %210, label %225
+209:                                              ; preds = %202
+  %210 = icmp sgt i32 %4, 1
+  br i1 %210, label %225, label %211
 
-210:                                              ; preds = %203
-  %211 = icmp sgt i32 %4, 1
-  br i1 %211, label %225, label %212
+211:                                              ; preds = %209
+  %212 = icmp ne i32 %3, 0
+  %213 = select i1 %212, i1 true, i1 %203
+  br i1 %213, label %225, label %214
 
-212:                                              ; preds = %210
-  %213 = icmp ne i32 %3, 0
-  %214 = select i1 %213, i1 true, i1 %204
-  br i1 %214, label %225, label %215
-
-215:                                              ; preds = %212
-  %216 = add i64 %146, 2048
-  %217 = add i64 %216, %67
-  %218 = ashr i64 %217, 12
-  %219 = ashr i64 %67, 12
-  %220 = sub nsw i64 %218, %219
+214:                                              ; preds = %211
+  %215 = add i64 %146, 2048
+  %216 = add i64 %215, %67
+  %217 = ashr i64 %216, 12
+  %218 = ashr i64 %67, 12
+  %219 = sub nsw i64 %217, %218
+  %220 = freeze i64 %219
   %221 = icmp eq i64 %220, %77
   br i1 %221, label %222, label %225
 
-222:                                              ; preds = %215
+222:                                              ; preds = %214
   %223 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 10
   store ptr @image_render_direct, ptr %223, align 8, !tbaa !58
   %224 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 9
   store ptr @image_unpack_3, ptr %224, align 8, !tbaa !59
   br label %237
 
-225:                                              ; preds = %203, %210, %212, %215
-  %226 = phi ptr [ @image_render_mono, %215 ], [ @image_render_mono, %212 ], [ @image_render_color, %210 ], [ @image_render_skip, %203 ]
+225:                                              ; preds = %211, %202, %209, %214
+  %226 = phi ptr [ @image_render_mono, %214 ], [ @image_render_color, %209 ], [ @image_render_skip, %202 ], [ @image_render_mono, %211 ]
   %227 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 10
   store ptr %226, ptr %227, align 8, !tbaa !58
   %228 = icmp eq i32 %5, 1
@@ -462,7 +459,7 @@ define dso_local i32 @image_init(ptr noundef writeonly %0, i32 noundef %1, i32 n
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_imagemask_init(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, ptr noundef %5) local_unnamed_addr #0 {
+define dso_local i32 @gs_imagemask_init(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, ptr noundef %5) local_unnamed_addr #0 {
   %7 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 13
   %8 = load ptr, ptr %7, align 8, !tbaa !64
   %9 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 14
@@ -989,15 +986,15 @@ define dso_local i32 @image_render_color(ptr nocapture noundef readonly %0, ptr 
   %60 = add nsw i32 %48, %47
   br label %61
 
-61:                                               ; preds = %45, %167
-  %62 = phi i64 [ %24, %45 ], [ %174, %167 ]
-  %63 = phi ptr [ %6, %45 ], [ %172, %167 ]
-  %64 = phi ptr [ %7, %45 ], [ %171, %167 ]
-  %65 = phi i64 [ 0, %45 ], [ %170, %167 ]
-  %66 = phi i64 [ %24, %45 ], [ %169, %167 ]
-  %67 = phi i64 [ %22, %45 ], [ %168, %167 ]
-  %68 = phi ptr [ %1, %45 ], [ %109, %167 ]
-  %69 = phi i64 [ %22, %45 ], [ %173, %167 ]
+61:                                               ; preds = %45, %170
+  %62 = phi i64 [ %24, %45 ], [ %177, %170 ]
+  %63 = phi ptr [ %6, %45 ], [ %175, %170 ]
+  %64 = phi ptr [ %7, %45 ], [ %174, %170 ]
+  %65 = phi i64 [ 0, %45 ], [ %173, %170 ]
+  %66 = phi i64 [ %24, %45 ], [ %172, %170 ]
+  %67 = phi i64 [ %22, %45 ], [ %171, %170 ]
+  %68 = phi ptr [ %1, %45 ], [ %109, %170 ]
+  %69 = phi i64 [ %22, %45 ], [ %176, %170 ]
   br i1 %53, label %70, label %98
 
 70:                                               ; preds = %61
@@ -1052,103 +1049,106 @@ define dso_local i32 @image_render_color(ptr nocapture noundef readonly %0, ptr 
   %115 = zext i8 %108 to i64
   %116 = or i64 %114, %115
   %117 = icmp eq i64 %116, %65
-  br i1 %117, label %167, label %118
+  br i1 %117, label %170, label %118
 
 118:                                              ; preds = %104
   %119 = zext i8 %108 to i16
-  %120 = mul nuw i16 %119, 257
-  store i16 %120, ptr %5, align 2, !tbaa !82
-  %121 = zext i8 %107 to i16
-  %122 = mul nuw i16 %121, 257
-  store i16 %122, ptr %50, align 2, !tbaa !81
-  %123 = zext i8 %106 to i16
-  %124 = mul nuw i16 %123, 257
-  store i16 %124, ptr %49, align 2, !tbaa !79
-  %125 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %5) #8
-  %126 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %5, ptr noundef %64, ptr noundef %10) #8
-  %127 = load i64, ptr %6, align 8, !tbaa !45
-  %128 = load i64, ptr %7, align 8, !tbaa !45
-  %129 = icmp eq i64 %127, %128
-  br i1 %129, label %130, label %144
+  %120 = shl nuw i16 %119, 8
+  %121 = or i16 %120, %119
+  store i16 %121, ptr %5, align 2, !tbaa !82
+  %122 = zext i8 %107 to i16
+  %123 = shl nuw i16 %122, 8
+  %124 = or i16 %123, %122
+  store i16 %124, ptr %50, align 2, !tbaa !81
+  %125 = zext i8 %106 to i16
+  %126 = shl nuw i16 %125, 8
+  %127 = or i16 %126, %125
+  store i16 %127, ptr %49, align 2, !tbaa !79
+  %128 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %5) #8
+  %129 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %5, ptr noundef %64, ptr noundef %10) #8
+  %130 = load i64, ptr %6, align 8, !tbaa !45
+  %131 = load i64, ptr %7, align 8, !tbaa !45
+  %132 = icmp eq i64 %130, %131
+  br i1 %132, label %133, label %147
 
-130:                                              ; preds = %118
-  %131 = load i32, ptr %54, align 8, !tbaa !41
-  %132 = load i32, ptr %55, align 8, !tbaa !41
-  %133 = icmp eq i32 %131, %132
-  br i1 %133, label %134, label %144
+133:                                              ; preds = %118
+  %134 = load i32, ptr %54, align 8, !tbaa !41
+  %135 = load i32, ptr %55, align 8, !tbaa !41
+  %136 = icmp eq i32 %134, %135
+  br i1 %136, label %137, label %147
 
-134:                                              ; preds = %130
-  %135 = icmp eq i32 %131, 0
-  br i1 %135, label %142, label %136
+137:                                              ; preds = %133
+  %138 = icmp eq i32 %134, 0
+  br i1 %138, label %145, label %139
 
-136:                                              ; preds = %134
-  %137 = load i64, ptr %56, align 8, !tbaa !83
-  %138 = load i64, ptr %57, align 8, !tbaa !83
-  %139 = icmp ne i64 %137, %138
-  %140 = icmp ugt ptr %109, %28
-  %141 = select i1 %139, i1 true, i1 %140
-  br i1 %141, label %144, label %167
-
-142:                                              ; preds = %134
+139:                                              ; preds = %137
+  %140 = load i64, ptr %56, align 8, !tbaa !83
+  %141 = load i64, ptr %57, align 8, !tbaa !83
+  %142 = icmp ne i64 %140, %141
   %143 = icmp ugt ptr %109, %28
-  br i1 %143, label %144, label %167
+  %144 = select i1 %142, i1 true, i1 %143
+  br i1 %144, label %147, label %170
 
-144:                                              ; preds = %142, %136, %130, %118
-  %145 = load i32, ptr %58, align 8, !tbaa !56
-  %146 = icmp eq i32 %145, 0
-  br i1 %146, label %154, label %147
+145:                                              ; preds = %137
+  %146 = icmp ugt ptr %109, %28
+  br i1 %146, label %147, label %170
 
-147:                                              ; preds = %144
+147:                                              ; preds = %145, %139, %133, %118
+  %148 = load i32, ptr %58, align 8, !tbaa !56
+  %149 = icmp eq i32 %148, 0
+  br i1 %149, label %157, label %150
+
+150:                                              ; preds = %147
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %8) #8
   call void @gx_path_init(ptr noundef nonnull %8, ptr noundef nonnull %59) #8
-  %148 = add nsw i64 %69, %16
-  %149 = add nsw i64 %62, %18
-  %150 = call i32 @gx_path_add_pgram(ptr noundef nonnull %8, i64 noundef %67, i64 noundef %66, i64 noundef %69, i64 noundef %62, i64 noundef %148, i64 noundef %149) #8
-  %151 = icmp sgt i32 %150, -1
-  br i1 %151, label %152, label %166
+  %151 = add nsw i64 %69, %16
+  %152 = add nsw i64 %62, %18
+  %153 = call i32 @gx_path_add_pgram(ptr noundef nonnull %8, i64 noundef %67, i64 noundef %66, i64 noundef %69, i64 noundef %62, i64 noundef %151, i64 noundef %152) #8
+  %154 = icmp slt i32 %153, 0
+  br i1 %154, label %169, label %155
 
-152:                                              ; preds = %147
-  %153 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %8, ptr noundef %63, ptr noundef %10, i32 noundef -1, i64 noundef 0) #8
+155:                                              ; preds = %150
+  %156 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %8, ptr noundef %63, ptr noundef %10, i32 noundef -1, i64 noundef 0) #8
   call void @gx_path_release(ptr noundef nonnull %8) #8
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #8
-  br label %167
+  br label %170
 
-154:                                              ; preds = %144
-  %155 = add nsw i64 %67, 2048
-  %156 = lshr i64 %155, 12
-  %157 = trunc i64 %156 to i32
-  %158 = add nsw i64 %69, 2048
+157:                                              ; preds = %147
+  %158 = add nsw i64 %67, 2048
   %159 = lshr i64 %158, 12
   %160 = trunc i64 %159 to i32
-  %161 = sub nsw i32 %160, %157
-  %162 = icmp slt i32 %161, 0
-  %163 = select i1 %162, i32 %160, i32 %157
-  %164 = call i32 @llvm.abs.i32(i32 %161, i1 true)
-  %165 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %163, i32 noundef %60, i32 noundef %164, i32 noundef %46, ptr noundef %63, ptr noundef %10) #8
-  br label %167
+  %161 = add nsw i64 %69, 2048
+  %162 = lshr i64 %161, 12
+  %163 = trunc i64 %162 to i32
+  %164 = sub nsw i32 %163, %160
+  %165 = icmp slt i32 %164, 0
+  %166 = select i1 %165, i32 %163, i32 %160
+  %167 = call i32 @llvm.abs.i32(i32 %164, i1 true)
+  %168 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %166, i32 noundef %60, i32 noundef %167, i32 noundef %46, ptr noundef %63, ptr noundef %10) #8
+  br label %170
 
-166:                                              ; preds = %147
+169:                                              ; preds = %150
   call void @gx_path_release(ptr noundef nonnull %8) #8
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #8
-  br label %176
+  br label %179
 
-167:                                              ; preds = %154, %152, %142, %136, %104
-  %168 = phi i64 [ %67, %104 ], [ %67, %142 ], [ %67, %136 ], [ %69, %152 ], [ %69, %154 ]
-  %169 = phi i64 [ %66, %104 ], [ %66, %142 ], [ %66, %136 ], [ %62, %152 ], [ %62, %154 ]
-  %170 = phi i64 [ %65, %104 ], [ %116, %142 ], [ %116, %136 ], [ %116, %152 ], [ %116, %154 ]
-  %171 = phi ptr [ %64, %104 ], [ %64, %142 ], [ %64, %136 ], [ %63, %152 ], [ %63, %154 ]
-  %172 = phi ptr [ %63, %104 ], [ %63, %142 ], [ %63, %136 ], [ %64, %152 ], [ %64, %154 ]
-  %173 = add nsw i64 %69, %12
-  %174 = add nsw i64 %62, %14
-  %175 = icmp ugt ptr %109, %28
-  br i1 %175, label %176, label %61, !llvm.loop !84
+170:                                              ; preds = %139, %157, %155, %145, %104
+  %171 = phi i64 [ %67, %104 ], [ %67, %145 ], [ %69, %155 ], [ %69, %157 ], [ %67, %139 ]
+  %172 = phi i64 [ %66, %104 ], [ %66, %145 ], [ %62, %155 ], [ %62, %157 ], [ %66, %139 ]
+  %173 = phi i64 [ %65, %104 ], [ %116, %145 ], [ %116, %155 ], [ %116, %157 ], [ %116, %139 ]
+  %174 = phi ptr [ %64, %104 ], [ %64, %145 ], [ %63, %155 ], [ %63, %157 ], [ %64, %139 ]
+  %175 = phi ptr [ %63, %104 ], [ %63, %145 ], [ %64, %155 ], [ %64, %157 ], [ %63, %139 ]
+  %176 = add nsw i64 %69, %12
+  %177 = add nsw i64 %62, %14
+  %178 = icmp ugt ptr %109, %28
+  br i1 %178, label %179, label %61, !llvm.loop !84
 
-176:                                              ; preds = %167, %166
-  %177 = phi i32 [ %150, %166 ], [ 1, %167 ]
+179:                                              ; preds = %170, %169
+  %180 = phi i32 [ %153, %169 ], [ 1, %170 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #8
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #8
   call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %5) #8
-  ret i32 %177
+  ret i32 %180
 }
 
 ; Function Attrs: nounwind uwtable
@@ -1293,16 +1293,16 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
   br i1 %68, label %69, label %73
 
 69:                                               ; preds = %65
-  %70 = icmp slt i64 %54, %48
-  %71 = icmp sgt i64 %53, %44
-  %72 = select i1 %70, i1 %71, i1 false
-  br i1 %72, label %77, label %264
+  %70 = icmp sge i64 %54, %48
+  %71 = icmp sle i64 %53, %44
+  %72 = select i1 %70, i1 true, i1 %71
+  br i1 %72, label %264, label %77
 
 73:                                               ; preds = %65
-  %74 = icmp slt i64 %53, %48
-  %75 = icmp sgt i64 %54, %44
-  %76 = select i1 %74, i1 %75, i1 false
-  br i1 %76, label %77, label %264
+  %74 = icmp sge i64 %53, %48
+  %75 = icmp sle i64 %54, %44
+  %76 = select i1 %74, i1 true, i1 %75
+  br i1 %76, label %264, label %77
 
 77:                                               ; preds = %73, %69, %4
   %78 = phi i32 [ undef, %4 ], [ %66, %69 ], [ %66, %73 ]
@@ -1400,7 +1400,7 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
 143:                                              ; preds = %135, %141, %121
   %144 = phi ptr [ %131, %135 ], [ %131, %141 ], [ %112, %121 ]
   %145 = phi i32 [ %107, %135 ], [ %107, %141 ], [ %106, %121 ]
-  br i1 %49, label %146, label %164
+  br i1 %49, label %146, label %161
 
 146:                                              ; preds = %143
   %147 = add nsw i64 %111, 2048
@@ -1414,32 +1414,32 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
   br i1 %101, label %153, label %157
 
 153:                                              ; preds = %152
-  %154 = icmp slt i64 %150, %46
-  %155 = icmp sgt i64 %148, %42
-  %156 = select i1 %154, i1 %155, i1 false
-  br i1 %156, label %161, label %203
+  %154 = icmp sge i64 %150, %46
+  %155 = icmp sle i64 %148, %42
+  %156 = select i1 %154, i1 true, i1 %155
+  br i1 %156, label %203, label %166
 
 157:                                              ; preds = %152
-  %158 = icmp slt i64 %148, %46
-  %159 = icmp sgt i64 %150, %42
-  %160 = select i1 %158, i1 %159, i1 false
-  br i1 %160, label %161, label %203
+  %158 = icmp sge i64 %148, %46
+  %159 = icmp sle i64 %150, %42
+  %160 = select i1 %158, i1 true, i1 %159
+  br i1 %160, label %203, label %166
 
-161:                                              ; preds = %157, %153
+161:                                              ; preds = %143
   call void @gx_path_init(ptr noundef nonnull %6, ptr noundef nonnull %97) #8
-  %162 = call i32 @gx_path_add_pgram(ptr noundef nonnull %6, i64 noundef %150, i64 noundef %105, i64 noundef %148, i64 noundef %105, i64 noundef %148, i64 noundef %81) #8
-  %163 = icmp slt i32 %162, 0
-  br i1 %163, label %206, label %200
+  %162 = add nsw i64 %111, %19
+  %163 = add nsw i64 %105, %21
+  %164 = call i32 @gx_path_add_pgram(ptr noundef nonnull %6, i64 noundef %109, i64 noundef %108, i64 noundef %111, i64 noundef %105, i64 noundef %162, i64 noundef %163) #8
+  %165 = icmp slt i32 %164, 0
+  br i1 %165, label %206, label %169
 
-164:                                              ; preds = %143
+166:                                              ; preds = %157, %153
   call void @gx_path_init(ptr noundef nonnull %6, ptr noundef nonnull %97) #8
-  %165 = add nsw i64 %111, %19
-  %166 = add nsw i64 %105, %21
-  %167 = call i32 @gx_path_add_pgram(ptr noundef nonnull %6, i64 noundef %109, i64 noundef %108, i64 noundef %111, i64 noundef %105, i64 noundef %165, i64 noundef %166) #8
+  %167 = call i32 @gx_path_add_pgram(ptr noundef nonnull %6, i64 noundef %150, i64 noundef %105, i64 noundef %148, i64 noundef %105, i64 noundef %148, i64 noundef %81) #8
   %168 = icmp slt i32 %167, 0
-  br i1 %168, label %206, label %169
+  br i1 %168, label %206, label %200
 
-169:                                              ; preds = %164
+169:                                              ; preds = %161
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #8
   %170 = call i32 @gx_path_bbox(ptr noundef nonnull %6, ptr noundef nonnull %7) #8
   %171 = load i64, ptr %98, align 8, !tbaa !98
@@ -1481,7 +1481,7 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
   %197 = icmp eq i32 %193, %196
   br i1 %197, label %198, label %199
 
-198:                                              ; preds = %176, %173, %169, %187, %184, %190
+198:                                              ; preds = %176, %173, %169, %190, %187, %184
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #8
   br label %202
 
@@ -1489,7 +1489,7 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #8
   br label %200
 
-200:                                              ; preds = %161, %199
+200:                                              ; preds = %166, %199
   %201 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %6, ptr noundef %144, ptr noundef %13, i32 noundef -1, i64 noundef 0) #8
   br label %202
 
@@ -1503,8 +1503,8 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %6) #8
   br label %250
 
-206:                                              ; preds = %161, %164
-  %207 = phi i32 [ %167, %164 ], [ %162, %161 ]
+206:                                              ; preds = %161, %166
+  %207 = phi i32 [ %167, %166 ], [ %164, %161 ]
   call void @gx_path_release(ptr noundef nonnull %6) #8
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %6) #8
   br label %264
@@ -1579,9 +1579,9 @@ define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1
   %249 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %222, i32 noundef %102, i32 noundef %223, i32 noundef %78, ptr noundef %247, ptr noundef %13) #8
   br label %250
 
-250:                                              ; preds = %203, %217, %225, %228, %246
-  %251 = phi ptr [ %112, %217 ], [ %247, %246 ], [ %112, %228 ], [ %112, %225 ], [ %204, %203 ]
-  %252 = phi i32 [ %106, %217 ], [ %248, %246 ], [ %106, %228 ], [ %106, %225 ], [ %205, %203 ]
+250:                                              ; preds = %217, %225, %228, %246, %203
+  %251 = phi ptr [ %204, %203 ], [ %112, %217 ], [ %247, %246 ], [ %112, %228 ], [ %112, %225 ]
+  %252 = phi i32 [ %205, %203 ], [ %106, %217 ], [ %248, %246 ], [ %106, %228 ], [ %106, %225 ]
   %253 = load i8, ptr %110, align 1, !tbaa !65
   %254 = zext i8 %253 to i32
   br label %255
@@ -1764,9 +1764,6 @@ declare i32 @gz_fill_rectangle(...) local_unnamed_addr #2
 declare i32 @gx_color_from_rgb(...) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -1774,6 +1771,9 @@ declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #7
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

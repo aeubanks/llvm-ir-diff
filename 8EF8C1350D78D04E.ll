@@ -491,24 +491,24 @@ define dso_local void @_Z16BENCHMARK_HARRISRN9benchmark5StateE(ptr noundef nonnu
 
 144:                                              ; preds = %128, %137
   %145 = phi i64 [ %143, %137 ], [ 0, %128 ]
+  %146 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #16
-  %146 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 2
-  store ptr %146, ptr %3, align 8, !tbaa !54
+  %147 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 2
+  store ptr %147, ptr %3, align 8, !tbaa !54
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #16
   store i64 16, ptr %2, align 8, !tbaa !28
-  %147 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
-  store ptr %147, ptr %3, align 8, !tbaa !56
-  %148 = load i64, ptr %2, align 8, !tbaa !28
-  store i64 %148, ptr %146, align 8, !tbaa !58
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %147, ptr noundef nonnull align 1 dereferenceable(16) @.str.5, i64 16, i1 false)
-  %149 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
-  store i64 %148, ptr %149, align 8, !tbaa !59
-  %150 = load ptr, ptr %3, align 8, !tbaa !56
-  %151 = getelementptr inbounds i8, ptr %150, i64 %148
-  store i8 0, ptr %151, align 1, !tbaa !58
+  %148 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
+  store ptr %148, ptr %3, align 8, !tbaa !56
+  %149 = load i64, ptr %2, align 8, !tbaa !28
+  store i64 %149, ptr %147, align 8, !tbaa !58
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %148, ptr noundef nonnull align 1 dereferenceable(16) @.str.5, i64 16, i1 false)
+  %150 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
+  store i64 %149, ptr %150, align 8, !tbaa !59
+  %151 = load ptr, ptr %3, align 8, !tbaa !56
+  %152 = getelementptr inbounds i8, ptr %151, i64 %149
+  store i8 0, ptr %152, align 1, !tbaa !58
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #16
-  %152 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
-  %153 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %152, ptr noundef nonnull align 8 dereferenceable(32) %3)
+  %153 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %146, ptr noundef nonnull align 8 dereferenceable(32) %3)
           to label %154 unwind label %162
 
 154:                                              ; preds = %144
@@ -520,7 +520,7 @@ define dso_local void @_Z16BENCHMARK_HARRISRN9benchmark5StateE(ptr noundef nonnu
   %158 = getelementptr inbounds i8, ptr %153, i64 12
   store i32 1024, ptr %158, align 4, !tbaa.struct !68
   %159 = load ptr, ptr %3, align 8, !tbaa !56
-  %160 = icmp eq ptr %159, %146
+  %160 = icmp eq ptr %159, %147
   br i1 %160, label %168, label %161
 
 161:                                              ; preds = %154
@@ -531,7 +531,7 @@ define dso_local void @_Z16BENCHMARK_HARRISRN9benchmark5StateE(ptr noundef nonnu
   %163 = landingpad { ptr, i32 }
           cleanup
   %164 = load ptr, ptr %3, align 8, !tbaa !56
-  %165 = icmp eq ptr %164, %146
+  %165 = icmp eq ptr %164, %147
   br i1 %165, label %167, label %166
 
 166:                                              ; preds = %162
@@ -1438,7 +1438,7 @@ define internal void @_GLOBAL__sub_I_main.cpp() #5 section ".text.startup" perso
   br label %81
 
 81:                                               ; preds = %80, %76, %42
-  %82 = phi { ptr, i32 } [ %43, %42 ], [ %77, %76 ], [ %77, %80 ]
+  %82 = phi { ptr, i32 } [ %77, %76 ], [ %77, %80 ], [ %43, %42 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #16
   br label %83
 
@@ -1453,7 +1453,7 @@ define internal void @_GLOBAL__sub_I_main.cpp() #5 section ".text.startup" perso
   br label %88
 
 88:                                               ; preds = %87, %83, %32
-  %89 = phi { ptr, i32 } [ %33, %32 ], [ %84, %83 ], [ %84, %87 ]
+  %89 = phi { ptr, i32 } [ %84, %83 ], [ %84, %87 ], [ %33, %32 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #16
   br label %90
 
@@ -1468,7 +1468,7 @@ define internal void @_GLOBAL__sub_I_main.cpp() #5 section ".text.startup" perso
   br label %95
 
 95:                                               ; preds = %94, %90, %22
-  %96 = phi { ptr, i32 } [ %23, %22 ], [ %91, %90 ], [ %91, %94 ]
+  %96 = phi { ptr, i32 } [ %91, %90 ], [ %91, %94 ], [ %23, %22 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #16
   br label %97
 
@@ -1483,7 +1483,7 @@ define internal void @_GLOBAL__sub_I_main.cpp() #5 section ".text.startup" perso
   br label %102
 
 102:                                              ; preds = %101, %97, %12
-  %103 = phi { ptr, i32 } [ %13, %12 ], [ %98, %97 ], [ %98, %101 ]
+  %103 = phi { ptr, i32 } [ %98, %97 ], [ %98, %101 ], [ %13, %12 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #16
   br label %104
 

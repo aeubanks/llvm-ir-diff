@@ -322,20 +322,20 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
 158:                                              ; preds = %147, %150, %72, %74, %108
   %159 = load double, ptr @fastathreshold, align 8, !tbaa !22
   %160 = icmp sgt i32 %1, 0
-  br i1 %160, label %161, label %343
+  br i1 %160, label %161, label %341
 
 161:                                              ; preds = %158
   %162 = icmp sgt i32 %2, 0
   %163 = load ptr, ptr @impmtx, align 8
-  br i1 %162, label %164, label %343
+  br i1 %162, label %164, label %341
 
 164:                                              ; preds = %161
   %165 = zext i32 %1 to i64
   %166 = zext i32 %2 to i64
   br label %167
 
-167:                                              ; preds = %164, %340
-  %168 = phi i64 [ 0, %164 ], [ %341, %340 ]
+167:                                              ; preds = %164, %338
+  %168 = phi i64 [ 0, %164 ], [ %339, %338 ]
   %169 = getelementptr inbounds double, ptr %7, i64 %168
   %170 = load double, ptr %169, align 8, !tbaa !22
   %171 = getelementptr inbounds ptr, ptr %9, i64 %168
@@ -343,8 +343,8 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
   %173 = getelementptr inbounds ptr, ptr %5, i64 %168
   br label %174
 
-174:                                              ; preds = %167, %329
-  %175 = phi i64 [ 0, %167 ], [ %330, %329 ]
+174:                                              ; preds = %167, %327
+  %175 = phi i64 [ 0, %167 ], [ %328, %327 ]
   %176 = getelementptr inbounds double, ptr %8, i64 %175
   %177 = load double, ptr %176, align 8, !tbaa !22
   %178 = fmul double %170, %177
@@ -353,16 +353,16 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
   %181 = getelementptr inbounds ptr, ptr %172, i64 %175
   %182 = load ptr, ptr %181, align 8, !tbaa !5
   %183 = icmp eq ptr %182, null
-  br i1 %183, label %329, label %332
+  br i1 %183, label %327, label %330
 
-184:                                              ; preds = %332, %325
-  %185 = phi ptr [ %182, %332 ], [ %327, %325 ]
+184:                                              ; preds = %330, %323
+  %185 = phi ptr [ %182, %330 ], [ %325, %323 ]
   %186 = getelementptr inbounds %struct._LocalHom, ptr %185, i64 0, i32 3
   br label %187
 
 187:                                              ; preds = %194, %184
   %188 = phi i32 [ -1, %184 ], [ %198, %194 ]
-  %189 = phi ptr [ %333, %184 ], [ %195, %194 ]
+  %189 = phi ptr [ %331, %184 ], [ %195, %194 ]
   %190 = load i8, ptr %189, align 1, !tbaa !13
   %191 = icmp eq i8 %190, 0
   br i1 %191, label %192, label %194
@@ -385,7 +385,7 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
   %203 = phi i32 [ %188, %192 ], [ %198, %194 ]
   %204 = phi ptr [ %189, %192 ], [ %195, %194 ]
   %205 = ptrtoint ptr %204 to i64
-  %206 = add i64 %205, %335
+  %206 = add i64 %205, %333
   %207 = trunc i64 %206 to i32
   %208 = getelementptr inbounds %struct._LocalHom, ptr %185, i64 0, i32 4
   %209 = load i32, ptr %208, align 4, !tbaa !27
@@ -410,7 +410,7 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
 222:                                              ; preds = %216, %211
   %223 = phi ptr [ %217, %216 ], [ %213, %211 ]
   %224 = ptrtoint ptr %223 to i64
-  %225 = add i64 %224, %335
+  %225 = add i64 %224, %333
   %226 = trunc i64 %225 to i32
   br label %227
 
@@ -421,7 +421,7 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
 
 230:                                              ; preds = %237, %227
   %231 = phi i32 [ -1, %227 ], [ %241, %237 ]
-  %232 = phi ptr [ %337, %227 ], [ %238, %237 ]
+  %232 = phi ptr [ %335, %227 ], [ %238, %237 ]
   %233 = load i8, ptr %232, align 1, !tbaa !13
   %234 = icmp eq i8 %233, 0
   br i1 %234, label %235, label %237
@@ -444,7 +444,7 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
   %246 = phi i32 [ %231, %235 ], [ %241, %237 ]
   %247 = phi ptr [ %232, %235 ], [ %238, %237 ]
   %248 = ptrtoint ptr %247 to i64
-  %249 = add i64 %248, %339
+  %249 = add i64 %248, %337
   %250 = trunc i64 %249 to i32
   %251 = getelementptr inbounds %struct._LocalHom, ptr %185, i64 0, i32 6
   %252 = load i32, ptr %251, align 4, !tbaa !31
@@ -469,7 +469,7 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
 265:                                              ; preds = %259, %254
   %266 = phi ptr [ %260, %259 ], [ %256, %254 ]
   %267 = ptrtoint ptr %266 to i64
-  %268 = add i64 %267, %339
+  %268 = add i64 %267, %337
   %269 = trunc i64 %268 to i32
   br label %270
 
@@ -477,34 +477,36 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
   %271 = phi i32 [ %269, %265 ], [ %250, %244 ]
   %272 = shl i64 %206, 32
   %273 = ashr exact i64 %272, 32
-  %274 = getelementptr inbounds i8, ptr %333, i64 %273
+  %274 = getelementptr inbounds i8, ptr %331, i64 %273
   %275 = shl i64 %249, 32
   %276 = ashr exact i64 %275, 32
-  %277 = getelementptr inbounds i8, ptr %337, i64 %276
+  %277 = getelementptr inbounds i8, ptr %335, i64 %276
   %278 = getelementptr inbounds %struct._LocalHom, ptr %185, i64 0, i32 11
   br label %279
 
-279:                                              ; preds = %317, %270
-  %280 = phi i32 [ %250, %270 ], [ %318, %317 ]
-  %281 = phi i32 [ %207, %270 ], [ %319, %317 ]
-  %282 = phi ptr [ %274, %270 ], [ %320, %317 ]
-  %283 = phi ptr [ %277, %270 ], [ %321, %317 ]
+279:                                              ; preds = %315, %270
+  %280 = phi i32 [ %250, %270 ], [ %316, %315 ]
+  %281 = phi i32 [ %207, %270 ], [ %317, %315 ]
+  %282 = phi ptr [ %274, %270 ], [ %318, %315 ]
+  %283 = phi ptr [ %277, %270 ], [ %319, %315 ]
   %284 = load i8, ptr %282, align 1, !tbaa !13
   %285 = icmp eq i8 %284, 0
-  br i1 %285, label %325, label %286
+  br i1 %285, label %323, label %286
 
 286:                                              ; preds = %279
   %287 = load i8, ptr %283, align 1, !tbaa !13
   %288 = icmp eq i8 %287, 0
-  br i1 %288, label %325, label %289
+  br i1 %288, label %323, label %289
 
 289:                                              ; preds = %286
   %290 = icmp eq i8 %284, 45
   %291 = icmp eq i8 %287, 45
-  %292 = select i1 %290, i1 true, i1 %291
-  br i1 %292, label %306, label %293
+  br i1 %290, label %309, label %292
 
-293:                                              ; preds = %289
+292:                                              ; preds = %289
+  br i1 %291, label %306, label %293
+
+293:                                              ; preds = %292
   %294 = load float, ptr %278, align 8, !tbaa !33
   %295 = sext i32 %281 to i64
   %296 = getelementptr inbounds ptr, ptr %163, i64 %295
@@ -518,66 +520,60 @@ define dso_local void @imp_match_init_strictH(ptr nocapture noundef readnone %0,
   %303 = add nsw i32 %280, 1
   %304 = getelementptr inbounds i8, ptr %282, i64 1
   %305 = getelementptr inbounds i8, ptr %283, i64 1
-  br label %317
+  br label %315
 
-306:                                              ; preds = %289
-  br i1 %290, label %311, label %307
+306:                                              ; preds = %292
+  %307 = add nsw i32 %280, 1
+  %308 = getelementptr inbounds i8, ptr %283, i64 1
+  br label %315
 
-307:                                              ; preds = %306
-  br i1 %291, label %308, label %317
+309:                                              ; preds = %289
+  %310 = add nsw i32 %281, 1
+  %311 = getelementptr inbounds i8, ptr %282, i64 1
+  br i1 %291, label %312, label %315
 
-308:                                              ; preds = %307
-  %309 = add nsw i32 %280, 1
-  %310 = getelementptr inbounds i8, ptr %283, i64 1
-  br label %317
+312:                                              ; preds = %309
+  %313 = add nsw i32 %280, 1
+  %314 = getelementptr inbounds i8, ptr %283, i64 1
+  br label %315
 
-311:                                              ; preds = %306
-  %312 = add nsw i32 %281, 1
-  %313 = getelementptr inbounds i8, ptr %282, i64 1
-  br i1 %291, label %314, label %317
+315:                                              ; preds = %309, %312, %306, %293
+  %316 = phi i32 [ %303, %293 ], [ %307, %306 ], [ %313, %312 ], [ %280, %309 ]
+  %317 = phi i32 [ %302, %293 ], [ %281, %306 ], [ %310, %312 ], [ %310, %309 ]
+  %318 = phi ptr [ %304, %293 ], [ %282, %306 ], [ %311, %312 ], [ %311, %309 ]
+  %319 = phi ptr [ %305, %293 ], [ %308, %306 ], [ %314, %312 ], [ %283, %309 ]
+  %320 = icmp sgt i32 %317, %228
+  %321 = icmp sgt i32 %316, %271
+  %322 = select i1 %320, i1 true, i1 %321
+  br i1 %322, label %323, label %279, !llvm.loop !34
 
-314:                                              ; preds = %311
-  %315 = add nsw i32 %280, 1
-  %316 = getelementptr inbounds i8, ptr %283, i64 1
-  br label %317
+323:                                              ; preds = %315, %286, %279
+  %324 = getelementptr inbounds %struct._LocalHom, ptr %185, i64 0, i32 1
+  %325 = load ptr, ptr %324, align 8, !tbaa !5
+  %326 = icmp eq ptr %325, null
+  br i1 %326, label %327, label %184, !llvm.loop !35
 
-317:                                              ; preds = %311, %314, %308, %307, %293
-  %318 = phi i32 [ %303, %293 ], [ %309, %308 ], [ %315, %314 ], [ %280, %307 ], [ %280, %311 ]
-  %319 = phi i32 [ %302, %293 ], [ %281, %308 ], [ %312, %314 ], [ %281, %307 ], [ %312, %311 ]
-  %320 = phi ptr [ %304, %293 ], [ %282, %308 ], [ %313, %314 ], [ %282, %307 ], [ %313, %311 ]
-  %321 = phi ptr [ %305, %293 ], [ %310, %308 ], [ %316, %314 ], [ %283, %307 ], [ %283, %311 ]
-  %322 = icmp sgt i32 %319, %228
-  %323 = icmp sgt i32 %318, %271
-  %324 = select i1 %322, i1 true, i1 %323
-  br i1 %324, label %325, label %279, !llvm.loop !34
+327:                                              ; preds = %323, %174
+  %328 = add nuw nsw i64 %175, 1
+  %329 = icmp eq i64 %328, %166
+  br i1 %329, label %338, label %174, !llvm.loop !36
 
-325:                                              ; preds = %317, %286, %279
-  %326 = getelementptr inbounds %struct._LocalHom, ptr %185, i64 0, i32 1
-  %327 = load ptr, ptr %326, align 8, !tbaa !5
-  %328 = icmp eq ptr %327, null
-  br i1 %328, label %329, label %184, !llvm.loop !35
-
-329:                                              ; preds = %325, %174
-  %330 = add nuw nsw i64 %175, 1
-  %331 = icmp eq i64 %330, %166
-  br i1 %331, label %340, label %174, !llvm.loop !36
-
-332:                                              ; preds = %174
-  %333 = load ptr, ptr %173, align 8, !tbaa !5
-  %334 = ptrtoint ptr %333 to i64
-  %335 = xor i64 %334, -1
-  %336 = getelementptr inbounds ptr, ptr %6, i64 %175
-  %337 = load ptr, ptr %336, align 8, !tbaa !5
-  %338 = ptrtoint ptr %337 to i64
-  %339 = xor i64 %338, -1
+330:                                              ; preds = %174
+  %331 = load ptr, ptr %173, align 8, !tbaa !5
+  %332 = ptrtoint ptr %331 to i64
+  %333 = xor i64 %332, -1
+  %334 = getelementptr inbounds ptr, ptr %6, i64 %175
+  %335 = load ptr, ptr %334, align 8, !tbaa !5
+  %336 = ptrtoint ptr %335 to i64
+  %337 = xor i64 %336, -1
   br label %184
 
-340:                                              ; preds = %329
-  %341 = add nuw nsw i64 %168, 1
-  %342 = icmp eq i64 %341, %165
-  br i1 %342, label %343, label %167, !llvm.loop !37
+338:                                              ; preds = %327
+  %339 = add nuw nsw i64 %168, 1
+  %340 = icmp eq i64 %339, %165
+  br i1 %340, label %341, label %167, !llvm.loop !37
 
-343:                                              ; preds = %340, %161, %158
+341:                                              ; preds = %338, %161, %158
   ret void
 }
 

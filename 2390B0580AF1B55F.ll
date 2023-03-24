@@ -114,7 +114,7 @@ define dso_local void @YAMLOpen() local_unnamed_addr #0 {
   %66 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %63, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.13)
   br label %67
 
-67:                                               ; preds = %41, %45, %53, %49, %57, %65, %61, %14, %0
+67:                                               ; preds = %41, %45, %53, %49, %57, %14, %61, %65, %0
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #6
   ret void
 }

@@ -27,7 +27,7 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %4 = load ptr, ptr %3, align 8
   %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %2)
   %6 = icmp eq i32 %5, 12
-  br i1 %6, label %7, label %156
+  br i1 %6, label %7, label %157
 
 7:                                                ; preds = %1, %147
   %8 = phi ptr [ %151, %147 ], [ %2, %1 ]
@@ -80,9 +80,9 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %47 = select i1 %46, i32 %45, i32 %34
   br label %48
 
-48:                                               ; preds = %32, %42
-  %49 = phi i32 [ %45, %42 ], [ %35, %32 ]
-  %50 = phi i32 [ %47, %42 ], [ %34, %32 ]
+48:                                               ; preds = %42, %32
+  %49 = phi i32 [ %35, %32 ], [ %45, %42 ]
+  %50 = phi i32 [ %34, %32 ], [ %47, %42 ]
   %51 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %33, i64 0, i32 2
   %52 = load ptr, ptr %51, align 8, !tbaa !5
   %53 = load ptr, ptr %52, align 8, !tbaa !9
@@ -137,9 +137,9 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %92 = select i1 %91, i32 %90, i32 %79
   br label %93
 
-93:                                               ; preds = %77, %87
-  %94 = phi i32 [ %90, %87 ], [ %80, %77 ]
-  %95 = phi i32 [ %92, %87 ], [ %79, %77 ]
+93:                                               ; preds = %87, %77
+  %94 = phi i32 [ %80, %77 ], [ %90, %87 ]
+  %95 = phi i32 [ %79, %77 ], [ %92, %87 ]
   %96 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %78, i64 0, i32 2
   %97 = load ptr, ptr %96, align 8, !tbaa !5
   %98 = load ptr, ptr %97, align 8, !tbaa !9
@@ -153,7 +153,7 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %104 = load ptr, ptr %103, align 8
   %105 = tail call noundef i32 %104(ptr noundef nonnull align 8 dereferenceable(8) %12)
   %106 = icmp eq i32 %105, 15
-  br i1 %106, label %107, label %161
+  br i1 %106, label %107, label %156
 
 107:                                              ; preds = %102
   %108 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %12, i64 0, i32 3
@@ -162,7 +162,7 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %111 = load ptr, ptr %110, align 8
   %112 = tail call noundef i32 %111(ptr noundef nonnull align 8 dereferenceable(8) %109)
   %113 = icmp eq i32 %112, 24
-  br i1 %113, label %114, label %161
+  br i1 %113, label %114, label %156
 
 114:                                              ; preds = %107
   %115 = load ptr, ptr %108, align 8, !tbaa !15
@@ -194,9 +194,9 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %137 = select i1 %136, i32 %135, i32 %124
   br label %138
 
-138:                                              ; preds = %122, %132
-  %139 = phi i32 [ %135, %132 ], [ %125, %122 ]
-  %140 = phi i32 [ %137, %132 ], [ %124, %122 ]
+138:                                              ; preds = %132, %122
+  %139 = phi i32 [ %125, %122 ], [ %135, %132 ]
+  %140 = phi i32 [ %124, %122 ], [ %137, %132 ]
   %141 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %123, i64 0, i32 2
   %142 = load ptr, ptr %141, align 8, !tbaa !5
   %143 = load ptr, ptr %142, align 8, !tbaa !9
@@ -214,21 +214,21 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   %153 = load ptr, ptr %152, align 8
   %154 = tail call noundef i32 %153(ptr noundef nonnull align 8 dereferenceable(24) %151)
   %155 = icmp eq i32 %154, 12
-  br i1 %155, label %7, label %156, !llvm.loop !28
+  br i1 %155, label %7, label %157, !llvm.loop !28
 
-156:                                              ; preds = %147, %1
-  %157 = phi i32 [ 0, %1 ], [ %148, %147 ]
-  %158 = phi i32 [ 0, %1 ], [ %149, %147 ]
-  %159 = add i32 %157, 1
-  %160 = sub i32 %159, %158
-  br label %162
-
-161:                                              ; preds = %107, %102
+156:                                              ; preds = %107, %102
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str, i32 noundef 150, ptr noundef nonnull @.str.1)
   br label %162
 
-162:                                              ; preds = %156, %161
-  %163 = phi i32 [ 0, %161 ], [ %160, %156 ]
+157:                                              ; preds = %147, %1
+  %158 = phi i32 [ 0, %1 ], [ %148, %147 ]
+  %159 = phi i32 [ 0, %1 ], [ %149, %147 ]
+  %160 = add i32 %158, 1
+  %161 = sub i32 %160, %159
+  br label %162
+
+162:                                              ; preds = %156, %157
+  %163 = phi i32 [ %161, %157 ], [ 0, %156 ]
   ret i32 %163
 }
 

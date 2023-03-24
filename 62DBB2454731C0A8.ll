@@ -113,7 +113,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 22:                                               ; preds = %22, %17
   %23 = phi i64 [ 0, %17 ], [ %33, %22 ]
-  %24 = shl nuw nsw i64 %23, 10
+  %24 = shl nsw i64 %23, 10
   %25 = getelementptr inbounds i32, ptr %10, i64 %24
   store i32 0, ptr %25, align 4, !tbaa !5
   %26 = or i64 %24, 1023
@@ -160,9 +160,9 @@ define dso_local void @_Z16BENCHMARK_DILATERN9benchmark5StateE(ptr noundef nonnu
   %4 = load i64, ptr %3, align 8, !tbaa !15
   %5 = trunc i64 %4 to i32
   %6 = shl i64 %4, 32
-  %7 = ashr exact i64 %6, 30
-  %8 = ashr exact i64 %6, 32
-  %9 = mul i64 %7, %8
+  %7 = ashr exact i64 %6, 32
+  %8 = ashr exact i64 %6, 30
+  %9 = mul i64 %8, %7
   %10 = tail call noalias ptr @malloc(i64 noundef %9) #13
   %11 = tail call noalias ptr @malloc(i64 noundef %9) #13
   %12 = icmp eq ptr %10, null

@@ -199,7 +199,7 @@ define dso_local noundef i32 @_ZN9NCompress4NLzx20Cx86ConvertOutStream5WriteEPKv
   %40 = icmp eq i32 %39, 0
   br i1 %40, label %41, label %46
 
-41:                                               ; preds = %23, %38
+41:                                               ; preds = %38, %23
   %42 = icmp ult i32 %36, %2
   br i1 %42, label %23, label %43, !llvm.loop !26
 
@@ -363,7 +363,7 @@ define dso_local noundef i32 @_ZN9NCompress4NLzx20Cx86ConvertOutStream5FlushEv(p
   store i8 %105, ptr %7, align 4, !tbaa !20
   br label %106
 
-106:                                              ; preds = %91, %97, %1
+106:                                              ; preds = %97, %91, %1
   %107 = phi i32 [ 0, %1 ], [ 0, %97 ], [ %92, %91 ]
   ret i32 %107
 }

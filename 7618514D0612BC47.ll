@@ -314,53 +314,53 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %176 = icmp eq i32 %175, 20
   br i1 %176, label %177, label %128, !llvm.loop !18
 
-177:                                              ; preds = %174, %208
-  %178 = phi i64 [ %209, %208 ], [ 0, %174 ]
+177:                                              ; preds = %174, %200
+  %178 = phi i64 [ %201, %200 ], [ 0, %174 ]
   br label %179
 
-179:                                              ; preds = %205, %177
-  %180 = phi i64 [ 0, %177 ], [ %206, %205 ]
+179:                                              ; preds = %197, %177
+  %180 = phi i64 [ 0, %177 ], [ %198, %197 ]
   %181 = getelementptr inbounds [1000 x double], ptr %6, i64 %178, i64 %180
   %182 = load double, ptr %181, align 8, !tbaa !5
   %183 = getelementptr inbounds [1000 x double], ptr %15, i64 %178, i64 %180
   %184 = load double, ptr %183, align 8, !tbaa !5
   %185 = fsub double %182, %184
   %186 = call double @llvm.fabs.f64(double %185)
-  %187 = fcmp ule double %186, 1.000000e-05
-  br i1 %187, label %196, label %188
+  %187 = fcmp ogt double %186, 1.000000e-05
+  br i1 %187, label %203, label %188
 
-188:                                              ; preds = %196, %179
-  %189 = phi i64 [ %180, %179 ], [ %197, %196 ]
-  %190 = phi double [ %182, %179 ], [ %199, %196 ]
-  %191 = phi double [ %184, %179 ], [ %201, %196 ]
-  %192 = trunc i64 %178 to i32
-  %193 = trunc i64 %189 to i32
-  %194 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %195 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %194, ptr noundef nonnull @.str.2, i32 noundef %192, i32 noundef %193, double noundef %190, i32 noundef %192, i32 noundef %193, double noundef %191, double noundef 1.000000e-05) #12
+188:                                              ; preds = %179
+  %189 = or i64 %180, 1
+  %190 = getelementptr inbounds [1000 x double], ptr %6, i64 %178, i64 %189
+  %191 = load double, ptr %190, align 8, !tbaa !5
+  %192 = getelementptr inbounds [1000 x double], ptr %15, i64 %178, i64 %189
+  %193 = load double, ptr %192, align 8, !tbaa !5
+  %194 = fsub double %191, %193
+  %195 = call double @llvm.fabs.f64(double %194)
+  %196 = fcmp ogt double %195, 1.000000e-05
+  br i1 %196, label %203, label %197
+
+197:                                              ; preds = %188
+  %198 = add nuw nsw i64 %180, 2
+  %199 = icmp eq i64 %198, 1000
+  br i1 %199, label %200, label %179, !llvm.loop !20
+
+200:                                              ; preds = %197
+  %201 = add nuw nsw i64 %178, 1
+  %202 = icmp eq i64 %201, 1000
+  br i1 %202, label %211, label %177, !llvm.loop !21
+
+203:                                              ; preds = %188, %179
+  %204 = phi i64 [ %180, %179 ], [ %189, %188 ]
+  %205 = phi double [ %182, %179 ], [ %191, %188 ]
+  %206 = phi double [ %184, %179 ], [ %193, %188 ]
+  %207 = trunc i64 %178 to i32
+  %208 = trunc i64 %204 to i32
+  %209 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %210 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %209, ptr noundef nonnull @.str.2, i32 noundef %207, i32 noundef %208, double noundef %205, i32 noundef %207, i32 noundef %208, double noundef %206, double noundef 1.000000e-05) #12
   br label %276
 
-196:                                              ; preds = %179
-  %197 = or i64 %180, 1
-  %198 = getelementptr inbounds [1000 x double], ptr %6, i64 %178, i64 %197
-  %199 = load double, ptr %198, align 8, !tbaa !5
-  %200 = getelementptr inbounds [1000 x double], ptr %15, i64 %178, i64 %197
-  %201 = load double, ptr %200, align 8, !tbaa !5
-  %202 = fsub double %199, %201
-  %203 = call double @llvm.fabs.f64(double %202)
-  %204 = fcmp ule double %203, 1.000000e-05
-  br i1 %204, label %205, label %188
-
-205:                                              ; preds = %196
-  %206 = add nuw nsw i64 %180, 2
-  %207 = icmp eq i64 %206, 1000
-  br i1 %207, label %208, label %179, !llvm.loop !20
-
-208:                                              ; preds = %205
-  %209 = add nuw nsw i64 %178, 1
-  %210 = icmp eq i64 %209, 1000
-  br i1 %210, label %211, label %177, !llvm.loop !21
-
-211:                                              ; preds = %208
+211:                                              ; preds = %200
   %212 = call noalias dereferenceable_or_null(16001) ptr @malloc(i64 noundef 16001) #14
   %213 = getelementptr inbounds i8, ptr %212, i64 16000
   store i8 0, ptr %213, align 1, !tbaa !22
@@ -374,7 +374,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %217 = phi i64 [ 0, %214 ], [ %268, %216 ]
   %218 = getelementptr inbounds [1000 x double], ptr %15, i64 %215, i64 %217
   %219 = load i64, ptr %218, align 8, !tbaa !5
-  %220 = shl nuw nsw i64 %217, 4
+  %220 = shl nsw i64 %217, 4
   %221 = trunc i64 %219 to i8
   %222 = and i8 %221, 15
   %223 = or i8 %222, 48
@@ -455,8 +455,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   call void @free(ptr noundef nonnull %15) #11
   br label %276
 
-276:                                              ; preds = %188, %275
-  %277 = phi i32 [ 0, %275 ], [ 1, %188 ]
+276:                                              ; preds = %275, %203
+  %277 = phi i32 [ 0, %275 ], [ 1, %203 ]
   ret i32 %277
 }
 

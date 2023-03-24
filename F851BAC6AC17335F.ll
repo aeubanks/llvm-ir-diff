@@ -503,41 +503,41 @@ define dso_local i32 @gs_point_transform_inverse(double noundef %0, double nound
   br i1 %41, label %88, label %42
 
 42:                                               ; preds = %31
-  %43 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  %44 = load float, ptr %43, align 8, !tbaa !12
-  %45 = insertelement <2 x float> poison, float %37, i64 0
-  %46 = insertelement <2 x float> %45, float %12, i64 1
-  %47 = insertelement <2 x float> poison, float %40, i64 0
-  %48 = shufflevector <2 x float> %47, <2 x float> poison, <2 x i32> zeroinitializer
-  %49 = fdiv <2 x float> %46, %48
-  %50 = fdiv float %38, %40
-  %51 = fneg float %33
-  %52 = fdiv float %51, %40
+  %43 = fdiv float %38, %40
+  %44 = fneg float %33
+  %45 = fdiv float %44, %40
+  %46 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
+  %47 = load float, ptr %46, align 8, !tbaa !12
+  %48 = insertelement <2 x float> poison, float %37, i64 0
+  %49 = insertelement <2 x float> %48, float %12, i64 1
+  %50 = insertelement <2 x float> poison, float %40, i64 0
+  %51 = shufflevector <2 x float> %50, <2 x float> poison, <2 x i32> zeroinitializer
+  %52 = fdiv <2 x float> %49, %51
   %53 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
   %54 = load float, ptr %53, align 8, !tbaa !14
   %55 = getelementptr inbounds %struct.gs_point_s, ptr %3, i64 0, i32 1
-  %56 = insertelement <2 x float> %49, float %52, i64 0
+  %56 = insertelement <2 x float> %52, float %45, i64 0
   %57 = insertelement <2 x float> poison, float %54, i64 0
   %58 = shufflevector <2 x float> %57, <2 x float> poison, <2 x i32> zeroinitializer
   %59 = fmul <2 x float> %56, %58
-  %60 = insertelement <2 x float> poison, float %44, i64 0
+  %60 = insertelement <2 x float> poison, float %47, i64 0
   %61 = shufflevector <2 x float> %60, <2 x float> poison, <2 x i32> zeroinitializer
-  %62 = insertelement <2 x float> %49, float %50, i64 1
+  %62 = insertelement <2 x float> %52, float %43, i64 1
   %63 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %61, <2 x float> %62, <2 x float> %59)
   %64 = fneg <2 x float> %63
-  %65 = fpext <2 x float> %49 to <2 x double>
+  %65 = fpext <2 x float> %52 to <2 x double>
   %66 = fpext <2 x float> %64 to <2 x double>
   %67 = insertelement <2 x double> poison, double %0, i64 0
   %68 = insertelement <2 x double> %67, double %1, i64 1
   %69 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %68, <2 x double> %65, <2 x double> %66)
   %70 = fptrunc <2 x double> %69 to <2 x float>
   store <2 x float> %70, ptr %3, align 4, !tbaa !6
-  %71 = bitcast float %52 to i32
+  %71 = bitcast float %45 to i32
   %72 = icmp eq i32 %71, 0
   br i1 %72, label %79, label %73
 
 73:                                               ; preds = %42
-  %74 = fpext float %52 to double
+  %74 = fpext float %45 to double
   %75 = extractelement <2 x float> %70, i64 0
   %76 = fpext float %75 to double
   %77 = tail call double @llvm.fmuladd.f64(double %1, double %74, double %76)
@@ -546,12 +546,12 @@ define dso_local i32 @gs_point_transform_inverse(double noundef %0, double nound
   br label %79
 
 79:                                               ; preds = %73, %42
-  %80 = bitcast float %50 to i32
+  %80 = bitcast float %43 to i32
   %81 = icmp eq i32 %80, 0
   br i1 %81, label %88, label %82
 
 82:                                               ; preds = %79
-  %83 = fpext float %50 to double
+  %83 = fpext float %43 to double
   %84 = extractelement <2 x float> %70, i64 1
   %85 = fpext float %84 to double
   %86 = tail call double @llvm.fmuladd.f64(double %0, double %83, double %85)
@@ -560,7 +560,7 @@ define dso_local i32 @gs_point_transform_inverse(double noundef %0, double nound
   br label %88
 
 88:                                               ; preds = %31, %79, %82, %13
-  %89 = phi i32 [ 0, %13 ], [ 0, %79 ], [ 0, %82 ], [ -23, %31 ]
+  %89 = phi i32 [ 0, %13 ], [ -23, %31 ], [ 0, %79 ], [ 0, %82 ]
   ret i32 %89
 }
 
@@ -708,40 +708,40 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   %22 = fmul float %21, %16
   %23 = tail call float @llvm.fmuladd.f32(float %13, float %20, float %22)
   %24 = fcmp oeq float %23, 0.000000e+00
-  br i1 %24, label %155, label %25
+  br i1 %24, label %157, label %25
 
 25:                                               ; preds = %14
-  %26 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  %27 = load float, ptr %26, align 8, !tbaa !12
-  %28 = fdiv float %20, %23
-  %29 = fdiv float %21, %23
-  %30 = fneg float %16
-  %31 = fdiv float %30, %23
-  %32 = fdiv float %13, %23
-  %33 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
-  %34 = load float, ptr %33, align 8, !tbaa !14
-  %35 = fmul float %31, %34
-  %36 = tail call float @llvm.fmuladd.f32(float %27, float %28, float %35)
-  %37 = fneg float %36
-  %38 = fmul float %32, %34
-  %39 = tail call float @llvm.fmuladd.f32(float %27, float %29, float %38)
+  %26 = fdiv float %21, %23
+  %27 = fneg float %16
+  %28 = fdiv float %27, %23
+  %29 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
+  %30 = load float, ptr %29, align 8, !tbaa !12
+  %31 = fdiv float %13, %23
+  %32 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
+  %33 = load float, ptr %32, align 8, !tbaa !14
+  %34 = fmul float %31, %33
+  %35 = tail call float @llvm.fmuladd.f32(float %30, float %26, float %34)
+  %36 = fneg float %35
+  %37 = fdiv float %20, %23
+  %38 = fmul float %28, %33
+  %39 = tail call float @llvm.fmuladd.f32(float %30, float %37, float %38)
   %40 = fneg float %39
-  %41 = fpext float %28 to double
-  %42 = fpext float %37 to double
+  %41 = fpext float %37 to double
+  %42 = fpext float %40 to double
   %43 = extractelement <2 x double> %5, i64 0
   %44 = tail call double @llvm.fmuladd.f64(double %43, double %41, double %42)
   %45 = fptrunc double %44 to float
-  %46 = fpext float %32 to double
-  %47 = fpext float %40 to double
+  %46 = fpext float %31 to double
+  %47 = fpext float %36 to double
   %48 = extractelement <2 x double> %5, i64 1
   %49 = tail call double @llvm.fmuladd.f64(double %48, double %46, double %47)
   %50 = fptrunc double %49 to float
-  %51 = bitcast float %31 to i32
+  %51 = bitcast float %28 to i32
   %52 = icmp eq i32 %51, 0
   br i1 %52, label %58, label %53
 
 53:                                               ; preds = %25
-  %54 = fpext float %31 to double
+  %54 = fpext float %28 to double
   %55 = fpext float %45 to double
   %56 = tail call double @llvm.fmuladd.f64(double %48, double %54, double %55)
   %57 = fptrunc double %56 to float
@@ -749,12 +749,12 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
 
 58:                                               ; preds = %53, %25
   %59 = phi float [ %45, %25 ], [ %57, %53 ]
-  %60 = bitcast float %29 to i32
+  %60 = bitcast float %26 to i32
   %61 = icmp eq i32 %60, 0
   br i1 %61, label %97, label %62
 
 62:                                               ; preds = %58
-  %63 = fpext float %29 to double
+  %63 = fpext float %26 to double
   %64 = fpext float %50 to double
   %65 = tail call double @llvm.fmuladd.f64(double %43, double %63, double %64)
   %66 = fptrunc double %65 to float
@@ -765,16 +765,16 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   %69 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
   %70 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
   %71 = load float, ptr %70, align 8, !tbaa !16
-  %72 = insertelement <2 x float> poison, float %13, i64 0
-  %73 = insertelement <2 x float> %72, float %71, i64 1
-  %74 = fpext <2 x float> %73 to <2 x double>
-  %75 = load float, ptr %68, align 8, !tbaa !12
-  %76 = load float, ptr %69, align 8, !tbaa !14
-  %77 = insertelement <2 x float> poison, float %75, i64 0
-  %78 = insertelement <2 x float> %77, float %76, i64 1
-  %79 = fpext <2 x float> %78 to <2 x double>
-  %80 = fsub <2 x double> %5, %79
-  %81 = fdiv <2 x double> %80, %74
+  %72 = load float, ptr %68, align 8, !tbaa !12
+  %73 = load float, ptr %69, align 8, !tbaa !14
+  %74 = insertelement <2 x float> poison, float %72, i64 0
+  %75 = insertelement <2 x float> %74, float %73, i64 1
+  %76 = fpext <2 x float> %75 to <2 x double>
+  %77 = fsub <2 x double> %5, %76
+  %78 = insertelement <2 x float> poison, float %13, i64 0
+  %79 = insertelement <2 x float> %78, float %71, i64 1
+  %80 = fpext <2 x float> %79 to <2 x double>
+  %81 = fdiv <2 x double> %77, %80
   %82 = fptrunc <2 x double> %81 to <2 x float>
   %83 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1
   %84 = load float, ptr %83, align 4, !tbaa !22
@@ -782,14 +782,14 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   %86 = fsub float %84, %85
   %87 = fpext float %86 to double
   %88 = insertelement <2 x double> <double poison, double 0.000000e+00>, double %87, i64 0
-  %89 = fdiv <2 x double> %88, %74
+  %89 = fdiv <2 x double> %88, %80
   %90 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1, i32 1
   %91 = load float, ptr %90, align 4, !tbaa !24
   %92 = extractelement <2 x float> %4, i64 1
   %93 = fsub float %91, %92
   %94 = fpext float %93 to double
   %95 = insertelement <2 x double> <double 0.000000e+00, double poison>, double %94, i64 1
-  %96 = fdiv <2 x double> %95, %74
+  %96 = fdiv <2 x double> %95, %80
   br label %136
 
 97:                                               ; preds = %58, %62
@@ -798,10 +798,10 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   %100 = load float, ptr %99, align 4, !tbaa !24
   %101 = extractelement <2 x float> %4, i64 1
   %102 = fsub float %100, %101
-  %103 = fpext float %18 to double
-  %104 = fneg double %103
-  %105 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1
-  %106 = load float, ptr %105, align 4, !tbaa !22
+  %103 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1
+  %104 = fpext float %18 to double
+  %105 = fneg double %104
+  %106 = load float, ptr %103, align 4, !tbaa !22
   %107 = extractelement <2 x float> %4, i64 0
   %108 = fsub float %106, %107
   %109 = fpext float %23 to double
@@ -813,7 +813,7 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   %115 = insertelement <2 x float> poison, float %20, i64 0
   %116 = insertelement <2 x float> %115, float %102, i64 1
   %117 = fpext <2 x float> %116 to <2 x double>
-  %118 = insertelement <2 x double> <double -0.000000e+00, double poison>, double %104, i64 1
+  %118 = insertelement <2 x double> <double -0.000000e+00, double poison>, double %105, i64 1
   %119 = shufflevector <2 x double> %114, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
   %120 = insertelement <2 x double> %119, double %110, i64 0
   %121 = fmul <2 x double> %118, %120
@@ -824,7 +824,7 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   %126 = fdiv <2 x double> %123, %125
   %127 = insertelement <2 x double> <double poison, double -0.000000e+00>, double %111, i64 0
   %128 = shufflevector <2 x double> %117, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %129 = insertelement <2 x double> %128, double %103, i64 1
+  %129 = insertelement <2 x double> %128, double %104, i64 1
   %130 = fmul <2 x double> %127, %129
   %131 = insertelement <2 x double> %114, double 0.000000e+00, i64 0
   %132 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %117, <2 x double> %131, <2 x double> %130)
@@ -834,30 +834,32 @@ define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %
   br label %136
 
 136:                                              ; preds = %97, %67
-  %137 = phi <2 x double> [ %89, %67 ], [ %126, %97 ]
-  %138 = phi <2 x double> [ %96, %67 ], [ %133, %97 ]
-  %139 = phi <2 x float> [ %82, %67 ], [ %135, %97 ]
-  %140 = fptrunc <2 x double> %138 to <2 x float>
-  %141 = fptrunc <2 x double> %137 to <2 x float>
-  %142 = fadd <2 x float> %139, %141
-  %143 = fcmp olt <2 x float> %141, zeroinitializer
+  %137 = phi <2 x float> [ %82, %67 ], [ %135, %97 ]
+  %138 = phi <2 x double> [ %89, %67 ], [ %126, %97 ]
+  %139 = phi <2 x double> [ %96, %67 ], [ %133, %97 ]
+  %140 = shufflevector <2 x float> %137, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %141 = fptrunc <2 x double> %139 to <2 x float>
+  %142 = fptrunc <2 x double> %138 to <2 x float>
+  %143 = fcmp olt <2 x float> %142, zeroinitializer
   %144 = shufflevector <2 x i1> %143, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %145 = shufflevector <2 x float> %142, <2 x float> %139, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
-  %146 = shufflevector <2 x float> %142, <2 x float> %139, <4 x i32> <i32 2, i32 3, i32 0, i32 1>
-  %147 = select <4 x i1> %144, <4 x float> %145, <4 x float> %146
-  %148 = fcmp olt <2 x float> %140, zeroinitializer
-  %149 = shufflevector <2 x i1> %148, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %150 = shufflevector <2 x float> %140, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %151 = shufflevector <4 x float> %150, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
-  %152 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %150, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
-  %153 = select <4 x i1> %149, <4 x float> %151, <4 x float> %152
-  %154 = fadd <4 x float> %147, %153
-  store <4 x float> %154, ptr %2, align 4, !tbaa !6
-  br label %155
+  %145 = shufflevector <2 x float> %142, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %146 = shufflevector <4 x float> %145, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
+  %147 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %145, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
+  %148 = select <4 x i1> %144, <4 x float> %146, <4 x float> %147
+  %149 = fadd <4 x float> %140, %148
+  %150 = fcmp olt <2 x float> %141, zeroinitializer
+  %151 = shufflevector <2 x i1> %150, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %152 = shufflevector <2 x float> %141, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %153 = shufflevector <4 x float> %152, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
+  %154 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %152, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
+  %155 = select <4 x i1> %151, <4 x float> %153, <4 x float> %154
+  %156 = fadd <4 x float> %149, %155
+  store <4 x float> %156, ptr %2, align 4, !tbaa !6
+  br label %157
 
-155:                                              ; preds = %14, %136
-  %156 = phi i32 [ 0, %136 ], [ -23, %14 ]
-  ret i32 %156
+157:                                              ; preds = %14, %136
+  %158 = phi i32 [ 0, %136 ], [ -23, %14 ]
+  ret i32 %158
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable

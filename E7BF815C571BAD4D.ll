@@ -316,7 +316,7 @@ define dso_local noundef zeroext i1 @_ZN19btGenericMemoryPool10freeMemoryEPv(ptr
   br label %24
 
 24:                                               ; preds = %15, %5, %2
-  %25 = phi i1 [ false, %2 ], [ false, %5 ], [ true, %15 ]
+  %25 = phi i1 [ false, %2 ], [ true, %15 ], [ false, %5 ]
   ret i1 %25
 }
 
@@ -574,7 +574,7 @@ define dso_local noundef ptr @_ZN22btGenericPoolAllocator8allocateEm(ptr nocaptu
   %3 = getelementptr inbounds %class.btGenericPoolAllocator, ptr %0, i64 0, i32 4
   %4 = load i64, ptr %3, align 8, !tbaa !20
   %5 = icmp eq i64 %4, 0
-  br i1 %5, label %85, label %6
+  br i1 %5, label %86, label %6
 
 6:                                                ; preds = %2, %77
   %7 = phi i64 [ %79, %77 ], [ 0, %2 ]
@@ -682,19 +682,20 @@ define dso_local noundef ptr @_ZN22btGenericPoolAllocator8allocateEm(ptr nocaptu
   %80 = load i64, ptr %3, align 8, !tbaa !20
   %81 = icmp ult i64 %79, %80
   %82 = icmp eq ptr %78, null
-  %83 = and i1 %82, %81
+  %83 = select i1 %81, i1 %82, i1 false
   br i1 %83, label %6, label %84
 
 84:                                               ; preds = %77
-  br i1 %82, label %85, label %87
+  %85 = icmp eq ptr %78, null
+  br i1 %85, label %86, label %88
 
-85:                                               ; preds = %2, %84
-  %86 = tail call noundef ptr @_ZN22btGenericPoolAllocator14failback_allocEm(ptr noundef nonnull align 8 dereferenceable(160) %0, i64 noundef %1)
-  br label %87
+86:                                               ; preds = %2, %84
+  %87 = tail call noundef ptr @_ZN22btGenericPoolAllocator14failback_allocEm(ptr noundef nonnull align 8 dereferenceable(160) %0, i64 noundef %1)
+  br label %88
 
-87:                                               ; preds = %84, %85
-  %88 = phi ptr [ %86, %85 ], [ %78, %84 ]
-  ret ptr %88
+88:                                               ; preds = %84, %86
+  %89 = phi ptr [ %87, %86 ], [ %78, %84 ]
+  ret ptr %89
 }
 
 ; Function Attrs: uwtable
@@ -973,11 +974,11 @@ define internal void @_GLOBAL__sub_I_btGenericPoolAllocator.cpp() #8 section ".t
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #10
 
 attributes #0 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -988,8 +989,8 @@ attributes #5 = { nofree nounwind }
 attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #7 = { inlinehint uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { builtin nounwind }
 attributes #12 = { nounwind }
 

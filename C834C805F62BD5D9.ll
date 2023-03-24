@@ -102,8 +102,8 @@ define dso_local noundef i32 @_ZN5Table6SearchER6Object(ptr noundef nonnull alig
   %20 = icmp slt i32 %18, %19
   br i1 %20, label %6, label %21, !llvm.loop !14
 
-21:                                               ; preds = %17, %6, %2
-  %22 = phi i32 [ -1, %2 ], [ %7, %6 ], [ -1, %17 ]
+21:                                               ; preds = %6, %17, %2
+  %22 = phi i32 [ -1, %2 ], [ -1, %17 ], [ %7, %6 ]
   ret i32 %22
 }
 
@@ -124,11 +124,11 @@ define dso_local noundef i32 @_ZN5TableeqER6Object(ptr noundef nonnull align 8 d
   %15 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
   %16 = load i32, ptr %15, align 8, !tbaa !5
   %17 = icmp eq i32 %14, %16
-  br i1 %17, label %18, label %41
+  br i1 %17, label %18, label %39
 
 18:                                               ; preds = %2
-  %19 = icmp slt i32 %14, 1
-  br i1 %19, label %41, label %24
+  %19 = icmp sgt i32 %14, 0
+  br i1 %19, label %24, label %39
 
 20:                                               ; preds = %24
   %21 = add nuw nsw i32 %25, 1
@@ -150,16 +150,12 @@ define dso_local noundef i32 @_ZN5TableeqER6Object(ptr noundef nonnull align 8 d
   %35 = getelementptr inbounds ptr, ptr %34, i64 2
   %36 = load ptr, ptr %35, align 8
   %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %29, ptr noundef nonnull align 8 dereferenceable(8) %33)
-  %38 = icmp ne i32 %37, 0
-  br i1 %38, label %20, label %39
+  %38 = icmp eq i32 %37, 0
+  br i1 %38, label %39, label %20
 
-39:                                               ; preds = %24, %20
-  %40 = zext i1 %38 to i32
-  br label %41
-
-41:                                               ; preds = %18, %39, %2
-  %42 = phi i32 [ 0, %2 ], [ 1, %18 ], [ %40, %39 ]
-  ret i32 %42
+39:                                               ; preds = %20, %24, %18, %2
+  %40 = phi i32 [ 0, %2 ], [ 1, %18 ], [ 1, %20 ], [ 0, %24 ]
+  ret i32 %40
 }
 
 ; Function Attrs: uwtable
@@ -181,58 +177,59 @@ define dso_local void @_ZN5ArrayC2Ei7TblType(ptr nocapture noundef nonnull align
   %13 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
   store i32 %1, ptr %13, align 8, !tbaa !22
   %14 = icmp sgt i32 %1, 0
-  br i1 %14, label %15, label %31
+  br i1 %14, label %15, label %32
 
 15:                                               ; preds = %3
-  %16 = and i64 %7, 3
-  %17 = icmp ult i32 %1, 4
-  br i1 %17, label %20, label %18
+  %16 = zext i32 %1 to i64
+  %17 = and i64 %16, 3
+  %18 = icmp ult i32 %1, 4
+  br i1 %18, label %21, label %19
 
-18:                                               ; preds = %15
-  %19 = and i64 %7, 4294967292
-  br label %32
+19:                                               ; preds = %15
+  %20 = and i64 %16, 4294967292
+  br label %33
 
-20:                                               ; preds = %32, %15
-  %21 = phi i64 [ 0, %15 ], [ %46, %32 ]
-  %22 = icmp eq i64 %16, 0
-  br i1 %22, label %31, label %23
+21:                                               ; preds = %33, %15
+  %22 = phi i64 [ 0, %15 ], [ %47, %33 ]
+  %23 = icmp eq i64 %17, 0
+  br i1 %23, label %32, label %24
 
-23:                                               ; preds = %20, %23
-  %24 = phi i64 [ %28, %23 ], [ %21, %20 ]
-  %25 = phi i64 [ %29, %23 ], [ 0, %20 ]
-  %26 = load ptr, ptr %12, align 8, !tbaa !19
-  %27 = getelementptr inbounds ptr, ptr %26, i64 %24
-  store ptr null, ptr %27, align 8, !tbaa !23
-  %28 = add nuw nsw i64 %24, 1
-  %29 = add i64 %25, 1
-  %30 = icmp eq i64 %29, %16
-  br i1 %30, label %31, label %23, !llvm.loop !24
+24:                                               ; preds = %21, %24
+  %25 = phi i64 [ %29, %24 ], [ %22, %21 ]
+  %26 = phi i64 [ %30, %24 ], [ 0, %21 ]
+  %27 = load ptr, ptr %12, align 8, !tbaa !19
+  %28 = getelementptr inbounds ptr, ptr %27, i64 %25
+  store ptr null, ptr %28, align 8, !tbaa !23
+  %29 = add nuw nsw i64 %25, 1
+  %30 = add i64 %26, 1
+  %31 = icmp eq i64 %30, %17
+  br i1 %31, label %32, label %24, !llvm.loop !24
 
-31:                                               ; preds = %20, %23, %3
+32:                                               ; preds = %21, %24, %3
   ret void
 
-32:                                               ; preds = %32, %18
-  %33 = phi i64 [ 0, %18 ], [ %46, %32 ]
-  %34 = phi i64 [ 0, %18 ], [ %47, %32 ]
-  %35 = load ptr, ptr %12, align 8, !tbaa !19
-  %36 = getelementptr inbounds ptr, ptr %35, i64 %33
-  store ptr null, ptr %36, align 8, !tbaa !23
-  %37 = or i64 %33, 1
-  %38 = load ptr, ptr %12, align 8, !tbaa !19
-  %39 = getelementptr inbounds ptr, ptr %38, i64 %37
-  store ptr null, ptr %39, align 8, !tbaa !23
-  %40 = or i64 %33, 2
-  %41 = load ptr, ptr %12, align 8, !tbaa !19
-  %42 = getelementptr inbounds ptr, ptr %41, i64 %40
-  store ptr null, ptr %42, align 8, !tbaa !23
-  %43 = or i64 %33, 3
-  %44 = load ptr, ptr %12, align 8, !tbaa !19
-  %45 = getelementptr inbounds ptr, ptr %44, i64 %43
-  store ptr null, ptr %45, align 8, !tbaa !23
-  %46 = add nuw nsw i64 %33, 4
-  %47 = add i64 %34, 4
-  %48 = icmp eq i64 %47, %19
-  br i1 %48, label %20, label %32, !llvm.loop !26
+33:                                               ; preds = %33, %19
+  %34 = phi i64 [ 0, %19 ], [ %47, %33 ]
+  %35 = phi i64 [ 0, %19 ], [ %48, %33 ]
+  %36 = load ptr, ptr %12, align 8, !tbaa !19
+  %37 = getelementptr inbounds ptr, ptr %36, i64 %34
+  store ptr null, ptr %37, align 8, !tbaa !23
+  %38 = or i64 %34, 1
+  %39 = load ptr, ptr %12, align 8, !tbaa !19
+  %40 = getelementptr inbounds ptr, ptr %39, i64 %38
+  store ptr null, ptr %40, align 8, !tbaa !23
+  %41 = or i64 %34, 2
+  %42 = load ptr, ptr %12, align 8, !tbaa !19
+  %43 = getelementptr inbounds ptr, ptr %42, i64 %41
+  store ptr null, ptr %43, align 8, !tbaa !23
+  %44 = or i64 %34, 3
+  %45 = load ptr, ptr %12, align 8, !tbaa !19
+  %46 = getelementptr inbounds ptr, ptr %45, i64 %44
+  store ptr null, ptr %46, align 8, !tbaa !23
+  %47 = add nuw nsw i64 %34, 4
+  %48 = add i64 %35, 4
+  %49 = icmp eq i64 %48, %20
+  br i1 %49, label %21, label %33, !llvm.loop !26
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -384,14 +381,14 @@ define dso_local noundef i32 @_ZN5Array6AppendEP6Object(ptr nocapture noundef no
 define dso_local noundef i32 @_ZN5Array6InsertEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #7 align 2 {
   %4 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
   %5 = load i32, ptr %4, align 8, !tbaa !5
-  %6 = icmp sge i32 %5, %2
-  %7 = icmp sgt i32 %2, -1
-  %8 = and i1 %7, %6
+  %6 = icmp slt i32 %5, %2
+  %7 = icmp slt i32 %2, 0
+  %8 = or i1 %7, %6
   %9 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
   %10 = load i32, ptr %9, align 8
-  %11 = icmp slt i32 %5, %10
-  %12 = select i1 %8, i1 %11, i1 false
-  br i1 %12, label %13, label %75
+  %11 = icmp sge i32 %5, %10
+  %12 = select i1 %8, i1 true, i1 %11
+  br i1 %12, label %75, label %13
 
 13:                                               ; preds = %3
   %14 = icmp sgt i32 %5, %2
@@ -484,14 +481,14 @@ define dso_local noundef i32 @_ZN5Array6InsertEP6Objecti(ptr nocapture noundef n
 define dso_local noundef i32 @_ZN5Array6AssignEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #6 align 2 {
   %4 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
   %5 = load i32, ptr %4, align 8, !tbaa !5
-  %6 = icmp sge i32 %5, %2
-  %7 = icmp sgt i32 %2, -1
-  %8 = and i1 %7, %6
+  %6 = icmp slt i32 %5, %2
+  %7 = icmp slt i32 %2, 0
+  %8 = or i1 %7, %6
   %9 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
   %10 = load i32, ptr %9, align 8
-  %11 = icmp slt i32 %5, %10
-  %12 = select i1 %8, i1 %11, i1 false
-  br i1 %12, label %13, label %23
+  %11 = icmp sge i32 %5, %10
+  %12 = select i1 %8, i1 true, i1 %11
+  br i1 %12, label %23, label %13
 
 13:                                               ; preds = %3
   %14 = icmp eq i32 %5, %2

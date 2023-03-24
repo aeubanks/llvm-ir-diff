@@ -116,7 +116,7 @@ define dso_local ptr @insertSortedBinaryTree(i32 noundef %0, ptr nocapture nound
 
 23:                                               ; preds = %19, %11
   %24 = phi ptr [ %13, %11 ], [ %21, %19 ]
-  br label %7, !llvm.loop !14
+  br label %7
 
 25:                                               ; preds = %19
   %26 = getelementptr inbounds %struct.binaryTree, ptr %8, i64 0, i32 2
@@ -191,12 +191,12 @@ define dso_local double @getArithmeticMeanOptimized(ptr noundef %0) local_unname
   %2 = alloca double, align 8
   %3 = alloca double, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #11
-  store double 0.000000e+00, ptr %2, align 8, !tbaa !16
+  store double 0.000000e+00, ptr %2, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #11
-  store double 0.000000e+00, ptr %3, align 8, !tbaa !16
+  store double 0.000000e+00, ptr %3, align 8, !tbaa !14
   call void @getArithmeticMeanOptimizedRecurs(ptr noundef %0, ptr noundef nonnull %2, ptr noundef nonnull %3)
-  %4 = load double, ptr %2, align 8, !tbaa !16
-  %5 = load double, ptr %3, align 8, !tbaa !16
+  %4 = load double, ptr %2, align 8, !tbaa !14
+  %5 = load double, ptr %3, align 8, !tbaa !14
   %6 = fdiv double %4, %5
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #11
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #11
@@ -210,14 +210,14 @@ define dso_local void @getArithmeticMeanOptimizedRecurs(ptr noundef readonly %0,
 
 5:                                                ; preds = %3, %5
   %6 = phi ptr [ %16, %5 ], [ %0, %3 ]
-  %7 = load double, ptr %1, align 8, !tbaa !16
+  %7 = load double, ptr %1, align 8, !tbaa !14
   %8 = load i32, ptr %6, align 8, !tbaa !5
   %9 = sitofp i32 %8 to double
   %10 = fadd double %7, %9
-  store double %10, ptr %1, align 8, !tbaa !16
-  %11 = load double, ptr %2, align 8, !tbaa !16
+  store double %10, ptr %1, align 8, !tbaa !14
+  %11 = load double, ptr %2, align 8, !tbaa !14
   %12 = fadd double %11, 1.000000e+00
-  store double %12, ptr %2, align 8, !tbaa !16
+  store double %12, ptr %2, align 8, !tbaa !14
   %13 = getelementptr inbounds %struct.binaryTree, ptr %6, i64 0, i32 1
   %14 = load ptr, ptr %13, align 8, !tbaa !11
   tail call void @getArithmeticMeanOptimizedRecurs(ptr noundef %14, ptr noundef nonnull %1, ptr noundef nonnull %2)
@@ -234,9 +234,9 @@ define dso_local void @getArithmeticMeanOptimizedRecurs(ptr noundef readonly %0,
 define dso_local i32 @memberOfBinaryTree(ptr noundef %0, i32 noundef %1) local_unnamed_addr #6 {
   %3 = alloca i32, align 4
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #11
-  store i32 0, ptr %3, align 4, !tbaa !18
+  store i32 0, ptr %3, align 4, !tbaa !16
   call void @memberOfBinaryTreeRecurs(ptr noundef %0, i32 noundef %1, ptr noundef nonnull %3)
-  %4 = load i32, ptr %3, align 4, !tbaa !18
+  %4 = load i32, ptr %3, align 4, !tbaa !16
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #11
   ret i32 %4
 }
@@ -253,14 +253,14 @@ define dso_local void @memberOfBinaryTreeRecurs(ptr noundef readonly %0, i32 nou
   br i1 %8, label %9, label %10
 
 9:                                                ; preds = %5
-  store i32 1, ptr %2, align 4, !tbaa !18
+  store i32 1, ptr %2, align 4, !tbaa !16
   br label %19
 
 10:                                               ; preds = %5
   %11 = getelementptr inbounds %struct.binaryTree, ptr %6, i64 0, i32 1
   %12 = load ptr, ptr %11, align 8, !tbaa !11
   tail call void @memberOfBinaryTreeRecurs(ptr noundef %12, i32 noundef %1, ptr noundef %2)
-  %13 = load i32, ptr %2, align 4, !tbaa !18
+  %13 = load i32, ptr %2, align 4, !tbaa !16
   %14 = icmp eq i32 %13, 0
   br i1 %14, label %15, label %19
 
@@ -301,21 +301,21 @@ define dso_local i32 @memberOfSortedBinaryTree(ptr noundef readonly %0, i32 noun
   %15 = phi ptr [ %13, %12 ], [ %9, %8 ]
   %16 = load ptr, ptr %15, align 8, !tbaa !13
   %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %4, !llvm.loop !19
+  br i1 %17, label %18, label %4, !llvm.loop !17
 
 18:                                               ; preds = %10, %14, %2
   %19 = phi i32 [ 0, %2 ], [ 1, %10 ], [ 0, %14 ]
   ret i32 %19
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #8
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -325,8 +325,8 @@ attributes #4 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #5 = { nofree nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nounwind allocsize(0) }
 attributes #11 = { nounwind }
 
@@ -347,9 +347,8 @@ attributes #11 = { nounwind }
 !11 = !{!6, !10, i64 8}
 !12 = !{!6, !10, i64 16}
 !13 = !{!10, !10, i64 0}
-!14 = distinct !{!14, !15}
-!15 = !{!"llvm.loop.mustprogress"}
-!16 = !{!17, !17, i64 0}
-!17 = !{!"double", !8, i64 0}
-!18 = !{!7, !7, i64 0}
-!19 = distinct !{!19, !15}
+!14 = !{!15, !15, i64 0}
+!15 = !{!"double", !8, i64 0}
+!16 = !{!7, !7, i64 0}
+!17 = distinct !{!17, !18}
+!18 = !{!"llvm.loop.mustprogress"}

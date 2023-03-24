@@ -1195,14 +1195,14 @@ define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequen
   %616 = phi i8 [ 1, %607 ], [ 0, %575 ], [ 0, %604 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #11
   %617 = invoke noundef i64 @_ZNK10COutBuffer16GetProcessedSizeEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
-          to label %618 unwind label %645
+          to label %618 unwind label %644
 
 618:                                              ; preds = %614
   store i64 %617, ptr %9, align 8, !tbaa !42
   %619 = sub i64 %617, %80
   %620 = icmp ugt i64 %619, 262144
   %621 = select i1 %34, i1 %620, i1 false
-  br i1 %621, label %622, label %649
+  br i1 %621, label %622, label %648
 
 622:                                              ; preds = %618
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #11
@@ -1226,43 +1226,43 @@ define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequen
   %639 = getelementptr inbounds ptr, ptr %638, i64 5
   %640 = load ptr, ptr %639, align 8
   %641 = invoke noundef i32 %640(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %10, ptr noundef nonnull %9)
-          to label %642 unwind label %647
+          to label %642 unwind label %646
 
 642:                                              ; preds = %622
   %643 = icmp eq i32 %641, 0
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #11
-  br i1 %643, label %649, label %644
+  br i1 %643, label %648, label %650
 
-644:                                              ; preds = %642
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
-  br label %663
-
-645:                                              ; preds = %614
-  %646 = landingpad { ptr, i32 }
+644:                                              ; preds = %614
+  %645 = landingpad { ptr, i32 }
           cleanup
   br label %657
 
-647:                                              ; preds = %622
-  %648 = landingpad { ptr, i32 }
+646:                                              ; preds = %622
+  %647 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #11
   br label %657
 
-649:                                              ; preds = %618, %642
-  %650 = phi i64 [ %617, %642 ], [ %80, %618 ]
+648:                                              ; preds = %642, %618
+  %649 = phi i64 [ %80, %618 ], [ %617, %642 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
   br label %651
 
-651:                                              ; preds = %525, %176, %528, %649
-  %652 = phi i32 [ %120, %649 ], [ %84, %528 ], [ %84, %176 ], [ %84, %525 ]
-  %653 = phi i8 [ %616, %649 ], [ 1, %528 ], [ %83, %176 ], [ %83, %525 ]
-  %654 = phi i32 [ %615, %649 ], [ %535, %528 ], [ %82, %176 ], [ 8192, %525 ]
-  %655 = phi i32 [ %81, %649 ], [ %81, %528 ], [ %179, %176 ], [ %81, %525 ]
-  %656 = phi i64 [ %650, %649 ], [ %80, %528 ], [ %80, %176 ], [ %80, %525 ]
+650:                                              ; preds = %642
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
+  br label %663
+
+651:                                              ; preds = %525, %176, %528, %648
+  %652 = phi i32 [ %120, %648 ], [ %84, %528 ], [ %84, %176 ], [ %84, %525 ]
+  %653 = phi i8 [ %616, %648 ], [ 1, %528 ], [ %83, %176 ], [ %83, %525 ]
+  %654 = phi i32 [ %615, %648 ], [ %535, %528 ], [ %82, %176 ], [ 8192, %525 ]
+  %655 = phi i32 [ %81, %648 ], [ %81, %528 ], [ %179, %176 ], [ %81, %525 ]
+  %656 = phi i64 [ %649, %648 ], [ %80, %528 ], [ %80, %176 ], [ %80, %525 ]
   br label %79, !llvm.loop !31
 
-657:                                              ; preds = %647, %645
-  %658 = phi { ptr, i32 } [ %648, %647 ], [ %646, %645 ]
+657:                                              ; preds = %646, %644
+  %658 = phi { ptr, i32 } [ %647, %646 ], [ %645, %644 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
   br label %696
 
@@ -1275,8 +1275,8 @@ define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequen
           cleanup
   br label %696
 
-663:                                              ; preds = %170, %131, %644, %659, %25, %16
-  %664 = phi i32 [ -2147024882, %16 ], [ -2147024882, %25 ], [ %660, %659 ], [ %641, %644 ], [ 1, %131 ], [ 1, %170 ]
+663:                                              ; preds = %170, %131, %650, %659, %25, %16
+  %664 = phi i32 [ -2147024882, %16 ], [ -2147024882, %25 ], [ %660, %659 ], [ %641, %650 ], [ 1, %131 ], [ 1, %170 ]
   invoke void @_ZN10COutBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
           to label %665 unwind label %676
 

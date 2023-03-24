@@ -284,124 +284,124 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %4) #5
   %6 = load ptr, ptr %0, align 8, !tbaa !21
   %7 = load i16, ptr %6, align 4, !tbaa !25
-  %8 = icmp eq i16 %7, 1
-  br i1 %8, label %271, label %9
+  %8 = zext i16 %7 to i32
+  %9 = icmp eq i16 %7, 1
+  br i1 %9, label %271, label %10
 
-9:                                                ; preds = %3
-  %10 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 12
-  %11 = load ptr, ptr %10, align 8, !tbaa !27
-  %12 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 2
-  %13 = load i32, ptr %12, align 4, !tbaa !28
-  %14 = zext i32 %13 to i64
-  %15 = getelementptr inbounds i8, ptr %11, i64 %14
-  %16 = load i8, ptr %15, align 1, !tbaa !29
-  %17 = zext i8 %16 to i32
-  %18 = icmp eq i32 %17, %2
-  br i1 %18, label %19, label %79
+10:                                               ; preds = %3
+  %11 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 12
+  %12 = load ptr, ptr %11, align 8, !tbaa !27
+  %13 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 2
+  %14 = load i32, ptr %13, align 4, !tbaa !28
+  %15 = zext i32 %14 to i64
+  %16 = getelementptr inbounds i8, ptr %12, i64 %15
+  %17 = load i8, ptr %16, align 1, !tbaa !29
+  %18 = zext i8 %17 to i32
+  %19 = icmp eq i32 %18, %2
+  br i1 %19, label %20, label %80
 
-19:                                               ; preds = %9
-  %20 = getelementptr inbounds %struct.CPpmd_State, ptr %15, i64 0, i32 1
-  %21 = load i8, ptr %20, align 1, !tbaa !31
-  %22 = zext i8 %21 to i32
-  %23 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 1
-  %24 = load i16, ptr %23, align 2, !tbaa !32
-  %25 = zext i16 %24 to i32
-  %26 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 1
-  %27 = load i32, ptr %26, align 8, !tbaa !12
-  %28 = udiv i32 %27, %25
-  %29 = load i64, ptr %1, align 8, !tbaa !5
-  %30 = mul i32 %28, %22
-  store i32 %30, ptr %26, align 8, !tbaa !12
-  %31 = icmp ult i32 %30, 16777216
-  br i1 %31, label %32, label %77
+20:                                               ; preds = %10
+  %21 = getelementptr inbounds %struct.CPpmd_State, ptr %16, i64 0, i32 1
+  %22 = load i8, ptr %21, align 1, !tbaa !31
+  %23 = zext i8 %22 to i32
+  %24 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 1
+  %25 = load i16, ptr %24, align 2, !tbaa !32
+  %26 = zext i16 %25 to i32
+  %27 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 1
+  %28 = load i32, ptr %27, align 8, !tbaa !12
+  %29 = udiv i32 %28, %26
+  %30 = load i64, ptr %1, align 8, !tbaa !5
+  %31 = mul i32 %29, %23
+  store i32 %31, ptr %27, align 8, !tbaa !12
+  %32 = icmp ult i32 %31, 16777216
+  br i1 %32, label %33, label %78
 
-32:                                               ; preds = %19
-  %33 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
-  %34 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 4
-  %35 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 3
-  br label %36
+33:                                               ; preds = %20
+  %34 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
+  %35 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 4
+  %36 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 3
+  br label %37
 
-36:                                               ; preds = %70, %32
-  %37 = phi i64 [ %29, %32 ], [ %75, %70 ]
-  %38 = phi i32 [ %30, %32 ], [ %71, %70 ]
-  %39 = shl nuw i32 %38, 8
-  store i32 %39, ptr %26, align 8, !tbaa !12
-  %40 = and i64 %37, -16777216
-  %41 = icmp eq i64 %40, 4278190080
-  br i1 %41, label %42, label %45
+37:                                               ; preds = %71, %33
+  %38 = phi i64 [ %30, %33 ], [ %76, %71 ]
+  %39 = phi i32 [ %31, %33 ], [ %72, %71 ]
+  %40 = shl nuw i32 %39, 8
+  store i32 %40, ptr %27, align 8, !tbaa !12
+  %41 = and i64 %38, -16777216
+  %42 = icmp eq i64 %41, 4278190080
+  br i1 %42, label %43, label %46
 
-42:                                               ; preds = %36
-  %43 = load i64, ptr %35, align 8, !tbaa !14
-  %44 = add i64 %43, 1
-  br label %70
+43:                                               ; preds = %37
+  %44 = load i64, ptr %36, align 8, !tbaa !14
+  %45 = add i64 %44, 1
+  br label %71
 
-45:                                               ; preds = %36
-  %46 = load i8, ptr %33, align 4, !tbaa !13
-  %47 = load ptr, ptr %34, align 8, !tbaa !15
-  %48 = load ptr, ptr %47, align 8, !tbaa !16
-  %49 = lshr i64 %37, 32
-  %50 = trunc i64 %49 to i8
-  %51 = add i8 %46, %50
-  tail call void %48(ptr noundef nonnull %47, i8 noundef zeroext %51) #5
-  %52 = load i64, ptr %35, align 8, !tbaa !14
-  %53 = add i64 %52, -1
-  store i64 %53, ptr %35, align 8, !tbaa !14
-  %54 = icmp eq i64 %53, 0
-  br i1 %54, label %65, label %55
+46:                                               ; preds = %37
+  %47 = load i8, ptr %34, align 4, !tbaa !13
+  %48 = load ptr, ptr %35, align 8, !tbaa !15
+  %49 = load ptr, ptr %48, align 8, !tbaa !16
+  %50 = lshr i64 %38, 32
+  %51 = trunc i64 %50 to i8
+  %52 = add i8 %47, %51
+  tail call void %49(ptr noundef nonnull %48, i8 noundef zeroext %52) #5
+  %53 = load i64, ptr %36, align 8, !tbaa !14
+  %54 = add i64 %53, -1
+  store i64 %54, ptr %36, align 8, !tbaa !14
+  %55 = icmp eq i64 %54, 0
+  br i1 %55, label %66, label %56
 
-55:                                               ; preds = %45, %55
-  %56 = load ptr, ptr %34, align 8, !tbaa !15
-  %57 = load ptr, ptr %56, align 8, !tbaa !16
-  %58 = load i64, ptr %1, align 8, !tbaa !5
-  %59 = lshr i64 %58, 32
-  %60 = trunc i64 %59 to i8
-  %61 = add i8 %60, -1
-  tail call void %57(ptr noundef nonnull %56, i8 noundef zeroext %61) #5
-  %62 = load i64, ptr %35, align 8, !tbaa !14
-  %63 = add i64 %62, -1
-  store i64 %63, ptr %35, align 8, !tbaa !14
-  %64 = icmp eq i64 %63, 0
-  br i1 %64, label %65, label %55, !llvm.loop !18
+56:                                               ; preds = %46, %56
+  %57 = load ptr, ptr %35, align 8, !tbaa !15
+  %58 = load ptr, ptr %57, align 8, !tbaa !16
+  %59 = load i64, ptr %1, align 8, !tbaa !5
+  %60 = lshr i64 %59, 32
+  %61 = trunc i64 %60 to i8
+  %62 = add i8 %61, -1
+  tail call void %58(ptr noundef nonnull %57, i8 noundef zeroext %62) #5
+  %63 = load i64, ptr %36, align 8, !tbaa !14
+  %64 = add i64 %63, -1
+  store i64 %64, ptr %36, align 8, !tbaa !14
+  %65 = icmp eq i64 %64, 0
+  br i1 %65, label %66, label %56, !llvm.loop !18
 
-65:                                               ; preds = %55, %45
-  %66 = load i64, ptr %1, align 8, !tbaa !5
-  %67 = lshr i64 %66, 24
-  %68 = trunc i64 %67 to i8
-  store i8 %68, ptr %33, align 4, !tbaa !13
-  %69 = load i32, ptr %26, align 8, !tbaa !12
-  br label %70
+66:                                               ; preds = %56, %46
+  %67 = load i64, ptr %1, align 8, !tbaa !5
+  %68 = lshr i64 %67, 24
+  %69 = trunc i64 %68 to i8
+  store i8 %69, ptr %34, align 4, !tbaa !13
+  %70 = load i32, ptr %27, align 8, !tbaa !12
+  br label %71
 
-70:                                               ; preds = %65, %42
-  %71 = phi i32 [ %39, %42 ], [ %69, %65 ]
-  %72 = phi i64 [ %37, %42 ], [ %66, %65 ]
-  %73 = phi i64 [ %44, %42 ], [ 1, %65 ]
-  store i64 %73, ptr %35, align 8, !tbaa !14
-  %74 = shl i64 %72, 8
-  %75 = and i64 %74, 4294967040
-  store i64 %75, ptr %1, align 8, !tbaa !5
-  %76 = icmp ult i32 %71, 16777216
-  br i1 %76, label %36, label %77, !llvm.loop !33
+71:                                               ; preds = %66, %43
+  %72 = phi i32 [ %40, %43 ], [ %70, %66 ]
+  %73 = phi i64 [ %38, %43 ], [ %67, %66 ]
+  %74 = phi i64 [ %45, %43 ], [ 1, %66 ]
+  store i64 %74, ptr %36, align 8, !tbaa !14
+  %75 = shl i64 %73, 8
+  %76 = and i64 %75, 4294967040
+  store i64 %76, ptr %1, align 8, !tbaa !5
+  %77 = icmp ult i32 %72, 16777216
+  br i1 %77, label %37, label %78, !llvm.loop !33
 
-77:                                               ; preds = %70, %19
-  %78 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
-  store ptr %15, ptr %78, align 8, !tbaa !34
+78:                                               ; preds = %71, %20
+  %79 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
+  store ptr %16, ptr %79, align 8, !tbaa !34
   tail call void @Ppmd7_Update1_0(ptr noundef nonnull %0) #5
-  br label %696
+  br label %695
 
-79:                                               ; preds = %9
-  %80 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 5
-  store i32 0, ptr %80, align 8, !tbaa !35
-  %81 = getelementptr inbounds %struct.CPpmd_State, ptr %15, i64 0, i32 1
-  %82 = load i8, ptr %81, align 1, !tbaa !31
-  %83 = zext i8 %82 to i32
-  %84 = zext i16 %7 to i32
-  %85 = add nsw i32 %84, -1
+80:                                               ; preds = %10
+  %81 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 5
+  store i32 0, ptr %81, align 8, !tbaa !35
+  %82 = getelementptr inbounds %struct.CPpmd_State, ptr %16, i64 0, i32 1
+  %83 = load i8, ptr %82, align 1, !tbaa !31
+  %84 = zext i8 %83 to i32
+  %85 = add nsw i32 %8, -1
   br label %86
 
-86:                                               ; preds = %158, %79
-  %87 = phi i32 [ %85, %79 ], [ %160, %158 ]
-  %88 = phi i32 [ %83, %79 ], [ %159, %158 ]
-  %89 = phi ptr [ %15, %79 ], [ %90, %158 ]
+86:                                               ; preds = %158, %80
+  %87 = phi i32 [ %85, %80 ], [ %160, %158 ]
+  %88 = phi i32 [ %84, %80 ], [ %159, %158 ]
+  %89 = phi ptr [ %16, %80 ], [ %90, %158 ]
   %90 = getelementptr inbounds %struct.CPpmd_State, ptr %89, i64 1
   %91 = load i8, ptr %90, align 1, !tbaa !29
   %92 = zext i8 %91 to i32
@@ -500,7 +500,7 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %157 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
   store ptr %90, ptr %157, align 8, !tbaa !34
   tail call void @Ppmd7_Update1(ptr noundef nonnull %0) #5
-  br label %696
+  br label %695
 
 158:                                              ; preds = %86
   %159 = add i32 %88, %96
@@ -522,7 +522,7 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %171 = zext i8 %91 to i64
   %172 = getelementptr inbounds i8, ptr %4, i64 %171
   store i8 0, ptr %172, align 1, !tbaa !37
-  %173 = add nsw i32 %84, -2
+  %173 = add nsw i32 %8, -2
   %174 = and i32 %85, 3
   %175 = icmp eq i32 %174, 0
   br i1 %175, label %187, label %176
@@ -590,7 +590,7 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %224 = mul i32 %219, %216
   store i32 %224, ptr %217, align 8, !tbaa !12
   %225 = icmp ult i32 %224, 16777216
-  br i1 %225, label %226, label %453
+  br i1 %225, label %226, label %452
 
 226:                                              ; preds = %212
   %227 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
@@ -657,53 +657,53 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %269 = and i64 %268, 4294967040
   store i64 %269, ptr %1, align 8, !tbaa !5
   %270 = icmp ult i32 %265, 16777216
-  br i1 %270, label %230, label %453, !llvm.loop !33
+  br i1 %270, label %230, label %452, !llvm.loop !33
 
 271:                                              ; preds = %3
-  %272 = getelementptr inbounds i8, ptr %6, i64 3
-  %273 = load i8, ptr %272, align 1, !tbaa !31
-  %274 = zext i8 %273 to i64
-  %275 = add nsw i64 %274, -1
-  %276 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 5
-  %277 = load i32, ptr %276, align 8, !tbaa !35
-  %278 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 12
-  %279 = load ptr, ptr %278, align 8, !tbaa !27
-  %280 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 3
-  %281 = load i32, ptr %280, align 4, !tbaa !44
-  %282 = zext i32 %281 to i64
-  %283 = getelementptr inbounds i8, ptr %279, i64 %282
-  %284 = load i16, ptr %283, align 4, !tbaa !25
-  %285 = zext i16 %284 to i64
-  %286 = add nsw i64 %285, -1
-  %287 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 22, i64 %286
-  %288 = load i8, ptr %287, align 1, !tbaa !37
-  %289 = zext i8 %288 to i32
-  %290 = add i32 %277, %289
-  %291 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
-  %292 = load ptr, ptr %291, align 8, !tbaa !34
-  %293 = load i8, ptr %292, align 1, !tbaa !29
-  %294 = zext i8 %293 to i64
-  %295 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 23, i64 %294
-  %296 = load i8, ptr %295, align 1, !tbaa !37
-  %297 = zext i8 %296 to i32
-  %298 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 7
-  store i32 %297, ptr %298, align 8, !tbaa !38
-  %299 = add i32 %290, %297
-  %300 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 1
-  %301 = load i8, ptr %300, align 2, !tbaa !29
+  %272 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 1
+  %273 = getelementptr inbounds i8, ptr %6, i64 3
+  %274 = load i8, ptr %273, align 1, !tbaa !31
+  %275 = zext i8 %274 to i64
+  %276 = add nsw i64 %275, -1
+  %277 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 5
+  %278 = load i32, ptr %277, align 8, !tbaa !35
+  %279 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 12
+  %280 = load ptr, ptr %279, align 8, !tbaa !27
+  %281 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %6, i64 0, i32 3
+  %282 = load i32, ptr %281, align 4, !tbaa !44
+  %283 = zext i32 %282 to i64
+  %284 = getelementptr inbounds i8, ptr %280, i64 %283
+  %285 = load i16, ptr %284, align 4, !tbaa !25
+  %286 = zext i16 %285 to i64
+  %287 = add nsw i64 %286, -1
+  %288 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 22, i64 %287
+  %289 = load i8, ptr %288, align 1, !tbaa !37
+  %290 = zext i8 %289 to i32
+  %291 = add i32 %278, %290
+  %292 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
+  %293 = load ptr, ptr %292, align 8, !tbaa !34
+  %294 = load i8, ptr %293, align 1, !tbaa !29
+  %295 = zext i8 %294 to i64
+  %296 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 23, i64 %295
+  %297 = load i8, ptr %296, align 1, !tbaa !37
+  %298 = zext i8 %297 to i32
+  %299 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 7
+  store i32 %298, ptr %299, align 8, !tbaa !38
+  %300 = add i32 %291, %298
+  %301 = load i8, ptr %272, align 2, !tbaa !29
   %302 = zext i8 %301 to i64
   %303 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 23, i64 %302
   %304 = load i8, ptr %303, align 1, !tbaa !37
   %305 = zext i8 %304 to i32
   %306 = shl nuw nsw i32 %305, 1
-  %307 = add i32 %299, %306
+  %307 = add i32 %300, %306
   %308 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 8
   %309 = load i32, ptr %308, align 4, !tbaa !45
   %310 = lshr i32 %309, 26
   %311 = and i32 %310, 32
   %312 = add i32 %307, %311
   %313 = zext i32 %312 to i64
-  %314 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 26, i64 %275, i64 %313
+  %314 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 26, i64 %276, i64 %313
   %315 = zext i8 %301 to i32
   %316 = icmp eq i32 %315, %2
   %317 = load i16, ptr %314, align 2, !tbaa !46
@@ -712,12 +712,12 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %320 = load i32, ptr %319, align 8, !tbaa !12
   %321 = lshr i32 %320, 14
   %322 = mul i32 %321, %318
-  br i1 %316, label %323, label %381
+  br i1 %316, label %323, label %371
 
 323:                                              ; preds = %271
   store i32 %322, ptr %319, align 8, !tbaa !12
   %324 = icmp ult i32 %322, 16777216
-  br i1 %324, label %325, label %374
+  br i1 %324, label %325, label %445
 
 325:                                              ; preds = %323
   %326 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
@@ -785,377 +785,379 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %369 = and i64 %368, 4294967040
   store i64 %369, ptr %1, align 8, !tbaa !5
   %370 = icmp ult i32 %365, 16777216
-  br i1 %370, label %330, label %371, !llvm.loop !47
+  br i1 %370, label %330, label %442, !llvm.loop !47
 
-371:                                              ; preds = %364
-  %372 = load i16, ptr %314, align 2, !tbaa !46
-  %373 = zext i16 %372 to i32
-  br label %374
+371:                                              ; preds = %271
+  %372 = zext i32 %322 to i64
+  %373 = load i64, ptr %1, align 8, !tbaa !5
+  %374 = add i64 %373, %372
+  store i64 %374, ptr %1, align 8, !tbaa !5
+  %375 = sub i32 %320, %322
+  store i32 %375, ptr %319, align 8, !tbaa !12
+  %376 = icmp ult i32 %375, 16777216
+  br i1 %376, label %377, label %427
 
-374:                                              ; preds = %371, %323
-  %375 = phi i32 [ %373, %371 ], [ %318, %323 ]
-  %376 = add nuw nsw i32 %375, 128
-  %377 = add nuw nsw i32 %375, 32
-  %378 = lshr i32 %377, 7
-  %379 = sub nsw i32 %376, %378
-  %380 = trunc i32 %379 to i16
-  store i16 %380, ptr %314, align 2, !tbaa !46
-  store ptr %300, ptr %291, align 8, !tbaa !34
-  tail call void @Ppmd7_UpdateBin(ptr noundef nonnull %0) #5
-  br label %452
+377:                                              ; preds = %371
+  %378 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
+  %379 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 4
+  %380 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 3
+  br label %381
 
-381:                                              ; preds = %271
-  %382 = zext i32 %322 to i64
-  %383 = load i64, ptr %1, align 8, !tbaa !5
-  %384 = add i64 %383, %382
-  store i64 %384, ptr %1, align 8, !tbaa !5
-  %385 = sub i32 %320, %322
-  store i32 %385, ptr %319, align 8, !tbaa !12
-  %386 = icmp ult i32 %385, 16777216
-  br i1 %386, label %387, label %437
+381:                                              ; preds = %415, %377
+  %382 = phi i64 [ %374, %377 ], [ %420, %415 ]
+  %383 = phi i32 [ %375, %377 ], [ %416, %415 ]
+  %384 = shl nuw i32 %383, 8
+  store i32 %384, ptr %319, align 8, !tbaa !12
+  %385 = and i64 %382, -16777216
+  %386 = icmp eq i64 %385, 4278190080
+  br i1 %386, label %387, label %390
 
 387:                                              ; preds = %381
-  %388 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
-  %389 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 4
-  %390 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 3
-  br label %391
+  %388 = load i64, ptr %380, align 8, !tbaa !14
+  %389 = add i64 %388, 1
+  br label %415
 
-391:                                              ; preds = %425, %387
-  %392 = phi i64 [ %384, %387 ], [ %430, %425 ]
-  %393 = phi i32 [ %385, %387 ], [ %426, %425 ]
-  %394 = shl nuw i32 %393, 8
-  store i32 %394, ptr %319, align 8, !tbaa !12
-  %395 = and i64 %392, -16777216
-  %396 = icmp eq i64 %395, 4278190080
-  br i1 %396, label %397, label %400
+390:                                              ; preds = %381
+  %391 = load i8, ptr %378, align 4, !tbaa !13
+  %392 = load ptr, ptr %379, align 8, !tbaa !15
+  %393 = load ptr, ptr %392, align 8, !tbaa !16
+  %394 = lshr i64 %382, 32
+  %395 = trunc i64 %394 to i8
+  %396 = add i8 %391, %395
+  tail call void %393(ptr noundef nonnull %392, i8 noundef zeroext %396) #5
+  %397 = load i64, ptr %380, align 8, !tbaa !14
+  %398 = add i64 %397, -1
+  store i64 %398, ptr %380, align 8, !tbaa !14
+  %399 = icmp eq i64 %398, 0
+  br i1 %399, label %410, label %400
 
-397:                                              ; preds = %391
-  %398 = load i64, ptr %390, align 8, !tbaa !14
-  %399 = add i64 %398, 1
-  br label %425
-
-400:                                              ; preds = %391
-  %401 = load i8, ptr %388, align 4, !tbaa !13
-  %402 = load ptr, ptr %389, align 8, !tbaa !15
-  %403 = load ptr, ptr %402, align 8, !tbaa !16
-  %404 = lshr i64 %392, 32
+400:                                              ; preds = %390, %400
+  %401 = load ptr, ptr %379, align 8, !tbaa !15
+  %402 = load ptr, ptr %401, align 8, !tbaa !16
+  %403 = load i64, ptr %1, align 8, !tbaa !5
+  %404 = lshr i64 %403, 32
   %405 = trunc i64 %404 to i8
-  %406 = add i8 %401, %405
-  tail call void %403(ptr noundef nonnull %402, i8 noundef zeroext %406) #5
-  %407 = load i64, ptr %390, align 8, !tbaa !14
+  %406 = add i8 %405, -1
+  tail call void %402(ptr noundef nonnull %401, i8 noundef zeroext %406) #5
+  %407 = load i64, ptr %380, align 8, !tbaa !14
   %408 = add i64 %407, -1
-  store i64 %408, ptr %390, align 8, !tbaa !14
+  store i64 %408, ptr %380, align 8, !tbaa !14
   %409 = icmp eq i64 %408, 0
-  br i1 %409, label %420, label %410
+  br i1 %409, label %410, label %400, !llvm.loop !18
 
-410:                                              ; preds = %400, %410
-  %411 = load ptr, ptr %389, align 8, !tbaa !15
-  %412 = load ptr, ptr %411, align 8, !tbaa !16
-  %413 = load i64, ptr %1, align 8, !tbaa !5
-  %414 = lshr i64 %413, 32
-  %415 = trunc i64 %414 to i8
-  %416 = add i8 %415, -1
-  tail call void %412(ptr noundef nonnull %411, i8 noundef zeroext %416) #5
-  %417 = load i64, ptr %390, align 8, !tbaa !14
-  %418 = add i64 %417, -1
-  store i64 %418, ptr %390, align 8, !tbaa !14
-  %419 = icmp eq i64 %418, 0
-  br i1 %419, label %420, label %410, !llvm.loop !18
+410:                                              ; preds = %400, %390
+  %411 = load i64, ptr %1, align 8, !tbaa !5
+  %412 = lshr i64 %411, 24
+  %413 = trunc i64 %412 to i8
+  store i8 %413, ptr %378, align 4, !tbaa !13
+  %414 = load i32, ptr %319, align 8, !tbaa !12
+  br label %415
 
-420:                                              ; preds = %410, %400
-  %421 = load i64, ptr %1, align 8, !tbaa !5
-  %422 = lshr i64 %421, 24
-  %423 = trunc i64 %422 to i8
-  store i8 %423, ptr %388, align 4, !tbaa !13
-  %424 = load i32, ptr %319, align 8, !tbaa !12
-  br label %425
+415:                                              ; preds = %410, %387
+  %416 = phi i32 [ %384, %387 ], [ %414, %410 ]
+  %417 = phi i64 [ %382, %387 ], [ %411, %410 ]
+  %418 = phi i64 [ %389, %387 ], [ 1, %410 ]
+  store i64 %418, ptr %380, align 8, !tbaa !14
+  %419 = shl i64 %417, 8
+  %420 = and i64 %419, 4294967040
+  store i64 %420, ptr %1, align 8, !tbaa !5
+  %421 = icmp ult i32 %416, 16777216
+  br i1 %421, label %381, label %422, !llvm.loop !48
 
-425:                                              ; preds = %420, %397
-  %426 = phi i32 [ %394, %397 ], [ %424, %420 ]
-  %427 = phi i64 [ %392, %397 ], [ %421, %420 ]
-  %428 = phi i64 [ %399, %397 ], [ 1, %420 ]
-  store i64 %428, ptr %390, align 8, !tbaa !14
-  %429 = shl i64 %427, 8
-  %430 = and i64 %429, 4294967040
-  store i64 %430, ptr %1, align 8, !tbaa !5
-  %431 = icmp ult i32 %426, 16777216
-  br i1 %431, label %391, label %432, !llvm.loop !48
+422:                                              ; preds = %415
+  %423 = load i16, ptr %314, align 2, !tbaa !46
+  %424 = load i8, ptr %272, align 1, !tbaa !29
+  %425 = zext i16 %423 to i32
+  %426 = zext i8 %424 to i64
+  br label %427
 
-432:                                              ; preds = %425
-  %433 = load i16, ptr %314, align 2, !tbaa !46
-  %434 = load i8, ptr %300, align 1, !tbaa !29
-  %435 = zext i16 %433 to i32
-  %436 = zext i8 %434 to i64
-  br label %437
-
-437:                                              ; preds = %432, %381
-  %438 = phi i64 [ %436, %432 ], [ %302, %381 ]
-  %439 = phi i32 [ %435, %432 ], [ %318, %381 ]
-  %440 = phi i16 [ %433, %432 ], [ %317, %381 ]
-  %441 = add nuw nsw i32 %439, 32
-  %442 = lshr i32 %441, 7
-  %443 = trunc i32 %442 to i16
-  %444 = sub i16 %440, %443
-  store i16 %444, ptr %314, align 2, !tbaa !46
-  %445 = lshr i16 %444, 10
-  %446 = zext i16 %445 to i64
-  %447 = getelementptr inbounds [16 x i8], ptr @PPMD7_kExpEscape, i64 0, i64 %446
-  %448 = load i8, ptr %447, align 1, !tbaa !37
-  %449 = zext i8 %448 to i32
-  %450 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 4
-  store i32 %449, ptr %450, align 4, !tbaa !49
+427:                                              ; preds = %422, %371
+  %428 = phi i64 [ %426, %422 ], [ %302, %371 ]
+  %429 = phi i32 [ %425, %422 ], [ %318, %371 ]
+  %430 = phi i16 [ %423, %422 ], [ %317, %371 ]
+  %431 = add nuw nsw i32 %429, 32
+  %432 = lshr i32 %431, 7
+  %433 = trunc i32 %432 to i16
+  %434 = sub i16 %430, %433
+  store i16 %434, ptr %314, align 2, !tbaa !46
+  %435 = lshr i16 %434, 10
+  %436 = zext i16 %435 to i64
+  %437 = getelementptr inbounds [16 x i8], ptr @PPMD7_kExpEscape, i64 0, i64 %436
+  %438 = load i8, ptr %437, align 1, !tbaa !37
+  %439 = zext i8 %438 to i32
+  %440 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 4
+  store i32 %439, ptr %440, align 4, !tbaa !49
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(256) %4, i8 -1, i64 256, i1 false), !tbaa !39
-  %451 = getelementptr inbounds i8, ptr %4, i64 %438
-  store i8 0, ptr %451, align 1, !tbaa !37
-  store i32 0, ptr %276, align 8, !tbaa !35
+  %441 = getelementptr inbounds i8, ptr %4, i64 %428
+  store i8 0, ptr %441, align 1, !tbaa !37
+  store i32 0, ptr %277, align 8, !tbaa !35
   br label %452
 
-452:                                              ; preds = %437, %374
-  br i1 %316, label %696, label %453
+442:                                              ; preds = %364
+  %443 = load i16, ptr %314, align 2, !tbaa !46
+  %444 = zext i16 %443 to i32
+  br label %445
 
-453:                                              ; preds = %264, %212, %452
-  %454 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 3
-  %455 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 12
-  %456 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 1
-  %457 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
-  %458 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 4
-  %459 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 3
-  %460 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
-  br label %461
+445:                                              ; preds = %442, %323
+  %446 = phi i32 [ %444, %442 ], [ %318, %323 ]
+  %447 = add nuw nsw i32 %446, 128
+  %448 = add nuw nsw i32 %446, 32
+  %449 = lshr i32 %448, 7
+  %450 = sub nsw i32 %447, %449
+  %451 = trunc i32 %450 to i16
+  store i16 %451, ptr %314, align 2, !tbaa !46
+  store ptr %272, ptr %292, align 8, !tbaa !34
+  tail call void @Ppmd7_UpdateBin(ptr noundef nonnull %0) #5
+  br label %695
 
-461:                                              ; preds = %686, %453
+452:                                              ; preds = %264, %212, %427
+  %453 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 3
+  %454 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 12
+  %455 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 1
+  %456 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 2
+  %457 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 4
+  %458 = getelementptr inbounds %struct.CPpmd7z_RangeEnc, ptr %1, i64 0, i32 3
+  br label %459
+
+459:                                              ; preds = %688, %452
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #5
-  %462 = load ptr, ptr %0, align 8, !tbaa !21
-  %463 = load i16, ptr %462, align 4, !tbaa !25
-  %464 = zext i16 %463 to i32
-  %465 = load i32, ptr %454, align 8, !tbaa !50
-  br label %466
+  %460 = load ptr, ptr %0, align 8, !tbaa !21
+  %461 = load i16, ptr %460, align 4, !tbaa !25
+  %462 = zext i16 %461 to i32
+  %463 = load i32, ptr %453, align 8, !tbaa !50
+  br label %464
 
-466:                                              ; preds = %473, %461
-  %467 = phi ptr [ %476, %473 ], [ %462, %461 ]
-  %468 = phi i32 [ %469, %473 ], [ %465, %461 ]
-  %469 = add i32 %468, 1
-  %470 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %467, i64 0, i32 3
-  %471 = load i32, ptr %470, align 4, !tbaa !44
-  %472 = icmp eq i32 %471, 0
-  br i1 %472, label %693, label %473
+464:                                              ; preds = %471, %459
+  %465 = phi ptr [ %474, %471 ], [ %460, %459 ]
+  %466 = phi i32 [ %467, %471 ], [ %463, %459 ]
+  %467 = add i32 %466, 1
+  %468 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %465, i64 0, i32 3
+  %469 = load i32, ptr %468, align 4, !tbaa !44
+  %470 = icmp eq i32 %469, 0
+  br i1 %470, label %684, label %471
 
-473:                                              ; preds = %466
-  %474 = load ptr, ptr %455, align 8, !tbaa !27
-  %475 = zext i32 %471 to i64
-  %476 = getelementptr inbounds i8, ptr %474, i64 %475
-  store ptr %476, ptr %0, align 8, !tbaa !21
-  %477 = load i16, ptr %476, align 4, !tbaa !25
-  %478 = icmp eq i16 %477, %463
-  br i1 %478, label %466, label %479, !llvm.loop !51
+471:                                              ; preds = %464
+  %472 = load ptr, ptr %454, align 8, !tbaa !27
+  %473 = zext i32 %469 to i64
+  %474 = getelementptr inbounds i8, ptr %472, i64 %473
+  store ptr %474, ptr %0, align 8, !tbaa !21
+  %475 = load i16, ptr %474, align 4, !tbaa !25
+  %476 = icmp eq i16 %475, %461
+  br i1 %476, label %464, label %477, !llvm.loop !51
 
-479:                                              ; preds = %473
-  store i32 %469, ptr %454, align 8, !tbaa !50
-  %480 = call ptr @Ppmd7_MakeEscFreq(ptr noundef nonnull %0, i32 noundef %464, ptr noundef nonnull %5) #5
-  %481 = load ptr, ptr %455, align 8, !tbaa !27
-  %482 = load ptr, ptr %0, align 8, !tbaa !21
-  %483 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %482, i64 0, i32 2
-  %484 = load i32, ptr %483, align 4, !tbaa !28
-  %485 = zext i32 %484 to i64
-  %486 = getelementptr inbounds i8, ptr %481, i64 %485
-  %487 = load i16, ptr %482, align 4, !tbaa !25
-  %488 = zext i16 %487 to i32
-  br label %489
+477:                                              ; preds = %471
+  store i32 %467, ptr %453, align 8, !tbaa !50
+  %478 = call ptr @Ppmd7_MakeEscFreq(ptr noundef nonnull %0, i32 noundef %462, ptr noundef nonnull %5) #5
+  %479 = load ptr, ptr %454, align 8, !tbaa !27
+  %480 = load ptr, ptr %0, align 8, !tbaa !21
+  %481 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %480, i64 0, i32 2
+  %482 = load i32, ptr %481, align 4, !tbaa !28
+  %483 = zext i32 %482 to i64
+  %484 = getelementptr inbounds i8, ptr %479, i64 %483
+  %485 = load i16, ptr %480, align 4, !tbaa !25
+  %486 = zext i16 %485 to i32
+  br label %487
 
-489:                                              ; preds = %619, %479
-  %490 = phi i32 [ %631, %619 ], [ 0, %479 ]
-  %491 = phi ptr [ %628, %619 ], [ %486, %479 ]
-  %492 = phi i32 [ %627, %619 ], [ 0, %479 ]
-  %493 = phi i32 [ %629, %619 ], [ %488, %479 ]
-  %494 = load i8, ptr %491, align 1, !tbaa !29
-  %495 = zext i8 %494 to i32
-  %496 = icmp eq i32 %495, %2
-  br i1 %496, label %497, label %619
+487:                                              ; preds = %619, %477
+  %488 = phi i32 [ %631, %619 ], [ 0, %477 ]
+  %489 = phi ptr [ %628, %619 ], [ %484, %477 ]
+  %490 = phi i32 [ %627, %619 ], [ 0, %477 ]
+  %491 = phi i32 [ %629, %619 ], [ %486, %477 ]
+  %492 = load i8, ptr %489, align 1, !tbaa !29
+  %493 = zext i8 %492 to i32
+  %494 = icmp eq i32 %493, %2
+  br i1 %494, label %495, label %619
 
-497:                                              ; preds = %489
-  %498 = getelementptr inbounds %struct.CPpmd_See, ptr %480, i64 0, i32 1
-  %499 = getelementptr inbounds %struct.CPpmd_See, ptr %480, i64 0, i32 2
-  %500 = zext i16 %487 to i32
-  %501 = xor i32 %490, -1
-  %502 = and i32 %493, 1
-  %503 = icmp eq i32 %502, 0
-  br i1 %503, label %516, label %504
+495:                                              ; preds = %487
+  %496 = zext i16 %485 to i32
+  %497 = xor i32 %488, -1
+  %498 = and i32 %491, 1
+  %499 = icmp eq i32 %498, 0
+  br i1 %499, label %512, label %500
 
-504:                                              ; preds = %497
-  %505 = getelementptr inbounds %struct.CPpmd_State, ptr %491, i64 0, i32 1
-  %506 = load i8, ptr %505, align 1, !tbaa !31
-  %507 = load i8, ptr %491, align 1, !tbaa !29
-  %508 = zext i8 %507 to i64
-  %509 = getelementptr inbounds i8, ptr %4, i64 %508
-  %510 = load i8, ptr %509, align 1, !tbaa !37
-  %511 = and i8 %510, %506
-  %512 = zext i8 %511 to i32
-  %513 = add i32 %492, %512
-  %514 = getelementptr inbounds %struct.CPpmd_State, ptr %491, i64 1
-  %515 = add i32 %493, -1
-  br label %516
+500:                                              ; preds = %495
+  %501 = getelementptr inbounds %struct.CPpmd_State, ptr %489, i64 0, i32 1
+  %502 = load i8, ptr %501, align 1, !tbaa !31
+  %503 = load i8, ptr %489, align 1, !tbaa !29
+  %504 = zext i8 %503 to i64
+  %505 = getelementptr inbounds i8, ptr %4, i64 %504
+  %506 = load i8, ptr %505, align 1, !tbaa !37
+  %507 = and i8 %506, %502
+  %508 = zext i8 %507 to i32
+  %509 = add i32 %490, %508
+  %510 = getelementptr inbounds %struct.CPpmd_State, ptr %489, i64 1
+  %511 = add i32 %491, -1
+  br label %512
 
-516:                                              ; preds = %504, %497
-  %517 = phi i32 [ undef, %497 ], [ %513, %504 ]
-  %518 = phi ptr [ %491, %497 ], [ %514, %504 ]
-  %519 = phi i32 [ %492, %497 ], [ %513, %504 ]
-  %520 = phi i32 [ %493, %497 ], [ %515, %504 ]
-  %521 = sub nsw i32 0, %500
-  %522 = icmp eq i32 %501, %521
-  br i1 %522, label %549, label %523
+512:                                              ; preds = %500, %495
+  %513 = phi i32 [ undef, %495 ], [ %509, %500 ]
+  %514 = phi ptr [ %489, %495 ], [ %510, %500 ]
+  %515 = phi i32 [ %490, %495 ], [ %509, %500 ]
+  %516 = phi i32 [ %491, %495 ], [ %511, %500 ]
+  %517 = sub nsw i32 0, %496
+  %518 = icmp eq i32 %497, %517
+  br i1 %518, label %545, label %519
 
-523:                                              ; preds = %516, %523
-  %524 = phi ptr [ %546, %523 ], [ %518, %516 ]
-  %525 = phi i32 [ %545, %523 ], [ %519, %516 ]
-  %526 = phi i32 [ %547, %523 ], [ %520, %516 ]
-  %527 = getelementptr inbounds %struct.CPpmd_State, ptr %524, i64 0, i32 1
-  %528 = load i8, ptr %527, align 1, !tbaa !31
-  %529 = load i8, ptr %524, align 1, !tbaa !29
-  %530 = zext i8 %529 to i64
-  %531 = getelementptr inbounds i8, ptr %4, i64 %530
-  %532 = load i8, ptr %531, align 1, !tbaa !37
-  %533 = and i8 %532, %528
-  %534 = zext i8 %533 to i32
-  %535 = add i32 %525, %534
-  %536 = getelementptr inbounds %struct.CPpmd_State, ptr %524, i64 1
-  %537 = getelementptr inbounds %struct.CPpmd_State, ptr %524, i64 1, i32 1
-  %538 = load i8, ptr %537, align 1, !tbaa !31
-  %539 = load i8, ptr %536, align 1, !tbaa !29
-  %540 = zext i8 %539 to i64
-  %541 = getelementptr inbounds i8, ptr %4, i64 %540
-  %542 = load i8, ptr %541, align 1, !tbaa !37
-  %543 = and i8 %542, %538
-  %544 = zext i8 %543 to i32
-  %545 = add i32 %535, %544
-  %546 = getelementptr inbounds %struct.CPpmd_State, ptr %524, i64 2
-  %547 = add i32 %526, -2
-  %548 = icmp eq i32 %547, 0
-  br i1 %548, label %549, label %523, !llvm.loop !52
+519:                                              ; preds = %512, %519
+  %520 = phi ptr [ %542, %519 ], [ %514, %512 ]
+  %521 = phi i32 [ %541, %519 ], [ %515, %512 ]
+  %522 = phi i32 [ %543, %519 ], [ %516, %512 ]
+  %523 = getelementptr inbounds %struct.CPpmd_State, ptr %520, i64 0, i32 1
+  %524 = load i8, ptr %523, align 1, !tbaa !31
+  %525 = load i8, ptr %520, align 1, !tbaa !29
+  %526 = zext i8 %525 to i64
+  %527 = getelementptr inbounds i8, ptr %4, i64 %526
+  %528 = load i8, ptr %527, align 1, !tbaa !37
+  %529 = and i8 %528, %524
+  %530 = zext i8 %529 to i32
+  %531 = add i32 %521, %530
+  %532 = getelementptr inbounds %struct.CPpmd_State, ptr %520, i64 1
+  %533 = getelementptr inbounds %struct.CPpmd_State, ptr %520, i64 1, i32 1
+  %534 = load i8, ptr %533, align 1, !tbaa !31
+  %535 = load i8, ptr %532, align 1, !tbaa !29
+  %536 = zext i8 %535 to i64
+  %537 = getelementptr inbounds i8, ptr %4, i64 %536
+  %538 = load i8, ptr %537, align 1, !tbaa !37
+  %539 = and i8 %538, %534
+  %540 = zext i8 %539 to i32
+  %541 = add i32 %531, %540
+  %542 = getelementptr inbounds %struct.CPpmd_State, ptr %520, i64 2
+  %543 = add i32 %522, -2
+  %544 = icmp eq i32 %543, 0
+  br i1 %544, label %545, label %519, !llvm.loop !52
 
-549:                                              ; preds = %523, %516
-  %550 = phi i32 [ %517, %516 ], [ %545, %523 ]
-  %551 = getelementptr inbounds %struct.CPpmd_State, ptr %491, i64 0, i32 1
-  %552 = load i8, ptr %551, align 1, !tbaa !31
-  %553 = zext i8 %552 to i32
-  %554 = load i32, ptr %5, align 4, !tbaa !53
-  %555 = add i32 %554, %550
-  %556 = load i32, ptr %456, align 8, !tbaa !12
-  %557 = udiv i32 %556, %555
-  %558 = mul i32 %557, %492
-  %559 = zext i32 %558 to i64
-  %560 = load i64, ptr %1, align 8, !tbaa !5
-  %561 = add i64 %560, %559
-  store i64 %561, ptr %1, align 8, !tbaa !5
-  %562 = mul i32 %557, %553
-  store i32 %562, ptr %456, align 8, !tbaa !12
-  %563 = icmp ult i32 %562, 16777216
-  br i1 %563, label %564, label %605
+545:                                              ; preds = %519, %512
+  %546 = phi i32 [ %513, %512 ], [ %541, %519 ]
+  %547 = getelementptr inbounds %struct.CPpmd_State, ptr %489, i64 0, i32 1
+  %548 = load i8, ptr %547, align 1, !tbaa !31
+  %549 = zext i8 %548 to i32
+  %550 = load i32, ptr %5, align 4, !tbaa !53
+  %551 = add i32 %550, %546
+  %552 = load i32, ptr %455, align 8, !tbaa !12
+  %553 = udiv i32 %552, %551
+  %554 = mul i32 %553, %490
+  %555 = zext i32 %554 to i64
+  %556 = load i64, ptr %1, align 8, !tbaa !5
+  %557 = add i64 %556, %555
+  store i64 %557, ptr %1, align 8, !tbaa !5
+  %558 = mul i32 %553, %549
+  store i32 %558, ptr %455, align 8, !tbaa !12
+  %559 = icmp ult i32 %558, 16777216
+  br i1 %559, label %560, label %601
 
-564:                                              ; preds = %549, %598
-  %565 = phi i64 [ %603, %598 ], [ %561, %549 ]
-  %566 = phi i32 [ %599, %598 ], [ %562, %549 ]
-  %567 = shl nuw i32 %566, 8
-  store i32 %567, ptr %456, align 8, !tbaa !12
-  %568 = and i64 %565, -16777216
-  %569 = icmp eq i64 %568, 4278190080
-  br i1 %569, label %570, label %573
+560:                                              ; preds = %545, %594
+  %561 = phi i64 [ %599, %594 ], [ %557, %545 ]
+  %562 = phi i32 [ %595, %594 ], [ %558, %545 ]
+  %563 = shl nuw i32 %562, 8
+  store i32 %563, ptr %455, align 8, !tbaa !12
+  %564 = and i64 %561, -16777216
+  %565 = icmp eq i64 %564, 4278190080
+  br i1 %565, label %566, label %569
 
-570:                                              ; preds = %564
-  %571 = load i64, ptr %459, align 8, !tbaa !14
-  %572 = add i64 %571, 1
-  br label %598
+566:                                              ; preds = %560
+  %567 = load i64, ptr %458, align 8, !tbaa !14
+  %568 = add i64 %567, 1
+  br label %594
 
-573:                                              ; preds = %564
-  %574 = load i8, ptr %457, align 4, !tbaa !13
-  %575 = load ptr, ptr %458, align 8, !tbaa !15
-  %576 = load ptr, ptr %575, align 8, !tbaa !16
-  %577 = lshr i64 %565, 32
-  %578 = trunc i64 %577 to i8
-  %579 = add i8 %574, %578
-  call void %576(ptr noundef nonnull %575, i8 noundef zeroext %579) #5
-  %580 = load i64, ptr %459, align 8, !tbaa !14
-  %581 = add i64 %580, -1
-  store i64 %581, ptr %459, align 8, !tbaa !14
-  %582 = icmp eq i64 %581, 0
-  br i1 %582, label %593, label %583
+569:                                              ; preds = %560
+  %570 = load i8, ptr %456, align 4, !tbaa !13
+  %571 = load ptr, ptr %457, align 8, !tbaa !15
+  %572 = load ptr, ptr %571, align 8, !tbaa !16
+  %573 = lshr i64 %561, 32
+  %574 = trunc i64 %573 to i8
+  %575 = add i8 %570, %574
+  call void %572(ptr noundef nonnull %571, i8 noundef zeroext %575) #5
+  %576 = load i64, ptr %458, align 8, !tbaa !14
+  %577 = add i64 %576, -1
+  store i64 %577, ptr %458, align 8, !tbaa !14
+  %578 = icmp eq i64 %577, 0
+  br i1 %578, label %589, label %579
 
-583:                                              ; preds = %573, %583
-  %584 = load ptr, ptr %458, align 8, !tbaa !15
-  %585 = load ptr, ptr %584, align 8, !tbaa !16
-  %586 = load i64, ptr %1, align 8, !tbaa !5
-  %587 = lshr i64 %586, 32
-  %588 = trunc i64 %587 to i8
-  %589 = add i8 %588, -1
-  call void %585(ptr noundef nonnull %584, i8 noundef zeroext %589) #5
-  %590 = load i64, ptr %459, align 8, !tbaa !14
-  %591 = add i64 %590, -1
-  store i64 %591, ptr %459, align 8, !tbaa !14
-  %592 = icmp eq i64 %591, 0
-  br i1 %592, label %593, label %583, !llvm.loop !18
+579:                                              ; preds = %569, %579
+  %580 = load ptr, ptr %457, align 8, !tbaa !15
+  %581 = load ptr, ptr %580, align 8, !tbaa !16
+  %582 = load i64, ptr %1, align 8, !tbaa !5
+  %583 = lshr i64 %582, 32
+  %584 = trunc i64 %583 to i8
+  %585 = add i8 %584, -1
+  call void %581(ptr noundef nonnull %580, i8 noundef zeroext %585) #5
+  %586 = load i64, ptr %458, align 8, !tbaa !14
+  %587 = add i64 %586, -1
+  store i64 %587, ptr %458, align 8, !tbaa !14
+  %588 = icmp eq i64 %587, 0
+  br i1 %588, label %589, label %579, !llvm.loop !18
 
-593:                                              ; preds = %583, %573
-  %594 = load i64, ptr %1, align 8, !tbaa !5
-  %595 = lshr i64 %594, 24
-  %596 = trunc i64 %595 to i8
-  store i8 %596, ptr %457, align 4, !tbaa !13
-  %597 = load i32, ptr %456, align 8, !tbaa !12
-  br label %598
+589:                                              ; preds = %579, %569
+  %590 = load i64, ptr %1, align 8, !tbaa !5
+  %591 = lshr i64 %590, 24
+  %592 = trunc i64 %591 to i8
+  store i8 %592, ptr %456, align 4, !tbaa !13
+  %593 = load i32, ptr %455, align 8, !tbaa !12
+  br label %594
 
-598:                                              ; preds = %593, %570
-  %599 = phi i32 [ %567, %570 ], [ %597, %593 ]
-  %600 = phi i64 [ %565, %570 ], [ %594, %593 ]
-  %601 = phi i64 [ %572, %570 ], [ 1, %593 ]
-  store i64 %601, ptr %459, align 8, !tbaa !14
-  %602 = shl i64 %600, 8
-  %603 = and i64 %602, 4294967040
-  store i64 %603, ptr %1, align 8, !tbaa !5
-  %604 = icmp ult i32 %599, 16777216
-  br i1 %604, label %564, label %605, !llvm.loop !33
+594:                                              ; preds = %589, %566
+  %595 = phi i32 [ %563, %566 ], [ %593, %589 ]
+  %596 = phi i64 [ %561, %566 ], [ %590, %589 ]
+  %597 = phi i64 [ %568, %566 ], [ 1, %589 ]
+  store i64 %597, ptr %458, align 8, !tbaa !14
+  %598 = shl i64 %596, 8
+  %599 = and i64 %598, 4294967040
+  store i64 %599, ptr %1, align 8, !tbaa !5
+  %600 = icmp ult i32 %595, 16777216
+  br i1 %600, label %560, label %601, !llvm.loop !33
 
-605:                                              ; preds = %598, %549
-  %606 = load i8, ptr %498, align 1, !tbaa !54
-  %607 = icmp ult i8 %606, 7
-  br i1 %607, label %608, label %694
+601:                                              ; preds = %594, %545
+  %602 = getelementptr inbounds %struct.CPpmd_See, ptr %478, i64 0, i32 1
+  %603 = load i8, ptr %602, align 1, !tbaa !54
+  %604 = zext i8 %603 to i32
+  %605 = icmp ult i8 %603, 7
+  br i1 %605, label %606, label %617
 
-608:                                              ; preds = %605
-  %609 = load i8, ptr %499, align 1, !tbaa !55
-  %610 = add i8 %609, -1
-  store i8 %610, ptr %499, align 1, !tbaa !55
-  %611 = icmp eq i8 %610, 0
-  br i1 %611, label %612, label %694
+606:                                              ; preds = %601
+  %607 = getelementptr inbounds %struct.CPpmd_See, ptr %478, i64 0, i32 2
+  %608 = load i8, ptr %607, align 1, !tbaa !55
+  %609 = add i8 %608, -1
+  store i8 %609, ptr %607, align 1, !tbaa !55
+  %610 = icmp eq i8 %609, 0
+  br i1 %610, label %611, label %617
 
-612:                                              ; preds = %608
-  %613 = load i16, ptr %480, align 1, !tbaa !56
-  %614 = shl i16 %613, 1
-  store i16 %614, ptr %480, align 1, !tbaa !56
-  %615 = add nuw nsw i8 %606, 1
-  store i8 %615, ptr %498, align 1, !tbaa !54
-  %616 = zext i8 %606 to i32
-  %617 = shl nuw nsw i32 3, %616
-  %618 = trunc i32 %617 to i8
-  store i8 %618, ptr %499, align 1, !tbaa !55
-  br label %694
+611:                                              ; preds = %606
+  %612 = load i16, ptr %478, align 1, !tbaa !56
+  %613 = shl i16 %612, 1
+  store i16 %613, ptr %478, align 1, !tbaa !56
+  %614 = add nuw nsw i8 %603, 1
+  store i8 %614, ptr %602, align 1, !tbaa !54
+  %615 = shl nuw nsw i32 3, %604
+  %616 = trunc i32 %615 to i8
+  store i8 %616, ptr %607, align 1, !tbaa !55
+  br label %617
 
-619:                                              ; preds = %489
-  %620 = getelementptr inbounds %struct.CPpmd_State, ptr %491, i64 0, i32 1
+617:                                              ; preds = %601, %606, %611
+  %618 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
+  store ptr %489, ptr %618, align 8, !tbaa !34
+  call void @Ppmd7_Update2(ptr noundef nonnull %0) #5
+  br label %685
+
+619:                                              ; preds = %487
+  %620 = getelementptr inbounds %struct.CPpmd_State, ptr %489, i64 0, i32 1
   %621 = load i8, ptr %620, align 1, !tbaa !31
-  %622 = zext i8 %494 to i64
+  %622 = zext i8 %492 to i64
   %623 = getelementptr inbounds i8, ptr %4, i64 %622
   %624 = load i8, ptr %623, align 1, !tbaa !37
   %625 = and i8 %624, %621
   %626 = zext i8 %625 to i32
-  %627 = add i32 %492, %626
+  %627 = add i32 %490, %626
   store i8 0, ptr %623, align 1, !tbaa !37
-  %628 = getelementptr inbounds %struct.CPpmd_State, ptr %491, i64 1
-  %629 = add i32 %493, -1
+  %628 = getelementptr inbounds %struct.CPpmd_State, ptr %489, i64 1
+  %629 = add i32 %491, -1
   %630 = icmp eq i32 %629, 0
-  %631 = add i32 %490, 1
-  br i1 %630, label %632, label %489, !llvm.loop !57
+  %631 = add i32 %488, 1
+  br i1 %630, label %632, label %487, !llvm.loop !57
 
 632:                                              ; preds = %619
   %633 = load i32, ptr %5, align 4, !tbaa !53
   %634 = add i32 %633, %627
-  %635 = load i32, ptr %456, align 8, !tbaa !12
+  %635 = load i32, ptr %455, align 8, !tbaa !12
   %636 = udiv i32 %635, %634
   %637 = mul i32 %636, %627
   %638 = zext i32 %637 to i64
@@ -1163,49 +1165,49 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %640 = add i64 %639, %638
   store i64 %640, ptr %1, align 8, !tbaa !5
   %641 = mul i32 %636, %633
-  store i32 %641, ptr %456, align 8, !tbaa !12
+  store i32 %641, ptr %455, align 8, !tbaa !12
   %642 = icmp ult i32 %641, 16777216
-  br i1 %642, label %643, label %686
+  br i1 %642, label %643, label %688
 
 643:                                              ; preds = %632, %677
   %644 = phi i64 [ %682, %677 ], [ %640, %632 ]
   %645 = phi i32 [ %678, %677 ], [ %641, %632 ]
   %646 = shl nuw i32 %645, 8
-  store i32 %646, ptr %456, align 8, !tbaa !12
+  store i32 %646, ptr %455, align 8, !tbaa !12
   %647 = and i64 %644, -16777216
   %648 = icmp eq i64 %647, 4278190080
   br i1 %648, label %649, label %652
 
 649:                                              ; preds = %643
-  %650 = load i64, ptr %459, align 8, !tbaa !14
+  %650 = load i64, ptr %458, align 8, !tbaa !14
   %651 = add i64 %650, 1
   br label %677
 
 652:                                              ; preds = %643
-  %653 = load i8, ptr %457, align 4, !tbaa !13
-  %654 = load ptr, ptr %458, align 8, !tbaa !15
+  %653 = load i8, ptr %456, align 4, !tbaa !13
+  %654 = load ptr, ptr %457, align 8, !tbaa !15
   %655 = load ptr, ptr %654, align 8, !tbaa !16
   %656 = lshr i64 %644, 32
   %657 = trunc i64 %656 to i8
   %658 = add i8 %653, %657
   call void %655(ptr noundef nonnull %654, i8 noundef zeroext %658) #5
-  %659 = load i64, ptr %459, align 8, !tbaa !14
+  %659 = load i64, ptr %458, align 8, !tbaa !14
   %660 = add i64 %659, -1
-  store i64 %660, ptr %459, align 8, !tbaa !14
+  store i64 %660, ptr %458, align 8, !tbaa !14
   %661 = icmp eq i64 %660, 0
   br i1 %661, label %672, label %662
 
 662:                                              ; preds = %652, %662
-  %663 = load ptr, ptr %458, align 8, !tbaa !15
+  %663 = load ptr, ptr %457, align 8, !tbaa !15
   %664 = load ptr, ptr %663, align 8, !tbaa !16
   %665 = load i64, ptr %1, align 8, !tbaa !5
   %666 = lshr i64 %665, 32
   %667 = trunc i64 %666 to i8
   %668 = add i8 %667, -1
   call void %664(ptr noundef nonnull %663, i8 noundef zeroext %668) #5
-  %669 = load i64, ptr %459, align 8, !tbaa !14
+  %669 = load i64, ptr %458, align 8, !tbaa !14
   %670 = add i64 %669, -1
-  store i64 %670, ptr %459, align 8, !tbaa !14
+  store i64 %670, ptr %458, align 8, !tbaa !14
   %671 = icmp eq i64 %670, 0
   br i1 %671, label %672, label %662, !llvm.loop !18
 
@@ -1213,50 +1215,45 @@ define dso_local void @Ppmd7_EncodeSymbol(ptr noundef %0, ptr noundef %1, i32 no
   %673 = load i64, ptr %1, align 8, !tbaa !5
   %674 = lshr i64 %673, 24
   %675 = trunc i64 %674 to i8
-  store i8 %675, ptr %457, align 4, !tbaa !13
-  %676 = load i32, ptr %456, align 8, !tbaa !12
+  store i8 %675, ptr %456, align 4, !tbaa !13
+  %676 = load i32, ptr %455, align 8, !tbaa !12
   br label %677
 
 677:                                              ; preds = %672, %649
   %678 = phi i32 [ %646, %649 ], [ %676, %672 ]
   %679 = phi i64 [ %644, %649 ], [ %673, %672 ]
   %680 = phi i64 [ %651, %649 ], [ 1, %672 ]
-  store i64 %680, ptr %459, align 8, !tbaa !14
+  store i64 %680, ptr %458, align 8, !tbaa !14
   %681 = shl i64 %679, 8
   %682 = and i64 %681, 4294967040
   store i64 %682, ptr %1, align 8, !tbaa !5
   %683 = icmp ult i32 %678, 16777216
-  br i1 %683, label %643, label %684, !llvm.loop !33
+  br i1 %683, label %643, label %686, !llvm.loop !33
 
-684:                                              ; preds = %677
-  %685 = load i32, ptr %5, align 4, !tbaa !53
-  br label %686
+684:                                              ; preds = %464
+  store i32 %467, ptr %453, align 8, !tbaa !50
+  br label %685
 
-686:                                              ; preds = %684, %632
-  %687 = phi i32 [ %685, %684 ], [ %633, %632 ]
-  %688 = load i16, ptr %480, align 1, !tbaa !56
-  %689 = zext i16 %688 to i32
-  %690 = add i32 %627, %689
-  %691 = add i32 %690, %687
-  %692 = trunc i32 %691 to i16
-  store i16 %692, ptr %480, align 1, !tbaa !56
+685:                                              ; preds = %684, %617
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #5
-  br label %461
-
-693:                                              ; preds = %466
-  store i32 %469, ptr %454, align 8, !tbaa !50
   br label %695
 
-694:                                              ; preds = %612, %608, %605
-  store ptr %491, ptr %460, align 8, !tbaa !34
-  call void @Ppmd7_Update2(ptr noundef nonnull %0) #5
-  br label %695
+686:                                              ; preds = %677
+  %687 = load i32, ptr %5, align 4, !tbaa !53
+  br label %688
 
-695:                                              ; preds = %694, %693
+688:                                              ; preds = %686, %632
+  %689 = phi i32 [ %687, %686 ], [ %633, %632 ]
+  %690 = load i16, ptr %478, align 1, !tbaa !56
+  %691 = zext i16 %690 to i32
+  %692 = add i32 %627, %691
+  %693 = add i32 %692, %689
+  %694 = trunc i32 %693 to i16
+  store i16 %694, ptr %478, align 1, !tbaa !56
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #5
-  br label %696
+  br label %459
 
-696:                                              ; preds = %695, %77, %156, %452
+695:                                              ; preds = %685, %445, %78, %156
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %4) #5
   ret void
 }

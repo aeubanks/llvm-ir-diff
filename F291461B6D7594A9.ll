@@ -493,7 +493,7 @@ define internal i32 @luaB_print(ptr noundef %0) #0 {
   br label %27
 
 27:                                               ; preds = %15, %24
-  %28 = phi i32 [ 0, %24 ], [ %16, %15 ]
+  %28 = phi i32 [ %16, %15 ], [ 0, %24 ]
   ret i32 %28
 }
 
@@ -668,7 +668,7 @@ define internal i32 @luaB_tonumber(ptr noundef %0) #0 {
   %18 = call i64 @strtoul(ptr noundef %12, ptr noundef nonnull %2, i32 noundef %4) #8
   %19 = load ptr, ptr %2, align 8, !tbaa !11
   %20 = icmp eq ptr %12, %19
-  br i1 %20, label %37, label %21
+  br i1 %20, label %35, label %21
 
 21:                                               ; preds = %17
   %22 = tail call ptr @__ctype_b_loc() #9
@@ -688,23 +688,23 @@ define internal i32 @luaB_tonumber(ptr noundef %0) #0 {
 
 33:                                               ; preds = %24
   %34 = icmp eq i8 %26, 0
-  br i1 %34, label %35, label %37
+  br i1 %34, label %36, label %35
 
-35:                                               ; preds = %33
-  %36 = uitofp i64 %18 to double
-  tail call void @lua_pushnumber(ptr noundef %0, double noundef %36) #8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #8
-  br label %39
-
-37:                                               ; preds = %17, %33
+35:                                               ; preds = %33, %17
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #8
   br label %38
 
-38:                                               ; preds = %37, %6
+36:                                               ; preds = %33
+  %37 = uitofp i64 %18 to double
+  tail call void @lua_pushnumber(ptr noundef %0, double noundef %37) #8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #8
+  br label %39
+
+38:                                               ; preds = %35, %6
   tail call void @lua_pushnil(ptr noundef %0) #8
   br label %39
 
-39:                                               ; preds = %35, %38, %9
+39:                                               ; preds = %36, %38, %9
   ret i32 1
 }
 
@@ -1363,11 +1363,11 @@ define internal i32 @luaB_auxwrap(ptr noundef %0) #0 {
 
 declare i32 @lua_yield(ptr noundef, i32 noundef) local_unnamed_addr #1
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #6
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
+declare i32 @llvm.smin.i32(i32, i32) #6
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #7
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1375,8 +1375,8 @@ attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memo
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nofree nounwind }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nofree nounwind }
 attributes #8 = { nounwind }
 attributes #9 = { nounwind willreturn memory(none) }
 

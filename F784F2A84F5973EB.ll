@@ -197,7 +197,7 @@ define internal fastcc i32 @__zip_dir_parse(ptr nocapture noundef %0, i64 nounde
 
 11:                                               ; preds = %2
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.12, i32 noundef %10) #11
-  br label %263
+  br label %266
 
 12:                                               ; preds = %2
   %13 = getelementptr inbounds %struct.stat, ptr %6, i64 0, i32 8
@@ -208,413 +208,420 @@ define internal fastcc i32 @__zip_dir_parse(ptr nocapture noundef %0, i64 nounde
 
 16:                                               ; preds = %12
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.14) #11
-  br label %130
+  br label %131
 
 17:                                               ; preds = %12
   %18 = tail call ptr @cli_malloc(i64 noundef 1024) #11
   %19 = icmp eq ptr %18, null
-  br i1 %19, label %130, label %20
+  br i1 %19, label %131, label %20
 
 20:                                               ; preds = %17
   %21 = icmp ult i64 %14, 1024
   %22 = ptrtoint ptr %18 to i64
   %23 = trunc i64 %14 to i32
   %24 = and i64 %14, 4294967295
-  %25 = trunc i64 %1 to i32
-  br label %30
+  %25 = add nsw i64 %14, -1024
+  %26 = trunc i64 %1 to i32
+  br label %31
 
-26:                                               ; preds = %126, %50
-  %27 = phi i32 [ %31, %50 ], [ %127, %126 ]
-  %28 = icmp slt i64 %38, 1
-  br i1 %28, label %29, label %30
+27:                                               ; preds = %127, %51
+  %28 = phi i32 [ %32, %51 ], [ %128, %127 ]
+  %29 = icmp slt i64 %39, 1
+  br i1 %29, label %30, label %31
 
-29:                                               ; preds = %26
+30:                                               ; preds = %27
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15) #11
   call void @free(ptr noundef %18) #11
-  br label %130
+  br label %131
 
-30:                                               ; preds = %26, %20
-  %31 = phi i32 [ 0, %20 ], [ %27, %26 ]
-  %32 = phi i64 [ %14, %20 ], [ %36, %26 ]
-  %33 = icmp ugt i64 %32, 1023
-  %34 = icmp eq i64 %32, %14
-  %35 = select i1 %34, i64 -1024, i64 -1002
-  %36 = add nsw i64 %35, %32
-  %37 = select i1 %21, i64 %32, i64 1024
-  %38 = select i1 %33, i64 %36, i64 0
-  %39 = select i1 %33, i64 1024, i64 %37
-  %40 = call i64 @lseek(i32 noundef %10, i64 noundef %38, i32 noundef 0) #11
-  %41 = icmp slt i64 %40, 0
-  br i1 %41, label %42, label %43
+31:                                               ; preds = %27, %20
+  %32 = phi i32 [ 0, %20 ], [ %28, %27 ]
+  %33 = phi i64 [ %14, %20 ], [ %38, %27 ]
+  %34 = icmp ugt i64 %33, 1023
+  %35 = select i1 %21, i64 %33, i64 1024
+  %36 = icmp eq i64 %33, %14
+  %37 = add nsw i64 %33, -1002
+  %38 = select i1 %36, i64 %25, i64 %37
+  %39 = select i1 %34, i64 %38, i64 0
+  %40 = select i1 %34, i64 1024, i64 %35
+  %41 = call i64 @lseek(i32 noundef %10, i64 noundef %39, i32 noundef 0) #11
+  %42 = icmp slt i64 %41, 0
+  br i1 %42, label %43, label %44
 
-42:                                               ; preds = %30
+43:                                               ; preds = %31
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.16, i32 noundef %10) #11
   call void @free(ptr noundef %18) #11
-  br label %130
+  br label %131
 
-43:                                               ; preds = %30
-  %44 = trunc i64 %39 to i32
-  %45 = call i32 @cli_readn(i32 noundef %10, ptr noundef nonnull %18, i32 noundef %44) #11
-  %46 = sext i32 %45 to i64
-  %47 = icmp sgt i64 %39, %46
-  br i1 %47, label %48, label %50
+44:                                               ; preds = %31
+  %45 = trunc i64 %40 to i32
+  %46 = call i32 @cli_readn(i32 noundef %10, ptr noundef nonnull %18, i32 noundef %45) #11
+  %47 = sext i32 %46 to i64
+  %48 = icmp sgt i64 %40, %47
+  br i1 %48, label %49, label %51
 
-48:                                               ; preds = %43
-  %49 = trunc i64 %39 to i32
-  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.17, i32 noundef %49) #11
+49:                                               ; preds = %44
+  %50 = trunc i64 %40 to i32
+  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.17, i32 noundef %50) #11
   call void @free(ptr noundef %18) #11
-  br label %130
+  br label %131
 
-50:                                               ; preds = %43
-  %51 = getelementptr inbounds i8, ptr %18, i64 %39
-  %52 = getelementptr inbounds i8, ptr %51, i64 -1
-  %53 = icmp ult ptr %52, %18
-  br i1 %53, label %26, label %54
+51:                                               ; preds = %44
+  %52 = getelementptr inbounds i8, ptr %18, i64 %40
+  %53 = getelementptr inbounds i8, ptr %52, i64 -1
+  %54 = icmp ult ptr %53, %18
+  br i1 %54, label %27, label %55
 
-54:                                               ; preds = %50
-  %55 = ptrtoint ptr %51 to i64
-  br label %56
+55:                                               ; preds = %51
+  %56 = ptrtoint ptr %52 to i64
+  br label %57
 
-56:                                               ; preds = %126, %54
-  %57 = phi ptr [ %52, %54 ], [ %128, %126 ]
-  %58 = phi i32 [ %31, %54 ], [ %127, %126 ]
-  %59 = load i8, ptr %57, align 1, !tbaa !23
-  %60 = icmp eq i8 %59, 80
-  %61 = ptrtoint ptr %57 to i64
-  %62 = sub i64 %55, %61
-  %63 = icmp sgt i64 %62, 19
-  %64 = select i1 %60, i1 %63, i1 false
-  br i1 %64, label %65, label %126
+57:                                               ; preds = %127, %55
+  %58 = phi ptr [ %53, %55 ], [ %129, %127 ]
+  %59 = phi i32 [ %32, %55 ], [ %128, %127 ]
+  %60 = load i8, ptr %58, align 1, !tbaa !23
+  %61 = icmp eq i8 %60, 80
+  %62 = ptrtoint ptr %58 to i64
+  %63 = sub i64 %56, %62
+  %64 = icmp sgt i64 %63, 19
+  %65 = select i1 %61, i1 %64, i1 false
+  br i1 %65, label %66, label %127
 
-65:                                               ; preds = %56
-  %66 = load i32, ptr %57, align 1
-  %67 = icmp eq i32 %66, 101010256
-  br i1 %67, label %68, label %126
+66:                                               ; preds = %57
+  %67 = load i32, ptr %58, align 1
+  %68 = icmp eq i32 %67, 101010256
+  br i1 %68, label %69, label %127
 
-68:                                               ; preds = %65
-  %69 = getelementptr inbounds i8, ptr %57, i64 8
-  %70 = load i16, ptr %69, align 1
-  %71 = getelementptr inbounds i8, ptr %57, i64 12
-  %72 = load i32, ptr %71, align 1
-  %73 = getelementptr inbounds i8, ptr %57, i64 16
-  %74 = load i32, ptr %73, align 1
-  %75 = getelementptr inbounds i8, ptr %57, i64 %38
-  %76 = ptrtoint ptr %75 to i64
-  %77 = sub i64 %76, %22
-  %78 = zext i32 %74 to i64
-  %79 = zext i32 %72 to i64
-  %80 = sub nsw i64 %77, %79
-  %81 = icmp slt i64 %80, %78
-  %82 = icmp sgt i64 %77, %79
-  %83 = and i1 %82, %81
-  %84 = trunc i64 %80 to i32
-  %85 = select i1 %83, i32 %84, i32 %74
-  %86 = icmp ugt i32 %85, %23
-  br i1 %86, label %92, label %87
+69:                                               ; preds = %66
+  %70 = getelementptr inbounds i8, ptr %58, i64 8
+  %71 = load i16, ptr %70, align 1
+  %72 = getelementptr inbounds i8, ptr %58, i64 12
+  %73 = load i32, ptr %72, align 1
+  %74 = getelementptr inbounds i8, ptr %58, i64 16
+  %75 = load i32, ptr %74, align 1
+  %76 = getelementptr inbounds i8, ptr %58, i64 %39
+  %77 = ptrtoint ptr %76 to i64
+  %78 = sub i64 %77, %22
+  %79 = zext i32 %75 to i64
+  %80 = zext i32 %73 to i64
+  %81 = sub nsw i64 %78, %80
+  %82 = icmp slt i64 %81, %79
+  %83 = icmp sgt i64 %78, %80
+  %84 = and i1 %83, %82
+  %85 = trunc i64 %81 to i32
+  %86 = select i1 %84, i32 %85, i32 %75
+  %87 = icmp ugt i32 %86, %23
+  br i1 %87, label %93, label %88
 
-87:                                               ; preds = %68
-  %88 = add i32 %85, %58
-  %89 = zext i32 %88 to i64
-  %90 = add nuw nsw i64 %89, 46
-  %91 = icmp ult i64 %90, %24
-  br i1 %91, label %93, label %109
+88:                                               ; preds = %69
+  %89 = add i32 %86, %59
+  %90 = zext i32 %89 to i64
+  %91 = add nuw nsw i64 %90, 46
+  %92 = icmp ult i64 %91, %24
+  br i1 %92, label %94, label %110
 
-92:                                               ; preds = %68
+93:                                               ; preds = %69
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.18) #11
-  br label %126
+  br label %127
 
-93:                                               ; preds = %87
-  %94 = call i64 @lseek(i32 noundef %10, i64 noundef %89, i32 noundef 0) #11
-  %95 = icmp slt i64 %94, 0
-  br i1 %95, label %96, label %97
+94:                                               ; preds = %88
+  %95 = call i64 @lseek(i32 noundef %10, i64 noundef %90, i32 noundef 0) #11
+  %96 = icmp slt i64 %95, 0
+  br i1 %96, label %97, label %98
 
-96:                                               ; preds = %115, %93
+97:                                               ; preds = %116, %94
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.16, i32 noundef %10) #11
   call void @free(ptr noundef %18) #11
-  br label %130
+  br label %131
 
-97:                                               ; preds = %93
-  %98 = call i32 @cli_readn(i32 noundef %10, ptr noundef nonnull %5, i32 noundef 46) #11
-  %99 = icmp slt i32 %98, 46
-  br i1 %99, label %100, label %102
+98:                                               ; preds = %94
+  %99 = call i32 @cli_readn(i32 noundef %10, ptr noundef nonnull %5, i32 noundef 46) #11
+  %100 = icmp slt i32 %99, 46
+  br i1 %100, label %101, label %103
 
-100:                                              ; preds = %118, %97
-  %101 = trunc i64 %39 to i32
-  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.17, i32 noundef %101) #11
+101:                                              ; preds = %119, %98
+  %102 = trunc i64 %40 to i32
+  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.17, i32 noundef %102) #11
   call void @free(ptr noundef %18) #11
-  br label %130
+  br label %131
 
-102:                                              ; preds = %97
-  %103 = load i32, ptr %5, align 4, !tbaa !24
-  %104 = icmp eq i32 %103, 33639248
-  br i1 %104, label %132, label %105
+103:                                              ; preds = %98
+  %104 = load i32, ptr %5, align 4, !tbaa !24
+  %105 = icmp eq i32 %104, 33639248
+  br i1 %105, label %133, label %106
 
-105:                                              ; preds = %102
-  %106 = add i32 %85, %25
-  %107 = zext i32 %106 to i64
-  %108 = add nuw nsw i64 %107, 46
-  br label %109
+106:                                              ; preds = %103
+  %107 = add i32 %86, %26
+  %108 = zext i32 %107 to i64
+  %109 = add nuw nsw i64 %108, 46
+  br label %110
 
-109:                                              ; preds = %105, %87
-  %110 = phi i64 [ %90, %87 ], [ %108, %105 ]
-  %111 = phi i64 [ %89, %87 ], [ %107, %105 ]
-  %112 = phi i32 [ %88, %87 ], [ %106, %105 ]
-  %113 = phi i32 [ %58, %87 ], [ %25, %105 ]
-  %114 = icmp ult i64 %110, %24
-  br i1 %114, label %115, label %126
+110:                                              ; preds = %106, %88
+  %111 = phi i64 [ %91, %88 ], [ %109, %106 ]
+  %112 = phi i64 [ %90, %88 ], [ %108, %106 ]
+  %113 = phi i32 [ %89, %88 ], [ %107, %106 ]
+  %114 = phi i32 [ %59, %88 ], [ %26, %106 ]
+  %115 = icmp ult i64 %111, %24
+  br i1 %115, label %116, label %127
 
-115:                                              ; preds = %109
-  %116 = call i64 @lseek(i32 noundef %10, i64 noundef %111, i32 noundef 0) #11
-  %117 = icmp slt i64 %116, 0
-  br i1 %117, label %96, label %118
+116:                                              ; preds = %110
+  %117 = call i64 @lseek(i32 noundef %10, i64 noundef %112, i32 noundef 0) #11
+  %118 = icmp slt i64 %117, 0
+  br i1 %118, label %97, label %119
 
-118:                                              ; preds = %115
-  %119 = call i32 @cli_readn(i32 noundef %10, ptr noundef nonnull %5, i32 noundef 46) #11
-  %120 = icmp slt i32 %119, 46
-  br i1 %120, label %100, label %121
+119:                                              ; preds = %116
+  %120 = call i32 @cli_readn(i32 noundef %10, ptr noundef nonnull %5, i32 noundef 46) #11
+  %121 = icmp slt i32 %120, 46
+  br i1 %121, label %101, label %122
 
-121:                                              ; preds = %118
-  %122 = load i32, ptr %5, align 4, !tbaa !24
-  %123 = icmp eq i32 %122, 33639248
-  br i1 %123, label %124, label %126
+122:                                              ; preds = %119
+  %123 = load i32, ptr %5, align 4, !tbaa !24
+  %124 = icmp eq i32 %123, 33639248
+  br i1 %124, label %125, label %127
 
-124:                                              ; preds = %121
-  %125 = add i32 %113, %85
-  br label %132
+125:                                              ; preds = %122
+  %126 = add i32 %114, %86
+  br label %133
 
-126:                                              ; preds = %121, %109, %92, %65, %56
-  %127 = phi i32 [ %58, %92 ], [ %113, %109 ], [ %58, %65 ], [ %58, %56 ], [ %25, %121 ]
-  %128 = getelementptr inbounds i8, ptr %57, i64 -1
-  %129 = icmp ult ptr %128, %18
-  br i1 %129, label %26, label %56, !llvm.loop !26
+127:                                              ; preds = %122, %110, %93, %66, %57
+  %128 = phi i32 [ %59, %93 ], [ %114, %110 ], [ %59, %66 ], [ %59, %57 ], [ %26, %122 ]
+  %129 = getelementptr inbounds i8, ptr %58, i64 -1
+  %130 = icmp ult ptr %129, %18
+  br i1 %130, label %27, label %57, !llvm.loop !26
 
-130:                                              ; preds = %16, %29, %42, %48, %96, %100, %17
-  %131 = phi i32 [ -114, %17 ], [ -123, %100 ], [ -123, %96 ], [ -123, %48 ], [ -123, %42 ], [ -124, %29 ], [ -124, %16 ]
+131:                                              ; preds = %16, %30, %43, %49, %97, %101, %17
+  %132 = phi i32 [ -114, %17 ], [ -123, %101 ], [ -123, %97 ], [ -123, %49 ], [ -123, %43 ], [ -124, %30 ], [ -124, %16 ]
   call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %5) #11
-  br label %263
+  br label %266
 
-132:                                              ; preds = %102, %124
-  %133 = phi i32 [ %125, %124 ], [ %88, %102 ]
-  %134 = phi i32 [ %113, %124 ], [ %58, %102 ]
-  %135 = phi i32 [ %112, %124 ], [ %88, %102 ]
-  %136 = zext i32 %72 to i64
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.19, i32 noundef %135, i32 noundef %134) #11
+133:                                              ; preds = %103, %125
+  %134 = phi i32 [ %126, %125 ], [ %89, %103 ]
+  %135 = phi i32 [ %114, %125 ], [ %59, %103 ]
+  %136 = phi i32 [ %113, %125 ], [ %89, %103 ]
+  %137 = zext i32 %73 to i64
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.19, i32 noundef %136, i32 noundef %135) #11
   call void @free(ptr noundef %18) #11
   call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %5) #11
-  %137 = load i32, ptr %0, align 8, !tbaa !16
-  %138 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 3
+  %138 = load i32, ptr %0, align 8, !tbaa !16
+  %139 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 3
   call void @llvm.lifetime.start.p0(i64 46, ptr nonnull %3) #11
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %4) #11
-  %139 = call i32 @fstat(i32 noundef %137, ptr noundef nonnull %4) #11
-  %140 = icmp eq i32 %139, -1
-  br i1 %140, label %141, label %142
+  %140 = call i32 @fstat(i32 noundef %138, ptr noundef nonnull %4) #11
+  %141 = icmp eq i32 %140, -1
+  br i1 %141, label %142, label %143
 
-141:                                              ; preds = %132
-  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.20, i32 noundef %137) #11
-  br label %261
+142:                                              ; preds = %133
+  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.20, i32 noundef %138) #11
+  br label %262
 
-142:                                              ; preds = %132
-  %143 = icmp eq i16 %70, 0
-  br i1 %143, label %144, label %145
+143:                                              ; preds = %133
+  %144 = icmp eq i16 %71, 0
+  br i1 %144, label %145, label %146
 
-144:                                              ; preds = %142
+145:                                              ; preds = %143
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.21) #11
-  br label %261
+  br label %262
 
-145:                                              ; preds = %142
-  %146 = getelementptr inbounds %struct.stat, ptr %4, i64 0, i32 8
-  %147 = load i64, ptr %146, align 8, !tbaa !19
-  %148 = trunc i64 %147 to i32
-  %149 = icmp ugt i32 %72, %148
-  br i1 %149, label %150, label %151
+146:                                              ; preds = %143
+  %147 = getelementptr inbounds %struct.stat, ptr %4, i64 0, i32 8
+  %148 = load i64, ptr %147, align 8, !tbaa !19
+  %149 = trunc i64 %148 to i32
+  %150 = icmp ugt i32 %73, %149
+  br i1 %150, label %151, label %152
 
-150:                                              ; preds = %145
+151:                                              ; preds = %146
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.22) #11
-  br label %261
+  br label %262
 
-151:                                              ; preds = %145
-  %152 = call ptr @cli_malloc(i64 noundef %136) #11
-  %153 = icmp eq ptr %152, null
-  br i1 %153, label %261, label %154
+152:                                              ; preds = %146
+  %153 = call ptr @cli_malloc(i64 noundef %137) #11
+  %154 = icmp eq ptr %153, null
+  br i1 %154, label %262, label %155
 
-154:                                              ; preds = %151
-  %155 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 11
-  %156 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 12
-  %157 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 10
-  %158 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 3
-  %159 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 7
-  %160 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 8
-  %161 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 9
-  %162 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 16
-  %163 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 4
-  br label %164
+155:                                              ; preds = %152
+  %156 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 11
+  %157 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 12
+  %158 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 10
+  %159 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 3
+  %160 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 7
+  %161 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 8
+  %162 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 9
+  %163 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 16
+  %164 = getelementptr inbounds %struct.zip_root_dirent, ptr %3, i64 0, i32 4
+  br label %165
 
-164:                                              ; preds = %233, %154
-  %165 = phi ptr [ %152, %154 ], [ %248, %233 ]
-  %166 = phi ptr [ null, %154 ], [ %246, %233 ]
-  %167 = phi i16 [ %70, %154 ], [ %249, %233 ]
-  %168 = phi i32 [ 0, %154 ], [ %231, %233 ]
-  %169 = add i32 %133, %168
-  %170 = zext i32 %169 to i64
-  %171 = call i64 @lseek(i32 noundef %137, i64 noundef %170, i32 noundef 0) #11
-  %172 = icmp slt i64 %171, 0
-  br i1 %172, label %173, label %174
+165:                                              ; preds = %234, %155
+  %166 = phi ptr [ %153, %155 ], [ %249, %234 ]
+  %167 = phi ptr [ null, %155 ], [ %247, %234 ]
+  %168 = phi i16 [ %71, %155 ], [ %250, %234 ]
+  %169 = phi i32 [ 0, %155 ], [ %232, %234 ]
+  %170 = add i32 %134, %169
+  %171 = zext i32 %170 to i64
+  %172 = call i64 @lseek(i32 noundef %138, i64 noundef %171, i32 noundef 0) #11
+  %173 = icmp slt i64 %172, 0
+  br i1 %173, label %174, label %175
 
-173:                                              ; preds = %164
-  call void @free(ptr noundef %152) #11
-  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.23, i32 noundef %137) #11
-  br label %261
+174:                                              ; preds = %165
+  call void @free(ptr noundef %153) #11
+  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.23, i32 noundef %138) #11
+  br label %262
 
-174:                                              ; preds = %164
-  %175 = call i32 @cli_readn(i32 noundef %137, ptr noundef nonnull %3, i32 noundef 46) #11
-  %176 = icmp slt i32 %175, 46
-  br i1 %176, label %177, label %180
+175:                                              ; preds = %165
+  %176 = call i32 @cli_readn(i32 noundef %138, ptr noundef nonnull %3, i32 noundef 46) #11
+  %177 = icmp slt i32 %176, 46
+  br i1 %177, label %178, label %181
 
-177:                                              ; preds = %174
-  %178 = icmp eq i16 %167, %70
-  br i1 %178, label %179, label %254
+178:                                              ; preds = %175
+  %179 = icmp eq i16 %168, %71
+  br i1 %179, label %180, label %255
 
-179:                                              ; preds = %177
-  call void @free(ptr noundef %152) #11
+180:                                              ; preds = %178
+  call void @free(ptr noundef %153) #11
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.24, i64 noundef 46) #11
-  br label %261
+  br label %262
 
-180:                                              ; preds = %174
-  %181 = zext i32 %168 to i64
-  %182 = add nuw nsw i64 %181, 46
-  %183 = icmp ugt i64 %182, %136
-  br i1 %183, label %251, label %184
+181:                                              ; preds = %175
+  %182 = zext i32 %169 to i64
+  %183 = add nuw nsw i64 %182, 46
+  %184 = icmp ugt i64 %183, %137
+  br i1 %184, label %252, label %185
 
-184:                                              ; preds = %180
-  %185 = load i16, ptr %155, align 1, !tbaa !28
-  %186 = load i16, ptr %156, align 1, !tbaa !29
-  %187 = load i16, ptr %157, align 1, !tbaa !30
-  %188 = zext i16 %187 to i32
-  %189 = icmp ugt i16 %187, 1024
-  br i1 %189, label %251, label %190
+185:                                              ; preds = %181
+  %186 = load i16, ptr %156, align 1, !tbaa !28
+  %187 = load i16, ptr %157, align 1, !tbaa !29
+  %188 = load i16, ptr %158, align 1, !tbaa !30
+  %189 = zext i16 %188 to i32
+  %190 = icmp ugt i16 %188, 1024
+  br i1 %190, label %252, label %191
 
-190:                                              ; preds = %184
-  %191 = load i16, ptr %158, align 1, !tbaa !31
-  %192 = load i32, ptr %159, align 1, !tbaa !32
-  %193 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 2
-  store i32 %192, ptr %193, align 4, !tbaa !33
-  %194 = load i32, ptr %160, align 1, !tbaa !35
-  %195 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 1
-  store i32 %194, ptr %195, align 4, !tbaa !36
-  %196 = load i32, ptr %161, align 1, !tbaa !37
-  store i32 %196, ptr %165, align 4, !tbaa !38
-  %197 = load i32, ptr %162, align 1, !tbaa !39
-  %198 = add i32 %197, %134
-  %199 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 3
-  store i32 %198, ptr %199, align 4, !tbaa !40
-  %200 = load i16, ptr %163, align 1, !tbaa !41
-  %201 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 6
-  store i16 %200, ptr %201, align 4, !tbaa !42
-  %202 = icmp eq i16 %200, 0
-  %203 = icmp eq i32 %194, %196
-  br i1 %202, label %204, label %205
+191:                                              ; preds = %185
+  %192 = load i16, ptr %159, align 1, !tbaa !31
+  %193 = load i32, ptr %160, align 1, !tbaa !32
+  %194 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 2
+  store i32 %193, ptr %194, align 4, !tbaa !33
+  %195 = load i32, ptr %161, align 1, !tbaa !35
+  %196 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 1
+  store i32 %195, ptr %196, align 4, !tbaa !36
+  %197 = load i32, ptr %162, align 1, !tbaa !37
+  store i32 %197, ptr %166, align 4, !tbaa !38
+  %198 = load i32, ptr %163, align 1, !tbaa !39
+  %199 = add i32 %198, %135
+  %200 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 3
+  store i32 %199, ptr %200, align 4, !tbaa !40
+  %201 = load i16, ptr %164, align 1, !tbaa !41
+  %202 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 6
+  store i16 %201, ptr %202, align 4, !tbaa !42
+  %203 = icmp eq i16 %201, 0
+  %204 = icmp eq i32 %195, %197
+  br i1 %203, label %205, label %206
 
-204:                                              ; preds = %190
-  br i1 %203, label %211, label %206
+205:                                              ; preds = %191
+  br i1 %204, label %212, label %207
 
-205:                                              ; preds = %190
-  br i1 %203, label %206, label %211
+206:                                              ; preds = %191
+  br i1 %204, label %207, label %212
 
-206:                                              ; preds = %205, %204
-  %207 = phi ptr [ @.str.27, %204 ], [ @.str.29, %205 ]
-  %208 = phi ptr [ @.str.28, %204 ], [ @.str.30, %205 ]
-  %209 = phi i16 [ 8, %204 ], [ 0, %205 ]
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %207) #11
+207:                                              ; preds = %206, %205
+  %208 = phi ptr [ @.str.27, %205 ], [ @.str.29, %206 ]
+  %209 = phi ptr [ @.str.28, %205 ], [ @.str.30, %206 ]
+  %210 = phi i16 [ 8, %205 ], [ 0, %206 ]
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %208) #11
-  %210 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 7
-  store i16 %209, ptr %210, align 2, !tbaa !43
-  br label %211
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %209) #11
+  %211 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 7
+  store i16 %210, ptr %211, align 2, !tbaa !43
+  br label %212
 
-211:                                              ; preds = %206, %205, %204
-  %212 = phi i64 [ 0, %205 ], [ 0, %204 ], [ 1, %206 ]
-  %213 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 7, i64 %212
-  store i16 -1, ptr %213, align 2, !tbaa !43
-  %214 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 8
-  store i16 %191, ptr %214, align 2, !tbaa !44
-  %215 = zext i16 %187 to i64
-  %216 = add nuw nsw i64 %182, %215
-  %217 = icmp ugt i64 %216, %136
-  br i1 %217, label %251, label %218
+212:                                              ; preds = %207, %206, %205
+  %213 = phi i64 [ 0, %206 ], [ 0, %205 ], [ 1, %207 ]
+  %214 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 7, i64 %213
+  store i16 -1, ptr %214, align 2, !tbaa !43
+  %215 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 8
+  store i16 %192, ptr %215, align 2, !tbaa !44
+  %216 = zext i16 %188 to i64
+  %217 = add nuw nsw i64 %183, %216
+  %218 = icmp ugt i64 %217, %137
+  br i1 %218, label %252, label %219
 
-218:                                              ; preds = %211
-  %219 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 9
-  %220 = call i32 @cli_readn(i32 noundef %137, ptr noundef nonnull %219, i32 noundef %188) #11
-  %221 = icmp eq i32 %220, %188
-  br i1 %221, label %222, label %251
+219:                                              ; preds = %212
+  %220 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 9
+  %221 = call i32 @cli_readn(i32 noundef %138, ptr noundef nonnull %220, i32 noundef %189) #11
+  %222 = icmp eq i32 %221, %189
+  br i1 %222, label %223, label %252
 
-222:                                              ; preds = %218
-  %223 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 9, i64 %215
-  store i8 0, ptr %223, align 1, !tbaa !23
-  %224 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 5
-  store i16 %187, ptr %224, align 2, !tbaa !45
-  %225 = zext i16 %185 to i64
+223:                                              ; preds = %219
+  %224 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 9, i64 %216
+  store i8 0, ptr %224, align 1, !tbaa !23
+  %225 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 5
+  store i16 %188, ptr %225, align 2, !tbaa !45
   %226 = zext i16 %186 to i64
-  %227 = add nuw nsw i64 %225, 46
-  %228 = add nuw nsw i64 %227, %226
-  %229 = add nuw nsw i64 %228, %215
-  %230 = trunc i64 %229 to i32
-  %231 = add i32 %168, %230
-  %232 = icmp ugt i32 %231, %72
-  br i1 %232, label %251, label %233
+  %227 = zext i16 %187 to i64
+  %228 = add nuw nsw i64 %226, 46
+  %229 = add nuw nsw i64 %228, %227
+  %230 = add nuw nsw i64 %229, %216
+  %231 = trunc i64 %230 to i32
+  %232 = add i32 %169, %231
+  %233 = icmp ugt i32 %232, %73
+  br i1 %233, label %252, label %234
 
-233:                                              ; preds = %222
-  %234 = getelementptr inbounds i8, ptr %165, i64 33
-  %235 = getelementptr inbounds i8, ptr %234, i64 %215
-  %236 = ptrtoint ptr %235 to i64
-  %237 = and i64 %236, 1
-  %238 = getelementptr inbounds i8, ptr %235, i64 %237
-  %239 = ptrtoint ptr %238 to i64
-  %240 = and i64 %239, 2
-  %241 = getelementptr inbounds i8, ptr %238, i64 %240
-  %242 = ptrtoint ptr %241 to i64
-  %243 = ptrtoint ptr %165 to i64
-  %244 = sub i64 %242, %243
-  %245 = trunc i64 %244 to i16
-  %246 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %165, i64 0, i32 4
-  store i16 %245, ptr %246, align 4, !tbaa !46
-  %247 = and i64 %244, 65535
-  %248 = getelementptr inbounds i8, ptr %165, i64 %247
-  %249 = add i16 %167, -1
-  %250 = icmp eq i16 %249, 0
-  br i1 %250, label %257, label %164, !llvm.loop !47
+234:                                              ; preds = %223
+  %235 = getelementptr inbounds i8, ptr %166, i64 33
+  %236 = getelementptr inbounds i8, ptr %235, i64 %216
+  %237 = ptrtoint ptr %236 to i64
+  %238 = and i64 %237, 1
+  %239 = getelementptr inbounds i8, ptr %236, i64 %238
+  %240 = ptrtoint ptr %239 to i64
+  %241 = and i64 %240, 2
+  %242 = getelementptr inbounds i8, ptr %239, i64 %241
+  %243 = ptrtoint ptr %242 to i64
+  %244 = ptrtoint ptr %166 to i64
+  %245 = sub i64 %243, %244
+  %246 = trunc i64 %245 to i16
+  %247 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %166, i64 0, i32 4
+  store i16 %246, ptr %247, align 4, !tbaa !46
+  %248 = and i64 %245, 65535
+  %249 = getelementptr inbounds i8, ptr %166, i64 %248
+  %250 = add i16 %168, -1
+  %251 = icmp eq i16 %250, 0
+  br i1 %251, label %258, label %165, !llvm.loop !47
 
-251:                                              ; preds = %222, %218, %211, %184, %180
-  %252 = phi ptr [ @.str.25, %180 ], [ @.str.26, %184 ], [ @.str.31, %211 ], [ @.str.32, %218 ], [ @.str.33, %222 ]
-  %253 = zext i16 %167 to i32
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %252, i32 noundef %253) #11
-  br label %254
+252:                                              ; preds = %223, %219, %212, %185, %181
+  %253 = phi ptr [ @.str.25, %181 ], [ @.str.26, %185 ], [ @.str.31, %212 ], [ @.str.32, %219 ], [ @.str.33, %223 ]
+  %254 = zext i16 %168 to i32
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %253, i32 noundef %254) #11
+  br label %255
 
-254:                                              ; preds = %251, %177
-  %255 = phi i32 [ 0, %177 ], [ -124, %251 ]
-  %256 = icmp eq ptr %166, null
-  br i1 %256, label %260, label %257
+255:                                              ; preds = %252, %178
+  %256 = phi i32 [ 0, %178 ], [ -124, %252 ]
+  %257 = icmp eq ptr %167, null
+  br i1 %257, label %261, label %258
 
-257:                                              ; preds = %233, %254
-  %258 = phi i32 [ %255, %254 ], [ 0, %233 ]
-  %259 = phi ptr [ %166, %254 ], [ %246, %233 ]
-  store i16 0, ptr %259, align 2, !tbaa !43
-  store ptr %152, ptr %138, align 8, !tbaa !48
-  br label %261
+258:                                              ; preds = %234, %255
+  %259 = phi i32 [ %256, %255 ], [ 0, %234 ]
+  %260 = phi ptr [ %167, %255 ], [ %247, %234 ]
+  store i16 0, ptr %260, align 2, !tbaa !43
+  store ptr %153, ptr %139, align 8, !tbaa !48
+  br label %264
 
-260:                                              ; preds = %254
-  call void @free(ptr noundef %152) #11
-  br label %261
+261:                                              ; preds = %255
+  call void @free(ptr noundef %153) #11
+  br label %264
 
-261:                                              ; preds = %141, %144, %150, %151, %173, %179, %257, %260
-  %262 = phi i32 [ -123, %141 ], [ -124, %150 ], [ -123, %173 ], [ -123, %179 ], [ -124, %144 ], [ -114, %151 ], [ %258, %257 ], [ %255, %260 ]
+262:                                              ; preds = %142, %151, %174, %180, %145, %152
+  %263 = phi i32 [ -114, %152 ], [ -124, %145 ], [ -123, %180 ], [ -123, %174 ], [ -124, %151 ], [ -123, %142 ]
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %4) #11
   call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %3) #11
-  br label %263
+  br label %266
 
-263:                                              ; preds = %130, %261, %11
-  %264 = phi i32 [ -123, %11 ], [ %262, %261 ], [ %131, %130 ]
+264:                                              ; preds = %258, %261
+  %265 = phi i32 [ %259, %258 ], [ %256, %261 ]
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %4) #11
+  call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %3) #11
+  br label %266
+
+266:                                              ; preds = %264, %262, %131, %11
+  %267 = phi i32 [ -123, %11 ], [ %132, %131 ], [ %263, %262 ], [ %265, %264 ]
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %6) #11
-  ret i32 %264
+  ret i32 %267
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -661,8 +668,8 @@ define dso_local i32 @zip_dir_read(ptr noundef %0, ptr noundef writeonly %1) loc
   store ptr %29, ptr %5, align 8, !tbaa !17
   br label %30
 
-30:                                               ; preds = %2, %4, %10
-  %31 = phi i32 [ 1, %10 ], [ 0, %4 ], [ 0, %2 ]
+30:                                               ; preds = %10, %2, %4
+  %31 = phi i32 [ 0, %4 ], [ 0, %2 ], [ 1, %10 ]
   ret i32 %31
 }
 
@@ -731,7 +738,7 @@ define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readon
 
 6:                                                ; preds = %3
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.2) #11
-  br label %129
+  br label %128
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 3
@@ -754,7 +761,7 @@ define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readon
   %19 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %18, i64 0, i32 4
   %20 = load i16, ptr %19, align 4, !tbaa !46
   %21 = icmp eq i16 %20, 0
-  br i1 %21, label %127, label %22
+  br i1 %21, label %126, label %22
 
 22:                                               ; preds = %17
   %23 = zext i16 %20 to i64
@@ -768,193 +775,192 @@ define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readon
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.3) #11
   %29 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
   store i32 -111, ptr %29, align 4, !tbaa !56
-  br label %129
+  br label %128
 
-30:                                               ; preds = %11, %124
-  %31 = phi ptr [ %126, %124 ], [ %9, %11 ]
+30:                                               ; preds = %11, %123
+  %31 = phi ptr [ %125, %123 ], [ %9, %11 ]
   %32 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %31, i64 0, i32 9
   %33 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %32, ptr noundef nonnull dereferenceable(1) %1) #12
   %34 = icmp eq i32 %33, 0
-  br i1 %34, label %35, label %120
+  br i1 %34, label %35, label %119
 
 35:                                               ; preds = %30
   %36 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %31, i64 0, i32 3
   %37 = load i32, ptr %36, align 4, !tbaa !40
   %38 = icmp eq i32 %37, %2
-  br i1 %38, label %39, label %120
+  br i1 %38, label %39, label %119
 
 39:                                               ; preds = %35, %22, %13
   %40 = phi ptr [ %9, %13 ], [ %24, %22 ], [ %31, %35 ]
   %41 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %40, i64 0, i32 6
   %42 = load i16, ptr %41, align 4, !tbaa !42
+  %43 = zext i16 %42 to i32
   switch i16 %42, label %46 [
-    i16 0, label %49
-    i16 8, label %49
-    i16 9, label %49
-    i16 1, label %43
-    i16 2, label %43
-    i16 3, label %43
-    i16 4, label %43
-    i16 5, label %43
-    i16 6, label %43
-    i16 7, label %43
-    i16 10, label %43
-    i16 12, label %43
-    i16 99, label %43
+    i16 0, label %48
+    i16 8, label %48
+    i16 9, label %48
+    i16 1, label %44
+    i16 2, label %44
+    i16 3, label %44
+    i16 4, label %44
+    i16 5, label %44
+    i16 6, label %44
+    i16 7, label %44
+    i16 10, label %44
+    i16 12, label %44
+    i16 99, label %44
   ]
 
-43:                                               ; preds = %39, %39, %39, %39, %39, %39, %39, %39, %39, %39
-  %44 = zext i16 %42 to i32
-  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.4, i32 noundef %44) #11
+44:                                               ; preds = %39, %39, %39, %39, %39, %39, %39, %39, %39, %39
+  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.4, i32 noundef %43) #11
   %45 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
   store i32 -125, ptr %45, align 4, !tbaa !56
-  br label %129
+  br label %128
 
 46:                                               ; preds = %39
-  %47 = zext i16 %42 to i32
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %47) #11
-  %48 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -124, ptr %48, align 4, !tbaa !56
-  br label %129
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %43) #11
+  %47 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -124, ptr %47, align 4, !tbaa !56
+  br label %128
 
-49:                                               ; preds = %39, %39, %39
-  %50 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 2
-  %51 = load ptr, ptr %50, align 8, !tbaa !14
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %54, label %53
+48:                                               ; preds = %39, %39, %39
+  %49 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 2
+  %50 = load ptr, ptr %49, align 8, !tbaa !14
+  %51 = icmp eq ptr %50, null
+  br i1 %51, label %53, label %52
 
-53:                                               ; preds = %49
-  store ptr null, ptr %50, align 8, !tbaa !14
-  br label %59
+52:                                               ; preds = %48
+  store ptr null, ptr %49, align 8, !tbaa !14
+  br label %58
 
-54:                                               ; preds = %49
-  %55 = tail call ptr @cli_calloc(i64 noundef 1, i64 noundef 176) #11
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %57, label %59
+53:                                               ; preds = %48
+  %54 = tail call ptr @cli_calloc(i64 noundef 1, i64 noundef 176) #11
+  %55 = icmp eq ptr %54, null
+  br i1 %55, label %56, label %58
 
-57:                                               ; preds = %54
-  %58 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -114, ptr %58, align 4, !tbaa !56
-  br label %129
+56:                                               ; preds = %53
+  %57 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -114, ptr %57, align 4, !tbaa !56
+  br label %128
 
-59:                                               ; preds = %54, %53
-  %60 = phi ptr [ %51, %53 ], [ %55, %54 ]
-  store ptr %0, ptr %60, align 8, !tbaa !52
-  %61 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 2, i32 1
-  %62 = load ptr, ptr %61, align 8, !tbaa !15
-  %63 = icmp eq ptr %62, null
-  br i1 %63, label %66, label %64
+58:                                               ; preds = %53, %52
+  %59 = phi ptr [ %50, %52 ], [ %54, %53 ]
+  store ptr %0, ptr %59, align 8, !tbaa !52
+  %60 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 2, i32 1
+  %61 = load ptr, ptr %60, align 8, !tbaa !15
+  %62 = icmp eq ptr %61, null
+  br i1 %62, label %65, label %63
 
-64:                                               ; preds = %59
-  %65 = getelementptr inbounds %struct.__zip_file, ptr %60, i64 0, i32 7
-  store ptr %62, ptr %65, align 8, !tbaa !55
-  store ptr null, ptr %61, align 8, !tbaa !15
-  br label %73
+63:                                               ; preds = %58
+  %64 = getelementptr inbounds %struct.__zip_file, ptr %59, i64 0, i32 7
+  store ptr %61, ptr %64, align 8, !tbaa !55
+  store ptr null, ptr %60, align 8, !tbaa !15
+  br label %72
 
-66:                                               ; preds = %59
-  %67 = tail call ptr @cli_malloc(i64 noundef 32768) #11
-  %68 = getelementptr inbounds %struct.__zip_file, ptr %60, i64 0, i32 7
-  store ptr %67, ptr %68, align 8, !tbaa !55
-  %69 = icmp eq ptr %67, null
-  br i1 %69, label %70, label %73
+65:                                               ; preds = %58
+  %66 = tail call ptr @cli_malloc(i64 noundef 32768) #11
+  %67 = getelementptr inbounds %struct.__zip_file, ptr %59, i64 0, i32 7
+  store ptr %66, ptr %67, align 8, !tbaa !55
+  %68 = icmp eq ptr %66, null
+  br i1 %68, label %69, label %72
 
-70:                                               ; preds = %66
-  %71 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -114, ptr %71, align 4, !tbaa !56
-  %72 = tail call i32 @zip_file_close(ptr noundef nonnull %60), !range !57
-  br label %129
+69:                                               ; preds = %65
+  %70 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -114, ptr %70, align 4, !tbaa !56
+  %71 = tail call i32 @zip_file_close(ptr noundef nonnull %59), !range !57
+  br label %128
 
-73:                                               ; preds = %66, %64
-  %74 = load i32, ptr %0, align 8, !tbaa !16
-  %75 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %40, i64 0, i32 3
-  %76 = load i32, ptr %75, align 4, !tbaa !40
-  %77 = zext i32 %76 to i64
-  %78 = tail call i64 @lseek(i32 noundef %74, i64 noundef %77, i32 noundef 0) #11
-  %79 = icmp slt i64 %78, 0
-  br i1 %79, label %80, label %84
+72:                                               ; preds = %65, %63
+  %73 = load i32, ptr %0, align 8, !tbaa !16
+  %74 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %40, i64 0, i32 3
+  %75 = load i32, ptr %74, align 4, !tbaa !40
+  %76 = zext i32 %75 to i64
+  %77 = tail call i64 @lseek(i32 noundef %73, i64 noundef %76, i32 noundef 0) #11
+  %78 = icmp slt i64 %77, 0
+  br i1 %78, label %79, label %83
 
-80:                                               ; preds = %73
-  %81 = load i32, ptr %0, align 8, !tbaa !16
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.6, i32 noundef %81) #11
-  %82 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -123, ptr %82, align 4, !tbaa !56
-  %83 = tail call i32 @zip_file_close(ptr noundef nonnull %60), !range !57
-  br label %129
+79:                                               ; preds = %72
+  %80 = load i32, ptr %0, align 8, !tbaa !16
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.6, i32 noundef %80) #11
+  %81 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -123, ptr %81, align 4, !tbaa !56
+  %82 = tail call i32 @zip_file_close(ptr noundef nonnull %59), !range !57
+  br label %128
 
-84:                                               ; preds = %73
-  %85 = getelementptr inbounds %struct.__zip_file, ptr %60, i64 0, i32 7
-  %86 = load ptr, ptr %85, align 8, !tbaa !55
-  %87 = load i32, ptr %0, align 8, !tbaa !16
-  %88 = tail call i32 @cli_readn(i32 noundef %87, ptr noundef %86, i32 noundef 30) #11
-  %89 = icmp slt i32 %88, 30
-  br i1 %89, label %90, label %94
+83:                                               ; preds = %72
+  %84 = getelementptr inbounds %struct.__zip_file, ptr %59, i64 0, i32 7
+  %85 = load ptr, ptr %84, align 8, !tbaa !55
+  %86 = load i32, ptr %0, align 8, !tbaa !16
+  %87 = tail call i32 @cli_readn(i32 noundef %86, ptr noundef %85, i32 noundef 30) #11
+  %88 = icmp slt i32 %87, 30
+  br i1 %88, label %89, label %93
 
-90:                                               ; preds = %84
-  %91 = sext i32 %88 to i64
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.7, i64 noundef %91) #11
-  %92 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -123, ptr %92, align 4, !tbaa !56
-  %93 = tail call i32 @zip_file_close(ptr noundef nonnull %60), !range !57
-  br label %129
+89:                                               ; preds = %83
+  %90 = sext i32 %87 to i64
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.7, i64 noundef %90) #11
+  %91 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -123, ptr %91, align 4, !tbaa !56
+  %92 = tail call i32 @zip_file_close(ptr noundef nonnull %59), !range !57
+  br label %128
 
-94:                                               ; preds = %84
-  %95 = getelementptr inbounds %struct.zip_file_header, ptr %86, i64 0, i32 9
-  %96 = load i16, ptr %95, align 1, !tbaa !58
-  %97 = zext i16 %96 to i64
-  %98 = getelementptr inbounds %struct.zip_file_header, ptr %86, i64 0, i32 10
-  %99 = load i16, ptr %98, align 1, !tbaa !60
-  %100 = zext i16 %99 to i64
-  %101 = add nuw nsw i64 %100, %97
-  %102 = load i32, ptr %0, align 8, !tbaa !16
-  %103 = tail call i64 @lseek(i32 noundef %102, i64 noundef %101, i32 noundef 1) #11
-  %104 = icmp slt i64 %103, 0
-  br i1 %104, label %105, label %109
+93:                                               ; preds = %83
+  %94 = getelementptr inbounds %struct.zip_file_header, ptr %85, i64 0, i32 9
+  %95 = load i16, ptr %94, align 1, !tbaa !58
+  %96 = zext i16 %95 to i64
+  %97 = getelementptr inbounds %struct.zip_file_header, ptr %85, i64 0, i32 10
+  %98 = load i16, ptr %97, align 1, !tbaa !60
+  %99 = zext i16 %98 to i64
+  %100 = add nuw nsw i64 %99, %96
+  %101 = load i32, ptr %0, align 8, !tbaa !16
+  %102 = tail call i64 @lseek(i32 noundef %101, i64 noundef %100, i32 noundef 1) #11
+  %103 = icmp slt i64 %102, 0
+  br i1 %103, label %104, label %108
 
-105:                                              ; preds = %94
-  %106 = load i32, ptr %0, align 8, !tbaa !16
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.6, i32 noundef %106) #11
-  %107 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -123, ptr %107, align 4, !tbaa !56
-  %108 = tail call i32 @zip_file_close(ptr noundef nonnull %60), !range !57
-  br label %129
+104:                                              ; preds = %93
+  %105 = load i32, ptr %0, align 8, !tbaa !16
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.6, i32 noundef %105) #11
+  %106 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -123, ptr %106, align 4, !tbaa !56
+  %107 = tail call i32 @zip_file_close(ptr noundef nonnull %59), !range !57
+  br label %128
 
-109:                                              ; preds = %94
-  %110 = getelementptr inbounds %struct.__zip_file, ptr %60, i64 0, i32 5
-  %111 = load <2 x i32>, ptr %40, align 4, !tbaa !18
-  %112 = zext <2 x i32> %111 to <2 x i64>
-  store <2 x i64> %112, ptr %110, align 8, !tbaa !61
-  %113 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %40, i64 0, i32 7
-  %114 = getelementptr inbounds %struct.__zip_file, ptr %60, i64 0, i32 2
-  store ptr %113, ptr %114, align 8, !tbaa !62
-  %115 = tail call fastcc i32 @__zip_inflate_init(ptr noundef nonnull %60, ptr noundef nonnull %40), !range !63
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %129, label %117
+108:                                              ; preds = %93
+  %109 = getelementptr inbounds %struct.__zip_file, ptr %59, i64 0, i32 5
+  %110 = load <2 x i32>, ptr %40, align 4, !tbaa !18
+  %111 = zext <2 x i32> %110 to <2 x i64>
+  store <2 x i64> %111, ptr %109, align 8, !tbaa !61
+  %112 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %40, i64 0, i32 7
+  %113 = getelementptr inbounds %struct.__zip_file, ptr %59, i64 0, i32 2
+  store ptr %112, ptr %113, align 8, !tbaa !62
+  %114 = tail call fastcc i32 @__zip_inflate_init(ptr noundef nonnull %59, ptr noundef nonnull %40), !range !63
+  %115 = icmp eq i32 %114, 0
+  br i1 %115, label %128, label %116
 
-117:                                              ; preds = %109
-  %118 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -123, ptr %118, align 4, !tbaa !56
-  %119 = tail call i32 @zip_file_close(ptr noundef nonnull %60), !range !57
-  br label %129
+116:                                              ; preds = %108
+  %117 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -123, ptr %117, align 4, !tbaa !56
+  %118 = tail call i32 @zip_file_close(ptr noundef nonnull %59), !range !57
+  br label %128
 
-120:                                              ; preds = %35, %30
-  %121 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %31, i64 0, i32 4
-  %122 = load i16, ptr %121, align 4, !tbaa !46
-  %123 = icmp eq i16 %122, 0
-  br i1 %123, label %127, label %124
+119:                                              ; preds = %35, %30
+  %120 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %31, i64 0, i32 4
+  %121 = load i16, ptr %120, align 4, !tbaa !46
+  %122 = icmp eq i16 %121, 0
+  br i1 %122, label %126, label %123
 
-124:                                              ; preds = %120
-  %125 = zext i16 %122 to i64
-  %126 = getelementptr inbounds i8, ptr %31, i64 %125
+123:                                              ; preds = %119
+  %124 = zext i16 %121 to i64
+  %125 = getelementptr inbounds i8, ptr %31, i64 %124
   br label %30
 
-127:                                              ; preds = %120, %17
-  %128 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
-  store i32 -115, ptr %128, align 4, !tbaa !56
-  br label %129
+126:                                              ; preds = %119, %17
+  %127 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
+  store i32 -115, ptr %127, align 4, !tbaa !56
+  br label %128
 
-129:                                              ; preds = %109, %127, %117, %105, %90, %80, %70, %57, %46, %43, %28, %6
-  %130 = phi ptr [ null, %6 ], [ null, %127 ], [ null, %46 ], [ null, %43 ], [ null, %80 ], [ null, %90 ], [ null, %105 ], [ null, %117 ], [ null, %70 ], [ null, %57 ], [ null, %28 ], [ %60, %109 ]
-  ret ptr %130
+128:                                              ; preds = %108, %126, %116, %104, %89, %79, %69, %56, %46, %44, %28, %6
+  %129 = phi ptr [ null, %6 ], [ null, %126 ], [ null, %46 ], [ null, %44 ], [ null, %79 ], [ null, %89 ], [ null, %104 ], [ null, %116 ], [ null, %69 ], [ null, %56 ], [ null, %28 ], [ %59, %108 ]
+  ret ptr %129
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -1015,154 +1021,158 @@ define dso_local i64 @zip_file_read(ptr noundef %0, ptr noundef %1, i64 noundef 
 
 8:                                                ; preds = %5, %3
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.8) #11
-  br label %86
+  br label %88
 
 9:                                                ; preds = %5
   %10 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 3
   %11 = load i64, ptr %10, align 8, !tbaa !65
-  %12 = tail call i64 @llvm.umin.i64(i64 %11, i64 %2)
-  %13 = icmp eq i64 %11, 0
-  br i1 %13, label %86, label %14
+  %12 = icmp ugt i64 %11, %2
+  br i1 %12, label %15, label %13
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 1
-  %16 = load i16, ptr %15, align 8, !tbaa !64
-  switch i16 %16, label %83 [
-    i16 0, label %17
-    i16 8, label %30
-    i16 9, label %30
+13:                                               ; preds = %9
+  %14 = icmp eq i64 %11, 0
+  br i1 %14, label %88, label %15
+
+15:                                               ; preds = %9, %13
+  %16 = phi i64 [ %11, %13 ], [ %2, %9 ]
+  %17 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 1
+  %18 = load i16, ptr %17, align 8, !tbaa !64
+  switch i16 %18, label %85 [
+    i16 0, label %19
+    i16 8, label %32
+    i16 9, label %32
   ]
 
-17:                                               ; preds = %14
-  %18 = load i32, ptr %6, align 8, !tbaa !16
-  %19 = trunc i64 %12 to i32
-  %20 = tail call i32 @cli_readn(i32 noundef %18, ptr noundef %1, i32 noundef %19) #11
-  %21 = sext i32 %20 to i64
-  %22 = icmp sgt i32 %20, 0
-  br i1 %22, label %23, label %26
+19:                                               ; preds = %15
+  %20 = load i32, ptr %6, align 8, !tbaa !16
+  %21 = trunc i64 %16 to i32
+  %22 = tail call i32 @cli_readn(i32 noundef %20, ptr noundef %1, i32 noundef %21) #11
+  %23 = sext i32 %22 to i64
+  %24 = icmp sgt i32 %22, 0
+  br i1 %24, label %25, label %28
 
-23:                                               ; preds = %17
-  %24 = load i64, ptr %10, align 8, !tbaa !65
-  %25 = sub i64 %24, %21
-  store i64 %25, ptr %10, align 8, !tbaa !65
-  br label %86
+25:                                               ; preds = %19
+  %26 = load i64, ptr %10, align 8, !tbaa !65
+  %27 = sub i64 %26, %23
+  store i64 %27, ptr %10, align 8, !tbaa !65
+  br label %88
 
-26:                                               ; preds = %17
-  %27 = icmp slt i32 %20, 0
-  br i1 %27, label %28, label %86
+28:                                               ; preds = %19
+  %29 = icmp slt i32 %22, 0
+  br i1 %29, label %30, label %88
 
-28:                                               ; preds = %26
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.9, i64 noundef %12) #11
-  %29 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
-  store i32 -123, ptr %29, align 4, !tbaa !56
-  br label %86
+30:                                               ; preds = %28
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.9, i64 noundef %16) #11
+  %31 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
+  store i32 -123, ptr %31, align 4, !tbaa !56
+  br label %88
 
-30:                                               ; preds = %14, %14
-  %31 = trunc i64 %12 to i32
-  %32 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8
-  %33 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 4
-  store i32 %31, ptr %33, align 8, !tbaa !67
-  %34 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 3
-  store ptr %1, ptr %34, align 8, !tbaa !68
-  %35 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 4
-  %36 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 1
-  %37 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 7
-  %38 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 5
-  br label %39
+32:                                               ; preds = %15, %15
+  %33 = trunc i64 %16 to i32
+  %34 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8
+  %35 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 4
+  store i32 %33, ptr %35, align 8, !tbaa !67
+  %36 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 3
+  store ptr %1, ptr %36, align 8, !tbaa !68
+  %37 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 4
+  %38 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 1
+  %39 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 7
+  %40 = getelementptr inbounds %struct.__zip_file, ptr %0, i64 0, i32 8, i32 5
+  br label %41
 
-39:                                               ; preds = %76, %30
-  %40 = load i64, ptr %35, align 8, !tbaa !66
-  %41 = icmp eq i64 %40, 0
-  br i1 %41, label %59, label %42
+41:                                               ; preds = %78, %32
+  %42 = load i64, ptr %37, align 8, !tbaa !66
+  %43 = icmp eq i64 %42, 0
+  br i1 %43, label %61, label %44
 
-42:                                               ; preds = %39
-  %43 = load i32, ptr %36, align 8, !tbaa !69
-  %44 = icmp eq i32 %43, 0
-  br i1 %44, label %45, label %59
+44:                                               ; preds = %41
+  %45 = load i32, ptr %38, align 8, !tbaa !69
+  %46 = icmp eq i32 %45, 0
+  br i1 %46, label %47, label %61
 
-45:                                               ; preds = %42
-  %46 = tail call i64 @llvm.umin.i64(i64 %40, i64 32768)
-  %47 = load i32, ptr %6, align 8, !tbaa !16
-  %48 = load ptr, ptr %37, align 8, !tbaa !55
-  %49 = trunc i64 %46 to i32
-  %50 = tail call i32 @cli_readn(i32 noundef %47, ptr noundef %48, i32 noundef %49) #11
-  %51 = sext i32 %50 to i64
-  %52 = icmp sgt i32 %50, 0
-  br i1 %52, label %53, label %57
+47:                                               ; preds = %44
+  %48 = tail call i64 @llvm.umin.i64(i64 %42, i64 32768)
+  %49 = load i32, ptr %6, align 8, !tbaa !16
+  %50 = load ptr, ptr %39, align 8, !tbaa !55
+  %51 = trunc i64 %48 to i32
+  %52 = tail call i32 @cli_readn(i32 noundef %49, ptr noundef %50, i32 noundef %51) #11
+  %53 = sext i32 %52 to i64
+  %54 = icmp slt i32 %52, 1
+  br i1 %54, label %59, label %55
 
-53:                                               ; preds = %45
-  %54 = load i64, ptr %35, align 8, !tbaa !66
-  %55 = sub i64 %54, %51
-  store i64 %55, ptr %35, align 8, !tbaa !66
-  store i32 %50, ptr %36, align 8, !tbaa !69
-  %56 = load ptr, ptr %37, align 8, !tbaa !55
-  store ptr %56, ptr %32, align 8, !tbaa !70
-  br label %59
+55:                                               ; preds = %47
+  %56 = load i64, ptr %37, align 8, !tbaa !66
+  %57 = sub i64 %56, %53
+  store i64 %57, ptr %37, align 8, !tbaa !66
+  store i32 %52, ptr %38, align 8, !tbaa !69
+  %58 = load ptr, ptr %39, align 8, !tbaa !55
+  store ptr %58, ptr %34, align 8, !tbaa !70
+  br label %61
 
-57:                                               ; preds = %45
-  %58 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
-  store i32 -123, ptr %58, align 4, !tbaa !56
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.10, i64 noundef %46, i64 noundef %51) #11
-  br label %86
+59:                                               ; preds = %47
+  %60 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
+  store i32 -123, ptr %60, align 4, !tbaa !56
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.10, i64 noundef %48, i64 noundef %53) #11
+  br label %88
 
-59:                                               ; preds = %53, %42, %39
-  %60 = load i64, ptr %38, align 8, !tbaa !71
-  %61 = tail call i32 @inflate(ptr noundef nonnull %32, i32 noundef 0) #11
-  switch i32 %61, label %63 [
-    i32 1, label %62
-    i32 0, label %70
+61:                                               ; preds = %55, %44, %41
+  %62 = load i64, ptr %40, align 8, !tbaa !71
+  %63 = tail call i32 @inflate(ptr noundef nonnull %34, i32 noundef 0) #11
+  switch i32 %63, label %65 [
+    i32 1, label %64
+    i32 0, label %72
   ]
 
-62:                                               ; preds = %59
+64:                                               ; preds = %61
   store i64 0, ptr %10, align 8, !tbaa !65
-  br label %79
+  br label %81
 
-63:                                               ; preds = %59
-  %64 = load i16, ptr %15, align 8, !tbaa !64
-  %65 = icmp eq i16 %64, 9
-  br i1 %65, label %66, label %68
+65:                                               ; preds = %61
+  %66 = load i16, ptr %17, align 8, !tbaa !64
+  %67 = icmp eq i16 %66, 9
+  br i1 %67, label %68, label %70
 
-66:                                               ; preds = %63
+68:                                               ; preds = %65
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.11, i32 noundef 9) #11
-  %67 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
-  store i32 -125, ptr %67, align 4, !tbaa !56
-  br label %86
-
-68:                                               ; preds = %63
   %69 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
-  store i32 -104, ptr %69, align 4, !tbaa !56
-  br label %86
+  store i32 -125, ptr %69, align 4, !tbaa !56
+  br label %88
 
-70:                                               ; preds = %59
-  %71 = load i64, ptr %38, align 8, !tbaa !71
-  %72 = sub i64 %60, %71
-  %73 = load i64, ptr %10, align 8, !tbaa !65
-  %74 = add i64 %72, %73
-  store i64 %74, ptr %10, align 8, !tbaa !65
-  %75 = icmp eq i64 %74, 0
-  br i1 %75, label %79, label %76
+70:                                               ; preds = %65
+  %71 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
+  store i32 -104, ptr %71, align 4, !tbaa !56
+  br label %88
 
-76:                                               ; preds = %70
-  %77 = load i32, ptr %33, align 8, !tbaa !67
-  %78 = icmp eq i32 %77, 0
-  br i1 %78, label %79, label %39, !llvm.loop !72
+72:                                               ; preds = %61
+  %73 = load i64, ptr %40, align 8, !tbaa !71
+  %74 = sub i64 %62, %73
+  %75 = load i64, ptr %10, align 8, !tbaa !65
+  %76 = add i64 %74, %75
+  store i64 %76, ptr %10, align 8, !tbaa !65
+  %77 = icmp eq i64 %76, 0
+  br i1 %77, label %81, label %78
 
-79:                                               ; preds = %70, %76, %62
-  %80 = load i32, ptr %33, align 8, !tbaa !67
-  %81 = zext i32 %80 to i64
-  %82 = sub i64 %12, %81
-  br label %86
+78:                                               ; preds = %72
+  %79 = load i32, ptr %35, align 8, !tbaa !67
+  %80 = icmp eq i32 %79, 0
+  br i1 %80, label %81, label %41, !llvm.loop !72
 
-83:                                               ; preds = %14
-  %84 = zext i16 %16 to i32
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %84) #11
-  %85 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
-  store i32 -104, ptr %85, align 4, !tbaa !56
-  br label %86
+81:                                               ; preds = %72, %78, %64
+  %82 = load i32, ptr %35, align 8, !tbaa !67
+  %83 = zext i32 %82 to i64
+  %84 = sub i64 %16, %83
+  br label %88
 
-86:                                               ; preds = %57, %68, %66, %23, %28, %26, %9, %83, %79, %8
-  %87 = phi i64 [ -1, %83 ], [ %82, %79 ], [ -1, %8 ], [ 0, %9 ], [ %21, %26 ], [ %21, %28 ], [ %21, %23 ], [ -1, %66 ], [ -1, %68 ], [ -1, %57 ]
-  ret i64 %87
+85:                                               ; preds = %15
+  %86 = zext i16 %18 to i32
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %86) #11
+  %87 = getelementptr inbounds %struct.__zip_dir, ptr %6, i64 0, i32 1
+  store i32 -104, ptr %87, align 4, !tbaa !56
+  br label %88
+
+88:                                               ; preds = %68, %70, %59, %25, %30, %28, %13, %85, %81, %8
+  %89 = phi i64 [ -1, %85 ], [ %84, %81 ], [ -1, %8 ], [ 0, %13 ], [ 0, %28 ], [ %23, %30 ], [ %23, %25 ], [ -1, %59 ], [ -1, %70 ], [ -1, %68 ]
+  ret i64 %89
 }
 
 declare i32 @inflate(ptr noundef, i32 noundef) local_unnamed_addr #4

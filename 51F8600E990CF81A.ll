@@ -15,16 +15,16 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nounwind uwtable
 define dso_local void @tprint(ptr noundef %0) local_unnamed_addr #0 {
   %2 = icmp eq ptr %0, null
-  br i1 %2, label %101, label %3
+  br i1 %2, label %103, label %3
 
 3:                                                ; preds = %1
   %4 = tail call noalias dereferenceable_or_null(80008) ptr @malloc(i64 noundef 80008) #14
   store ptr %0, ptr %4, align 8, !tbaa !5
   br label %5
 
-5:                                                ; preds = %3, %96
-  %6 = phi i64 [ 0, %3 ], [ %8, %96 ]
-  %7 = phi i32 [ 0, %3 ], [ %97, %96 ]
+5:                                                ; preds = %3, %98
+  %6 = phi i64 [ 0, %3 ], [ %8, %98 ]
+  %7 = phi i32 [ 0, %3 ], [ %100, %98 ]
   %8 = add nuw i64 %6, 1
   %9 = getelementptr inbounds ptr, ptr %4, i64 %6
   %10 = load ptr, ptr %9, align 8, !tbaa !5
@@ -86,7 +86,7 @@ define dso_local void @tprint(ptr noundef %0) local_unnamed_addr #0 {
 48:                                               ; preds = %46, %42, %38, %32
   %49 = load i32, ptr %12, align 4, !tbaa !9
   %50 = icmp eq i32 %49, 0
-  br i1 %50, label %96, label %51
+  br i1 %50, label %78, label %51
 
 51:                                               ; preds = %48
   %52 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 2
@@ -123,44 +123,48 @@ define dso_local void @tprint(ptr noundef %0) local_unnamed_addr #0 {
 75:                                               ; preds = %73, %66, %30
   %76 = load i32, ptr %12, align 4, !tbaa !9
   %77 = icmp sgt i32 %76, 0
-  br i1 %77, label %78, label %96
+  br i1 %77, label %80, label %78
 
-78:                                               ; preds = %75
-  %79 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 2
-  %80 = load ptr, ptr %79, align 8, !tbaa !18
-  %81 = add nsw i32 %7, 1
-  %82 = sext i32 %81 to i64
-  %83 = getelementptr inbounds ptr, ptr %4, i64 %82
-  store ptr %80, ptr %83, align 8, !tbaa !5
-  %84 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 3
-  %85 = load ptr, ptr %84, align 8, !tbaa !19
-  %86 = add nsw i32 %7, 2
-  %87 = sext i32 %86 to i64
-  %88 = getelementptr inbounds ptr, ptr %4, i64 %87
-  store ptr %85, ptr %88, align 8, !tbaa !5
-  %89 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 4
-  %90 = load ptr, ptr %89, align 8, !tbaa !20
-  %91 = icmp eq ptr %90, null
-  br i1 %91, label %96, label %92
+78:                                               ; preds = %48, %75
+  %79 = sext i32 %7 to i64
+  br label %98
 
-92:                                               ; preds = %78
-  %93 = add nsw i32 %7, 3
-  %94 = sext i32 %93 to i64
-  %95 = getelementptr inbounds ptr, ptr %4, i64 %94
-  store ptr %90, ptr %95, align 8, !tbaa !5
-  br label %96
+80:                                               ; preds = %75
+  %81 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 2
+  %82 = load ptr, ptr %81, align 8, !tbaa !18
+  %83 = add nsw i32 %7, 1
+  %84 = sext i32 %83 to i64
+  %85 = getelementptr inbounds ptr, ptr %4, i64 %84
+  store ptr %82, ptr %85, align 8, !tbaa !5
+  %86 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 3
+  %87 = load ptr, ptr %86, align 8, !tbaa !19
+  %88 = add nsw i32 %7, 2
+  %89 = sext i32 %88 to i64
+  %90 = getelementptr inbounds ptr, ptr %4, i64 %89
+  store ptr %87, ptr %90, align 8, !tbaa !5
+  %91 = getelementptr inbounds %struct.tnode, ptr %10, i64 0, i32 4
+  %92 = load ptr, ptr %91, align 8, !tbaa !20
+  %93 = icmp eq ptr %92, null
+  br i1 %93, label %98, label %94
 
-96:                                               ; preds = %48, %78, %92, %75
-  %97 = phi i32 [ %93, %92 ], [ %86, %78 ], [ %7, %75 ], [ %7, %48 ]
-  %98 = sext i32 %97 to i64
-  %99 = icmp slt i64 %6, %98
-  br i1 %99, label %5, label %100, !llvm.loop !23
+94:                                               ; preds = %80
+  %95 = add nsw i32 %7, 3
+  %96 = sext i32 %95 to i64
+  %97 = getelementptr inbounds ptr, ptr %4, i64 %96
+  store ptr %92, ptr %97, align 8, !tbaa !5
+  br label %98
 
-100:                                              ; preds = %96
+98:                                               ; preds = %78, %80, %94
+  %99 = phi i64 [ %79, %78 ], [ %89, %80 ], [ %96, %94 ]
+  %100 = phi i32 [ %7, %78 ], [ %88, %80 ], [ %95, %94 ]
+  %101 = icmp sgt i64 %99, %6
+  br i1 %101, label %5, label %102, !llvm.loop !23
+
+102:                                              ; preds = %98
   tail call void @free(ptr noundef %4) #15
-  br label %101
+  br label %103
 
-101:                                              ; preds = %1, %100
+103:                                              ; preds = %1, %102
   ret void
 }
 
@@ -1163,51 +1167,51 @@ define dso_local void @taddson(ptr nocapture noundef writeonly %0, ptr noundef %
   store i32 %46, ptr %47, align 4, !tbaa !22
   br label %48
 
-48:                                               ; preds = %53, %44
-  %49 = phi ptr [ %8, %44 ], [ %54, %53 ]
-  %50 = load ptr, ptr %49, align 8, !tbaa !5
-  %51 = getelementptr inbounds %struct.tnode, ptr %50, i64 0, i32 1
-  %52 = load i32, ptr %51, align 4, !tbaa !9
-  switch i32 %52, label %55 [
-    i32 3, label %53
+48:                                               ; preds = %52, %44
+  %49 = phi ptr [ %7, %44 ], [ %54, %52 ]
+  %50 = getelementptr inbounds %struct.tnode, ptr %49, i64 0, i32 1
+  %51 = load i32, ptr %50, align 4, !tbaa !9
+  switch i32 %51, label %55 [
+    i32 3, label %52
     i32 0, label %57
   ]
 
-53:                                               ; preds = %48
-  %54 = getelementptr inbounds %struct.tnode, ptr %50, i64 0, i32 4
+52:                                               ; preds = %48
+  %53 = getelementptr inbounds %struct.tnode, ptr %49, i64 0, i32 4
+  %54 = load ptr, ptr %53, align 8, !tbaa !20
   br label %48, !llvm.loop !34
 
 55:                                               ; preds = %48
-  %56 = getelementptr inbounds %struct.tnode, ptr %50, i64 0, i32 8
+  %56 = getelementptr inbounds %struct.tnode, ptr %49, i64 0, i32 8
   br label %57
 
 57:                                               ; preds = %48, %55
-  %58 = phi ptr [ %56, %55 ], [ %50, %48 ]
+  %58 = phi ptr [ %56, %55 ], [ %49, %48 ]
   %59 = load i32, ptr %58, align 4, !tbaa !25
   %60 = getelementptr inbounds %struct.tnode, ptr %5, i64 0, i32 7
   store i32 %59, ptr %60, align 8, !tbaa !21
   br label %61
 
-61:                                               ; preds = %66, %57
-  %62 = phi ptr [ %11, %57 ], [ %67, %66 ]
-  %63 = load ptr, ptr %62, align 8, !tbaa !5
-  %64 = getelementptr inbounds %struct.tnode, ptr %63, i64 0, i32 1
-  %65 = load i32, ptr %64, align 4, !tbaa !9
-  switch i32 %65, label %68 [
-    i32 3, label %66
+61:                                               ; preds = %65, %57
+  %62 = phi ptr [ %10, %57 ], [ %67, %65 ]
+  %63 = getelementptr inbounds %struct.tnode, ptr %62, i64 0, i32 1
+  %64 = load i32, ptr %63, align 4, !tbaa !9
+  switch i32 %64, label %68 [
+    i32 3, label %65
     i32 0, label %70
   ]
 
-66:                                               ; preds = %61
-  %67 = getelementptr inbounds %struct.tnode, ptr %63, i64 0, i32 4
+65:                                               ; preds = %61
+  %66 = getelementptr inbounds %struct.tnode, ptr %62, i64 0, i32 4
+  %67 = load ptr, ptr %66, align 8, !tbaa !20
   br label %61, !llvm.loop !35
 
 68:                                               ; preds = %61
-  %69 = getelementptr inbounds %struct.tnode, ptr %63, i64 0, i32 8
+  %69 = getelementptr inbounds %struct.tnode, ptr %62, i64 0, i32 8
   br label %70
 
 70:                                               ; preds = %61, %68
-  %71 = phi ptr [ %69, %68 ], [ %63, %61 ]
+  %71 = phi ptr [ %69, %68 ], [ %62, %61 ]
   %72 = load i32, ptr %71, align 4, !tbaa !25
   %73 = getelementptr inbounds %struct.tnode, ptr %5, i64 0, i32 8
   store i32 %72, ptr %73, align 4, !tbaa !22
@@ -2118,7 +2122,7 @@ define dso_local void @tsubson(ptr nocapture noundef %0, ptr noundef %1) local_u
 
 245:                                              ; preds = %241
   %246 = getelementptr inbounds %struct.tnode, ptr %242, i64 0, i32 4
-  %247 = load ptr, ptr %246, align 8, !tbaa !5
+  %247 = load ptr, ptr %246, align 8, !tbaa !20
   br label %241, !llvm.loop !37
 
 248:                                              ; preds = %241
@@ -2472,8 +2476,8 @@ define dso_local i32 @tprop(ptr noundef readonly %0, i32 noundef %1) local_unnam
   %68 = load i32, ptr %67, align 8, !tbaa !13
   br label %69
 
-69:                                               ; preds = %64, %59, %55, %8, %2
-  %70 = phi i32 [ -1, %2 ], [ -1, %8 ], [ -1, %55 ], [ -1, %59 ], [ %68, %64 ]
+69:                                               ; preds = %64, %55, %59, %8, %2
+  %70 = phi i32 [ -1, %2 ], [ -1, %8 ], [ -1, %59 ], [ -1, %55 ], [ %68, %64 ]
   ret i32 %70
 }
 
@@ -2576,16 +2580,16 @@ define dso_local ptr @tplist(ptr noundef readonly %0, i32 noundef %1) local_unna
   %67 = load ptr, ptr %66, align 8, !tbaa !26
   br label %68
 
-68:                                               ; preds = %64, %59, %55, %8, %2
-  %69 = phi ptr [ null, %2 ], [ null, %8 ], [ null, %55 ], [ null, %59 ], [ %67, %64 ]
+68:                                               ; preds = %64, %55, %59, %8, %2
+  %69 = phi ptr [ null, %2 ], [ null, %8 ], [ null, %59 ], [ null, %55 ], [ %67, %64 ]
   ret ptr %69
 }
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13

@@ -285,7 +285,7 @@ define dso_local void @irred_split_cover(ptr noundef %0, ptr noundef %1, ptr noc
   tail call void @free(ptr noundef nonnull %79) #6
   br label %82
 
-82:                                               ; preds = %77, %81
+82:                                               ; preds = %81, %77
   tail call void @free(ptr noundef nonnull %36) #6
   %83 = load ptr, ptr %2, align 8, !tbaa !5
   %84 = tail call ptr (ptr, ptr, ...) @cube2list(ptr noundef %83, ptr noundef %1) #6
@@ -345,7 +345,7 @@ define dso_local void @irred_split_cover(ptr noundef %0, ptr noundef %1, ptr noc
   tail call void @free(ptr noundef nonnull %124) #6
   br label %127
 
-127:                                              ; preds = %123, %126
+127:                                              ; preds = %126, %123
   tail call void @free(ptr noundef nonnull %84) #6
   tail call void (ptr, ...) @sf_free(ptr noundef nonnull %78) #6
   ret void
@@ -515,7 +515,7 @@ define dso_local ptr @irred_derive_table(ptr noundef %0, ptr noundef %1, ptr nou
   tail call void @free(ptr noundef nonnull %111) #6
   br label %114
 
-114:                                              ; preds = %110, %113
+114:                                              ; preds = %113, %110
   tail call void @free(ptr noundef nonnull %58) #6
   ret ptr %59
 }
@@ -596,7 +596,7 @@ define dso_local i32 @tautology(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %41) #6
   br label %44
 
-44:                                               ; preds = %39, %43
+44:                                               ; preds = %43, %39
   tail call void @free(ptr noundef nonnull %0) #6
   %45 = icmp eq ptr %21, null
   br i1 %45, label %47, label %46
@@ -688,7 +688,7 @@ define dso_local i32 @taut_special_cases(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %26) #6
   br label %29
 
-29:                                               ; preds = %25, %28
+29:                                               ; preds = %28, %25
   tail call void @free(ptr noundef nonnull %0) #6
   br label %342
 
@@ -888,7 +888,7 @@ define dso_local i32 @taut_special_cases(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %170) #6
   br label %173
 
-173:                                              ; preds = %169, %172
+173:                                              ; preds = %172, %169
   tail call void @free(ptr noundef nonnull %0) #6
   br label %342
 
@@ -908,7 +908,7 @@ define dso_local i32 @taut_special_cases(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %179) #6
   br label %182
 
-182:                                              ; preds = %178, %181
+182:                                              ; preds = %181, %178
   tail call void @free(ptr noundef nonnull %0) #6
   br label %342
 
@@ -925,7 +925,7 @@ define dso_local i32 @taut_special_cases(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %186) #6
   br label %189
 
-189:                                              ; preds = %185, %188
+189:                                              ; preds = %188, %185
   tail call void @free(ptr noundef nonnull %0) #6
   br label %342
 
@@ -1120,7 +1120,7 @@ define dso_local i32 @taut_special_cases(ptr noundef %0) local_unnamed_addr #0 {
   call void @free(ptr noundef nonnull %323) #6
   br label %326
 
-326:                                              ; preds = %322, %325
+326:                                              ; preds = %325, %322
   call void @free(ptr noundef nonnull %0) #6
   %327 = load ptr, ptr %2, align 8, !tbaa !5
   %328 = call i32 @tautology(ptr noundef %327), !range !21
@@ -1487,7 +1487,7 @@ define internal fastcc void @ftautology(ptr noundef %0, ptr noundef %1) unnamed_
   tail call void @free(ptr noundef nonnull %220) #6
   br label %223
 
-223:                                              ; preds = %196, %222
+223:                                              ; preds = %222, %196
   tail call void @free(ptr noundef nonnull %0) #6
   %224 = icmp eq ptr %206, null
   br i1 %224, label %226, label %225

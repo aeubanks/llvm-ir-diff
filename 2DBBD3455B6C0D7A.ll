@@ -185,24 +185,24 @@ define dso_local ptr @archie_query(ptr noundef %0, ptr noundef %1, i32 noundef %
 106:                                              ; preds = %104, %97
   store ptr %102, ptr %82, align 8, !tbaa !14
   %107 = icmp eq ptr %83, %95
-  br i1 %107, label %113, label %108
+  br i1 %107, label %108, label %109
 
 108:                                              ; preds = %106
-  %109 = getelementptr inbounds %struct.vlink, ptr %95, i64 0, i32 19
-  %110 = load ptr, ptr %109, align 8, !tbaa !17
-  %111 = getelementptr inbounds %struct.vlink, ptr %110, i64 0, i32 20
-  store ptr %81, ptr %111, align 8, !tbaa !14
-  store ptr %110, ptr %99, align 8, !tbaa !17
-  %112 = getelementptr inbounds %struct.vlink, ptr %98, i64 0, i32 19
-  store ptr %95, ptr %112, align 8, !tbaa !17
-  br label %114
-
-113:                                              ; preds = %106
   store ptr %83, ptr %99, align 8, !tbaa !17
   br label %114
 
-114:                                              ; preds = %113, %108
-  %115 = phi ptr [ %98, %108 ], [ %81, %113 ]
+109:                                              ; preds = %106
+  %110 = getelementptr inbounds %struct.vlink, ptr %95, i64 0, i32 19
+  %111 = load ptr, ptr %110, align 8, !tbaa !17
+  %112 = getelementptr inbounds %struct.vlink, ptr %111, i64 0, i32 20
+  store ptr %81, ptr %112, align 8, !tbaa !14
+  store ptr %111, ptr %99, align 8, !tbaa !17
+  %113 = getelementptr inbounds %struct.vlink, ptr %98, i64 0, i32 19
+  store ptr %95, ptr %113, align 8, !tbaa !17
+  br label %114
+
+114:                                              ; preds = %109, %108
+  %115 = phi ptr [ %98, %109 ], [ %81, %108 ]
   store ptr %115, ptr %101, align 8, !tbaa !14
   %116 = icmp eq ptr %100, null
   br i1 %116, label %119, label %117
@@ -375,8 +375,8 @@ define dso_local i32 @invdatecmplink(ptr nocapture noundef readonly %0, ptr noca
   %71 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %68, ptr noundef nonnull dereferenceable(1) %70)
   br label %72
 
-72:                                               ; preds = %66, %59, %46, %53, %56
-  %73 = phi i32 [ %55, %53 ], [ %57, %56 ], [ %51, %46 ], [ %64, %59 ], [ %71, %66 ]
+72:                                               ; preds = %66, %53, %56, %59, %46
+  %73 = phi i32 [ %51, %46 ], [ %55, %53 ], [ %64, %59 ], [ %57, %56 ], [ %71, %66 ]
   ret i32 %73
 }
 

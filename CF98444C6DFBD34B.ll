@@ -982,63 +982,63 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %652 = icmp eq i64 %651, 128
   br i1 %652, label %653, label %398, !llvm.loop !29
 
-653:                                              ; preds = %650, %690
-  %654 = phi i64 [ %691, %690 ], [ 0, %650 ]
+653:                                              ; preds = %650, %681
+  %654 = phi i64 [ %682, %681 ], [ 0, %650 ]
   br label %655
 
-655:                                              ; preds = %687, %653
-  %656 = phi i64 [ 0, %653 ], [ %688, %687 ]
+655:                                              ; preds = %678, %653
+  %656 = phi i64 [ 0, %653 ], [ %679, %678 ]
   br label %657
 
-657:                                              ; preds = %684, %655
-  %658 = phi i64 [ 0, %655 ], [ %685, %684 ]
+657:                                              ; preds = %675, %655
+  %658 = phi i64 [ 0, %655 ], [ %676, %675 ]
   %659 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %654, i64 %656, i64 %658
   %660 = load double, ptr %659, align 8, !tbaa !5
   %661 = getelementptr inbounds [128 x [128 x double]], ptr %18, i64 %654, i64 %656, i64 %658
   %662 = load double, ptr %661, align 8, !tbaa !5
   %663 = fsub double %660, %662
   %664 = call double @llvm.fabs.f64(double %663)
-  %665 = fcmp ule double %664, 1.000000e-05
-  br i1 %665, label %675, label %666
+  %665 = fcmp ogt double %664, 1.000000e-05
+  br i1 %665, label %684, label %666
 
-666:                                              ; preds = %675, %657
-  %667 = phi i64 [ %658, %657 ], [ %676, %675 ]
-  %668 = phi double [ %660, %657 ], [ %678, %675 ]
-  %669 = phi double [ %662, %657 ], [ %680, %675 ]
-  %670 = trunc i64 %654 to i32
-  %671 = trunc i64 %656 to i32
-  %672 = trunc i64 %667 to i32
-  %673 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %674 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %673, ptr noundef nonnull @.str.2, i32 noundef %670, i32 noundef %671, i32 noundef %672, double noundef %668, i32 noundef %670, i32 noundef %671, i32 noundef %672, double noundef %669, double noundef 1.000000e-05) #12
+666:                                              ; preds = %657
+  %667 = or i64 %658, 1
+  %668 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %654, i64 %656, i64 %667
+  %669 = load double, ptr %668, align 8, !tbaa !5
+  %670 = getelementptr inbounds [128 x [128 x double]], ptr %18, i64 %654, i64 %656, i64 %667
+  %671 = load double, ptr %670, align 8, !tbaa !5
+  %672 = fsub double %669, %671
+  %673 = call double @llvm.fabs.f64(double %672)
+  %674 = fcmp ogt double %673, 1.000000e-05
+  br i1 %674, label %684, label %675
+
+675:                                              ; preds = %666
+  %676 = add nuw nsw i64 %658, 2
+  %677 = icmp eq i64 %676, 128
+  br i1 %677, label %678, label %657, !llvm.loop !30
+
+678:                                              ; preds = %675
+  %679 = add nuw nsw i64 %656, 1
+  %680 = icmp eq i64 %679, 128
+  br i1 %680, label %681, label %655, !llvm.loop !31
+
+681:                                              ; preds = %678
+  %682 = add nuw nsw i64 %654, 1
+  %683 = icmp eq i64 %682, 128
+  br i1 %683, label %693, label %653, !llvm.loop !32
+
+684:                                              ; preds = %666, %657
+  %685 = phi i64 [ %658, %657 ], [ %667, %666 ]
+  %686 = phi double [ %660, %657 ], [ %669, %666 ]
+  %687 = phi double [ %662, %657 ], [ %671, %666 ]
+  %688 = trunc i64 %654 to i32
+  %689 = trunc i64 %656 to i32
+  %690 = trunc i64 %685 to i32
+  %691 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %692 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %691, ptr noundef nonnull @.str.2, i32 noundef %688, i32 noundef %689, i32 noundef %690, double noundef %686, i32 noundef %688, i32 noundef %689, i32 noundef %690, double noundef %687, double noundef 1.000000e-05) #12
   br label %763
 
-675:                                              ; preds = %657
-  %676 = or i64 %658, 1
-  %677 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %654, i64 %656, i64 %676
-  %678 = load double, ptr %677, align 8, !tbaa !5
-  %679 = getelementptr inbounds [128 x [128 x double]], ptr %18, i64 %654, i64 %656, i64 %676
-  %680 = load double, ptr %679, align 8, !tbaa !5
-  %681 = fsub double %678, %680
-  %682 = call double @llvm.fabs.f64(double %681)
-  %683 = fcmp ule double %682, 1.000000e-05
-  br i1 %683, label %684, label %666
-
-684:                                              ; preds = %675
-  %685 = add nuw nsw i64 %658, 2
-  %686 = icmp eq i64 %685, 128
-  br i1 %686, label %687, label %657, !llvm.loop !30
-
-687:                                              ; preds = %684
-  %688 = add nuw nsw i64 %656, 1
-  %689 = icmp eq i64 %688, 128
-  br i1 %689, label %690, label %655, !llvm.loop !31
-
-690:                                              ; preds = %687
-  %691 = add nuw nsw i64 %654, 1
-  %692 = icmp eq i64 %691, 128
-  br i1 %692, label %693, label %653, !llvm.loop !32
-
-693:                                              ; preds = %690
+693:                                              ; preds = %681
   %694 = call noalias dereferenceable_or_null(2049) ptr @malloc(i64 noundef 2049) #14
   %695 = getelementptr inbounds i8, ptr %694, i64 2048
   store i8 0, ptr %695, align 1, !tbaa !33
@@ -1056,7 +1056,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %701 = phi i64 [ 0, %698 ], [ %752, %700 ]
   %702 = getelementptr inbounds [128 x [128 x double]], ptr %18, i64 %697, i64 %699, i64 %701
   %703 = load i64, ptr %702, align 8, !tbaa !5
-  %704 = shl nuw nsw i64 %701, 4
+  %704 = shl nsw i64 %701, 4
   %705 = trunc i64 %703 to i8
   %706 = and i8 %705, 15
   %707 = or i8 %706, 48
@@ -1144,8 +1144,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   call void @free(ptr noundef %38) #11
   br label %763
 
-763:                                              ; preds = %666, %762
-  %764 = phi i32 [ 0, %762 ], [ 1, %666 ]
+763:                                              ; preds = %762, %684
+  %764 = phi i32 [ 0, %762 ], [ 1, %684 ]
   ret i32 %764
 }
 

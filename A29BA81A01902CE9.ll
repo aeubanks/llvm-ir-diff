@@ -303,44 +303,44 @@ define dso_local zeroext i1 @Node_addEdgeToNode(ptr noundef %0, ptr noundef %1) 
 
 6:                                                ; preds = %2
   %7 = getelementptr inbounds %struct.NodeStruct, ptr %0, i64 0, i32 7
-  %8 = load ptr, ptr %7, align 8, !tbaa !26
+  %8 = load ptr, ptr %7, align 8, !tbaa !15
   %9 = icmp eq ptr %8, null
-  br i1 %9, label %19, label %14
+  br i1 %9, label %19, label %10
 
-10:                                               ; preds = %14
-  %11 = getelementptr inbounds %struct.EdgeListStruct, ptr %15, i64 0, i32 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !26
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %19, label %14, !llvm.loop !27
+10:                                               ; preds = %6, %15
+  %11 = phi ptr [ %17, %15 ], [ %8, %6 ]
+  %12 = getelementptr inbounds %struct.EdgeListStruct, ptr %11, i64 0, i32 1
+  %13 = load ptr, ptr %12, align 8, !tbaa !26
+  %14 = icmp eq ptr %13, %1
+  br i1 %14, label %29, label %15
 
-14:                                               ; preds = %6, %10
-  %15 = phi ptr [ %12, %10 ], [ %8, %6 ]
-  %16 = getelementptr inbounds %struct.EdgeListStruct, ptr %15, i64 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !28
-  %18 = icmp eq ptr %17, %1
-  br i1 %18, label %29, label %10
+15:                                               ; preds = %10
+  %16 = getelementptr inbounds %struct.EdgeListStruct, ptr %11, i64 0, i32 2
+  %17 = load ptr, ptr %16, align 8, !tbaa !19
+  %18 = icmp eq ptr %17, null
+  br i1 %18, label %19, label %10, !llvm.loop !27
 
-19:                                               ; preds = %10, %6
+19:                                               ; preds = %15, %6
   %20 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #12
   %21 = icmp eq ptr %20, null
   br i1 %21, label %29, label %22
 
 22:                                               ; preds = %19
   %23 = getelementptr inbounds %struct.EdgeListStruct, ptr %20, i64 0, i32 1
-  store ptr %1, ptr %23, align 8, !tbaa !28
+  store ptr %1, ptr %23, align 8, !tbaa !26
   %24 = load i32, ptr %1, align 8, !tbaa !5
-  store i32 %24, ptr %20, align 8, !tbaa !29
+  store i32 %24, ptr %20, align 8, !tbaa !28
   %25 = getelementptr inbounds %struct.EdgeListStruct, ptr %20, i64 0, i32 2
   store ptr %8, ptr %25, align 8, !tbaa !19
   store ptr %20, ptr %7, align 8, !tbaa !15
   %26 = getelementptr inbounds %struct.NodeStruct, ptr %0, i64 0, i32 8
-  %27 = load i32, ptr %26, align 8, !tbaa !30
+  %27 = load i32, ptr %26, align 8, !tbaa !29
   %28 = add nsw i32 %27, 1
-  store i32 %28, ptr %26, align 8, !tbaa !30
+  store i32 %28, ptr %26, align 8, !tbaa !29
   br label %29
 
-29:                                               ; preds = %14, %19, %2, %22
-  %30 = phi i1 [ true, %22 ], [ false, %2 ], [ false, %19 ], [ true, %14 ]
+29:                                               ; preds = %10, %19, %2, %22
+  %30 = phi i1 [ true, %22 ], [ false, %2 ], [ false, %19 ], [ true, %10 ]
   ret i1 %30
 }
 
@@ -362,8 +362,8 @@ define dso_local zeroext i1 @NodeList_insertFront(ptr noundef %0, ptr noundef %1
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %struct.NodeListStruct, ptr %0, i64 0, i32 1
-  %11 = load <2 x ptr>, ptr %0, align 8, !tbaa !26
-  store <2 x ptr> %11, ptr %3, align 8, !tbaa !26
+  %11 = load <2 x ptr>, ptr %0, align 8, !tbaa !30
+  store <2 x ptr> %11, ptr %3, align 8, !tbaa !30
   store ptr %1, ptr %0, align 8, !tbaa !18
   store ptr %3, ptr %10, align 8, !tbaa !16
   br label %12
@@ -379,7 +379,7 @@ define dso_local noalias ptr @EdgeList_new() local_unnamed_addr #0 {
   br i1 %2, label %5, label %3
 
 3:                                                ; preds = %0
-  store i32 -1, ptr %1, align 8, !tbaa !29
+  store i32 -1, ptr %1, align 8, !tbaa !28
   %4 = getelementptr inbounds %struct.EdgeListStruct, ptr %1, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %4, i8 0, i64 16, i1 false)
   br label %5
@@ -394,12 +394,12 @@ define dso_local zeroext i1 @EdgeList_insertNodeId(ptr noundef %0, i32 noundef %
   br i1 %3, label %19, label %4
 
 4:                                                ; preds = %2
-  %5 = load i32, ptr %0, align 8, !tbaa !29
+  %5 = load i32, ptr %0, align 8, !tbaa !28
   %6 = icmp eq i32 %5, -1
   br i1 %6, label %7, label %8
 
 7:                                                ; preds = %4
-  store i32 %1, ptr %0, align 8, !tbaa !29
+  store i32 %1, ptr %0, align 8, !tbaa !28
   br label %19
 
 8:                                                ; preds = %4, %8
@@ -418,7 +418,7 @@ define dso_local zeroext i1 @EdgeList_insertNodeId(ptr noundef %0, i32 noundef %
   %17 = getelementptr inbounds %struct.EdgeListStruct, ptr %9, i64 0, i32 2
   %18 = getelementptr inbounds %struct.EdgeListStruct, ptr %14, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %18, i8 0, i64 16, i1 false)
-  store i32 %1, ptr %14, align 8, !tbaa !29
+  store i32 %1, ptr %14, align 8, !tbaa !28
   store ptr %14, ptr %17, align 8, !tbaa !19
   br label %19
 
@@ -477,9 +477,9 @@ attributes #13 = { nounwind }
 !23 = !{!6, !8, i64 20}
 !24 = distinct !{!24, !25}
 !25 = !{!"llvm.loop.mustprogress"}
-!26 = !{!10, !10, i64 0}
+!26 = !{!20, !10, i64 8}
 !27 = distinct !{!27, !25}
-!28 = !{!20, !10, i64 8}
-!29 = !{!20, !7, i64 0}
-!30 = !{!6, !7, i64 48}
+!28 = !{!20, !7, i64 0}
+!29 = !{!6, !7, i64 48}
+!30 = !{!10, !10, i64 0}
 !31 = distinct !{!31, !25}

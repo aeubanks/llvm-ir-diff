@@ -364,13 +364,15 @@ define linkonce_odr dso_local void @_ZN11CStringBaseIcE9TrimRightEv(ptr noundef 
   %27 = sub i64 %26, %7
   %28 = and i64 %27, 2147483648
   %29 = icmp eq i64 %28, 0
-  %30 = icmp eq ptr %11, null
-  %31 = select i1 %30, ptr %10, ptr %11
-  %32 = select i1 %29, ptr %31, ptr null
+  br i1 %29, label %30, label %33
+
+30:                                               ; preds = %25
+  %31 = icmp eq ptr %11, null
+  %32 = select i1 %31, ptr %10, ptr %11
   br label %33
 
-33:                                               ; preds = %14, %25
-  %34 = phi ptr [ %32, %25 ], [ null, %14 ]
+33:                                               ; preds = %14, %30, %25
+  %34 = phi ptr [ null, %25 ], [ %32, %30 ], [ null, %14 ]
   %35 = invoke noundef ptr @_Z9CharNextAPKc(ptr noundef nonnull %10)
           to label %36 unwind label %63
 

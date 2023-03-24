@@ -209,7 +209,7 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
 1:                                                ; preds = %6
   %2 = load i32, ptr @num_games, align 4, !tbaa !5
   %3 = icmp slt i32 %2, 1
-  br i1 %3, label %238, label %4
+  br i1 %3, label %239, label %4
 
 4:                                                ; preds = %1
   %5 = sext i32 %2 to i64
@@ -283,12 +283,12 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
   %40 = icmp eq i64 %39, 29
   br i1 %40, label %1, label %6, !llvm.loop !11
 
-41:                                               ; preds = %4, %235
-  %42 = phi i64 [ 1, %4 ], [ %236, %235 ]
+41:                                               ; preds = %4, %236
+  %42 = phi i64 [ 1, %4 ], [ %237, %236 ]
   br label %43
 
-43:                                               ; preds = %41, %232
-  %44 = phi i64 [ 1, %41 ], [ %233, %232 ]
+43:                                               ; preds = %41, %233
+  %44 = phi i64 [ 1, %41 ], [ %234, %233 ]
   %45 = getelementptr inbounds [18 x [15 x [3 x i32]]], ptr @sched, i64 0, i64 %42, i64 %44, i64 2
   %46 = load i32, ptr %45, align 4, !tbaa !5
   %47 = sext i32 %46 to i64
@@ -302,88 +302,88 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
   %53 = getelementptr inbounds [19 x [15 x [3 x i32]]], ptr @scores, i64 0, i64 %42, i64 %44, i64 2
   %54 = load i32, ptr %53, align 4, !tbaa !5
   %55 = icmp sgt i32 %54, -1
-  br i1 %55, label %56, label %232
+  br i1 %55, label %56, label %233
 
 56:                                               ; preds = %43
   %57 = getelementptr inbounds [19 x [15 x [3 x i32]]], ptr @scores, i64 0, i64 %42, i64 %44, i64 1
   %58 = load i32, ptr %57, align 4, !tbaa !5
   %59 = icmp sgt i32 %58, -1
-  br i1 %59, label %60, label %232
+  br i1 %59, label %60, label %233
 
 60:                                               ; preds = %56
-  %61 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50, i32 3
-  %62 = load i32, ptr %61, align 4, !tbaa !12
-  %63 = add nsw i32 %62, %54
-  store i32 %63, ptr %61, align 4, !tbaa !12
-  %64 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50, i32 4
-  %65 = load i32, ptr %64, align 4, !tbaa !14
-  %66 = add nsw i32 %65, %58
-  store i32 %66, ptr %64, align 4, !tbaa !14
-  %67 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47, i32 3
-  %68 = load i32, ptr %67, align 4, !tbaa !12
-  %69 = add nsw i32 %68, %58
-  store i32 %69, ptr %67, align 4, !tbaa !12
-  %70 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47, i32 4
-  %71 = load i32, ptr %70, align 4, !tbaa !14
-  %72 = add nsw i32 %71, %54
-  store i32 %72, ptr %70, align 4, !tbaa !14
-  %73 = icmp ult i32 %54, %58
-  br i1 %73, label %74, label %109
+  %61 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50
+  %62 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50, i32 3
+  %63 = load i32, ptr %62, align 4, !tbaa !12
+  %64 = add nsw i32 %63, %54
+  store i32 %64, ptr %62, align 4, !tbaa !12
+  %65 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50, i32 4
+  %66 = load i32, ptr %65, align 4, !tbaa !14
+  %67 = add nsw i32 %66, %58
+  store i32 %67, ptr %65, align 4, !tbaa !14
+  %68 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47, i32 3
+  %69 = load i32, ptr %68, align 4, !tbaa !12
+  %70 = add nsw i32 %69, %58
+  store i32 %70, ptr %68, align 4, !tbaa !12
+  %71 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47, i32 4
+  %72 = load i32, ptr %71, align 4, !tbaa !14
+  %73 = add nsw i32 %72, %54
+  store i32 %73, ptr %71, align 4, !tbaa !14
+  %74 = icmp ult i32 %54, %58
+  br i1 %74, label %75, label %110
 
-74:                                               ; preds = %60
-  %75 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 1
-  %76 = load i32, ptr %75, align 4, !tbaa !15
-  %77 = add nsw i32 %76, 1
-  store i32 %77, ptr %75, align 4, !tbaa !15
-  %78 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %50
-  %79 = load i32, ptr %78, align 4, !tbaa !16
-  %80 = add nsw i32 %79, 1
-  store i32 %80, ptr %78, align 4, !tbaa !16
-  %81 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50, i32 1
-  %82 = load i32, ptr %81, align 4, !tbaa !15
-  %83 = add nsw i32 %82, 1
-  store i32 %83, ptr %81, align 4, !tbaa !15
-  %84 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47
-  %85 = load i32, ptr %84, align 4, !tbaa !16
-  %86 = add nsw i32 %85, 1
-  store i32 %86, ptr %84, align 4, !tbaa !16
-  %87 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47
-  %88 = load i32, ptr %87, align 8, !tbaa !5
-  %89 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50
-  %90 = load i32, ptr %89, align 8, !tbaa !5
-  %91 = icmp eq i32 %88, %90
-  br i1 %91, label %92, label %185
+75:                                               ; preds = %60
+  %76 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47
+  %77 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 1
+  %78 = load i32, ptr %77, align 4, !tbaa !15
+  %79 = add nsw i32 %78, 1
+  store i32 %79, ptr %77, align 4, !tbaa !15
+  %80 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %50
+  %81 = load i32, ptr %80, align 4, !tbaa !16
+  %82 = add nsw i32 %81, 1
+  store i32 %82, ptr %80, align 4, !tbaa !16
+  %83 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50, i32 1
+  %84 = load i32, ptr %83, align 4, !tbaa !15
+  %85 = add nsw i32 %84, 1
+  store i32 %85, ptr %83, align 4, !tbaa !15
+  %86 = load i32, ptr %76, align 4, !tbaa !16
+  %87 = add nsw i32 %86, 1
+  store i32 %87, ptr %76, align 4, !tbaa !16
+  %88 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47
+  %89 = load i32, ptr %88, align 8, !tbaa !5
+  %90 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50
+  %91 = load i32, ptr %90, align 8, !tbaa !5
+  %92 = icmp eq i32 %89, %91
+  br i1 %92, label %93, label %186
 
-92:                                               ; preds = %74
-  %93 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 1
-  %94 = load i32, ptr %93, align 4, !tbaa !15
-  %95 = add nsw i32 %94, 1
-  store i32 %95, ptr %93, align 4, !tbaa !15
-  %96 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50
-  %97 = load i32, ptr %96, align 4, !tbaa !16
-  %98 = add nsw i32 %97, 1
-  store i32 %98, ptr %96, align 4, !tbaa !16
-  %99 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47, i64 1
-  %100 = load i32, ptr %99, align 4, !tbaa !5
-  %101 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
-  %102 = load i32, ptr %101, align 4, !tbaa !5
-  %103 = icmp eq i32 %100, %102
-  br i1 %103, label %104, label %185
+93:                                               ; preds = %75
+  %94 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 1
+  %95 = load i32, ptr %94, align 4, !tbaa !15
+  %96 = add nsw i32 %95, 1
+  store i32 %96, ptr %94, align 4, !tbaa !15
+  %97 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50
+  %98 = load i32, ptr %97, align 4, !tbaa !16
+  %99 = add nsw i32 %98, 1
+  store i32 %99, ptr %97, align 4, !tbaa !16
+  %100 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47, i64 1
+  %101 = load i32, ptr %100, align 4, !tbaa !5
+  %102 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
+  %103 = load i32, ptr %102, align 4, !tbaa !5
+  %104 = icmp eq i32 %101, %103
+  br i1 %104, label %105, label %186
 
-104:                                              ; preds = %92
-  %105 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 1
-  %106 = load i32, ptr %105, align 4, !tbaa !15
-  %107 = add nsw i32 %106, 1
-  store i32 %107, ptr %105, align 4, !tbaa !15
-  %108 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50
-  br label %180
+105:                                              ; preds = %93
+  %106 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 1
+  %107 = load i32, ptr %106, align 4, !tbaa !15
+  %108 = add nsw i32 %107, 1
+  store i32 %108, ptr %106, align 4, !tbaa !15
+  %109 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50
+  br label %181
 
-109:                                              ; preds = %60
-  %110 = icmp ugt i32 %54, %58
-  %111 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47
-  br i1 %110, label %112, label %146
+110:                                              ; preds = %60
+  %111 = icmp ugt i32 %54, %58
+  br i1 %111, label %112, label %146
 
-112:                                              ; preds = %109
+112:                                              ; preds = %110
   %113 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47
   %114 = load i32, ptr %113, align 4, !tbaa !16
   %115 = add nsw i32 %114, 1
@@ -392,19 +392,19 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
   %117 = load i32, ptr %116, align 4, !tbaa !15
   %118 = add nsw i32 %117, 1
   store i32 %118, ptr %116, align 4, !tbaa !15
-  %119 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %47, i64 %50
-  %120 = load i32, ptr %119, align 4, !tbaa !16
-  %121 = add nsw i32 %120, 1
-  store i32 %121, ptr %119, align 4, !tbaa !16
-  %122 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47, i32 1
-  %123 = load i32, ptr %122, align 4, !tbaa !15
-  %124 = add nsw i32 %123, 1
-  store i32 %124, ptr %122, align 4, !tbaa !15
-  %125 = load i32, ptr %111, align 8, !tbaa !5
+  %119 = load i32, ptr %61, align 4, !tbaa !16
+  %120 = add nsw i32 %119, 1
+  store i32 %120, ptr %61, align 4, !tbaa !16
+  %121 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %50, i64 %47, i32 1
+  %122 = load i32, ptr %121, align 4, !tbaa !15
+  %123 = add nsw i32 %122, 1
+  store i32 %123, ptr %121, align 4, !tbaa !15
+  %124 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47
+  %125 = load i32, ptr %124, align 8, !tbaa !5
   %126 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50
   %127 = load i32, ptr %126, align 8, !tbaa !5
   %128 = icmp eq i32 %125, %127
-  br i1 %128, label %129, label %185
+  br i1 %128, label %129, label %186
 
 129:                                              ; preds = %112
   %130 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47
@@ -420,7 +420,7 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
   %138 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
   %139 = load i32, ptr %138, align 4, !tbaa !5
   %140 = icmp eq i32 %137, %139
-  br i1 %140, label %141, label %185
+  br i1 %140, label %141, label %186
 
 141:                                              ; preds = %129
   %142 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47
@@ -428,9 +428,9 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
   %144 = add nsw i32 %143, 1
   store i32 %144, ptr %142, align 4, !tbaa !16
   %145 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 1
-  br label %180
+  br label %181
 
-146:                                              ; preds = %109
+146:                                              ; preds = %110
   %147 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 2
   %148 = load i32, ptr %147, align 4, !tbaa !17
   %149 = add nsw i32 %148, 1
@@ -447,120 +447,121 @@ define dso_local void @compute_team_info() local_unnamed_addr #7 {
   %157 = load i32, ptr %156, align 4, !tbaa !17
   %158 = add nsw i32 %157, 1
   store i32 %158, ptr %156, align 4, !tbaa !17
-  %159 = load i32, ptr %111, align 8, !tbaa !5
-  %160 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50
-  %161 = load i32, ptr %160, align 8, !tbaa !5
-  %162 = icmp eq i32 %159, %161
-  br i1 %162, label %163, label %185
+  %159 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47
+  %160 = load i32, ptr %159, align 8, !tbaa !5
+  %161 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50
+  %162 = load i32, ptr %161, align 8, !tbaa !5
+  %163 = icmp eq i32 %160, %162
+  br i1 %163, label %164, label %186
 
-163:                                              ; preds = %146
-  %164 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 2
-  %165 = load i32, ptr %164, align 4, !tbaa !17
-  %166 = add nsw i32 %165, 1
-  store i32 %166, ptr %164, align 4, !tbaa !17
-  %167 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50, i32 2
-  %168 = load i32, ptr %167, align 4, !tbaa !17
-  %169 = add nsw i32 %168, 1
-  store i32 %169, ptr %167, align 4, !tbaa !17
-  %170 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47, i64 1
-  %171 = load i32, ptr %170, align 4, !tbaa !5
-  %172 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
-  %173 = load i32, ptr %172, align 4, !tbaa !5
-  %174 = icmp eq i32 %171, %173
-  br i1 %174, label %175, label %185
+164:                                              ; preds = %146
+  %165 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 2
+  %166 = load i32, ptr %165, align 4, !tbaa !17
+  %167 = add nsw i32 %166, 1
+  store i32 %167, ptr %165, align 4, !tbaa !17
+  %168 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50, i32 2
+  %169 = load i32, ptr %168, align 4, !tbaa !17
+  %170 = add nsw i32 %169, 1
+  store i32 %170, ptr %168, align 4, !tbaa !17
+  %171 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47, i64 1
+  %172 = load i32, ptr %171, align 4, !tbaa !5
+  %173 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
+  %174 = load i32, ptr %173, align 4, !tbaa !5
+  %175 = icmp eq i32 %172, %174
+  br i1 %175, label %176, label %186
 
-175:                                              ; preds = %163
-  %176 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 2
-  %177 = load i32, ptr %176, align 4, !tbaa !17
-  %178 = add nsw i32 %177, 1
-  store i32 %178, ptr %176, align 4, !tbaa !17
-  %179 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 2
-  br label %180
+176:                                              ; preds = %164
+  %177 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 2
+  %178 = load i32, ptr %177, align 4, !tbaa !17
+  %179 = add nsw i32 %178, 1
+  store i32 %179, ptr %177, align 4, !tbaa !17
+  %180 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 2
+  br label %181
 
-180:                                              ; preds = %104, %175, %141
-  %181 = phi ptr [ %145, %141 ], [ %179, %175 ], [ %108, %104 ]
-  %182 = phi i32 [ %125, %141 ], [ %159, %175 ], [ %88, %104 ]
-  %183 = load i32, ptr %181, align 4, !tbaa !5
-  %184 = add nsw i32 %183, 1
-  store i32 %184, ptr %181, align 4, !tbaa !5
-  br label %185
+181:                                              ; preds = %105, %176, %141
+  %182 = phi ptr [ %145, %141 ], [ %180, %176 ], [ %109, %105 ]
+  %183 = phi i32 [ %125, %141 ], [ %160, %176 ], [ %89, %105 ]
+  %184 = load i32, ptr %182, align 4, !tbaa !5
+  %185 = add nsw i32 %184, 1
+  store i32 %185, ptr %182, align 4, !tbaa !5
+  br label %186
 
-185:                                              ; preds = %180, %129, %112, %163, %146, %74, %92
-  %186 = phi i32 [ %125, %129 ], [ %127, %112 ], [ %159, %163 ], [ %161, %146 ], [ %90, %74 ], [ %88, %92 ], [ %182, %180 ]
-  %187 = phi i32 [ %125, %129 ], [ %125, %112 ], [ %159, %163 ], [ %159, %146 ], [ %88, %74 ], [ %88, %92 ], [ %182, %180 ]
-  %188 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 3
-  %189 = load i32, ptr %188, align 4, !tbaa !12
-  %190 = add nsw i32 %189, %54
-  store i32 %190, ptr %188, align 4, !tbaa !12
-  %191 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 4
-  %192 = load i32, ptr %191, align 4, !tbaa !14
-  %193 = add nsw i32 %192, %58
-  store i32 %193, ptr %191, align 4, !tbaa !14
-  %194 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %50, i32 3
-  %195 = load i32, ptr %194, align 4, !tbaa !12
-  %196 = add nsw i32 %195, %58
-  store i32 %196, ptr %194, align 4, !tbaa !12
-  %197 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %50, i32 4
-  %198 = load i32, ptr %197, align 4, !tbaa !14
-  %199 = add nsw i32 %198, %54
-  store i32 %199, ptr %197, align 4, !tbaa !14
-  %200 = icmp eq i32 %187, %186
-  br i1 %200, label %201, label %232
+186:                                              ; preds = %181, %129, %112, %164, %146, %75, %93
+  %187 = phi i32 [ %125, %129 ], [ %127, %112 ], [ %160, %164 ], [ %162, %146 ], [ %91, %75 ], [ %89, %93 ], [ %183, %181 ]
+  %188 = phi i32 [ %125, %129 ], [ %125, %112 ], [ %160, %164 ], [ %160, %146 ], [ %89, %75 ], [ %89, %93 ], [ %183, %181 ]
+  %189 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 3
+  %190 = load i32, ptr %189, align 4, !tbaa !12
+  %191 = add nsw i32 %190, %54
+  store i32 %191, ptr %189, align 4, !tbaa !12
+  %192 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %47, i32 4
+  %193 = load i32, ptr %192, align 4, !tbaa !14
+  %194 = add nsw i32 %193, %58
+  store i32 %194, ptr %192, align 4, !tbaa !14
+  %195 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %50, i32 3
+  %196 = load i32, ptr %195, align 4, !tbaa !12
+  %197 = add nsw i32 %196, %58
+  store i32 %197, ptr %195, align 4, !tbaa !12
+  %198 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %50, i32 4
+  %199 = load i32, ptr %198, align 4, !tbaa !14
+  %200 = add nsw i32 %199, %54
+  store i32 %200, ptr %198, align 4, !tbaa !14
+  %201 = icmp eq i32 %188, %187
+  br i1 %201, label %202, label %233
 
-201:                                              ; preds = %185
-  %202 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 3
-  %203 = load i32, ptr %202, align 4, !tbaa !12
-  %204 = add nsw i32 %203, %54
-  store i32 %204, ptr %202, align 4, !tbaa !12
-  %205 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 4
-  %206 = load i32, ptr %205, align 4, !tbaa !14
-  %207 = add nsw i32 %206, %58
-  store i32 %207, ptr %205, align 4, !tbaa !14
-  %208 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50, i32 3
-  %209 = load i32, ptr %208, align 4, !tbaa !12
-  %210 = add nsw i32 %209, %58
-  store i32 %210, ptr %208, align 4, !tbaa !12
-  %211 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50, i32 4
-  %212 = load i32, ptr %211, align 4, !tbaa !14
-  %213 = add nsw i32 %212, %54
-  store i32 %213, ptr %211, align 4, !tbaa !14
-  %214 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47, i64 1
-  %215 = load i32, ptr %214, align 4, !tbaa !5
-  %216 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
-  %217 = load i32, ptr %216, align 4, !tbaa !5
-  %218 = icmp eq i32 %215, %217
-  br i1 %218, label %219, label %232
+202:                                              ; preds = %186
+  %203 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 3
+  %204 = load i32, ptr %203, align 4, !tbaa !12
+  %205 = add nsw i32 %204, %54
+  store i32 %205, ptr %203, align 4, !tbaa !12
+  %206 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %47, i32 4
+  %207 = load i32, ptr %206, align 4, !tbaa !14
+  %208 = add nsw i32 %207, %58
+  store i32 %208, ptr %206, align 4, !tbaa !14
+  %209 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50, i32 3
+  %210 = load i32, ptr %209, align 4, !tbaa !12
+  %211 = add nsw i32 %210, %58
+  store i32 %211, ptr %209, align 4, !tbaa !12
+  %212 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_conf, i64 0, i64 %50, i32 4
+  %213 = load i32, ptr %212, align 4, !tbaa !14
+  %214 = add nsw i32 %213, %54
+  store i32 %214, ptr %212, align 4, !tbaa !14
+  %215 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %47, i64 1
+  %216 = load i32, ptr %215, align 4, !tbaa !5
+  %217 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %50, i64 1
+  %218 = load i32, ptr %217, align 4, !tbaa !5
+  %219 = icmp eq i32 %216, %218
+  br i1 %219, label %220, label %233
 
-219:                                              ; preds = %201
-  %220 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 3
-  %221 = load i32, ptr %220, align 4, !tbaa !12
-  %222 = add nsw i32 %221, %54
-  store i32 %222, ptr %220, align 4, !tbaa !12
-  %223 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 4
-  %224 = load i32, ptr %223, align 4, !tbaa !14
-  %225 = add nsw i32 %224, %58
-  store i32 %225, ptr %223, align 4, !tbaa !14
-  %226 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 3
-  %227 = load i32, ptr %226, align 4, !tbaa !12
-  %228 = add nsw i32 %227, %58
-  store i32 %228, ptr %226, align 4, !tbaa !12
-  %229 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 4
-  %230 = load i32, ptr %229, align 4, !tbaa !14
-  %231 = add nsw i32 %230, %54
-  store i32 %231, ptr %229, align 4, !tbaa !14
-  br label %232
+220:                                              ; preds = %202
+  %221 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 3
+  %222 = load i32, ptr %221, align 4, !tbaa !12
+  %223 = add nsw i32 %222, %54
+  store i32 %223, ptr %221, align 4, !tbaa !12
+  %224 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %47, i32 4
+  %225 = load i32, ptr %224, align 4, !tbaa !14
+  %226 = add nsw i32 %225, %58
+  store i32 %226, ptr %224, align 4, !tbaa !14
+  %227 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 3
+  %228 = load i32, ptr %227, align 4, !tbaa !12
+  %229 = add nsw i32 %228, %58
+  store i32 %229, ptr %227, align 4, !tbaa !12
+  %230 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %50, i32 4
+  %231 = load i32, ptr %230, align 4, !tbaa !14
+  %232 = add nsw i32 %231, %54
+  store i32 %232, ptr %230, align 4, !tbaa !14
+  br label %233
 
-232:                                              ; preds = %43, %56, %201, %219, %185
-  %233 = add nuw nsw i64 %44, 1
-  %234 = icmp eq i64 %233, 15
-  br i1 %234, label %235, label %43, !llvm.loop !18
+233:                                              ; preds = %43, %56, %202, %220, %186
+  %234 = add nuw nsw i64 %44, 1
+  %235 = icmp eq i64 %234, 15
+  br i1 %235, label %236, label %43, !llvm.loop !18
 
-235:                                              ; preds = %232
-  %236 = add nuw nsw i64 %42, 1
-  %237 = icmp slt i64 %42, %5
-  br i1 %237, label %41, label %238, !llvm.loop !19
+236:                                              ; preds = %233
+  %237 = add nuw nsw i64 %42, 1
+  %238 = icmp slt i64 %42, %5
+  br i1 %238, label %41, label %239, !llvm.loop !19
 
-238:                                              ; preds = %235, %1
+239:                                              ; preds = %236, %1
   ret void
 }
 
@@ -1170,8 +1171,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %21, label %27, label %31
 
 22:                                               ; preds = %9
-  %23 = icmp ult i32 %0, 5
-  br i1 %23, label %31, label %24
+  %23 = icmp ugt i32 %0, 4
+  br i1 %23, label %24, label %31
 
 24:                                               ; preds = %14, %2, %22
   %25 = load ptr, ptr @stderr, align 8, !tbaa !27
@@ -1560,20 +1561,20 @@ declare void @sort_all() local_unnamed_addr #4
 
 declare void @display_main_menu(ptr noundef, ptr noundef) local_unnamed_addr #4
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i64 @strlen(ptr nocapture) local_unnamed_addr #12
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+declare i64 @strlen(ptr nocapture) local_unnamed_addr #13
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1585,10 +1586,10 @@ attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #7 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nofree nounwind }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { cold }

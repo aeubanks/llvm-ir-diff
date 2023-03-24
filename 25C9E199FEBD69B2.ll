@@ -456,12 +456,12 @@ define dso_local void @jpeg_gen_optimal_table(ptr noundef %0, ptr nocapture noun
   %13 = phi i32 [ -1, %3 ], [ %27, %24 ]
   %14 = getelementptr inbounds i64, ptr %2, i64 %11
   %15 = load i64, ptr %14, align 8, !tbaa !23
-  %16 = icmp eq i64 %15, 0
-  %17 = icmp sgt i64 %15, %12
-  %18 = select i1 %16, i1 true, i1 %17
+  %16 = icmp ne i64 %15, 0
+  %17 = icmp sle i64 %15, %12
+  %18 = select i1 %16, i1 %17, i1 false
   %19 = trunc i64 %11 to i32
-  %20 = select i1 %18, i32 %13, i32 %19
-  %21 = select i1 %18, i64 %12, i64 %15
+  %20 = select i1 %18, i32 %19, i32 %13
+  %21 = select i1 %18, i64 %15, i64 %12
   %22 = add nuw nsw i64 %11, 1
   %23 = icmp eq i64 %22, 257
   br i1 %23, label %8, label %24
@@ -478,29 +478,29 @@ define dso_local void @jpeg_gen_optimal_table(ptr noundef %0, ptr nocapture noun
   %31 = phi i32 [ -1, %8 ], [ %53, %43 ]
   %32 = getelementptr inbounds i64, ptr %2, i64 %29
   %33 = load i64, ptr %32, align 8, !tbaa !23
-  %34 = icmp eq i64 %33, 0
-  %35 = icmp sgt i64 %33, %30
-  %36 = select i1 %34, i1 true, i1 %35
-  %37 = icmp eq i64 %29, %9
-  %38 = select i1 %36, i1 true, i1 %37
+  %34 = icmp ne i64 %33, 0
+  %35 = icmp sle i64 %33, %30
+  %36 = select i1 %34, i1 %35, i1 false
+  %37 = icmp ne i64 %29, %9
+  %38 = select i1 %36, i1 %37, i1 false
   %39 = trunc i64 %29 to i32
-  %40 = select i1 %38, i32 %31, i32 %39
+  %40 = select i1 %38, i32 %39, i32 %31
   %41 = or i64 %29, 1
   %42 = icmp eq i64 %41, 257
   br i1 %42, label %56, label %43, !llvm.loop !25
 
 43:                                               ; preds = %28
-  %44 = select i1 %38, i64 %30, i64 %33
+  %44 = select i1 %38, i64 %33, i64 %30
   %45 = getelementptr inbounds i64, ptr %2, i64 %41
   %46 = load i64, ptr %45, align 8, !tbaa !23
-  %47 = icmp eq i64 %46, 0
-  %48 = icmp sgt i64 %46, %44
-  %49 = select i1 %47, i1 true, i1 %48
-  %50 = icmp eq i64 %41, %9
-  %51 = select i1 %49, i1 true, i1 %50
+  %47 = icmp ne i64 %46, 0
+  %48 = icmp sle i64 %46, %44
+  %49 = select i1 %47, i1 %48, i1 false
+  %50 = icmp ne i64 %41, %9
+  %51 = select i1 %49, i1 %50, i1 false
   %52 = trunc i64 %41 to i32
-  %53 = select i1 %51, i32 %40, i32 %52
-  %54 = select i1 %51, i64 %44, i64 %46
+  %53 = select i1 %51, i32 %52, i32 %40
+  %54 = select i1 %51, i64 %46, i64 %44
   %55 = add nuw nsw i64 %29, 2
   br label %28
 
@@ -2233,8 +2233,8 @@ define internal i32 @encode_mcu_huff(ptr noundef %0, ptr nocapture noundef reado
   store i32 %699, ptr %689, align 8, !tbaa !54
   br label %700
 
-700:                                              ; preds = %66, %45, %239, %217, %304, %282, %651, %629, %505, %483, %569, %547, %406, %384, %113, %92, %681, %697
-  %701 = phi i32 [ 1, %697 ], [ 1, %681 ], [ 0, %92 ], [ 0, %113 ], [ 0, %384 ], [ 0, %406 ], [ 0, %547 ], [ 0, %569 ], [ 0, %483 ], [ 0, %505 ], [ 0, %629 ], [ 0, %651 ], [ 0, %282 ], [ 0, %304 ], [ 0, %217 ], [ 0, %239 ], [ 0, %45 ], [ 0, %66 ]
+700:                                              ; preds = %66, %45, %239, %217, %304, %282, %651, %629, %505, %483, %569, %547, %406, %384, %681, %697, %113, %92
+  %701 = phi i32 [ 0, %92 ], [ 0, %113 ], [ 1, %697 ], [ 1, %681 ], [ 0, %384 ], [ 0, %406 ], [ 0, %547 ], [ 0, %569 ], [ 0, %483 ], [ 0, %505 ], [ 0, %629 ], [ 0, %651 ], [ 0, %282 ], [ 0, %304 ], [ 0, %217 ], [ 0, %239 ], [ 0, %45 ], [ 0, %66 ]
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #7
   ret i32 %701
 }
@@ -2330,8 +2330,8 @@ define internal void @finish_pass_huff(ptr noundef %0) #0 {
   %66 = icmp sgt i32 %25, 15
   br i1 %66, label %22, label %72, !llvm.loop !76
 
-67:                                               ; preds = %32, %51
-  %68 = phi ptr [ %48, %51 ], [ %29, %32 ]
+67:                                               ; preds = %51, %32
+  %68 = phi ptr [ %29, %32 ], [ %48, %51 ]
   %69 = load ptr, ptr %0, align 8, !tbaa !28
   %70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %69, i64 0, i32 5
   store i32 22, ptr %70, align 8, !tbaa !29

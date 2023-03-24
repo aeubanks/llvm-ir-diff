@@ -57,9 +57,9 @@ define dso_local i32 @main() local_unnamed_addr #2 {
   %1 = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
   br label %2
 
-2:                                                ; preds = %0, %115
-  %3 = phi i64 [ 0, %0 ], [ %116, %115 ]
-  %4 = phi i64 [ %1, %0 ], [ %35, %115 ]
+2:                                                ; preds = %0, %153
+  %3 = phi i64 [ 0, %0 ], [ %154, %153 ]
+  %4 = phi i64 [ %1, %0 ], [ %35, %153 ]
   br label %5
 
 5:                                                ; preds = %15, %2
@@ -122,14 +122,14 @@ define dso_local i32 @main() local_unnamed_addr #2 {
 52:                                               ; preds = %30, %40
   %53 = phi i64 [ %32, %30 ], [ %50, %40 ]
   %54 = icmp eq i64 %53, 0
-  br i1 %54, label %115, label %55
+  br i1 %54, label %153, label %55
 
 55:                                               ; preds = %52
   %56 = and i64 %29, 9223372036854775807
-  %57 = icmp ne i64 %56, 0
-  %58 = icmp ne i64 %53, -1
-  %59 = select i1 %57, i1 true, i1 %58
-  br i1 %59, label %60, label %115
+  %57 = icmp eq i64 %56, 0
+  %58 = icmp eq i64 %53, -1
+  %59 = select i1 %57, i1 %58, i1 false
+  br i1 %59, label %153, label %60
 
 60:                                               ; preds = %55
   %61 = srem i64 %29, %53
@@ -147,14 +147,14 @@ define dso_local i32 @main() local_unnamed_addr #2 {
   %67 = trunc i64 %29 to i32
   %68 = trunc i64 %53 to i32
   %69 = icmp eq i32 %68, 0
-  br i1 %69, label %115, label %70
+  br i1 %69, label %153, label %70
 
 70:                                               ; preds = %66
   %71 = and i32 %67, 2147483647
-  %72 = icmp ne i32 %71, 0
-  %73 = icmp ne i32 %68, -1
-  %74 = select i1 %72, i1 true, i1 %73
-  br i1 %74, label %75, label %115
+  %72 = icmp eq i32 %71, 0
+  %73 = icmp eq i32 %68, -1
+  %74 = select i1 %72, i1 %73, i1 false
+  br i1 %74, label %153, label %75
 
 75:                                               ; preds = %70
   %76 = srem i32 %67, %68
@@ -178,54 +178,110 @@ define dso_local i32 @main() local_unnamed_addr #2 {
 86:                                               ; preds = %80
   %87 = and i32 %68, 65535
   %88 = icmp eq i32 %87, 0
-  br i1 %88, label %115, label %89
+  br i1 %88, label %153, label %89
 
 89:                                               ; preds = %86
-  %90 = shl i32 %67, 16
-  %91 = ashr exact i32 %90, 16
-  %92 = shl i32 %68, 16
-  %93 = ashr exact i32 %92, 16
-  %94 = srem i32 %91, %93
-  %95 = tail call i32 @llvm.abs.i32(i32 %94, i1 true)
-  %96 = tail call i32 @llvm.abs.i32(i32 %93, i1 true)
-  %97 = icmp ult i32 %95, %96
-  br i1 %97, label %99, label %98
+  %90 = trunc i64 %29 to i16
+  %91 = trunc i64 %53 to i16
+  %92 = urem i16 %90, %91
+  %93 = udiv i16 %90, %91
+  %94 = zext i16 %92 to i32
+  %95 = icmp ugt i32 %87, %94
+  br i1 %95, label %96, label %102
 
-98:                                               ; preds = %89
+96:                                               ; preds = %89
+  %97 = and i32 %67, 65535
+  %98 = zext i16 %93 to i32
+  %99 = mul nuw nsw i32 %87, %98
+  %100 = add nuw nsw i32 %99, %94
+  %101 = icmp eq i32 %100, %97
+  br i1 %101, label %103, label %102
+
+102:                                              ; preds = %96, %89
   store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-99:                                               ; preds = %89
-  %100 = and i32 %68, 255
-  %101 = icmp eq i32 %100, 0
-  br i1 %101, label %115, label %102
+103:                                              ; preds = %96
+  %104 = shl i32 %67, 16
+  %105 = ashr exact i32 %104, 16
+  %106 = shl i32 %68, 16
+  %107 = ashr exact i32 %106, 16
+  %108 = srem i32 %105, %107
+  %109 = tail call i32 @llvm.abs.i32(i32 %108, i1 true)
+  %110 = tail call i32 @llvm.abs.i32(i32 %107, i1 true)
+  %111 = icmp ult i32 %109, %110
+  br i1 %111, label %113, label %112
 
-102:                                              ; preds = %99
-  %103 = shl i32 %67, 24
-  %104 = ashr exact i32 %103, 24
-  %105 = shl i32 %68, 24
-  %106 = ashr exact i32 %105, 24
-  %107 = trunc i32 %104 to i16
-  %108 = trunc i32 %106 to i16
-  %109 = srem i16 %107, %108
-  %110 = tail call i16 @llvm.abs.i16(i16 %109, i1 true)
-  %111 = zext i16 %110 to i32
-  %112 = tail call i32 @llvm.abs.i32(i32 %106, i1 true)
-  %113 = icmp ugt i32 %112, %111
-  br i1 %113, label %115, label %114
-
-114:                                              ; preds = %102
+112:                                              ; preds = %103
   store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-115:                                              ; preds = %102, %99, %86, %70, %66, %55, %52
-  %116 = add nuw nsw i64 %3, 1
-  %117 = icmp eq i64 %116, 10000
-  br i1 %117, label %118, label %2, !llvm.loop !9
+113:                                              ; preds = %103
+  %114 = and i32 %68, 255
+  %115 = icmp eq i32 %114, 0
+  br i1 %115, label %153, label %116
 
-118:                                              ; preds = %115
+116:                                              ; preds = %113
+  %117 = trunc i64 %29 to i8
+  %118 = trunc i64 %53 to i8
+  %119 = urem i8 %117, %118
+  %120 = udiv i8 %117, %118
+  %121 = zext i8 %119 to i32
+  %122 = icmp ugt i32 %114, %121
+  br i1 %122, label %123, label %129
+
+123:                                              ; preds = %116
+  %124 = and i32 %67, 255
+  %125 = zext i8 %120 to i32
+  %126 = mul nuw nsw i32 %114, %125
+  %127 = add nuw nsw i32 %126, %121
+  %128 = icmp eq i32 %127, %124
+  br i1 %128, label %130, label %129
+
+129:                                              ; preds = %123, %116
+  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+  tail call void @abort() #5
+  unreachable
+
+130:                                              ; preds = %123
+  %131 = shl i32 %67, 24
+  %132 = ashr exact i32 %131, 24
+  %133 = shl i32 %68, 24
+  %134 = ashr exact i32 %133, 24
+  %135 = trunc i32 %132 to i16
+  %136 = trunc i32 %134 to i16
+  %137 = srem i16 %135, %136
+  %138 = sdiv i16 %135, %136
+  %139 = zext i16 %137 to i32
+  %140 = shl i32 %139, 24
+  %141 = ashr exact i32 %140, 24
+  %142 = tail call i32 @llvm.abs.i32(i32 %141, i1 true)
+  %143 = tail call i32 @llvm.abs.i32(i32 %134, i1 true)
+  %144 = icmp ult i32 %142, %143
+  br i1 %144, label %145, label %152
+
+145:                                              ; preds = %130
+  %146 = zext i16 %138 to i32
+  %147 = mul i32 %146, %68
+  %148 = add i32 %147, %139
+  %149 = shl i32 %148, 24
+  %150 = ashr exact i32 %149, 24
+  %151 = icmp eq i32 %150, %132
+  br i1 %151, label %153, label %152
+
+152:                                              ; preds = %145, %130
+  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+  tail call void @abort() #5
+  unreachable
+
+153:                                              ; preds = %145, %113, %86, %70, %66, %55, %52
+  %154 = add nuw nsw i64 %3, 1
+  %155 = icmp eq i64 %154, 10000
+  br i1 %155, label %156, label %2, !llvm.loop !9
+
+156:                                              ; preds = %153
   store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @exit(i32 noundef 0) #5
   unreachable
@@ -242,9 +298,6 @@ declare i64 @llvm.abs.i64(i64, i1 immarg) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #4
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.abs.i16(i16, i1 immarg) #4
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

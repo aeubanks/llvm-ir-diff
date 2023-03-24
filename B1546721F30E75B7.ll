@@ -122,7 +122,7 @@ define internal void @finish_output_bmp(ptr noundef %0, ptr nocapture noundef re
   %4 = alloca [40 x i8], align 16
   %5 = alloca [14 x i8], align 1
   %6 = alloca [12 x i8], align 1
-  %7 = getelementptr inbounds %struct.djpeg_dest_struct, ptr %1, i64 0, i32 3
+  %7 = getelementptr %struct.djpeg_dest_struct, ptr %1, i64 0, i32 3
   %8 = load ptr, ptr %7, align 8, !tbaa !44
   %9 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 2
   %10 = load ptr, ptr %9, align 8, !tbaa !37
@@ -142,123 +142,123 @@ define internal void @finish_output_bmp(ptr noundef %0, ptr nocapture noundef re
 18:                                               ; preds = %15
   %19 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 19
   %20 = load i32, ptr %19, align 4, !tbaa !23
-  %21 = icmp ne i32 %20, 0
-  %22 = select i1 %21, i8 8, i8 24
-  %23 = select i1 %21, i32 256, i32 0
+  %21 = icmp eq i32 %20, 0
+  %22 = select i1 %21, i32 0, i32 256
+  %23 = select i1 %21, i8 24, i8 8
   br label %24
 
 24:                                               ; preds = %18, %15
-  %25 = phi i8 [ %22, %18 ], [ 8, %15 ]
-  %26 = phi i1 [ %21, %18 ], [ true, %15 ]
-  %27 = phi i32 [ %23, %18 ], [ 256, %15 ]
-  %28 = mul nuw nsw i32 %27, 3
-  %29 = or i32 %28, 26
-  %30 = zext i32 %29 to i64
-  %31 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 4
-  %32 = load i32, ptr %31, align 4, !tbaa !31
-  %33 = zext i32 %32 to i64
-  %34 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 27
-  %35 = load i32, ptr %34, align 4, !tbaa !34
-  %36 = zext i32 %35 to i64
-  %37 = mul nuw nsw i64 %36, %33
-  %38 = add nuw nsw i64 %37, %30
-  %39 = getelementptr inbounds i8, ptr %5, i64 6
-  store i32 0, ptr %39, align 1
-  %40 = getelementptr inbounds i8, ptr %6, i64 2
-  store i16 0, ptr %40, align 1
+  %25 = phi i8 [ 8, %15 ], [ %23, %18 ]
+  %26 = phi i32 [ 256, %15 ], [ %22, %18 ]
+  %27 = mul nuw nsw i32 %26, 3
+  %28 = or i32 %27, 26
+  %29 = zext i32 %28 to i64
+  %30 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 4
+  %31 = load i32, ptr %30, align 4, !tbaa !31
+  %32 = zext i32 %31 to i64
+  %33 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 27
+  %34 = load i32, ptr %33, align 4, !tbaa !34
+  %35 = zext i32 %34 to i64
+  %36 = mul nuw nsw i64 %35, %32
+  %37 = add nuw nsw i64 %36, %29
+  %38 = getelementptr inbounds i8, ptr %5, i64 6
+  store i32 0, ptr %38, align 1
+  %39 = getelementptr inbounds i8, ptr %6, i64 2
+  store i16 0, ptr %39, align 1
   store i8 66, ptr %5, align 1, !tbaa !45
-  %41 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 1
-  store i8 77, ptr %41, align 1, !tbaa !45
-  %42 = trunc i64 %38 to i8
-  %43 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 2
-  store i8 %42, ptr %43, align 1, !tbaa !45
-  %44 = lshr i64 %38, 8
-  %45 = trunc i64 %44 to i8
-  %46 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 3
-  store i8 %45, ptr %46, align 1, !tbaa !45
-  %47 = lshr i64 %38, 16
-  %48 = trunc i64 %47 to i8
-  %49 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 4
-  store i8 %48, ptr %49, align 1, !tbaa !45
-  %50 = lshr i64 %38, 24
-  %51 = trunc i64 %50 to i8
-  %52 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 5
-  store i8 %51, ptr %52, align 1, !tbaa !45
-  %53 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 10
-  store i8 26, ptr %53, align 1, !tbaa !45
-  %54 = lshr i64 %30, 8
-  %55 = trunc i64 %54 to i8
-  %56 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 11
-  store i8 %55, ptr %56, align 1, !tbaa !45
-  %57 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 12
+  %40 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 1
+  store i8 77, ptr %40, align 1, !tbaa !45
+  %41 = trunc i64 %37 to i8
+  %42 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 2
+  store i8 %41, ptr %42, align 1, !tbaa !45
+  %43 = lshr i64 %37, 8
+  %44 = trunc i64 %43 to i8
+  %45 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 3
+  store i8 %44, ptr %45, align 1, !tbaa !45
+  %46 = lshr i64 %37, 16
+  %47 = trunc i64 %46 to i8
+  %48 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 4
+  store i8 %47, ptr %48, align 1, !tbaa !45
+  %49 = lshr i64 %37, 24
+  %50 = trunc i64 %49 to i8
+  %51 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 5
+  store i8 %50, ptr %51, align 1, !tbaa !45
+  %52 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 10
+  store i8 26, ptr %52, align 1, !tbaa !45
+  %53 = lshr i64 %29, 8
+  %54 = trunc i64 %53 to i8
+  %55 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 11
+  store i8 %54, ptr %55, align 1, !tbaa !45
+  %56 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 12
+  store i8 0, ptr %56, align 1, !tbaa !45
+  %57 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 13
   store i8 0, ptr %57, align 1, !tbaa !45
-  %58 = getelementptr inbounds [14 x i8], ptr %5, i64 0, i64 13
-  store i8 0, ptr %58, align 1, !tbaa !45
   store i8 12, ptr %6, align 1, !tbaa !45
-  %59 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 1
-  store i8 0, ptr %59, align 1, !tbaa !45
-  %60 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 26
-  %61 = load i32, ptr %60, align 8, !tbaa !28
-  %62 = trunc i32 %61 to i8
-  %63 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 4
-  store i8 %62, ptr %63, align 1, !tbaa !45
-  %64 = lshr i32 %61, 8
-  %65 = trunc i32 %64 to i8
-  %66 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 5
-  store i8 %65, ptr %66, align 1, !tbaa !45
-  %67 = trunc i32 %35 to i8
-  %68 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 6
-  store i8 %67, ptr %68, align 1, !tbaa !45
-  %69 = lshr i32 %35, 8
-  %70 = trunc i32 %69 to i8
-  %71 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 7
-  store i8 %70, ptr %71, align 1, !tbaa !45
-  %72 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 8
-  store i8 1, ptr %72, align 1, !tbaa !45
-  %73 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 9
-  store i8 0, ptr %73, align 1, !tbaa !45
-  %74 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 10
-  store i8 %25, ptr %74, align 1, !tbaa !45
-  %75 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 11
-  store i8 0, ptr %75, align 1, !tbaa !45
-  %76 = call i64 @fwrite(ptr noundef nonnull %5, i64 noundef 1, i64 noundef 14, ptr noundef %8)
-  %77 = icmp eq i64 %76, 14
-  br i1 %77, label %82, label %78
+  %58 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 1
+  store i8 0, ptr %58, align 1, !tbaa !45
+  %59 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 26
+  %60 = load i32, ptr %59, align 8, !tbaa !28
+  %61 = trunc i32 %60 to i8
+  %62 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 4
+  store i8 %61, ptr %62, align 1, !tbaa !45
+  %63 = lshr i32 %60, 8
+  %64 = trunc i32 %63 to i8
+  %65 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 5
+  store i8 %64, ptr %65, align 1, !tbaa !45
+  %66 = trunc i32 %34 to i8
+  %67 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 6
+  store i8 %66, ptr %67, align 1, !tbaa !45
+  %68 = lshr i32 %34, 8
+  %69 = trunc i32 %68 to i8
+  %70 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 7
+  store i8 %69, ptr %70, align 1, !tbaa !45
+  %71 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 8
+  store i8 1, ptr %71, align 1, !tbaa !45
+  %72 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 9
+  store i8 0, ptr %72, align 1, !tbaa !45
+  %73 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 10
+  store i8 %25, ptr %73, align 1, !tbaa !45
+  %74 = getelementptr inbounds [12 x i8], ptr %6, i64 0, i64 11
+  store i8 0, ptr %74, align 1, !tbaa !45
+  %75 = call i64 @fwrite(ptr noundef nonnull %5, i64 noundef 1, i64 noundef 14, ptr noundef %8)
+  %76 = icmp eq i64 %75, 14
+  br i1 %76, label %81, label %77
 
-78:                                               ; preds = %24
-  %79 = load ptr, ptr %0, align 8, !tbaa !24
-  %80 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %79, i64 0, i32 5
-  store i32 36, ptr %80, align 8, !tbaa !25
-  %81 = load ptr, ptr %79, align 8, !tbaa !27
-  tail call void %81(ptr noundef nonnull %0) #7
-  br label %82
+77:                                               ; preds = %24
+  %78 = load ptr, ptr %0, align 8, !tbaa !24
+  %79 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %78, i64 0, i32 5
+  store i32 36, ptr %79, align 8, !tbaa !25
+  %80 = load ptr, ptr %78, align 8, !tbaa !27
+  tail call void %80(ptr noundef nonnull %0) #7
+  br label %81
 
-82:                                               ; preds = %78, %24
-  %83 = load ptr, ptr %7, align 8, !tbaa !44
-  %84 = call i64 @fwrite(ptr noundef nonnull %6, i64 noundef 1, i64 noundef 12, ptr noundef %83)
-  %85 = icmp eq i64 %84, 12
-  br i1 %85, label %90, label %86
+81:                                               ; preds = %77, %24
+  %82 = load ptr, ptr %7, align 8, !tbaa !44
+  %83 = call i64 @fwrite(ptr noundef nonnull %6, i64 noundef 1, i64 noundef 12, ptr noundef %82)
+  %84 = icmp eq i64 %83, 12
+  br i1 %84, label %89, label %85
 
-86:                                               ; preds = %82
-  %87 = load ptr, ptr %0, align 8, !tbaa !24
-  %88 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %87, i64 0, i32 5
-  store i32 36, ptr %88, align 8, !tbaa !25
-  %89 = load ptr, ptr %87, align 8, !tbaa !27
-  tail call void %89(ptr noundef nonnull %0) #7
-  br label %90
+85:                                               ; preds = %81
+  %86 = load ptr, ptr %0, align 8, !tbaa !24
+  %87 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %86, i64 0, i32 5
+  store i32 36, ptr %87, align 8, !tbaa !25
+  %88 = load ptr, ptr %86, align 8, !tbaa !27
+  tail call void %88(ptr noundef nonnull %0) #7
+  br label %89
 
-90:                                               ; preds = %86, %82
-  br i1 %26, label %91, label %93
+89:                                               ; preds = %85, %81
+  %90 = icmp eq i32 %26, 0
+  br i1 %90, label %93, label %91
 
-91:                                               ; preds = %90
+91:                                               ; preds = %89
   %92 = load ptr, ptr %7, align 8, !tbaa !44
-  tail call fastcc void @write_colormap(ptr noundef nonnull %0, ptr %92, i32 noundef %27, i32 noundef 3)
+  tail call fastcc void @write_colormap(ptr noundef nonnull %0, ptr %92, i32 noundef %26, i32 noundef 3)
   br label %93
 
-93:                                               ; preds = %90, %91
+93:                                               ; preds = %89, %91
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %6) #7
   call void @llvm.lifetime.end.p0(i64 14, ptr nonnull %5) #7
-  br label %218
+  br label %216
 
 94:                                               ; preds = %2
   call void @llvm.lifetime.start.p0(i64 14, ptr nonnull %3) #7
@@ -270,295 +270,293 @@ define internal void @finish_output_bmp(ptr noundef %0, ptr nocapture noundef re
 97:                                               ; preds = %94
   %98 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 19
   %99 = load i32, ptr %98, align 4, !tbaa !23
-  %100 = icmp ne i32 %99, 0
-  %101 = select i1 %100, i8 8, i8 24
-  %102 = select i1 %100, i32 256, i32 0
+  %100 = icmp eq i32 %99, 0
+  %101 = select i1 %100, i32 0, i32 256
+  %102 = select i1 %100, i8 24, i8 8
   br label %103
 
 103:                                              ; preds = %97, %94
-  %104 = phi i8 [ %101, %97 ], [ 8, %94 ]
-  %105 = phi i1 [ %100, %97 ], [ true, %94 ]
-  %106 = phi i32 [ %102, %97 ], [ 256, %94 ]
-  %107 = shl nuw nsw i32 %106, 2
-  %108 = or i32 %107, 54
-  %109 = zext i32 %108 to i64
-  %110 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 4
-  %111 = load i32, ptr %110, align 4, !tbaa !31
-  %112 = zext i32 %111 to i64
-  %113 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 27
-  %114 = load i32, ptr %113, align 4, !tbaa !34
-  %115 = zext i32 %114 to i64
-  %116 = mul nuw nsw i64 %115, %112
-  %117 = add nuw nsw i64 %116, %109
-  %118 = getelementptr inbounds i8, ptr %3, i64 6
-  store i32 0, ptr %118, align 1
+  %104 = phi i8 [ 8, %94 ], [ %102, %97 ]
+  %105 = phi i32 [ 256, %94 ], [ %101, %97 ]
+  %106 = shl nuw nsw i32 %105, 2
+  %107 = or i32 %106, 54
+  %108 = zext i32 %107 to i64
+  %109 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 4
+  %110 = load i32, ptr %109, align 4, !tbaa !31
+  %111 = zext i32 %110 to i64
+  %112 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 27
+  %113 = load i32, ptr %112, align 4, !tbaa !34
+  %114 = zext i32 %113 to i64
+  %115 = mul nuw nsw i64 %114, %111
+  %116 = add nuw nsw i64 %115, %108
+  %117 = getelementptr inbounds i8, ptr %3, i64 6
+  store i32 0, ptr %117, align 1
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(40) %4, i8 0, i64 40, i1 false)
   store i8 66, ptr %3, align 1, !tbaa !45
-  %119 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 1
-  store i8 77, ptr %119, align 1, !tbaa !45
-  %120 = trunc i64 %117 to i8
-  %121 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 2
-  store i8 %120, ptr %121, align 1, !tbaa !45
-  %122 = lshr i64 %117, 8
-  %123 = trunc i64 %122 to i8
-  %124 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 3
-  store i8 %123, ptr %124, align 1, !tbaa !45
-  %125 = lshr i64 %117, 16
-  %126 = trunc i64 %125 to i8
-  %127 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 4
-  store i8 %126, ptr %127, align 1, !tbaa !45
-  %128 = lshr i64 %117, 24
-  %129 = trunc i64 %128 to i8
-  %130 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 5
-  store i8 %129, ptr %130, align 1, !tbaa !45
-  %131 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 10
-  store i8 54, ptr %131, align 1, !tbaa !45
-  %132 = lshr i64 %109, 8
-  %133 = trunc i64 %132 to i8
-  %134 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 11
-  store i8 %133, ptr %134, align 1, !tbaa !45
-  %135 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 12
+  %118 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 1
+  store i8 77, ptr %118, align 1, !tbaa !45
+  %119 = trunc i64 %116 to i8
+  %120 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 2
+  store i8 %119, ptr %120, align 1, !tbaa !45
+  %121 = lshr i64 %116, 8
+  %122 = trunc i64 %121 to i8
+  %123 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 3
+  store i8 %122, ptr %123, align 1, !tbaa !45
+  %124 = lshr i64 %116, 16
+  %125 = trunc i64 %124 to i8
+  %126 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 4
+  store i8 %125, ptr %126, align 1, !tbaa !45
+  %127 = lshr i64 %116, 24
+  %128 = trunc i64 %127 to i8
+  %129 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 5
+  store i8 %128, ptr %129, align 1, !tbaa !45
+  %130 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 10
+  store i8 54, ptr %130, align 1, !tbaa !45
+  %131 = lshr i64 %108, 8
+  %132 = trunc i64 %131 to i8
+  %133 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 11
+  store i8 %132, ptr %133, align 1, !tbaa !45
+  %134 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 12
+  store i8 0, ptr %134, align 1, !tbaa !45
+  %135 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 13
   store i8 0, ptr %135, align 1, !tbaa !45
-  %136 = getelementptr inbounds [14 x i8], ptr %3, i64 0, i64 13
-  store i8 0, ptr %136, align 1, !tbaa !45
   store i8 40, ptr %4, align 16, !tbaa !45
-  %137 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 26
-  %138 = load i32, ptr %137, align 8, !tbaa !28
-  %139 = trunc i32 %138 to i8
-  %140 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 4
-  store i8 %139, ptr %140, align 4, !tbaa !45
-  %141 = lshr i32 %138, 8
-  %142 = trunc i32 %141 to i8
-  %143 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 5
-  store i8 %142, ptr %143, align 1, !tbaa !45
-  %144 = lshr i32 %138, 16
-  %145 = trunc i32 %144 to i8
-  %146 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 6
-  store i8 %145, ptr %146, align 2, !tbaa !45
-  %147 = lshr i32 %138, 24
-  %148 = trunc i32 %147 to i8
-  %149 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 7
-  store i8 %148, ptr %149, align 1, !tbaa !45
-  %150 = trunc i32 %114 to i8
-  %151 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 8
-  store i8 %150, ptr %151, align 8, !tbaa !45
-  %152 = lshr i32 %114, 8
-  %153 = trunc i32 %152 to i8
-  %154 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 9
-  store i8 %153, ptr %154, align 1, !tbaa !45
-  %155 = lshr i32 %114, 16
-  %156 = trunc i32 %155 to i8
-  %157 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 10
-  store i8 %156, ptr %157, align 2, !tbaa !45
-  %158 = lshr i32 %114, 24
-  %159 = trunc i32 %158 to i8
-  %160 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 11
-  store i8 %159, ptr %160, align 1, !tbaa !45
-  %161 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 12
-  store i8 1, ptr %161, align 4, !tbaa !45
-  %162 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 14
-  store i8 %104, ptr %162, align 2, !tbaa !45
-  %163 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 51
-  %164 = load i8, ptr %163, align 8, !tbaa !46
-  %165 = icmp eq i8 %164, 2
-  br i1 %165, label %166, label %195
+  %136 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 26
+  %137 = load i32, ptr %136, align 8, !tbaa !28
+  %138 = trunc i32 %137 to i8
+  %139 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 4
+  store i8 %138, ptr %139, align 4, !tbaa !45
+  %140 = lshr i32 %137, 8
+  %141 = trunc i32 %140 to i8
+  %142 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 5
+  store i8 %141, ptr %142, align 1, !tbaa !45
+  %143 = lshr i32 %137, 16
+  %144 = trunc i32 %143 to i8
+  %145 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 6
+  store i8 %144, ptr %145, align 2, !tbaa !45
+  %146 = lshr i32 %137, 24
+  %147 = trunc i32 %146 to i8
+  %148 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 7
+  store i8 %147, ptr %148, align 1, !tbaa !45
+  %149 = trunc i32 %113 to i8
+  %150 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 8
+  store i8 %149, ptr %150, align 8, !tbaa !45
+  %151 = lshr i32 %113, 8
+  %152 = trunc i32 %151 to i8
+  %153 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 9
+  store i8 %152, ptr %153, align 1, !tbaa !45
+  %154 = lshr i32 %113, 16
+  %155 = trunc i32 %154 to i8
+  %156 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 10
+  store i8 %155, ptr %156, align 2, !tbaa !45
+  %157 = lshr i32 %113, 24
+  %158 = trunc i32 %157 to i8
+  %159 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 11
+  store i8 %158, ptr %159, align 1, !tbaa !45
+  %160 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 12
+  store i8 1, ptr %160, align 4, !tbaa !45
+  %161 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 14
+  store i8 %104, ptr %161, align 2, !tbaa !45
+  %162 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 51
+  %163 = load i8, ptr %162, align 8, !tbaa !46
+  %164 = icmp eq i8 %163, 2
+  br i1 %164, label %165, label %192
 
-166:                                              ; preds = %103
-  %167 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 52
-  %168 = load i16, ptr %167, align 2, !tbaa !47
-  %169 = trunc i16 %168 to i8
-  %170 = mul i8 %169, 100
+165:                                              ; preds = %103
+  %166 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 52
+  %167 = load i16, ptr %166, align 2, !tbaa !47
+  %168 = zext i16 %167 to i64
+  %169 = mul nuw nsw i64 %168, 100
+  %170 = trunc i64 %169 to i8
   %171 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 24
   store i8 %170, ptr %171, align 8, !tbaa !45
-  %172 = zext i16 %168 to i64
-  %173 = mul nuw nsw i64 %172, 100
-  %174 = lshr i64 %173, 8
-  %175 = trunc i64 %174 to i8
-  %176 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 25
-  store i8 %175, ptr %176, align 1, !tbaa !45
-  %177 = lshr i64 %173, 16
-  %178 = trunc i64 %177 to i8
-  %179 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 26
-  store i8 %178, ptr %179, align 2, !tbaa !45
-  %180 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 27
-  store i8 0, ptr %180, align 1, !tbaa !45
-  %181 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 53
-  %182 = load i16, ptr %181, align 4, !tbaa !48
-  %183 = trunc i16 %182 to i8
-  %184 = mul i8 %183, 100
-  %185 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 28
-  store i8 %184, ptr %185, align 4, !tbaa !45
-  %186 = zext i16 %182 to i64
-  %187 = mul nuw nsw i64 %186, 100
-  %188 = lshr i64 %187, 8
+  %172 = lshr i64 %169, 8
+  %173 = trunc i64 %172 to i8
+  %174 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 25
+  store i8 %173, ptr %174, align 1, !tbaa !45
+  %175 = lshr i64 %169, 16
+  %176 = trunc i64 %175 to i8
+  %177 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 26
+  store i8 %176, ptr %177, align 2, !tbaa !45
+  %178 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 27
+  store i8 0, ptr %178, align 1, !tbaa !45
+  %179 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 53
+  %180 = load i16, ptr %179, align 4, !tbaa !48
+  %181 = zext i16 %180 to i64
+  %182 = mul nuw nsw i64 %181, 100
+  %183 = trunc i64 %182 to i8
+  %184 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 28
+  store i8 %183, ptr %184, align 4, !tbaa !45
+  %185 = lshr i64 %182, 8
+  %186 = trunc i64 %185 to i8
+  %187 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 29
+  store i8 %186, ptr %187, align 1, !tbaa !45
+  %188 = lshr i64 %182, 16
   %189 = trunc i64 %188 to i8
-  %190 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 29
-  store i8 %189, ptr %190, align 1, !tbaa !45
-  %191 = lshr i64 %187, 16
-  %192 = trunc i64 %191 to i8
-  %193 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 30
-  store i8 %192, ptr %193, align 2, !tbaa !45
-  %194 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 31
-  store i8 0, ptr %194, align 1, !tbaa !45
-  br label %195
+  %190 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 30
+  store i8 %189, ptr %190, align 2, !tbaa !45
+  %191 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 31
+  store i8 0, ptr %191, align 1, !tbaa !45
+  br label %192
 
-195:                                              ; preds = %166, %103
-  %196 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 32
-  store i8 0, ptr %196, align 16, !tbaa !45
-  %197 = lshr exact i32 %106, 8
-  %198 = trunc i32 %197 to i8
-  %199 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 33
-  store i8 %198, ptr %199, align 1, !tbaa !45
-  %200 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 14, ptr noundef %8)
-  %201 = icmp eq i64 %200, 14
-  br i1 %201, label %206, label %202
+192:                                              ; preds = %165, %103
+  %193 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 32
+  store i8 0, ptr %193, align 16, !tbaa !45
+  %194 = lshr exact i32 %105, 8
+  %195 = trunc i32 %194 to i8
+  %196 = getelementptr inbounds [40 x i8], ptr %4, i64 0, i64 33
+  store i8 %195, ptr %196, align 1, !tbaa !45
+  %197 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 14, ptr noundef %8)
+  %198 = icmp eq i64 %197, 14
+  br i1 %198, label %203, label %199
 
-202:                                              ; preds = %195
-  %203 = load ptr, ptr %0, align 8, !tbaa !24
-  %204 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %203, i64 0, i32 5
-  store i32 36, ptr %204, align 8, !tbaa !25
-  %205 = load ptr, ptr %203, align 8, !tbaa !27
-  tail call void %205(ptr noundef nonnull %0) #7
-  br label %206
+199:                                              ; preds = %192
+  %200 = load ptr, ptr %0, align 8, !tbaa !24
+  %201 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %200, i64 0, i32 5
+  store i32 36, ptr %201, align 8, !tbaa !25
+  %202 = load ptr, ptr %200, align 8, !tbaa !27
+  tail call void %202(ptr noundef nonnull %0) #7
+  br label %203
 
-206:                                              ; preds = %202, %195
-  %207 = load ptr, ptr %7, align 8, !tbaa !44
-  %208 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 40, ptr noundef %207)
-  %209 = icmp eq i64 %208, 40
-  br i1 %209, label %214, label %210
+203:                                              ; preds = %199, %192
+  %204 = load ptr, ptr %7, align 8, !tbaa !44
+  %205 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 40, ptr noundef %204)
+  %206 = icmp eq i64 %205, 40
+  br i1 %206, label %211, label %207
 
-210:                                              ; preds = %206
-  %211 = load ptr, ptr %0, align 8, !tbaa !24
-  %212 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %211, i64 0, i32 5
-  store i32 36, ptr %212, align 8, !tbaa !25
-  %213 = load ptr, ptr %211, align 8, !tbaa !27
-  tail call void %213(ptr noundef nonnull %0) #7
-  br label %214
+207:                                              ; preds = %203
+  %208 = load ptr, ptr %0, align 8, !tbaa !24
+  %209 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %208, i64 0, i32 5
+  store i32 36, ptr %209, align 8, !tbaa !25
+  %210 = load ptr, ptr %208, align 8, !tbaa !27
+  tail call void %210(ptr noundef nonnull %0) #7
+  br label %211
 
-214:                                              ; preds = %210, %206
-  br i1 %105, label %215, label %217
+211:                                              ; preds = %207, %203
+  %212 = icmp eq i32 %105, 0
+  br i1 %212, label %215, label %213
 
-215:                                              ; preds = %214
-  %216 = load ptr, ptr %7, align 8, !tbaa !44
-  tail call fastcc void @write_colormap(ptr noundef nonnull %0, ptr %216, i32 noundef %106, i32 noundef 4)
-  br label %217
+213:                                              ; preds = %211
+  %214 = load ptr, ptr %7, align 8, !tbaa !44
+  tail call fastcc void @write_colormap(ptr noundef nonnull %0, ptr %214, i32 noundef %105, i32 noundef 4)
+  br label %215
 
-217:                                              ; preds = %214, %215
+215:                                              ; preds = %211, %213
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %4) #7
   call void @llvm.lifetime.end.p0(i64 14, ptr nonnull %3) #7
-  br label %218
+  br label %216
 
-218:                                              ; preds = %217, %93
-  %219 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 27
-  %220 = load i32, ptr %219, align 4, !tbaa !34
-  %221 = icmp eq i32 %220, 0
-  br i1 %221, label %280, label %222
+216:                                              ; preds = %215, %93
+  %217 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 27
+  %218 = load i32, ptr %217, align 4, !tbaa !34
+  %219 = icmp eq i32 %218, 0
+  br i1 %219, label %278, label %220
 
-222:                                              ; preds = %218
-  %223 = icmp eq ptr %10, null
-  %224 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %10, i64 0, i32 1
-  %225 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %10, i64 0, i32 2
-  %226 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 1
-  %227 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 2
-  %228 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 4
-  br i1 %223, label %229, label %254
+220:                                              ; preds = %216
+  %221 = icmp eq ptr %10, null
+  %222 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %10, i64 0, i32 1
+  %223 = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %10, i64 0, i32 2
+  %224 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %0, i64 0, i32 1
+  %225 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 2
+  %226 = getelementptr inbounds %struct.bmp_dest_struct, ptr %1, i64 0, i32 4
+  br i1 %221, label %227, label %250
 
-229:                                              ; preds = %222, %250
-  %230 = phi i32 [ %235, %250 ], [ %220, %222 ]
-  %231 = load ptr, ptr %226, align 8, !tbaa !5
-  %232 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %231, i64 0, i32 7
-  %233 = load ptr, ptr %232, align 8, !tbaa !49
-  %234 = load ptr, ptr %227, align 8, !tbaa !35
-  %235 = add i32 %230, -1
-  %236 = tail call ptr %233(ptr noundef %0, ptr noundef %234, i32 noundef %235, i32 noundef 1, i32 noundef 0) #7
-  %237 = load i32, ptr %228, align 4, !tbaa !31
-  %238 = icmp eq i32 %237, 0
-  br i1 %238, label %250, label %239
+227:                                              ; preds = %220, %248
+  %228 = phi i32 [ %233, %248 ], [ %218, %220 ]
+  %229 = load ptr, ptr %224, align 8, !tbaa !5
+  %230 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %229, i64 0, i32 7
+  %231 = load ptr, ptr %230, align 8, !tbaa !49
+  %232 = load ptr, ptr %225, align 8, !tbaa !35
+  %233 = add i32 %228, -1
+  %234 = tail call ptr %231(ptr noundef %0, ptr noundef %232, i32 noundef %233, i32 noundef 1, i32 noundef 0) #7
+  %235 = load i32, ptr %226, align 4, !tbaa !31
+  %236 = icmp eq i32 %235, 0
+  br i1 %236, label %248, label %237
 
-239:                                              ; preds = %229
-  %240 = load ptr, ptr %236, align 8, !tbaa !50
-  br label %241
+237:                                              ; preds = %227
+  %238 = load ptr, ptr %234, align 8, !tbaa !50
+  br label %239
 
-241:                                              ; preds = %239, %241
-  %242 = phi ptr [ %247, %241 ], [ %240, %239 ]
-  %243 = phi i32 [ %248, %241 ], [ %237, %239 ]
-  %244 = load i8, ptr %242, align 1, !tbaa !45
-  %245 = zext i8 %244 to i32
-  %246 = tail call i32 @putc(i32 noundef %245, ptr noundef %8)
-  %247 = getelementptr inbounds i8, ptr %242, i64 1
-  %248 = add i32 %243, -1
-  %249 = icmp eq i32 %248, 0
-  br i1 %249, label %250, label %241, !llvm.loop !51
+239:                                              ; preds = %237, %239
+  %240 = phi ptr [ %245, %239 ], [ %238, %237 ]
+  %241 = phi i32 [ %246, %239 ], [ %235, %237 ]
+  %242 = load i8, ptr %240, align 1, !tbaa !45
+  %243 = zext i8 %242 to i32
+  %244 = tail call i32 @putc(i32 noundef %243, ptr noundef %8)
+  %245 = getelementptr inbounds i8, ptr %240, i64 1
+  %246 = add i32 %241, -1
+  %247 = icmp eq i32 %246, 0
+  br i1 %247, label %248, label %239, !llvm.loop !51
 
-250:                                              ; preds = %241, %229
-  %251 = icmp eq i32 %235, 0
-  br i1 %251, label %280, label %229, !llvm.loop !53
+248:                                              ; preds = %239, %227
+  %249 = icmp eq i32 %233, 0
+  br i1 %249, label %278, label %227, !llvm.loop !53
 
-252:                                              ; preds = %271, %254
-  %253 = icmp eq i32 %265, 0
-  br i1 %253, label %280, label %254, !llvm.loop !53
+250:                                              ; preds = %220, %276
+  %251 = phi i32 [ %261, %276 ], [ %218, %220 ]
+  %252 = load i32, ptr %217, align 4, !tbaa !34
+  %253 = sub i32 %252, %251
+  %254 = zext i32 %253 to i64
+  store i64 %254, ptr %222, align 8, !tbaa !54
+  %255 = zext i32 %252 to i64
+  store i64 %255, ptr %223, align 8, !tbaa !55
+  %256 = load ptr, ptr %10, align 8, !tbaa !56
+  tail call void %256(ptr noundef %0) #7
+  %257 = load ptr, ptr %224, align 8, !tbaa !5
+  %258 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %257, i64 0, i32 7
+  %259 = load ptr, ptr %258, align 8, !tbaa !49
+  %260 = load ptr, ptr %225, align 8, !tbaa !35
+  %261 = add i32 %251, -1
+  %262 = tail call ptr %259(ptr noundef %0, ptr noundef %260, i32 noundef %261, i32 noundef 1, i32 noundef 0) #7
+  %263 = load i32, ptr %226, align 4, !tbaa !31
+  %264 = icmp eq i32 %263, 0
+  br i1 %264, label %276, label %265
 
-254:                                              ; preds = %222, %252
-  %255 = phi i32 [ %265, %252 ], [ %220, %222 ]
-  %256 = load i32, ptr %219, align 4, !tbaa !34
-  %257 = sub i32 %256, %255
-  %258 = zext i32 %257 to i64
-  store i64 %258, ptr %224, align 8, !tbaa !54
-  %259 = zext i32 %256 to i64
-  store i64 %259, ptr %225, align 8, !tbaa !55
-  %260 = load ptr, ptr %10, align 8, !tbaa !56
-  tail call void %260(ptr noundef %0) #7
-  %261 = load ptr, ptr %226, align 8, !tbaa !5
-  %262 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %261, i64 0, i32 7
-  %263 = load ptr, ptr %262, align 8, !tbaa !49
-  %264 = load ptr, ptr %227, align 8, !tbaa !35
-  %265 = add i32 %255, -1
-  %266 = tail call ptr %263(ptr noundef %0, ptr noundef %264, i32 noundef %265, i32 noundef 1, i32 noundef 0) #7
-  %267 = load i32, ptr %228, align 4, !tbaa !31
-  %268 = icmp eq i32 %267, 0
-  br i1 %268, label %252, label %269
+265:                                              ; preds = %250
+  %266 = load ptr, ptr %262, align 8, !tbaa !50
+  br label %267
 
-269:                                              ; preds = %254
-  %270 = load ptr, ptr %266, align 8, !tbaa !50
-  br label %271
+267:                                              ; preds = %265, %267
+  %268 = phi ptr [ %273, %267 ], [ %266, %265 ]
+  %269 = phi i32 [ %274, %267 ], [ %263, %265 ]
+  %270 = load i8, ptr %268, align 1, !tbaa !45
+  %271 = zext i8 %270 to i32
+  %272 = tail call i32 @putc(i32 noundef %271, ptr noundef %8)
+  %273 = getelementptr inbounds i8, ptr %268, i64 1
+  %274 = add i32 %269, -1
+  %275 = icmp eq i32 %274, 0
+  br i1 %275, label %276, label %267, !llvm.loop !51
 
-271:                                              ; preds = %269, %271
-  %272 = phi ptr [ %277, %271 ], [ %270, %269 ]
-  %273 = phi i32 [ %278, %271 ], [ %267, %269 ]
-  %274 = load i8, ptr %272, align 1, !tbaa !45
-  %275 = zext i8 %274 to i32
-  %276 = tail call i32 @putc(i32 noundef %275, ptr noundef %8)
-  %277 = getelementptr inbounds i8, ptr %272, i64 1
-  %278 = add i32 %273, -1
-  %279 = icmp eq i32 %278, 0
-  br i1 %279, label %252, label %271, !llvm.loop !51
+276:                                              ; preds = %267, %250
+  %277 = icmp eq i32 %261, 0
+  br i1 %277, label %278, label %250, !llvm.loop !53
 
-280:                                              ; preds = %252, %250, %218
-  %281 = icmp eq ptr %10, null
-  br i1 %281, label %286, label %282
+278:                                              ; preds = %276, %248, %216
+  %279 = icmp eq ptr %10, null
+  br i1 %279, label %284, label %280
 
-282:                                              ; preds = %280
-  %283 = getelementptr inbounds %struct.cdjpeg_progress_mgr, ptr %10, i64 0, i32 1
-  %284 = load i32, ptr %283, align 8, !tbaa !57
-  %285 = add nsw i32 %284, 1
-  store i32 %285, ptr %283, align 8, !tbaa !57
-  br label %286
+280:                                              ; preds = %278
+  %281 = getelementptr inbounds %struct.cdjpeg_progress_mgr, ptr %10, i64 0, i32 1
+  %282 = load i32, ptr %281, align 8, !tbaa !57
+  %283 = add nsw i32 %282, 1
+  store i32 %283, ptr %281, align 8, !tbaa !57
+  br label %284
 
-286:                                              ; preds = %282, %280
-  %287 = tail call i32 @fflush(ptr noundef %8)
-  %288 = tail call i32 @ferror(ptr noundef %8) #7
-  %289 = icmp eq i32 %288, 0
-  br i1 %289, label %294, label %290
+284:                                              ; preds = %280, %278
+  %285 = tail call i32 @fflush(ptr noundef %8)
+  %286 = tail call i32 @ferror(ptr noundef %8) #7
+  %287 = icmp eq i32 %286, 0
+  br i1 %287, label %292, label %288
 
-290:                                              ; preds = %286
-  %291 = load ptr, ptr %0, align 8, !tbaa !24
-  %292 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %291, i64 0, i32 5
-  store i32 36, ptr %292, align 8, !tbaa !25
-  %293 = load ptr, ptr %291, align 8, !tbaa !27
-  tail call void %293(ptr noundef nonnull %0) #7
-  br label %294
+288:                                              ; preds = %284
+  %289 = load ptr, ptr %0, align 8, !tbaa !24
+  %290 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %289, i64 0, i32 5
+  store i32 36, ptr %290, align 8, !tbaa !25
+  %291 = load ptr, ptr %289, align 8, !tbaa !27
+  tail call void %291(ptr noundef %0) #7
+  br label %292
 
-294:                                              ; preds = %290, %286
+292:                                              ; preds = %288, %284
   ret void
 }
 

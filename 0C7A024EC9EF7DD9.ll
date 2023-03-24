@@ -7,11 +7,11 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZTIi = external constant ptr
 @str = private unnamed_addr constant [56 x i8] c"Throwing a double from a function which allows doubles!\00", align 1
 @str.8 = private unnamed_addr constant [59 x i8] c"Throwing an int from a function which only allows doubles!\00", align 1
-@str.10 = private unnamed_addr constant [28 x i8] c"Double successfully caught!\00", align 1
+@str.9 = private unnamed_addr constant [41 x i8] c"std::unexpected called: throwing an int!\00", align 1
+@str.10 = private unnamed_addr constant [35 x i8] c"std::terminate called, as expected\00", align 1
+@str.11 = private unnamed_addr constant [42 x i8] c"std::unexpected called: throwing a double\00", align 1
 @str.12 = private unnamed_addr constant [48 x i8] c"std::terminate called, but it was not expected!\00", align 1
-@str.13 = private unnamed_addr constant [42 x i8] c"std::unexpected called: throwing a double\00", align 1
-@str.14 = private unnamed_addr constant [35 x i8] c"std::terminate called, as expected\00", align 1
-@str.15 = private unnamed_addr constant [41 x i8] c"std::unexpected called: throwing an int!\00", align 1
+@str.14 = private unnamed_addr constant [28 x i8] c"Double successfully caught!\00", align 1
 
 ; Function Attrs: mustprogress noreturn uwtable
 define dso_local void @_Z4testb(i1 noundef zeroext %0) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
@@ -106,7 +106,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #1 personality ptr @__gx
 20:                                               ; preds = %15
   %21 = extractvalue { ptr, i32 } %17, 0
   %22 = tail call ptr @__cxa_begin_catch(ptr %21) #7
-  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
   tail call void @__cxa_end_catch() #7
   %24 = tail call noundef ptr @_ZSt14set_unexpectedPFvvE(ptr noundef nonnull @_ZL18UnexpectedHandler1v) #7
   %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
@@ -149,7 +149,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #1 personality ptr @__gx
 42:                                               ; preds = %38
   %43 = extractvalue { ptr, i32 } %40, 0
   %44 = tail call ptr @__cxa_begin_catch(ptr %43) #7
-  %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
   tail call void @__cxa_end_catch() #7
   %46 = tail call noundef ptr @_ZSt13set_terminatePFvvE(ptr noundef nonnull @_ZL17TerminateHandler0v) #7
   %47 = tail call noundef ptr @_ZSt14set_unexpectedPFvvE(ptr noundef nonnull @_ZL18UnexpectedHandler2v) #7
@@ -201,7 +201,7 @@ declare noundef ptr @_ZSt14set_unexpectedPFvvE(ptr noundef) local_unnamed_addr #
 
 ; Function Attrs: mustprogress noreturn uwtable
 define internal void @_ZL18UnexpectedHandler1v() #0 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   %2 = tail call ptr @__cxa_allocate_exception(i64 8) #7
   store double 1.000000e+00, ptr %2, align 16, !tbaa !9
   tail call void @__cxa_throw(ptr nonnull %2, ptr nonnull @_ZTId, ptr null) #8
@@ -210,14 +210,14 @@ define internal void @_ZL18UnexpectedHandler1v() #0 {
 
 ; Function Attrs: mustprogress noreturn nounwind uwtable
 define internal void @_ZL17TerminateHandler0v() #3 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   tail call void @exit(i32 noundef 0) #9
   unreachable
 }
 
 ; Function Attrs: mustprogress noreturn uwtable
 define internal void @_ZL18UnexpectedHandler2v() #0 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   %2 = tail call ptr @__cxa_allocate_exception(i64 4) #7
   store i32 1, ptr %2, align 16, !tbaa !5
   tail call void @__cxa_throw(ptr nonnull %2, ptr nonnull @_ZTIi, ptr null) #8

@@ -11,39 +11,38 @@ define dso_local void @bar(i32 noundef %0, i32 noundef %1) local_unnamed_addr #0
   %3 = load i32, ptr @v, align 4, !tbaa !5
   %4 = load i32, ptr @s, align 4, !tbaa !5
   %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %14
+  %6 = and i32 %3, 255
+  br i1 %5, label %7, label %14
 
-6:                                                ; preds = %2
-  %7 = and i32 %3, 255
-  %8 = icmp eq i32 %7, %0
+7:                                                ; preds = %2
+  %8 = icmp eq i32 %6, %0
   br i1 %8, label %9, label %13
 
-9:                                                ; preds = %6
+9:                                                ; preds = %7
   %10 = add i32 %3, 1
   %11 = and i32 %10, 255
   %12 = icmp eq i32 %11, %1
-  br i1 %12, label %22, label %13
+  br i1 %12, label %21, label %13
 
-13:                                               ; preds = %9, %6
+13:                                               ; preds = %9, %7
   tail call void @abort() #2
   unreachable
 
 14:                                               ; preds = %2
   %15 = add i32 %3, 1
   %16 = and i32 %15, 255
-  %17 = icmp eq i32 %16, %0
-  %18 = and i32 %3, 255
-  %19 = icmp eq i32 %18, %1
-  %20 = select i1 %17, i1 %19, i1 false
-  br i1 %20, label %22, label %21
+  %17 = icmp ne i32 %16, %0
+  %18 = icmp ne i32 %6, %1
+  %19 = select i1 %17, i1 true, i1 %18
+  br i1 %19, label %20, label %21
 
-21:                                               ; preds = %14
+20:                                               ; preds = %14
   tail call void @abort() #2
   unreachable
 
-22:                                               ; preds = %14, %9
-  %23 = xor i32 %4, 1
-  store i32 %23, ptr @s, align 4, !tbaa !5
+21:                                               ; preds = %14, %9
+  %22 = xor i32 %4, 1
+  store i32 %22, ptr @s, align 4, !tbaa !5
   ret void
 }
 
@@ -58,91 +57,88 @@ define dso_local i32 @foo(i32 noundef %0) local_unnamed_addr #0 {
   %5 = load i32, ptr @v, align 4, !tbaa !5
   %6 = load i32, ptr @s, align 4, !tbaa !5
   %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %17
+  %8 = and i32 %5, 255
+  br i1 %7, label %9, label %18
 
-8:                                                ; preds = %1
-  %9 = and i32 %5, 255
-  %10 = icmp eq i32 %9, %3
-  br i1 %10, label %11, label %16
+9:                                                ; preds = %1
+  %10 = icmp eq i32 %8, %3
+  br i1 %10, label %11, label %17
 
-11:                                               ; preds = %8
+11:                                               ; preds = %9
   %12 = add i32 %5, 1
   %13 = and i32 %12, 255
   %14 = icmp eq i32 %13, %4
-  br i1 %14, label %15, label %16
+  br i1 %14, label %15, label %17
 
 15:                                               ; preds = %11
-  store i32 1, ptr @s, align 4, !tbaa !5
-  br label %28
+  %16 = xor i32 %6, 1
+  store i32 %16, ptr @s, align 4, !tbaa !5
+  br label %33
 
-16:                                               ; preds = %11, %8
+17:                                               ; preds = %11, %9
   tail call void @abort() #2
   unreachable
 
-17:                                               ; preds = %1
-  %18 = add i32 %5, 1
-  %19 = and i32 %18, 255
-  %20 = icmp eq i32 %19, %3
-  %21 = and i32 %5, 255
-  %22 = icmp eq i32 %21, %4
-  %23 = select i1 %20, i1 %22, i1 false
-  br i1 %23, label %25, label %24
+18:                                               ; preds = %1
+  %19 = add i32 %5, 1
+  %20 = and i32 %19, 255
+  %21 = icmp ne i32 %20, %3
+  %22 = icmp ne i32 %8, %4
+  %23 = select i1 %21, i1 true, i1 %22
+  br i1 %23, label %24, label %25
 
-24:                                               ; preds = %17
+24:                                               ; preds = %18
   tail call void @abort() #2
   unreachable
 
-25:                                               ; preds = %17
+25:                                               ; preds = %18
   %26 = xor i32 %6, 1
   store i32 %26, ptr @s, align 4, !tbaa !5
   %27 = icmp eq i32 %26, 0
-  br i1 %27, label %35, label %28
+  br i1 %27, label %28, label %33
 
-28:                                               ; preds = %15, %25
-  %29 = phi i32 [ %9, %15 ], [ %21, %25 ]
-  %30 = phi i32 [ %13, %15 ], [ %19, %25 ]
-  %31 = icmp eq i32 %30, %4
-  %32 = icmp eq i32 %29, %3
-  %33 = select i1 %31, i1 %32, i1 false
-  br i1 %33, label %35, label %34
+28:                                               ; preds = %25
+  %29 = add i32 %5, 1
+  %30 = and i32 %29, 255
+  %31 = icmp eq i32 %30, %3
+  br i1 %31, label %40, label %32
 
-34:                                               ; preds = %28
+32:                                               ; preds = %28
   tail call void @abort() #2
   unreachable
 
-35:                                               ; preds = %25, %28
+33:                                               ; preds = %15, %25
+  %34 = add i32 %5, 1
+  %35 = and i32 %34, 255
+  %36 = icmp ne i32 %35, %4
+  %37 = icmp ne i32 %8, %3
+  %38 = select i1 %36, i1 true, i1 %37
+  br i1 %38, label %39, label %40
+
+39:                                               ; preds = %33
+  tail call void @abort() #2
+  unreachable
+
+40:                                               ; preds = %28, %33
   store i32 %6, ptr @s, align 4, !tbaa !5
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = load i32, ptr @s, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 0
-  br label %3
+  store i32 -10, ptr @v, align 4, !tbaa !5
+  br label %1
 
-3:                                                ; preds = %5, %0
-  %4 = phi i32 [ -10, %0 ], [ %6, %5 ]
-  br i1 %2, label %5, label %8
+1:                                                ; preds = %0, %1
+  %2 = phi i32 [ -10, %0 ], [ %5, %1 ]
+  %3 = tail call i32 @foo(i32 noundef %2)
+  %4 = load i32, ptr @v, align 4, !tbaa !5
+  %5 = add nsw i32 %4, 1
+  store i32 %5, ptr @v, align 4, !tbaa !5
+  %6 = icmp slt i32 %4, 265
+  br i1 %6, label %1, label %7, !llvm.loop !9
 
-5:                                                ; preds = %3
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  %6 = add nsw i32 %4, 6
-  store i32 0, ptr @s, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 266
-  br i1 %7, label %9, label %3, !llvm.loop !9
-
-8:                                                ; preds = %3
-  store i32 %4, ptr @v, align 4, !tbaa !5
-  tail call void @abort() #2
-  unreachable
-
-9:                                                ; preds = %5
-  store i32 266, ptr @v, align 4, !tbaa !5
+7:                                                ; preds = %1
   ret i32 0
 }
 

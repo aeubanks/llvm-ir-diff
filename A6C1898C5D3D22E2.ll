@@ -51,28 +51,29 @@ define dso_local i64 @root_nfs_parse_addr(ptr noundef %0) local_unnamed_addr #1 
   %28 = phi i32 [ %4, %11 ], [ %23, %18 ]
   %29 = phi ptr [ %6, %11 ], [ %26, %18 ]
   %30 = icmp eq i32 %28, 4
-  br i1 %30, label %31, label %38
+  br i1 %30, label %31, label %39
 
 31:                                               ; preds = %27
   %32 = load i8, ptr %29, align 1, !tbaa !5
-  switch i8 %32, label %38 [
-    i8 58, label %33
-    i8 0, label %35
+  %33 = sext i8 %32 to i32
+  switch i32 %33, label %39 [
+    i32 58, label %34
+    i32 0, label %36
   ]
 
-33:                                               ; preds = %31
-  %34 = getelementptr inbounds i8, ptr %29, i64 1
+34:                                               ; preds = %31
+  %35 = getelementptr inbounds i8, ptr %29, i64 1
   store i8 0, ptr %29, align 1, !tbaa !5
-  br label %35
+  br label %36
 
-35:                                               ; preds = %31, %33
-  %36 = phi ptr [ %34, %33 ], [ %29, %31 ]
-  %37 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %36) #5
-  br label %38
+36:                                               ; preds = %31, %34
+  %37 = phi ptr [ %35, %34 ], [ %29, %31 ]
+  %38 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %37) #5
+  br label %39
 
-38:                                               ; preds = %31, %27, %35
-  %39 = phi i64 [ 168496141, %35 ], [ -1, %31 ], [ -1, %27 ]
-  ret i64 %39
+39:                                               ; preds = %31, %27, %36
+  %40 = phi i64 [ 168496141, %36 ], [ -1, %27 ], [ -1, %31 ]
+  ret i64 %40
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: readwrite)
@@ -119,27 +120,28 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %27 = phi i32 [ %3, %10 ], [ %22, %17 ]
   %28 = phi ptr [ %5, %10 ], [ %25, %17 ]
   %29 = icmp eq i32 %27, 4
-  br i1 %29, label %30, label %34
+  br i1 %29, label %30, label %35
 
 30:                                               ; preds = %26
   %31 = load i8, ptr %28, align 1, !tbaa !5
-  switch i8 %31, label %34 [
-    i8 58, label %32
-    i8 0, label %35
+  %32 = sext i8 %31 to i32
+  switch i32 %32, label %35 [
+    i32 58, label %33
+    i32 0, label %36
   ]
 
-32:                                               ; preds = %30
-  %33 = getelementptr inbounds i8, ptr %28, i64 1
+33:                                               ; preds = %30
+  %34 = getelementptr inbounds i8, ptr %28, i64 1
   store i8 0, ptr %28, align 1, !tbaa !5
-  br label %35
+  br label %36
 
-34:                                               ; preds = %30, %26
+35:                                               ; preds = %26, %30
   tail call void @abort() #6
   unreachable
 
-35:                                               ; preds = %32, %30
-  %36 = phi ptr [ %33, %32 ], [ %28, %30 ]
-  %37 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @main.addr, ptr noundef nonnull dereferenceable(1) %36) #5
+36:                                               ; preds = %33, %30
+  %37 = phi ptr [ %34, %33 ], [ %28, %30 ]
+  %38 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @main.addr, ptr noundef nonnull dereferenceable(1) %37) #5
   ret i32 0
 }
 

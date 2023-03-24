@@ -33,37 +33,43 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [15 x i8] c"END Index_Map:\00", align 1
 @str.20 = private unnamed_addr constant [17 x i8] c"BEGIN Dimension:\00", align 1
 @str.21 = private unnamed_addr constant [14 x i8] c"END Dimension\00", align 1
-@str.22 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
-@str.23 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
-@str.24 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
-@str.25 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.22 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.23 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
+@str.24 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
+@str.25 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
 define dso_local void @addRelevant(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  br label %3
+  %3 = load i16, ptr %0, align 2, !tbaa !5
+  %4 = icmp eq i16 %3, 0
+  br i1 %4, label %17, label %5
 
-3:                                                ; preds = %3, %2
-  %4 = phi i64 [ %11, %3 ], [ 0, %2 ]
-  %5 = getelementptr inbounds i16, ptr %0, i64 %4
-  %6 = load i16, ptr %5, align 2, !tbaa !5
-  %7 = icmp eq i16 %6, 0
-  %8 = sext i16 %6 to i32
+5:                                                ; preds = %2, %10
+  %6 = phi i64 [ %11, %10 ], [ 0, %2 ]
+  %7 = phi i16 [ %13, %10 ], [ %3, %2 ]
+  %8 = sext i16 %7 to i32
   %9 = icmp eq i32 %8, %1
-  %10 = or i1 %7, %9
-  %11 = add nuw i64 %4, 1
-  br i1 %10, label %12, label %3
+  br i1 %9, label %21, label %10
 
-12:                                               ; preds = %3
-  br i1 %7, label %13, label %17
+10:                                               ; preds = %5
+  %11 = add nuw i64 %6, 1
+  %12 = getelementptr inbounds i16, ptr %0, i64 %11
+  %13 = load i16, ptr %12, align 2, !tbaa !5
+  %14 = icmp eq i16 %13, 0
+  br i1 %14, label %15, label %5
 
-13:                                               ; preds = %12
-  %14 = and i64 %4, 4294967295
-  %15 = getelementptr inbounds i16, ptr %0, i64 %14
-  %16 = trunc i32 %1 to i16
-  store i16 %16, ptr %15, align 2, !tbaa !5
+15:                                               ; preds = %10
+  %16 = and i64 %11, 4294967295
   br label %17
 
-17:                                               ; preds = %13, %12
+17:                                               ; preds = %15, %2
+  %18 = phi i64 [ 0, %2 ], [ %16, %15 ]
+  %19 = getelementptr inbounds i16, ptr %0, i64 %18
+  %20 = trunc i32 %1 to i16
+  store i16 %20, ptr %19, align 2, !tbaa !5
+  br label %21
+
+21:                                               ; preds = %5, %17
   ret void
 }
 
@@ -80,24 +86,24 @@ define dso_local ptr @newTable(ptr noundef %0) local_unnamed_addr #2 {
   %3 = getelementptr inbounds %struct.operator, ptr %0, i64 0, i32 5
   %4 = load i32, ptr %3, align 8, !tbaa !12
   %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %14, label %115
+  br i1 %5, label %14, label %119
 
-6:                                                ; preds = %53
-  %7 = icmp sgt i32 %62, 0
-  br i1 %7, label %8, label %115
+6:                                                ; preds = %57
+  %7 = icmp sgt i32 %66, 0
+  br i1 %7, label %8, label %119
 
 8:                                                ; preds = %6
-  %9 = zext i32 %62 to i64
+  %9 = zext i32 %66 to i64
   %10 = and i64 %9, 3
-  %11 = icmp ult i32 %62, 4
-  br i1 %11, label %95, label %12
+  %11 = icmp ult i32 %66, 4
+  br i1 %11, label %99, label %12
 
 12:                                               ; preds = %8
   %13 = and i64 %9, 4294967292
-  br label %65
+  br label %69
 
-14:                                               ; preds = %1, %53
-  %15 = phi i64 [ %61, %53 ], [ 0, %1 ]
+14:                                               ; preds = %1, %57
+  %15 = phi i64 [ %65, %57 ], [ 0, %1 ]
   %16 = tail call ptr @zalloc(i32 noundef 48) #9
   %17 = load i32, ptr @max_nonterminal, align 4, !tbaa !15
   %18 = shl i32 %17, 1
@@ -105,139 +111,145 @@ define dso_local ptr @newTable(ptr noundef %0) local_unnamed_addr #2 {
   store ptr %19, ptr %16, align 8, !tbaa !16
   %20 = load ptr, ptr @rules, align 8, !tbaa !19
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %53, label %22
+  br i1 %21, label %57, label %22
 
-22:                                               ; preds = %14, %49
-  %23 = phi ptr [ %51, %49 ], [ %20, %14 ]
+22:                                               ; preds = %14, %53
+  %23 = phi ptr [ %55, %53 ], [ %20, %14 ]
   %24 = load ptr, ptr %23, align 8, !tbaa !20
   %25 = getelementptr inbounds %struct.rule, ptr %24, i64 0, i32 5
   %26 = load ptr, ptr %25, align 8, !tbaa !22
   %27 = getelementptr inbounds %struct.pattern, ptr %26, i64 0, i32 1
   %28 = load ptr, ptr %27, align 8, !tbaa !24
   %29 = icmp eq ptr %28, %0
-  br i1 %29, label %30, label %49
+  br i1 %29, label %30, label %53
 
 30:                                               ; preds = %22
   %31 = getelementptr inbounds %struct.pattern, ptr %26, i64 0, i32 2, i64 %15
   %32 = load ptr, ptr %31, align 8, !tbaa !19
   %33 = getelementptr inbounds %struct.nonterminal, ptr %32, i64 0, i32 1
   %34 = load i32, ptr %33, align 8, !tbaa !26
-  br label %35
+  %35 = load i16, ptr %19, align 2, !tbaa !5
+  %36 = icmp eq i16 %35, 0
+  br i1 %36, label %49, label %37
 
-35:                                               ; preds = %35, %30
-  %36 = phi i64 [ %43, %35 ], [ 0, %30 ]
-  %37 = getelementptr inbounds i16, ptr %19, i64 %36
-  %38 = load i16, ptr %37, align 2, !tbaa !5
-  %39 = icmp eq i16 %38, 0
-  %40 = sext i16 %38 to i32
+37:                                               ; preds = %30, %42
+  %38 = phi i64 [ %43, %42 ], [ 0, %30 ]
+  %39 = phi i16 [ %45, %42 ], [ %35, %30 ]
+  %40 = sext i16 %39 to i32
   %41 = icmp eq i32 %34, %40
-  %42 = or i1 %39, %41
-  %43 = add nuw i64 %36, 1
-  br i1 %42, label %44, label %35
+  br i1 %41, label %53, label %42
 
-44:                                               ; preds = %35
-  br i1 %39, label %45, label %49
+42:                                               ; preds = %37
+  %43 = add nuw i64 %38, 1
+  %44 = getelementptr inbounds i16, ptr %19, i64 %43
+  %45 = load i16, ptr %44, align 2, !tbaa !5
+  %46 = icmp eq i16 %45, 0
+  br i1 %46, label %47, label %37
 
-45:                                               ; preds = %44
-  %46 = and i64 %36, 4294967295
-  %47 = getelementptr inbounds i16, ptr %19, i64 %46
-  %48 = trunc i32 %34 to i16
-  store i16 %48, ptr %47, align 2, !tbaa !5
+47:                                               ; preds = %42
+  %48 = and i64 %43, 4294967295
   br label %49
 
-49:                                               ; preds = %45, %44, %22
-  %50 = getelementptr inbounds %struct.list, ptr %23, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !19
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %22
+49:                                               ; preds = %47, %30
+  %50 = phi i64 [ 0, %30 ], [ %48, %47 ]
+  %51 = getelementptr inbounds i16, ptr %19, i64 %50
+  %52 = trunc i32 %34 to i16
+  store i16 %52, ptr %51, align 2, !tbaa !5
+  br label %53
 
-53:                                               ; preds = %49, %14
-  %54 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 1
-  store i32 64, ptr %54, align 8, !tbaa !28
-  %55 = tail call ptr @zalloc(i32 noundef 512) #9
-  %56 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 1, i32 1
-  store ptr %55, ptr %56, align 8, !tbaa !29
-  %57 = tail call ptr @newMapping(i32 noundef 256) #9
-  %58 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 2
-  store ptr %57, ptr %58, align 8, !tbaa !30
-  %59 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 3
-  store i32 8, ptr %59, align 8, !tbaa !31
-  %60 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %15
-  store ptr %16, ptr %60, align 8, !tbaa !19
-  %61 = add nuw nsw i64 %15, 1
-  %62 = load i32, ptr %3, align 8, !tbaa !12
-  %63 = sext i32 %62 to i64
-  %64 = icmp slt i64 %61, %63
-  br i1 %64, label %14, label %6
+53:                                               ; preds = %37, %49, %22
+  %54 = getelementptr inbounds %struct.list, ptr %23, i64 0, i32 1
+  %55 = load ptr, ptr %54, align 8, !tbaa !19
+  %56 = icmp eq ptr %55, null
+  br i1 %56, label %57, label %22
 
-65:                                               ; preds = %65, %12
-  %66 = phi i64 [ 0, %12 ], [ %92, %65 ]
-  %67 = phi i32 [ 1, %12 ], [ %91, %65 ]
-  %68 = phi i64 [ 0, %12 ], [ %93, %65 ]
-  %69 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %66
-  %70 = load ptr, ptr %69, align 8, !tbaa !19
-  %71 = getelementptr inbounds %struct.dimension, ptr %70, i64 0, i32 3
-  %72 = load i32, ptr %71, align 8, !tbaa !31
-  %73 = mul nsw i32 %72, %67
-  %74 = or i64 %66, 1
-  %75 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %74
-  %76 = load ptr, ptr %75, align 8, !tbaa !19
-  %77 = getelementptr inbounds %struct.dimension, ptr %76, i64 0, i32 3
-  %78 = load i32, ptr %77, align 8, !tbaa !31
-  %79 = mul nsw i32 %78, %73
-  %80 = or i64 %66, 2
-  %81 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %80
-  %82 = load ptr, ptr %81, align 8, !tbaa !19
-  %83 = getelementptr inbounds %struct.dimension, ptr %82, i64 0, i32 3
-  %84 = load i32, ptr %83, align 8, !tbaa !31
-  %85 = mul nsw i32 %84, %79
-  %86 = or i64 %66, 3
-  %87 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %86
-  %88 = load ptr, ptr %87, align 8, !tbaa !19
-  %89 = getelementptr inbounds %struct.dimension, ptr %88, i64 0, i32 3
-  %90 = load i32, ptr %89, align 8, !tbaa !31
-  %91 = mul nsw i32 %90, %85
-  %92 = add nuw nsw i64 %66, 4
-  %93 = add i64 %68, 4
-  %94 = icmp eq i64 %93, %13
-  br i1 %94, label %95, label %65
+57:                                               ; preds = %53, %14
+  %58 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 1
+  store i32 64, ptr %58, align 8, !tbaa !28
+  %59 = tail call ptr @zalloc(i32 noundef 512) #9
+  %60 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 1, i32 1
+  store ptr %59, ptr %60, align 8, !tbaa !29
+  %61 = tail call ptr @newMapping(i32 noundef 256) #9
+  %62 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 2
+  store ptr %61, ptr %62, align 8, !tbaa !30
+  %63 = getelementptr inbounds %struct.dimension, ptr %16, i64 0, i32 3
+  store i32 8, ptr %63, align 8, !tbaa !31
+  %64 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %15
+  store ptr %16, ptr %64, align 8, !tbaa !19
+  %65 = add nuw nsw i64 %15, 1
+  %66 = load i32, ptr %3, align 8, !tbaa !12
+  %67 = sext i32 %66 to i64
+  %68 = icmp slt i64 %65, %67
+  br i1 %68, label %14, label %6
 
-95:                                               ; preds = %65, %8
-  %96 = phi i32 [ undef, %8 ], [ %91, %65 ]
-  %97 = phi i64 [ 0, %8 ], [ %92, %65 ]
-  %98 = phi i32 [ 1, %8 ], [ %91, %65 ]
-  %99 = icmp eq i64 %10, 0
-  br i1 %99, label %112, label %100
+69:                                               ; preds = %69, %12
+  %70 = phi i64 [ 0, %12 ], [ %96, %69 ]
+  %71 = phi i32 [ 1, %12 ], [ %95, %69 ]
+  %72 = phi i64 [ 0, %12 ], [ %97, %69 ]
+  %73 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %70
+  %74 = load ptr, ptr %73, align 8, !tbaa !19
+  %75 = getelementptr inbounds %struct.dimension, ptr %74, i64 0, i32 3
+  %76 = load i32, ptr %75, align 8, !tbaa !31
+  %77 = mul nsw i32 %76, %71
+  %78 = or i64 %70, 1
+  %79 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %78
+  %80 = load ptr, ptr %79, align 8, !tbaa !19
+  %81 = getelementptr inbounds %struct.dimension, ptr %80, i64 0, i32 3
+  %82 = load i32, ptr %81, align 8, !tbaa !31
+  %83 = mul nsw i32 %82, %77
+  %84 = or i64 %70, 2
+  %85 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %84
+  %86 = load ptr, ptr %85, align 8, !tbaa !19
+  %87 = getelementptr inbounds %struct.dimension, ptr %86, i64 0, i32 3
+  %88 = load i32, ptr %87, align 8, !tbaa !31
+  %89 = mul nsw i32 %88, %83
+  %90 = or i64 %70, 3
+  %91 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %90
+  %92 = load ptr, ptr %91, align 8, !tbaa !19
+  %93 = getelementptr inbounds %struct.dimension, ptr %92, i64 0, i32 3
+  %94 = load i32, ptr %93, align 8, !tbaa !31
+  %95 = mul nsw i32 %94, %89
+  %96 = add nuw nsw i64 %70, 4
+  %97 = add i64 %72, 4
+  %98 = icmp eq i64 %97, %13
+  br i1 %98, label %99, label %69
 
-100:                                              ; preds = %95, %100
-  %101 = phi i64 [ %109, %100 ], [ %97, %95 ]
-  %102 = phi i32 [ %108, %100 ], [ %98, %95 ]
-  %103 = phi i64 [ %110, %100 ], [ 0, %95 ]
-  %104 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %101
-  %105 = load ptr, ptr %104, align 8, !tbaa !19
-  %106 = getelementptr inbounds %struct.dimension, ptr %105, i64 0, i32 3
-  %107 = load i32, ptr %106, align 8, !tbaa !31
-  %108 = mul nsw i32 %107, %102
-  %109 = add nuw nsw i64 %101, 1
-  %110 = add i64 %103, 1
-  %111 = icmp eq i64 %110, %10
-  br i1 %111, label %112, label %100, !llvm.loop !32
+99:                                               ; preds = %69, %8
+  %100 = phi i32 [ undef, %8 ], [ %95, %69 ]
+  %101 = phi i64 [ 0, %8 ], [ %96, %69 ]
+  %102 = phi i32 [ 1, %8 ], [ %95, %69 ]
+  %103 = icmp eq i64 %10, 0
+  br i1 %103, label %116, label %104
 
-112:                                              ; preds = %100, %95
-  %113 = phi i32 [ %96, %95 ], [ %108, %100 ]
-  %114 = shl i32 %113, 3
-  br label %115
+104:                                              ; preds = %99, %104
+  %105 = phi i64 [ %113, %104 ], [ %101, %99 ]
+  %106 = phi i32 [ %112, %104 ], [ %102, %99 ]
+  %107 = phi i64 [ %114, %104 ], [ 0, %99 ]
+  %108 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 3, i64 %105
+  %109 = load ptr, ptr %108, align 8, !tbaa !19
+  %110 = getelementptr inbounds %struct.dimension, ptr %109, i64 0, i32 3
+  %111 = load i32, ptr %110, align 8, !tbaa !31
+  %112 = mul nsw i32 %111, %106
+  %113 = add nuw nsw i64 %105, 1
+  %114 = add i64 %107, 1
+  %115 = icmp eq i64 %114, %10
+  br i1 %115, label %116, label %104, !llvm.loop !32
 
-115:                                              ; preds = %1, %112, %6
-  %116 = phi i32 [ 8, %6 ], [ %114, %112 ], [ 8, %1 ]
-  %117 = tail call ptr @zalloc(i32 noundef %116) #9
-  %118 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 4
-  store ptr %117, ptr %118, align 8, !tbaa !34
-  %119 = load i32, ptr @max_nonterminal, align 4, !tbaa !15
-  %120 = shl i32 %119, 1
+116:                                              ; preds = %104, %99
+  %117 = phi i32 [ %100, %99 ], [ %112, %104 ]
+  %118 = shl i32 %117, 3
+  br label %119
+
+119:                                              ; preds = %1, %116, %6
+  %120 = phi i32 [ 8, %6 ], [ %118, %116 ], [ 8, %1 ]
   %121 = tail call ptr @zalloc(i32 noundef %120) #9
-  %122 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 2
-  store ptr %121, ptr %122, align 8, !tbaa !35
+  %122 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 4
+  store ptr %121, ptr %122, align 8, !tbaa !34
+  %123 = load i32, ptr @max_nonterminal, align 4, !tbaa !15
+  %124 = shl i32 %123, 1
+  %125 = tail call ptr @zalloc(i32 noundef %124) #9
+  %126 = getelementptr inbounds %struct.table, ptr %2, i64 0, i32 2
+  store ptr %125, ptr %126, align 8, !tbaa !35
   ret ptr %2
 }
 
@@ -639,9 +651,9 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
   br i1 %280, label %309, label %281
 
 281:                                              ; preds = %271
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #9
   %282 = getelementptr inbounds %struct.item, ptr %272, i64 %277
-  call void @ASSIGNCOST(ptr noundef nonnull %8, ptr noundef %282) #9
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #9
+  call void @ASSIGNCOST(ptr noundef nonnull %8, ptr noundef nonnull %282) #9
   call void @ADDCOST(ptr noundef nonnull %8, ptr noundef nonnull %264) #9
   %283 = load ptr, ptr %260, align 8, !tbaa !38
   %284 = getelementptr inbounds %struct.rule, ptr %264, i64 0, i32 4
@@ -656,7 +668,7 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
 
 292:                                              ; preds = %281
   %293 = getelementptr inbounds %struct.item, ptr %283, i64 %288
-  %294 = call i32 @LESSCOST(ptr noundef nonnull %8, ptr noundef %293) #9
+  %294 = call i32 @LESSCOST(ptr noundef nonnull %8, ptr noundef nonnull %293) #9
   %295 = icmp eq i32 %294, 0
   br i1 %295, label %308, label %296
 
@@ -671,10 +683,10 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
 302:                                              ; preds = %296, %281
   %303 = phi i64 [ %301, %296 ], [ %288, %281 ]
   %304 = phi ptr [ %297, %296 ], [ %283, %281 ]
-  %305 = getelementptr inbounds %struct.item, ptr %304, i64 %303, i32 1
-  store ptr %264, ptr %305, align 8, !tbaa !39
-  %306 = getelementptr inbounds %struct.item, ptr %304, i64 %303
-  call void @ASSIGNCOST(ptr noundef %306, ptr noundef nonnull %8) #9
+  %305 = getelementptr inbounds %struct.item, ptr %304, i64 %303
+  %306 = getelementptr inbounds %struct.item, ptr %304, i64 %303, i32 1
+  store ptr %264, ptr %306, align 8, !tbaa !39
+  call void @ASSIGNCOST(ptr noundef %305, ptr noundef nonnull %8) #9
   %307 = load ptr, ptr %0, align 8, !tbaa !9
   store ptr %307, ptr %261, align 8, !tbaa !53
   br label %308
@@ -846,7 +858,7 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
 
 427:                                              ; preds = %393
   %428 = getelementptr inbounds %struct.item, ptr %418, i64 %423
-  %429 = call i32 @LESSCOST(ptr noundef nonnull %6, ptr noundef %428) #9
+  %429 = call i32 @LESSCOST(ptr noundef nonnull %6, ptr noundef nonnull %428) #9
   %430 = icmp eq i32 %429, 0
   br i1 %430, label %443, label %431
 
@@ -861,10 +873,10 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
 437:                                              ; preds = %431, %393
   %438 = phi i64 [ %436, %431 ], [ %423, %393 ]
   %439 = phi ptr [ %432, %431 ], [ %418, %393 ]
-  %440 = getelementptr inbounds %struct.item, ptr %439, i64 %438, i32 1
-  store ptr %358, ptr %440, align 8, !tbaa !39
-  %441 = getelementptr inbounds %struct.item, ptr %439, i64 %438
-  call void @ASSIGNCOST(ptr noundef %441, ptr noundef nonnull %6) #9
+  %440 = getelementptr inbounds %struct.item, ptr %439, i64 %438
+  %441 = getelementptr inbounds %struct.item, ptr %439, i64 %438, i32 1
+  store ptr %358, ptr %441, align 8, !tbaa !39
+  call void @ASSIGNCOST(ptr noundef %440, ptr noundef nonnull %6) #9
   %442 = load ptr, ptr %0, align 8, !tbaa !9
   store ptr %442, ptr %355, align 8, !tbaa !53
   br label %443
@@ -1046,7 +1058,7 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
 
 575:                                              ; preds = %541
   %576 = getelementptr inbounds %struct.item, ptr %566, i64 %571
-  %577 = call i32 @LESSCOST(ptr noundef nonnull %4, ptr noundef %576) #9
+  %577 = call i32 @LESSCOST(ptr noundef nonnull %4, ptr noundef nonnull %576) #9
   %578 = icmp eq i32 %577, 0
   br i1 %578, label %591, label %579
 
@@ -1061,10 +1073,10 @@ define dso_local void @addToTable(ptr nocapture noundef %0, ptr noundef %1) loca
 585:                                              ; preds = %579, %541
   %586 = phi i64 [ %584, %579 ], [ %571, %541 ]
   %587 = phi ptr [ %580, %579 ], [ %566, %541 ]
-  %588 = getelementptr inbounds %struct.item, ptr %587, i64 %586, i32 1
-  store ptr %506, ptr %588, align 8, !tbaa !39
-  %589 = getelementptr inbounds %struct.item, ptr %587, i64 %586
-  call void @ASSIGNCOST(ptr noundef %589, ptr noundef nonnull %4) #9
+  %588 = getelementptr inbounds %struct.item, ptr %587, i64 %586
+  %589 = getelementptr inbounds %struct.item, ptr %587, i64 %586, i32 1
+  store ptr %506, ptr %589, align 8, !tbaa !39
+  call void @ASSIGNCOST(ptr noundef %588, ptr noundef nonnull %4) #9
   %590 = load ptr, ptr %0, align 8, !tbaa !9
   store ptr %590, ptr %503, align 8, !tbaa !53
   br label %591
@@ -1316,7 +1328,7 @@ define dso_local void @dumpTable(ptr noundef readonly %0, i32 noundef %1) local_
   br i1 %3, label %28, label %4
 
 4:                                                ; preds = %2
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   %6 = icmp eq i32 %1, 0
   br i1 %6, label %9, label %7
 
@@ -1353,7 +1365,7 @@ define dso_local void @dumpTable(ptr noundef readonly %0, i32 noundef %1) local_
   br label %28
 
 28:                                               ; preds = %2, %27
-  %29 = phi ptr [ @str.24, %27 ], [ @str.22, %2 ]
+  %29 = phi ptr [ @str.25, %27 ], [ @str.23, %2 ]
   %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) %29)
   ret void
 }
@@ -1512,8 +1524,8 @@ define dso_local void @dumpTransition(ptr nocapture noundef readonly %0) local_u
   br label %107
 
 107:                                              ; preds = %105, %126
-  %108 = phi i64 [ 1, %105 ], [ %132, %126 ]
-  %109 = phi ptr [ %99, %105 ], [ %133, %126 ]
+  %108 = phi ptr [ %99, %105 ], [ %133, %126 ]
+  %109 = phi i64 [ 1, %105 ], [ %132, %126 ]
   %110 = load ptr, ptr %0, align 8, !tbaa !9
   %111 = getelementptr inbounds %struct.operator, ptr %110, i64 0, i32 5
   %112 = load i32, ptr %111, align 8, !tbaa !12
@@ -1534,12 +1546,12 @@ define dso_local void @dumpTransition(ptr nocapture noundef readonly %0) local_u
 
 118:                                              ; preds = %107
   %119 = load ptr, ptr %61, align 8, !tbaa !34
-  %120 = getelementptr inbounds %struct.dimension, ptr %109, i64 0, i32 3
+  %120 = getelementptr inbounds %struct.dimension, ptr %108, i64 0, i32 3
   %121 = load i32, ptr %120, align 8, !tbaa !31
   %122 = mul nsw i32 %121, %106
   %123 = sext i32 %122 to i64
   %124 = getelementptr inbounds ptr, ptr %119, i64 %123
-  %125 = getelementptr inbounds ptr, ptr %124, i64 %108
+  %125 = getelementptr inbounds ptr, ptr %124, i64 %109
   br label %126
 
 126:                                              ; preds = %107, %113, %115, %118
@@ -1548,7 +1560,7 @@ define dso_local void @dumpTransition(ptr nocapture noundef readonly %0) local_u
   %129 = load ptr, ptr %127, align 8, !tbaa !19
   %130 = load i32, ptr %129, align 8, !tbaa !42
   %131 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %130)
-  %132 = add nuw nsw i64 %108, 1
+  %132 = add nuw nsw i64 %109, 1
   %133 = load ptr, ptr %60, align 8, !tbaa !19
   %134 = getelementptr inbounds %struct.dimension, ptr %133, i64 0, i32 2
   %135 = load ptr, ptr %134, align 8, !tbaa !30
@@ -1571,7 +1583,7 @@ define dso_local void @dumpTransition(ptr nocapture noundef readonly %0) local_u
   br i1 %149, label %62, label %150
 
 150:                                              ; preds = %140, %50
-  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   br label %152
 
 152:                                              ; preds = %1, %150, %48, %5

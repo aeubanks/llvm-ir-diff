@@ -51,46 +51,46 @@ define dso_local void @_ZN3fsmC2EP6triple(ptr nocapture noundef nonnull align 8 
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV3fsm, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
   %3 = load i32, ptr %1, align 4, !tbaa !11
   %4 = icmp eq i32 %3, 0
-  br i1 %4, label %9, label %13
+  br i1 %4, label %20, label %5
 
-5:                                                ; preds = %13
-  %6 = add nuw nsw i32 %20, 1
-  %7 = sext i32 %6 to i64
-  %8 = shl nsw i64 %7, 10
-  br label %9
+5:                                                ; preds = %2, %5
+  %6 = phi i32 [ %14, %5 ], [ %3, %2 ]
+  %7 = phi i32 [ %12, %5 ], [ 0, %2 ]
+  %8 = phi ptr [ %13, %5 ], [ %1, %2 ]
+  %9 = tail call i32 @llvm.smax.i32(i32 %6, i32 %7)
+  %10 = getelementptr inbounds %class.triple, ptr %8, i64 0, i32 1
+  %11 = load i32, ptr %10, align 4, !tbaa !14
+  %12 = tail call i32 @llvm.smax.i32(i32 %11, i32 %9)
+  %13 = getelementptr inbounds %class.triple, ptr %8, i64 1
+  %14 = load i32, ptr %13, align 4, !tbaa !11
+  %15 = icmp eq i32 %14, 0
+  br i1 %15, label %16, label %5, !llvm.loop !15
 
-9:                                                ; preds = %5, %2
-  %10 = phi i64 [ 1024, %2 ], [ %8, %5 ]
-  %11 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %10) #14
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %11, i8 0, i64 %10, i1 false), !tbaa !5
-  %12 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  store ptr %11, ptr %12, align 8, !tbaa !14
+16:                                               ; preds = %5
+  %17 = add nuw nsw i32 %12, 1
+  %18 = sext i32 %17 to i64
+  %19 = shl nsw i64 %18, 10
+  br label %20
+
+20:                                               ; preds = %16, %2
+  %21 = phi i64 [ 1024, %2 ], [ %19, %16 ]
+  %22 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %21) #14
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %22, i8 0, i64 %21, i1 false), !tbaa !5
+  %23 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
+  store ptr %22, ptr %23, align 8, !tbaa !17
   br i1 %4, label %24, label %26
 
-13:                                               ; preds = %2, %13
-  %14 = phi i32 [ %22, %13 ], [ %3, %2 ]
-  %15 = phi i32 [ %20, %13 ], [ 0, %2 ]
-  %16 = phi ptr [ %21, %13 ], [ %1, %2 ]
-  %17 = tail call i32 @llvm.smax.i32(i32 %14, i32 %15)
-  %18 = getelementptr inbounds %class.triple, ptr %16, i64 0, i32 1
-  %19 = load i32, ptr %18, align 4, !tbaa !16
-  %20 = tail call i32 @llvm.smax.i32(i32 %19, i32 %17)
-  %21 = getelementptr inbounds %class.triple, ptr %16, i64 1
-  %22 = load i32, ptr %21, align 4, !tbaa !11
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %5, label %13, !llvm.loop !17
-
-24:                                               ; preds = %26, %9
+24:                                               ; preds = %26, %20
   %25 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 2
   store ptr null, ptr %25, align 8, !tbaa !19
   ret void
 
-26:                                               ; preds = %9, %26
-  %27 = phi i32 [ %41, %26 ], [ %3, %9 ]
-  %28 = phi ptr [ %40, %26 ], [ %1, %9 ]
-  %29 = load ptr, ptr %12, align 8, !tbaa !14
+26:                                               ; preds = %20, %26
+  %27 = phi i32 [ %41, %26 ], [ %3, %20 ]
+  %28 = phi ptr [ %40, %26 ], [ %1, %20 ]
+  %29 = load ptr, ptr %23, align 8, !tbaa !17
   %30 = getelementptr inbounds %class.triple, ptr %28, i64 0, i32 1
-  %31 = load i32, ptr %30, align 4, !tbaa !16
+  %31 = load i32, ptr %30, align 4, !tbaa !14
   %32 = sext i32 %31 to i64
   %33 = getelementptr inbounds %class.state, ptr %29, i64 %32
   %34 = sext i32 %27 to i64
@@ -118,7 +118,7 @@ declare void @_ZdaPv(ptr noundef) local_unnamed_addr #4
 define dso_local void @_ZN3fsmD0Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 align 2 {
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV3fsm, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
   %2 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
   %4 = icmp eq ptr %3, null
   br i1 %4, label %6, label %5
 
@@ -137,7 +137,7 @@ declare void @_ZdlPv(ptr noundef) local_unnamed_addr #4
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN3fsm5resetEv(ptr nocapture noundef nonnull align 8 dereferenceable(24) %0) local_unnamed_addr #6 align 2 {
   %2 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
   %4 = getelementptr inbounds %class.state, ptr %3, i64 1
   %5 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 2
   store ptr %4, ptr %5, align 8, !tbaa !19
@@ -167,7 +167,7 @@ define dso_local noundef i32 @_ZN3fsm9end_stateEv(ptr nocapture noundef nonnull 
   %2 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 2
   %3 = load ptr, ptr %2, align 8, !tbaa !19
   %4 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !14
+  %5 = load ptr, ptr %4, align 8, !tbaa !17
   %6 = icmp eq ptr %3, %5
   %7 = zext i1 %6 to i32
   ret i32 %7
@@ -187,41 +187,41 @@ define dso_local void @_ZN6sampleC2Ev(ptr nocapture noundef nonnull align 8 dere
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV3fsm, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
   %2 = load i32, ptr @_ZN6sample5edgesE, align 16, !tbaa !11
   %3 = icmp eq i32 %2, 0
-  br i1 %3, label %8, label %12
+  br i1 %3, label %19, label %4
 
-4:                                                ; preds = %12
-  %5 = add nuw nsw i32 %19, 1
-  %6 = sext i32 %5 to i64
-  %7 = shl nsw i64 %6, 10
-  br label %8
+4:                                                ; preds = %1, %4
+  %5 = phi i32 [ %13, %4 ], [ %2, %1 ]
+  %6 = phi i32 [ %11, %4 ], [ 0, %1 ]
+  %7 = phi ptr [ %12, %4 ], [ @_ZN6sample5edgesE, %1 ]
+  %8 = tail call i32 @llvm.smax.i32(i32 %5, i32 %6)
+  %9 = getelementptr inbounds %class.triple, ptr %7, i64 0, i32 1
+  %10 = load i32, ptr %9, align 4, !tbaa !14
+  %11 = tail call i32 @llvm.smax.i32(i32 %10, i32 %8)
+  %12 = getelementptr inbounds %class.triple, ptr %7, i64 1
+  %13 = load i32, ptr %12, align 4, !tbaa !11
+  %14 = icmp eq i32 %13, 0
+  br i1 %14, label %15, label %4, !llvm.loop !15
 
-8:                                                ; preds = %4, %1
-  %9 = phi i64 [ 1024, %1 ], [ %7, %4 ]
-  %10 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %9) #14
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %10, i8 0, i64 %9, i1 false), !tbaa !5
-  %11 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  store ptr %10, ptr %11, align 8, !tbaa !14
+15:                                               ; preds = %4
+  %16 = add nuw nsw i32 %11, 1
+  %17 = sext i32 %16 to i64
+  %18 = shl nsw i64 %17, 10
+  br label %19
+
+19:                                               ; preds = %15, %1
+  %20 = phi i64 [ 1024, %1 ], [ %18, %15 ]
+  %21 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %20) #14
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %21, i8 0, i64 %20, i1 false), !tbaa !5
+  %22 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
+  store ptr %21, ptr %22, align 8, !tbaa !17
   br i1 %3, label %40, label %23
 
-12:                                               ; preds = %1, %12
-  %13 = phi i32 [ %21, %12 ], [ %2, %1 ]
-  %14 = phi i32 [ %19, %12 ], [ 0, %1 ]
-  %15 = phi ptr [ %20, %12 ], [ @_ZN6sample5edgesE, %1 ]
-  %16 = tail call i32 @llvm.smax.i32(i32 %13, i32 %14)
-  %17 = getelementptr inbounds %class.triple, ptr %15, i64 0, i32 1
-  %18 = load i32, ptr %17, align 4, !tbaa !16
-  %19 = tail call i32 @llvm.smax.i32(i32 %18, i32 %16)
-  %20 = getelementptr inbounds %class.triple, ptr %15, i64 1
-  %21 = load i32, ptr %20, align 4, !tbaa !11
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %4, label %12, !llvm.loop !17
-
-23:                                               ; preds = %8, %23
-  %24 = phi i32 [ %38, %23 ], [ %2, %8 ]
-  %25 = phi ptr [ %37, %23 ], [ @_ZN6sample5edgesE, %8 ]
-  %26 = load ptr, ptr %11, align 8, !tbaa !14
+23:                                               ; preds = %19, %23
+  %24 = phi i32 [ %38, %23 ], [ %2, %19 ]
+  %25 = phi ptr [ %37, %23 ], [ @_ZN6sample5edgesE, %19 ]
+  %26 = load ptr, ptr %22, align 8, !tbaa !17
   %27 = getelementptr inbounds %class.triple, ptr %25, i64 0, i32 1
-  %28 = load i32, ptr %27, align 4, !tbaa !16
+  %28 = load i32, ptr %27, align 4, !tbaa !14
   %29 = sext i32 %28 to i64
   %30 = getelementptr inbounds %class.state, ptr %26, i64 %29
   %31 = sext i32 %24 to i64
@@ -236,7 +236,7 @@ define dso_local void @_ZN6sampleC2Ev(ptr nocapture noundef nonnull align 8 dere
   %39 = icmp eq i32 %38, 0
   br i1 %39, label %40, label %23, !llvm.loop !21
 
-40:                                               ; preds = %23, %8
+40:                                               ; preds = %23, %19
   %41 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 2
   store ptr null, ptr %41, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV6sample, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
@@ -251,43 +251,43 @@ define dso_local noundef i32 @main() local_unnamed_addr #9 personality ptr @__gx
   %3 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.1, ptr noundef nonnull %1)
   %4 = load i32, ptr @_ZN6sample5edgesE, align 16, !tbaa !11
   %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %13
+  br i1 %5, label %6, label %8
 
 6:                                                ; preds = %0
   %7 = call noalias noundef nonnull dereferenceable(1024) ptr @_Znam(i64 noundef 1024) #14
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(1024) %7, i8 0, i64 1024, i1 false), !tbaa !5
   br label %40
 
-8:                                                ; preds = %13
-  %9 = add nuw nsw i32 %20, 1
-  %10 = sext i32 %9 to i64
-  %11 = shl nsw i64 %10, 10
-  %12 = call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #14
-  call void @llvm.memset.p0.i64(ptr nonnull align 8 %12, i8 0, i64 %11, i1 false), !tbaa !5
+8:                                                ; preds = %0, %8
+  %9 = phi i32 [ %17, %8 ], [ %4, %0 ]
+  %10 = phi i32 [ %15, %8 ], [ 0, %0 ]
+  %11 = phi ptr [ %16, %8 ], [ @_ZN6sample5edgesE, %0 ]
+  %12 = call i32 @llvm.smax.i32(i32 %9, i32 %10)
+  %13 = getelementptr inbounds %class.triple, ptr %11, i64 0, i32 1
+  %14 = load i32, ptr %13, align 4, !tbaa !14
+  %15 = call i32 @llvm.smax.i32(i32 %14, i32 %12)
+  %16 = getelementptr inbounds %class.triple, ptr %11, i64 1
+  %17 = load i32, ptr %16, align 4, !tbaa !11
+  %18 = icmp eq i32 %17, 0
+  br i1 %18, label %19, label %8, !llvm.loop !15
+
+19:                                               ; preds = %8
+  %20 = add nuw nsw i32 %15, 1
+  %21 = sext i32 %20 to i64
+  %22 = shl nsw i64 %21, 10
+  %23 = call noalias noundef nonnull ptr @_Znam(i64 noundef %22) #14
+  call void @llvm.memset.p0.i64(ptr nonnull align 8 %23, i8 0, i64 %22, i1 false), !tbaa !5
   br label %24
 
-13:                                               ; preds = %0, %13
-  %14 = phi i32 [ %22, %13 ], [ %4, %0 ]
-  %15 = phi i32 [ %20, %13 ], [ 0, %0 ]
-  %16 = phi ptr [ %21, %13 ], [ @_ZN6sample5edgesE, %0 ]
-  %17 = call i32 @llvm.smax.i32(i32 %14, i32 %15)
-  %18 = getelementptr inbounds %class.triple, ptr %16, i64 0, i32 1
-  %19 = load i32, ptr %18, align 4, !tbaa !16
-  %20 = call i32 @llvm.smax.i32(i32 %19, i32 %17)
-  %21 = getelementptr inbounds %class.triple, ptr %16, i64 1
-  %22 = load i32, ptr %21, align 4, !tbaa !11
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %8, label %13, !llvm.loop !17
-
-24:                                               ; preds = %8, %24
-  %25 = phi i32 [ %38, %24 ], [ %4, %8 ]
-  %26 = phi ptr [ %37, %24 ], [ @_ZN6sample5edgesE, %8 ]
+24:                                               ; preds = %19, %24
+  %25 = phi i32 [ %38, %24 ], [ %4, %19 ]
+  %26 = phi ptr [ %37, %24 ], [ @_ZN6sample5edgesE, %19 ]
   %27 = getelementptr inbounds %class.triple, ptr %26, i64 0, i32 1
-  %28 = load i32, ptr %27, align 4, !tbaa !16
+  %28 = load i32, ptr %27, align 4, !tbaa !14
   %29 = sext i32 %28 to i64
-  %30 = getelementptr inbounds %class.state, ptr %12, i64 %29
+  %30 = getelementptr inbounds %class.state, ptr %23, i64 %29
   %31 = sext i32 %25 to i64
-  %32 = getelementptr inbounds %class.state, ptr %12, i64 %31
+  %32 = getelementptr inbounds %class.state, ptr %23, i64 %31
   %33 = getelementptr inbounds %class.triple, ptr %26, i64 0, i32 2
   %34 = load i8, ptr %33, align 4, !tbaa !20
   %35 = sext i8 %34 to i64
@@ -299,7 +299,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #9 personality ptr @__gx
   br i1 %39, label %40, label %24, !llvm.loop !21
 
 40:                                               ; preds = %24, %6
-  %41 = phi ptr [ %7, %6 ], [ %12, %24 ]
+  %41 = phi ptr [ %7, %6 ], [ %23, %24 ]
   %42 = getelementptr inbounds %class.state, ptr %41, i64 1
   %43 = load i8, ptr %1, align 16, !tbaa !22
   %44 = sext i8 %43 to i64
@@ -342,7 +342,7 @@ declare noundef i32 @__isoc99_scanf(ptr nocapture noundef readonly, ...) local_u
 define dso_local void @_ZN3fsmD2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 align 2 {
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV3fsm, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
   %2 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
   %4 = icmp eq ptr %3, null
   br i1 %4, label %6, label %5
 
@@ -358,7 +358,7 @@ define dso_local void @_ZN3fsmD2Ev(ptr nocapture noundef nonnull align 8 derefer
 define linkonce_odr dso_local void @_ZN6sampleD0Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #11 comdat align 2 {
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV3fsm, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
   %2 = getelementptr inbounds %class.fsm, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
   %4 = icmp eq ptr %3, null
   br i1 %4, label %6, label %5
 
@@ -412,13 +412,13 @@ attributes #16 = { nounwind }
 !11 = !{!12, !13, i64 0}
 !12 = !{!"_ZTS6triple", !13, i64 0, !13, i64 4, !7, i64 8}
 !13 = !{!"int", !7, i64 0}
-!14 = !{!15, !6, i64 8}
-!15 = !{!"_ZTS3fsm", !6, i64 8, !6, i64 16}
-!16 = !{!12, !13, i64 4}
-!17 = distinct !{!17, !18}
-!18 = !{!"llvm.loop.mustprogress"}
-!19 = !{!15, !6, i64 16}
+!14 = !{!12, !13, i64 4}
+!15 = distinct !{!15, !16}
+!16 = !{!"llvm.loop.mustprogress"}
+!17 = !{!18, !6, i64 8}
+!18 = !{!"_ZTS3fsm", !6, i64 8, !6, i64 16}
+!19 = !{!18, !6, i64 16}
 !20 = !{!12, !7, i64 8}
-!21 = distinct !{!21, !18}
+!21 = distinct !{!21, !16}
 !22 = !{!7, !7, i64 0}
-!23 = distinct !{!23, !18}
+!23 = distinct !{!23, !16}

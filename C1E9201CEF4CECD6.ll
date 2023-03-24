@@ -238,24 +238,24 @@ define hidden void @_ZN23MyFixture_Bar_Benchmark13BenchmarkCaseERN9benchmark5Sta
 
 39:                                               ; preds = %32
   %40 = load i64, ptr %36, align 8, !tbaa !33
+  %41 = getelementptr inbounds %"class.benchmark::State", ptr %1, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #18
-  %41 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
-  store ptr %41, ptr %4, align 8, !tbaa !34
+  %42 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
+  store ptr %42, ptr %4, align 8, !tbaa !34
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #18
   store i64 16, ptr %3, align 8, !tbaa !33
-  %42 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
-  store ptr %42, ptr %4, align 8, !tbaa !36
-  %43 = load i64, ptr %3, align 8, !tbaa !33
-  store i64 %43, ptr %41, align 8, !tbaa !38
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %42, ptr noundef nonnull align 1 dereferenceable(16) @.str.11, i64 16, i1 false)
-  %44 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  store i64 %43, ptr %44, align 8, !tbaa !39
-  %45 = load ptr, ptr %4, align 8, !tbaa !36
-  %46 = getelementptr inbounds i8, ptr %45, i64 %43
-  store i8 0, ptr %46, align 1, !tbaa !38
+  %43 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
+  store ptr %43, ptr %4, align 8, !tbaa !36
+  %44 = load i64, ptr %3, align 8, !tbaa !33
+  store i64 %44, ptr %42, align 8, !tbaa !38
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %43, ptr noundef nonnull align 1 dereferenceable(16) @.str.11, i64 16, i1 false)
+  %45 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
+  store i64 %44, ptr %45, align 8, !tbaa !39
+  %46 = load ptr, ptr %4, align 8, !tbaa !36
+  %47 = getelementptr inbounds i8, ptr %46, i64 %44
+  store i8 0, ptr %47, align 1, !tbaa !38
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #18
-  %47 = getelementptr inbounds %"class.benchmark::State", ptr %1, i64 0, i32 8
-  %48 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %47, ptr noundef nonnull align 8 dereferenceable(32) %4)
+  %48 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %41, ptr noundef nonnull align 8 dereferenceable(32) %4)
           to label %49 unwind label %56
 
 49:                                               ; preds = %39
@@ -266,7 +266,7 @@ define hidden void @_ZN23MyFixture_Bar_Benchmark13BenchmarkCaseERN9benchmark5Sta
   %52 = getelementptr inbounds i8, ptr %48, i64 12
   store i32 1000, ptr %52, align 4, !tbaa.struct !48
   %53 = load ptr, ptr %4, align 8, !tbaa !36
-  %54 = icmp eq ptr %53, %41
+  %54 = icmp eq ptr %53, %42
   br i1 %54, label %62, label %55
 
 55:                                               ; preds = %49
@@ -277,7 +277,7 @@ define hidden void @_ZN23MyFixture_Bar_Benchmark13BenchmarkCaseERN9benchmark5Sta
   %57 = landingpad { ptr, i32 }
           cleanup
   %58 = load ptr, ptr %4, align 8, !tbaa !36
-  %59 = icmp eq ptr %58, %41
+  %59 = icmp eq ptr %58, %42
   br i1 %59, label %61, label %60
 
 60:                                               ; preds = %56

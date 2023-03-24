@@ -299,10 +299,10 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   %32 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 1
   store ptr %31, ptr %32, align 8, !tbaa !40
   store ptr %31, ptr %0, align 8, !tbaa !41
-  %33 = getelementptr inbounds i8, ptr %13, i64 -4
+  %33 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %31, i64 0, i32 3
   store i32 0, ptr %33, align 4, !tbaa !42
   store i16 256, ptr %31, align 4, !tbaa !44
-  %34 = getelementptr inbounds i8, ptr %13, i64 -10
+  %34 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %31, i64 0, i32 1
   store i16 257, ptr %34, align 2, !tbaa !45
   %35 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 2
   store ptr %19, ptr %35, align 8, !tbaa !46
@@ -321,7 +321,7 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   %44 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %43
   %45 = trunc i64 %43 to i8
   store i8 %45, ptr %44, align 1, !tbaa !49
-  %46 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %43, i32 1
+  %46 = getelementptr inbounds %struct.CPpmd_State, ptr %44, i64 0, i32 1
   store i8 1, ptr %46, align 1, !tbaa !51
   %47 = getelementptr inbounds %struct.CPpmd_State, ptr %44, i64 0, i32 2
   store i16 0, ptr %47, align 1, !tbaa !52
@@ -331,7 +331,7 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   %50 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %49
   %51 = trunc i64 %49 to i8
   store i8 %51, ptr %50, align 1, !tbaa !49
-  %52 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %49, i32 1
+  %52 = getelementptr inbounds %struct.CPpmd_State, ptr %50, i64 0, i32 1
   store i8 1, ptr %52, align 1, !tbaa !51
   %53 = getelementptr inbounds %struct.CPpmd_State, ptr %50, i64 0, i32 2
   store i16 0, ptr %53, align 1, !tbaa !52
@@ -854,16 +854,16 @@ define internal fastcc void @Rescale(ptr nocapture noundef %0) unnamed_addr #6 {
   %76 = getelementptr inbounds %struct.CPpmd_State, ptr %39, i64 1, i32 1
   %77 = load i8, ptr %76, align 1, !tbaa !51
   %78 = icmp eq i8 %77, 0
-  br i1 %78, label %79, label %270
+  %79 = load ptr, ptr %0, align 8, !tbaa !41
+  br i1 %78, label %80, label %268
 
-79:                                               ; preds = %75
-  %80 = load ptr, ptr %0, align 8, !tbaa !41
-  %81 = load i16, ptr %80, align 4, !tbaa !44
+80:                                               ; preds = %75
+  %81 = load i16, ptr %79, align 4, !tbaa !44
   br label %82
 
-82:                                               ; preds = %82, %79
-  %83 = phi ptr [ %43, %79 ], [ %86, %82 ]
-  %84 = phi i32 [ 0, %79 ], [ %85, %82 ]
+82:                                               ; preds = %82, %80
+  %83 = phi ptr [ %43, %80 ], [ %86, %82 ]
+  %84 = phi i32 [ 0, %80 ], [ %85, %82 ]
   %85 = add i32 %84, 1
   %86 = getelementptr inbounds %struct.CPpmd_State, ptr %83, i64 -1
   %87 = getelementptr %struct.CPpmd_State, ptr %83, i64 -1, i32 1
@@ -876,9 +876,9 @@ define internal fastcc void @Rescale(ptr nocapture noundef %0) unnamed_addr #6 {
   %92 = add i32 %85, %47
   %93 = trunc i32 %85 to i16
   %94 = sub i16 %81, %93
-  store i16 %94, ptr %80, align 4, !tbaa !44
+  store i16 %94, ptr %79, align 4, !tbaa !44
   %95 = icmp eq i16 %94, 1
-  br i1 %95, label %96, label %126
+  br i1 %95, label %96, label %108
 
 96:                                               ; preds = %90
   %97 = load i8, ptr %9, align 1, !tbaa.struct !63
@@ -894,244 +894,239 @@ define internal fastcc void @Rescale(ptr nocapture noundef %0) unnamed_addr #6 {
   %105 = sub i8 %103, %104
   %106 = lshr i32 %102, 1
   %107 = icmp ugt i32 %102, 3
-  br i1 %107, label %101, label %108, !llvm.loop !69
+  br i1 %107, label %101, label %250, !llvm.loop !69
 
-108:                                              ; preds = %101
-  %109 = add nuw nsw i32 %91, 1
-  %110 = lshr i32 %109, 1
-  %111 = add nsw i32 %110, -1
-  %112 = zext i32 %111 to i64
-  %113 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %112
-  %114 = load i8, ptr %113, align 1, !tbaa !13
-  %115 = zext i8 %114 to i64
-  %116 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %115
-  %117 = load i32, ptr %116, align 4, !tbaa !62
-  store i32 %117, ptr %9, align 4, !tbaa !62
-  %118 = load ptr, ptr %3, align 8, !tbaa !5
-  %119 = ptrtoint ptr %9 to i64
-  %120 = ptrtoint ptr %118 to i64
-  %121 = sub i64 %119, %120
-  %122 = trunc i64 %121 to i32
-  store i32 %122, ptr %116, align 4, !tbaa !62
-  %123 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %80, i64 0, i32 1
-  store ptr %123, ptr %10, align 8, !tbaa !46
-  store i8 %97, ptr %123, align 1, !tbaa.struct !63
-  %124 = getelementptr inbounds i8, ptr %80, i64 3
-  store i8 %105, ptr %124, align 1, !tbaa.struct !66
-  %125 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %80, i64 0, i32 2
-  store i32 %100, ptr %125, align 1
-  br label %268
+108:                                              ; preds = %90
+  %109 = zext i16 %94 to i32
+  %110 = add nuw nsw i32 %91, 1
+  %111 = lshr i32 %110, 1
+  %112 = add nuw nsw i32 %109, 1
+  %113 = lshr i32 %112, 1
+  %114 = icmp eq i32 %111, %113
+  br i1 %114, label %268, label %115
 
-126:                                              ; preds = %90
-  %127 = zext i16 %94 to i32
-  %128 = add nuw nsw i32 %91, 1
-  %129 = lshr i32 %128, 1
-  %130 = add nuw nsw i32 %127, 1
-  %131 = lshr i32 %130, 1
-  %132 = icmp eq i32 %129, %131
-  br i1 %132, label %270, label %133
+115:                                              ; preds = %108
+  %116 = add nsw i32 %111, -1
+  %117 = zext i32 %116 to i64
+  %118 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %117
+  %119 = load i8, ptr %118, align 1, !tbaa !13
+  %120 = add nsw i32 %113, -1
+  %121 = zext i32 %120 to i64
+  %122 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %121
+  %123 = load i8, ptr %122, align 1, !tbaa !13
+  %124 = icmp eq i8 %119, %123
+  br i1 %124, label %125, label %127
 
-133:                                              ; preds = %126
-  %134 = add nsw i32 %129, -1
-  %135 = zext i32 %134 to i64
-  %136 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %135
-  %137 = load i8, ptr %136, align 1, !tbaa !13
-  %138 = add nsw i32 %131, -1
-  %139 = zext i32 %138 to i64
-  %140 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %139
-  %141 = load i8, ptr %140, align 1, !tbaa !13
-  %142 = icmp eq i8 %137, %141
-  br i1 %142, label %143, label %145
+125:                                              ; preds = %115
+  %126 = load ptr, ptr %3, align 8, !tbaa !5
+  br label %242
 
-143:                                              ; preds = %133
-  %144 = load ptr, ptr %3, align 8, !tbaa !5
-  br label %260
+127:                                              ; preds = %115
+  %128 = zext i8 %123 to i64
+  %129 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %128
+  %130 = load i32, ptr %129, align 4, !tbaa !62
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %184, label %132
 
-145:                                              ; preds = %133
-  %146 = zext i8 %141 to i64
-  %147 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %146
-  %148 = load i32, ptr %147, align 4, !tbaa !62
-  %149 = icmp eq i32 %148, 0
-  br i1 %149, label %202, label %150
+132:                                              ; preds = %127
+  %133 = load ptr, ptr %3, align 8, !tbaa !5
+  %134 = zext i32 %130 to i64
+  %135 = getelementptr inbounds i8, ptr %133, i64 %134
+  %136 = load i32, ptr %135, align 4, !tbaa !62
+  store i32 %136, ptr %129, align 4, !tbaa !62
+  %137 = and i32 %112, 2
+  %138 = icmp eq i32 %137, 0
+  br i1 %138, label %150, label %139
 
-150:                                              ; preds = %145
-  %151 = load ptr, ptr %3, align 8, !tbaa !5
-  %152 = zext i32 %148 to i64
-  %153 = getelementptr inbounds i8, ptr %151, i64 %152
-  %154 = load i32, ptr %153, align 4, !tbaa !62
-  store i32 %154, ptr %147, align 4, !tbaa !62
-  %155 = and i32 %130, 2
-  %156 = icmp eq i32 %155, 0
-  br i1 %156, label %168, label %157
+139:                                              ; preds = %132
+  %140 = load i32, ptr %9, align 4, !tbaa !62
+  store i32 %140, ptr %135, align 4, !tbaa !62
+  %141 = getelementptr inbounds i32, ptr %9, i64 1
+  %142 = load i32, ptr %141, align 4, !tbaa !62
+  %143 = getelementptr inbounds i32, ptr %135, i64 1
+  store i32 %142, ptr %143, align 4, !tbaa !62
+  %144 = getelementptr inbounds i32, ptr %9, i64 2
+  %145 = load i32, ptr %144, align 4, !tbaa !62
+  %146 = getelementptr inbounds i32, ptr %135, i64 2
+  store i32 %145, ptr %146, align 4, !tbaa !62
+  %147 = getelementptr inbounds i32, ptr %9, i64 3
+  %148 = getelementptr inbounds i32, ptr %135, i64 3
+  %149 = add nsw i32 %113, -1
+  br label %150
 
-157:                                              ; preds = %150
-  %158 = load i32, ptr %9, align 4, !tbaa !62
-  store i32 %158, ptr %153, align 4, !tbaa !62
-  %159 = getelementptr inbounds i32, ptr %9, i64 1
-  %160 = load i32, ptr %159, align 4, !tbaa !62
-  %161 = getelementptr inbounds i32, ptr %153, i64 1
-  store i32 %160, ptr %161, align 4, !tbaa !62
-  %162 = getelementptr inbounds i32, ptr %9, i64 2
-  %163 = load i32, ptr %162, align 4, !tbaa !62
-  %164 = getelementptr inbounds i32, ptr %153, i64 2
-  store i32 %163, ptr %164, align 4, !tbaa !62
-  %165 = getelementptr inbounds i32, ptr %9, i64 3
-  %166 = getelementptr inbounds i32, ptr %153, i64 3
-  %167 = add nsw i32 %131, -1
-  br label %168
+150:                                              ; preds = %139, %132
+  %151 = phi ptr [ %135, %132 ], [ %148, %139 ]
+  %152 = phi ptr [ %9, %132 ], [ %147, %139 ]
+  %153 = phi i32 [ %113, %132 ], [ %149, %139 ]
+  %154 = icmp eq i32 %113, 1
+  br i1 %154, label %179, label %155
 
-168:                                              ; preds = %157, %150
-  %169 = phi ptr [ %153, %150 ], [ %166, %157 ]
-  %170 = phi ptr [ %9, %150 ], [ %165, %157 ]
-  %171 = phi i32 [ %131, %150 ], [ %167, %157 ]
-  %172 = icmp eq i32 %131, 1
-  br i1 %172, label %197, label %173
+155:                                              ; preds = %150, %155
+  %156 = phi ptr [ %176, %155 ], [ %151, %150 ]
+  %157 = phi ptr [ %175, %155 ], [ %152, %150 ]
+  %158 = phi i32 [ %177, %155 ], [ %153, %150 ]
+  %159 = load i32, ptr %157, align 4, !tbaa !62
+  store i32 %159, ptr %156, align 4, !tbaa !62
+  %160 = getelementptr inbounds i32, ptr %157, i64 1
+  %161 = load i32, ptr %160, align 4, !tbaa !62
+  %162 = getelementptr inbounds i32, ptr %156, i64 1
+  store i32 %161, ptr %162, align 4, !tbaa !62
+  %163 = getelementptr inbounds i32, ptr %157, i64 2
+  %164 = load i32, ptr %163, align 4, !tbaa !62
+  %165 = getelementptr inbounds i32, ptr %156, i64 2
+  store i32 %164, ptr %165, align 4, !tbaa !62
+  %166 = getelementptr inbounds i32, ptr %157, i64 3
+  %167 = getelementptr inbounds i32, ptr %156, i64 3
+  %168 = load i32, ptr %166, align 4, !tbaa !62
+  store i32 %168, ptr %167, align 4, !tbaa !62
+  %169 = getelementptr inbounds i32, ptr %157, i64 4
+  %170 = load i32, ptr %169, align 4, !tbaa !62
+  %171 = getelementptr inbounds i32, ptr %156, i64 4
+  store i32 %170, ptr %171, align 4, !tbaa !62
+  %172 = getelementptr inbounds i32, ptr %157, i64 5
+  %173 = load i32, ptr %172, align 4, !tbaa !62
+  %174 = getelementptr inbounds i32, ptr %156, i64 5
+  store i32 %173, ptr %174, align 4, !tbaa !62
+  %175 = getelementptr inbounds i32, ptr %157, i64 6
+  %176 = getelementptr inbounds i32, ptr %156, i64 6
+  %177 = add i32 %158, -2
+  %178 = icmp eq i32 %177, 0
+  br i1 %178, label %179, label %155, !llvm.loop !70
 
-173:                                              ; preds = %168, %173
-  %174 = phi ptr [ %194, %173 ], [ %169, %168 ]
-  %175 = phi ptr [ %193, %173 ], [ %170, %168 ]
-  %176 = phi i32 [ %195, %173 ], [ %171, %168 ]
-  %177 = load i32, ptr %175, align 4, !tbaa !62
-  store i32 %177, ptr %174, align 4, !tbaa !62
-  %178 = getelementptr inbounds i32, ptr %175, i64 1
-  %179 = load i32, ptr %178, align 4, !tbaa !62
-  %180 = getelementptr inbounds i32, ptr %174, i64 1
-  store i32 %179, ptr %180, align 4, !tbaa !62
-  %181 = getelementptr inbounds i32, ptr %175, i64 2
+179:                                              ; preds = %155, %150
+  %180 = zext i8 %119 to i64
+  %181 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %180
   %182 = load i32, ptr %181, align 4, !tbaa !62
-  %183 = getelementptr inbounds i32, ptr %174, i64 2
-  store i32 %182, ptr %183, align 4, !tbaa !62
-  %184 = getelementptr inbounds i32, ptr %175, i64 3
-  %185 = getelementptr inbounds i32, ptr %174, i64 3
-  %186 = load i32, ptr %184, align 4, !tbaa !62
-  store i32 %186, ptr %185, align 4, !tbaa !62
-  %187 = getelementptr inbounds i32, ptr %175, i64 4
-  %188 = load i32, ptr %187, align 4, !tbaa !62
-  %189 = getelementptr inbounds i32, ptr %174, i64 4
-  store i32 %188, ptr %189, align 4, !tbaa !62
-  %190 = getelementptr inbounds i32, ptr %175, i64 5
-  %191 = load i32, ptr %190, align 4, !tbaa !62
-  %192 = getelementptr inbounds i32, ptr %174, i64 5
-  store i32 %191, ptr %192, align 4, !tbaa !62
-  %193 = getelementptr inbounds i32, ptr %175, i64 6
-  %194 = getelementptr inbounds i32, ptr %174, i64 6
-  %195 = add i32 %176, -2
-  %196 = icmp eq i32 %195, 0
-  br i1 %196, label %197, label %173, !llvm.loop !70
+  store i32 %182, ptr %9, align 4, !tbaa !62
+  %183 = ptrtoint ptr %133 to i64
+  br label %233
 
-197:                                              ; preds = %173, %168
-  %198 = zext i8 %137 to i64
-  %199 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %198
-  %200 = load i32, ptr %199, align 4, !tbaa !62
-  store i32 %200, ptr %9, align 4, !tbaa !62
-  %201 = ptrtoint ptr %151 to i64
-  br label %251
+184:                                              ; preds = %127
+  %185 = zext i8 %119 to i64
+  %186 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %185
+  %187 = load i8, ptr %186, align 1, !tbaa !13
+  %188 = zext i8 %187 to i32
+  %189 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %128
+  %190 = load i8, ptr %189, align 1, !tbaa !13
+  %191 = zext i8 %190 to i32
+  %192 = sub nsw i32 %188, %191
+  %193 = mul nuw nsw i32 %191, 12
+  %194 = zext i32 %193 to i64
+  %195 = getelementptr inbounds i8, ptr %9, i64 %194
+  %196 = add nsw i32 %192, -1
+  %197 = zext i32 %196 to i64
+  %198 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %197
+  %199 = load i8, ptr %198, align 1, !tbaa !13
+  %200 = zext i8 %199 to i64
+  %201 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %200
+  %202 = load i8, ptr %201, align 1, !tbaa !13
+  %203 = zext i8 %202 to i32
+  %204 = icmp eq i32 %192, %203
+  br i1 %204, label %205, label %208
 
-202:                                              ; preds = %145
-  %203 = zext i8 %137 to i64
-  %204 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %203
-  %205 = load i8, ptr %204, align 1, !tbaa !13
-  %206 = zext i8 %205 to i32
-  %207 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %146
-  %208 = load i8, ptr %207, align 1, !tbaa !13
-  %209 = zext i8 %208 to i32
-  %210 = sub nsw i32 %206, %209
-  %211 = mul nuw nsw i32 %209, 12
-  %212 = zext i32 %211 to i64
-  %213 = getelementptr inbounds i8, ptr %9, i64 %212
-  %214 = add nsw i32 %210, -1
+205:                                              ; preds = %184
+  %206 = load ptr, ptr %3, align 8, !tbaa !5
+  %207 = ptrtoint ptr %206 to i64
+  br label %227
+
+208:                                              ; preds = %184
+  %209 = add nuw nsw i64 %200, 4294967295
+  %210 = and i64 %209, 4294967295
+  %211 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %210
+  %212 = load i8, ptr %211, align 1, !tbaa !13
+  %213 = zext i8 %212 to i32
+  %214 = mul nuw nsw i32 %213, 12
   %215 = zext i32 %214 to i64
-  %216 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %215
-  %217 = load i8, ptr %216, align 1, !tbaa !13
-  %218 = zext i8 %217 to i64
-  %219 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %218
-  %220 = load i8, ptr %219, align 1, !tbaa !13
-  %221 = zext i8 %220 to i32
-  %222 = icmp eq i32 %210, %221
-  br i1 %222, label %223, label %226
+  %216 = getelementptr inbounds i8, ptr %195, i64 %215
+  %217 = xor i32 %213, -1
+  %218 = add nsw i32 %192, %217
+  %219 = zext i32 %218 to i64
+  %220 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %219
+  %221 = load i32, ptr %220, align 4, !tbaa !62
+  store i32 %221, ptr %216, align 4, !tbaa !62
+  %222 = load ptr, ptr %3, align 8, !tbaa !5
+  %223 = ptrtoint ptr %216 to i64
+  %224 = ptrtoint ptr %222 to i64
+  %225 = sub i64 %223, %224
+  %226 = trunc i64 %225 to i32
+  store i32 %226, ptr %220, align 4, !tbaa !62
+  br label %227
 
-223:                                              ; preds = %202
-  %224 = load ptr, ptr %3, align 8, !tbaa !5
-  %225 = ptrtoint ptr %224 to i64
-  br label %245
+227:                                              ; preds = %208, %205
+  %228 = phi ptr [ %206, %205 ], [ %222, %208 ]
+  %229 = phi i64 [ %207, %205 ], [ %224, %208 ]
+  %230 = phi i64 [ %200, %205 ], [ %210, %208 ]
+  %231 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %230
+  %232 = load i32, ptr %231, align 4, !tbaa !62
+  store i32 %232, ptr %195, align 4, !tbaa !62
+  br label %233
 
-226:                                              ; preds = %202
-  %227 = add nuw nsw i64 %218, 4294967295
-  %228 = and i64 %227, 4294967295
-  %229 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %228
-  %230 = load i8, ptr %229, align 1, !tbaa !13
-  %231 = zext i8 %230 to i32
-  %232 = mul nuw nsw i32 %231, 12
-  %233 = zext i32 %232 to i64
-  %234 = getelementptr inbounds i8, ptr %213, i64 %233
-  %235 = xor i32 %231, -1
-  %236 = add nsw i32 %210, %235
-  %237 = zext i32 %236 to i64
-  %238 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %237
-  %239 = load i32, ptr %238, align 4, !tbaa !62
-  store i32 %239, ptr %234, align 4, !tbaa !62
-  %240 = load ptr, ptr %3, align 8, !tbaa !5
-  %241 = ptrtoint ptr %234 to i64
-  %242 = ptrtoint ptr %240 to i64
-  %243 = sub i64 %241, %242
-  %244 = trunc i64 %243 to i32
-  store i32 %244, ptr %238, align 4, !tbaa !62
-  br label %245
+233:                                              ; preds = %227, %179
+  %234 = phi ptr [ %228, %227 ], [ %133, %179 ]
+  %235 = phi i64 [ %229, %227 ], [ %183, %179 ]
+  %236 = phi ptr [ %195, %227 ], [ %9, %179 ]
+  %237 = phi ptr [ %231, %227 ], [ %181, %179 ]
+  %238 = phi ptr [ %9, %227 ], [ %135, %179 ]
+  %239 = ptrtoint ptr %236 to i64
+  %240 = sub i64 %239, %235
+  %241 = trunc i64 %240 to i32
+  store i32 %241, ptr %237, align 4, !tbaa !62
+  br label %242
 
-245:                                              ; preds = %226, %223
-  %246 = phi ptr [ %224, %223 ], [ %240, %226 ]
-  %247 = phi i64 [ %225, %223 ], [ %242, %226 ]
-  %248 = phi i64 [ %218, %223 ], [ %228, %226 ]
-  %249 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %248
-  %250 = load i32, ptr %249, align 4, !tbaa !62
-  store i32 %250, ptr %213, align 4, !tbaa !62
-  br label %251
-
-251:                                              ; preds = %245, %197
-  %252 = phi ptr [ %246, %245 ], [ %151, %197 ]
-  %253 = phi i64 [ %247, %245 ], [ %201, %197 ]
-  %254 = phi ptr [ %213, %245 ], [ %9, %197 ]
-  %255 = phi ptr [ %249, %245 ], [ %199, %197 ]
-  %256 = phi ptr [ %9, %245 ], [ %153, %197 ]
-  %257 = ptrtoint ptr %254 to i64
-  %258 = sub i64 %257, %253
-  %259 = trunc i64 %258 to i32
-  store i32 %259, ptr %255, align 4, !tbaa !62
-  br label %260
-
-260:                                              ; preds = %143, %251
-  %261 = phi ptr [ %144, %143 ], [ %252, %251 ]
-  %262 = phi ptr [ %9, %143 ], [ %256, %251 ]
-  %263 = ptrtoint ptr %262 to i64
-  %264 = ptrtoint ptr %261 to i64
-  %265 = sub i64 %263, %264
-  %266 = trunc i64 %265 to i32
-  %267 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %80, i64 0, i32 2
-  store i32 %266, ptr %267, align 4, !tbaa !48
+242:                                              ; preds = %125, %233
+  %243 = phi ptr [ %126, %125 ], [ %234, %233 ]
+  %244 = phi ptr [ %9, %125 ], [ %238, %233 ]
+  %245 = ptrtoint ptr %244 to i64
+  %246 = ptrtoint ptr %243 to i64
+  %247 = sub i64 %245, %246
+  %248 = trunc i64 %247 to i32
+  %249 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %79, i64 0, i32 2
+  store i32 %248, ptr %249, align 4, !tbaa !48
   br label %268
 
-268:                                              ; preds = %260, %108
-  %269 = phi i32 [ %106, %108 ], [ %92, %260 ]
-  br i1 %95, label %283, label %270
+250:                                              ; preds = %101
+  %251 = add nuw nsw i32 %91, 1
+  %252 = lshr i32 %251, 1
+  %253 = add nsw i32 %252, -1
+  %254 = zext i32 %253 to i64
+  %255 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 19, i64 %254
+  %256 = load i8, ptr %255, align 1, !tbaa !13
+  %257 = zext i8 %256 to i64
+  %258 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %257
+  %259 = load i32, ptr %258, align 4, !tbaa !62
+  store i32 %259, ptr %9, align 4, !tbaa !62
+  %260 = load ptr, ptr %3, align 8, !tbaa !5
+  %261 = ptrtoint ptr %9 to i64
+  %262 = ptrtoint ptr %260 to i64
+  %263 = sub i64 %261, %262
+  %264 = trunc i64 %263 to i32
+  store i32 %264, ptr %258, align 4, !tbaa !62
+  %265 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %79, i64 0, i32 1
+  store ptr %265, ptr %10, align 8, !tbaa !46
+  store i8 %97, ptr %265, align 1, !tbaa.struct !63
+  %266 = getelementptr inbounds i8, ptr %79, i64 3
+  store i8 %105, ptr %266, align 1, !tbaa.struct !66
+  %267 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %79, i64 0, i32 2
+  store i32 %100, ptr %267, align 1
+  br label %280
 
-270:                                              ; preds = %126, %268, %75
-  %271 = phi i32 [ %269, %268 ], [ %47, %75 ], [ %92, %126 ]
-  %272 = add i32 %271, %51
-  %273 = lshr i32 %271, 1
-  %274 = sub i32 %272, %273
-  %275 = trunc i32 %274 to i16
-  %276 = load ptr, ptr %0, align 8, !tbaa !41
-  %277 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %276, i64 0, i32 1
-  store i16 %275, ptr %277, align 2, !tbaa !45
-  %278 = load ptr, ptr %3, align 8, !tbaa !5
-  %279 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %276, i64 0, i32 2
-  %280 = load i32, ptr %279, align 4, !tbaa !48
-  %281 = zext i32 %280 to i64
-  %282 = getelementptr inbounds i8, ptr %278, i64 %281
-  store ptr %282, ptr %10, align 8, !tbaa !46
-  br label %283
+268:                                              ; preds = %75, %108, %242
+  %269 = phi i32 [ %92, %242 ], [ %92, %108 ], [ %47, %75 ]
+  %270 = add i32 %269, %51
+  %271 = lshr i32 %269, 1
+  %272 = sub i32 %270, %271
+  %273 = trunc i32 %272 to i16
+  %274 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %79, i64 0, i32 1
+  store i16 %273, ptr %274, align 2, !tbaa !45
+  %275 = load ptr, ptr %3, align 8, !tbaa !5
+  %276 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %79, i64 0, i32 2
+  %277 = load i32, ptr %276, align 4, !tbaa !48
+  %278 = zext i32 %277 to i64
+  %279 = getelementptr inbounds i8, ptr %275, i64 %278
+  store ptr %279, ptr %10, align 8, !tbaa !46
+  br label %280
 
-283:                                              ; preds = %268, %270
+280:                                              ; preds = %250, %268
   ret void
 }
 
@@ -1440,23 +1435,23 @@ define internal fastcc void @UpdateModel(ptr noundef %0) unnamed_addr #6 {
 107:                                              ; preds = %105
   %108 = tail call fastcc ptr @CreateSuccessors(ptr noundef nonnull %0, i32 noundef 0)
   %109 = icmp eq ptr %108, null
-  br i1 %109, label %110, label %111
+  br i1 %109, label %116, label %110
 
 110:                                              ; preds = %107
+  %111 = load ptr, ptr %93, align 8, !tbaa !5
+  %112 = ptrtoint ptr %108 to i64
+  %113 = ptrtoint ptr %111 to i64
+  %114 = sub i64 %112, %113
+  %115 = trunc i64 %114 to i32
+  br label %117
+
+116:                                              ; preds = %107
   tail call fastcc void @RestartModel(ptr noundef nonnull %0)
   br label %408
 
-111:                                              ; preds = %107
-  %112 = load ptr, ptr %93, align 8, !tbaa !5
-  %113 = ptrtoint ptr %108 to i64
-  %114 = ptrtoint ptr %112 to i64
-  %115 = sub i64 %113, %114
-  %116 = trunc i64 %115 to i32
-  br label %117
-
-117:                                              ; preds = %111, %105
-  %118 = phi ptr [ %112, %111 ], [ %94, %105 ]
-  %119 = phi i32 [ %116, %111 ], [ %12, %105 ]
+117:                                              ; preds = %110, %105
+  %118 = phi ptr [ %94, %105 ], [ %111, %110 ]
+  %119 = phi i32 [ %12, %105 ], [ %115, %110 ]
   %120 = load i32, ptr %66, align 8, !tbaa !35
   %121 = add i32 %120, -1
   store i32 %121, ptr %66, align 8, !tbaa !35
@@ -1567,7 +1562,7 @@ define internal fastcc void @UpdateModel(ptr noundef %0) unnamed_addr #6 {
   %203 = getelementptr inbounds i8, ptr %176, i64 %202
   %204 = load i32, ptr %203, align 4, !tbaa !62
   store i32 %204, ptr %198, align 4, !tbaa !62
-  br label %228
+  br label %227
 
 205:                                              ; preds = %194
   %206 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 18, i64 %197
@@ -1596,97 +1591,97 @@ define internal fastcc void @UpdateModel(ptr noundef %0) unnamed_addr #6 {
 222:                                              ; preds = %217, %220
   %223 = phi ptr [ %211, %217 ], [ %221, %220 ]
   %224 = icmp eq ptr %223, null
-  br i1 %224, label %227, label %225
+  br i1 %224, label %284, label %225
 
 225:                                              ; preds = %222
   %226 = load ptr, ptr %93, align 8, !tbaa !5
-  br label %228
+  br label %227
 
-227:                                              ; preds = %222
+227:                                              ; preds = %225, %201
+  %228 = phi ptr [ %176, %201 ], [ %226, %225 ]
+  %229 = phi ptr [ %203, %201 ], [ %223, %225 ]
+  %230 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 2
+  %231 = load i32, ptr %230, align 4, !tbaa !48
+  %232 = zext i32 %231 to i64
+  %233 = getelementptr inbounds i8, ptr %228, i64 %232
+  %234 = and i32 %179, 2
+  %235 = icmp eq i32 %234, 0
+  br i1 %235, label %247, label %236
+
+236:                                              ; preds = %227
+  %237 = load i32, ptr %233, align 4, !tbaa !62
+  store i32 %237, ptr %229, align 4, !tbaa !62
+  %238 = getelementptr inbounds i32, ptr %233, i64 1
+  %239 = load i32, ptr %238, align 4, !tbaa !62
+  %240 = getelementptr inbounds i32, ptr %229, i64 1
+  store i32 %239, ptr %240, align 4, !tbaa !62
+  %241 = getelementptr inbounds i32, ptr %233, i64 2
+  %242 = load i32, ptr %241, align 4, !tbaa !62
+  %243 = getelementptr inbounds i32, ptr %229, i64 2
+  store i32 %242, ptr %243, align 4, !tbaa !62
+  %244 = getelementptr inbounds i32, ptr %233, i64 3
+  %245 = getelementptr inbounds i32, ptr %229, i64 3
+  %246 = add nsw i32 %185, -1
+  br label %247
+
+247:                                              ; preds = %236, %227
+  %248 = phi ptr [ %229, %227 ], [ %245, %236 ]
+  %249 = phi ptr [ %233, %227 ], [ %244, %236 ]
+  %250 = phi i32 [ %185, %227 ], [ %246, %236 ]
+  %251 = icmp eq i32 %185, 1
+  br i1 %251, label %276, label %252
+
+252:                                              ; preds = %247, %252
+  %253 = phi ptr [ %273, %252 ], [ %248, %247 ]
+  %254 = phi ptr [ %272, %252 ], [ %249, %247 ]
+  %255 = phi i32 [ %274, %252 ], [ %250, %247 ]
+  %256 = load i32, ptr %254, align 4, !tbaa !62
+  store i32 %256, ptr %253, align 4, !tbaa !62
+  %257 = getelementptr inbounds i32, ptr %254, i64 1
+  %258 = load i32, ptr %257, align 4, !tbaa !62
+  %259 = getelementptr inbounds i32, ptr %253, i64 1
+  store i32 %258, ptr %259, align 4, !tbaa !62
+  %260 = getelementptr inbounds i32, ptr %254, i64 2
+  %261 = load i32, ptr %260, align 4, !tbaa !62
+  %262 = getelementptr inbounds i32, ptr %253, i64 2
+  store i32 %261, ptr %262, align 4, !tbaa !62
+  %263 = getelementptr inbounds i32, ptr %254, i64 3
+  %264 = getelementptr inbounds i32, ptr %253, i64 3
+  %265 = load i32, ptr %263, align 4, !tbaa !62
+  store i32 %265, ptr %264, align 4, !tbaa !62
+  %266 = getelementptr inbounds i32, ptr %254, i64 4
+  %267 = load i32, ptr %266, align 4, !tbaa !62
+  %268 = getelementptr inbounds i32, ptr %253, i64 4
+  store i32 %267, ptr %268, align 4, !tbaa !62
+  %269 = getelementptr inbounds i32, ptr %254, i64 5
+  %270 = load i32, ptr %269, align 4, !tbaa !62
+  %271 = getelementptr inbounds i32, ptr %253, i64 5
+  store i32 %270, ptr %271, align 4, !tbaa !62
+  %272 = getelementptr inbounds i32, ptr %254, i64 6
+  %273 = getelementptr inbounds i32, ptr %253, i64 6
+  %274 = add i32 %255, -2
+  %275 = icmp eq i32 %274, 0
+  br i1 %275, label %276, label %252, !llvm.loop !72
+
+276:                                              ; preds = %252, %247
+  %277 = zext i8 %189 to i64
+  %278 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %277
+  %279 = load i32, ptr %278, align 4, !tbaa !62
+  store i32 %279, ptr %233, align 4, !tbaa !62
+  %280 = ptrtoint ptr %228 to i64
+  store i32 %231, ptr %278, align 4, !tbaa !62
+  %281 = ptrtoint ptr %229 to i64
+  %282 = sub i64 %281, %280
+  %283 = trunc i64 %282 to i32
+  store i32 %283, ptr %230, align 4, !tbaa !48
+  br label %285
+
+284:                                              ; preds = %222
   tail call fastcc void @RestartModel(ptr noundef nonnull %0)
   br label %408
 
-228:                                              ; preds = %225, %201
-  %229 = phi ptr [ %176, %201 ], [ %226, %225 ]
-  %230 = phi ptr [ %203, %201 ], [ %223, %225 ]
-  %231 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 2
-  %232 = load i32, ptr %231, align 4, !tbaa !48
-  %233 = zext i32 %232 to i64
-  %234 = getelementptr inbounds i8, ptr %229, i64 %233
-  %235 = and i32 %179, 2
-  %236 = icmp eq i32 %235, 0
-  br i1 %236, label %248, label %237
-
-237:                                              ; preds = %228
-  %238 = load i32, ptr %234, align 4, !tbaa !62
-  store i32 %238, ptr %230, align 4, !tbaa !62
-  %239 = getelementptr inbounds i32, ptr %234, i64 1
-  %240 = load i32, ptr %239, align 4, !tbaa !62
-  %241 = getelementptr inbounds i32, ptr %230, i64 1
-  store i32 %240, ptr %241, align 4, !tbaa !62
-  %242 = getelementptr inbounds i32, ptr %234, i64 2
-  %243 = load i32, ptr %242, align 4, !tbaa !62
-  %244 = getelementptr inbounds i32, ptr %230, i64 2
-  store i32 %243, ptr %244, align 4, !tbaa !62
-  %245 = getelementptr inbounds i32, ptr %234, i64 3
-  %246 = getelementptr inbounds i32, ptr %230, i64 3
-  %247 = add nsw i32 %185, -1
-  br label %248
-
-248:                                              ; preds = %237, %228
-  %249 = phi ptr [ %230, %228 ], [ %246, %237 ]
-  %250 = phi ptr [ %234, %228 ], [ %245, %237 ]
-  %251 = phi i32 [ %185, %228 ], [ %247, %237 ]
-  %252 = icmp eq i32 %185, 1
-  br i1 %252, label %277, label %253
-
-253:                                              ; preds = %248, %253
-  %254 = phi ptr [ %274, %253 ], [ %249, %248 ]
-  %255 = phi ptr [ %273, %253 ], [ %250, %248 ]
-  %256 = phi i32 [ %275, %253 ], [ %251, %248 ]
-  %257 = load i32, ptr %255, align 4, !tbaa !62
-  store i32 %257, ptr %254, align 4, !tbaa !62
-  %258 = getelementptr inbounds i32, ptr %255, i64 1
-  %259 = load i32, ptr %258, align 4, !tbaa !62
-  %260 = getelementptr inbounds i32, ptr %254, i64 1
-  store i32 %259, ptr %260, align 4, !tbaa !62
-  %261 = getelementptr inbounds i32, ptr %255, i64 2
-  %262 = load i32, ptr %261, align 4, !tbaa !62
-  %263 = getelementptr inbounds i32, ptr %254, i64 2
-  store i32 %262, ptr %263, align 4, !tbaa !62
-  %264 = getelementptr inbounds i32, ptr %255, i64 3
-  %265 = getelementptr inbounds i32, ptr %254, i64 3
-  %266 = load i32, ptr %264, align 4, !tbaa !62
-  store i32 %266, ptr %265, align 4, !tbaa !62
-  %267 = getelementptr inbounds i32, ptr %255, i64 4
-  %268 = load i32, ptr %267, align 4, !tbaa !62
-  %269 = getelementptr inbounds i32, ptr %254, i64 4
-  store i32 %268, ptr %269, align 4, !tbaa !62
-  %270 = getelementptr inbounds i32, ptr %255, i64 5
-  %271 = load i32, ptr %270, align 4, !tbaa !62
-  %272 = getelementptr inbounds i32, ptr %254, i64 5
-  store i32 %271, ptr %272, align 4, !tbaa !62
-  %273 = getelementptr inbounds i32, ptr %255, i64 6
-  %274 = getelementptr inbounds i32, ptr %254, i64 6
-  %275 = add i32 %256, -2
-  %276 = icmp eq i32 %275, 0
-  br i1 %276, label %277, label %253, !llvm.loop !72
-
-277:                                              ; preds = %253, %248
-  %278 = zext i8 %189 to i64
-  %279 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20, i64 %278
-  %280 = load i32, ptr %279, align 4, !tbaa !62
-  store i32 %280, ptr %234, align 4, !tbaa !62
-  %281 = ptrtoint ptr %229 to i64
-  store i32 %232, ptr %279, align 4, !tbaa !62
-  %282 = ptrtoint ptr %230 to i64
-  %283 = sub i64 %282, %281
-  %284 = trunc i64 %283 to i32
-  store i32 %284, ptr %231, align 4, !tbaa !48
-  br label %285
-
-285:                                              ; preds = %277, %184, %181
-  %286 = phi ptr [ %229, %277 ], [ %176, %184 ], [ %176, %181 ]
+285:                                              ; preds = %184, %276, %181
+  %286 = phi ptr [ %176, %184 ], [ %228, %276 ], [ %176, %181 ]
   %287 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 1
   %288 = load i16, ptr %287, align 2, !tbaa !45
   %289 = zext i16 %288 to i32
@@ -1713,7 +1708,7 @@ define internal fastcc void @UpdateModel(ptr noundef %0) unnamed_addr #6 {
   %306 = getelementptr inbounds i8, ptr %176, i64 %305
   %307 = load i32, ptr %306, align 4, !tbaa !62
   store i32 %307, ptr %164, align 4, !tbaa !62
-  br label %328
+  br label %327
 
 308:                                              ; preds = %301
   %309 = load i8, ptr %165, align 1, !tbaa !13
@@ -1741,39 +1736,39 @@ define internal fastcc void @UpdateModel(ptr noundef %0) unnamed_addr #6 {
 324:                                              ; preds = %319, %322
   %325 = phi ptr [ %313, %319 ], [ %323, %322 ]
   %326 = icmp eq ptr %325, null
-  br i1 %326, label %327, label %328
+  br i1 %326, label %346, label %327
 
-327:                                              ; preds = %324
+327:                                              ; preds = %304, %324
+  %328 = phi ptr [ %306, %304 ], [ %325, %324 ]
+  %329 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %328, ptr noundef nonnull align 2 dereferenceable(6) %329, i64 6, i1 false), !tbaa.struct !63
+  %330 = load ptr, ptr %93, align 8, !tbaa !5
+  %331 = ptrtoint ptr %328 to i64
+  %332 = ptrtoint ptr %330 to i64
+  %333 = sub i64 %331, %332
+  %334 = trunc i64 %333 to i32
+  %335 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 2
+  store i32 %334, ptr %335, align 4, !tbaa !48
+  %336 = getelementptr inbounds %struct.CPpmd_State, ptr %328, i64 0, i32 1
+  %337 = load i8, ptr %336, align 1, !tbaa !51
+  %338 = icmp ult i8 %337, 30
+  %339 = shl i8 %337, 1
+  %340 = select i1 %338, i8 %339, i8 120
+  store i8 %340, ptr %336, align 1, !tbaa !51
+  %341 = zext i8 %340 to i32
+  %342 = load i32, ptr %166, align 4, !tbaa !73
+  %343 = add i32 %342, %168
+  %344 = add i32 %343, %341
+  %345 = trunc i32 %344 to i16
+  br label %347
+
+346:                                              ; preds = %324
   tail call fastcc void @RestartModel(ptr noundef nonnull %0)
   br label %408
 
-328:                                              ; preds = %324, %304
-  %329 = phi ptr [ %306, %304 ], [ %325, %324 ]
-  %330 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %329, ptr noundef nonnull align 2 dereferenceable(6) %330, i64 6, i1 false), !tbaa.struct !63
-  %331 = load ptr, ptr %93, align 8, !tbaa !5
-  %332 = ptrtoint ptr %329 to i64
-  %333 = ptrtoint ptr %331 to i64
-  %334 = sub i64 %332, %333
-  %335 = trunc i64 %334 to i32
-  %336 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %177, i64 0, i32 2
-  store i32 %335, ptr %336, align 4, !tbaa !48
-  %337 = getelementptr inbounds %struct.CPpmd_State, ptr %329, i64 0, i32 1
-  %338 = load i8, ptr %337, align 1, !tbaa !51
-  %339 = icmp ult i8 %338, 30
-  %340 = shl i8 %338, 1
-  %341 = select i1 %339, i8 %340, i8 120
-  store i8 %341, ptr %337, align 1, !tbaa !51
-  %342 = zext i8 %341 to i32
-  %343 = load i32, ptr %166, align 4, !tbaa !73
-  %344 = add i32 %343, %168
-  %345 = add i32 %344, %342
-  %346 = trunc i32 %345 to i16
-  br label %347
-
-347:                                              ; preds = %328, %285
-  %348 = phi ptr [ %331, %328 ], [ %286, %285 ]
-  %349 = phi i16 [ %346, %328 ], [ %300, %285 ]
+347:                                              ; preds = %327, %285
+  %348 = phi ptr [ %330, %327 ], [ %286, %285 ]
+  %349 = phi i16 [ %345, %327 ], [ %300, %285 ]
   %350 = load ptr, ptr %3, align 8, !tbaa !46
   %351 = getelementptr inbounds %struct.CPpmd_State, ptr %350, i64 0, i32 1
   %352 = load i8, ptr %351, align 1, !tbaa !51
@@ -1850,7 +1845,7 @@ define internal fastcc void @UpdateModel(ptr noundef %0) unnamed_addr #6 {
   store ptr %407, ptr %151, align 8, !tbaa !40
   br label %408
 
-408:                                              ; preds = %327, %227, %110, %404, %102, %74, %73
+408:                                              ; preds = %346, %284, %116, %404, %102, %74, %73
   ret void
 }
 
@@ -1957,51 +1952,51 @@ define internal fastcc ptr @CreateSuccessors(ptr nocapture noundef %0, i32 nound
   %75 = lshr i32 %73, 16
   %76 = trunc i32 %75 to i16
   %77 = load i16, ptr %68, align 4, !tbaa !44
-  %78 = icmp eq i16 %77, 1
-  br i1 %78, label %79, label %82
+  %78 = zext i16 %77 to i32
+  %79 = icmp eq i16 %77, 1
+  br i1 %79, label %80, label %83
 
-79:                                               ; preds = %66
-  %80 = getelementptr inbounds i8, ptr %68, i64 3
-  %81 = load i8, ptr %80, align 1, !tbaa !51
+80:                                               ; preds = %66
+  %81 = getelementptr inbounds i8, ptr %68, i64 3
+  %82 = load i8, ptr %81, align 1, !tbaa !51
   br label %120
 
-82:                                               ; preds = %66
-  %83 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %68, i64 0, i32 2
-  %84 = load i32, ptr %83, align 4, !tbaa !48
-  %85 = zext i32 %84 to i64
-  %86 = getelementptr inbounds i8, ptr %23, i64 %85
-  br label %87
+83:                                               ; preds = %66
+  %84 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %68, i64 0, i32 2
+  %85 = load i32, ptr %84, align 4, !tbaa !48
+  %86 = zext i32 %85 to i64
+  %87 = getelementptr inbounds i8, ptr %23, i64 %86
+  br label %88
 
-87:                                               ; preds = %87, %82
-  %88 = phi ptr [ %86, %82 ], [ %91, %87 ]
-  %89 = load i8, ptr %88, align 1, !tbaa !49
-  %90 = icmp eq i8 %89, %72
-  %91 = getelementptr inbounds %struct.CPpmd_State, ptr %88, i64 1
-  br i1 %90, label %92, label %87, !llvm.loop !77
+88:                                               ; preds = %88, %83
+  %89 = phi ptr [ %87, %83 ], [ %92, %88 ]
+  %90 = load i8, ptr %89, align 1, !tbaa !49
+  %91 = icmp eq i8 %90, %72
+  %92 = getelementptr inbounds %struct.CPpmd_State, ptr %89, i64 1
+  br i1 %91, label %93, label %88, !llvm.loop !77
 
-92:                                               ; preds = %87
-  %93 = getelementptr inbounds %struct.CPpmd_State, ptr %88, i64 0, i32 1
-  %94 = load i8, ptr %93, align 1, !tbaa !51
-  %95 = zext i8 %94 to i32
-  %96 = add nsw i32 %95, -1
-  %97 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %68, i64 0, i32 1
-  %98 = load i16, ptr %97, align 2, !tbaa !45
-  %99 = zext i16 %98 to i32
-  %100 = zext i16 %77 to i32
-  %101 = add nuw nsw i32 %95, %100
-  %102 = sub nsw i32 %99, %101
+93:                                               ; preds = %88
+  %94 = getelementptr inbounds %struct.CPpmd_State, ptr %89, i64 0, i32 1
+  %95 = load i8, ptr %94, align 1, !tbaa !51
+  %96 = zext i8 %95 to i32
+  %97 = add nsw i32 %96, -1
+  %98 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %68, i64 0, i32 1
+  %99 = load i16, ptr %98, align 2, !tbaa !45
+  %100 = zext i16 %99 to i32
+  %101 = add nuw nsw i32 %96, %78
+  %102 = sub nsw i32 %100, %101
   %103 = add nsw i32 %102, 1
-  %104 = shl nsw i32 %96, 1
+  %104 = shl nsw i32 %97, 1
   %105 = icmp ugt i32 %104, %103
   br i1 %105, label %110, label %106
 
-106:                                              ; preds = %92
-  %107 = mul nsw i32 %96, 5
+106:                                              ; preds = %93
+  %107 = mul nsw i32 %97, 5
   %108 = icmp ugt i32 %107, %103
   %109 = zext i1 %108 to i32
   br label %116
 
-110:                                              ; preds = %92
+110:                                              ; preds = %93
   %111 = mul nsw i32 %103, 3
   %112 = add nsw i32 %104, -1
   %113 = add nsw i32 %112, %111
@@ -2015,8 +2010,8 @@ define internal fastcc ptr @CreateSuccessors(ptr nocapture noundef %0, i32 nound
   %119 = add i8 %118, 1
   br label %120
 
-120:                                              ; preds = %116, %79
-  %121 = phi i8 [ %81, %79 ], [ %119, %116 ]
+120:                                              ; preds = %116, %80
+  %121 = phi i8 [ %82, %80 ], [ %119, %116 ]
   %122 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 14
   %123 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 13
   %124 = getelementptr inbounds %struct.CPpmd7, ptr %0, i64 0, i32 20
@@ -2087,8 +2082,8 @@ define internal fastcc ptr @CreateSuccessors(ptr nocapture noundef %0, i32 nound
   %167 = icmp eq i32 %156, 0
   br i1 %167, label %168, label %125, !llvm.loop !80
 
-168:                                              ; preds = %141, %144, %55
-  %169 = phi ptr [ %57, %55 ], [ null, %141 ], [ %145, %144 ]
+168:                                              ; preds = %144, %141, %55
+  %169 = phi ptr [ %57, %55 ], [ %145, %144 ], [ null, %141 ]
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %3) #10
   ret ptr %169
 }

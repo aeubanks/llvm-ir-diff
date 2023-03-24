@@ -621,7 +621,7 @@ define dso_local void @recSearch(i32 noundef %0, i32 noundef %1) local_unnamed_a
   %107 = select i1 %105, i1 true, i1 %106
   br i1 %107, label %141, label %108
 
-108:                                              ; preds = %104, %98
+108:                                              ; preds = %98, %104
   %109 = icmp eq i32 %101, 0
   %110 = icmp eq i32 %103, 0
   %111 = select i1 %109, i1 true, i1 %110
@@ -638,14 +638,14 @@ define dso_local void @recSearch(i32 noundef %0, i32 noundef %1) local_unnamed_a
   %115 = icmp eq i32 %114, 0
   br i1 %115, label %116, label %141
 
-116:                                              ; preds = %113, %112
+116:                                              ; preds = %112, %113
   %117 = tail call i32 @llvm.smax.i32(i32 %101, i32 %103)
   %118 = tail call i32 @llvm.smin.i32(i32 %101, i32 %103)
   br label %119
 
 119:                                              ; preds = %116, %112
-  %120 = phi i32 [ %117, %116 ], [ %101, %112 ]
-  %121 = phi i32 [ %118, %116 ], [ %103, %112 ]
+  %120 = phi i32 [ %101, %112 ], [ %117, %116 ]
+  %121 = phi i32 [ %103, %112 ], [ %118, %116 ]
   %122 = or i32 %91, %95
   %123 = load ptr, ptr @combList, align 8, !tbaa !5
   %124 = getelementptr inbounds %struct.Comb, ptr %123, i64 %10
@@ -1008,13 +1008,13 @@ declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #11
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12

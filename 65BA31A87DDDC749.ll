@@ -103,10 +103,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %13 = phi ptr [ %9, %7 ], [ %5, %10 ]
   %14 = getelementptr inbounds %struct.word_type, ptr %13, i64 0, i32 1
   store i8 17, ptr %14, align 8, !tbaa !5
-  %15 = getelementptr inbounds [2 x %struct.LIST], ptr %13, i64 0, i64 1, i32 1
-  store ptr %13, ptr %15, align 8, !tbaa !5
-  %16 = getelementptr inbounds [2 x %struct.LIST], ptr %13, i64 0, i64 1
+  %15 = getelementptr inbounds [2 x %struct.LIST], ptr %13, i64 0, i64 1
+  %16 = getelementptr inbounds [2 x %struct.LIST], ptr %13, i64 0, i64 1, i32 1
   store ptr %13, ptr %16, align 8, !tbaa !5
+  store ptr %13, ptr %15, align 8, !tbaa !5
   %17 = getelementptr inbounds %struct.LIST, ptr %13, i64 0, i32 1
   store ptr %13, ptr %17, align 8, !tbaa !5
   store ptr %13, ptr %13, align 8, !tbaa !5
@@ -136,10 +136,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %30 = phi ptr [ %28, %26 ], [ %22, %24 ]
   %31 = getelementptr inbounds %struct.word_type, ptr %30, i64 0, i32 1
   store i8 17, ptr %31, align 8, !tbaa !5
-  %32 = getelementptr inbounds [2 x %struct.LIST], ptr %30, i64 0, i64 1, i32 1
-  store ptr %30, ptr %32, align 8, !tbaa !5
-  %33 = getelementptr inbounds [2 x %struct.LIST], ptr %30, i64 0, i64 1
+  %32 = getelementptr inbounds [2 x %struct.LIST], ptr %30, i64 0, i64 1
+  %33 = getelementptr inbounds [2 x %struct.LIST], ptr %30, i64 0, i64 1, i32 1
   store ptr %30, ptr %33, align 8, !tbaa !5
+  store ptr %30, ptr %32, align 8, !tbaa !5
   %34 = getelementptr inbounds %struct.LIST, ptr %30, i64 0, i32 1
   store ptr %30, ptr %34, align 8, !tbaa !5
   store ptr %30, ptr %30, align 8, !tbaa !5
@@ -169,10 +169,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %47 = phi ptr [ %45, %43 ], [ %39, %41 ]
   %48 = getelementptr inbounds %struct.word_type, ptr %47, i64 0, i32 1
   store i8 17, ptr %48, align 8, !tbaa !5
-  %49 = getelementptr inbounds [2 x %struct.LIST], ptr %47, i64 0, i64 1, i32 1
-  store ptr %47, ptr %49, align 8, !tbaa !5
-  %50 = getelementptr inbounds [2 x %struct.LIST], ptr %47, i64 0, i64 1
+  %49 = getelementptr inbounds [2 x %struct.LIST], ptr %47, i64 0, i64 1
+  %50 = getelementptr inbounds [2 x %struct.LIST], ptr %47, i64 0, i64 1, i32 1
   store ptr %47, ptr %50, align 8, !tbaa !5
+  store ptr %47, ptr %49, align 8, !tbaa !5
   %51 = getelementptr inbounds %struct.LIST, ptr %47, i64 0, i32 1
   store ptr %47, ptr %51, align 8, !tbaa !5
   store ptr %47, ptr %47, align 8, !tbaa !5
@@ -202,10 +202,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %64 = phi ptr [ %62, %60 ], [ %56, %58 ]
   %65 = getelementptr inbounds %struct.word_type, ptr %64, i64 0, i32 1
   store i8 17, ptr %65, align 8, !tbaa !5
-  %66 = getelementptr inbounds [2 x %struct.LIST], ptr %64, i64 0, i64 1, i32 1
-  store ptr %64, ptr %66, align 8, !tbaa !5
-  %67 = getelementptr inbounds [2 x %struct.LIST], ptr %64, i64 0, i64 1
+  %66 = getelementptr inbounds [2 x %struct.LIST], ptr %64, i64 0, i64 1
+  %67 = getelementptr inbounds [2 x %struct.LIST], ptr %64, i64 0, i64 1, i32 1
   store ptr %64, ptr %67, align 8, !tbaa !5
+  store ptr %64, ptr %66, align 8, !tbaa !5
   %68 = getelementptr inbounds %struct.LIST, ptr %64, i64 0, i32 1
   store ptr %64, ptr %68, align 8, !tbaa !5
   store ptr %64, ptr %64, align 8, !tbaa !5
@@ -235,10 +235,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %81 = phi ptr [ %79, %77 ], [ %73, %75 ]
   %82 = getelementptr inbounds %struct.word_type, ptr %81, i64 0, i32 1
   store i8 17, ptr %82, align 8, !tbaa !5
-  %83 = getelementptr inbounds [2 x %struct.LIST], ptr %81, i64 0, i64 1, i32 1
-  store ptr %81, ptr %83, align 8, !tbaa !5
-  %84 = getelementptr inbounds [2 x %struct.LIST], ptr %81, i64 0, i64 1
+  %83 = getelementptr inbounds [2 x %struct.LIST], ptr %81, i64 0, i64 1
+  %84 = getelementptr inbounds [2 x %struct.LIST], ptr %81, i64 0, i64 1, i32 1
   store ptr %81, ptr %84, align 8, !tbaa !5
+  store ptr %81, ptr %83, align 8, !tbaa !5
   %85 = getelementptr inbounds %struct.LIST, ptr %81, i64 0, i32 1
   store ptr %81, ptr %85, align 8, !tbaa !5
   store ptr %81, ptr %81, align 8, !tbaa !5
@@ -268,10 +268,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %98 = phi ptr [ %96, %94 ], [ %90, %92 ]
   %99 = getelementptr inbounds %struct.word_type, ptr %98, i64 0, i32 1
   store i8 17, ptr %99, align 8, !tbaa !5
-  %100 = getelementptr inbounds [2 x %struct.LIST], ptr %98, i64 0, i64 1, i32 1
-  store ptr %98, ptr %100, align 8, !tbaa !5
-  %101 = getelementptr inbounds [2 x %struct.LIST], ptr %98, i64 0, i64 1
+  %100 = getelementptr inbounds [2 x %struct.LIST], ptr %98, i64 0, i64 1
+  %101 = getelementptr inbounds [2 x %struct.LIST], ptr %98, i64 0, i64 1, i32 1
   store ptr %98, ptr %101, align 8, !tbaa !5
+  store ptr %98, ptr %100, align 8, !tbaa !5
   %102 = getelementptr inbounds %struct.LIST, ptr %98, i64 0, i32 1
   store ptr %98, ptr %102, align 8, !tbaa !5
   store ptr %98, ptr %98, align 8, !tbaa !5
@@ -301,10 +301,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %115 = phi ptr [ %113, %111 ], [ %107, %109 ]
   %116 = getelementptr inbounds %struct.word_type, ptr %115, i64 0, i32 1
   store i8 17, ptr %116, align 8, !tbaa !5
-  %117 = getelementptr inbounds [2 x %struct.LIST], ptr %115, i64 0, i64 1, i32 1
-  store ptr %115, ptr %117, align 8, !tbaa !5
-  %118 = getelementptr inbounds [2 x %struct.LIST], ptr %115, i64 0, i64 1
+  %117 = getelementptr inbounds [2 x %struct.LIST], ptr %115, i64 0, i64 1
+  %118 = getelementptr inbounds [2 x %struct.LIST], ptr %115, i64 0, i64 1, i32 1
   store ptr %115, ptr %118, align 8, !tbaa !5
+  store ptr %115, ptr %117, align 8, !tbaa !5
   %119 = getelementptr inbounds %struct.LIST, ptr %115, i64 0, i32 1
   store ptr %115, ptr %119, align 8, !tbaa !5
   store ptr %115, ptr %115, align 8, !tbaa !5
@@ -334,10 +334,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %132 = phi ptr [ %130, %128 ], [ %124, %126 ]
   %133 = getelementptr inbounds %struct.word_type, ptr %132, i64 0, i32 1
   store i8 17, ptr %133, align 8, !tbaa !5
-  %134 = getelementptr inbounds [2 x %struct.LIST], ptr %132, i64 0, i64 1, i32 1
-  store ptr %132, ptr %134, align 8, !tbaa !5
-  %135 = getelementptr inbounds [2 x %struct.LIST], ptr %132, i64 0, i64 1
+  %134 = getelementptr inbounds [2 x %struct.LIST], ptr %132, i64 0, i64 1
+  %135 = getelementptr inbounds [2 x %struct.LIST], ptr %132, i64 0, i64 1, i32 1
   store ptr %132, ptr %135, align 8, !tbaa !5
+  store ptr %132, ptr %134, align 8, !tbaa !5
   %136 = getelementptr inbounds %struct.LIST, ptr %132, i64 0, i32 1
   store ptr %132, ptr %136, align 8, !tbaa !5
   store ptr %132, ptr %132, align 8, !tbaa !5
@@ -367,10 +367,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %149 = phi ptr [ %147, %145 ], [ %141, %143 ]
   %150 = getelementptr inbounds %struct.word_type, ptr %149, i64 0, i32 1
   store i8 17, ptr %150, align 8, !tbaa !5
-  %151 = getelementptr inbounds [2 x %struct.LIST], ptr %149, i64 0, i64 1, i32 1
-  store ptr %149, ptr %151, align 8, !tbaa !5
-  %152 = getelementptr inbounds [2 x %struct.LIST], ptr %149, i64 0, i64 1
+  %151 = getelementptr inbounds [2 x %struct.LIST], ptr %149, i64 0, i64 1
+  %152 = getelementptr inbounds [2 x %struct.LIST], ptr %149, i64 0, i64 1, i32 1
   store ptr %149, ptr %152, align 8, !tbaa !5
+  store ptr %149, ptr %151, align 8, !tbaa !5
   %153 = getelementptr inbounds %struct.LIST, ptr %149, i64 0, i32 1
   store ptr %149, ptr %153, align 8, !tbaa !5
   store ptr %149, ptr %149, align 8, !tbaa !5
@@ -400,10 +400,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %166 = phi ptr [ %164, %162 ], [ %158, %160 ]
   %167 = getelementptr inbounds %struct.word_type, ptr %166, i64 0, i32 1
   store i8 17, ptr %167, align 8, !tbaa !5
-  %168 = getelementptr inbounds [2 x %struct.LIST], ptr %166, i64 0, i64 1, i32 1
-  store ptr %166, ptr %168, align 8, !tbaa !5
-  %169 = getelementptr inbounds [2 x %struct.LIST], ptr %166, i64 0, i64 1
+  %168 = getelementptr inbounds [2 x %struct.LIST], ptr %166, i64 0, i64 1
+  %169 = getelementptr inbounds [2 x %struct.LIST], ptr %166, i64 0, i64 1, i32 1
   store ptr %166, ptr %169, align 8, !tbaa !5
+  store ptr %166, ptr %168, align 8, !tbaa !5
   %170 = getelementptr inbounds %struct.LIST, ptr %166, i64 0, i32 1
   store ptr %166, ptr %170, align 8, !tbaa !5
   store ptr %166, ptr %166, align 8, !tbaa !5
@@ -433,10 +433,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %183 = phi ptr [ %181, %179 ], [ %175, %177 ]
   %184 = getelementptr inbounds %struct.word_type, ptr %183, i64 0, i32 1
   store i8 17, ptr %184, align 8, !tbaa !5
-  %185 = getelementptr inbounds [2 x %struct.LIST], ptr %183, i64 0, i64 1, i32 1
-  store ptr %183, ptr %185, align 8, !tbaa !5
-  %186 = getelementptr inbounds [2 x %struct.LIST], ptr %183, i64 0, i64 1
+  %185 = getelementptr inbounds [2 x %struct.LIST], ptr %183, i64 0, i64 1
+  %186 = getelementptr inbounds [2 x %struct.LIST], ptr %183, i64 0, i64 1, i32 1
   store ptr %183, ptr %186, align 8, !tbaa !5
+  store ptr %183, ptr %185, align 8, !tbaa !5
   %187 = getelementptr inbounds %struct.LIST, ptr %183, i64 0, i32 1
   store ptr %183, ptr %187, align 8, !tbaa !5
   store ptr %183, ptr %183, align 8, !tbaa !5
@@ -466,10 +466,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %200 = phi ptr [ %196, %194 ], [ %192, %197 ]
   %201 = getelementptr inbounds %struct.word_type, ptr %200, i64 0, i32 1
   store i8 17, ptr %201, align 8, !tbaa !5
-  %202 = getelementptr inbounds [2 x %struct.LIST], ptr %200, i64 0, i64 1, i32 1
-  store ptr %200, ptr %202, align 8, !tbaa !5
-  %203 = getelementptr inbounds [2 x %struct.LIST], ptr %200, i64 0, i64 1
+  %202 = getelementptr inbounds [2 x %struct.LIST], ptr %200, i64 0, i64 1
+  %203 = getelementptr inbounds [2 x %struct.LIST], ptr %200, i64 0, i64 1, i32 1
   store ptr %200, ptr %203, align 8, !tbaa !5
+  store ptr %200, ptr %202, align 8, !tbaa !5
   %204 = getelementptr inbounds %struct.LIST, ptr %200, i64 0, i32 1
   store ptr %200, ptr %204, align 8, !tbaa !5
   store ptr %200, ptr %200, align 8, !tbaa !5
@@ -499,10 +499,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %217 = phi ptr [ %215, %213 ], [ %209, %211 ]
   %218 = getelementptr inbounds %struct.word_type, ptr %217, i64 0, i32 1
   store i8 17, ptr %218, align 8, !tbaa !5
-  %219 = getelementptr inbounds [2 x %struct.LIST], ptr %217, i64 0, i64 1, i32 1
-  store ptr %217, ptr %219, align 8, !tbaa !5
-  %220 = getelementptr inbounds [2 x %struct.LIST], ptr %217, i64 0, i64 1
+  %219 = getelementptr inbounds [2 x %struct.LIST], ptr %217, i64 0, i64 1
+  %220 = getelementptr inbounds [2 x %struct.LIST], ptr %217, i64 0, i64 1, i32 1
   store ptr %217, ptr %220, align 8, !tbaa !5
+  store ptr %217, ptr %219, align 8, !tbaa !5
   %221 = getelementptr inbounds %struct.LIST, ptr %217, i64 0, i32 1
   store ptr %217, ptr %221, align 8, !tbaa !5
   store ptr %217, ptr %217, align 8, !tbaa !5
@@ -532,10 +532,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %234 = phi ptr [ %232, %230 ], [ %226, %228 ]
   %235 = getelementptr inbounds %struct.word_type, ptr %234, i64 0, i32 1
   store i8 17, ptr %235, align 8, !tbaa !5
-  %236 = getelementptr inbounds [2 x %struct.LIST], ptr %234, i64 0, i64 1, i32 1
-  store ptr %234, ptr %236, align 8, !tbaa !5
-  %237 = getelementptr inbounds [2 x %struct.LIST], ptr %234, i64 0, i64 1
+  %236 = getelementptr inbounds [2 x %struct.LIST], ptr %234, i64 0, i64 1
+  %237 = getelementptr inbounds [2 x %struct.LIST], ptr %234, i64 0, i64 1, i32 1
   store ptr %234, ptr %237, align 8, !tbaa !5
+  store ptr %234, ptr %236, align 8, !tbaa !5
   %238 = getelementptr inbounds %struct.LIST, ptr %234, i64 0, i32 1
   store ptr %234, ptr %238, align 8, !tbaa !5
   store ptr %234, ptr %234, align 8, !tbaa !5
@@ -565,10 +565,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %251 = phi ptr [ %249, %247 ], [ %243, %245 ]
   %252 = getelementptr inbounds %struct.word_type, ptr %251, i64 0, i32 1
   store i8 17, ptr %252, align 8, !tbaa !5
-  %253 = getelementptr inbounds [2 x %struct.LIST], ptr %251, i64 0, i64 1, i32 1
-  store ptr %251, ptr %253, align 8, !tbaa !5
-  %254 = getelementptr inbounds [2 x %struct.LIST], ptr %251, i64 0, i64 1
+  %253 = getelementptr inbounds [2 x %struct.LIST], ptr %251, i64 0, i64 1
+  %254 = getelementptr inbounds [2 x %struct.LIST], ptr %251, i64 0, i64 1, i32 1
   store ptr %251, ptr %254, align 8, !tbaa !5
+  store ptr %251, ptr %253, align 8, !tbaa !5
   %255 = getelementptr inbounds %struct.LIST, ptr %251, i64 0, i32 1
   store ptr %251, ptr %255, align 8, !tbaa !5
   store ptr %251, ptr %251, align 8, !tbaa !5
@@ -598,10 +598,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %268 = phi ptr [ %266, %264 ], [ %260, %262 ]
   %269 = getelementptr inbounds %struct.word_type, ptr %268, i64 0, i32 1
   store i8 17, ptr %269, align 8, !tbaa !5
-  %270 = getelementptr inbounds [2 x %struct.LIST], ptr %268, i64 0, i64 1, i32 1
-  store ptr %268, ptr %270, align 8, !tbaa !5
-  %271 = getelementptr inbounds [2 x %struct.LIST], ptr %268, i64 0, i64 1
+  %270 = getelementptr inbounds [2 x %struct.LIST], ptr %268, i64 0, i64 1
+  %271 = getelementptr inbounds [2 x %struct.LIST], ptr %268, i64 0, i64 1, i32 1
   store ptr %268, ptr %271, align 8, !tbaa !5
+  store ptr %268, ptr %270, align 8, !tbaa !5
   %272 = getelementptr inbounds %struct.LIST, ptr %268, i64 0, i32 1
   store ptr %268, ptr %272, align 8, !tbaa !5
   store ptr %268, ptr %268, align 8, !tbaa !5
@@ -631,10 +631,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %285 = phi ptr [ %283, %281 ], [ %277, %279 ]
   %286 = getelementptr inbounds %struct.word_type, ptr %285, i64 0, i32 1
   store i8 17, ptr %286, align 8, !tbaa !5
-  %287 = getelementptr inbounds [2 x %struct.LIST], ptr %285, i64 0, i64 1, i32 1
-  store ptr %285, ptr %287, align 8, !tbaa !5
-  %288 = getelementptr inbounds [2 x %struct.LIST], ptr %285, i64 0, i64 1
+  %287 = getelementptr inbounds [2 x %struct.LIST], ptr %285, i64 0, i64 1
+  %288 = getelementptr inbounds [2 x %struct.LIST], ptr %285, i64 0, i64 1, i32 1
   store ptr %285, ptr %288, align 8, !tbaa !5
+  store ptr %285, ptr %287, align 8, !tbaa !5
   %289 = getelementptr inbounds %struct.LIST, ptr %285, i64 0, i32 1
   store ptr %285, ptr %289, align 8, !tbaa !5
   store ptr %285, ptr %285, align 8, !tbaa !5
@@ -664,10 +664,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %302 = phi ptr [ %300, %298 ], [ %294, %296 ]
   %303 = getelementptr inbounds %struct.word_type, ptr %302, i64 0, i32 1
   store i8 17, ptr %303, align 8, !tbaa !5
-  %304 = getelementptr inbounds [2 x %struct.LIST], ptr %302, i64 0, i64 1, i32 1
-  store ptr %302, ptr %304, align 8, !tbaa !5
-  %305 = getelementptr inbounds [2 x %struct.LIST], ptr %302, i64 0, i64 1
+  %304 = getelementptr inbounds [2 x %struct.LIST], ptr %302, i64 0, i64 1
+  %305 = getelementptr inbounds [2 x %struct.LIST], ptr %302, i64 0, i64 1, i32 1
   store ptr %302, ptr %305, align 8, !tbaa !5
+  store ptr %302, ptr %304, align 8, !tbaa !5
   %306 = getelementptr inbounds %struct.LIST, ptr %302, i64 0, i32 1
   store ptr %302, ptr %306, align 8, !tbaa !5
   store ptr %302, ptr %302, align 8, !tbaa !5
@@ -697,10 +697,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %319 = phi ptr [ %317, %315 ], [ %311, %313 ]
   %320 = getelementptr inbounds %struct.word_type, ptr %319, i64 0, i32 1
   store i8 17, ptr %320, align 8, !tbaa !5
-  %321 = getelementptr inbounds [2 x %struct.LIST], ptr %319, i64 0, i64 1, i32 1
-  store ptr %319, ptr %321, align 8, !tbaa !5
-  %322 = getelementptr inbounds [2 x %struct.LIST], ptr %319, i64 0, i64 1
+  %321 = getelementptr inbounds [2 x %struct.LIST], ptr %319, i64 0, i64 1
+  %322 = getelementptr inbounds [2 x %struct.LIST], ptr %319, i64 0, i64 1, i32 1
   store ptr %319, ptr %322, align 8, !tbaa !5
+  store ptr %319, ptr %321, align 8, !tbaa !5
   %323 = getelementptr inbounds %struct.LIST, ptr %319, i64 0, i32 1
   store ptr %319, ptr %323, align 8, !tbaa !5
   store ptr %319, ptr %319, align 8, !tbaa !5
@@ -714,7 +714,7 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %328 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 3, i32 noundef 1, ptr noundef nonnull @.str.33, i32 noundef 1, ptr noundef %327) #16
   br label %329
 
-329:                                              ; preds = %318, %326
+329:                                              ; preds = %326, %318
   store i32 3, ptr %324, align 8, !tbaa !12
   %330 = getelementptr inbounds %struct.anon.14, ptr %324, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(52) %330, i8 0, i64 52, i1 false)
@@ -740,14 +740,14 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   store ptr %341, ptr %334, align 8, !tbaa !10
   br label %342
 
-342:                                              ; preds = %337, %340
-  %343 = phi ptr [ %339, %337 ], [ %335, %340 ]
+342:                                              ; preds = %340, %337
+  %343 = phi ptr [ %335, %340 ], [ %339, %337 ]
   %344 = getelementptr inbounds %struct.word_type, ptr %343, i64 0, i32 1
   store i8 17, ptr %344, align 8, !tbaa !5
-  %345 = getelementptr inbounds [2 x %struct.LIST], ptr %343, i64 0, i64 1, i32 1
-  store ptr %343, ptr %345, align 8, !tbaa !5
-  %346 = getelementptr inbounds [2 x %struct.LIST], ptr %343, i64 0, i64 1
+  %345 = getelementptr inbounds [2 x %struct.LIST], ptr %343, i64 0, i64 1
+  %346 = getelementptr inbounds [2 x %struct.LIST], ptr %343, i64 0, i64 1, i32 1
   store ptr %343, ptr %346, align 8, !tbaa !5
+  store ptr %343, ptr %345, align 8, !tbaa !5
   %347 = getelementptr inbounds %struct.LIST, ptr %343, i64 0, i32 1
   store ptr %343, ptr %347, align 8, !tbaa !5
   store ptr %343, ptr %343, align 8, !tbaa !5
@@ -778,10 +778,10 @@ define dso_local void @InitFiles() local_unnamed_addr #0 {
   %362 = phi ptr [ %358, %356 ], [ %354, %359 ]
   %363 = getelementptr inbounds %struct.word_type, ptr %362, i64 0, i32 1
   store i8 0, ptr %363, align 8, !tbaa !5
-  %364 = getelementptr inbounds [2 x %struct.LIST], ptr %362, i64 0, i64 1, i32 1
-  store ptr %362, ptr %364, align 8, !tbaa !5
-  %365 = getelementptr inbounds [2 x %struct.LIST], ptr %362, i64 0, i64 1
+  %364 = getelementptr inbounds [2 x %struct.LIST], ptr %362, i64 0, i64 1
+  %365 = getelementptr inbounds [2 x %struct.LIST], ptr %362, i64 0, i64 1, i32 1
   store ptr %362, ptr %365, align 8, !tbaa !5
+  store ptr %362, ptr %364, align 8, !tbaa !5
   %366 = getelementptr inbounds %struct.LIST, ptr %362, i64 0, i32 1
   store ptr %362, ptr %366, align 8, !tbaa !5
   store ptr %362, ptr %362, align 8, !tbaa !5
@@ -877,10 +877,10 @@ define dso_local void @AddToPath(i32 noundef %0, ptr noundef %1) local_unnamed_a
   %15 = phi ptr [ %11, %9 ], [ %7, %12 ]
   %16 = getelementptr inbounds %struct.word_type, ptr %15, i64 0, i32 1
   store i8 0, ptr %16, align 8, !tbaa !5
-  %17 = getelementptr inbounds [2 x %struct.LIST], ptr %15, i64 0, i64 1, i32 1
-  store ptr %15, ptr %17, align 8, !tbaa !5
-  %18 = getelementptr inbounds [2 x %struct.LIST], ptr %15, i64 0, i64 1
+  %17 = getelementptr inbounds [2 x %struct.LIST], ptr %15, i64 0, i64 1
+  %18 = getelementptr inbounds [2 x %struct.LIST], ptr %15, i64 0, i64 1, i32 1
   store ptr %15, ptr %18, align 8, !tbaa !5
+  store ptr %15, ptr %17, align 8, !tbaa !5
   %19 = getelementptr inbounds %struct.LIST, ptr %15, i64 0, i32 1
   store ptr %15, ptr %19, align 8, !tbaa !5
   store ptr %15, ptr %15, align 8, !tbaa !5
@@ -993,7 +993,7 @@ define dso_local zeroext i16 @DefineFile(ptr noundef %0, ptr noundef %1, ptr nou
   %36 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 3, i32 noundef 5, ptr noundef nonnull @.str.8, i32 noundef 1, ptr noundef %35, ptr noundef %0, ptr noundef %1) #16
   br label %37
 
-37:                                               ; preds = %34, %29
+37:                                               ; preds = %29, %34
   %38 = tail call ptr @MakeWordTwo(i32 noundef 11, ptr noundef %0, ptr noundef %1, ptr noundef %2) #16
   %39 = load i8, ptr @zz_lengths, align 1, !tbaa !5
   %40 = zext i8 %39 to i32
@@ -1019,10 +1019,10 @@ define dso_local zeroext i16 @DefineFile(ptr noundef %0, ptr noundef %1, ptr nou
   %51 = phi ptr [ %47, %45 ], [ %43, %48 ]
   %52 = getelementptr inbounds %struct.word_type, ptr %51, i64 0, i32 1
   store i8 0, ptr %52, align 8, !tbaa !5
-  %53 = getelementptr inbounds [2 x %struct.LIST], ptr %51, i64 0, i64 1, i32 1
-  store ptr %51, ptr %53, align 8, !tbaa !5
-  %54 = getelementptr inbounds [2 x %struct.LIST], ptr %51, i64 0, i64 1
+  %53 = getelementptr inbounds [2 x %struct.LIST], ptr %51, i64 0, i64 1
+  %54 = getelementptr inbounds [2 x %struct.LIST], ptr %51, i64 0, i64 1, i32 1
   store ptr %51, ptr %54, align 8, !tbaa !5
+  store ptr %51, ptr %53, align 8, !tbaa !5
   %55 = getelementptr inbounds %struct.LIST, ptr %51, i64 0, i32 1
   store ptr %51, ptr %55, align 8, !tbaa !5
   store ptr %51, ptr %51, align 8, !tbaa !5
@@ -1269,10 +1269,10 @@ define internal fastcc void @ftab_insert(ptr noundef %0, ptr nocapture noundef %
   %106 = phi ptr [ %102, %100 ], [ %98, %103 ]
   %107 = getelementptr inbounds %struct.word_type, ptr %106, i64 0, i32 1
   store i8 17, ptr %107, align 8, !tbaa !5
-  %108 = getelementptr inbounds [2 x %struct.LIST], ptr %106, i64 0, i64 1, i32 1
-  store ptr %106, ptr %108, align 8, !tbaa !5
-  %109 = getelementptr inbounds [2 x %struct.LIST], ptr %106, i64 0, i64 1
+  %108 = getelementptr inbounds [2 x %struct.LIST], ptr %106, i64 0, i64 1
+  %109 = getelementptr inbounds [2 x %struct.LIST], ptr %106, i64 0, i64 1, i32 1
   store ptr %106, ptr %109, align 8, !tbaa !5
+  store ptr %106, ptr %108, align 8, !tbaa !5
   %110 = getelementptr inbounds %struct.LIST, ptr %106, i64 0, i32 1
   store ptr %106, ptr %110, align 8, !tbaa !5
   store ptr %106, ptr %106, align 8, !tbaa !5
@@ -1281,7 +1281,7 @@ define internal fastcc void @ftab_insert(ptr noundef %0, ptr nocapture noundef %
   store ptr %106, ptr %112, align 8, !tbaa !19
   br label %113
 
-113:                                              ; preds = %105, %84
+113:                                              ; preds = %84, %105
   %114 = load i8, ptr @zz_lengths, align 1, !tbaa !5
   %115 = zext i8 %114 to i32
   store i32 %115, ptr @zz_size, align 4, !tbaa !8
@@ -1307,10 +1307,10 @@ define internal fastcc void @ftab_insert(ptr noundef %0, ptr nocapture noundef %
   %126 = phi ptr [ %122, %120 ], [ %118, %123 ]
   %127 = getelementptr inbounds %struct.word_type, ptr %126, i64 0, i32 1
   store i8 0, ptr %127, align 8, !tbaa !5
-  %128 = getelementptr inbounds [2 x %struct.LIST], ptr %126, i64 0, i64 1, i32 1
-  store ptr %126, ptr %128, align 8, !tbaa !5
-  %129 = getelementptr inbounds [2 x %struct.LIST], ptr %126, i64 0, i64 1
+  %128 = getelementptr inbounds [2 x %struct.LIST], ptr %126, i64 0, i64 1
+  %129 = getelementptr inbounds [2 x %struct.LIST], ptr %126, i64 0, i64 1, i32 1
   store ptr %126, ptr %129, align 8, !tbaa !5
+  store ptr %126, ptr %128, align 8, !tbaa !5
   %130 = getelementptr inbounds %struct.LIST, ptr %126, i64 0, i32 1
   store ptr %126, ptr %130, align 8, !tbaa !5
   store ptr %126, ptr %126, align 8, !tbaa !5
@@ -2376,10 +2376,10 @@ define dso_local ptr @OpenFile(i16 noundef zeroext %0, i32 noundef %1, i32 nound
   %48 = phi ptr [ %44, %42 ], [ %40, %45 ]
   %49 = getelementptr inbounds %struct.word_type, ptr %48, i64 0, i32 1
   store i8 0, ptr %49, align 8, !tbaa !5
-  %50 = getelementptr inbounds [2 x %struct.LIST], ptr %48, i64 0, i64 1, i32 1
-  store ptr %48, ptr %50, align 8, !tbaa !5
-  %51 = getelementptr inbounds [2 x %struct.LIST], ptr %48, i64 0, i64 1
+  %50 = getelementptr inbounds [2 x %struct.LIST], ptr %48, i64 0, i64 1
+  %51 = getelementptr inbounds [2 x %struct.LIST], ptr %48, i64 0, i64 1, i32 1
   store ptr %48, ptr %51, align 8, !tbaa !5
+  store ptr %48, ptr %50, align 8, !tbaa !5
   %52 = getelementptr inbounds %struct.LIST, ptr %48, i64 0, i32 1
   store ptr %48, ptr %52, align 8, !tbaa !5
   store ptr %48, ptr %48, align 8, !tbaa !5
@@ -2555,34 +2555,34 @@ define internal fastcc ptr @SearchPath(ptr noundef %0, ptr noundef readonly %1, 
   store i32 6581294, ptr %78, align 1
   %79 = call i32 @stat(ptr noundef nonnull %9, ptr noundef nonnull %11) #16
   %80 = icmp eq i32 %79, 0
-  br i1 %80, label %81, label %91
+  br i1 %80, label %81, label %88
 
 81:                                               ; preds = %74
   %82 = call i32 @stat(ptr noundef nonnull %10, ptr noundef nonnull %12) #16
   %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %91
+  br i1 %83, label %84, label %88
 
 84:                                               ; preds = %81
   %85 = load i64, ptr %27, align 8, !tbaa !36
   %86 = load i64, ptr %28, align 8, !tbaa !36
   %87 = icmp sgt i64 %85, %86
-  br i1 %87, label %88, label %91
+  br i1 %87, label %89, label %88
 
-88:                                               ; preds = %84
-  %89 = call i32 @fclose(ptr noundef nonnull %59)
-  %90 = call i32 @remove(ptr noundef nonnull %9) #16
+88:                                               ; preds = %84, %81, %74
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %12) #16
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %11) #16
+  br label %92
+
+89:                                               ; preds = %84
+  %90 = call i32 @fclose(ptr noundef nonnull %59)
+  %91 = call i32 @remove(ptr noundef nonnull %9) #16
   store ptr null, ptr %4, align 8, !tbaa !10
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %12) #16
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %11) #16
   br label %121
 
-91:                                               ; preds = %74, %81, %84
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %12) #16
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %11) #16
-  br label %92
-
-92:                                               ; preds = %62, %91, %71
-  %93 = phi i1 [ true, %91 ], [ %72, %71 ], [ false, %62 ]
+92:                                               ; preds = %62, %88, %71
+  %93 = phi i1 [ %72, %71 ], [ true, %88 ], [ false, %62 ]
   br i1 %29, label %104, label %94
 
 94:                                               ; preds = %92
@@ -2633,8 +2633,8 @@ define internal fastcc ptr @SearchPath(ptr noundef %0, ptr noundef readonly %1, 
   store ptr %120, ptr %4, align 8, !tbaa !10
   br label %121
 
-121:                                              ; preds = %88, %118, %69, %15
-  %122 = phi ptr [ %16, %15 ], [ null, %69 ], [ %119, %118 ], [ null, %88 ]
+121:                                              ; preds = %89, %118, %69, %15
+  %122 = phi ptr [ %16, %15 ], [ null, %69 ], [ null, %89 ], [ %119, %118 ]
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %10) #16
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %9) #16
   ret ptr %122
@@ -2655,7 +2655,7 @@ define dso_local ptr @OpenIncGraphicFile(ptr noundef %0, i8 noundef zeroext %1, 
   %13 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str.2, i32 noundef 0, ptr noundef %12, ptr noundef nonnull @.str.26) #16
   br label %14
 
-14:                                               ; preds = %11, %5
+14:                                               ; preds = %5, %11
   %15 = select i1 %8, i64 1, i64 2
   %16 = getelementptr inbounds [8 x ptr], ptr @file_path, i64 0, i64 %15
   %17 = load ptr, ptr %16, align 8, !tbaa !10
@@ -2814,14 +2814,14 @@ declare noundef i32 @stat(ptr nocapture noundef readonly, ptr nocapture noundef)
 ; Function Attrs: nofree nounwind
 declare noundef i32 @remove(ptr nocapture noundef readonly) local_unnamed_addr #7
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #13
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #14
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2836,9 +2836,9 @@ attributes #9 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #10 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #14 = { nofree nounwind }
-attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #15 = { nofree nounwind }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }
 attributes #18 = { nounwind willreturn memory(read) }

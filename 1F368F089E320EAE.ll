@@ -304,9 +304,9 @@ define dso_local i32 @gs_makeimagedevice(ptr nocapture noundef writeonly %0, ptr
 14:                                               ; preds = %12
   br label %63
 
-15:                                               ; preds = %13, %12
-  %16 = phi ptr [ @mem_mapped_color_device, %13 ], [ @mem_mono_device, %12 ]
-  %17 = phi i32 [ 8, %13 ], [ 1, %12 ]
+15:                                               ; preds = %12, %13
+  %16 = phi ptr [ @mem_mono_device, %12 ], [ @mem_mapped_color_device, %13 ]
+  %17 = phi i32 [ 1, %12 ], [ 8, %13 ]
   %18 = mul nuw nsw i32 %5, 3
   br label %19
 
@@ -360,29 +360,29 @@ define dso_local i32 @gs_makeimagedevice(ptr nocapture noundef writeonly %0, ptr
   %50 = add nsw i32 %20, -2
   br label %51
 
-51:                                               ; preds = %38, %42, %46, %31, %47, %49
-  %52 = phi i32 [ %25, %47 ], [ %50, %49 ], [ %25, %31 ], [ %25, %46 ], [ %25, %42 ], [ %25, %38 ]
-  %53 = phi i32 [ %48, %47 ], [ %24, %49 ], [ %24, %31 ], [ %24, %46 ], [ %24, %42 ], [ %24, %38 ]
-  %54 = phi i32 [ %23, %47 ], [ %23, %49 ], [ %23, %31 ], [ %23, %46 ], [ 1, %42 ], [ 1, %38 ]
-  %55 = add nuw i32 %20, 1
+51:                                               ; preds = %46, %38, %42, %31, %47, %49
+  %52 = phi i32 [ %25, %47 ], [ %50, %49 ], [ %25, %31 ], [ %25, %42 ], [ %25, %38 ], [ %25, %46 ]
+  %53 = phi i32 [ %48, %47 ], [ %24, %49 ], [ %24, %31 ], [ %24, %42 ], [ %24, %38 ], [ %24, %46 ]
+  %54 = phi i32 [ %23, %47 ], [ %23, %49 ], [ %23, %31 ], [ 1, %42 ], [ 1, %38 ], [ %23, %46 ]
+  %55 = add nuw nsw i32 %20, 1
   %56 = getelementptr inbounds float, ptr %22, i64 1
   %57 = getelementptr inbounds i8, ptr %21, i64 1
   %58 = icmp eq i32 %55, %18
   br i1 %58, label %59, label %19, !llvm.loop !45
 
 59:                                               ; preds = %51
-  %60 = icmp sgt i32 %52, -1
-  %61 = icmp sgt i32 %53, -1
-  %62 = select i1 %60, i1 %61, i1 false
-  br i1 %62, label %63, label %96
+  %60 = icmp slt i32 %52, 0
+  %61 = icmp slt i32 %53, 0
+  %62 = select i1 %60, i1 true, i1 %61
+  br i1 %62, label %96, label %63
 
-63:                                               ; preds = %12, %14, %59
-  %64 = phi i32 [ %18, %59 ], [ 0, %14 ], [ 0, %12 ]
-  %65 = phi i32 [ %17, %59 ], [ 32, %14 ], [ 24, %12 ]
-  %66 = phi ptr [ %16, %59 ], [ @mem_true32_color_device, %14 ], [ @mem_true24_color_device, %12 ]
-  %67 = phi i32 [ %5, %59 ], [ 0, %14 ], [ 0, %12 ]
-  %68 = phi i32 [ %53, %59 ], [ -1, %14 ], [ -1, %12 ]
-  %69 = phi i32 [ %54, %59 ], [ 1, %14 ], [ 1, %12 ]
+63:                                               ; preds = %14, %12, %59
+  %64 = phi i32 [ %18, %59 ], [ 0, %12 ], [ 0, %14 ]
+  %65 = phi i32 [ %17, %59 ], [ 24, %12 ], [ 32, %14 ]
+  %66 = phi ptr [ %16, %59 ], [ @mem_true24_color_device, %12 ], [ @mem_true32_color_device, %14 ]
+  %67 = phi i32 [ %5, %59 ], [ 0, %12 ], [ 0, %14 ]
+  %68 = phi i32 [ %53, %59 ], [ -1, %12 ], [ -1, %14 ]
+  %69 = phi i32 [ %54, %59 ], [ 1, %12 ], [ 1, %14 ]
   %70 = load i32, ptr %66, align 8, !tbaa !46
   %71 = tail call ptr %6(i32 noundef 1, i32 noundef %70, ptr noundef nonnull @.str.2) #13
   %72 = icmp eq ptr %71, null
@@ -430,8 +430,8 @@ define dso_local i32 @gs_makeimagedevice(ptr nocapture noundef writeonly %0, ptr
   store ptr %71, ptr %0, align 8, !tbaa !38
   br label %96
 
-96:                                               ; preds = %19, %81, %73, %63, %12, %7, %59, %86
-  %97 = phi i32 [ 0, %86 ], [ -15, %59 ], [ -15, %7 ], [ -15, %12 ], [ -25, %63 ], [ -13, %73 ], [ -25, %81 ], [ -15, %19 ]
+96:                                               ; preds = %19, %59, %81, %73, %63, %12, %7, %86
+  %97 = phi i32 [ 0, %86 ], [ -15, %7 ], [ -15, %12 ], [ -25, %63 ], [ -13, %73 ], [ -25, %81 ], [ -15, %59 ], [ -15, %19 ]
   call void @llvm.lifetime.end.p0(i64 768, ptr nonnull %8) #13
   ret i32 %97
 }

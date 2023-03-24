@@ -187,8 +187,8 @@ define dso_local i32 @gx_path_bbox(ptr nocapture noundef %0, ptr nocapture nound
   store i64 %104, ptr %115, align 8, !tbaa.struct !27
   br label %116
 
-116:                                              ; preds = %6, %10, %23, %103
-  %117 = phi i32 [ 0, %103 ], [ 0, %23 ], [ 0, %10 ], [ -14, %6 ]
+116:                                              ; preds = %6, %23, %103, %10
+  %117 = phi i32 [ 0, %10 ], [ 0, %103 ], [ 0, %23 ], [ -14, %6 ]
   ret i32 %117
 }
 
@@ -320,8 +320,8 @@ define dso_local i32 @gx_path_is_rectangle(ptr nocapture noundef readonly %0, pt
   store i64 %71, ptr %73, align 8, !tbaa !44
   br label %74
 
-74:                                               ; preds = %66, %2, %6, %10, %14, %52, %56, %62
-  %75 = phi i32 [ 0, %62 ], [ 0, %56 ], [ 0, %52 ], [ 0, %14 ], [ 0, %10 ], [ 0, %6 ], [ 0, %2 ], [ 1, %66 ]
+74:                                               ; preds = %66, %52, %56, %62, %2, %6, %10, %14
+  %75 = phi i32 [ 0, %14 ], [ 0, %10 ], [ 0, %6 ], [ 0, %2 ], [ 0, %62 ], [ 0, %56 ], [ 0, %52 ], [ 1, %66 ]
   ret i32 %75
 }
 
@@ -821,15 +821,15 @@ define dso_local i32 @flatten_curve(ptr noundef %0, i64 noundef %1, i64 noundef 
   %103 = add nsw i64 %92, %100
   %104 = ashr i64 %103, 1
   %105 = tail call i32 @flatten_curve(ptr noundef %0, i64 noundef %82, i64 noundef %84, i64 noundef %90, i64 noundef %92, i64 noundef %102, i64 noundef %104)
-  %106 = icmp sgt i32 %105, -1
-  br i1 %106, label %12, label %109
+  %106 = icmp slt i32 %105, 0
+  br i1 %106, label %109, label %12
 
 107:                                              ; preds = %71, %44
   %108 = tail call i32 @gx_path_add_line(ptr noundef %0, i64 noundef %5, i64 noundef %6) #11
   br label %109
 
-109:                                              ; preds = %24, %80, %107
-  %110 = phi i32 [ %108, %107 ], [ 0, %24 ], [ %105, %80 ]
+109:                                              ; preds = %80, %24, %107
+  %110 = phi i32 [ %108, %107 ], [ %105, %80 ], [ 0, %24 ]
   ret i32 %110
 }
 
@@ -842,13 +842,13 @@ declare i32 @gx_path_add_line(ptr noundef, i64 noundef, i64 noundef) local_unnam
 declare i32 @gx_path_close_subpath(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #10
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

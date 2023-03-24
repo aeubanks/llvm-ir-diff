@@ -297,7 +297,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %20 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 6, ptr noundef nonnull @.str.3, i32 noundef 2, ptr noundef %19) #10
   br label %21
 
-21:                                               ; preds = %18, %2
+21:                                               ; preds = %2, %18
   %22 = phi ptr [ @.str.4, %18 ], [ %16, %2 ]
   %23 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %15, ptr noundef nonnull @.str.6, ptr noundef nonnull %22, ptr noundef nonnull %22) #10
   %24 = call ptr @catopen(ptr noundef nonnull %8, i32 noundef 0) #10
@@ -356,10 +356,10 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %46 = phi ptr [ %40, %38 ], [ %36, %41 ]
   %47 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 1
   store i8 17, ptr %47, align 8, !tbaa !11
-  %48 = getelementptr inbounds [2 x %struct.LIST], ptr %46, i64 0, i64 1, i32 1
-  store ptr %46, ptr %48, align 8, !tbaa !11
-  %49 = getelementptr inbounds [2 x %struct.LIST], ptr %46, i64 0, i64 1
+  %48 = getelementptr inbounds [2 x %struct.LIST], ptr %46, i64 0, i64 1
+  %49 = getelementptr inbounds [2 x %struct.LIST], ptr %46, i64 0, i64 1, i32 1
   store ptr %46, ptr %49, align 8, !tbaa !11
+  store ptr %46, ptr %48, align 8, !tbaa !11
   %50 = getelementptr inbounds %struct.LIST, ptr %46, i64 0, i32 1
   store ptr %46, ptr %50, align 8, !tbaa !11
   store ptr %46, ptr %46, align 8, !tbaa !11
@@ -1077,10 +1077,10 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %473 = phi ptr [ %469, %467 ], [ %465, %470 ]
   %474 = getelementptr inbounds %struct.word_type, ptr %473, i64 0, i32 1
   store i8 0, ptr %474, align 8, !tbaa !11
-  %475 = getelementptr inbounds [2 x %struct.LIST], ptr %473, i64 0, i64 1, i32 1
-  store ptr %473, ptr %475, align 8, !tbaa !11
-  %476 = getelementptr inbounds [2 x %struct.LIST], ptr %473, i64 0, i64 1
+  %475 = getelementptr inbounds [2 x %struct.LIST], ptr %473, i64 0, i64 1
+  %476 = getelementptr inbounds [2 x %struct.LIST], ptr %473, i64 0, i64 1, i32 1
   store ptr %473, ptr %476, align 8, !tbaa !11
+  store ptr %473, ptr %475, align 8, !tbaa !11
   %477 = getelementptr inbounds %struct.LIST, ptr %473, i64 0, i32 1
   store ptr %473, ptr %477, align 8, !tbaa !11
   store ptr %473, ptr %473, align 8, !tbaa !11
@@ -1134,7 +1134,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   store ptr %493, ptr %504, align 8, !tbaa !11
   br label %505
 
-505:                                              ; preds = %492, %497
+505:                                              ; preds = %497, %492
   %506 = load i8, ptr getelementptr inbounds ([0 x i8], ptr @zz_lengths, i64 0, i64 17), align 1, !tbaa !11
   %507 = zext i8 %506 to i32
   store i32 %507, ptr @zz_size, align 4, !tbaa !9
@@ -1156,8 +1156,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   store ptr %516, ptr %509, align 8, !tbaa !5
   br label %517
 
-517:                                              ; preds = %512, %515
-  %518 = phi ptr [ %514, %512 ], [ %510, %515 ]
+517:                                              ; preds = %515, %512
+  %518 = phi ptr [ %510, %515 ], [ %514, %512 ]
   %519 = getelementptr inbounds %struct.word_type, ptr %518, i64 0, i32 1
   store i8 17, ptr %519, align 8, !tbaa !11
   %520 = getelementptr inbounds [2 x %struct.LIST], ptr %518, i64 0, i64 1
@@ -1191,10 +1191,10 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %535 = phi ptr [ %531, %529 ], [ %527, %532 ]
   %536 = getelementptr inbounds %struct.word_type, ptr %535, i64 0, i32 1
   store i8 0, ptr %536, align 8, !tbaa !11
-  %537 = getelementptr inbounds [2 x %struct.LIST], ptr %535, i64 0, i64 1, i32 1
-  store ptr %535, ptr %537, align 8, !tbaa !11
-  %538 = getelementptr inbounds [2 x %struct.LIST], ptr %535, i64 0, i64 1
+  %537 = getelementptr inbounds [2 x %struct.LIST], ptr %535, i64 0, i64 1
+  %538 = getelementptr inbounds [2 x %struct.LIST], ptr %535, i64 0, i64 1, i32 1
   store ptr %535, ptr %538, align 8, !tbaa !11
+  store ptr %535, ptr %537, align 8, !tbaa !11
   %539 = getelementptr inbounds %struct.LIST, ptr %535, i64 0, i32 1
   store ptr %535, ptr %539, align 8, !tbaa !11
   store ptr %535, ptr %535, align 8, !tbaa !11
@@ -1301,8 +1301,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   store ptr %590, ptr %583, align 8, !tbaa !5
   br label %591
 
-591:                                              ; preds = %586, %589
-  %592 = phi ptr [ %588, %586 ], [ %584, %589 ]
+591:                                              ; preds = %589, %586
+  %592 = phi ptr [ %584, %589 ], [ %588, %586 ]
   %593 = getelementptr inbounds %struct.word_type, ptr %592, i64 0, i32 1
   store i8 1, ptr %593, align 8, !tbaa !11
   %594 = getelementptr inbounds [2 x %struct.LIST], ptr %592, i64 0, i64 1
@@ -1356,10 +1356,10 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %624 = phi ptr [ %620, %619 ], [ %617, %621 ]
   %625 = getelementptr inbounds %struct.word_type, ptr %624, i64 0, i32 1
   store i8 0, ptr %625, align 8, !tbaa !11
-  %626 = getelementptr inbounds [2 x %struct.LIST], ptr %624, i64 0, i64 1, i32 1
-  store ptr %624, ptr %626, align 8, !tbaa !11
-  %627 = getelementptr inbounds [2 x %struct.LIST], ptr %624, i64 0, i64 1
+  %626 = getelementptr inbounds [2 x %struct.LIST], ptr %624, i64 0, i64 1
+  %627 = getelementptr inbounds [2 x %struct.LIST], ptr %624, i64 0, i64 1, i32 1
   store ptr %624, ptr %627, align 8, !tbaa !11
+  store ptr %624, ptr %626, align 8, !tbaa !11
   %628 = getelementptr inbounds %struct.LIST, ptr %624, i64 0, i32 1
   store ptr %624, ptr %628, align 8, !tbaa !11
   store ptr %624, ptr %624, align 8, !tbaa !11
@@ -1401,7 +1401,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   store ptr %639, ptr %647, align 8, !tbaa !11
   br label %648
 
-648:                                              ; preds = %641, %623, %574
+648:                                              ; preds = %574, %623, %641
   %649 = load ptr, ptr @no_fpos, align 8, !tbaa !5
   %650 = call ptr @MakeWord(i32 noundef 11, ptr noundef nonnull %7, ptr noundef %649) #10
   %651 = load i8, ptr @zz_lengths, align 1, !tbaa !11
@@ -1424,14 +1424,14 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   store ptr %661, ptr %654, align 8, !tbaa !5
   br label %662
 
-662:                                              ; preds = %657, %660
-  %663 = phi ptr [ %659, %657 ], [ %655, %660 ]
+662:                                              ; preds = %660, %657
+  %663 = phi ptr [ %655, %660 ], [ %659, %657 ]
   %664 = getelementptr inbounds %struct.word_type, ptr %663, i64 0, i32 1
   store i8 0, ptr %664, align 8, !tbaa !11
-  %665 = getelementptr inbounds [2 x %struct.LIST], ptr %663, i64 0, i64 1, i32 1
-  store ptr %663, ptr %665, align 8, !tbaa !11
-  %666 = getelementptr inbounds [2 x %struct.LIST], ptr %663, i64 0, i64 1
+  %665 = getelementptr inbounds [2 x %struct.LIST], ptr %663, i64 0, i64 1
+  %666 = getelementptr inbounds [2 x %struct.LIST], ptr %663, i64 0, i64 1, i32 1
   store ptr %663, ptr %666, align 8, !tbaa !11
+  store ptr %663, ptr %665, align 8, !tbaa !11
   %667 = getelementptr inbounds %struct.LIST, ptr %663, i64 0, i32 1
   store ptr %663, ptr %667, align 8, !tbaa !11
   store ptr %663, ptr %663, align 8, !tbaa !11
@@ -1518,14 +1518,14 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   store ptr %714, ptr %707, align 8, !tbaa !5
   br label %715
 
-715:                                              ; preds = %710, %713
-  %716 = phi ptr [ %712, %710 ], [ %708, %713 ]
+715:                                              ; preds = %713, %710
+  %716 = phi ptr [ %708, %713 ], [ %712, %710 ]
   %717 = getelementptr inbounds %struct.word_type, ptr %716, i64 0, i32 1
   store i8 0, ptr %717, align 8, !tbaa !11
-  %718 = getelementptr inbounds [2 x %struct.LIST], ptr %716, i64 0, i64 1, i32 1
-  store ptr %716, ptr %718, align 8, !tbaa !11
-  %719 = getelementptr inbounds [2 x %struct.LIST], ptr %716, i64 0, i64 1
+  %718 = getelementptr inbounds [2 x %struct.LIST], ptr %716, i64 0, i64 1
+  %719 = getelementptr inbounds [2 x %struct.LIST], ptr %716, i64 0, i64 1, i32 1
   store ptr %716, ptr %719, align 8, !tbaa !11
+  store ptr %716, ptr %718, align 8, !tbaa !11
   %720 = getelementptr inbounds %struct.LIST, ptr %716, i64 0, i32 1
   store ptr %716, ptr %720, align 8, !tbaa !11
   store ptr %716, ptr %716, align 8, !tbaa !11
@@ -1624,13 +1624,13 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %774 = add nsw i32 %58, 1
   br label %775
 
-775:                                              ; preds = %105, %99, %66, %770, %743, %746, %356, %422, %112, %86, %91, %753, %752, %751, %440, %429, %426, %423, %353, %348, %306, %280, %244, %223, %202, %181, %158, %141, %134, %131, %98, %97, %96, %95, %94
-  %776 = phi i32 [ %60, %753 ], [ %60, %752 ], [ %60, %751 ], [ %60, %746 ], [ %60, %743 ], [ %60, %440 ], [ %60, %429 ], [ %60, %426 ], [ %60, %423 ], [ %60, %356 ], [ %60, %422 ], [ %60, %353 ], [ %60, %348 ], [ %60, %66 ], [ %308, %306 ], [ %269, %280 ], [ %246, %244 ], [ %225, %223 ], [ %204, %202 ], [ %183, %181 ], [ %160, %158 ], [ %60, %141 ], [ %60, %134 ], [ %133, %131 ], [ %60, %112 ], [ %60, %98 ], [ %60, %97 ], [ %60, %96 ], [ %60, %95 ], [ %60, %94 ], [ %88, %86 ], [ %88, %91 ], [ %60, %770 ], [ %60, %99 ], [ %106, %105 ]
-  %777 = phi i32 [ %59, %753 ], [ %59, %752 ], [ %59, %751 ], [ %59, %746 ], [ %59, %743 ], [ 1, %440 ], [ %59, %429 ], [ %59, %426 ], [ %59, %423 ], [ %59, %356 ], [ %59, %422 ], [ %59, %353 ], [ %59, %348 ], [ %59, %66 ], [ %59, %306 ], [ %59, %280 ], [ %59, %244 ], [ %59, %223 ], [ %59, %202 ], [ %59, %181 ], [ %59, %158 ], [ %59, %141 ], [ %59, %134 ], [ %59, %131 ], [ %59, %112 ], [ %59, %98 ], [ %59, %97 ], [ %59, %96 ], [ %59, %95 ], [ %59, %94 ], [ %59, %86 ], [ %59, %91 ], [ %59, %770 ], [ %59, %99 ], [ %59, %105 ]
-  %778 = phi i32 [ %58, %753 ], [ %58, %752 ], [ %58, %751 ], [ %58, %746 ], [ %58, %743 ], [ %58, %440 ], [ %58, %429 ], [ %58, %426 ], [ %58, %423 ], [ %58, %356 ], [ %58, %422 ], [ %58, %353 ], [ %58, %348 ], [ %58, %66 ], [ %58, %306 ], [ %58, %280 ], [ %58, %244 ], [ %58, %223 ], [ %58, %202 ], [ %58, %181 ], [ %58, %158 ], [ %58, %141 ], [ %58, %134 ], [ %58, %131 ], [ %58, %112 ], [ %58, %98 ], [ %58, %97 ], [ %58, %96 ], [ %58, %95 ], [ %58, %94 ], [ %58, %86 ], [ %58, %91 ], [ %774, %770 ], [ %58, %99 ], [ %58, %105 ]
-  %779 = phi ptr [ %57, %753 ], [ %57, %752 ], [ %57, %751 ], [ %57, %746 ], [ %57, %743 ], [ %57, %440 ], [ %57, %429 ], [ %57, %426 ], [ %57, %423 ], [ %57, %356 ], [ %57, %422 ], [ %57, %353 ], [ %57, %348 ], [ %57, %66 ], [ %57, %306 ], [ %57, %280 ], [ %57, %244 ], [ %57, %223 ], [ %57, %202 ], [ %57, %181 ], [ %57, %158 ], [ %57, %141 ], [ %57, %134 ], [ %57, %131 ], [ null, %112 ], [ %57, %98 ], [ %57, %97 ], [ %57, %96 ], [ %57, %95 ], [ %57, %94 ], [ %57, %86 ], [ %57, %91 ], [ %57, %770 ], [ %100, %99 ], [ %109, %105 ]
-  %780 = phi ptr [ %56, %753 ], [ %56, %752 ], [ %56, %751 ], [ %56, %746 ], [ %56, %743 ], [ %56, %440 ], [ %56, %429 ], [ %56, %426 ], [ %56, %423 ], [ %56, %356 ], [ %56, %422 ], [ %56, %353 ], [ %56, %348 ], [ %56, %66 ], [ %56, %306 ], [ %56, %280 ], [ %56, %244 ], [ %56, %223 ], [ %56, %202 ], [ %56, %181 ], [ %56, %158 ], [ %56, %141 ], [ %56, %134 ], [ %56, %131 ], [ %56, %112 ], [ %56, %98 ], [ %56, %97 ], [ %56, %96 ], [ %56, %95 ], [ %56, %94 ], [ %87, %86 ], [ %87, %91 ], [ %56, %770 ], [ %56, %99 ], [ %56, %105 ]
-  %781 = phi i32 [ %55, %753 ], [ %55, %752 ], [ %55, %751 ], [ %55, %746 ], [ %55, %743 ], [ %55, %440 ], [ %55, %429 ], [ %55, %426 ], [ %55, %423 ], [ %55, %356 ], [ %55, %422 ], [ %55, %353 ], [ %55, %348 ], [ 1, %66 ], [ %55, %306 ], [ %55, %280 ], [ %55, %244 ], [ %55, %223 ], [ %55, %202 ], [ %55, %181 ], [ %55, %158 ], [ %55, %141 ], [ %55, %134 ], [ %55, %131 ], [ %55, %112 ], [ %55, %98 ], [ %55, %97 ], [ %55, %96 ], [ %55, %95 ], [ %55, %94 ], [ %55, %86 ], [ %55, %91 ], [ %55, %770 ], [ %55, %99 ], [ %55, %105 ]
+775:                                              ; preds = %105, %66, %99, %770, %743, %746, %356, %422, %112, %86, %91, %753, %752, %751, %440, %429, %426, %423, %353, %348, %306, %280, %244, %223, %202, %181, %158, %141, %134, %131, %98, %97, %96, %95, %94
+  %776 = phi i32 [ %60, %753 ], [ %60, %752 ], [ %60, %751 ], [ %60, %746 ], [ %60, %743 ], [ %60, %440 ], [ %60, %429 ], [ %60, %426 ], [ %60, %423 ], [ %60, %422 ], [ %60, %356 ], [ %60, %353 ], [ %60, %348 ], [ %308, %306 ], [ %269, %280 ], [ %246, %244 ], [ %225, %223 ], [ %204, %202 ], [ %183, %181 ], [ %160, %158 ], [ %60, %141 ], [ %60, %134 ], [ %133, %131 ], [ %60, %112 ], [ %60, %98 ], [ %60, %97 ], [ %60, %96 ], [ %60, %95 ], [ %60, %94 ], [ %88, %91 ], [ %88, %86 ], [ %60, %770 ], [ %60, %99 ], [ %60, %66 ], [ %106, %105 ]
+  %777 = phi i32 [ %59, %753 ], [ %59, %752 ], [ %59, %751 ], [ %59, %746 ], [ %59, %743 ], [ 1, %440 ], [ %59, %429 ], [ %59, %426 ], [ %59, %423 ], [ %59, %422 ], [ %59, %356 ], [ %59, %353 ], [ %59, %348 ], [ %59, %306 ], [ %59, %280 ], [ %59, %244 ], [ %59, %223 ], [ %59, %202 ], [ %59, %181 ], [ %59, %158 ], [ %59, %141 ], [ %59, %134 ], [ %59, %131 ], [ %59, %112 ], [ %59, %98 ], [ %59, %97 ], [ %59, %96 ], [ %59, %95 ], [ %59, %94 ], [ %59, %91 ], [ %59, %86 ], [ %59, %770 ], [ %59, %99 ], [ %59, %66 ], [ %59, %105 ]
+  %778 = phi i32 [ %58, %753 ], [ %58, %752 ], [ %58, %751 ], [ %58, %746 ], [ %58, %743 ], [ %58, %440 ], [ %58, %429 ], [ %58, %426 ], [ %58, %423 ], [ %58, %422 ], [ %58, %356 ], [ %58, %353 ], [ %58, %348 ], [ %58, %306 ], [ %58, %280 ], [ %58, %244 ], [ %58, %223 ], [ %58, %202 ], [ %58, %181 ], [ %58, %158 ], [ %58, %141 ], [ %58, %134 ], [ %58, %131 ], [ %58, %112 ], [ %58, %98 ], [ %58, %97 ], [ %58, %96 ], [ %58, %95 ], [ %58, %94 ], [ %58, %91 ], [ %58, %86 ], [ %774, %770 ], [ %58, %99 ], [ %58, %66 ], [ %58, %105 ]
+  %779 = phi ptr [ %57, %753 ], [ %57, %752 ], [ %57, %751 ], [ %57, %746 ], [ %57, %743 ], [ %57, %440 ], [ %57, %429 ], [ %57, %426 ], [ %57, %423 ], [ %57, %422 ], [ %57, %356 ], [ %57, %353 ], [ %57, %348 ], [ %57, %306 ], [ %57, %280 ], [ %57, %244 ], [ %57, %223 ], [ %57, %202 ], [ %57, %181 ], [ %57, %158 ], [ %57, %141 ], [ %57, %134 ], [ %57, %131 ], [ null, %112 ], [ %57, %98 ], [ %57, %97 ], [ %57, %96 ], [ %57, %95 ], [ %57, %94 ], [ %57, %91 ], [ %57, %86 ], [ %57, %770 ], [ %100, %99 ], [ %57, %66 ], [ %109, %105 ]
+  %780 = phi ptr [ %56, %753 ], [ %56, %752 ], [ %56, %751 ], [ %56, %746 ], [ %56, %743 ], [ %56, %440 ], [ %56, %429 ], [ %56, %426 ], [ %56, %423 ], [ %56, %422 ], [ %56, %356 ], [ %56, %353 ], [ %56, %348 ], [ %56, %306 ], [ %56, %280 ], [ %56, %244 ], [ %56, %223 ], [ %56, %202 ], [ %56, %181 ], [ %56, %158 ], [ %56, %141 ], [ %56, %134 ], [ %56, %131 ], [ %56, %112 ], [ %56, %98 ], [ %56, %97 ], [ %56, %96 ], [ %56, %95 ], [ %56, %94 ], [ %87, %91 ], [ %87, %86 ], [ %56, %770 ], [ %56, %99 ], [ %56, %66 ], [ %56, %105 ]
+  %781 = phi i32 [ %55, %753 ], [ %55, %752 ], [ %55, %751 ], [ %55, %746 ], [ %55, %743 ], [ %55, %440 ], [ %55, %429 ], [ %55, %426 ], [ %55, %423 ], [ %55, %422 ], [ %55, %356 ], [ %55, %353 ], [ %55, %348 ], [ %55, %306 ], [ %55, %280 ], [ %55, %244 ], [ %55, %223 ], [ %55, %202 ], [ %55, %181 ], [ %55, %158 ], [ %55, %141 ], [ %55, %134 ], [ %55, %131 ], [ %55, %112 ], [ %55, %98 ], [ %55, %97 ], [ %55, %96 ], [ %55, %95 ], [ %55, %94 ], [ %55, %91 ], [ %55, %86 ], [ %55, %770 ], [ %55, %99 ], [ 1, %66 ], [ %55, %105 ]
   %782 = add nsw i32 %776, 1
   %783 = icmp slt i32 %782, %0
   br i1 %783, label %54, label %784, !llvm.loop !21

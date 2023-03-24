@@ -158,17 +158,17 @@ define dso_local noundef i32 @_ZN7NCrypto4NZip7CCipher17CryptoSetPasswordEPKhj(p
 
 17:                                               ; preds = %8, %17
   %18 = phi i64 [ 0, %8 ], [ %43, %17 ]
-  %19 = phi i32 [ 305419896, %8 ], [ %30, %17 ]
+  %19 = phi i32 [ 878082192, %8 ], [ %42, %17 ]
   %20 = phi i32 [ 591751049, %8 ], [ %34, %17 ]
-  %21 = phi i32 [ 878082192, %8 ], [ %42, %17 ]
+  %21 = phi i32 [ 305419896, %8 ], [ %30, %17 ]
   %22 = getelementptr inbounds i8, ptr %1, i64 %18
   %23 = load i8, ptr %22, align 1, !tbaa !9
-  %24 = trunc i32 %19 to i8
+  %24 = trunc i32 %21 to i8
   %25 = xor i8 %23, %24
   %26 = zext i8 %25 to i64
   %27 = getelementptr inbounds [0 x i32], ptr @g_CrcTable, i64 0, i64 %26
   %28 = load i32, ptr %27, align 4, !tbaa !5
-  %29 = lshr i32 %19, 8
+  %29 = lshr i32 %21, 8
   %30 = xor i32 %28, %29
   store i32 %30, ptr %4, align 4, !tbaa !5
   %31 = and i32 %30, 255
@@ -177,12 +177,12 @@ define dso_local noundef i32 @_ZN7NCrypto4NZip7CCipher17CryptoSetPasswordEPKhj(p
   %34 = add i32 %33, 1
   store i32 %34, ptr %5, align 8, !tbaa !5
   %35 = lshr i32 %34, 24
-  %36 = and i32 %21, 255
+  %36 = and i32 %19, 255
   %37 = xor i32 %35, %36
   %38 = zext i32 %37 to i64
   %39 = getelementptr inbounds [0 x i32], ptr @g_CrcTable, i64 0, i64 %38
   %40 = load i32, ptr %39, align 4, !tbaa !5
-  %41 = lshr i32 %21, 8
+  %41 = lshr i32 %19, 8
   %42 = xor i32 %40, %41
   store i32 %42, ptr %6, align 4, !tbaa !5
   %43 = add nuw nsw i64 %18, 1
@@ -213,17 +213,17 @@ define dso_local noundef i32 @_ZThn8_N7NCrypto4NZip7CCipher17CryptoSetPasswordEP
 
 10:                                               ; preds = %10, %8
   %11 = phi i64 [ 0, %8 ], [ %36, %10 ]
-  %12 = phi i32 [ 305419896, %8 ], [ %23, %10 ]
+  %12 = phi i32 [ 878082192, %8 ], [ %35, %10 ]
   %13 = phi i32 [ 591751049, %8 ], [ %27, %10 ]
-  %14 = phi i32 [ 878082192, %8 ], [ %35, %10 ]
+  %14 = phi i32 [ 305419896, %8 ], [ %23, %10 ]
   %15 = getelementptr inbounds i8, ptr %1, i64 %11
   %16 = load i8, ptr %15, align 1, !tbaa !9
-  %17 = trunc i32 %12 to i8
+  %17 = trunc i32 %14 to i8
   %18 = xor i8 %16, %17
   %19 = zext i8 %18 to i64
   %20 = getelementptr inbounds [0 x i32], ptr @g_CrcTable, i64 0, i64 %19
   %21 = load i32, ptr %20, align 4, !tbaa !5
-  %22 = lshr i32 %12, 8
+  %22 = lshr i32 %14, 8
   %23 = xor i32 %21, %22
   store i32 %23, ptr %4, align 4, !tbaa !5
   %24 = and i32 %23, 255
@@ -232,12 +232,12 @@ define dso_local noundef i32 @_ZThn8_N7NCrypto4NZip7CCipher17CryptoSetPasswordEP
   %27 = add i32 %26, 1
   store i32 %27, ptr %5, align 8, !tbaa !5
   %28 = lshr i32 %27, 24
-  %29 = and i32 %14, 255
+  %29 = and i32 %12, 255
   %30 = xor i32 %28, %29
   %31 = zext i32 %30 to i64
   %32 = getelementptr inbounds [0 x i32], ptr @g_CrcTable, i64 0, i64 %31
   %33 = load i32, ptr %32, align 4, !tbaa !5
-  %34 = lshr i32 %14, 8
+  %34 = lshr i32 %12, 8
   %35 = xor i32 %33, %34
   store i32 %35, ptr %6, align 4, !tbaa !5
   %36 = add nuw nsw i64 %11, 1

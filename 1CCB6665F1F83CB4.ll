@@ -129,15 +129,15 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %43 = load i32, ptr @yy_start, align 4
   br label %51
 
-44:                                               ; preds = %577
-  %45 = sext i16 %581 to i32
+44:                                               ; preds = %578
+  %45 = sext i16 %582 to i32
   br label %46
 
-46:                                               ; preds = %44, %284, %543
-  %47 = phi i32 [ %563, %543 ], [ %254, %284 ], [ %563, %44 ]
-  %48 = phi ptr [ %565, %543 ], [ %256, %284 ], [ %565, %44 ]
-  %49 = phi ptr [ %561, %543 ], [ %286, %284 ], [ %561, %44 ]
-  %50 = phi i32 [ %562, %543 ], [ %285, %284 ], [ %45, %44 ]
+46:                                               ; preds = %44, %284, %544
+  %47 = phi i32 [ %564, %544 ], [ %254, %284 ], [ %564, %44 ]
+  %48 = phi ptr [ %566, %544 ], [ %256, %284 ], [ %566, %44 ]
+  %49 = phi ptr [ %562, %544 ], [ %286, %284 ], [ %562, %44 ]
+  %50 = phi i32 [ %563, %544 ], [ %285, %284 ], [ %45, %44 ]
   br label %51
 
 51:                                               ; preds = %46, %40
@@ -168,15 +168,15 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %72 = sub nsw i32 0, %71
   br label %80
 
-73:                                               ; preds = %605
-  %74 = sext i16 %609 to i32
+73:                                               ; preds = %606
+  %74 = sext i16 %610 to i32
   br label %75
 
-75:                                               ; preds = %73, %278, %585
-  %76 = phi i32 [ %586, %585 ], [ %254, %278 ], [ %586, %73 ]
-  %77 = phi ptr [ %593, %585 ], [ %256, %278 ], [ %593, %73 ]
-  %78 = phi ptr [ %591, %585 ], [ %252, %278 ], [ %591, %73 ]
-  %79 = phi i32 [ %592, %585 ], [ %279, %278 ], [ %74, %73 ]
+75:                                               ; preds = %73, %278, %586
+  %76 = phi i32 [ %587, %586 ], [ %254, %278 ], [ %587, %73 ]
+  %77 = phi ptr [ %594, %586 ], [ %256, %278 ], [ %594, %73 ]
+  %78 = phi ptr [ %592, %586 ], [ %252, %278 ], [ %592, %73 ]
+  %79 = phi i32 [ %593, %586 ], [ %279, %278 ], [ %74, %73 ]
   br label %80
 
 80:                                               ; preds = %75, %70
@@ -203,15 +203,15 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   store ptr %83, ptr @yy_c_buf_p, align 8
   br label %97
 
-97:                                               ; preds = %613, %80
-  %98 = phi i32 [ %88, %80 ], [ %620, %613 ]
-  switch i32 %98, label %621 [
-    i32 1, label %622
-    i32 2, label %623
-    i32 3, label %624
-    i32 4, label %625
-    i32 5, label %626
-    i32 6, label %627
+97:                                               ; preds = %614, %80
+  %98 = phi i32 [ %88, %80 ], [ %621, %614 ]
+  switch i32 %98, label %622 [
+    i32 1, label %623
+    i32 2, label %624
+    i32 3, label %625
+    i32 4, label %626
+    i32 5, label %627
+    i32 6, label %628
     i32 7, label %99
     i32 8, label %100
     i32 9, label %101
@@ -281,159 +281,159 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   ]
 
 99:                                               ; preds = %97
-  br label %627
+  br label %628
 
 100:                                              ; preds = %97
-  br label %627
+  br label %628
 
 101:                                              ; preds = %97
-  br label %627
+  br label %628
 
 102:                                              ; preds = %97
-  br label %627
+  br label %628
 
 103:                                              ; preds = %97
-  br label %627
+  br label %628
 
 104:                                              ; preds = %97
-  br label %627
+  br label %628
 
 105:                                              ; preds = %97
-  br label %627
+  br label %628
 
 106:                                              ; preds = %97
-  br label %627
+  br label %628
 
 107:                                              ; preds = %97
-  br label %627
+  br label %628
 
 108:                                              ; preds = %97
-  br label %627
+  br label %628
 
 109:                                              ; preds = %97
-  br label %627
+  br label %628
 
 110:                                              ; preds = %97
-  br label %627
+  br label %628
 
 111:                                              ; preds = %97
-  br label %627
+  br label %628
 
 112:                                              ; preds = %97
-  br label %627
+  br label %628
 
 113:                                              ; preds = %97
-  br label %627
+  br label %628
 
 114:                                              ; preds = %97
-  br label %627
+  br label %628
 
 115:                                              ; preds = %97
-  br label %627
+  br label %628
 
 116:                                              ; preds = %97
-  br label %627
+  br label %628
 
 117:                                              ; preds = %97
-  br label %627
+  br label %628
 
 118:                                              ; preds = %97
-  br label %627
+  br label %628
 
 119:                                              ; preds = %97
-  br label %627
+  br label %628
 
 120:                                              ; preds = %97
-  br label %627
+  br label %628
 
 121:                                              ; preds = %97
-  br label %627
+  br label %628
 
 122:                                              ; preds = %97
-  br label %627
+  br label %628
 
 123:                                              ; preds = %97
-  br label %627
+  br label %628
 
 124:                                              ; preds = %97
-  br label %627
+  br label %628
 
 125:                                              ; preds = %97
-  br label %627
+  br label %628
 
 126:                                              ; preds = %97
-  br label %627
+  br label %628
 
 127:                                              ; preds = %97
-  br label %627
+  br label %628
 
 128:                                              ; preds = %97
-  br label %627
+  br label %628
 
 129:                                              ; preds = %97
-  br label %627
+  br label %628
 
 130:                                              ; preds = %97
-  br label %627
+  br label %628
 
 131:                                              ; preds = %97
-  br label %627
+  br label %628
 
 132:                                              ; preds = %97
-  br label %627
+  br label %628
 
 133:                                              ; preds = %97
-  br label %627
+  br label %628
 
 134:                                              ; preds = %97
-  br label %627
+  br label %628
 
 135:                                              ; preds = %97
-  br label %627
+  br label %628
 
 136:                                              ; preds = %97
-  br label %627
+  br label %628
 
 137:                                              ; preds = %97
-  br label %627
+  br label %628
 
 138:                                              ; preds = %97
-  br label %627
+  br label %628
 
 139:                                              ; preds = %97
-  br label %627
+  br label %628
 
 140:                                              ; preds = %97
-  br label %627
+  br label %628
 
 141:                                              ; preds = %97
-  br label %627
+  br label %628
 
 142:                                              ; preds = %97
-  br label %627
+  br label %628
 
 143:                                              ; preds = %97
-  br label %627
+  br label %628
 
 144:                                              ; preds = %97
-  br label %627
+  br label %628
 
 145:                                              ; preds = %97
-  br label %627
+  br label %628
 
 146:                                              ; preds = %97
-  br label %627
+  br label %628
 
 147:                                              ; preds = %97
-  br label %627
+  br label %628
 
 148:                                              ; preds = %97
-  br label %627
+  br label %628
 
 149:                                              ; preds = %97
   %150 = load i32, ptr @dfg_IGNORETEXT, align 4
   %151 = icmp eq i32 %150, 0
-  br i1 %151, label %627, label %152
+  br i1 %151, label %628, label %152
 
 152:                                              ; preds = %149
   store i32 3, ptr @yy_start, align 4
@@ -441,7 +441,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   br label %219
 
 153:                                              ; preds = %97
-  br label %627
+  br label %628
 
 154:                                              ; preds = %97
   store i1 true, ptr @yy_more_flag, align 4
@@ -477,7 +477,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %173 = load i32, ptr @dfg_LINENUMBER, align 4
   %174 = add i32 %173, %172
   store i32 %174, ptr @dfg_LINENUMBER, align 4
-  br label %627
+  br label %628
 
 175:                                              ; preds = %97
   %176 = tail call ptr @__errno_location() #20
@@ -501,12 +501,12 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
 187:                                              ; preds = %175
   %188 = trunc i64 %178 to i32
   store i32 %188, ptr @dfg_lval, align 8
-  br label %627
+  br label %628
 
 189:                                              ; preds = %97
   %190 = tail call fastcc ptr @dfg_StringCopy()
   store ptr %190, ptr @dfg_lval, align 8
-  br label %627
+  br label %628
 
 191:                                              ; preds = %97
   %192 = load i32, ptr @dfg_LINENUMBER, align 4
@@ -518,7 +518,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %195 = load ptr, ptr @dfg_text, align 8
   %196 = load i8, ptr %195, align 1
   %197 = sext i8 %196 to i32
-  br label %627
+  br label %628
 
 198:                                              ; preds = %97
   %199 = load ptr, ptr @stdout, align 8
@@ -553,7 +553,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   br label %31
 
 220:                                              ; preds = %97, %97
-  br label %627
+  br label %628
 
 221:                                              ; preds = %97
   %222 = load ptr, ptr @dfg_text, align 8
@@ -677,7 +677,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %305 = add i64 %301, %304
   %306 = sub i64 %300, %305
   %307 = icmp eq i64 %306, 1
-  br i1 %307, label %613, label %585
+  br i1 %307, label %614, label %586
 
 308:                                              ; preds = %296
   %309 = sub i64 %300, %301
@@ -778,7 +778,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
 374:                                              ; preds = %372, %308
   %375 = phi i32 [ %373, %372 ], [ %235, %308 ]
   %376 = icmp eq i32 %375, 2
-  br i1 %376, label %489, label %377
+  br i1 %376, label %490, label %377
 
 377:                                              ; preds = %374
   %378 = getelementptr inbounds %struct.yy_buffer_state, ptr %224, i64 0, i32 3
@@ -794,43 +794,43 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
 
 385:                                              ; preds = %408, %382
   %386 = phi i32 [ %379, %382 ], [ %412, %408 ]
-  %387 = phi ptr [ %384, %382 ], [ %403, %408 ]
+  %387 = phi ptr [ %384, %382 ], [ %402, %408 ]
   %388 = phi ptr [ %237, %382 ], [ %411, %408 ]
   %389 = ptrtoint ptr %388 to i64
   %390 = ptrtoint ptr %387 to i64
   %391 = sub i64 %389, %390
   %392 = load i32, ptr %383, align 8
   %393 = icmp eq i32 %392, 0
-  br i1 %393, label %394, label %395
+  br i1 %393, label %404, label %394
 
 394:                                              ; preds = %385
+  %395 = shl i32 %386, 1
+  %396 = icmp slt i32 %395, 1
+  %397 = lshr i32 %386, 3
+  %398 = add i32 %397, %386
+  %399 = select i1 %396, i32 %398, i32 %395
+  store i32 %399, ptr %378, align 8
+  %400 = add i32 %399, 2
+  %401 = zext i32 %400 to i64
+  %402 = tail call ptr @realloc(ptr noundef %387, i64 noundef %401) #24
+  store ptr %402, ptr %238, align 8
+  %403 = icmp eq ptr %402, null
+  br i1 %403, label %405, label %408
+
+404:                                              ; preds = %385
   store ptr null, ptr %238, align 8
   br label %405
 
-395:                                              ; preds = %385
-  %396 = shl i32 %386, 1
-  %397 = icmp slt i32 %396, 1
-  %398 = lshr i32 %386, 3
-  %399 = add i32 %398, %386
-  %400 = select i1 %397, i32 %399, i32 %396
-  store i32 %400, ptr %378, align 8
-  %401 = add i32 %400, 2
-  %402 = zext i32 %401 to i64
-  %403 = tail call ptr @realloc(ptr noundef %387, i64 noundef %402) #24
-  store ptr %403, ptr %238, align 8
-  %404 = icmp eq ptr %403, null
-  br i1 %404, label %405, label %408
-
-405:                                              ; preds = %395, %394
+405:                                              ; preds = %394, %404
   %406 = load ptr, ptr @stderr, align 8
   %407 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %406, ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.11) #22
   tail call void @exit(i32 noundef 2) #23
   unreachable
 
-408:                                              ; preds = %395
+408:                                              ; preds = %394
   %409 = shl i64 %391, 32
   %410 = ashr exact i64 %409, 32
-  %411 = getelementptr inbounds i8, ptr %403, i64 %410
+  %411 = getelementptr inbounds i8, ptr %402, i64 %410
   store ptr %411, ptr @yy_c_buf_p, align 8
   %412 = load i32, ptr %378, align 8
   %413 = sub i32 %412, %310
@@ -839,7 +839,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
 
 415:                                              ; preds = %408, %377
   %416 = phi i32 [ %380, %377 ], [ %413, %408 ]
-  %417 = tail call i32 @llvm.smin.i32(i32 %416, i32 8192)
+  %417 = tail call i32 @llvm.umin.i32(i32 %416, i32 8192)
   %418 = getelementptr inbounds %struct.yy_buffer_state, ptr %224, i64 0, i32 6
   %419 = load i32, ptr %418, align 4
   %420 = icmp eq i32 %419, 0
@@ -855,8 +855,8 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %426 = load ptr, ptr @dfg_in, align 8
   %427 = tail call i32 @getc(ptr noundef %426)
   switch i32 %427, label %428 [
-    i32 -1, label %437
     i32 10, label %437
+    i32 -1, label %450
   ]
 
 428:                                              ; preds = %424
@@ -869,42 +869,37 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   store i8 %429, ptr %434, align 1
   %435 = add nuw nsw i64 %425, 1
   %436 = icmp eq i64 %435, %423
-  br i1 %436, label %439, label %424, !llvm.loop !15
+  br i1 %436, label %485, label %424, !llvm.loop !15
 
-437:                                              ; preds = %424, %424
-  %438 = trunc i64 %425 to i32
-  br label %439
+437:                                              ; preds = %424
+  %438 = ptrtoint ptr %83 to i64
+  %439 = ptrtoint ptr %222 to i64
+  %440 = sub i64 %438, %439
+  %441 = trunc i64 %425 to i32
+  %442 = load ptr, ptr @yy_current_buffer, align 8
+  %443 = getelementptr inbounds %struct.yy_buffer_state, ptr %442, i64 0, i32 1
+  %444 = load ptr, ptr %443, align 8
+  %445 = getelementptr inbounds i8, ptr %444, i64 %422
+  %446 = add nuw nsw i32 %441, 1
+  %447 = and i64 %425, 4294967295
+  %448 = getelementptr inbounds i8, ptr %445, i64 %447
+  store i8 10, ptr %448, align 1
+  %449 = getelementptr inbounds %struct.yy_buffer_state, ptr %442, i64 0, i32 4
+  store i32 %446, ptr %449, align 4
+  br label %544
 
-439:                                              ; preds = %428, %437
-  %440 = phi i32 [ %438, %437 ], [ %417, %428 ]
-  switch i32 %427, label %485 [
-    i32 10, label %441
-    i32 -1, label %453
-  ]
+450:                                              ; preds = %424
+  %451 = load ptr, ptr @dfg_in, align 8
+  %452 = tail call i32 @ferror(ptr noundef %451) #21
+  %453 = icmp eq i32 %452, 0
+  br i1 %453, label %454, label %457
 
-441:                                              ; preds = %439
-  %442 = ptrtoint ptr %83 to i64
-  %443 = ptrtoint ptr %222 to i64
-  %444 = sub i64 %442, %443
-  %445 = load ptr, ptr @yy_current_buffer, align 8
-  %446 = getelementptr inbounds %struct.yy_buffer_state, ptr %445, i64 0, i32 1
-  %447 = load ptr, ptr %446, align 8
-  %448 = getelementptr inbounds i8, ptr %447, i64 %422
-  %449 = add nuw nsw i32 %440, 1
-  %450 = zext i32 %440 to i64
-  %451 = getelementptr inbounds i8, ptr %448, i64 %450
-  store i8 10, ptr %451, align 1
-  %452 = getelementptr inbounds %struct.yy_buffer_state, ptr %445, i64 0, i32 4
-  store i32 %449, ptr %452, align 4
-  br label %543
+454:                                              ; preds = %450
+  %455 = trunc i64 %425 to i32
+  %456 = load ptr, ptr @yy_current_buffer, align 8
+  br label %485
 
-453:                                              ; preds = %439
-  %454 = load ptr, ptr @dfg_in, align 8
-  %455 = tail call i32 @ferror(ptr noundef %454) #21
-  %456 = icmp eq i32 %455, 0
-  br i1 %456, label %485, label %457
-
-457:                                              ; preds = %453
+457:                                              ; preds = %450
   %458 = load ptr, ptr @stderr, align 8
   %459 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %458, ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.12) #22
   tail call void @exit(i32 noundef 2) #23
@@ -930,7 +925,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   %474 = load ptr, ptr @yy_current_buffer, align 8
   %475 = getelementptr inbounds %struct.yy_buffer_state, ptr %474, i64 0, i32 4
   store i32 %473, ptr %475, align 4
-  br label %543
+  br label %544
 
 476:                                              ; preds = %460
   %477 = load ptr, ptr @dfg_in, align 8
@@ -940,7 +935,7 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
 
 480:                                              ; preds = %476
   %481 = load ptr, ptr @yy_current_buffer, align 8
-  br label %489
+  br label %490
 
 482:                                              ; preds = %476
   %483 = load ptr, ptr @stderr, align 8
@@ -948,225 +943,226 @@ define dso_local i32 @dfg_lex() local_unnamed_addr #0 {
   tail call void @exit(i32 noundef 2) #23
   unreachable
 
-485:                                              ; preds = %453, %439
-  %486 = load ptr, ptr @yy_current_buffer, align 8
-  %487 = getelementptr inbounds %struct.yy_buffer_state, ptr %486, i64 0, i32 4
-  store i32 %440, ptr %487, align 4
-  %488 = icmp eq i32 %440, 0
-  br i1 %488, label %492, label %539
+485:                                              ; preds = %428, %454
+  %486 = phi ptr [ %456, %454 ], [ %430, %428 ]
+  %487 = phi i32 [ %455, %454 ], [ %417, %428 ]
+  %488 = getelementptr inbounds %struct.yy_buffer_state, ptr %486, i64 0, i32 4
+  store i32 %487, ptr %488, align 4
+  %489 = icmp eq i32 %487, 0
+  br i1 %489, label %493, label %540
 
-489:                                              ; preds = %480, %374
-  %490 = phi ptr [ %481, %480 ], [ %224, %374 ]
-  %491 = getelementptr inbounds %struct.yy_buffer_state, ptr %490, i64 0, i32 4
-  store i32 0, ptr %491, align 4
-  br label %492
+490:                                              ; preds = %480, %374
+  %491 = phi ptr [ %481, %480 ], [ %224, %374 ]
+  %492 = getelementptr inbounds %struct.yy_buffer_state, ptr %491, i64 0, i32 4
+  store i32 0, ptr %492, align 4
+  br label %493
 
-492:                                              ; preds = %489, %485
-  %493 = phi ptr [ %486, %485 ], [ %490, %489 ]
-  %494 = load i32, ptr @yy_more_len, align 4
-  %495 = icmp eq i32 %311, %494
-  %496 = getelementptr inbounds %struct.yy_buffer_state, ptr %493, i64 0, i32 1
-  br i1 %495, label %497, label %523
+493:                                              ; preds = %490, %485
+  %494 = phi ptr [ %486, %485 ], [ %491, %490 ]
+  %495 = load i32, ptr @yy_more_len, align 4
+  %496 = icmp eq i32 %311, %495
+  %497 = getelementptr inbounds %struct.yy_buffer_state, ptr %494, i64 0, i32 1
+  br i1 %496, label %498, label %524
 
-497:                                              ; preds = %492
-  %498 = load ptr, ptr @dfg_in, align 8
-  %499 = getelementptr inbounds %struct.yy_buffer_state, ptr %493, i64 0, i32 4
-  store i32 0, ptr %499, align 4
-  %500 = load ptr, ptr %496, align 8
-  store i8 0, ptr %500, align 1
-  %501 = load ptr, ptr %496, align 8
-  %502 = getelementptr inbounds i8, ptr %501, i64 1
-  store i8 0, ptr %502, align 1
-  %503 = load ptr, ptr %496, align 8
-  %504 = getelementptr inbounds %struct.yy_buffer_state, ptr %493, i64 0, i32 2
-  store ptr %503, ptr %504, align 8
-  %505 = load i32, ptr %499, align 4
-  store ptr %503, ptr @dfg_text, align 8
-  %506 = load ptr, ptr %493, align 8
-  store ptr %506, ptr @dfg_in, align 8
-  store ptr %498, ptr %493, align 8
-  %507 = getelementptr inbounds %struct.yy_buffer_state, ptr %493, i64 0, i32 6
-  store <4 x i32> <i32 1, i32 1, i32 1, i32 0>, ptr %507, align 4
-  store i32 %505, ptr @yy_n_chars, align 4
-  store ptr %503, ptr @yy_c_buf_p, align 8
-  store ptr %503, ptr @dfg_text, align 8
-  %508 = load ptr, ptr %493, align 8
-  store ptr %508, ptr @dfg_in, align 8
-  %509 = load i8, ptr %503, align 1
-  store i8 %509, ptr @yy_hold_char, align 1
-  %510 = load ptr, ptr @yy_current_buffer, align 8
-  %511 = add nsw i32 %505, %311
-  store i32 %511, ptr @yy_n_chars, align 4
-  %512 = getelementptr inbounds %struct.yy_buffer_state, ptr %510, i64 0, i32 1
-  %513 = load ptr, ptr %512, align 8
-  %514 = sext i32 %511 to i64
-  %515 = getelementptr inbounds i8, ptr %513, i64 %514
-  store i8 0, ptr %515, align 1
-  %516 = load ptr, ptr %512, align 8
-  %517 = add i32 %505, %310
-  %518 = sext i32 %517 to i64
-  %519 = getelementptr inbounds i8, ptr %516, i64 %518
-  store i8 0, ptr %519, align 1
-  %520 = load ptr, ptr %512, align 8
-  store ptr %520, ptr @dfg_text, align 8
-  %521 = load i32, ptr @yy_more_len, align 4
-  %522 = sext i32 %521 to i64
-  br label %613
+498:                                              ; preds = %493
+  %499 = load ptr, ptr @dfg_in, align 8
+  %500 = getelementptr inbounds %struct.yy_buffer_state, ptr %494, i64 0, i32 4
+  store i32 0, ptr %500, align 4
+  %501 = load ptr, ptr %497, align 8
+  store i8 0, ptr %501, align 1
+  %502 = load ptr, ptr %497, align 8
+  %503 = getelementptr inbounds i8, ptr %502, i64 1
+  store i8 0, ptr %503, align 1
+  %504 = load ptr, ptr %497, align 8
+  %505 = getelementptr inbounds %struct.yy_buffer_state, ptr %494, i64 0, i32 2
+  store ptr %504, ptr %505, align 8
+  %506 = load i32, ptr %500, align 4
+  store ptr %504, ptr @dfg_text, align 8
+  %507 = load ptr, ptr %494, align 8
+  store ptr %507, ptr @dfg_in, align 8
+  store ptr %499, ptr %494, align 8
+  %508 = getelementptr inbounds %struct.yy_buffer_state, ptr %494, i64 0, i32 6
+  store <4 x i32> <i32 1, i32 1, i32 1, i32 0>, ptr %508, align 4
+  store i32 %506, ptr @yy_n_chars, align 4
+  store ptr %504, ptr @yy_c_buf_p, align 8
+  store ptr %504, ptr @dfg_text, align 8
+  %509 = load ptr, ptr %494, align 8
+  store ptr %509, ptr @dfg_in, align 8
+  %510 = load i8, ptr %504, align 1
+  store i8 %510, ptr @yy_hold_char, align 1
+  %511 = load ptr, ptr @yy_current_buffer, align 8
+  %512 = add nsw i32 %506, %311
+  store i32 %512, ptr @yy_n_chars, align 4
+  %513 = getelementptr inbounds %struct.yy_buffer_state, ptr %511, i64 0, i32 1
+  %514 = load ptr, ptr %513, align 8
+  %515 = sext i32 %512 to i64
+  %516 = getelementptr inbounds i8, ptr %514, i64 %515
+  store i8 0, ptr %516, align 1
+  %517 = load ptr, ptr %513, align 8
+  %518 = add i32 %506, %310
+  %519 = sext i32 %518 to i64
+  %520 = getelementptr inbounds i8, ptr %517, i64 %519
+  store i8 0, ptr %520, align 1
+  %521 = load ptr, ptr %513, align 8
+  store ptr %521, ptr @dfg_text, align 8
+  %522 = load i32, ptr @yy_more_len, align 4
+  %523 = sext i32 %522 to i64
+  br label %614
 
-523:                                              ; preds = %492
-  %524 = getelementptr inbounds %struct.yy_buffer_state, ptr %493, i64 0, i32 9
-  store i32 2, ptr %524, align 8
+524:                                              ; preds = %493
+  %525 = getelementptr inbounds %struct.yy_buffer_state, ptr %494, i64 0, i32 9
+  store i32 2, ptr %525, align 8
   store i32 %311, ptr @yy_n_chars, align 4
-  %525 = load ptr, ptr %496, align 8
-  %526 = sext i32 %311 to i64
-  %527 = getelementptr inbounds i8, ptr %525, i64 %526
-  store i8 0, ptr %527, align 1
-  %528 = load ptr, ptr %496, align 8
-  %529 = shl i64 %309, 32
-  %530 = ashr exact i64 %529, 32
-  %531 = getelementptr inbounds i8, ptr %528, i64 %530
-  store i8 0, ptr %531, align 1
-  %532 = load ptr, ptr %496, align 8
-  store ptr %532, ptr @dfg_text, align 8
-  %533 = load ptr, ptr @yy_current_buffer, align 8
-  %534 = getelementptr inbounds %struct.yy_buffer_state, ptr %533, i64 0, i32 1
-  %535 = load ptr, ptr %534, align 8
-  %536 = load i32, ptr @yy_n_chars, align 4
-  %537 = load i32, ptr @yy_more_len, align 4
-  %538 = sext i32 %536 to i64
-  br label %585
+  %526 = load ptr, ptr %497, align 8
+  %527 = sext i32 %311 to i64
+  %528 = getelementptr inbounds i8, ptr %526, i64 %527
+  store i8 0, ptr %528, align 1
+  %529 = load ptr, ptr %497, align 8
+  %530 = shl i64 %309, 32
+  %531 = ashr exact i64 %530, 32
+  %532 = getelementptr inbounds i8, ptr %529, i64 %531
+  store i8 0, ptr %532, align 1
+  %533 = load ptr, ptr %497, align 8
+  store ptr %533, ptr @dfg_text, align 8
+  %534 = load ptr, ptr @yy_current_buffer, align 8
+  %535 = getelementptr inbounds %struct.yy_buffer_state, ptr %534, i64 0, i32 1
+  %536 = load ptr, ptr %535, align 8
+  %537 = load i32, ptr @yy_n_chars, align 4
+  %538 = load i32, ptr @yy_more_len, align 4
+  %539 = sext i32 %537 to i64
+  br label %586
 
-539:                                              ; preds = %485
-  %540 = ptrtoint ptr %83 to i64
-  %541 = ptrtoint ptr %222 to i64
-  %542 = sub i64 %540, %541
-  br label %543
+540:                                              ; preds = %485
+  %541 = ptrtoint ptr %83 to i64
+  %542 = ptrtoint ptr %222 to i64
+  %543 = sub i64 %541, %542
+  br label %544
 
-543:                                              ; preds = %539, %469, %441
-  %544 = phi i64 [ %444, %441 ], [ %472, %469 ], [ %542, %539 ]
-  %545 = phi ptr [ %445, %441 ], [ %474, %469 ], [ %486, %539 ]
-  %546 = phi i32 [ %449, %441 ], [ %473, %469 ], [ %440, %539 ]
-  %547 = trunc i64 %309 to i32
-  %548 = trunc i64 %544 to i32
-  %549 = add nsw i32 %548, -1
-  %550 = add nsw i32 %546, %311
-  store i32 %550, ptr @yy_n_chars, align 4
-  %551 = getelementptr inbounds %struct.yy_buffer_state, ptr %545, i64 0, i32 1
-  %552 = load ptr, ptr %551, align 8
-  %553 = sext i32 %550 to i64
-  %554 = getelementptr inbounds i8, ptr %552, i64 %553
-  store i8 0, ptr %554, align 1
-  %555 = load ptr, ptr %551, align 8
-  %556 = add i32 %546, %547
-  %557 = sext i32 %556 to i64
-  %558 = getelementptr inbounds i8, ptr %555, i64 %557
-  store i8 0, ptr %558, align 1
-  %559 = load ptr, ptr %551, align 8
-  store ptr %559, ptr @dfg_text, align 8
-  %560 = sext i32 %549 to i64
-  %561 = getelementptr inbounds i8, ptr %559, i64 %560
-  store ptr %561, ptr @yy_c_buf_p, align 8
-  %562 = load i32, ptr @yy_start, align 4
-  %563 = load i32, ptr @yy_more_len, align 4
-  %564 = sext i32 %563 to i64
-  %565 = getelementptr inbounds i8, ptr %559, i64 %564
-  %566 = icmp slt i32 %563, %549
-  br i1 %566, label %567, label %46
+544:                                              ; preds = %540, %469, %437
+  %545 = phi i64 [ %440, %437 ], [ %472, %469 ], [ %543, %540 ]
+  %546 = phi ptr [ %442, %437 ], [ %474, %469 ], [ %486, %540 ]
+  %547 = phi i32 [ %446, %437 ], [ %473, %469 ], [ %487, %540 ]
+  %548 = trunc i64 %309 to i32
+  %549 = trunc i64 %545 to i32
+  %550 = add nsw i32 %549, -1
+  %551 = add nsw i32 %547, %311
+  store i32 %551, ptr @yy_n_chars, align 4
+  %552 = getelementptr inbounds %struct.yy_buffer_state, ptr %546, i64 0, i32 1
+  %553 = load ptr, ptr %552, align 8
+  %554 = sext i32 %551 to i64
+  %555 = getelementptr inbounds i8, ptr %553, i64 %554
+  store i8 0, ptr %555, align 1
+  %556 = load ptr, ptr %552, align 8
+  %557 = add i32 %547, %548
+  %558 = sext i32 %557 to i64
+  %559 = getelementptr inbounds i8, ptr %556, i64 %558
+  store i8 0, ptr %559, align 1
+  %560 = load ptr, ptr %552, align 8
+  store ptr %560, ptr @dfg_text, align 8
+  %561 = sext i32 %550 to i64
+  %562 = getelementptr inbounds i8, ptr %560, i64 %561
+  store ptr %562, ptr @yy_c_buf_p, align 8
+  %563 = load i32, ptr @yy_start, align 4
+  %564 = load i32, ptr @yy_more_len, align 4
+  %565 = sext i32 %564 to i64
+  %566 = getelementptr inbounds i8, ptr %560, i64 %565
+  %567 = icmp slt i32 %564, %550
+  br i1 %567, label %568, label %46
 
-567:                                              ; preds = %543, %577
-  %568 = phi ptr [ %583, %577 ], [ %565, %543 ]
-  %569 = phi i32 [ %582, %577 ], [ %562, %543 ]
-  %570 = sext i32 %569 to i64
-  %571 = load i8, ptr %568, align 1
-  %572 = icmp eq i8 %571, 0
-  br i1 %572, label %577, label %573
+568:                                              ; preds = %544, %578
+  %569 = phi ptr [ %584, %578 ], [ %566, %544 ]
+  %570 = phi i32 [ %583, %578 ], [ %563, %544 ]
+  %571 = sext i32 %570 to i64
+  %572 = load i8, ptr %569, align 1
+  %573 = icmp eq i8 %572, 0
+  br i1 %573, label %578, label %574
 
-573:                                              ; preds = %567
-  %574 = zext i8 %571 to i64
-  %575 = getelementptr inbounds [256 x i32], ptr @yy_ec, i64 0, i64 %574
-  %576 = load i32, ptr %575, align 4
-  br label %577
+574:                                              ; preds = %568
+  %575 = zext i8 %572 to i64
+  %576 = getelementptr inbounds [256 x i32], ptr @yy_ec, i64 0, i64 %575
+  %577 = load i32, ptr %576, align 4
+  br label %578
 
-577:                                              ; preds = %573, %567
-  %578 = phi i32 [ %576, %573 ], [ 1, %567 ]
-  %579 = sext i32 %578 to i64
-  %580 = getelementptr inbounds [380 x [41 x i16]], ptr @yy_nxt, i64 0, i64 %570, i64 %579
-  %581 = load i16, ptr %580, align 2
-  %582 = sext i16 %581 to i32
-  %583 = getelementptr inbounds i8, ptr %568, i64 1
-  %584 = icmp ult ptr %583, %561
-  br i1 %584, label %567, label %44, !llvm.loop !8
+578:                                              ; preds = %574, %568
+  %579 = phi i32 [ %577, %574 ], [ 1, %568 ]
+  %580 = sext i32 %579 to i64
+  %581 = getelementptr inbounds [380 x [41 x i16]], ptr @yy_nxt, i64 0, i64 %571, i64 %580
+  %582 = load i16, ptr %581, align 2
+  %583 = sext i16 %582 to i32
+  %584 = getelementptr inbounds i8, ptr %569, i64 1
+  %585 = icmp ult ptr %584, %562
+  br i1 %585, label %568, label %44, !llvm.loop !8
 
-585:                                              ; preds = %302, %523
-  %586 = phi i32 [ %537, %523 ], [ %303, %302 ]
-  %587 = phi i64 [ %538, %523 ], [ %241, %302 ]
-  %588 = phi ptr [ %532, %523 ], [ %288, %302 ]
-  %589 = phi ptr [ %535, %523 ], [ %239, %302 ]
-  %590 = sext i32 %586 to i64
-  %591 = getelementptr inbounds i8, ptr %589, i64 %587
-  store ptr %591, ptr @yy_c_buf_p, align 8
-  %592 = load i32, ptr @yy_start, align 4
-  %593 = getelementptr inbounds i8, ptr %588, i64 %590
-  %594 = icmp ult ptr %593, %591
-  br i1 %594, label %595, label %75
+586:                                              ; preds = %302, %524
+  %587 = phi i32 [ %538, %524 ], [ %303, %302 ]
+  %588 = phi i64 [ %539, %524 ], [ %241, %302 ]
+  %589 = phi ptr [ %533, %524 ], [ %288, %302 ]
+  %590 = phi ptr [ %536, %524 ], [ %239, %302 ]
+  %591 = sext i32 %587 to i64
+  %592 = getelementptr inbounds i8, ptr %590, i64 %588
+  store ptr %592, ptr @yy_c_buf_p, align 8
+  %593 = load i32, ptr @yy_start, align 4
+  %594 = getelementptr inbounds i8, ptr %589, i64 %591
+  %595 = icmp ult ptr %594, %592
+  br i1 %595, label %596, label %75
 
-595:                                              ; preds = %585, %605
-  %596 = phi ptr [ %611, %605 ], [ %593, %585 ]
-  %597 = phi i32 [ %610, %605 ], [ %592, %585 ]
-  %598 = sext i32 %597 to i64
-  %599 = load i8, ptr %596, align 1
-  %600 = icmp eq i8 %599, 0
-  br i1 %600, label %605, label %601
+596:                                              ; preds = %586, %606
+  %597 = phi ptr [ %612, %606 ], [ %594, %586 ]
+  %598 = phi i32 [ %611, %606 ], [ %593, %586 ]
+  %599 = sext i32 %598 to i64
+  %600 = load i8, ptr %597, align 1
+  %601 = icmp eq i8 %600, 0
+  br i1 %601, label %606, label %602
 
-601:                                              ; preds = %595
-  %602 = zext i8 %599 to i64
-  %603 = getelementptr inbounds [256 x i32], ptr @yy_ec, i64 0, i64 %602
-  %604 = load i32, ptr %603, align 4
-  br label %605
+602:                                              ; preds = %596
+  %603 = zext i8 %600 to i64
+  %604 = getelementptr inbounds [256 x i32], ptr @yy_ec, i64 0, i64 %603
+  %605 = load i32, ptr %604, align 4
+  br label %606
 
-605:                                              ; preds = %601, %595
-  %606 = phi i32 [ %604, %601 ], [ 1, %595 ]
-  %607 = sext i32 %606 to i64
-  %608 = getelementptr inbounds [380 x [41 x i16]], ptr @yy_nxt, i64 0, i64 %598, i64 %607
-  %609 = load i16, ptr %608, align 2
-  %610 = sext i16 %609 to i32
-  %611 = getelementptr inbounds i8, ptr %596, i64 1
-  %612 = icmp ult ptr %611, %591
-  br i1 %612, label %595, label %73, !llvm.loop !8
+606:                                              ; preds = %602, %596
+  %607 = phi i32 [ %605, %602 ], [ 1, %596 ]
+  %608 = sext i32 %607 to i64
+  %609 = getelementptr inbounds [380 x [41 x i16]], ptr @yy_nxt, i64 0, i64 %599, i64 %608
+  %610 = load i16, ptr %609, align 2
+  %611 = sext i16 %610 to i32
+  %612 = getelementptr inbounds i8, ptr %597, i64 1
+  %613 = icmp ult ptr %612, %592
+  br i1 %613, label %596, label %73, !llvm.loop !8
 
-613:                                              ; preds = %497, %302
-  %614 = phi i64 [ %304, %302 ], [ %522, %497 ]
-  %615 = phi ptr [ %288, %302 ], [ %520, %497 ]
-  %616 = getelementptr inbounds i8, ptr %615, i64 %614
-  store ptr %616, ptr @yy_c_buf_p, align 8
-  %617 = load i32, ptr @yy_start, align 4
-  %618 = add nsw i32 %617, -1
-  %619 = sdiv i32 %618, 2
-  %620 = add nuw nsw i32 %619, 71
+614:                                              ; preds = %498, %302
+  %615 = phi i64 [ %304, %302 ], [ %523, %498 ]
+  %616 = phi ptr [ %288, %302 ], [ %521, %498 ]
+  %617 = getelementptr inbounds i8, ptr %616, i64 %615
+  store ptr %617, ptr @yy_c_buf_p, align 8
+  %618 = load i32, ptr @yy_start, align 4
+  %619 = add nsw i32 %618, -1
+  %620 = sdiv i32 %619, 2
+  %621 = add nuw nsw i32 %620, 71
   br label %97
 
-621:                                              ; preds = %97
+622:                                              ; preds = %97
   tail call fastcc void @yy_fatal_error(ptr noundef nonnull @.str.5)
   unreachable
 
-622:                                              ; preds = %97
-  br label %627
-
 623:                                              ; preds = %97
-  br label %627
+  br label %628
 
 624:                                              ; preds = %97
-  br label %627
+  br label %628
 
 625:                                              ; preds = %97
-  br label %627
+  br label %628
 
 626:                                              ; preds = %97
-  br label %627
+  br label %628
 
-627:                                              ; preds = %149, %97, %626, %625, %624, %623, %622, %220, %194, %189, %187, %171, %153, %148, %147, %146, %145, %144, %143, %142, %141, %140, %139, %138, %137, %136, %135, %134, %133, %132, %131, %130, %129, %128, %127, %126, %125, %124, %123, %122, %121, %120, %119, %118, %117, %116, %115, %114, %113, %112, %111, %110, %109, %108, %107, %106, %105, %104, %103, %102, %101, %100, %99
-  %628 = phi i32 [ 0, %220 ], [ %197, %194 ], [ 317, %189 ], [ 315, %187 ], [ 318, %171 ], [ 264, %153 ], [ 316, %148 ], [ 314, %147 ], [ 313, %146 ], [ 312, %145 ], [ 311, %144 ], [ 309, %143 ], [ 308, %142 ], [ 307, %141 ], [ 306, %140 ], [ 305, %139 ], [ 296, %138 ], [ 302, %137 ], [ 273, %136 ], [ 301, %135 ], [ 300, %134 ], [ 298, %133 ], [ 297, %132 ], [ 295, %131 ], [ 294, %130 ], [ 292, %129 ], [ 291, %128 ], [ 290, %127 ], [ 310, %126 ], [ 304, %125 ], [ 303, %124 ], [ 299, %123 ], [ 286, %122 ], [ 280, %121 ], [ 271, %120 ], [ 269, %119 ], [ 265, %118 ], [ 289, %117 ], [ 288, %116 ], [ 287, %115 ], [ 285, %114 ], [ 284, %113 ], [ 283, %112 ], [ 281, %111 ], [ 282, %110 ], [ 279, %109 ], [ 278, %108 ], [ 277, %107 ], [ 276, %106 ], [ 275, %105 ], [ 274, %104 ], [ 272, %103 ], [ 270, %102 ], [ 268, %101 ], [ 267, %100 ], [ 266, %99 ], [ 258, %622 ], [ 259, %623 ], [ 260, %624 ], [ 261, %625 ], [ 262, %626 ], [ 263, %97 ], [ 293, %149 ]
-  ret i32 %628
+627:                                              ; preds = %97
+  br label %628
+
+628:                                              ; preds = %149, %97, %627, %626, %625, %624, %623, %220, %194, %189, %187, %171, %153, %148, %147, %146, %145, %144, %143, %142, %141, %140, %139, %138, %137, %136, %135, %134, %133, %132, %131, %130, %129, %128, %127, %126, %125, %124, %123, %122, %121, %120, %119, %118, %117, %116, %115, %114, %113, %112, %111, %110, %109, %108, %107, %106, %105, %104, %103, %102, %101, %100, %99
+  %629 = phi i32 [ 0, %220 ], [ %197, %194 ], [ 317, %189 ], [ 315, %187 ], [ 318, %171 ], [ 264, %153 ], [ 316, %148 ], [ 314, %147 ], [ 313, %146 ], [ 312, %145 ], [ 311, %144 ], [ 309, %143 ], [ 308, %142 ], [ 307, %141 ], [ 306, %140 ], [ 305, %139 ], [ 296, %138 ], [ 302, %137 ], [ 273, %136 ], [ 301, %135 ], [ 300, %134 ], [ 298, %133 ], [ 297, %132 ], [ 295, %131 ], [ 294, %130 ], [ 292, %129 ], [ 291, %128 ], [ 290, %127 ], [ 310, %126 ], [ 304, %125 ], [ 303, %124 ], [ 299, %123 ], [ 286, %122 ], [ 280, %121 ], [ 271, %120 ], [ 269, %119 ], [ 265, %118 ], [ 289, %117 ], [ 288, %116 ], [ 287, %115 ], [ 285, %114 ], [ 284, %113 ], [ 283, %112 ], [ 281, %111 ], [ 282, %110 ], [ 279, %109 ], [ 278, %108 ], [ 277, %107 ], [ 276, %106 ], [ 275, %105 ], [ 274, %104 ], [ 272, %103 ], [ 270, %102 ], [ 268, %101 ], [ 267, %100 ], [ 266, %99 ], [ 258, %623 ], [ 259, %624 ], [ 260, %625 ], [ 261, %626 ], [ 262, %627 ], [ 263, %97 ], [ 293, %149 ]
+  ret i32 %629
 }
 
 ; Function Attrs: nounwind uwtable
@@ -1679,11 +1675,11 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #15
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #16
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #17
-
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
-declare void @llvm.assume(i1 noundef) #18
+declare void @llvm.assume(i1 noundef) #17
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #18
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #19
@@ -1705,8 +1701,8 @@ attributes #13 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack
 attributes #14 = { mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #16 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #18 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #17 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #19 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #20 = { nounwind willreturn memory(none) }
 attributes #21 = { nounwind }

@@ -22,8 +22,8 @@ define dso_local void @gx_color_render(ptr noundef %0, ptr noundef %1, ptr nound
   %5 = load ptr, ptr %4, align 8, !tbaa !5
   %6 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 4
   %7 = load i8, ptr %6, align 2, !tbaa !16
-  %8 = icmp ne i8 %7, 0
-  br i1 %8, label %9, label %22
+  %8 = icmp eq i8 %7, 0
+  br i1 %8, label %22, label %9
 
 9:                                                ; preds = %3
   %10 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 3
@@ -41,7 +41,7 @@ define dso_local void @gx_color_render(ptr noundef %0, ptr noundef %1, ptr nound
   store i64 %14, ptr %15, align 8, !tbaa !24
   %16 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
   store i32 0, ptr %16, align 8, !tbaa !25
-  br label %270
+  br label %266
 
 17:                                               ; preds = %9
   %18 = getelementptr inbounds %struct.device_s, ptr %5, i64 0, i32 2
@@ -51,7 +51,7 @@ define dso_local void @gx_color_render(ptr noundef %0, ptr noundef %1, ptr nound
   store i64 %19, ptr %20, align 8, !tbaa !24
   %21 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
   store i32 0, ptr %21, align 8, !tbaa !25
-  br label %270
+  br label %266
 
 22:                                               ; preds = %9, %3
   %23 = load ptr, ptr %5, align 8, !tbaa !27
@@ -84,13 +84,13 @@ define dso_local void @gx_color_render(ptr noundef %0, ptr noundef %1, ptr nound
   %48 = load ptr, ptr %47, align 8, !tbaa !33
   %49 = getelementptr inbounds %struct.gx_device_procs_s, ptr %48, i64 0, i32 5
   %50 = load ptr, ptr %49, align 8, !tbaa !34
-  %51 = tail call i64 %50(ptr noundef nonnull %23, i16 noundef zeroext %34, i16 noundef zeroext %40, i16 noundef zeroext %46) #3
+  %51 = tail call i64 %50(ptr noundef nonnull %23, i16 noundef zeroext %34, i16 noundef zeroext %40, i16 noundef zeroext %46) #2
   store i64 %51, ptr %1, align 8, !tbaa !22
   %52 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
   store i64 %51, ptr %52, align 8, !tbaa !24
   %53 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
   store i32 0, ptr %53, align 8, !tbaa !25
-  br label %270
+  br label %266
 
 54:                                               ; preds = %22
   %55 = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 11
@@ -101,292 +101,288 @@ define dso_local void @gx_color_render(ptr noundef %0, ptr noundef %1, ptr nound
   %60 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 7
   %61 = load i32, ptr %60, align 8, !tbaa !39
   %62 = icmp eq i32 %61, 0
-  %63 = or i1 %8, %62
-  br i1 %63, label %64, label %101
+  %63 = icmp ne i8 %7, 0
+  %64 = select i1 %62, i1 true, i1 %63
+  br i1 %64, label %65, label %102
 
-64:                                               ; preds = %54
-  %65 = mul nuw nsw i64 %59, %26
-  %66 = add nuw nsw i64 %65, 1
-  %67 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 5
-  %68 = load i8, ptr %67, align 1, !tbaa !40
-  %69 = icmp eq i8 %68, 0
-  br i1 %69, label %73, label %70
+65:                                               ; preds = %54
+  %66 = mul nuw nsw i64 %59, %26
+  %67 = add nuw nsw i64 %66, 1
+  %68 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 5
+  %69 = load i8, ptr %68, align 1, !tbaa !40
+  %70 = icmp eq i8 %69, 0
+  br i1 %70, label %74, label %71
 
-70:                                               ; preds = %64
-  %71 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 3
-  %72 = load i16, ptr %71, align 2, !tbaa !19
-  br label %75
+71:                                               ; preds = %65
+  %72 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 3
+  %73 = load i16, ptr %72, align 2, !tbaa !19
+  br label %76
 
-73:                                               ; preds = %64
-  %74 = tail call zeroext i16 @gx_color_luminance(ptr noundef nonnull %0) #3
-  br label %75
+74:                                               ; preds = %65
+  %75 = tail call zeroext i16 @gx_color_luminance(ptr noundef nonnull %0) #2
+  br label %76
 
-75:                                               ; preds = %73, %70
-  %76 = phi i16 [ %72, %70 ], [ %74, %73 ]
-  %77 = zext i16 %76 to i64
-  %78 = mul nuw i64 %66, %77
-  %79 = lshr i64 %78, 16
-  %80 = udiv i64 %79, %59
-  %81 = trunc i64 %80 to i16
-  %82 = urem i64 %79, %59
-  %83 = trunc i64 %82 to i32
-  %84 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
-  store i32 %83, ptr %84, align 8, !tbaa !25
-  %85 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
-  %86 = load ptr, ptr %85, align 8, !tbaa !33
-  %87 = getelementptr inbounds %struct.gx_device_procs_s, ptr %86, i64 0, i32 5
-  %88 = load ptr, ptr %87, align 8, !tbaa !34
-  %89 = tail call i64 %88(ptr noundef nonnull %23, i16 noundef zeroext %81, i16 noundef zeroext %81, i16 noundef zeroext %81) #3
-  store i64 %89, ptr %1, align 8, !tbaa !22
-  %90 = load i32, ptr %84, align 8, !tbaa !25
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %92, label %94
+76:                                               ; preds = %74, %71
+  %77 = phi i16 [ %73, %71 ], [ %75, %74 ]
+  %78 = zext i16 %77 to i64
+  %79 = mul nuw nsw i64 %67, %78
+  %80 = lshr i64 %79, 16
+  %81 = udiv i64 %80, %59
+  %82 = trunc i64 %81 to i16
+  %83 = urem i64 %80, %59
+  %84 = trunc i64 %83 to i32
+  %85 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
+  store i32 %84, ptr %85, align 8, !tbaa !25
+  %86 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
+  %87 = load ptr, ptr %86, align 8, !tbaa !33
+  %88 = getelementptr inbounds %struct.gx_device_procs_s, ptr %87, i64 0, i32 5
+  %89 = load ptr, ptr %88, align 8, !tbaa !34
+  %90 = tail call i64 %89(ptr noundef nonnull %23, i16 noundef zeroext %82, i16 noundef zeroext %82, i16 noundef zeroext %82) #2
+  store i64 %90, ptr %1, align 8, !tbaa !22
+  %91 = load i32, ptr %85, align 8, !tbaa !25
+  %92 = icmp eq i32 %91, 0
+  br i1 %92, label %93, label %95
 
-92:                                               ; preds = %75
-  %93 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
-  store i64 %89, ptr %93, align 8, !tbaa !24
-  br label %270
+93:                                               ; preds = %76
+  %94 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
+  store i64 %90, ptr %94, align 8, !tbaa !24
+  br label %266
 
-94:                                               ; preds = %75
-  %95 = add i16 %81, 1
-  %96 = load ptr, ptr %85, align 8, !tbaa !33
-  %97 = getelementptr inbounds %struct.gx_device_procs_s, ptr %96, i64 0, i32 5
-  %98 = load ptr, ptr %97, align 8, !tbaa !34
-  %99 = tail call i64 %98(ptr noundef nonnull %23, i16 noundef zeroext %95, i16 noundef zeroext %95, i16 noundef zeroext %95) #3
-  %100 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
-  store i64 %99, ptr %100, align 8, !tbaa !24
-  tail call void @gx_color_load(ptr noundef nonnull %1, ptr noundef nonnull %2) #3
-  br label %270
+95:                                               ; preds = %76
+  %96 = add i16 %82, 1
+  %97 = load ptr, ptr %86, align 8, !tbaa !33
+  %98 = getelementptr inbounds %struct.gx_device_procs_s, ptr %97, i64 0, i32 5
+  %99 = load ptr, ptr %98, align 8, !tbaa !34
+  %100 = tail call i64 %99(ptr noundef nonnull %23, i16 noundef zeroext %96, i16 noundef zeroext %96, i16 noundef zeroext %96) #2
+  %101 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
+  store i64 %100, ptr %101, align 8, !tbaa !24
+  tail call void @gx_color_load(ptr noundef nonnull %1, ptr noundef nonnull %2) #2
+  br label %266
 
-101:                                              ; preds = %54
-  %102 = load i16, ptr %0, align 2, !tbaa !30
-  %103 = zext i16 %102 to i64
-  %104 = mul nuw nsw i64 %103, %26
-  %105 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 1
-  %106 = load i16, ptr %105, align 2, !tbaa !31
-  %107 = zext i16 %106 to i64
-  %108 = mul nuw nsw i64 %107, %26
-  %109 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 2
-  %110 = load i16, ptr %109, align 2, !tbaa !32
-  %111 = zext i16 %110 to i64
-  %112 = mul nuw nsw i64 %111, %26
-  %113 = trunc i64 %104 to i32
-  %114 = udiv i32 %113, 65535
-  %115 = trunc i32 %114 to i16
-  %116 = trunc i64 %108 to i32
-  %117 = udiv i32 %116, 65535
-  %118 = trunc i32 %117 to i16
-  %119 = trunc i64 %112 to i32
-  %120 = udiv i32 %119, 65535
-  %121 = trunc i32 %120 to i16
-  %122 = trunc i64 %104 to i16
-  %123 = add i16 %115, %122
-  %124 = trunc i64 %108 to i16
-  %125 = add i16 %118, %124
-  %126 = trunc i64 %112 to i16
-  %127 = add i16 %121, %126
-  %128 = or i16 %125, %123
-  %129 = or i16 %128, %127
-  %130 = icmp eq i16 %129, 0
-  br i1 %130, label %131, label %139
+102:                                              ; preds = %54
+  %103 = load i16, ptr %0, align 2, !tbaa !30
+  %104 = zext i16 %103 to i64
+  %105 = mul nuw nsw i64 %104, %26
+  %106 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 1
+  %107 = load i16, ptr %106, align 2, !tbaa !31
+  %108 = zext i16 %107 to i64
+  %109 = mul nuw nsw i64 %108, %26
+  %110 = getelementptr inbounds %struct.gs_color_s, ptr %0, i64 0, i32 2
+  %111 = load i16, ptr %110, align 2, !tbaa !32
+  %112 = zext i16 %111 to i64
+  %113 = mul nuw nsw i64 %112, %26
+  %114 = trunc i64 %105 to i32
+  %115 = udiv i32 %114, 65535
+  %116 = trunc i32 %115 to i16
+  %117 = trunc i64 %109 to i32
+  %118 = udiv i32 %117, 65535
+  %119 = trunc i32 %118 to i16
+  %120 = trunc i64 %113 to i32
+  %121 = udiv i32 %120, 65535
+  %122 = trunc i32 %121 to i16
+  %123 = add nuw i32 %115, %114
+  %124 = add nuw i32 %118, %117
+  %125 = add nuw i32 %121, %120
+  %126 = and i32 %123, 65535
+  %127 = and i32 %124, 65535
+  %128 = or i32 %127, %126
+  %129 = and i32 %125, 65535
+  %130 = or i32 %128, %129
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %132, label %140
 
-131:                                              ; preds = %101
-  %132 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
-  %133 = load ptr, ptr %132, align 8, !tbaa !33
-  %134 = getelementptr inbounds %struct.gx_device_procs_s, ptr %133, i64 0, i32 5
-  %135 = load ptr, ptr %134, align 8, !tbaa !34
-  %136 = tail call i64 %135(ptr noundef nonnull %23, i16 noundef zeroext %115, i16 noundef zeroext %118, i16 noundef zeroext %121) #3
-  store i64 %136, ptr %1, align 8, !tbaa !22
-  %137 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
-  store i64 %136, ptr %137, align 8, !tbaa !24
-  %138 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
-  store i32 0, ptr %138, align 8, !tbaa !25
-  br label %270
+132:                                              ; preds = %102
+  %133 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
+  %134 = load ptr, ptr %133, align 8, !tbaa !33
+  %135 = getelementptr inbounds %struct.gx_device_procs_s, ptr %134, i64 0, i32 5
+  %136 = load ptr, ptr %135, align 8, !tbaa !34
+  %137 = tail call i64 %136(ptr noundef nonnull %23, i16 noundef zeroext %116, i16 noundef zeroext %119, i16 noundef zeroext %122) #2
+  store i64 %137, ptr %1, align 8, !tbaa !22
+  %138 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
+  store i64 %137, ptr %138, align 8, !tbaa !24
+  %139 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
+  store i32 0, ptr %139, align 8, !tbaa !25
+  br label %266
 
-139:                                              ; preds = %101
-  %140 = icmp slt i16 %123, 0
-  br i1 %140, label %141, label %144
+140:                                              ; preds = %102
+  %141 = icmp ugt i32 %126, 32767
+  br i1 %141, label %142, label %145
 
-141:                                              ; preds = %139
-  %142 = xor i16 %123, -1
-  %143 = add nuw nsw i16 %115, 1
-  br label %144
+142:                                              ; preds = %140
+  %143 = xor i32 %126, 65535
+  %144 = add nuw nsw i16 %116, 1
+  br label %145
 
-144:                                              ; preds = %139, %141
-  %145 = phi i16 [ %142, %141 ], [ %123, %139 ]
-  %146 = phi i16 [ -1, %141 ], [ 1, %139 ]
-  %147 = phi i16 [ 30, %141 ], [ 0, %139 ]
-  %148 = phi i16 [ %143, %141 ], [ %115, %139 ]
-  %149 = icmp slt i16 %125, 0
-  br i1 %149, label %150, label %154
+145:                                              ; preds = %140, %142
+  %146 = phi i32 [ %143, %142 ], [ %123, %140 ]
+  %147 = phi i16 [ -1, %142 ], [ 1, %140 ]
+  %148 = phi i16 [ 30, %142 ], [ 0, %140 ]
+  %149 = phi i16 [ %144, %142 ], [ %116, %140 ]
+  %150 = trunc i32 %146 to i16
+  %151 = icmp ugt i32 %127, 32767
+  br i1 %151, label %152, label %156
 
-150:                                              ; preds = %144
-  %151 = xor i16 %125, -1
-  %152 = add nuw nsw i16 %118, 1
-  %153 = add nuw nsw i16 %147, 59
-  br label %154
+152:                                              ; preds = %145
+  %153 = xor i32 %127, 65535
+  %154 = add nuw nsw i16 %119, 1
+  %155 = add nuw nsw i16 %148, 59
+  br label %156
 
-154:                                              ; preds = %144, %150
-  %155 = phi i16 [ %152, %150 ], [ %118, %144 ]
-  %156 = phi i16 [ %151, %150 ], [ %125, %144 ]
-  %157 = phi i16 [ -1, %150 ], [ 1, %144 ]
-  %158 = phi i16 [ %153, %150 ], [ %147, %144 ]
-  %159 = icmp slt i16 %127, 0
-  br i1 %159, label %160, label %164
+156:                                              ; preds = %145, %152
+  %157 = phi i16 [ %154, %152 ], [ %119, %145 ]
+  %158 = phi i32 [ %153, %152 ], [ %124, %145 ]
+  %159 = phi i16 [ -1, %152 ], [ 1, %145 ]
+  %160 = phi i16 [ %155, %152 ], [ %148, %145 ]
+  %161 = trunc i32 %158 to i16
+  %162 = icmp ugt i32 %129, 32767
+  br i1 %162, label %163, label %167
 
-160:                                              ; preds = %154
-  %161 = xor i16 %127, -1
-  %162 = add nuw nsw i16 %121, 1
-  %163 = add nuw nsw i16 %158, 11
-  br label %164
+163:                                              ; preds = %156
+  %164 = xor i32 %129, 65535
+  %165 = add nuw nsw i16 %122, 1
+  %166 = add nuw nsw i16 %160, 11
+  br label %167
 
-164:                                              ; preds = %154, %160
-  %165 = phi i16 [ %162, %160 ], [ %121, %154 ]
-  %166 = phi i16 [ %161, %160 ], [ %127, %154 ]
-  %167 = phi i16 [ -1, %160 ], [ 1, %154 ]
-  %168 = phi i16 [ %163, %160 ], [ %158, %154 ]
-  %169 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
-  %170 = load ptr, ptr %169, align 8, !tbaa !33
-  %171 = getelementptr inbounds %struct.gx_device_procs_s, ptr %170, i64 0, i32 5
-  %172 = load ptr, ptr %171, align 8, !tbaa !34
-  %173 = tail call i64 %172(ptr noundef nonnull %23, i16 noundef zeroext %148, i16 noundef zeroext %155, i16 noundef zeroext %165) #3
-  store i64 %173, ptr %1, align 8, !tbaa !22
-  %174 = icmp ugt i16 %156, %145
-  br i1 %174, label %175, label %189
+167:                                              ; preds = %156, %163
+  %168 = phi i16 [ %165, %163 ], [ %122, %156 ]
+  %169 = phi i32 [ %164, %163 ], [ %125, %156 ]
+  %170 = phi i16 [ -1, %163 ], [ 1, %156 ]
+  %171 = phi i16 [ %166, %163 ], [ %160, %156 ]
+  %172 = trunc i32 %169 to i16
+  %173 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
+  %174 = load ptr, ptr %173, align 8, !tbaa !33
+  %175 = getelementptr inbounds %struct.gx_device_procs_s, ptr %174, i64 0, i32 5
+  %176 = load ptr, ptr %175, align 8, !tbaa !34
+  %177 = tail call i64 %176(ptr noundef nonnull %23, i16 noundef zeroext %149, i16 noundef zeroext %157, i16 noundef zeroext %168) #2
+  store i64 %177, ptr %1, align 8, !tbaa !22
+  %178 = and i32 %158, 65535
+  %179 = and i32 %146, 65535
+  %180 = icmp ugt i32 %178, %179
+  %181 = and i32 %169, 65535
+  br i1 %180, label %182, label %191
 
-175:                                              ; preds = %164
-  %176 = icmp ugt i16 %166, %156
-  %177 = tail call i16 @llvm.umax.i16(i16 %166, i16 %156)
-  %178 = select i1 %176, i32 4, i32 2
-  %179 = icmp ugt i16 %166, %145
-  br i1 %179, label %180, label %185
+182:                                              ; preds = %167
+  %183 = icmp ugt i32 %181, %178
+  %184 = select i1 %183, i16 %172, i16 %161
+  %185 = select i1 %183, i32 4, i32 2
+  %186 = icmp ugt i32 %181, %179
+  br i1 %186, label %187, label %189
 
-180:                                              ; preds = %175
-  %181 = zext i16 %156 to i64
-  %182 = zext i16 %166 to i64
-  %183 = add nuw nsw i64 %182, %181
-  %184 = zext i16 %145 to i64
-  br label %203
+187:                                              ; preds = %182
+  %188 = add nuw nsw i32 %181, %178
+  br label %200
 
-185:                                              ; preds = %175
-  %186 = zext i16 %145 to i64
-  %187 = zext i16 %156 to i64
-  %188 = add nuw nsw i64 %187, %186
-  br label %203
+189:                                              ; preds = %182
+  %190 = add nuw nsw i32 %178, %179
+  br label %200
 
-189:                                              ; preds = %164
-  %190 = icmp ugt i16 %166, %145
-  %191 = tail call i16 @llvm.umax.i16(i16 %166, i16 %145)
-  %192 = select i1 %190, i32 4, i32 1
-  %193 = icmp ugt i16 %166, %156
-  br i1 %193, label %194, label %199
+191:                                              ; preds = %167
+  %192 = icmp ugt i32 %181, %179
+  %193 = select i1 %192, i16 %172, i16 %150
+  %194 = select i1 %192, i32 4, i32 1
+  %195 = icmp ugt i32 %181, %178
+  br i1 %195, label %196, label %198
 
-194:                                              ; preds = %189
-  %195 = zext i16 %166 to i64
-  %196 = zext i16 %145 to i64
-  %197 = add nuw nsw i64 %195, %196
-  %198 = zext i16 %156 to i64
-  br label %203
+196:                                              ; preds = %191
+  %197 = add nuw nsw i32 %181, %179
+  br label %200
 
-199:                                              ; preds = %189
-  %200 = zext i16 %145 to i64
-  %201 = zext i16 %156 to i64
-  %202 = add nuw nsw i64 %201, %200
-  br label %203
+198:                                              ; preds = %191
+  %199 = add nuw nsw i32 %178, %179
+  br label %200
 
-203:                                              ; preds = %194, %199, %180, %185
-  %204 = phi i64 [ %198, %194 ], [ %201, %199 ], [ %181, %180 ], [ %187, %185 ]
-  %205 = phi i64 [ %196, %194 ], [ %200, %199 ], [ %184, %180 ], [ %186, %185 ]
-  %206 = phi i16 [ %191, %194 ], [ %191, %199 ], [ %177, %180 ], [ %177, %185 ]
-  %207 = phi i64 [ %197, %194 ], [ %202, %199 ], [ %183, %180 ], [ %188, %185 ]
-  %208 = phi i32 [ %192, %194 ], [ %192, %199 ], [ %178, %180 ], [ %178, %185 ]
-  %209 = phi i32 [ 5, %194 ], [ 3, %199 ], [ 6, %180 ], [ 3, %185 ]
-  %210 = zext i16 %206 to i64
-  %211 = mul nuw nsw i64 %210, 100
-  %212 = mul nuw nsw i64 %207, 71
-  %213 = add nuw nsw i64 %204, %205
-  %214 = zext i16 %166 to i64
-  %215 = add nuw nsw i64 %213, %214
-  %216 = icmp ugt i64 %211, %212
-  %217 = mul nuw nsw i64 %215, 62
-  br i1 %216, label %218, label %223
+200:                                              ; preds = %196, %198, %187, %189
+  %201 = phi i16 [ %193, %196 ], [ %193, %198 ], [ %184, %187 ], [ %184, %189 ]
+  %202 = phi i32 [ %197, %196 ], [ %199, %198 ], [ %188, %187 ], [ %190, %189 ]
+  %203 = phi i32 [ %194, %196 ], [ %194, %198 ], [ %185, %187 ], [ %185, %189 ]
+  %204 = phi i32 [ 5, %196 ], [ 3, %198 ], [ 6, %187 ], [ 3, %189 ]
+  %205 = zext i32 %202 to i64
+  %206 = zext i16 %201 to i64
+  %207 = mul nuw nsw i64 %206, 100
+  %208 = mul nuw nsw i64 %205, 71
+  %209 = add nuw nsw i32 %178, %179
+  %210 = add nuw nsw i32 %209, %181
+  %211 = zext i32 %210 to i64
+  %212 = icmp ugt i64 %207, %208
+  %213 = mul nuw nsw i64 %211, 62
+  br i1 %212, label %214, label %219
 
-218:                                              ; preds = %203
-  %219 = icmp ugt i64 %217, %211
-  %220 = select i1 %219, i64 %215, i64 %210
-  %221 = select i1 %219, i64 196605, i64 65535
-  %222 = select i1 %219, i32 7, i32 %208
-  br label %228
+214:                                              ; preds = %200
+  %215 = icmp ugt i64 %213, %207
+  %216 = select i1 %215, i64 %211, i64 %206
+  %217 = select i1 %215, i64 196605, i64 65535
+  %218 = select i1 %215, i32 7, i32 %203
+  br label %224
 
-223:                                              ; preds = %203
-  %224 = icmp ugt i64 %217, %212
-  %225 = select i1 %224, i64 %215, i64 %207
-  %226 = select i1 %224, i64 196605, i64 131070
-  %227 = select i1 %224, i32 7, i32 %209
-  br label %228
+219:                                              ; preds = %200
+  %220 = icmp ugt i64 %213, %208
+  %221 = select i1 %220, i64 %211, i64 %205
+  %222 = select i1 %220, i64 196605, i64 131070
+  %223 = select i1 %220, i32 7, i32 %204
+  br label %224
 
-228:                                              ; preds = %223, %218
-  %229 = phi i64 [ %220, %218 ], [ %225, %223 ]
-  %230 = phi i64 [ %221, %218 ], [ %226, %223 ]
-  %231 = phi i32 [ %222, %218 ], [ %227, %223 ]
-  %232 = mul nuw nsw i64 %229, %59
-  %233 = udiv i64 %232, %230
-  %234 = trunc i64 %233 to i32
-  %235 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
-  store i32 %234, ptr %235, align 8, !tbaa !25
-  %236 = icmp eq i32 %234, 0
-  br i1 %236, label %237, label %239
+224:                                              ; preds = %219, %214
+  %225 = phi i64 [ %216, %214 ], [ %221, %219 ]
+  %226 = phi i64 [ %217, %214 ], [ %222, %219 ]
+  %227 = phi i32 [ %218, %214 ], [ %223, %219 ]
+  %228 = mul nuw nsw i64 %225, %59
+  %229 = udiv i64 %228, %226
+  %230 = trunc i64 %229 to i32
+  %231 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 2
+  store i32 %230, ptr %231, align 8, !tbaa !25
+  %232 = icmp eq i32 %230, 0
+  br i1 %232, label %233, label %235
 
-237:                                              ; preds = %228
-  %238 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
-  store i64 %173, ptr %238, align 8, !tbaa !24
-  br label %270
+233:                                              ; preds = %224
+  %234 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
+  store i64 %177, ptr %234, align 8, !tbaa !24
+  br label %266
 
-239:                                              ; preds = %228
-  %240 = and i32 %231, 1
+235:                                              ; preds = %224
+  %236 = and i32 %227, 1
+  %237 = icmp eq i32 %236, 0
+  %238 = select i1 %237, i16 0, i16 %147
+  %239 = add i16 %238, %149
+  %240 = and i32 %227, 2
   %241 = icmp eq i32 %240, 0
-  %242 = select i1 %241, i16 0, i16 %146
-  %243 = add i16 %242, %148
-  %244 = and i32 %231, 2
+  %242 = select i1 %241, i16 0, i16 %159
+  %243 = add i16 %242, %157
+  %244 = and i32 %227, 4
   %245 = icmp eq i32 %244, 0
-  %246 = select i1 %245, i16 0, i16 %157
-  %247 = add i16 %246, %155
-  %248 = and i32 %231, 4
-  %249 = icmp eq i32 %248, 0
-  %250 = select i1 %249, i16 0, i16 %167
-  %251 = add i16 %250, %165
-  %252 = zext i32 %231 to i64
-  %253 = getelementptr inbounds [8 x i16], ptr @lum, i64 0, i64 %252
-  %254 = load i16, ptr %253, align 2, !tbaa !41
-  %255 = icmp ult i16 %254, %168
-  br i1 %255, label %256, label %263
+  %246 = select i1 %245, i16 0, i16 %170
+  %247 = add i16 %246, %168
+  %248 = zext i32 %227 to i64
+  %249 = getelementptr inbounds [8 x i16], ptr @lum, i64 0, i64 %248
+  %250 = load i16, ptr %249, align 2, !tbaa !41
+  %251 = icmp ult i16 %250, %171
+  br i1 %251, label %252, label %259
 
-256:                                              ; preds = %239
-  %257 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
-  store i64 %173, ptr %257, align 8, !tbaa !24
-  %258 = load ptr, ptr %169, align 8, !tbaa !33
-  %259 = getelementptr inbounds %struct.gx_device_procs_s, ptr %258, i64 0, i32 5
-  %260 = load ptr, ptr %259, align 8, !tbaa !34
-  %261 = tail call i64 %260(ptr noundef nonnull %23, i16 noundef zeroext %243, i16 noundef zeroext %247, i16 noundef zeroext %251) #3
-  store i64 %261, ptr %1, align 8, !tbaa !22
-  %262 = sub i32 %58, %234
-  store i32 %262, ptr %235, align 8, !tbaa !25
-  br label %269
+252:                                              ; preds = %235
+  %253 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
+  store i64 %177, ptr %253, align 8, !tbaa !24
+  %254 = load ptr, ptr %173, align 8, !tbaa !33
+  %255 = getelementptr inbounds %struct.gx_device_procs_s, ptr %254, i64 0, i32 5
+  %256 = load ptr, ptr %255, align 8, !tbaa !34
+  %257 = tail call i64 %256(ptr noundef nonnull %23, i16 noundef zeroext %239, i16 noundef zeroext %243, i16 noundef zeroext %247) #2
+  store i64 %257, ptr %1, align 8, !tbaa !22
+  %258 = sub i32 %58, %230
+  store i32 %258, ptr %231, align 8, !tbaa !25
+  br label %265
 
-263:                                              ; preds = %239
-  %264 = load ptr, ptr %169, align 8, !tbaa !33
-  %265 = getelementptr inbounds %struct.gx_device_procs_s, ptr %264, i64 0, i32 5
-  %266 = load ptr, ptr %265, align 8, !tbaa !34
-  %267 = tail call i64 %266(ptr noundef nonnull %23, i16 noundef zeroext %243, i16 noundef zeroext %247, i16 noundef zeroext %251) #3
-  %268 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
-  store i64 %267, ptr %268, align 8, !tbaa !24
-  br label %269
+259:                                              ; preds = %235
+  %260 = load ptr, ptr %173, align 8, !tbaa !33
+  %261 = getelementptr inbounds %struct.gx_device_procs_s, ptr %260, i64 0, i32 5
+  %262 = load ptr, ptr %261, align 8, !tbaa !34
+  %263 = tail call i64 %262(ptr noundef nonnull %23, i16 noundef zeroext %239, i16 noundef zeroext %243, i16 noundef zeroext %247) #2
+  %264 = getelementptr inbounds %struct.gx_device_color_s, ptr %1, i64 0, i32 1
+  store i64 %263, ptr %264, align 8, !tbaa !24
+  br label %265
 
-269:                                              ; preds = %263, %256
-  tail call void @gx_color_load(ptr noundef nonnull %1, ptr noundef nonnull %2) #3
-  br label %270
+265:                                              ; preds = %259, %252
+  tail call void @gx_color_load(ptr noundef nonnull %1, ptr noundef nonnull %2) #2
+  br label %266
 
-270:                                              ; preds = %131, %269, %237, %92, %94, %28, %17, %12
+266:                                              ; preds = %132, %265, %233, %93, %95, %28, %17, %12
   ret void
 }
 
@@ -394,13 +390,9 @@ declare zeroext i16 @gx_color_luminance(ptr noundef) local_unnamed_addr #1
 
 declare void @gx_color_load(ptr noundef, ptr noundef) local_unnamed_addr #1
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.umax.i16(i16, i16) #2
-
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #3 = { nounwind }
+attributes #2 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

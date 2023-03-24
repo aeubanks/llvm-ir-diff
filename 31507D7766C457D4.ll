@@ -77,31 +77,43 @@ define dso_local void @jinit_memory_mgr(ptr noundef %0) local_unnamed_addr #0 {
   store ptr %6, ptr %4, align 8, !tbaa !5
   %28 = tail call ptr @getenv(ptr noundef nonnull @.str) #7
   %29 = icmp eq ptr %28, null
-  br i1 %29, label %42, label %30
+  br i1 %29, label %45, label %30
 
 30:                                               ; preds = %14
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #7
   store i8 120, ptr %3, align 1, !tbaa !16
   %31 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %28, ptr noundef nonnull @.str.1, ptr noundef nonnull %2, ptr noundef nonnull %3) #7
   %32 = icmp sgt i32 %31, 0
-  br i1 %32, label %33, label %41
+  br i1 %32, label %33, label %44
 
 33:                                               ; preds = %30
   %34 = load i8, ptr %3, align 1, !tbaa !16
-  %35 = and i8 %34, -33
-  %36 = icmp eq i8 %35, 77
+  %35 = sext i8 %34 to i32
+  switch i32 %35, label %36 [
+    i32 109, label %38
+    i32 77, label %38
+  ]
+
+36:                                               ; preds = %33
   %37 = load i64, ptr %2, align 8, !tbaa !11
-  %38 = mul nsw i64 %37, 1000
-  %39 = select i1 %36, i64 %38, i64 %37
-  %40 = mul nsw i64 %39, 1000
-  store i64 %40, ptr %25, align 8, !tbaa !31
   br label %41
 
-41:                                               ; preds = %33, %30
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #7
-  br label %42
+38:                                               ; preds = %33, %33
+  %39 = load i64, ptr %2, align 8, !tbaa !11
+  %40 = mul nsw i64 %39, 1000
+  br label %41
 
-42:                                               ; preds = %41, %14
+41:                                               ; preds = %36, %38
+  %42 = phi i64 [ %37, %36 ], [ %40, %38 ]
+  %43 = mul nsw i64 %42, 1000
+  store i64 %43, ptr %25, align 8, !tbaa !31
+  br label %44
+
+44:                                               ; preds = %41, %30
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #7
+  br label %45
+
+45:                                               ; preds = %44, %14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
   ret void
 }
@@ -1133,7 +1145,7 @@ define internal ptr @access_virt_sarray(ptr noundef %0, ptr noundef %1, i32 noun
 116:                                              ; preds = %107
   %117 = zext i32 %108 to i64
   %118 = zext i32 %109 to i64
-  %119 = mul nuw nsw i64 %112, %118
+  %119 = mul nuw nsw i64 %118, %112
   %120 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 7
   %121 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 12
   %122 = load i32, ptr %113, align 8, !tbaa !66
@@ -1197,24 +1209,24 @@ define internal ptr @access_virt_sarray(ptr noundef %0, ptr noundef %1, i32 noun
   store i32 20, ptr %166, align 8, !tbaa !14
   %167 = load ptr, ptr %165, align 8, !tbaa !17
   tail call void %167(ptr noundef nonnull %0) #7
-  br label %173
+  br label %169
 
 168:                                              ; preds = %160
-  br i1 %162, label %169, label %173
+  br i1 %162, label %174, label %169
 
-169:                                              ; preds = %168
-  %170 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
-  %171 = load i32, ptr %170, align 4, !tbaa !50
-  %172 = icmp eq i32 %171, 0
-  br i1 %172, label %201, label %182
-
-173:                                              ; preds = %168, %164
-  %174 = phi i32 [ %2, %164 ], [ %158, %168 ]
+169:                                              ; preds = %168, %164
+  %170 = phi i32 [ %2, %164 ], [ %158, %168 ]
   store i32 %6, ptr %157, align 8, !tbaa !68
+  %171 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
+  %172 = load i32, ptr %171, align 4, !tbaa !50
+  %173 = icmp eq i32 %172, 0
+  br i1 %173, label %207, label %182
+
+174:                                              ; preds = %168
   %175 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
   %176 = load i32, ptr %175, align 4, !tbaa !50
   %177 = icmp eq i32 %176, 0
-  br i1 %177, label %207, label %182
+  br i1 %177, label %201, label %182
 
 178:                                              ; preds = %163
   %179 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
@@ -1222,8 +1234,8 @@ define internal ptr @access_virt_sarray(ptr noundef %0, ptr noundef %1, i32 noun
   %181 = icmp eq i32 %180, 0
   br i1 %181, label %201, label %182
 
-182:                                              ; preds = %173, %178, %169
-  %183 = phi i32 [ %2, %178 ], [ %158, %169 ], [ %174, %173 ]
+182:                                              ; preds = %174, %178, %169
+  %183 = phi i32 [ %2, %178 ], [ %170, %169 ], [ %158, %174 ]
   %184 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 2
   %185 = load i32, ptr %184, align 4, !tbaa !48
   %186 = zext i32 %185 to i64
@@ -1248,7 +1260,7 @@ define internal ptr @access_virt_sarray(ptr noundef %0, ptr noundef %1, i32 noun
   %200 = icmp eq i32 %189, %199
   br i1 %200, label %205, label %193, !llvm.loop !80
 
-201:                                              ; preds = %178, %169
+201:                                              ; preds = %178, %174
   %202 = load ptr, ptr %0, align 8, !tbaa !13
   %203 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %202, i64 0, i32 5
   store i32 20, ptr %203, align 8, !tbaa !14
@@ -1260,7 +1272,7 @@ define internal ptr @access_virt_sarray(ptr noundef %0, ptr noundef %1, i32 noun
   %206 = icmp eq i32 %4, 0
   br i1 %206, label %209, label %207
 
-207:                                              ; preds = %173, %205
+207:                                              ; preds = %169, %205
   %208 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 9
   store i32 1, ptr %208, align 8, !tbaa !69
   br label %209
@@ -1498,24 +1510,24 @@ define internal ptr @access_virt_barray(ptr noundef %0, ptr noundef %1, i32 noun
   store i32 20, ptr %168, align 8, !tbaa !14
   %169 = load ptr, ptr %167, align 8, !tbaa !17
   tail call void %169(ptr noundef nonnull %0) #7
-  br label %175
+  br label %171
 
 170:                                              ; preds = %162
-  br i1 %164, label %171, label %175
+  br i1 %164, label %176, label %171
 
-171:                                              ; preds = %170
-  %172 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
-  %173 = load i32, ptr %172, align 4, !tbaa !59
-  %174 = icmp eq i32 %173, 0
-  br i1 %174, label %204, label %184
-
-175:                                              ; preds = %170, %166
-  %176 = phi i32 [ %2, %166 ], [ %160, %170 ]
+171:                                              ; preds = %170, %166
+  %172 = phi i32 [ %2, %166 ], [ %160, %170 ]
   store i32 %6, ptr %159, align 8, !tbaa !74
+  %173 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
+  %174 = load i32, ptr %173, align 4, !tbaa !59
+  %175 = icmp eq i32 %174, 0
+  br i1 %175, label %210, label %184
+
+176:                                              ; preds = %170
   %177 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
   %178 = load i32, ptr %177, align 4, !tbaa !59
   %179 = icmp eq i32 %178, 0
-  br i1 %179, label %210, label %184
+  br i1 %179, label %204, label %184
 
 180:                                              ; preds = %165
   %181 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
@@ -1523,8 +1535,8 @@ define internal ptr @access_virt_barray(ptr noundef %0, ptr noundef %1, i32 noun
   %183 = icmp eq i32 %182, 0
   br i1 %183, label %204, label %184
 
-184:                                              ; preds = %175, %180, %171
-  %185 = phi i32 [ %2, %180 ], [ %160, %171 ], [ %176, %175 ]
+184:                                              ; preds = %176, %180, %171
+  %185 = phi i32 [ %2, %180 ], [ %172, %171 ], [ %160, %176 ]
   %186 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 2
   %187 = load i32, ptr %186, align 4, !tbaa !57
   %188 = zext i32 %187 to i64
@@ -1550,7 +1562,7 @@ define internal ptr @access_virt_barray(ptr noundef %0, ptr noundef %1, i32 noun
   %203 = icmp eq i32 %192, %202
   br i1 %203, label %208, label %196, !llvm.loop !84
 
-204:                                              ; preds = %180, %171
+204:                                              ; preds = %180, %176
   %205 = load ptr, ptr %0, align 8, !tbaa !13
   %206 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %205, i64 0, i32 5
   store i32 20, ptr %206, align 8, !tbaa !14
@@ -1562,7 +1574,7 @@ define internal ptr @access_virt_barray(ptr noundef %0, ptr noundef %1, i32 noun
   %209 = icmp eq i32 %4, 0
   br i1 %209, label %212, label %210
 
-210:                                              ; preds = %175, %208
+210:                                              ; preds = %171, %208
   %211 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 9
   store i32 1, ptr %211, align 8, !tbaa !75
   br label %212
@@ -1750,19 +1762,19 @@ declare void @jpeg_free_large(ptr noundef, ptr noundef, i64 noundef) local_unnam
 declare void @jpeg_free_small(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #5
+declare i64 @llvm.smin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

@@ -638,19 +638,19 @@ define dso_local void @TreeCCOperationValidate(ptr noundef %0) local_unnamed_add
   %222 = getelementptr inbounds %struct._tagTreeCCParam, ptr %221, i64 0, i32 2
   %223 = load i32, ptr %222, align 8, !tbaa !32
   %224 = and i32 %223, 1
-  %225 = icmp eq i32 %224, 0
-  %226 = icmp eq ptr %221, %203
-  %227 = select i1 %225, i1 true, i1 %226
-  br i1 %227, label %247, label %228
+  %225 = icmp ne i32 %224, 0
+  %226 = icmp ne ptr %221, %203
+  %227 = select i1 %225, i1 %226, i1 false
+  br i1 %227, label %228, label %247
 
 228:                                              ; preds = %220
   %229 = getelementptr inbounds %struct._tagTreeCCParam, ptr %221, i64 0, i32 1
   %230 = load ptr, ptr %229, align 8, !tbaa !18
   %231 = tail call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %230) #13
-  %232 = icmp eq ptr %231, null
-  %233 = icmp eq ptr %231, %212
-  %234 = select i1 %232, i1 true, i1 %233
-  br i1 %234, label %247, label %235
+  %232 = icmp ne ptr %231, null
+  %233 = icmp ne ptr %231, %212
+  %234 = select i1 %232, i1 %233, i1 false
+  br i1 %234, label %235, label %247
 
 235:                                              ; preds = %228
   %236 = tail call i32 @TreeCCNodeInheritsFrom(ptr noundef nonnull %212, ptr noundef nonnull %231) #13
@@ -1290,11 +1290,11 @@ declare noalias noundef ptr @realloc(ptr allocptr nocapture noundef, i64 noundef
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: readwrite)
 declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocapture noundef readonly) local_unnamed_addr #10
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1307,8 +1307,8 @@ attributes #7 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroe
 attributes #8 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #13 = { nounwind }
 attributes #14 = { nounwind allocsize(0) }
 attributes #15 = { nounwind willreturn memory(read) }

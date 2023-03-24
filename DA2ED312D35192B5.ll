@@ -67,7 +67,7 @@ define dso_local noundef signext i16 @_ZN12token_stream4openEPKc(ptr noundef non
   tail call void (ptr, ptr, ...) @_ZN12token_stream8dderrmsgEPcz(ptr noundef nonnull align 8 dereferenceable(8756) %0, ptr noundef nonnull @.str.1, ptr noundef nonnull %1, ptr noundef %16)
   br label %17
 
-17:                                               ; preds = %13, %10
+17:                                               ; preds = %10, %13
   %18 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #22
   %19 = add i64 %18, 1
   %20 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %19) #23
@@ -230,12 +230,12 @@ define dso_local void @_ZN12token_stream11reset_tokenEv(ptr noundef nonnull alig
 define dso_local void @_ZN12token_stream5closeEv(ptr nocapture noundef nonnull align 8 dereferenceable(8756) %0) local_unnamed_addr #3 align 2 {
   %2 = getelementptr inbounds %class.token_stream, ptr %0, i64 0, i32 3
   %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = icmp eq ptr %3, null
+  %4 = icmp ne ptr %3, null
   %5 = getelementptr inbounds %class.token_stream, ptr %0, i64 0, i32 9
   %6 = load ptr, ptr %5, align 8
-  %7 = icmp eq ptr %6, null
-  %8 = select i1 %4, i1 true, i1 %7
-  br i1 %8, label %11, label %9
+  %7 = icmp ne ptr %6, null
+  %8 = select i1 %4, i1 %7, i1 false
+  br i1 %8, label %9, label %11
 
 9:                                                ; preds = %1
   %10 = tail call i32 @fclose(ptr noundef nonnull %3)
@@ -569,8 +569,8 @@ define dso_local noundef i32 @_ZN12token_stream9get_tokenEPPc(ptr noundef nonnul
   %89 = load i8, ptr %88, align 1, !tbaa !20
   switch i8 %89, label %106 [
     i8 92, label %90
-    i8 34, label %104
     i8 0, label %112
+    i8 34, label %104
   ]
 
 90:                                               ; preds = %87
@@ -658,11 +658,11 @@ define dso_local noundef i32 @_ZN12token_stream9get_tokenEPPc(ptr noundef nonnul
   ret i32 %134
 }
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare ptr @memchr(ptr, i32, i64) local_unnamed_addr #18
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #19
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #18
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare ptr @memchr(ptr, i32, i64) local_unnamed_addr #19
 
 attributes #0 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -682,8 +682,8 @@ attributes #14 = { mustprogress nocallback nofree nosync nounwind willreturn }
 attributes #15 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #16 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #17 = { mustprogress nofree nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #18 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #19 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #18 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #19 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #20 = { nounwind willreturn memory(none) }
 attributes #21 = { nounwind }
 attributes #22 = { nounwind willreturn memory(read) }

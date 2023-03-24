@@ -57,11 +57,11 @@ define hidden void @luaK_nil(ptr nocapture noundef %0, i32 noundef %1, i32 nound
   %27 = lshr i32 %23, 6
   %28 = and i32 %27, 255
   %29 = lshr i32 %23, 23
-  %30 = icmp sgt i32 %28, %1
+  %30 = icmp sle i32 %28, %1
   %31 = add nuw nsw i32 %29, 1
-  %32 = icmp slt i32 %31, %1
-  %33 = select i1 %30, i1 true, i1 %32
-  br i1 %33, label %42, label %34
+  %32 = icmp sge i32 %31, %1
+  %33 = select i1 %30, i1 %32, i1 false
+  br i1 %33, label %34, label %42
 
 34:                                               ; preds = %26
   %35 = add nsw i32 %2, %1
@@ -513,7 +513,7 @@ define internal fastcc void @patchlistaux(ptr nocapture noundef readonly %0, i32
 
 7:                                                ; preds = %5
   %8 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 3
-  %9 = icmp eq i32 %3, 255
+  %9 = icmp ne i32 %3, 255
   %10 = shl i32 %3, 6
   %11 = and i32 %10, 16320
   br label %12
@@ -556,9 +556,9 @@ define internal fastcc void @patchlistaux(ptr nocapture noundef readonly %0, i32
 
 40:                                               ; preds = %35
   %41 = lshr i32 %36, 23
-  %42 = icmp eq i32 %41, %3
-  %43 = select i1 %9, i1 true, i1 %42
-  br i1 %43, label %47, label %44
+  %42 = icmp ne i32 %41, %3
+  %43 = select i1 %9, i1 %42, i1 false
+  br i1 %43, label %44, label %47
 
 44:                                               ; preds = %40
   %45 = and i32 %36, -16321
@@ -573,8 +573,8 @@ define internal fastcc void @patchlistaux(ptr nocapture noundef readonly %0, i32
   %52 = or i32 %51, 26
   br label %53
 
-53:                                               ; preds = %47, %44
-  %54 = phi i32 [ %52, %47 ], [ %46, %44 ]
+53:                                               ; preds = %44, %47
+  %54 = phi i32 [ %46, %44 ], [ %52, %47 ]
   store i32 %54, ptr %37, align 4, !tbaa !17
   %55 = xor i32 %13, -1
   %56 = add i32 %55, %2
@@ -2746,8 +2746,8 @@ define internal fastcc void @codearith(ptr nocapture noundef %0, i32 noundef %1,
   %59 = tail call i32 @luaK_exp2RK(ptr noundef %0, ptr noundef %3)
   br label %60
 
-60:                                               ; preds = %26, %57, %57, %58
-  %61 = phi i32 [ %59, %58 ], [ 0, %57 ], [ 0, %57 ], [ 0, %26 ]
+60:                                               ; preds = %57, %57, %26, %58
+  %61 = phi i32 [ %59, %58 ], [ 0, %57 ], [ 0, %26 ], [ 0, %57 ]
   %62 = tail call i32 @luaK_exp2RK(ptr noundef %0, ptr noundef nonnull %2)
   %63 = icmp sgt i32 %62, %61
   br i1 %63, label %64, label %94
@@ -4152,11 +4152,11 @@ define internal fastcc void @discharge2reg(ptr nocapture noundef %0, ptr nocaptu
   %30 = lshr i32 %26, 6
   %31 = and i32 %30, 255
   %32 = lshr i32 %26, 23
-  %33 = icmp sgt i32 %31, %2
+  %33 = icmp sle i32 %31, %2
   %34 = add nuw nsw i32 %32, 1
-  %35 = icmp slt i32 %34, %2
-  %36 = select i1 %33, i1 true, i1 %35
-  br i1 %36, label %43, label %37
+  %35 = icmp sge i32 %34, %2
+  %36 = select i1 %33, i1 %35, i1 false
+  br i1 %36, label %37, label %43
 
 37:                                               ; preds = %29
   %38 = icmp slt i32 %32, %2

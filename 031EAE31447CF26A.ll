@@ -124,7 +124,7 @@ define dso_local i32 @zcopy(ptr noundef %0) #0 {
   %67 = tail call i32 (ptr, ...) @zcopy_dict(ptr noundef nonnull %0) #6
   br label %74
 
-68:                                               ; preds = %62, %57, %58
+68:                                               ; preds = %62, %58, %57
   %69 = load i16, ptr %51, align 2, !tbaa !13
   store i16 %69, ptr %54, align 2, !tbaa !13
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %34, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !14
@@ -136,8 +136,8 @@ define dso_local i32 @zcopy(ptr noundef %0) #0 {
   store ptr %73, ptr @osp, align 8, !tbaa !11
   br label %74
 
-74:                                               ; preds = %50, %44, %33, %22, %1, %7, %15, %68, %66
-  %75 = phi i32 [ %67, %66 ], [ 0, %68 ], [ -15, %7 ], [ -16, %15 ], [ -20, %1 ], [ %32, %22 ], [ -20, %33 ], [ -7, %44 ], [ -15, %50 ]
+74:                                               ; preds = %22, %50, %44, %33, %1, %7, %15, %68, %66
+  %75 = phi i32 [ %67, %66 ], [ 0, %68 ], [ -15, %7 ], [ -16, %15 ], [ -20, %1 ], [ -15, %50 ], [ -7, %44 ], [ -20, %33 ], [ %32, %22 ]
   ret i32 %75
 }
 
@@ -220,9 +220,9 @@ define dso_local i32 @zlength(ptr noundef %0) #0 {
   %2 = alloca %struct.ref_s, align 8
   %3 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
   %4 = load i16, ptr %3, align 8, !tbaa !5
-  %5 = lshr i16 %4, 2
-  %6 = and i16 %5, 63
-  %7 = zext i16 %6 to i32
+  %5 = zext i16 %4 to i32
+  %6 = lshr i32 %5, 2
+  %7 = and i32 %6, 63
   switch i32 %7, label %29 [
     i32 0, label %8
     i32 10, label %8
@@ -232,8 +232,8 @@ define dso_local i32 @zlength(ptr noundef %0) #0 {
   ]
 
 8:                                                ; preds = %1, %1, %1
-  %9 = and i16 %4, 512
-  %10 = icmp eq i16 %9, 0
+  %9 = and i32 %5, 512
+  %10 = icmp eq i32 %9, 0
   br i1 %10, label %29, label %11
 
 11:                                               ; preds = %8
@@ -323,8 +323,8 @@ define dso_local i32 @zget(ptr noundef %0) #0 {
   br i1 %24, label %25, label %63
 
 25:                                               ; preds = %20
-  %26 = and i16 %5, 512
-  %27 = icmp eq i16 %26, 0
+  %26 = and i32 %6, 512
+  %27 = icmp eq i32 %26, 0
   br i1 %27, label %63, label %28
 
 28:                                               ; preds = %25
@@ -503,8 +503,8 @@ define dso_local i32 @zput(ptr noundef %0) #0 {
   store ptr %70, ptr @osp, align 8, !tbaa !11
   br label %71
 
-71:                                               ; preds = %59, %54, %46, %49, %43, %38, %1, %26, %29, %23, %18, %9, %15, %68, %67
-  %72 = phi i32 [ -20, %67 ], [ 0, %68 ], [ %16, %15 ], [ -7, %9 ], [ -20, %18 ], [ -7, %23 ], [ -15, %29 ], [ -15, %26 ], [ -7, %1 ], [ -20, %38 ], [ -7, %43 ], [ -15, %49 ], [ -15, %46 ], [ -20, %54 ], [ -15, %59 ]
+71:                                               ; preds = %59, %54, %46, %49, %43, %38, %1, %26, %29, %23, %18, %15, %9, %68, %67
+  %72 = phi i32 [ -20, %67 ], [ 0, %68 ], [ -7, %9 ], [ %16, %15 ], [ -20, %18 ], [ -7, %23 ], [ -15, %29 ], [ -15, %26 ], [ -7, %1 ], [ -20, %38 ], [ -7, %43 ], [ -15, %49 ], [ -15, %46 ], [ -20, %54 ], [ -15, %59 ]
   ret i32 %72
 }
 
@@ -518,87 +518,84 @@ define dso_local i32 @zgetinterval(ptr nocapture noundef %0) #4 {
   %5 = load i16, ptr %4, align 8, !tbaa !5
   %6 = and i16 %5, 252
   %7 = icmp eq i16 %6, 20
-  br i1 %7, label %8, label %52
+  br i1 %7, label %8, label %49
 
 8:                                                ; preds = %1
   %9 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
   %10 = load i16, ptr %9, align 8, !tbaa !5
   %11 = and i16 %10, 252
   %12 = icmp eq i16 %11, 20
-  br i1 %12, label %13, label %52
+  br i1 %12, label %13, label %49
 
 13:                                               ; preds = %8
   %14 = getelementptr %struct.ref_s, ptr %0, i64 -2, i32 1
   %15 = load i16, ptr %14, align 8, !tbaa !5
-  %16 = lshr i16 %15, 2
-  %17 = and i16 %16, 63
-  %18 = zext i16 %17 to i32
-  switch i32 %18, label %52 [
+  %16 = zext i16 %15 to i32
+  %17 = lshr i32 %16, 2
+  %18 = and i32 %17, 63
+  switch i32 %18, label %49 [
     i32 0, label %19
     i32 10, label %19
     i32 13, label %19
   ]
 
 19:                                               ; preds = %13, %13, %13
-  %20 = zext i16 %15 to i32
-  %21 = and i32 %20, 512
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %52, label %23
+  %20 = and i32 %16, 512
+  %21 = icmp eq i32 %20, 0
+  br i1 %21, label %49, label %22
 
-23:                                               ; preds = %19
-  %24 = load i64, ptr %2, align 8, !tbaa !10
-  %25 = getelementptr %struct.ref_s, ptr %0, i64 -2, i32 2
-  %26 = load i16, ptr %25, align 2, !tbaa !13
-  %27 = zext i16 %26 to i64
-  %28 = icmp ugt i64 %24, %27
-  br i1 %28, label %52, label %29
+22:                                               ; preds = %19
+  %23 = load i64, ptr %2, align 8, !tbaa !10
+  %24 = getelementptr %struct.ref_s, ptr %0, i64 -2, i32 2
+  %25 = load i16, ptr %24, align 2, !tbaa !13
+  %26 = zext i16 %25 to i64
+  %27 = icmp ugt i64 %23, %26
+  br i1 %27, label %49, label %28
 
-29:                                               ; preds = %23
-  %30 = load i64, ptr %0, align 8, !tbaa !10
-  %31 = sub i64 %27, %24
-  %32 = and i64 %31, 4294967295
-  %33 = icmp ugt i64 %30, %32
-  br i1 %33, label %52, label %34
+28:                                               ; preds = %22
+  %29 = load i64, ptr %0, align 8, !tbaa !10
+  %30 = sub i64 %26, %23
+  %31 = and i64 %30, 4294967295
+  %32 = icmp ugt i64 %29, %31
+  br i1 %32, label %49, label %33
 
-34:                                               ; preds = %29
-  %35 = lshr i32 %20, 2
-  %36 = and i32 %35, 63
-  switch i32 %36, label %47 [
-    i32 0, label %37
-    i32 10, label %37
-    i32 13, label %41
+33:                                               ; preds = %28
+  switch i32 %18, label %44 [
+    i32 0, label %34
+    i32 10, label %34
+    i32 13, label %38
   ]
 
-37:                                               ; preds = %34, %34
-  %38 = load ptr, ptr %3, align 8, !tbaa !10
-  %39 = and i64 %24, 4294967295
-  %40 = getelementptr inbounds %struct.ref_s, ptr %38, i64 %39
-  br label %45
+34:                                               ; preds = %33, %33
+  %35 = load ptr, ptr %3, align 8, !tbaa !10
+  %36 = and i64 %23, 4294967295
+  %37 = getelementptr inbounds %struct.ref_s, ptr %35, i64 %36
+  br label %42
 
-41:                                               ; preds = %34
-  %42 = load ptr, ptr %3, align 8, !tbaa !10
-  %43 = and i64 %24, 4294967295
-  %44 = getelementptr inbounds i8, ptr %42, i64 %43
-  br label %45
+38:                                               ; preds = %33
+  %39 = load ptr, ptr %3, align 8, !tbaa !10
+  %40 = and i64 %23, 4294967295
+  %41 = getelementptr inbounds i8, ptr %39, i64 %40
+  br label %42
 
-45:                                               ; preds = %37, %41
-  %46 = phi ptr [ %44, %41 ], [ %40, %37 ]
-  store ptr %46, ptr %3, align 8, !tbaa !10
-  br label %47
+42:                                               ; preds = %34, %38
+  %43 = phi ptr [ %41, %38 ], [ %37, %34 ]
+  store ptr %43, ptr %3, align 8, !tbaa !10
+  br label %44
 
-47:                                               ; preds = %45, %34
-  %48 = trunc i64 %30 to i16
-  store i16 %48, ptr %25, align 2, !tbaa !13
-  %49 = or i16 %15, -32768
-  store i16 %49, ptr %14, align 8, !tbaa !5
-  %50 = load ptr, ptr @osp, align 8, !tbaa !11
-  %51 = getelementptr inbounds %struct.ref_s, ptr %50, i64 -2
-  store ptr %51, ptr @osp, align 8, !tbaa !11
-  br label %52
+44:                                               ; preds = %42, %33
+  %45 = trunc i64 %29 to i16
+  store i16 %45, ptr %24, align 2, !tbaa !13
+  %46 = or i16 %15, -32768
+  store i16 %46, ptr %14, align 8, !tbaa !5
+  %47 = load ptr, ptr @osp, align 8, !tbaa !11
+  %48 = getelementptr inbounds %struct.ref_s, ptr %47, i64 -2
+  store ptr %48, ptr @osp, align 8, !tbaa !11
+  br label %49
 
-52:                                               ; preds = %29, %23, %19, %13, %8, %1, %47
-  %53 = phi i32 [ 0, %47 ], [ -20, %1 ], [ -20, %8 ], [ -20, %13 ], [ -7, %19 ], [ -15, %23 ], [ -15, %29 ]
-  ret i32 %53
+49:                                               ; preds = %28, %22, %19, %13, %8, %1, %44
+  %50 = phi i32 [ 0, %44 ], [ -20, %1 ], [ -20, %8 ], [ -20, %13 ], [ -7, %19 ], [ -15, %22 ], [ -15, %28 ]
+  ret i32 %50
 }
 
 ; Function Attrs: nounwind uwtable
@@ -609,27 +606,27 @@ define dso_local i32 @zputinterval(ptr nocapture noundef readonly %0) #0 {
   %5 = load i16, ptr %4, align 8, !tbaa !5
   %6 = and i16 %5, 252
   %7 = icmp eq i16 %6, 20
-  br i1 %7, label %8, label %64
+  br i1 %7, label %8, label %58
 
 8:                                                ; preds = %1
   %9 = getelementptr %struct.ref_s, ptr %0, i64 -2, i32 1
   %10 = load i16, ptr %9, align 8, !tbaa !5
-  %11 = lshr i16 %10, 2
-  %12 = and i16 %11, 63
-  %13 = zext i16 %12 to i32
-  switch i32 %13, label %64 [
+  %11 = zext i16 %10 to i32
+  %12 = lshr i32 %11, 2
+  %13 = and i32 %12, 63
+  switch i32 %13, label %58 [
     i32 10, label %14
     i32 0, label %15
     i32 13, label %15
   ]
 
 14:                                               ; preds = %8
-  br label %64
+  br label %58
 
 15:                                               ; preds = %8, %8
-  %16 = and i16 %10, 256
-  %17 = icmp eq i16 %16, 0
-  br i1 %17, label %64, label %18
+  %16 = and i32 %11, 256
+  %17 = icmp eq i32 %16, 0
+  br i1 %17, label %58, label %18
 
 18:                                               ; preds = %15
   %19 = load i64, ptr %2, align 8, !tbaa !10
@@ -637,71 +634,63 @@ define dso_local i32 @zputinterval(ptr nocapture noundef readonly %0) #0 {
   %21 = load i16, ptr %20, align 2, !tbaa !13
   %22 = zext i16 %21 to i64
   %23 = icmp ugt i64 %19, %22
-  br i1 %23, label %64, label %24
+  br i1 %23, label %58, label %24
 
 24:                                               ; preds = %18
-  %25 = trunc i64 %19 to i32
-  %26 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
-  %27 = load i16, ptr %26, align 8, !tbaa !5
-  %28 = zext i16 %27 to i32
-  %29 = lshr i32 %28, 2
-  %30 = and i32 %29, 63
-  %31 = zext i16 %10 to i32
-  %32 = lshr i32 %31, 2
-  %33 = and i32 %32, 63
-  %34 = icmp eq i32 %30, %33
-  br i1 %34, label %35, label %64
+  %25 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
+  %26 = load i16, ptr %25, align 8, !tbaa !5
+  %27 = zext i16 %26 to i32
+  %28 = lshr i32 %27, 2
+  %29 = and i32 %28, 63
+  %30 = icmp ne i32 %29, %13
+  %31 = and i32 %27, 512
+  %32 = icmp eq i32 %31, 0
+  %33 = select i1 %30, i1 true, i1 %32
+  br i1 %33, label %58, label %34
 
-35:                                               ; preds = %24
-  %36 = and i32 %28, 512
-  %37 = icmp eq i32 %36, 0
-  %38 = and i32 %31, 256
-  %39 = icmp eq i32 %38, 0
-  %40 = select i1 %37, i1 true, i1 %39
-  br i1 %40, label %64, label %41
+34:                                               ; preds = %24
+  %35 = trunc i64 %19 to i32
+  %36 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 2
+  %37 = load i16, ptr %36, align 2, !tbaa !13
+  %38 = zext i16 %37 to i32
+  %39 = zext i16 %21 to i32
+  %40 = sub i32 %39, %35
+  %41 = icmp ult i32 %40, %38
+  br i1 %41, label %58, label %42
 
-41:                                               ; preds = %35
-  %42 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 2
-  %43 = load i16, ptr %42, align 2, !tbaa !13
-  %44 = zext i16 %43 to i32
-  %45 = zext i16 %21 to i32
-  %46 = sub i32 %45, %25
-  %47 = icmp ult i32 %46, %44
-  br i1 %47, label %64, label %48
-
-48:                                               ; preds = %41
-  switch i32 %30, label %61 [
-    i32 0, label %49
-    i32 10, label %49
-    i32 13, label %55
+42:                                               ; preds = %34
+  switch i32 %13, label %55 [
+    i32 0, label %43
+    i32 10, label %43
+    i32 13, label %49
   ]
 
-49:                                               ; preds = %48, %48
+43:                                               ; preds = %42, %42
+  %44 = load ptr, ptr %3, align 8, !tbaa !10
+  %45 = and i64 %19, 4294967295
+  %46 = getelementptr inbounds %struct.ref_s, ptr %44, i64 %45
+  %47 = load ptr, ptr %0, align 8, !tbaa !10
+  %48 = tail call i32 (ptr, ptr, i32, ...) @refcpy(ptr noundef %46, ptr noundef %47, i32 noundef %38) #6
+  br label %55
+
+49:                                               ; preds = %42
   %50 = load ptr, ptr %3, align 8, !tbaa !10
   %51 = and i64 %19, 4294967295
-  %52 = getelementptr inbounds %struct.ref_s, ptr %50, i64 %51
+  %52 = getelementptr inbounds i8, ptr %50, i64 %51
   %53 = load ptr, ptr %0, align 8, !tbaa !10
-  %54 = tail call i32 (ptr, ptr, i32, ...) @refcpy(ptr noundef %52, ptr noundef %53, i32 noundef %44) #6
-  br label %61
+  %54 = zext i16 %37 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %52, ptr align 1 %53, i64 %54, i1 false)
+  br label %55
 
-55:                                               ; preds = %48
-  %56 = load ptr, ptr %3, align 8, !tbaa !10
-  %57 = and i64 %19, 4294967295
-  %58 = getelementptr inbounds i8, ptr %56, i64 %57
-  %59 = load ptr, ptr %0, align 8, !tbaa !10
-  %60 = zext i16 %43 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %58, ptr align 1 %59, i64 %60, i1 false)
-  br label %61
+55:                                               ; preds = %49, %42, %43
+  %56 = load ptr, ptr @osp, align 8, !tbaa !11
+  %57 = getelementptr inbounds %struct.ref_s, ptr %56, i64 -3
+  store ptr %57, ptr @osp, align 8, !tbaa !11
+  br label %58
 
-61:                                               ; preds = %55, %48, %49
-  %62 = load ptr, ptr @osp, align 8, !tbaa !11
-  %63 = getelementptr inbounds %struct.ref_s, ptr %62, i64 -3
-  store ptr %63, ptr @osp, align 8, !tbaa !11
-  br label %64
-
-64:                                               ; preds = %41, %35, %24, %61, %18, %15, %8, %1, %14
-  %65 = phi i32 [ -7, %14 ], [ -20, %1 ], [ -20, %8 ], [ -7, %15 ], [ -15, %18 ], [ 0, %61 ], [ 0, %24 ], [ 0, %35 ], [ 0, %41 ]
-  ret i32 %65
+58:                                               ; preds = %55, %24, %34, %18, %15, %8, %1, %14
+  %59 = phi i32 [ -7, %14 ], [ -20, %1 ], [ -20, %8 ], [ -7, %15 ], [ -15, %18 ], [ 0, %34 ], [ 0, %24 ], [ 0, %55 ]
+  ret i32 %59
 }
 
 ; Function Attrs: nounwind uwtable
@@ -720,8 +709,8 @@ define dso_local i32 @zforall(ptr noundef %0) #0 {
   ]
 
 8:                                                ; preds = %1, %1
-  %9 = and i16 %4, 512
-  %10 = icmp eq i16 %9, 0
+  %9 = and i32 %5, 512
+  %10 = icmp eq i32 %9, 0
   br i1 %10, label %41, label %23
 
 11:                                               ; preds = %1

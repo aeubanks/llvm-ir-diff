@@ -229,7 +229,7 @@ define dso_local i32 @HYPRE_StructDiagScale(ptr nocapture noundef readnone %0, p
   %70 = select i1 %68, i32 0, i32 %69
   %71 = getelementptr inbounds %struct.hypre_Box_struct, ptr %35, i64 %27, i32 1
   %72 = load i32, ptr %71, align 4, !tbaa !20
-  %73 = sub nsw i32 %72, %62
+  %73 = sub i32 %72, %62
   %74 = icmp slt i32 %73, 0
   %75 = add nsw i32 %73, 1
   %76 = select i1 %74, i32 0, i32 %75
@@ -245,7 +245,7 @@ define dso_local i32 @HYPRE_StructDiagScale(ptr nocapture noundef readnone %0, p
   %86 = select i1 %84, i32 0, i32 %85
   %87 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %27, i32 1
   %88 = load i32, ptr %87, align 4, !tbaa !20
-  %89 = sub nsw i32 %88, %78
+  %89 = sub i32 %88, %78
   %90 = icmp slt i32 %89, 0
   %91 = add nsw i32 %89, 1
   %92 = select i1 %90, i32 0, i32 %91
@@ -261,7 +261,7 @@ define dso_local i32 @HYPRE_StructDiagScale(ptr nocapture noundef readnone %0, p
   %102 = select i1 %100, i32 0, i32 %101
   %103 = getelementptr inbounds %struct.hypre_Box_struct, ptr %31, i64 %27, i32 1
   %104 = load i32, ptr %103, align 4, !tbaa !20
-  %105 = sub nsw i32 %104, %94
+  %105 = sub i32 %104, %94
   %106 = icmp slt i32 %105, 0
   %107 = add nsw i32 %105, 1
   %108 = select i1 %106, i32 0, i32 %107

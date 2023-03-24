@@ -631,7 +631,7 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   store i64 %15, ptr %19, align 8, !tbaa !47
   %20 = getelementptr inbounds %struct.node_t, ptr %0, i64 1
   %21 = icmp slt i32 %1, 2
-  br i1 %21, label %342, label %22
+  br i1 %21, label %350, label %22
 
 22:                                               ; preds = %6
   %23 = add nsw i32 %2, -9
@@ -656,16 +656,16 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   %40 = shufflevector <2 x double> %39, <2 x double> poison, <2 x i32> zeroinitializer
   br label %45
 
-41:                                               ; preds = %178
-  %42 = fadd double %190, 0xBFD657184AE74487
+41:                                               ; preds = %182
+  %42 = fadd double %194, 0xBFD657184AE74487
   %43 = getelementptr inbounds %struct.v_t, ptr %10, i64 0, i32 2
   %44 = getelementptr inbounds i8, ptr %11, i64 16
-  br label %194
+  br label %198
 
-45:                                               ; preds = %22, %178
-  %46 = phi i32 [ 0, %22 ], [ %191, %178 ]
-  %47 = phi double [ 0.000000e+00, %22 ], [ %190, %178 ]
-  %48 = phi ptr [ %20, %22 ], [ %189, %178 ]
+45:                                               ; preds = %22, %182
+  %46 = phi i32 [ 0, %22 ], [ %195, %182 ]
+  %47 = phi double [ 0.000000e+00, %22 ], [ %194, %182 ]
+  %48 = phi ptr [ %20, %22 ], [ %193, %182 ]
   %49 = load <2 x double>, ptr %4, align 8, !tbaa !44, !noalias !67
   %50 = fmul <2 x double> %49, <double 2.000000e-01, double 2.000000e-01>
   %51 = load double, ptr %27, align 8, !tbaa !21, !noalias !67
@@ -715,7 +715,7 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   %77 = fsub double 0x400921FB5496FD7F, %66
   br label %78
 
-78:                                               ; preds = %68, %72, %74, %76
+78:                                               ; preds = %76, %74, %72, %68
   %79 = phi double [ -1.000000e+00, %68 ], [ -1.000000e+00, %72 ], [ 1.000000e+00, %76 ], [ 1.000000e+00, %74 ]
   %80 = phi double [ %69, %68 ], [ %73, %72 ], [ %77, %76 ], [ %66, %74 ]
   %81 = fmul double %80, %80
@@ -731,341 +731,373 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   %91 = fadd double %89, %90
   %92 = fmul double %79, %91
   %93 = fcmp ogt double %92, 1.000000e+00
-  %94 = select i1 %93, double 1.000000e+00, double %92
-  %95 = fcmp olt double %94, -1.000000e+00
-  %96 = select i1 %95, double -1.000000e+00, double %94
-  %97 = load <2 x double>, ptr %28, align 8, !tbaa !44, !noalias !72
-  %98 = insertelement <2 x double> poison, double %96, i64 0
-  %99 = shufflevector <2 x double> %98, <2 x double> poison, <2 x i32> zeroinitializer
-  %100 = fmul <2 x double> %97, %99
-  %101 = load double, ptr %29, align 8, !tbaa !21, !noalias !72
-  %102 = fmul double %101, %96
-  %103 = fsub <2 x double> %100, %50
-  %104 = fsub double %102, %52
-  %105 = fadd double %47, 0x3FF921FB54524550
-  %106 = fcmp olt double %105, 0.000000e+00
-  br i1 %106, label %110, label %107
+  br i1 %93, label %97, label %94
 
-107:                                              ; preds = %110, %78
-  %108 = phi double [ %105, %78 ], [ %112, %110 ]
-  %109 = fcmp ogt double %108, 0x401921FB54411744
-  br i1 %109, label %114, label %118
+94:                                               ; preds = %78
+  %95 = fcmp olt double %92, -1.000000e+00
+  br i1 %95, label %96, label %97
 
-110:                                              ; preds = %78, %110
-  %111 = phi double [ %112, %110 ], [ %105, %78 ]
-  %112 = fadd double %111, 0x401921FB54411744
-  %113 = fcmp olt double %112, 0.000000e+00
-  br i1 %113, label %110, label %107, !llvm.loop !70
+96:                                               ; preds = %94
+  br label %97
 
-114:                                              ; preds = %107, %114
-  %115 = phi double [ %116, %114 ], [ %108, %107 ]
-  %116 = fadd double %115, 0xC01921FB54411744
-  %117 = fcmp ogt double %116, 0x401921FB54411744
-  br i1 %117, label %114, label %118, !llvm.loop !71
+97:                                               ; preds = %78, %94, %96
+  %98 = phi double [ -1.000000e+00, %96 ], [ %92, %94 ], [ 1.000000e+00, %78 ]
+  %99 = load <2 x double>, ptr %28, align 8, !tbaa !44, !noalias !72
+  %100 = insertelement <2 x double> poison, double %98, i64 0
+  %101 = shufflevector <2 x double> %100, <2 x double> poison, <2 x i32> zeroinitializer
+  %102 = fmul <2 x double> %101, %99
+  %103 = load double, ptr %29, align 8, !tbaa !21, !noalias !72
+  %104 = fmul double %98, %103
+  %105 = fsub <2 x double> %102, %50
+  %106 = fsub double %104, %52
+  %107 = fadd double %47, 0x3FF921FB54524550
+  %108 = fcmp olt double %107, 0.000000e+00
+  br i1 %108, label %112, label %109
 
-118:                                              ; preds = %114, %107
-  %119 = phi double [ %108, %107 ], [ %116, %114 ]
-  %120 = fcmp ogt double %119, 0x4012D97C7F713E20
-  br i1 %120, label %121, label %123
+109:                                              ; preds = %112, %97
+  %110 = phi double [ %107, %97 ], [ %114, %112 ]
+  %111 = fcmp ogt double %110, 0x401921FB54411744
+  br i1 %111, label %116, label %120
 
-121:                                              ; preds = %118
-  %122 = fsub double 0x401921FB54411744, %119
-  br label %131
+112:                                              ; preds = %97, %112
+  %113 = phi double [ %114, %112 ], [ %107, %97 ]
+  %114 = fadd double %113, 0x401921FB54411744
+  %115 = fcmp olt double %114, 0.000000e+00
+  br i1 %115, label %112, label %109, !llvm.loop !70
 
-123:                                              ; preds = %118
-  %124 = fcmp ogt double %119, 0x400921FB5496FD7F
-  br i1 %124, label %125, label %127
+116:                                              ; preds = %109, %116
+  %117 = phi double [ %118, %116 ], [ %110, %109 ]
+  %118 = fadd double %117, 0xC01921FB54411744
+  %119 = fcmp ogt double %118, 0x401921FB54411744
+  br i1 %119, label %116, label %120, !llvm.loop !71
 
-125:                                              ; preds = %123
-  %126 = fadd double %119, 0xC00921FB5496FD7F
-  br label %131
+120:                                              ; preds = %116, %109
+  %121 = phi double [ %110, %109 ], [ %118, %116 ]
+  %122 = fcmp ogt double %121, 0x4012D97C7F713E20
+  br i1 %122, label %123, label %125
 
-127:                                              ; preds = %123
-  %128 = fcmp ogt double %119, 0x3FF921FB54524550
-  br i1 %128, label %129, label %131
+123:                                              ; preds = %120
+  %124 = fsub double 0x401921FB54411744, %121
+  br label %133
 
-129:                                              ; preds = %127
-  %130 = fsub double 0x400921FB5496FD7F, %119
-  br label %131
+125:                                              ; preds = %120
+  %126 = fcmp ogt double %121, 0x400921FB5496FD7F
+  br i1 %126, label %127, label %129
 
-131:                                              ; preds = %121, %125, %127, %129
-  %132 = phi double [ -1.000000e+00, %121 ], [ -1.000000e+00, %125 ], [ 1.000000e+00, %129 ], [ 1.000000e+00, %127 ]
-  %133 = phi double [ %122, %121 ], [ %126, %125 ], [ %130, %129 ], [ %119, %127 ]
-  %134 = fmul double %133, %133
-  %135 = fmul double %133, %134
-  %136 = fmul double %133, %135
-  %137 = fmul double %133, %136
-  %138 = insertelement <2 x double> poison, double %135, i64 0
-  %139 = insertelement <2 x double> %138, double %137, i64 1
-  %140 = fdiv <2 x double> %139, <double 6.000000e+00, double 1.200000e+02>
-  %141 = extractelement <2 x double> %140, i64 0
-  %142 = fsub double %133, %141
-  %143 = extractelement <2 x double> %140, i64 1
-  %144 = fadd double %142, %143
-  %145 = fmul double %132, %144
-  %146 = fcmp ogt double %145, 1.000000e+00
-  %147 = select i1 %146, double 1.000000e+00, double %145
-  %148 = fcmp olt double %147, -1.000000e+00
-  %149 = select i1 %148, double -1.000000e+00, double %147
-  %150 = load double, ptr %31, align 8, !tbaa !21, !noalias !75
-  %151 = fmul double %150, %149
-  %152 = load <2 x double>, ptr %30, align 8, !tbaa !44, !noalias !75
-  %153 = insertelement <2 x double> poison, double %149, i64 0
-  %154 = shufflevector <2 x double> %153, <2 x double> poison, <2 x i32> zeroinitializer
-  %155 = fmul <2 x double> %152, %154
-  %156 = fadd <2 x double> %103, %155
-  %157 = fadd double %104, %151
-  %158 = fmul <2 x double> %156, %156
-  %159 = shufflevector <2 x double> %158, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %160 = fadd <2 x double> %158, %159
-  %161 = extractelement <2 x double> %160, i64 0
-  %162 = fmul double %157, %157
-  %163 = fadd double %162, %161
-  %164 = fcmp oeq double %163, 0x7FF0000000000000
-  br i1 %164, label %178, label %165
+127:                                              ; preds = %125
+  %128 = fadd double %121, 0xC00921FB5496FD7F
+  br label %133
 
-165:                                              ; preds = %131, %165
-  %166 = phi i32 [ %175, %165 ], [ 100, %131 ]
-  %167 = phi double [ %170, %165 ], [ 1.000000e+00, %131 ]
-  %168 = fdiv double %163, %167
-  %169 = fadd double %167, %168
-  %170 = fmul double %169, 5.000000e-01
-  %171 = fsub double %170, %167
-  %172 = fcmp ule double %171, 0x3D719799812DEA11
-  %173 = fcmp uge double %171, 0xBD719799812DEA11
-  %174 = and i1 %172, %173
-  %175 = add nsw i32 %166, -1
-  %176 = icmp eq i32 %175, 0
-  %177 = select i1 %174, i1 true, i1 %176
-  br i1 %177, label %178, label %165, !llvm.loop !11
+129:                                              ; preds = %125
+  %130 = fcmp ogt double %121, 0x3FF921FB54524550
+  br i1 %130, label %131, label %133
 
-178:                                              ; preds = %165, %131
-  %179 = phi double [ 0x7FF0000000000000, %131 ], [ %170, %165 ]
-  %180 = fdiv double 1.000000e+00, %179
-  %181 = fmul double %157, %180
-  %182 = fmul double %33, %181
+131:                                              ; preds = %129
+  %132 = fsub double 0x400921FB5496FD7F, %121
+  br label %133
+
+133:                                              ; preds = %131, %129, %127, %123
+  %134 = phi double [ -1.000000e+00, %123 ], [ -1.000000e+00, %127 ], [ 1.000000e+00, %131 ], [ 1.000000e+00, %129 ]
+  %135 = phi double [ %124, %123 ], [ %128, %127 ], [ %132, %131 ], [ %121, %129 ]
+  %136 = fmul double %135, %135
+  %137 = fmul double %135, %136
+  %138 = fmul double %135, %137
+  %139 = fmul double %135, %138
+  %140 = insertelement <2 x double> poison, double %137, i64 0
+  %141 = insertelement <2 x double> %140, double %139, i64 1
+  %142 = fdiv <2 x double> %141, <double 6.000000e+00, double 1.200000e+02>
+  %143 = extractelement <2 x double> %142, i64 0
+  %144 = fsub double %135, %143
+  %145 = extractelement <2 x double> %142, i64 1
+  %146 = fadd double %144, %145
+  %147 = fmul double %134, %146
+  %148 = fcmp ogt double %147, 1.000000e+00
+  br i1 %148, label %152, label %149
+
+149:                                              ; preds = %133
+  %150 = fcmp olt double %147, -1.000000e+00
+  br i1 %150, label %151, label %152
+
+151:                                              ; preds = %149
+  br label %152
+
+152:                                              ; preds = %133, %149, %151
+  %153 = phi double [ -1.000000e+00, %151 ], [ %147, %149 ], [ 1.000000e+00, %133 ]
+  %154 = load double, ptr %31, align 8, !tbaa !21, !noalias !75
+  %155 = fmul double %153, %154
+  %156 = load <2 x double>, ptr %30, align 8, !tbaa !44, !noalias !75
+  %157 = insertelement <2 x double> poison, double %153, i64 0
+  %158 = shufflevector <2 x double> %157, <2 x double> poison, <2 x i32> zeroinitializer
+  %159 = fmul <2 x double> %158, %156
+  %160 = fadd <2 x double> %105, %159
+  %161 = fadd double %106, %155
+  %162 = fmul <2 x double> %160, %160
+  %163 = shufflevector <2 x double> %162, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %164 = fadd <2 x double> %162, %163
+  %165 = extractelement <2 x double> %164, i64 0
+  %166 = fmul double %161, %161
+  %167 = fadd double %165, %166
+  %168 = fcmp oeq double %167, 0x7FF0000000000000
+  br i1 %168, label %182, label %169
+
+169:                                              ; preds = %152, %169
+  %170 = phi i32 [ %179, %169 ], [ 100, %152 ]
+  %171 = phi double [ %174, %169 ], [ 1.000000e+00, %152 ]
+  %172 = fdiv double %167, %171
+  %173 = fadd double %171, %172
+  %174 = fmul double %173, 5.000000e-01
+  %175 = fsub double %174, %171
+  %176 = fcmp ule double %175, 0x3D719799812DEA11
+  %177 = fcmp uge double %175, 0xBD719799812DEA11
+  %178 = and i1 %176, %177
+  %179 = add nsw i32 %170, -1
+  %180 = icmp eq i32 %179, 0
+  %181 = select i1 %178, i1 true, i1 %180
+  br i1 %181, label %182, label %169, !llvm.loop !11
+
+182:                                              ; preds = %169, %152
+  %183 = phi double [ 0x7FF0000000000000, %152 ], [ %174, %169 ]
+  %184 = fdiv double 1.000000e+00, %183
+  %185 = fmul double %161, %184
+  %186 = fmul double %33, %185
   call void @llvm.experimental.noalias.scope.decl(metadata !64)
-  %183 = fadd double %182, %36
-  %184 = insertelement <2 x double> poison, double %180, i64 0
-  %185 = shufflevector <2 x double> %184, <2 x double> poison, <2 x i32> zeroinitializer
-  %186 = fmul <2 x double> %156, %185
-  %187 = fmul <2 x double> %40, %186
-  %188 = fadd <2 x double> %34, %187
-  store <2 x double> %188, ptr %8, align 16, !tbaa !44, !alias.scope !64
-  store double %183, ptr %37, align 16, !tbaa !21, !alias.scope !64
-  store <2 x double> %186, ptr %9, align 16
-  store double %181, ptr %38, align 16, !tbaa.struct !63
-  %189 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %48, i32 noundef %32, i32 noundef %25, ptr noundef nonnull byval(%struct.v_t) align 8 %8, ptr noundef nonnull byval(%struct.v_t) align 8 %9, double noundef %26)
-  %190 = fadd double %47, 0x3FF0C152382D7365
-  %191 = add nuw nsw i32 %46, 1
-  %192 = icmp eq i32 %191, 6
-  br i1 %192, label %41, label %45, !llvm.loop !78
+  %187 = fadd double %186, %36
+  %188 = insertelement <2 x double> poison, double %184, i64 0
+  %189 = shufflevector <2 x double> %188, <2 x double> poison, <2 x i32> zeroinitializer
+  %190 = fmul <2 x double> %160, %189
+  %191 = fmul <2 x double> %40, %190
+  %192 = fadd <2 x double> %34, %191
+  store <2 x double> %192, ptr %8, align 16, !tbaa !44, !alias.scope !64
+  store double %187, ptr %37, align 16, !tbaa !21, !alias.scope !64
+  store <2 x double> %190, ptr %9, align 16
+  store double %185, ptr %38, align 16, !tbaa.struct !63
+  %193 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %48, i32 noundef %32, i32 noundef %25, ptr noundef nonnull byval(%struct.v_t) align 8 %8, ptr noundef nonnull byval(%struct.v_t) align 8 %9, double noundef %26)
+  %194 = fadd double %47, 0x3FF0C152382D7365
+  %195 = add nuw nsw i32 %46, 1
+  %196 = icmp eq i32 %195, 6
+  br i1 %196, label %41, label %45, !llvm.loop !78
 
-193:                                              ; preds = %327
+197:                                              ; preds = %335
   call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %7) #14
-  br label %342
+  br label %350
 
-194:                                              ; preds = %41, %327
-  %195 = phi i32 [ 0, %41 ], [ %340, %327 ]
-  %196 = phi double [ %42, %41 ], [ %339, %327 ]
-  %197 = phi ptr [ %189, %41 ], [ %338, %327 ]
-  %198 = load <2 x double>, ptr %4, align 8, !tbaa !44, !noalias !79
-  %199 = fmul <2 x double> %198, <double 6.000000e-01, double 6.000000e-01>
-  %200 = load double, ptr %27, align 8, !tbaa !21, !noalias !79
-  %201 = fmul double %200, 6.000000e-01
-  %202 = fcmp olt double %196, 0.000000e+00
-  br i1 %202, label %206, label %203
+198:                                              ; preds = %41, %335
+  %199 = phi i32 [ 0, %41 ], [ %348, %335 ]
+  %200 = phi double [ %42, %41 ], [ %347, %335 ]
+  %201 = phi ptr [ %193, %41 ], [ %346, %335 ]
+  %202 = load <2 x double>, ptr %4, align 8, !tbaa !44, !noalias !79
+  %203 = fmul <2 x double> %202, <double 6.000000e-01, double 6.000000e-01>
+  %204 = load double, ptr %27, align 8, !tbaa !21, !noalias !79
+  %205 = fmul double %204, 6.000000e-01
+  %206 = fcmp olt double %200, 0.000000e+00
+  br i1 %206, label %210, label %207
 
-203:                                              ; preds = %206, %194
-  %204 = phi double [ %196, %194 ], [ %208, %206 ]
-  %205 = fcmp ogt double %204, 0x401921FB54411744
-  br i1 %205, label %210, label %214
+207:                                              ; preds = %210, %198
+  %208 = phi double [ %200, %198 ], [ %212, %210 ]
+  %209 = fcmp ogt double %208, 0x401921FB54411744
+  br i1 %209, label %214, label %218
 
-206:                                              ; preds = %194, %206
-  %207 = phi double [ %208, %206 ], [ %196, %194 ]
-  %208 = fadd double %207, 0x401921FB54411744
-  %209 = fcmp olt double %208, 0.000000e+00
-  br i1 %209, label %206, label %203, !llvm.loop !70
+210:                                              ; preds = %198, %210
+  %211 = phi double [ %212, %210 ], [ %200, %198 ]
+  %212 = fadd double %211, 0x401921FB54411744
+  %213 = fcmp olt double %212, 0.000000e+00
+  br i1 %213, label %210, label %207, !llvm.loop !70
 
-210:                                              ; preds = %203, %210
-  %211 = phi double [ %212, %210 ], [ %204, %203 ]
-  %212 = fadd double %211, 0xC01921FB54411744
-  %213 = fcmp ogt double %212, 0x401921FB54411744
-  br i1 %213, label %210, label %214, !llvm.loop !71
+214:                                              ; preds = %207, %214
+  %215 = phi double [ %216, %214 ], [ %208, %207 ]
+  %216 = fadd double %215, 0xC01921FB54411744
+  %217 = fcmp ogt double %216, 0x401921FB54411744
+  br i1 %217, label %214, label %218, !llvm.loop !71
 
-214:                                              ; preds = %210, %203
-  %215 = phi double [ %204, %203 ], [ %212, %210 ]
-  %216 = fcmp ogt double %215, 0x4012D97C7F713E20
-  br i1 %216, label %217, label %219
-
-217:                                              ; preds = %214
-  %218 = fsub double 0x401921FB54411744, %215
-  br label %227
-
-219:                                              ; preds = %214
-  %220 = fcmp ogt double %215, 0x400921FB5496FD7F
+218:                                              ; preds = %214, %207
+  %219 = phi double [ %208, %207 ], [ %216, %214 ]
+  %220 = fcmp ogt double %219, 0x4012D97C7F713E20
   br i1 %220, label %221, label %223
 
-221:                                              ; preds = %219
-  %222 = fadd double %215, 0xC00921FB5496FD7F
-  br label %227
+221:                                              ; preds = %218
+  %222 = fsub double 0x401921FB54411744, %219
+  br label %231
 
-223:                                              ; preds = %219
-  %224 = fcmp ogt double %215, 0x3FF921FB54524550
+223:                                              ; preds = %218
+  %224 = fcmp ogt double %219, 0x400921FB5496FD7F
   br i1 %224, label %225, label %227
 
 225:                                              ; preds = %223
-  %226 = fsub double 0x400921FB5496FD7F, %215
-  br label %227
+  %226 = fadd double %219, 0xC00921FB5496FD7F
+  br label %231
 
-227:                                              ; preds = %217, %221, %223, %225
-  %228 = phi double [ -1.000000e+00, %217 ], [ -1.000000e+00, %221 ], [ 1.000000e+00, %225 ], [ 1.000000e+00, %223 ]
-  %229 = phi double [ %218, %217 ], [ %222, %221 ], [ %226, %225 ], [ %215, %223 ]
-  %230 = fmul double %229, %229
-  %231 = fmul double %229, %230
-  %232 = fmul double %229, %231
-  %233 = fmul double %229, %232
-  %234 = insertelement <2 x double> poison, double %231, i64 0
-  %235 = insertelement <2 x double> %234, double %233, i64 1
-  %236 = fdiv <2 x double> %235, <double 6.000000e+00, double 1.200000e+02>
-  %237 = extractelement <2 x double> %236, i64 0
-  %238 = fsub double %229, %237
-  %239 = extractelement <2 x double> %236, i64 1
-  %240 = fadd double %238, %239
-  %241 = fmul double %228, %240
-  %242 = fcmp ogt double %241, 1.000000e+00
-  %243 = select i1 %242, double 1.000000e+00, double %241
-  %244 = fcmp olt double %243, -1.000000e+00
-  %245 = select i1 %244, double -1.000000e+00, double %243
-  %246 = load <2 x double>, ptr %28, align 8, !tbaa !44, !noalias !82
-  %247 = insertelement <2 x double> poison, double %245, i64 0
-  %248 = shufflevector <2 x double> %247, <2 x double> poison, <2 x i32> zeroinitializer
-  %249 = fmul <2 x double> %246, %248
-  %250 = load double, ptr %29, align 8, !tbaa !21, !noalias !82
-  %251 = fmul double %250, %245
-  %252 = fadd <2 x double> %199, %249
-  %253 = fadd double %201, %251
-  %254 = fadd double %196, 0x3FF921FB54524550
-  %255 = fcmp olt double %254, 0.000000e+00
-  br i1 %255, label %259, label %256
+227:                                              ; preds = %223
+  %228 = fcmp ogt double %219, 0x3FF921FB54524550
+  br i1 %228, label %229, label %231
 
-256:                                              ; preds = %259, %227
-  %257 = phi double [ %254, %227 ], [ %261, %259 ]
-  %258 = fcmp ogt double %257, 0x401921FB54411744
-  br i1 %258, label %263, label %267
+229:                                              ; preds = %227
+  %230 = fsub double 0x400921FB5496FD7F, %219
+  br label %231
 
-259:                                              ; preds = %227, %259
-  %260 = phi double [ %261, %259 ], [ %254, %227 ]
-  %261 = fadd double %260, 0x401921FB54411744
-  %262 = fcmp olt double %261, 0.000000e+00
-  br i1 %262, label %259, label %256, !llvm.loop !70
+231:                                              ; preds = %229, %227, %225, %221
+  %232 = phi double [ -1.000000e+00, %221 ], [ -1.000000e+00, %225 ], [ 1.000000e+00, %229 ], [ 1.000000e+00, %227 ]
+  %233 = phi double [ %222, %221 ], [ %226, %225 ], [ %230, %229 ], [ %219, %227 ]
+  %234 = fmul double %233, %233
+  %235 = fmul double %233, %234
+  %236 = fmul double %233, %235
+  %237 = fmul double %233, %236
+  %238 = insertelement <2 x double> poison, double %235, i64 0
+  %239 = insertelement <2 x double> %238, double %237, i64 1
+  %240 = fdiv <2 x double> %239, <double 6.000000e+00, double 1.200000e+02>
+  %241 = extractelement <2 x double> %240, i64 0
+  %242 = fsub double %233, %241
+  %243 = extractelement <2 x double> %240, i64 1
+  %244 = fadd double %242, %243
+  %245 = fmul double %232, %244
+  %246 = fcmp ogt double %245, 1.000000e+00
+  br i1 %246, label %250, label %247
 
-263:                                              ; preds = %256, %263
-  %264 = phi double [ %265, %263 ], [ %257, %256 ]
-  %265 = fadd double %264, 0xC01921FB54411744
-  %266 = fcmp ogt double %265, 0x401921FB54411744
-  br i1 %266, label %263, label %267, !llvm.loop !71
+247:                                              ; preds = %231
+  %248 = fcmp olt double %245, -1.000000e+00
+  br i1 %248, label %249, label %250
 
-267:                                              ; preds = %263, %256
-  %268 = phi double [ %257, %256 ], [ %265, %263 ]
-  %269 = fcmp ogt double %268, 0x4012D97C7F713E20
-  br i1 %269, label %270, label %272
+249:                                              ; preds = %247
+  br label %250
 
-270:                                              ; preds = %267
-  %271 = fsub double 0x401921FB54411744, %268
-  br label %280
+250:                                              ; preds = %231, %247, %249
+  %251 = phi double [ -1.000000e+00, %249 ], [ %245, %247 ], [ 1.000000e+00, %231 ]
+  %252 = load <2 x double>, ptr %28, align 8, !tbaa !44, !noalias !82
+  %253 = insertelement <2 x double> poison, double %251, i64 0
+  %254 = shufflevector <2 x double> %253, <2 x double> poison, <2 x i32> zeroinitializer
+  %255 = fmul <2 x double> %254, %252
+  %256 = load double, ptr %29, align 8, !tbaa !21, !noalias !82
+  %257 = fmul double %251, %256
+  %258 = fadd <2 x double> %203, %255
+  %259 = fadd double %205, %257
+  %260 = fadd double %200, 0x3FF921FB54524550
+  %261 = fcmp olt double %260, 0.000000e+00
+  br i1 %261, label %265, label %262
 
-272:                                              ; preds = %267
-  %273 = fcmp ogt double %268, 0x400921FB5496FD7F
-  br i1 %273, label %274, label %276
+262:                                              ; preds = %265, %250
+  %263 = phi double [ %260, %250 ], [ %267, %265 ]
+  %264 = fcmp ogt double %263, 0x401921FB54411744
+  br i1 %264, label %269, label %273
 
-274:                                              ; preds = %272
-  %275 = fadd double %268, 0xC00921FB5496FD7F
-  br label %280
+265:                                              ; preds = %250, %265
+  %266 = phi double [ %267, %265 ], [ %260, %250 ]
+  %267 = fadd double %266, 0x401921FB54411744
+  %268 = fcmp olt double %267, 0.000000e+00
+  br i1 %268, label %265, label %262, !llvm.loop !70
 
-276:                                              ; preds = %272
-  %277 = fcmp ogt double %268, 0x3FF921FB54524550
-  br i1 %277, label %278, label %280
+269:                                              ; preds = %262, %269
+  %270 = phi double [ %271, %269 ], [ %263, %262 ]
+  %271 = fadd double %270, 0xC01921FB54411744
+  %272 = fcmp ogt double %271, 0x401921FB54411744
+  br i1 %272, label %269, label %273, !llvm.loop !71
 
-278:                                              ; preds = %276
-  %279 = fsub double 0x400921FB5496FD7F, %268
-  br label %280
+273:                                              ; preds = %269, %262
+  %274 = phi double [ %263, %262 ], [ %271, %269 ]
+  %275 = fcmp ogt double %274, 0x4012D97C7F713E20
+  br i1 %275, label %276, label %278
 
-280:                                              ; preds = %270, %274, %276, %278
-  %281 = phi double [ -1.000000e+00, %270 ], [ -1.000000e+00, %274 ], [ 1.000000e+00, %278 ], [ 1.000000e+00, %276 ]
-  %282 = phi double [ %271, %270 ], [ %275, %274 ], [ %279, %278 ], [ %268, %276 ]
-  %283 = fmul double %282, %282
-  %284 = fmul double %282, %283
-  %285 = fmul double %282, %284
-  %286 = fmul double %282, %285
-  %287 = insertelement <2 x double> poison, double %284, i64 0
-  %288 = insertelement <2 x double> %287, double %286, i64 1
-  %289 = fdiv <2 x double> %288, <double 6.000000e+00, double 1.200000e+02>
-  %290 = extractelement <2 x double> %289, i64 0
-  %291 = fsub double %282, %290
-  %292 = extractelement <2 x double> %289, i64 1
-  %293 = fadd double %291, %292
-  %294 = fmul double %281, %293
-  %295 = fcmp ogt double %294, 1.000000e+00
-  %296 = select i1 %295, double 1.000000e+00, double %294
-  %297 = fcmp olt double %296, -1.000000e+00
-  %298 = select i1 %297, double -1.000000e+00, double %296
-  %299 = load double, ptr %31, align 8, !tbaa !21, !noalias !85
-  %300 = fmul double %299, %298
-  %301 = load <2 x double>, ptr %30, align 8, !tbaa !44, !noalias !85
-  %302 = insertelement <2 x double> poison, double %298, i64 0
-  %303 = shufflevector <2 x double> %302, <2 x double> poison, <2 x i32> zeroinitializer
-  %304 = fmul <2 x double> %301, %303
-  %305 = fadd <2 x double> %252, %304
-  %306 = fadd double %253, %300
-  %307 = fmul <2 x double> %305, %305
-  %308 = shufflevector <2 x double> %307, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %309 = fadd <2 x double> %307, %308
-  %310 = extractelement <2 x double> %309, i64 0
-  %311 = fmul double %306, %306
-  %312 = fadd double %311, %310
-  %313 = fcmp oeq double %312, 0x7FF0000000000000
-  br i1 %313, label %327, label %314
+276:                                              ; preds = %273
+  %277 = fsub double 0x401921FB54411744, %274
+  br label %286
 
-314:                                              ; preds = %280, %314
-  %315 = phi i32 [ %324, %314 ], [ 100, %280 ]
-  %316 = phi double [ %319, %314 ], [ 1.000000e+00, %280 ]
-  %317 = fdiv double %312, %316
-  %318 = fadd double %316, %317
-  %319 = fmul double %318, 5.000000e-01
-  %320 = fsub double %319, %316
-  %321 = fcmp ule double %320, 0x3D719799812DEA11
-  %322 = fcmp uge double %320, 0xBD719799812DEA11
-  %323 = and i1 %321, %322
-  %324 = add nsw i32 %315, -1
-  %325 = icmp eq i32 %324, 0
-  %326 = select i1 %323, i1 true, i1 %325
-  br i1 %326, label %327, label %314, !llvm.loop !11
+278:                                              ; preds = %273
+  %279 = fcmp ogt double %274, 0x400921FB5496FD7F
+  br i1 %279, label %280, label %282
 
-327:                                              ; preds = %314, %280
-  %328 = phi double [ 0x7FF0000000000000, %280 ], [ %319, %314 ]
-  %329 = fdiv double 1.000000e+00, %328
-  %330 = fmul double %306, %329
-  %331 = fmul double %33, %330
-  %332 = fadd double %331, %36
-  %333 = insertelement <2 x double> poison, double %329, i64 0
-  %334 = shufflevector <2 x double> %333, <2 x double> poison, <2 x i32> zeroinitializer
-  %335 = fmul <2 x double> %305, %334
-  %336 = fmul <2 x double> %40, %335
-  %337 = fadd <2 x double> %34, %336
-  store <2 x double> %337, ptr %10, align 16, !tbaa !44, !alias.scope !88
-  store double %332, ptr %43, align 16, !tbaa !21, !alias.scope !88
-  store <2 x double> %335, ptr %11, align 16
-  store double %330, ptr %44, align 16, !tbaa.struct !63
-  %338 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %197, i32 noundef %32, i32 noundef %25, ptr noundef nonnull byval(%struct.v_t) align 8 %10, ptr noundef nonnull byval(%struct.v_t) align 8 %11, double noundef %26)
-  %339 = fadd double %196, 0x4000C152382D7365
-  %340 = add nuw nsw i32 %195, 1
-  %341 = icmp eq i32 %340, 3
-  br i1 %341, label %193, label %194, !llvm.loop !91
+280:                                              ; preds = %278
+  %281 = fadd double %274, 0xC00921FB5496FD7F
+  br label %286
 
-342:                                              ; preds = %6, %193
-  %343 = phi ptr [ %338, %193 ], [ %20, %6 ]
-  ret ptr %343
+282:                                              ; preds = %278
+  %283 = fcmp ogt double %274, 0x3FF921FB54524550
+  br i1 %283, label %284, label %286
+
+284:                                              ; preds = %282
+  %285 = fsub double 0x400921FB5496FD7F, %274
+  br label %286
+
+286:                                              ; preds = %284, %282, %280, %276
+  %287 = phi double [ -1.000000e+00, %276 ], [ -1.000000e+00, %280 ], [ 1.000000e+00, %284 ], [ 1.000000e+00, %282 ]
+  %288 = phi double [ %277, %276 ], [ %281, %280 ], [ %285, %284 ], [ %274, %282 ]
+  %289 = fmul double %288, %288
+  %290 = fmul double %288, %289
+  %291 = fmul double %288, %290
+  %292 = fmul double %288, %291
+  %293 = insertelement <2 x double> poison, double %290, i64 0
+  %294 = insertelement <2 x double> %293, double %292, i64 1
+  %295 = fdiv <2 x double> %294, <double 6.000000e+00, double 1.200000e+02>
+  %296 = extractelement <2 x double> %295, i64 0
+  %297 = fsub double %288, %296
+  %298 = extractelement <2 x double> %295, i64 1
+  %299 = fadd double %297, %298
+  %300 = fmul double %287, %299
+  %301 = fcmp ogt double %300, 1.000000e+00
+  br i1 %301, label %305, label %302
+
+302:                                              ; preds = %286
+  %303 = fcmp olt double %300, -1.000000e+00
+  br i1 %303, label %304, label %305
+
+304:                                              ; preds = %302
+  br label %305
+
+305:                                              ; preds = %286, %302, %304
+  %306 = phi double [ -1.000000e+00, %304 ], [ %300, %302 ], [ 1.000000e+00, %286 ]
+  %307 = load double, ptr %31, align 8, !tbaa !21, !noalias !85
+  %308 = fmul double %306, %307
+  %309 = load <2 x double>, ptr %30, align 8, !tbaa !44, !noalias !85
+  %310 = insertelement <2 x double> poison, double %306, i64 0
+  %311 = shufflevector <2 x double> %310, <2 x double> poison, <2 x i32> zeroinitializer
+  %312 = fmul <2 x double> %311, %309
+  %313 = fadd <2 x double> %258, %312
+  %314 = fadd double %259, %308
+  %315 = fmul <2 x double> %313, %313
+  %316 = shufflevector <2 x double> %315, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %317 = fadd <2 x double> %315, %316
+  %318 = extractelement <2 x double> %317, i64 0
+  %319 = fmul double %314, %314
+  %320 = fadd double %318, %319
+  %321 = fcmp oeq double %320, 0x7FF0000000000000
+  br i1 %321, label %335, label %322
+
+322:                                              ; preds = %305, %322
+  %323 = phi i32 [ %332, %322 ], [ 100, %305 ]
+  %324 = phi double [ %327, %322 ], [ 1.000000e+00, %305 ]
+  %325 = fdiv double %320, %324
+  %326 = fadd double %324, %325
+  %327 = fmul double %326, 5.000000e-01
+  %328 = fsub double %327, %324
+  %329 = fcmp ule double %328, 0x3D719799812DEA11
+  %330 = fcmp uge double %328, 0xBD719799812DEA11
+  %331 = and i1 %329, %330
+  %332 = add nsw i32 %323, -1
+  %333 = icmp eq i32 %332, 0
+  %334 = select i1 %331, i1 true, i1 %333
+  br i1 %334, label %335, label %322, !llvm.loop !11
+
+335:                                              ; preds = %322, %305
+  %336 = phi double [ 0x7FF0000000000000, %305 ], [ %327, %322 ]
+  %337 = fdiv double 1.000000e+00, %336
+  %338 = fmul double %314, %337
+  %339 = fmul double %33, %338
+  %340 = fadd double %339, %36
+  %341 = insertelement <2 x double> poison, double %337, i64 0
+  %342 = shufflevector <2 x double> %341, <2 x double> poison, <2 x i32> zeroinitializer
+  %343 = fmul <2 x double> %313, %342
+  %344 = fmul <2 x double> %40, %343
+  %345 = fadd <2 x double> %34, %344
+  store <2 x double> %345, ptr %10, align 16, !tbaa !44, !alias.scope !88
+  store double %340, ptr %43, align 16, !tbaa !21, !alias.scope !88
+  store <2 x double> %343, ptr %11, align 16
+  store double %338, ptr %44, align 16, !tbaa.struct !63
+  %346 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %201, i32 noundef %32, i32 noundef %25, ptr noundef nonnull byval(%struct.v_t) align 8 %10, ptr noundef nonnull byval(%struct.v_t) align 8 %11, double noundef %26)
+  %347 = fadd double %200, 0x4000C152382D7365
+  %348 = add nuw nsw i32 %199, 1
+  %349 = icmp eq i32 %348, 3
+  br i1 %349, label %197, label %198, !llvm.loop !91
+
+350:                                              ; preds = %6, %197
+  %351 = phi ptr [ %346, %197 ], [ %20, %6 ]
+  ret ptr %351
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8), i32 noundef) local_unnamed_addr #0

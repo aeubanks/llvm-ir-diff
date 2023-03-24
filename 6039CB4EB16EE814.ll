@@ -6,14 +6,14 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nounwind uwtable
 define dso_local void @foo(i64 noundef %0) local_unnamed_addr #0 {
   %2 = icmp sgt i64 %0, 10
-  br i1 %2, label %4, label %3
+  br i1 %2, label %3, label %4
 
 3:                                                ; preds = %1
-  ret void
-
-4:                                                ; preds = %1
   tail call void @abort() #3
   unreachable
+
+4:                                                ; preds = %1
+  ret void
 }
 
 ; Function Attrs: noreturn

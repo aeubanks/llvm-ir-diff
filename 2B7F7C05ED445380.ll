@@ -161,15 +161,16 @@ define internal fastcc void @bmp_iter_set_init(ptr nocapture noundef writeonly %
 
 ; Function Attrs: noinline nounwind uwtable
 define internal fastcc void @catchme(i32 noundef %0) unnamed_addr #3 {
-  %2 = and i32 %0, -65
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %5, label %4
+  switch i32 %0, label %2 [
+    i32 64, label %3
+    i32 0, label %3
+  ]
 
-4:                                                ; preds = %1
+2:                                                ; preds = %1
   tail call void @abort() #9
   unreachable
 
-5:                                                ; preds = %1
+3:                                                ; preds = %1, %1
   ret void
 }
 

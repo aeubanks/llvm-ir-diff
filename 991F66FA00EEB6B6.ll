@@ -282,12 +282,12 @@ declare void @MidFree(ptr noundef) local_unnamed_addr #3
 define dso_local noundef zeroext i1 @_ZN14CByteInBufWrap5AllocEj(ptr nocapture noundef nonnull align 8 dereferenceable(64) %0, i32 noundef %1) local_unnamed_addr #1 align 2 {
   %3 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 3
   %4 = load ptr, ptr %3, align 8, !tbaa !38
-  %5 = icmp ne ptr %4, null
+  %5 = icmp eq ptr %4, null
   %6 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 4
   %7 = load i32, ptr %6, align 8
-  %8 = icmp eq i32 %7, %1
-  %9 = select i1 %5, i1 %8, i1 false
-  br i1 %9, label %15, label %10
+  %8 = icmp ne i32 %7, %1
+  %9 = select i1 %5, i1 true, i1 %8
+  br i1 %9, label %10, label %15
 
 10:                                               ; preds = %2
   tail call void @MidFree(ptr noundef %4)
@@ -470,12 +470,12 @@ define dso_local void @_ZN15CByteOutBufWrap4FreeEv(ptr nocapture noundef nonnull
 define dso_local noundef zeroext i1 @_ZN15CByteOutBufWrap5AllocEm(ptr nocapture noundef nonnull align 8 dereferenceable(60) %0, i64 noundef %1) local_unnamed_addr #1 align 2 {
   %3 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 3
   %4 = load ptr, ptr %3, align 8, !tbaa !51
-  %5 = icmp ne ptr %4, null
+  %5 = icmp eq ptr %4, null
   %6 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 4
   %7 = load i64, ptr %6, align 8
-  %8 = icmp eq i64 %7, %1
-  %9 = select i1 %5, i1 %8, i1 false
-  br i1 %9, label %12, label %10
+  %8 = icmp ne i64 %7, %1
+  %9 = select i1 %5, i1 true, i1 %8
+  br i1 %9, label %10, label %12
 
 10:                                               ; preds = %2
   tail call void @MidFree(ptr noundef %4)

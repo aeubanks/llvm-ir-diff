@@ -396,7 +396,7 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
   %15 = getelementptr inbounds i16, ptr %9, i64 %14
   %16 = load i16, ptr %15, align 2, !tbaa !18
   %17 = icmp sgt i32 %3, 0
-  br i1 %17, label %18, label %265
+  br i1 %17, label %18, label %266
 
 18:                                               ; preds = %2
   %19 = load ptr, ptr @lookaheadset, align 8, !tbaa !9
@@ -408,25 +408,25 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
   %25 = sext i32 %0 to i64
   br label %26
 
-26:                                               ; preds = %18, %253
-  %27 = phi i64 [ 0, %18 ], [ %261, %253 ]
-  %28 = phi ptr [ %8, %18 ], [ %254, %253 ]
-  %29 = phi i32 [ 1, %18 ], [ %260, %253 ]
-  %30 = phi ptr [ %19, %18 ], [ %259, %253 ]
-  %31 = phi ptr [ %24, %18 ], [ %258, %253 ]
+26:                                               ; preds = %18, %254
+  %27 = phi i64 [ 0, %18 ], [ %262, %254 ]
+  %28 = phi ptr [ %8, %18 ], [ %255, %254 ]
+  %29 = phi i32 [ 1, %18 ], [ %261, %254 ]
+  %30 = phi ptr [ %19, %18 ], [ %260, %254 ]
+  %31 = phi ptr [ %24, %18 ], [ %259, %254 ]
   %32 = load i32, ptr %30, align 4, !tbaa !5
   %33 = load i32, ptr %31, align 4, !tbaa !5
   %34 = and i32 %32, %33
   %35 = and i32 %34, %29
   %36 = icmp eq i32 %35, 0
-  br i1 %36, label %253, label %37
+  br i1 %36, label %254, label %37
 
 37:                                               ; preds = %26
   %38 = load ptr, ptr @sprec, align 8, !tbaa !9
   %39 = getelementptr inbounds i16, ptr %38, i64 %27
   %40 = load i16, ptr %39, align 2, !tbaa !18
   %41 = icmp eq i16 %40, 0
-  br i1 %41, label %253, label %42
+  br i1 %41, label %254, label %42
 
 42:                                               ; preds = %37
   %43 = icmp slt i16 %40, %16
@@ -459,20 +459,20 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
   %63 = getelementptr inbounds ptr, ptr %62, i64 %25
   %64 = load ptr, ptr %63, align 8, !tbaa !9
   %65 = icmp eq ptr %64, null
-  br i1 %65, label %253, label %66
+  br i1 %65, label %254, label %66
 
 66:                                               ; preds = %58
   %67 = getelementptr inbounds %struct.shifts, ptr %64, i64 0, i32 2
   %68 = load i16, ptr %67, align 2, !tbaa !15
   %69 = icmp sgt i16 %68, 0
-  br i1 %69, label %70, label %253
+  br i1 %69, label %70, label %254
 
 70:                                               ; preds = %66
   %71 = zext i16 %68 to i64
   %72 = load ptr, ptr @accessing_symbol, align 8
   %73 = and i64 %71, 1
   %74 = icmp eq i16 %68, 1
-  br i1 %74, label %238, label %75
+  br i1 %74, label %239, label %75
 
 75:                                               ; preds = %70
   %76 = and i64 %71, 65534
@@ -523,7 +523,7 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
   %105 = add nuw nsw i64 %78, 2
   %106 = add i64 %79, 2
   %107 = icmp eq i64 %106, %76
-  br i1 %107, label %238, label %77, !llvm.loop !33
+  br i1 %107, label %239, label %77, !llvm.loop !33
 
 108:                                              ; preds = %42
   %109 = icmp sgt i16 %40, %16
@@ -552,7 +552,7 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
   %126 = xor i32 %29, -1
   %127 = and i32 %125, %126
   store i32 %127, ptr %31, align 4, !tbaa !5
-  br label %253
+  br label %254
 
 128:                                              ; preds = %108
   %129 = load ptr, ptr @sassoc, align 8, !tbaa !9
@@ -605,7 +605,7 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
   %160 = load i32, ptr %31, align 4, !tbaa !5
   %161 = and i32 %160, %158
   store i32 %161, ptr %31, align 4, !tbaa !5
-  br label %253
+  br label %254
 
 162:                                              ; preds = %153
   %163 = load i32, ptr %30, align 4, !tbaa !5
@@ -712,95 +712,96 @@ define dso_local void @resolve_sr_conflict(i32 noundef %0, i32 noundef %1) local
 228:                                              ; preds = %226, %169, %162
   %229 = phi i16 [ %227, %226 ], [ %156, %169 ], [ %156, %162 ]
   %230 = icmp eq i16 %229, 2
-  br i1 %230, label %253, label %231
+  br i1 %230, label %254, label %231
 
 231:                                              ; preds = %228
-  %232 = load i32, ptr %31, align 4, !tbaa !5
-  %233 = and i32 %232, %158
-  store i32 %233, ptr %31, align 4, !tbaa !5
-  %234 = icmp eq i16 %229, 3
-  br i1 %234, label %235, label %253
+  %232 = xor i32 %29, -1
+  %233 = load i32, ptr %31, align 4, !tbaa !5
+  %234 = and i32 %233, %232
+  store i32 %234, ptr %31, align 4, !tbaa !5
+  %235 = icmp eq i16 %229, 3
+  br i1 %235, label %236, label %254
 
-235:                                              ; preds = %231
-  %236 = trunc i64 %27 to i16
-  %237 = getelementptr inbounds i16, ptr %28, i64 1
-  store i16 %236, ptr %28, align 2, !tbaa !18
-  br label %253
+236:                                              ; preds = %231
+  %237 = trunc i64 %27 to i16
+  %238 = getelementptr inbounds i16, ptr %28, i64 1
+  store i16 %237, ptr %28, align 2, !tbaa !18
+  br label %254
 
-238:                                              ; preds = %104, %70
-  %239 = phi i64 [ 0, %70 ], [ %105, %104 ]
-  %240 = icmp eq i64 %73, 0
-  br i1 %240, label %253, label %241
+239:                                              ; preds = %104, %70
+  %240 = phi i64 [ 0, %70 ], [ %105, %104 ]
+  %241 = icmp eq i64 %73, 0
+  br i1 %241, label %254, label %242
 
-241:                                              ; preds = %238
-  %242 = getelementptr inbounds %struct.shifts, ptr %64, i64 0, i32 3, i64 %239
-  %243 = load i16, ptr %242, align 2, !tbaa !18
-  %244 = icmp eq i16 %243, 0
-  br i1 %244, label %253, label %245
+242:                                              ; preds = %239
+  %243 = getelementptr inbounds %struct.shifts, ptr %64, i64 0, i32 3, i64 %240
+  %244 = load i16, ptr %243, align 2, !tbaa !18
+  %245 = icmp eq i16 %244, 0
+  br i1 %245, label %254, label %246
 
-245:                                              ; preds = %241
-  %246 = sext i16 %243 to i64
-  %247 = getelementptr inbounds i16, ptr %72, i64 %246
-  %248 = load i16, ptr %247, align 2, !tbaa !18
-  %249 = sext i16 %248 to i64
-  %250 = and i64 %249, 4294967295
-  %251 = icmp eq i64 %27, %250
-  br i1 %251, label %252, label %253
+246:                                              ; preds = %242
+  %247 = sext i16 %244 to i64
+  %248 = getelementptr inbounds i16, ptr %72, i64 %247
+  %249 = load i16, ptr %248, align 2, !tbaa !18
+  %250 = sext i16 %249 to i64
+  %251 = and i64 %250, 4294967295
+  %252 = icmp eq i64 %27, %251
+  br i1 %252, label %253, label %254
 
-252:                                              ; preds = %245
-  store i16 0, ptr %242, align 2, !tbaa !18
-  br label %253
+253:                                              ; preds = %246
+  store i16 0, ptr %243, align 2, !tbaa !18
+  br label %254
 
-253:                                              ; preds = %238, %252, %245, %241, %228, %159, %66, %58, %231, %235, %124, %37, %26
-  %254 = phi ptr [ %28, %124 ], [ %237, %235 ], [ %28, %231 ], [ %28, %37 ], [ %28, %26 ], [ %28, %58 ], [ %28, %66 ], [ %28, %159 ], [ %28, %228 ], [ %28, %241 ], [ %28, %245 ], [ %28, %252 ], [ %28, %238 ]
-  %255 = shl i32 %29, 1
-  %256 = icmp eq i32 %255, 0
-  %257 = zext i1 %256 to i64
-  %258 = getelementptr i32, ptr %31, i64 %257
-  %259 = getelementptr i32, ptr %30, i64 %257
-  %260 = tail call i32 @llvm.umax.i32(i32 %255, i32 1)
-  %261 = add nuw nsw i64 %27, 1
-  %262 = load i32, ptr @ntokens, align 4, !tbaa !5
-  %263 = sext i32 %262 to i64
-  %264 = icmp slt i64 %261, %263
-  br i1 %264, label %26, label %265, !llvm.loop !34
+254:                                              ; preds = %239, %253, %246, %242, %159, %228, %66, %58, %231, %236, %124, %37, %26
+  %255 = phi ptr [ %28, %124 ], [ %238, %236 ], [ %28, %231 ], [ %28, %37 ], [ %28, %26 ], [ %28, %58 ], [ %28, %66 ], [ %28, %228 ], [ %28, %159 ], [ %28, %242 ], [ %28, %246 ], [ %28, %253 ], [ %28, %239 ]
+  %256 = shl i32 %29, 1
+  %257 = icmp eq i32 %256, 0
+  %258 = zext i1 %257 to i64
+  %259 = getelementptr i32, ptr %31, i64 %258
+  %260 = getelementptr i32, ptr %30, i64 %258
+  %261 = tail call i32 @llvm.umax.i32(i32 %256, i32 1)
+  %262 = add nuw nsw i64 %27, 1
+  %263 = load i32, ptr @ntokens, align 4, !tbaa !5
+  %264 = sext i32 %263 to i64
+  %265 = icmp slt i64 %262, %264
+  br i1 %265, label %26, label %266, !llvm.loop !34
 
-265:                                              ; preds = %253, %2
-  %266 = phi ptr [ %8, %2 ], [ %254, %253 ]
-  %267 = ptrtoint ptr %266 to i64
-  %268 = ptrtoint ptr %8 to i64
-  %269 = sub i64 %267, %268
-  %270 = lshr exact i64 %269, 1
-  %271 = trunc i64 %270 to i16
-  store i16 %271, ptr %7, align 2, !tbaa !35
-  %272 = icmp eq i16 %271, 0
-  br i1 %272, label %286, label %273
+266:                                              ; preds = %254, %2
+  %267 = phi ptr [ %8, %2 ], [ %255, %254 ]
+  %268 = ptrtoint ptr %267 to i64
+  %269 = ptrtoint ptr %8 to i64
+  %270 = sub i64 %268, %269
+  %271 = lshr exact i64 %270, 1
+  %272 = trunc i64 %271 to i16
+  store i16 %272, ptr %7, align 2, !tbaa !35
+  %273 = icmp eq i16 %272, 0
+  br i1 %273, label %287, label %274
 
-273:                                              ; preds = %265
-  %274 = ptrtoint ptr %7 to i64
-  %275 = sub i64 %267, %274
-  %276 = trunc i64 %275 to i32
-  %277 = tail call ptr (i32, ...) @mallocate(i32 noundef %276) #14
-  %278 = load ptr, ptr @err_table, align 8, !tbaa !9
-  %279 = sext i32 %0 to i64
-  %280 = getelementptr inbounds ptr, ptr %278, i64 %279
-  store ptr %277, ptr %280, align 8, !tbaa !9
-  %281 = load ptr, ptr @err_table, align 8, !tbaa !9
-  %282 = getelementptr inbounds ptr, ptr %281, i64 %279
-  %283 = load ptr, ptr %282, align 8, !tbaa !9
-  %284 = shl i64 %275, 32
-  %285 = ashr exact i64 %284, 32
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %283, ptr nonnull align 1 %7, i64 %285, i1 false)
-  br label %290
+274:                                              ; preds = %266
+  %275 = ptrtoint ptr %7 to i64
+  %276 = sub i64 %268, %275
+  %277 = trunc i64 %276 to i32
+  %278 = tail call ptr (i32, ...) @mallocate(i32 noundef %277) #14
+  %279 = load ptr, ptr @err_table, align 8, !tbaa !9
+  %280 = sext i32 %0 to i64
+  %281 = getelementptr inbounds ptr, ptr %279, i64 %280
+  store ptr %278, ptr %281, align 8, !tbaa !9
+  %282 = load ptr, ptr @err_table, align 8, !tbaa !9
+  %283 = getelementptr inbounds ptr, ptr %282, i64 %280
+  %284 = load ptr, ptr %283, align 8, !tbaa !9
+  %285 = shl i64 %276, 32
+  %286 = ashr exact i64 %285, 32
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %284, ptr nonnull align 1 %7, i64 %286, i1 false)
+  br label %291
 
-286:                                              ; preds = %265
-  %287 = load ptr, ptr @err_table, align 8, !tbaa !9
-  %288 = sext i32 %0 to i64
-  %289 = getelementptr inbounds ptr, ptr %287, i64 %288
-  store ptr null, ptr %289, align 8, !tbaa !9
-  br label %290
+287:                                              ; preds = %266
+  %288 = load ptr, ptr @err_table, align 8, !tbaa !9
+  %289 = sext i32 %0 to i64
+  %290 = getelementptr inbounds ptr, ptr %288, i64 %289
+  store ptr null, ptr %290, align 8, !tbaa !9
+  br label %291
 
-290:                                              ; preds = %286, %273
+291:                                              ; preds = %287, %274
   ret void
 }
 
@@ -2790,14 +2791,14 @@ declare ptr @strrchr(ptr noundef, i32 noundef) local_unnamed_addr #10
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #11
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umax.i32(i32, i32) #12
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #13
+declare i64 @llvm.umax.i64(i64, i64) #12
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -2811,8 +2812,8 @@ attributes #8 = { mustprogress nounwind willreturn uwtable "min-legal-vector-wid
 attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #13 = { nofree nounwind }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind allocsize(0) }
 attributes #16 = { nounwind willreturn memory(read) }

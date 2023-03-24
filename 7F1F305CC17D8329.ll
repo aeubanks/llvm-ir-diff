@@ -79,7 +79,7 @@ define dso_local void @ResvMaxBits(i32 noundef %0, ptr nocapture noundef writeon
   %23 = tail call i32 @llvm.smin.i32(i32 %5, i32 %22)
   %24 = sub nsw i32 %23, %20
   %25 = tail call i32 @llvm.smax.i32(i32 %24, i32 0)
-  store i32 %25, ptr %2, align 4, !tbaa !13
+  store i32 %25, ptr %2, align 4
   ret void
 }
 
@@ -121,10 +121,10 @@ define dso_local void @ResvFrameEnd(ptr nocapture noundef readonly %0, ptr nocap
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
+declare i32 @llvm.smin.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #4
+declare i32 @llvm.smax.i32(i32, i32) #4
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

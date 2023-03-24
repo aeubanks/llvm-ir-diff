@@ -114,7 +114,7 @@ define dso_local i32 @logg(ptr noundef %0, ...) local_unnamed_addr #0 {
   call void @llvm.va_start(ptr nonnull %4)
   %9 = load ptr, ptr @logg_file, align 8, !tbaa !5
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %104, label %11
+  br i1 %10, label %105, label %11
 
 11:                                               ; preds = %1
   %12 = load ptr, ptr @logg_fd, align 8, !tbaa !5
@@ -133,7 +133,7 @@ define dso_local i32 @logg(ptr noundef %0, ...) local_unnamed_addr #0 {
 20:                                               ; preds = %14
   %21 = load ptr, ptr @logg_file, align 8, !tbaa !5
   %22 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef %21)
-  br label %115
+  br label %116
 
 23:                                               ; preds = %14
   %24 = load i16, ptr @logg_lock, align 2, !tbaa !9
@@ -147,7 +147,7 @@ define dso_local i32 @logg(ptr noundef %0, ...) local_unnamed_addr #0 {
   %28 = call i32 @fileno(ptr noundef %27) #14
   %29 = call i32 (i32, i32, ...) @fcntl(i32 noundef %28, i32 noundef 6, ptr noundef nonnull %5) #14
   %30 = icmp eq i32 %29, -1
-  br i1 %30, label %115, label %31
+  br i1 %30, label %116, label %31
 
 31:                                               ; preds = %23, %26, %11
   %32 = load i32, ptr @logg_size, align 4, !tbaa !15
@@ -177,12 +177,12 @@ define dso_local i32 @logg(ptr noundef %0, ...) local_unnamed_addr #0 {
   %49 = load ptr, ptr @logg_fd, align 8, !tbaa !5
   %50 = call i32 @fclose(ptr noundef %49)
   store ptr null, ptr @logg_fd, align 8, !tbaa !5
-  br label %104
+  br label %105
 
 51:                                               ; preds = %34, %38, %31
   %52 = load ptr, ptr @logg_fd, align 8, !tbaa !5
   %53 = icmp eq ptr %52, null
-  br i1 %53, label %104, label %54
+  br i1 %53, label %105, label %54
 
 54:                                               ; preds = %51
   %55 = load i16, ptr @logg_time, align 2, !tbaa !9
@@ -212,82 +212,83 @@ define dso_local i32 @logg(ptr noundef %0, ...) local_unnamed_addr #0 {
 72:                                               ; preds = %57, %63, %54
   %73 = call ptr @dcgettext(ptr noundef null, ptr noundef %0, i32 noundef 5) #14
   %74 = load i8, ptr %0, align 1, !tbaa !19
-  switch i8 %74, label %98 [
-    i8 33, label %75
-    i8 94, label %81
-    i8 42, label %87
-    i8 35, label %94
+  %75 = sext i8 %74 to i32
+  switch i32 %75, label %99 [
+    i32 33, label %76
+    i32 94, label %82
+    i32 42, label %88
+    i32 35, label %95
   ]
 
-75:                                               ; preds = %72
-  %76 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %77 = call i64 @fwrite(ptr nonnull @.str.5, i64 7, i64 1, ptr %76)
-  %78 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %79 = getelementptr inbounds i8, ptr %0, i64 1
-  %80 = call i32 @vfprintf(ptr noundef %78, ptr noundef nonnull %79, ptr noundef nonnull %2)
-  br label %101
+76:                                               ; preds = %72
+  %77 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %78 = call i64 @fwrite(ptr nonnull @.str.5, i64 7, i64 1, ptr %77)
+  %79 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %80 = getelementptr inbounds i8, ptr %0, i64 1
+  %81 = call i32 @vfprintf(ptr noundef %79, ptr noundef nonnull %80, ptr noundef nonnull %2)
+  br label %102
 
-81:                                               ; preds = %72
-  %82 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %83 = call i64 @fwrite(ptr nonnull @.str.6, i64 9, i64 1, ptr %82)
-  %84 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %85 = getelementptr inbounds i8, ptr %0, i64 1
-  %86 = call i32 @vfprintf(ptr noundef %84, ptr noundef nonnull %85, ptr noundef nonnull %2)
-  br label %101
+82:                                               ; preds = %72
+  %83 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %84 = call i64 @fwrite(ptr nonnull @.str.6, i64 9, i64 1, ptr %83)
+  %85 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %86 = getelementptr inbounds i8, ptr %0, i64 1
+  %87 = call i32 @vfprintf(ptr noundef %85, ptr noundef nonnull %86, ptr noundef nonnull %2)
+  br label %102
 
-87:                                               ; preds = %72
-  %88 = load i16, ptr @logg_verbose, align 2, !tbaa !9
-  %89 = icmp eq i16 %88, 0
-  br i1 %89, label %101, label %90
+88:                                               ; preds = %72
+  %89 = load i16, ptr @logg_verbose, align 2, !tbaa !9
+  %90 = icmp eq i16 %89, 0
+  br i1 %90, label %102, label %91
 
-90:                                               ; preds = %87
-  %91 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %92 = getelementptr inbounds i8, ptr %0, i64 1
-  %93 = call i32 @vfprintf(ptr noundef %91, ptr noundef nonnull %92, ptr noundef nonnull %2)
-  br label %101
+91:                                               ; preds = %88
+  %92 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %93 = getelementptr inbounds i8, ptr %0, i64 1
+  %94 = call i32 @vfprintf(ptr noundef %92, ptr noundef nonnull %93, ptr noundef nonnull %2)
+  br label %102
 
-94:                                               ; preds = %72
-  %95 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %96 = getelementptr inbounds i8, ptr %0, i64 1
-  %97 = call i32 @vfprintf(ptr noundef %95, ptr noundef nonnull %96, ptr noundef nonnull %2)
-  br label %101
+95:                                               ; preds = %72
+  %96 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %97 = getelementptr inbounds i8, ptr %0, i64 1
+  %98 = call i32 @vfprintf(ptr noundef %96, ptr noundef nonnull %97, ptr noundef nonnull %2)
+  br label %102
 
-98:                                               ; preds = %72
-  %99 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %100 = call i32 @vfprintf(ptr noundef %99, ptr noundef nonnull %0, ptr noundef nonnull %2)
-  br label %101
+99:                                               ; preds = %72
+  %100 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %101 = call i32 @vfprintf(ptr noundef %100, ptr noundef nonnull %0, ptr noundef nonnull %2)
+  br label %102
 
-101:                                              ; preds = %81, %94, %98, %87, %90, %75
-  %102 = load ptr, ptr @logg_fd, align 8, !tbaa !5
-  %103 = call i32 @fflush(ptr noundef %102)
-  br label %104
+102:                                              ; preds = %82, %95, %99, %88, %91, %76
+  %103 = load ptr, ptr @logg_fd, align 8, !tbaa !5
+  %104 = call i32 @fflush(ptr noundef %103)
+  br label %105
 
-104:                                              ; preds = %44, %51, %101, %1
-  %105 = load i16, ptr @logg_foreground, align 2, !tbaa !9
-  %106 = icmp eq i16 %105, 0
-  br i1 %106, label %114, label %107
+105:                                              ; preds = %44, %51, %102, %1
+  %106 = load i16, ptr @logg_foreground, align 2, !tbaa !9
+  %107 = icmp eq i16 %106, 0
+  br i1 %107, label %115, label %108
 
-107:                                              ; preds = %104
-  %108 = call ptr @dcgettext(ptr noundef null, ptr noundef %0, i32 noundef 5) #14
-  %109 = call i32 @vsnprintf(ptr noundef nonnull %6, i64 noundef 1024, ptr noundef %0, ptr noundef nonnull %4) #14
-  %110 = getelementptr inbounds [1025 x i8], ptr %6, i64 0, i64 1024
-  store i8 0, ptr %110, align 16, !tbaa !19
-  %111 = load i8, ptr %6, align 16, !tbaa !19
-  %112 = icmp eq i8 %111, 35
-  br i1 %112, label %114, label %113
+108:                                              ; preds = %105
+  %109 = call ptr @dcgettext(ptr noundef null, ptr noundef %0, i32 noundef 5) #14
+  %110 = call i32 @vsnprintf(ptr noundef nonnull %6, i64 noundef 1024, ptr noundef %0, ptr noundef nonnull %4) #14
+  %111 = getelementptr inbounds [1025 x i8], ptr %6, i64 0, i64 1024
+  store i8 0, ptr %111, align 16, !tbaa !19
+  %112 = load i8, ptr %6, align 16, !tbaa !19
+  %113 = icmp eq i8 %112, 35
+  br i1 %113, label %115, label %114
 
-113:                                              ; preds = %107
+114:                                              ; preds = %108
   call void (ptr, ...) @mprintf(ptr noundef nonnull @.str.7, ptr noundef nonnull %6)
-  br label %114
+  br label %115
 
-114:                                              ; preds = %107, %113, %104
+115:                                              ; preds = %108, %114, %105
   call void @llvm.va_end(ptr nonnull %2)
   call void @llvm.va_end(ptr nonnull %3)
   call void @llvm.va_end(ptr nonnull %4)
-  br label %115
+  br label %116
 
-115:                                              ; preds = %26, %114, %20
-  %116 = phi i32 [ 0, %114 ], [ -1, %20 ], [ -1, %26 ]
+116:                                              ; preds = %26, %115, %20
+  %117 = phi i32 [ 0, %115 ], [ -1, %20 ], [ -1, %26 ]
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #14
   call void @llvm.lifetime.end.p0(i64 1025, ptr nonnull %6) #14
@@ -295,7 +296,7 @@ define dso_local i32 @logg(ptr noundef %0, ...) local_unnamed_addr #0 {
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #14
-  ret i32 %116
+  ret i32 %117
 }
 
 ; Function Attrs: nounwind
@@ -356,7 +357,7 @@ define dso_local void @mprintf(ptr nocapture noundef readonly %0, ...) local_unn
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %3) #14
   %4 = load i16, ptr @mprintf_disabled, align 2, !tbaa !9
   %5 = icmp eq i16 %4, 0
-  br i1 %5, label %6, label %49
+  br i1 %5, label %6, label %50
 
 6:                                                ; preds = %1
   %7 = load ptr, ptr @stdout, align 8, !tbaa !5
@@ -364,74 +365,75 @@ define dso_local void @mprintf(ptr nocapture noundef readonly %0, ...) local_unn
   %8 = call i32 @vsnprintf(ptr noundef nonnull %3, i64 noundef 512, ptr noundef %0, ptr noundef nonnull %2) #14
   call void @llvm.va_end(ptr nonnull %2)
   %9 = load i8, ptr %3, align 16, !tbaa !19
-  switch i8 %9, label %24 [
-    i8 33, label %10
-    i8 64, label %17
+  %10 = sext i8 %9 to i32
+  switch i32 %10, label %25 [
+    i32 33, label %11
+    i32 64, label %18
   ]
 
-10:                                               ; preds = %6
-  %11 = load i16, ptr @mprintf_stdout, align 2, !tbaa !9
-  %12 = icmp eq i16 %11, 0
-  %13 = load ptr, ptr @stderr, align 8
-  %14 = select i1 %12, ptr %13, ptr %7
-  %15 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
-  %16 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %14, ptr noundef nonnull @.str.8, ptr noundef nonnull %15)
-  br label %43
+11:                                               ; preds = %6
+  %12 = load i16, ptr @mprintf_stdout, align 2, !tbaa !9
+  %13 = icmp eq i16 %12, 0
+  %14 = load ptr, ptr @stderr, align 8
+  %15 = select i1 %13, ptr %14, ptr %7
+  %16 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
+  %17 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %15, ptr noundef nonnull @.str.8, ptr noundef nonnull %16)
+  br label %44
 
-17:                                               ; preds = %6
-  %18 = load i16, ptr @mprintf_stdout, align 2, !tbaa !9
-  %19 = icmp eq i16 %18, 0
-  %20 = load ptr, ptr @stderr, align 8
-  %21 = select i1 %19, ptr %20, ptr %7
-  %22 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
-  %23 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %21, ptr noundef nonnull @.str.8, ptr noundef nonnull %22)
-  br label %43
+18:                                               ; preds = %6
+  %19 = load i16, ptr @mprintf_stdout, align 2, !tbaa !9
+  %20 = icmp eq i16 %19, 0
+  %21 = load ptr, ptr @stderr, align 8
+  %22 = select i1 %20, ptr %21, ptr %7
+  %23 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
+  %24 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %22, ptr noundef nonnull @.str.8, ptr noundef nonnull %23)
+  br label %44
 
-24:                                               ; preds = %6
-  %25 = load i16, ptr @mprintf_quiet, align 2, !tbaa !9
-  %26 = icmp eq i16 %25, 0
-  br i1 %26, label %27, label %43
+25:                                               ; preds = %6
+  %26 = load i16, ptr @mprintf_quiet, align 2, !tbaa !9
+  %27 = icmp eq i16 %26, 0
+  br i1 %27, label %28, label %44
 
-27:                                               ; preds = %24
-  switch i8 %9, label %41 [
-    i8 94, label %28
-    i8 42, label %35
+28:                                               ; preds = %25
+  switch i32 %10, label %42 [
+    i32 94, label %29
+    i32 42, label %36
   ]
 
-28:                                               ; preds = %27
-  %29 = load i16, ptr @mprintf_stdout, align 2, !tbaa !9
-  %30 = icmp eq i16 %29, 0
-  %31 = load ptr, ptr @stderr, align 8
-  %32 = select i1 %30, ptr %31, ptr %7
-  %33 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
-  %34 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.9, ptr noundef nonnull %33)
-  br label %43
+29:                                               ; preds = %28
+  %30 = load i16, ptr @mprintf_stdout, align 2, !tbaa !9
+  %31 = icmp eq i16 %30, 0
+  %32 = load ptr, ptr @stderr, align 8
+  %33 = select i1 %31, ptr %32, ptr %7
+  %34 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
+  %35 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %33, ptr noundef nonnull @.str.9, ptr noundef nonnull %34)
+  br label %44
 
-35:                                               ; preds = %27
-  %36 = load i16, ptr @mprintf_verbose, align 2, !tbaa !9
-  %37 = icmp eq i16 %36, 0
-  br i1 %37, label %43, label %38
+36:                                               ; preds = %28
+  %37 = load i16, ptr @mprintf_verbose, align 2, !tbaa !9
+  %38 = icmp eq i16 %37, 0
+  br i1 %38, label %44, label %39
 
-38:                                               ; preds = %35
-  %39 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
-  %40 = call i32 @fputs(ptr nonnull %39, ptr %7)
-  br label %43
+39:                                               ; preds = %36
+  %40 = getelementptr inbounds [512 x i8], ptr %3, i64 0, i64 1
+  %41 = call i32 @fputs(ptr nonnull %40, ptr %7)
+  br label %44
 
-41:                                               ; preds = %27
-  %42 = call i32 @fputs(ptr nonnull %3, ptr %7)
-  br label %43
+42:                                               ; preds = %28
+  %43 = call i32 @fputs(ptr nonnull %3, ptr %7)
+  br label %44
 
-43:                                               ; preds = %17, %28, %35, %38, %41, %24, %10
-  %44 = phi ptr [ %14, %10 ], [ %21, %17 ], [ %7, %24 ], [ %32, %28 ], [ %7, %38 ], [ %7, %35 ], [ %7, %41 ]
-  %45 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %46 = icmp eq ptr %44, %45
-  br i1 %46, label %47, label %49
+44:                                               ; preds = %18, %29, %36, %39, %42, %25, %11
+  %45 = phi ptr [ %15, %11 ], [ %22, %18 ], [ %7, %25 ], [ %33, %29 ], [ %7, %39 ], [ %7, %36 ], [ %7, %42 ]
+  %46 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %47 = icmp eq ptr %45, %46
+  br i1 %47, label %48, label %50
 
-47:                                               ; preds = %43
-  %48 = call i32 @fflush(ptr noundef %44)
-  br label %49
+48:                                               ; preds = %44
+  %49 = call i32 @fflush(ptr noundef %45)
+  br label %50
 
-49:                                               ; preds = %43, %47, %1
+50:                                               ; preds = %44, %48, %1
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %3) #14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #14
   ret void
@@ -441,10 +443,10 @@ define dso_local void @mprintf(ptr nocapture noundef readonly %0, ...) local_unn
 declare i32 @llvm.smin.i32(i32, i32) #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
+declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #13
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

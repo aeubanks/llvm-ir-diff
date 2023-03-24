@@ -1067,7 +1067,7 @@ define dso_local void @begin_StrictFP() local_unnamed_addr #3 {
   %752 = phi i32 [ %684, %672 ], [ %807, %805 ]
   %753 = phi i32 [ %685, %672 ], [ %806, %805 ]
   %754 = shl nuw nsw i64 %751, 1
-  %755 = shl nuw nsw i64 %751, 2
+  %755 = shl nsw i64 %751, 2
   %756 = getelementptr inbounds float, ptr %5, i64 %755
   %757 = getelementptr inbounds float, ptr %674, i64 %754
   %758 = sub nsw i32 %676, %752
@@ -3101,7 +3101,7 @@ define dso_local void @begin() local_unnamed_addr #0 {
   %760 = phi i32 [ %693, %681 ], [ %814, %812 ]
   %761 = phi i32 [ %694, %681 ], [ %813, %812 ]
   %762 = shl nuw nsw i64 %759, 1
-  %763 = shl nuw nsw i64 %759, 2
+  %763 = shl nsw i64 %759, 2
   %764 = getelementptr inbounds float, ptr %5, i64 %763
   %765 = getelementptr inbounds float, ptr %683, i64 %762
   %766 = sub nsw i32 %685, %760
@@ -5741,9 +5741,6 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare float @llvm.fabs.f32(float) #18
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #18
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
@@ -5754,6 +5751,9 @@ declare float @llvm.sqrt.f32(float) #18
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #20
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare float @llvm.fabs.f32(float) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x float> @llvm.sqrt.v4f32(<4 x float>) #18

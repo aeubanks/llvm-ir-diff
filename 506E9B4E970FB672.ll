@@ -93,42 +93,42 @@ entry:
   %buf_min9 = getelementptr inbounds %struct.buffer_t, ptr %input.buffer, i64 0, i32 4, i64 3
   %buf_elem_size = getelementptr inbounds %struct.buffer_t, ptr %input.buffer, i64 0, i32 5
   %input.elem_size = load i32, ptr %buf_elem_size, align 4
-  %.not16 = icmp eq ptr %bilateral_grid.buffer, null
-  br i1 %.not16, label %"assert failed10", label %"assert succeeded11", !prof !4
+  %.not25 = icmp eq ptr %bilateral_grid.buffer, null
+  br i1 %.not25, label %"assert failed10", label %"assert succeeded11", !prof !4
 
 destructor_block.thread:                          ; preds = %after_bb, %if.then.i124, %"assert failed101", %"assert failed99", %"produce blurx", %"assert failed95", %"assert failed93", %"produce blurz", %"assert failed89", %"assert failed87", %"assert failed85", %"assert failed83", %"assert failed81", %"assert failed79", %"assert failed77", %"assert failed75", %"assert failed73", %"assert failed71", %"assert failed69", %"assert failed67", %"assert failed65", %"assert failed63", %"assert failed61", %"assert failed10", %"assert failed", %after_bb44.thread
   %.06.ph = phi ptr [ null, %"assert failed" ], [ null, %"assert failed10" ], [ null, %"assert failed61" ], [ null, %"assert failed63" ], [ null, %"assert failed65" ], [ null, %"assert failed67" ], [ null, %"assert failed69" ], [ null, %"assert failed71" ], [ null, %"assert failed73" ], [ null, %"assert failed75" ], [ null, %"assert failed77" ], [ null, %"assert failed79" ], [ null, %"assert failed81" ], [ null, %"assert failed83" ], [ null, %"assert failed85" ], [ null, %"assert failed87" ], [ null, %"assert failed89" ], [ null, %"produce blurz" ], [ null, %"assert failed93" ], [ null, %"assert failed95" ], [ %178, %"produce blurx" ], [ %178, %"assert failed99" ], [ %178, %"assert failed101" ], [ null, %if.then.i124 ], [ null, %after_bb44.thread ], [ null, %after_bb ]
   %.0.ph = phi ptr [ null, %"assert failed" ], [ null, %"assert failed10" ], [ null, %"assert failed61" ], [ null, %"assert failed63" ], [ null, %"assert failed65" ], [ null, %"assert failed67" ], [ null, %"assert failed69" ], [ null, %"assert failed71" ], [ null, %"assert failed73" ], [ null, %"assert failed75" ], [ null, %"assert failed77" ], [ null, %"assert failed79" ], [ null, %"assert failed81" ], [ null, %"assert failed83" ], [ null, %"assert failed85" ], [ null, %"assert failed87" ], [ null, %"assert failed89" ], [ %129, %"produce blurz" ], [ %129, %"assert failed93" ], [ %129, %"assert failed95" ], [ %129, %"produce blurx" ], [ null, %"assert failed99" ], [ null, %"assert failed101" ], [ null, %if.then.i124 ], [ null, %after_bb44.thread ], [ null, %after_bb ]
   %.ph = phi i32 [ %4, %"assert failed" ], [ %15, %"assert failed10" ], [ %52, %"assert failed61" ], [ %54, %"assert failed63" ], [ %58, %"assert failed65" ], [ %62, %"assert failed67" ], [ %66, %"assert failed69" ], [ %68, %"assert failed71" ], [ %70, %"assert failed73" ], [ %73, %"assert failed75" ], [ %76, %"assert failed77" ], [ %78, %"assert failed79" ], [ %81, %"assert failed81" ], [ %84, %"assert failed83" ], [ %86, %"assert failed85" ], [ %127, %"assert failed87" ], [ %130, %"assert failed89" ], [ %153, %"produce blurz" ], [ %176, %"assert failed93" ], [ %179, %"assert failed95" ], [ %197, %"produce blurx" ], [ %226, %"assert failed99" ], [ %229, %"assert failed101" ], [ 0, %if.then.i124 ], [ 0, %after_bb44.thread ], [ 0, %after_bb ]
-  %.not1528 = icmp eq i32 %.ph, 0
+  %.not24 = icmp eq i32 %.ph, 0
   br label %call_destructor.exit
 
-if.then.i:                                        ; preds = %"produce blury", %if.then.i121
-  %.06 = phi ptr [ null, %if.then.i121 ], [ %178, %"produce blury" ]
-  %13 = phi i32 [ %267, %if.then.i121 ], [ %247, %"produce blury" ]
+if.then.i:                                        ; preds = %"produce blury", %"produce bilateral_grid"
+  %.06 = phi ptr [ null, %"produce bilateral_grid" ], [ %178, %"produce blury" ]
+  %13 = phi i32 [ %267, %"produce bilateral_grid" ], [ %247, %"produce blury" ]
   call void @halide_free(ptr null, ptr nonnull %228) #7
   br label %call_destructor.exit
 
 call_destructor.exit:                             ; preds = %destructor_block.thread, %if.then.i
-  %.not1533 = phi i1 [ %.not1528, %destructor_block.thread ], [ false, %if.then.i ]
+  %should_call.not.i23 = phi i1 [ %.not24, %destructor_block.thread ], [ false, %if.then.i ]
   %14 = phi i32 [ %.ph, %destructor_block.thread ], [ %13, %if.then.i ]
-  %.032 = phi ptr [ %.0.ph, %destructor_block.thread ], [ null, %if.then.i ]
-  %.0631 = phi ptr [ %.06.ph, %destructor_block.thread ], [ %.06, %if.then.i ]
-  %tobool.i107 = icmp eq ptr %.0631, null
-  %brmerge.i109 = or i1 %.not1533, %tobool.i107
+  %.022 = phi ptr [ %.0.ph, %destructor_block.thread ], [ null, %if.then.i ]
+  %.0621 = phi ptr [ %.06.ph, %destructor_block.thread ], [ %.06, %if.then.i ]
+  %tobool.i107 = icmp eq ptr %.0621, null
+  %brmerge.i109 = or i1 %should_call.not.i23, %tobool.i107
   br i1 %brmerge.i109, label %call_destructor.exit111, label %if.then.i110
 
 if.then.i110:                                     ; preds = %call_destructor.exit
-  call void @halide_free(ptr null, ptr nonnull %.0631) #7
+  call void @halide_free(ptr null, ptr nonnull %.0621) #7
   br label %call_destructor.exit111
 
 call_destructor.exit111:                          ; preds = %if.then.i110, %call_destructor.exit
-  %tobool.i112 = icmp eq ptr %.032, null
-  %brmerge.i114 = or i1 %.not1533, %tobool.i112
+  %tobool.i112 = icmp eq ptr %.022, null
+  %brmerge.i114 = or i1 %should_call.not.i23, %tobool.i112
   br i1 %brmerge.i114, label %call_destructor.exit116, label %if.then.i115
 
 if.then.i115:                                     ; preds = %call_destructor.exit111
-  call void @halide_free(ptr null, ptr nonnull %.032) #7
+  call void @halide_free(ptr null, ptr nonnull %.022) #7
   br label %call_destructor.exit116
 
 call_destructor.exit116:                          ; preds = %if.then.i115, %call_destructor.exit111
@@ -210,8 +210,8 @@ call_destructor.exit116:                          ; preds = %if.then.i115, %call
   %a17 = tail call i32 @llvm.smin.i32(i32 %b17, i32 %a18)
   %a16 = tail call i32 @llvm.smax.i32(i32 %a17, i32 %40)
   %b18 = add nsw i32 %43, -1
-  %.not23 = icmp slt i32 %a16, %43
-  %47 = select i1 %.not23, i32 %b18, i32 %a16
+  %.not32 = icmp slt i32 %a16, %43
+  %47 = select i1 %.not32, i32 %b18, i32 %a16
   br i1 %bilateral_grid.host_and_dev_are_null, label %after_bb, label %after_bb.thread
 
 after_bb:                                         ; preds = %"assert succeeded11"
@@ -276,9 +276,9 @@ true_bb58:                                        ; preds = %after_bb.thread
 
 "assert succeeded64":                             ; preds = %"assert succeeded62"
   %55 = sub nsw i32 %28, %bilateral_grid.extent.0
-  %.not17 = icmp slt i32 %55, %b158
+  %.not26 = icmp slt i32 %55, %b158
   %56 = icmp sle i32 %b158, %b2
-  %57 = and i1 %56, %.not17
+  %57 = and i1 %56, %.not26
   br i1 %57, label %"assert succeeded66", label %"assert failed65", !prof !5
 
 "assert failed65":                                ; preds = %"assert succeeded64"
@@ -287,9 +287,9 @@ true_bb58:                                        ; preds = %after_bb.thread
 
 "assert succeeded66":                             ; preds = %"assert succeeded64"
   %59 = sub nsw i32 %37, %9
-  %.not18 = icmp slt i32 %59, %32
+  %.not27 = icmp slt i32 %59, %32
   %60 = icmp sle i32 %32, %33
-  %61 = and i1 %60, %.not18
+  %61 = and i1 %60, %.not27
   br i1 %61, label %"assert succeeded68", label %"assert failed67", !prof !5
 
 "assert failed67":                                ; preds = %"assert succeeded66"
@@ -298,9 +298,9 @@ true_bb58:                                        ; preds = %after_bb.thread
 
 "assert succeeded68":                             ; preds = %"assert succeeded66"
   %63 = sub nsw i32 %47, %10
-  %.not19 = icmp slt i32 %63, %40
+  %.not28 = icmp slt i32 %63, %40
   %64 = icmp sle i32 %40, %42
-  %65 = and i1 %64, %.not19
+  %65 = and i1 %64, %.not28
   br i1 %65, label %"assert succeeded70", label %"assert failed69", !prof !5
 
 "assert failed69":                                ; preds = %"assert succeeded68"
@@ -447,8 +447,8 @@ true_bb58:                                        ; preds = %after_bb.thread
 "assert succeeded88":                             ; preds = %"assert succeeded86"
   %128 = or i64 %118, 4
   %129 = tail call ptr @halide_malloc(ptr null, i64 %128)
-  %.not20 = icmp eq ptr %129, null
-  br i1 %.not20, label %"assert failed89", label %"produce blurz", !prof !4
+  %.not29 = icmp eq ptr %129, null
+  br i1 %.not29, label %"assert failed89", label %"produce blurz", !prof !4
 
 "assert failed89":                                ; preds = %"assert succeeded88"
   %130 = tail call i32 @halide_error_out_of_memory(ptr null) #3
@@ -460,8 +460,8 @@ true_bb58:                                        ; preds = %after_bb.thread
   %b31 = add nsw i32 %38, -2
   %a28 = tail call i32 @llvm.smax.i32(i32 %a29, i32 %b31)
   %b30 = add nsw i32 %45, 1
-  %.not24 = icmp slt i32 %45, %a28
-  %blurz.s0.y.prologue = select i1 %.not24, i32 %b30, i32 %a28
+  %.not33 = icmp slt i32 %45, %a28
+  %blurz.s0.y.prologue = select i1 %.not33, i32 %b30, i32 %a28
   %132 = add nsw i32 %41, -4
   %a33 = ashr i32 %132, 3
   %133 = tail call i32 @llvm.smin.i32(i32 %45, i32 %a33)
@@ -546,8 +546,8 @@ true_bb58:                                        ; preds = %after_bb.thread
 "assert succeeded94":                             ; preds = %"consume blurz"
   %177 = or i64 %167, 4
   %178 = call ptr @halide_malloc(ptr null, i64 %177)
-  %.not21 = icmp eq ptr %178, null
-  br i1 %.not21, label %"assert failed95", label %"produce blurx", !prof !4
+  %.not30 = icmp eq ptr %178, null
+  br i1 %.not30, label %"assert failed95", label %"produce blurx", !prof !4
 
 "assert failed95":                                ; preds = %"assert succeeded94"
   %179 = call i32 @halide_error_out_of_memory(ptr null) #3
@@ -591,9 +591,9 @@ true_bb58:                                        ; preds = %after_bb.thread
   store ptr null, ptr %196, align 8
   %197 = call i32 @halide_do_par_for(ptr null, ptr nonnull @par_for___bilateral_grid_blurx.s0.z, i32 %blury.s0.z.min, i32 %104, ptr nonnull %2)
   %198 = icmp eq i32 %197, 0
-  br i1 %198, label %if.then.i118, label %destructor_block.thread, !prof !5
+  br i1 %198, label %"consume blurx", label %destructor_block.thread, !prof !5
 
-if.then.i118:                                     ; preds = %"produce blurx"
+"consume blurx":                                  ; preds = %"produce blurx"
   call void @halide_free(ptr null, ptr nonnull %129) #7
   %199 = add nsw i32 %43, 7
   %200 = ashr i32 %199, 3
@@ -632,15 +632,15 @@ if.then.i118:                                     ; preds = %"produce blurx"
   %225 = and i1 %218, %224
   br i1 %225, label %"assert succeeded100", label %"assert failed99", !prof !5
 
-"assert failed99":                                ; preds = %if.then.i118
+"assert failed99":                                ; preds = %"consume blurx"
   %226 = call i32 @halide_error_buffer_allocation_too_large(ptr null, ptr nonnull @str.12, i64 %217, i64 2147483647) #3
   br label %destructor_block.thread
 
-"assert succeeded100":                            ; preds = %if.then.i118
+"assert succeeded100":                            ; preds = %"consume blurx"
   %227 = or i64 %217, 4
   %228 = call ptr @halide_malloc(ptr null, i64 %227)
-  %.not22 = icmp eq ptr %228, null
-  br i1 %.not22, label %"assert failed101", label %"produce blury", !prof !4
+  %.not31 = icmp eq ptr %228, null
+  br i1 %.not31, label %"assert failed101", label %"produce blury", !prof !4
 
 "assert failed101":                               ; preds = %"assert succeeded100"
   %229 = call i32 @halide_error_out_of_memory(ptr null) #3
@@ -684,9 +684,9 @@ if.then.i118:                                     ; preds = %"produce blurx"
   store ptr null, ptr %246, align 8
   %247 = call i32 @halide_do_par_for(ptr null, ptr nonnull @par_for___bilateral_grid_blury.s0.z, i32 %blury.s0.z.min, i32 %104, ptr nonnull %1)
   %248 = icmp eq i32 %247, 0
-  br i1 %248, label %if.then.i121, label %if.then.i, !prof !5
+  br i1 %248, label %"produce bilateral_grid", label %if.then.i, !prof !5
 
-if.then.i121:                                     ; preds = %"produce blury"
+"produce bilateral_grid":                         ; preds = %"produce blury"
   call void @halide_free(ptr null, ptr nonnull %178) #7
   store i32 %bilateral_grid.extent.0, ptr %0, align 8
   %249 = getelementptr inbounds %closure_t.2, ptr %0, i64 0, i32 1
@@ -729,7 +729,7 @@ if.then.i121:                                     ; preds = %"produce blury"
   %268 = icmp eq i32 %267, 0
   br i1 %268, label %if.then.i124, label %if.then.i, !prof !5
 
-if.then.i124:                                     ; preds = %if.then.i121
+if.then.i124:                                     ; preds = %"produce bilateral_grid"
   call void @halide_free(ptr null, ptr nonnull %228) #7
   br label %destructor_block.thread
 }
@@ -2425,100 +2425,99 @@ entry:
   %38 = sub nsw i64 %37, %15
   %39 = mul nsw i64 %38, %20
   %40 = add nsw i64 %18, 1
-  %narrow13 = sub nsw i32 2, %9
-  %41 = sext i32 %narrow13 to i64
+  %narrow12 = sub nsw i32 2, %9
+  %41 = sext i32 %narrow12 to i64
   %42 = ashr i32 %blurx.x.min_realized.s, 3
-  %narrow14 = sub nsw i32 0, %42
-  %.neg8 = sext i32 %narrow14 to i64
-  %43 = add nsw i64 %39, %.neg8
+  %narrow13 = sub nsw i32 0, %42
+  %.neg7 = sext i32 %narrow13 to i64
+  %43 = add nsw i64 %39, %.neg7
   %44 = sub i32 %31, %blurz.x.min_realized
   %45 = add i32 %44, %27
   %narrow = sub nsw i32 %31, %42
   %46 = sext i32 %narrow to i64
   %47 = add nsw i64 %39, %46
-  %48 = sext i32 %28 to i64
-  %narrow22 = add nsw i32 %9, -2
-  %49 = sext i32 %narrow22 to i64
+  %narrow18 = add nsw i32 %9, -2
+  %48 = sext i32 %narrow18 to i64
   %sext = sext i32 %12 to i64
-  %50 = sub nsw i32 %34, %33
+  %49 = sub nsw i32 %34, %33
   %xtraiter = and i32 %36, 3
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
-  %51 = icmp ult i32 %50, 3
+  %50 = icmp ult i32 %49, 3
   br label %"for blurx.s0.y"
 
 "for blurx.s0.y":                                 ; preds = %"end for blurx.s0.x.x2", %"for blurx.s0.y.preheader"
-  %indvars.iv18 = phi i64 [ %indvars.iv.next19, %"end for blurx.s0.x.x2" ], [ %49, %"for blurx.s0.y.preheader" ]
+  %indvars.iv = phi i64 [ %indvars.iv.next, %"end for blurx.s0.x.x2" ], [ %48, %"for blurx.s0.y.preheader" ]
   %lsr.iv6 = phi i32 [ %lsr.iv.next7, %"end for blurx.s0.x.x2" ], [ %9, %"for blurx.s0.y.preheader" ]
   br i1 %.inv, label %"end for blurx.s0.x.x", label %"for blurx.s0.x.x.preheader", !prof !4
 
 "for blurx.s0.x.x.preheader":                     ; preds = %"for blurx.s0.y"
-  %52 = sub i32 %lsr.iv6, %9
-  %53 = mul i32 %52, %25
-  %54 = add nsw i64 %indvars.iv18, %41
-  %55 = mul nsw i64 %54, %40
-  %56 = add i64 %43, %55
+  %51 = sub i32 %lsr.iv6, %9
+  %52 = mul i32 %51, %25
+  %53 = add nsw i64 %indvars.iv, %41
+  %54 = mul nsw i64 %53, %40
+  %55 = add i64 %43, %54
   br label %"for blurx.s0.x.x"
 
 "for blurx.s0.x.x":                               ; preds = %"for blurx.s0.x.x.preheader", %"for blurx.s0.x.x"
-  %indvars.iv = phi i64 [ 0, %"for blurx.s0.x.x.preheader" ], [ %indvars.iv.next, %"for blurx.s0.x.x" ]
-  %lsr.iv = phi i32 [ %a153, %"for blurx.s0.x.x.preheader" ], [ %lsr.iv.next, %"for blurx.s0.x.x" ]
-  %57 = add nsw i64 %indvars.iv, %48
-  %58 = trunc i64 %57 to i32
-  %59 = sub i32 %58, %blurz.x.min_realized
-  %60 = add i32 %59, %27
-  %61 = add i32 %60, %53
-  %62 = sext i32 %61 to i64
-  %63 = add nsw i64 %62, 2
-  %64 = getelementptr inbounds float, ptr %blurz.host, i64 %63
-  %65 = load <8 x float>, ptr %64, align 4, !tbaa !14
-  %66 = add nsw i64 %62, 1
-  %67 = getelementptr inbounds float, ptr %blurz.host, i64 %66
-  %68 = load <8 x float>, ptr %67, align 4, !tbaa !14
-  %69 = fmul <8 x float> %68, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %70 = getelementptr inbounds float, ptr %blurz.host, i64 %62
-  %71 = load <8 x float>, ptr %70, align 4, !tbaa !14
-  %72 = fmul <8 x float> %71, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %73 = add nsw i64 %62, -1
-  %74 = getelementptr inbounds float, ptr %blurz.host, i64 %73
-  %75 = load <8 x float>, ptr %74, align 4, !tbaa !14
-  %76 = fmul <8 x float> %75, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %77 = add nsw i64 %62, -2
-  %78 = getelementptr inbounds float, ptr %blurz.host, i64 %77
-  %79 = load <8 x float>, ptr %78, align 4, !tbaa !14
-  %80 = fadd <8 x float> %79, %76
-  %81 = fadd <8 x float> %72, %80
-  %82 = fadd <8 x float> %69, %81
-  %83 = fadd <8 x float> %65, %82
-  %84 = add i64 %56, %57
-  %85 = getelementptr inbounds float, ptr %blurx.host, i64 %84
-  store <8 x float> %83, ptr %85, align 4, !tbaa !18
-  %86 = add nsw i64 %62, %4
-  %87 = add nsw i64 %86, 2
-  %88 = getelementptr inbounds float, ptr %blurz.host, i64 %87
-  %89 = load <8 x float>, ptr %88, align 4, !tbaa !14
-  %90 = add nsw i64 %86, 1
-  %91 = getelementptr inbounds float, ptr %blurz.host, i64 %90
-  %92 = load <8 x float>, ptr %91, align 4, !tbaa !14
-  %93 = fmul <8 x float> %92, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %94 = getelementptr inbounds float, ptr %blurz.host, i64 %86
-  %95 = load <8 x float>, ptr %94, align 4, !tbaa !14
-  %96 = fmul <8 x float> %95, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %97 = add nsw i64 %86, -1
-  %98 = getelementptr inbounds float, ptr %blurz.host, i64 %97
-  %99 = load <8 x float>, ptr %98, align 4, !tbaa !14
-  %100 = fmul <8 x float> %99, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %101 = add nsw i64 %86, -2
-  %102 = getelementptr inbounds float, ptr %blurz.host, i64 %101
-  %103 = load <8 x float>, ptr %102, align 4, !tbaa !14
-  %104 = fadd <8 x float> %103, %100
-  %105 = fadd <8 x float> %96, %104
-  %106 = fadd <8 x float> %93, %105
-  %107 = fadd <8 x float> %89, %106
-  %108 = add nsw i64 %84, %2
-  %109 = getelementptr inbounds float, ptr %blurx.host, i64 %108
-  store <8 x float> %107, ptr %109, align 4, !tbaa !18
+  %lsr.iv4 = phi i32 [ %lsr.iv.next5, %"for blurx.s0.x.x" ], [ 0, %"for blurx.s0.x.x.preheader" ]
+  %lsr.iv = phi i32 [ %lsr.iv.next, %"for blurx.s0.x.x" ], [ %a153, %"for blurx.s0.x.x.preheader" ]
+  %56 = add i32 %lsr.iv4, %28
+  %57 = sub i32 %56, %blurz.x.min_realized
+  %58 = add i32 %57, %27
+  %59 = add i32 %58, %52
+  %60 = sext i32 %59 to i64
+  %61 = add nsw i64 %60, 2
+  %62 = getelementptr inbounds float, ptr %blurz.host, i64 %61
+  %63 = load <8 x float>, ptr %62, align 4, !tbaa !14
+  %64 = add nsw i64 %60, 1
+  %65 = getelementptr inbounds float, ptr %blurz.host, i64 %64
+  %66 = load <8 x float>, ptr %65, align 4, !tbaa !14
+  %67 = fmul <8 x float> %66, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %68 = getelementptr inbounds float, ptr %blurz.host, i64 %60
+  %69 = load <8 x float>, ptr %68, align 4, !tbaa !14
+  %70 = fmul <8 x float> %69, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %71 = add nsw i64 %60, -1
+  %72 = getelementptr inbounds float, ptr %blurz.host, i64 %71
+  %73 = load <8 x float>, ptr %72, align 4, !tbaa !14
+  %74 = fmul <8 x float> %73, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %75 = add nsw i64 %60, -2
+  %76 = getelementptr inbounds float, ptr %blurz.host, i64 %75
+  %77 = load <8 x float>, ptr %76, align 4, !tbaa !14
+  %78 = fadd <8 x float> %77, %74
+  %79 = fadd <8 x float> %70, %78
+  %80 = fadd <8 x float> %67, %79
+  %81 = fadd <8 x float> %63, %80
+  %82 = sext i32 %56 to i64
+  %83 = add i64 %55, %82
+  %84 = getelementptr inbounds float, ptr %blurx.host, i64 %83
+  store <8 x float> %81, ptr %84, align 4, !tbaa !18
+  %85 = add nsw i64 %60, %4
+  %86 = add nsw i64 %85, 2
+  %87 = getelementptr inbounds float, ptr %blurz.host, i64 %86
+  %88 = load <8 x float>, ptr %87, align 4, !tbaa !14
+  %89 = add nsw i64 %85, 1
+  %90 = getelementptr inbounds float, ptr %blurz.host, i64 %89
+  %91 = load <8 x float>, ptr %90, align 4, !tbaa !14
+  %92 = fmul <8 x float> %91, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %93 = getelementptr inbounds float, ptr %blurz.host, i64 %85
+  %94 = load <8 x float>, ptr %93, align 4, !tbaa !14
+  %95 = fmul <8 x float> %94, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %96 = add nsw i64 %85, -1
+  %97 = getelementptr inbounds float, ptr %blurz.host, i64 %96
+  %98 = load <8 x float>, ptr %97, align 4, !tbaa !14
+  %99 = fmul <8 x float> %98, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %100 = add nsw i64 %85, -2
+  %101 = getelementptr inbounds float, ptr %blurz.host, i64 %100
+  %102 = load <8 x float>, ptr %101, align 4, !tbaa !14
+  %103 = fadd <8 x float> %102, %99
+  %104 = fadd <8 x float> %95, %103
+  %105 = fadd <8 x float> %92, %104
+  %106 = fadd <8 x float> %88, %105
+  %107 = add nsw i64 %83, %2
+  %108 = getelementptr inbounds float, ptr %blurx.host, i64 %107
+  store <8 x float> %106, ptr %108, align 4, !tbaa !18
   %lsr.iv.next = add nsw i32 %lsr.iv, -1
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 8
+  %lsr.iv.next5 = add nuw i32 %lsr.iv4, 8
   %.not6 = icmp eq i32 %lsr.iv.next, 0
   br i1 %.not6, label %"end for blurx.s0.x.x", label %"for blurx.s0.x.x"
 
@@ -2526,68 +2525,68 @@ entry:
   br i1 %.not, label %"end for blurx.s0.x.x2", label %"for blurx.s0.x.x1.preheader", !prof !4
 
 "for blurx.s0.x.x1.preheader":                    ; preds = %"end for blurx.s0.x.x"
-  %110 = trunc i64 %indvars.iv18 to i32
-  %111 = sub i32 %110, %9
-  %112 = add i32 %111, 2
-  %113 = mul nsw i32 %112, %25
-  %t131 = add i32 %45, %113
-  %114 = sext i32 %t131 to i64
-  %115 = add nsw i64 %114, 2
-  %116 = getelementptr inbounds float, ptr %blurz.host, i64 %115
-  %117 = load <8 x float>, ptr %116, align 4, !tbaa !14
-  %118 = add nsw i64 %114, 1
-  %119 = getelementptr inbounds float, ptr %blurz.host, i64 %118
-  %120 = load <8 x float>, ptr %119, align 4, !tbaa !14
-  %121 = fmul <8 x float> %120, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %122 = getelementptr inbounds float, ptr %blurz.host, i64 %114
-  %123 = load <8 x float>, ptr %122, align 4, !tbaa !14
-  %124 = fmul <8 x float> %123, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %125 = add nsw i64 %114, -1
-  %126 = getelementptr inbounds float, ptr %blurz.host, i64 %125
-  %127 = load <8 x float>, ptr %126, align 4, !tbaa !14
-  %128 = fmul <8 x float> %127, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %129 = add nsw i64 %114, -2
-  %130 = getelementptr inbounds float, ptr %blurz.host, i64 %129
-  %131 = load <8 x float>, ptr %130, align 4, !tbaa !14
-  %132 = fadd <8 x float> %131, %128
-  %133 = fadd <8 x float> %124, %132
-  %134 = fadd <8 x float> %121, %133
-  %135 = fadd <8 x float> %117, %134
-  %136 = add nsw i64 %indvars.iv18, %41
-  %137 = mul nsw i64 %136, %40
-  %138 = add i64 %47, %137
-  %139 = getelementptr inbounds float, ptr %blurx.host, i64 %138
-  %140 = add nsw i64 %114, %4
-  %141 = add nsw i64 %140, 2
-  %142 = getelementptr inbounds float, ptr %blurz.host, i64 %141
-  %143 = load <8 x float>, ptr %142, align 4, !tbaa !14
-  %144 = add nsw i64 %140, 1
-  %145 = getelementptr inbounds float, ptr %blurz.host, i64 %144
-  %146 = load <8 x float>, ptr %145, align 4, !tbaa !14
-  %147 = fmul <8 x float> %146, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %148 = getelementptr inbounds float, ptr %blurz.host, i64 %140
-  %149 = load <8 x float>, ptr %148, align 4, !tbaa !14
-  %150 = fmul <8 x float> %149, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %151 = add nsw i64 %140, -1
-  %152 = getelementptr inbounds float, ptr %blurz.host, i64 %151
-  %153 = load <8 x float>, ptr %152, align 4, !tbaa !14
-  %154 = fmul <8 x float> %153, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %155 = add nsw i64 %140, -2
-  %156 = getelementptr inbounds float, ptr %blurz.host, i64 %155
-  %157 = load <8 x float>, ptr %156, align 4, !tbaa !14
-  %158 = fadd <8 x float> %157, %154
-  %159 = fadd <8 x float> %150, %158
-  %160 = fadd <8 x float> %147, %159
-  %161 = fadd <8 x float> %143, %160
-  %162 = add nsw i64 %138, %2
-  %163 = getelementptr inbounds float, ptr %blurx.host, i64 %162
+  %109 = trunc i64 %indvars.iv to i32
+  %110 = sub i32 %109, %9
+  %111 = add i32 %110, 2
+  %112 = mul nsw i32 %111, %25
+  %t131 = add i32 %45, %112
+  %113 = sext i32 %t131 to i64
+  %114 = add nsw i64 %113, 2
+  %115 = getelementptr inbounds float, ptr %blurz.host, i64 %114
+  %116 = load <8 x float>, ptr %115, align 4, !tbaa !14
+  %117 = add nsw i64 %113, 1
+  %118 = getelementptr inbounds float, ptr %blurz.host, i64 %117
+  %119 = load <8 x float>, ptr %118, align 4, !tbaa !14
+  %120 = fmul <8 x float> %119, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %121 = getelementptr inbounds float, ptr %blurz.host, i64 %113
+  %122 = load <8 x float>, ptr %121, align 4, !tbaa !14
+  %123 = fmul <8 x float> %122, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %124 = add nsw i64 %113, -1
+  %125 = getelementptr inbounds float, ptr %blurz.host, i64 %124
+  %126 = load <8 x float>, ptr %125, align 4, !tbaa !14
+  %127 = fmul <8 x float> %126, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %128 = add nsw i64 %113, -2
+  %129 = getelementptr inbounds float, ptr %blurz.host, i64 %128
+  %130 = load <8 x float>, ptr %129, align 4, !tbaa !14
+  %131 = fadd <8 x float> %130, %127
+  %132 = fadd <8 x float> %123, %131
+  %133 = fadd <8 x float> %120, %132
+  %134 = fadd <8 x float> %116, %133
+  %135 = add nsw i64 %indvars.iv, %41
+  %136 = mul nsw i64 %135, %40
+  %137 = add i64 %47, %136
+  %138 = getelementptr inbounds float, ptr %blurx.host, i64 %137
+  %139 = add nsw i64 %113, %4
+  %140 = add nsw i64 %139, 2
+  %141 = getelementptr inbounds float, ptr %blurz.host, i64 %140
+  %142 = load <8 x float>, ptr %141, align 4, !tbaa !14
+  %143 = add nsw i64 %139, 1
+  %144 = getelementptr inbounds float, ptr %blurz.host, i64 %143
+  %145 = load <8 x float>, ptr %144, align 4, !tbaa !14
+  %146 = fmul <8 x float> %145, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %147 = getelementptr inbounds float, ptr %blurz.host, i64 %139
+  %148 = load <8 x float>, ptr %147, align 4, !tbaa !14
+  %149 = fmul <8 x float> %148, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %150 = add nsw i64 %139, -1
+  %151 = getelementptr inbounds float, ptr %blurz.host, i64 %150
+  %152 = load <8 x float>, ptr %151, align 4, !tbaa !14
+  %153 = fmul <8 x float> %152, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %154 = add nsw i64 %139, -2
+  %155 = getelementptr inbounds float, ptr %blurz.host, i64 %154
+  %156 = load <8 x float>, ptr %155, align 4, !tbaa !14
+  %157 = fadd <8 x float> %156, %153
+  %158 = fadd <8 x float> %149, %157
+  %159 = fadd <8 x float> %146, %158
+  %160 = fadd <8 x float> %142, %159
+  %161 = add nsw i64 %137, %2
+  %162 = getelementptr inbounds float, ptr %blurx.host, i64 %161
   br i1 %lcmp.mod.not, label %"for blurx.s0.x.x1.prol.loopexit", label %"for blurx.s0.x.x1.prol"
 
 "for blurx.s0.x.x1.prol":                         ; preds = %"for blurx.s0.x.x1.preheader", %"for blurx.s0.x.x1.prol"
   %lsr.iv8.prol = phi i32 [ %lsr.iv.next9.prol, %"for blurx.s0.x.x1.prol" ], [ %36, %"for blurx.s0.x.x1.preheader" ]
   %prol.iter = phi i32 [ %prol.iter.next, %"for blurx.s0.x.x1.prol" ], [ 0, %"for blurx.s0.x.x1.preheader" ]
-  store <8 x float> %135, ptr %139, align 4, !tbaa !18
-  store <8 x float> %161, ptr %163, align 4, !tbaa !18
+  store <8 x float> %134, ptr %138, align 4, !tbaa !18
+  store <8 x float> %160, ptr %162, align 4, !tbaa !18
   %lsr.iv.next9.prol = add i32 %lsr.iv8.prol, -1
   %prol.iter.next = add i32 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
@@ -2595,27 +2594,27 @@ entry:
 
 "for blurx.s0.x.x1.prol.loopexit":                ; preds = %"for blurx.s0.x.x1.prol", %"for blurx.s0.x.x1.preheader"
   %lsr.iv8.unr = phi i32 [ %36, %"for blurx.s0.x.x1.preheader" ], [ %lsr.iv.next9.prol, %"for blurx.s0.x.x1.prol" ]
-  br i1 %51, label %"end for blurx.s0.x.x2", label %"for blurx.s0.x.x1"
+  br i1 %50, label %"end for blurx.s0.x.x2", label %"for blurx.s0.x.x1"
 
 "for blurx.s0.x.x1":                              ; preds = %"for blurx.s0.x.x1.prol.loopexit", %"for blurx.s0.x.x1"
   %lsr.iv8 = phi i32 [ %lsr.iv.next9.3, %"for blurx.s0.x.x1" ], [ %lsr.iv8.unr, %"for blurx.s0.x.x1.prol.loopexit" ]
-  store <8 x float> %135, ptr %139, align 4, !tbaa !18
-  store <8 x float> %161, ptr %163, align 4, !tbaa !18
-  store <8 x float> %135, ptr %139, align 4, !tbaa !18
-  store <8 x float> %161, ptr %163, align 4, !tbaa !18
-  store <8 x float> %135, ptr %139, align 4, !tbaa !18
-  store <8 x float> %161, ptr %163, align 4, !tbaa !18
-  store <8 x float> %135, ptr %139, align 4, !tbaa !18
-  store <8 x float> %161, ptr %163, align 4, !tbaa !18
+  store <8 x float> %134, ptr %138, align 4, !tbaa !18
+  store <8 x float> %160, ptr %162, align 4, !tbaa !18
+  store <8 x float> %134, ptr %138, align 4, !tbaa !18
+  store <8 x float> %160, ptr %162, align 4, !tbaa !18
+  store <8 x float> %134, ptr %138, align 4, !tbaa !18
+  store <8 x float> %160, ptr %162, align 4, !tbaa !18
+  store <8 x float> %134, ptr %138, align 4, !tbaa !18
+  store <8 x float> %160, ptr %162, align 4, !tbaa !18
   %lsr.iv.next9.3 = add i32 %lsr.iv8, -4
   %.not5.3 = icmp eq i32 %lsr.iv.next9.3, 0
   br i1 %.not5.3, label %"end for blurx.s0.x.x2", label %"for blurx.s0.x.x1"
 
 "end for blurx.s0.x.x2":                          ; preds = %"for blurx.s0.x.x1.prol.loopexit", %"for blurx.s0.x.x1", %"end for blurx.s0.x.x"
-  %indvars.iv.next19 = add nsw i64 %indvars.iv18, 1
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
   %lsr.iv.next7 = add i32 %lsr.iv6, 1
-  %164 = icmp eq i64 %indvars.iv.next19, %sext
-  br i1 %164, label %destructor_block, label %"for blurx.s0.y"
+  %163 = icmp eq i64 %indvars.iv.next, %sext
+  br i1 %163, label %destructor_block, label %"for blurx.s0.y"
 
 destructor_block:                                 ; preds = %"end for blurx.s0.x.x2", %entry
   ret i32 0
@@ -2677,8 +2676,8 @@ entry:
   %blury.s0.x.x.epilogue.s = tail call i32 @llvm.smin.i32(i32 %b162, i32 %a160)
   %30 = lshr i32 %blury.s0.x.x.epilogue.s, 3
   %a161 = add nuw nsw i32 %30, 1
-  %.inv = icmp slt i32 %blury.s0.x.x.epilogue.s, 0
-  %31 = select i1 %.inv, i32 0, i32 %a161
+  %.inv = icmp sgt i32 %blury.s0.x.x.epilogue.s, -1
+  %31 = select i1 %.inv, i32 %a161, i32 0
   %32 = ashr i32 %b162, 3
   %33 = add nsw i32 %32, 1
   %34 = sub nsw i32 %33, %31
@@ -2692,8 +2691,8 @@ entry:
   %41 = add nsw i64 %14, 1
   %42 = sext i32 %9 to i64
   %43 = ashr i32 %blury.x.min_realized.s, 3
-  %narrow8 = sub nsw i32 0, %43
-  %.neg = sext i32 %narrow8 to i64
+  %narrow7 = sub nsw i32 0, %43
+  %.neg = sext i32 %narrow7 to i64
   %44 = add nsw i64 %40, %.neg
   %t140 = sub nsw i32 %29, %35
   %45 = sext i32 %t140 to i64
@@ -2701,94 +2700,92 @@ entry:
   %narrow = sub nsw i32 %29, %43
   %47 = sext i32 %narrow to i64
   %48 = add nsw i64 %40, %47
-  %49 = sext i32 %26 to i64
   %sext = sext i32 %11 to i64
-  %50 = sub nsw i32 %32, %31
+  %49 = sub nsw i32 %32, %31
   %xtraiter = and i32 %34, 3
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
-  %51 = icmp ult i32 %50, 3
+  %50 = icmp ult i32 %49, 3
   br label %"for blury.s0.y"
 
 "for blury.s0.y":                                 ; preds = %"for blury.s0.y.preheader", %"end for blury.s0.x.x2"
-  %indvars.iv10 = phi i64 [ %42, %"for blury.s0.y.preheader" ], [ %indvars.iv.next11, %"end for blury.s0.x.x2" ]
-  br i1 %.inv, label %"end for blury.s0.x.x", label %"for blury.s0.x.x.preheader", !prof !4
+  %indvars.iv = phi i64 [ %42, %"for blury.s0.y.preheader" ], [ %indvars.iv.next, %"end for blury.s0.x.x2" ]
+  br i1 %.inv, label %"for blury.s0.x.x.preheader", label %"end for blury.s0.x.x", !prof !5
 
 "for blury.s0.x.x.preheader":                     ; preds = %"for blury.s0.y"
-  %52 = sub nsw i64 %indvars.iv10, %42
-  %53 = add nuw nsw i64 %52, 4
-  %54 = mul nsw i64 %53, %39
-  %55 = add nuw nsw i64 %52, 3
-  %56 = mul nsw i64 %55, %39
-  %57 = add nuw nsw i64 %52, 2
-  %58 = mul nsw i64 %57, %39
-  %59 = add nuw nsw i64 %52, 1
-  %60 = mul nsw i64 %59, %39
-  %61 = mul nsw i64 %39, %52
-  %62 = mul nsw i64 %52, %41
-  %63 = add i64 %44, %62
+  %51 = sub nsw i64 %indvars.iv, %42
+  %52 = add nuw nsw i64 %51, 4
+  %53 = mul nsw i64 %52, %39
+  %54 = add nuw nsw i64 %51, 3
+  %55 = mul nsw i64 %54, %39
+  %56 = add nuw nsw i64 %51, 2
+  %57 = mul nsw i64 %56, %39
+  %58 = add nuw nsw i64 %51, 1
+  %59 = mul nsw i64 %58, %39
+  %60 = mul nsw i64 %39, %51
+  %61 = mul nsw i64 %51, %41
+  %62 = add i64 %44, %61
   br label %"for blury.s0.x.x"
 
 "for blury.s0.x.x":                               ; preds = %"for blury.s0.x.x.preheader", %"for blury.s0.x.x"
-  %indvars.iv = phi i64 [ 0, %"for blury.s0.x.x.preheader" ], [ %indvars.iv.next, %"for blury.s0.x.x" ]
-  %lsr.iv = phi i32 [ %a161, %"for blury.s0.x.x.preheader" ], [ %lsr.iv.next, %"for blury.s0.x.x" ]
-  %indvars9 = trunc i64 %indvars.iv to i32
-  %64 = add nsw i64 %indvars.iv, %49
-  %65 = add nsw i32 %26, %indvars9
-  %66 = sub i32 %65, %35
-  %67 = sext i32 %66 to i64
-  %68 = add nsw i64 %38, %67
-  %69 = add i64 %68, %54
-  %70 = getelementptr inbounds float, ptr %blurx.host, i64 %69
-  %71 = load <8 x float>, ptr %70, align 4, !tbaa !18
-  %72 = add i64 %68, %56
-  %73 = getelementptr inbounds float, ptr %blurx.host, i64 %72
-  %74 = load <8 x float>, ptr %73, align 4, !tbaa !18
-  %75 = fmul <8 x float> %74, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %76 = add i64 %68, %58
-  %77 = getelementptr inbounds float, ptr %blurx.host, i64 %76
-  %78 = load <8 x float>, ptr %77, align 4, !tbaa !18
-  %79 = fmul <8 x float> %78, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %80 = add i64 %68, %60
-  %81 = getelementptr inbounds float, ptr %blurx.host, i64 %80
-  %82 = load <8 x float>, ptr %81, align 4, !tbaa !18
-  %83 = fmul <8 x float> %82, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %84 = add i64 %68, %61
-  %85 = getelementptr inbounds float, ptr %blurx.host, i64 %84
-  %86 = load <8 x float>, ptr %85, align 4, !tbaa !18
-  %87 = fadd <8 x float> %86, %83
-  %88 = fadd <8 x float> %79, %87
-  %89 = fadd <8 x float> %75, %88
-  %90 = fadd <8 x float> %71, %89
-  %91 = add i64 %63, %64
-  %92 = getelementptr inbounds float, ptr %blury.host, i64 %91
-  store <8 x float> %90, ptr %92, align 4, !tbaa !21
-  %93 = add nsw i64 %69, %1
-  %94 = getelementptr inbounds float, ptr %blurx.host, i64 %93
-  %95 = load <8 x float>, ptr %94, align 4, !tbaa !18
-  %96 = add nsw i64 %72, %1
-  %97 = getelementptr inbounds float, ptr %blurx.host, i64 %96
-  %98 = load <8 x float>, ptr %97, align 4, !tbaa !18
-  %99 = fmul <8 x float> %98, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %100 = add nsw i64 %76, %1
-  %101 = getelementptr inbounds float, ptr %blurx.host, i64 %100
-  %102 = load <8 x float>, ptr %101, align 4, !tbaa !18
-  %103 = fmul <8 x float> %102, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %104 = add nsw i64 %80, %1
-  %105 = getelementptr inbounds float, ptr %blurx.host, i64 %104
-  %106 = load <8 x float>, ptr %105, align 4, !tbaa !18
-  %107 = fmul <8 x float> %106, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %108 = add nsw i64 %84, %1
-  %109 = getelementptr inbounds float, ptr %blurx.host, i64 %108
-  %110 = load <8 x float>, ptr %109, align 4, !tbaa !18
-  %111 = fadd <8 x float> %110, %107
-  %112 = fadd <8 x float> %103, %111
-  %113 = fadd <8 x float> %99, %112
-  %114 = fadd <8 x float> %95, %113
-  %115 = add nsw i64 %91, %3
-  %116 = getelementptr inbounds float, ptr %blury.host, i64 %115
-  store <8 x float> %114, ptr %116, align 4, !tbaa !21
+  %lsr.iv4 = phi i32 [ %lsr.iv.next5, %"for blury.s0.x.x" ], [ 0, %"for blury.s0.x.x.preheader" ]
+  %lsr.iv = phi i32 [ %lsr.iv.next, %"for blury.s0.x.x" ], [ %a161, %"for blury.s0.x.x.preheader" ]
+  %63 = add i32 %lsr.iv4, %26
+  %64 = sub i32 %63, %35
+  %65 = sext i32 %64 to i64
+  %66 = add nsw i64 %38, %65
+  %67 = add i64 %66, %53
+  %68 = getelementptr inbounds float, ptr %blurx.host, i64 %67
+  %69 = load <8 x float>, ptr %68, align 4, !tbaa !18
+  %70 = add i64 %66, %55
+  %71 = getelementptr inbounds float, ptr %blurx.host, i64 %70
+  %72 = load <8 x float>, ptr %71, align 4, !tbaa !18
+  %73 = fmul <8 x float> %72, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %74 = add i64 %66, %57
+  %75 = getelementptr inbounds float, ptr %blurx.host, i64 %74
+  %76 = load <8 x float>, ptr %75, align 4, !tbaa !18
+  %77 = fmul <8 x float> %76, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %78 = add i64 %66, %59
+  %79 = getelementptr inbounds float, ptr %blurx.host, i64 %78
+  %80 = load <8 x float>, ptr %79, align 4, !tbaa !18
+  %81 = fmul <8 x float> %80, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %82 = add i64 %66, %60
+  %83 = getelementptr inbounds float, ptr %blurx.host, i64 %82
+  %84 = load <8 x float>, ptr %83, align 4, !tbaa !18
+  %85 = fadd <8 x float> %84, %81
+  %86 = fadd <8 x float> %77, %85
+  %87 = fadd <8 x float> %73, %86
+  %88 = fadd <8 x float> %69, %87
+  %89 = sext i32 %63 to i64
+  %90 = add i64 %62, %89
+  %91 = getelementptr inbounds float, ptr %blury.host, i64 %90
+  store <8 x float> %88, ptr %91, align 4, !tbaa !21
+  %92 = add nsw i64 %67, %1
+  %93 = getelementptr inbounds float, ptr %blurx.host, i64 %92
+  %94 = load <8 x float>, ptr %93, align 4, !tbaa !18
+  %95 = add nsw i64 %70, %1
+  %96 = getelementptr inbounds float, ptr %blurx.host, i64 %95
+  %97 = load <8 x float>, ptr %96, align 4, !tbaa !18
+  %98 = fmul <8 x float> %97, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %99 = add nsw i64 %74, %1
+  %100 = getelementptr inbounds float, ptr %blurx.host, i64 %99
+  %101 = load <8 x float>, ptr %100, align 4, !tbaa !18
+  %102 = fmul <8 x float> %101, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %103 = add nsw i64 %78, %1
+  %104 = getelementptr inbounds float, ptr %blurx.host, i64 %103
+  %105 = load <8 x float>, ptr %104, align 4, !tbaa !18
+  %106 = fmul <8 x float> %105, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %107 = add nsw i64 %82, %1
+  %108 = getelementptr inbounds float, ptr %blurx.host, i64 %107
+  %109 = load <8 x float>, ptr %108, align 4, !tbaa !18
+  %110 = fadd <8 x float> %109, %106
+  %111 = fadd <8 x float> %102, %110
+  %112 = fadd <8 x float> %98, %111
+  %113 = fadd <8 x float> %94, %112
+  %114 = add nsw i64 %90, %3
+  %115 = getelementptr inbounds float, ptr %blury.host, i64 %114
+  store <8 x float> %113, ptr %115, align 4, !tbaa !21
   %lsr.iv.next = add nsw i32 %lsr.iv, -1
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 8
+  %lsr.iv.next5 = add nuw i32 %lsr.iv4, 8
   %.not5 = icmp eq i32 %lsr.iv.next, 0
   br i1 %.not5, label %"end for blury.s0.x.x", label %"for blury.s0.x.x"
 
@@ -2796,72 +2793,72 @@ entry:
   br i1 %.not, label %"end for blury.s0.x.x2", label %"for blury.s0.x.x1.preheader", !prof !4
 
 "for blury.s0.x.x1.preheader":                    ; preds = %"end for blury.s0.x.x"
-  %117 = sub nsw i64 %indvars.iv10, %42
-  %118 = add nuw nsw i64 %117, 4
-  %119 = mul nsw i64 %118, %39
-  %120 = add i64 %46, %119
-  %121 = getelementptr inbounds float, ptr %blurx.host, i64 %120
-  %122 = load <8 x float>, ptr %121, align 4, !tbaa !18
-  %123 = add nuw nsw i64 %117, 3
-  %124 = mul nsw i64 %123, %39
-  %125 = add i64 %46, %124
-  %126 = getelementptr inbounds float, ptr %blurx.host, i64 %125
-  %127 = load <8 x float>, ptr %126, align 4, !tbaa !18
-  %128 = fmul <8 x float> %127, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %129 = add nuw nsw i64 %117, 2
-  %130 = mul nsw i64 %129, %39
-  %131 = add i64 %46, %130
-  %132 = getelementptr inbounds float, ptr %blurx.host, i64 %131
-  %133 = load <8 x float>, ptr %132, align 4, !tbaa !18
-  %134 = fmul <8 x float> %133, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %135 = add nuw nsw i64 %117, 1
-  %136 = mul nsw i64 %135, %39
-  %137 = add i64 %46, %136
-  %138 = getelementptr inbounds float, ptr %blurx.host, i64 %137
-  %139 = load <8 x float>, ptr %138, align 4, !tbaa !18
-  %140 = fmul <8 x float> %139, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %141 = mul nsw i64 %39, %117
-  %142 = add i64 %46, %141
-  %143 = getelementptr inbounds float, ptr %blurx.host, i64 %142
-  %144 = load <8 x float>, ptr %143, align 4, !tbaa !18
-  %145 = fadd <8 x float> %144, %140
-  %146 = fadd <8 x float> %134, %145
-  %147 = fadd <8 x float> %128, %146
-  %148 = fadd <8 x float> %122, %147
-  %149 = mul nsw i64 %117, %41
-  %150 = add i64 %48, %149
-  %151 = getelementptr inbounds float, ptr %blury.host, i64 %150
-  %152 = add nsw i64 %120, %1
-  %153 = getelementptr inbounds float, ptr %blurx.host, i64 %152
-  %154 = load <8 x float>, ptr %153, align 4, !tbaa !18
-  %155 = add nsw i64 %125, %1
-  %156 = getelementptr inbounds float, ptr %blurx.host, i64 %155
-  %157 = load <8 x float>, ptr %156, align 4, !tbaa !18
-  %158 = fmul <8 x float> %157, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %159 = add nsw i64 %131, %1
-  %160 = getelementptr inbounds float, ptr %blurx.host, i64 %159
-  %161 = load <8 x float>, ptr %160, align 4, !tbaa !18
-  %162 = fmul <8 x float> %161, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
-  %163 = add nsw i64 %137, %1
-  %164 = getelementptr inbounds float, ptr %blurx.host, i64 %163
-  %165 = load <8 x float>, ptr %164, align 4, !tbaa !18
-  %166 = fmul <8 x float> %165, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
-  %167 = add nsw i64 %142, %1
-  %168 = getelementptr inbounds float, ptr %blurx.host, i64 %167
-  %169 = load <8 x float>, ptr %168, align 4, !tbaa !18
-  %170 = fadd <8 x float> %169, %166
-  %171 = fadd <8 x float> %162, %170
-  %172 = fadd <8 x float> %158, %171
-  %173 = fadd <8 x float> %154, %172
-  %174 = add nsw i64 %150, %3
-  %175 = getelementptr inbounds float, ptr %blury.host, i64 %174
+  %116 = sub nsw i64 %indvars.iv, %42
+  %117 = add nuw nsw i64 %116, 4
+  %118 = mul nsw i64 %117, %39
+  %119 = add i64 %46, %118
+  %120 = getelementptr inbounds float, ptr %blurx.host, i64 %119
+  %121 = load <8 x float>, ptr %120, align 4, !tbaa !18
+  %122 = add nuw nsw i64 %116, 3
+  %123 = mul nsw i64 %122, %39
+  %124 = add i64 %46, %123
+  %125 = getelementptr inbounds float, ptr %blurx.host, i64 %124
+  %126 = load <8 x float>, ptr %125, align 4, !tbaa !18
+  %127 = fmul <8 x float> %126, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %128 = add nuw nsw i64 %116, 2
+  %129 = mul nsw i64 %128, %39
+  %130 = add i64 %46, %129
+  %131 = getelementptr inbounds float, ptr %blurx.host, i64 %130
+  %132 = load <8 x float>, ptr %131, align 4, !tbaa !18
+  %133 = fmul <8 x float> %132, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %134 = add nuw nsw i64 %116, 1
+  %135 = mul nsw i64 %134, %39
+  %136 = add i64 %46, %135
+  %137 = getelementptr inbounds float, ptr %blurx.host, i64 %136
+  %138 = load <8 x float>, ptr %137, align 4, !tbaa !18
+  %139 = fmul <8 x float> %138, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %140 = mul nsw i64 %39, %116
+  %141 = add i64 %46, %140
+  %142 = getelementptr inbounds float, ptr %blurx.host, i64 %141
+  %143 = load <8 x float>, ptr %142, align 4, !tbaa !18
+  %144 = fadd <8 x float> %143, %139
+  %145 = fadd <8 x float> %133, %144
+  %146 = fadd <8 x float> %127, %145
+  %147 = fadd <8 x float> %121, %146
+  %148 = mul nsw i64 %116, %41
+  %149 = add i64 %48, %148
+  %150 = getelementptr inbounds float, ptr %blury.host, i64 %149
+  %151 = add nsw i64 %119, %1
+  %152 = getelementptr inbounds float, ptr %blurx.host, i64 %151
+  %153 = load <8 x float>, ptr %152, align 4, !tbaa !18
+  %154 = add nsw i64 %124, %1
+  %155 = getelementptr inbounds float, ptr %blurx.host, i64 %154
+  %156 = load <8 x float>, ptr %155, align 4, !tbaa !18
+  %157 = fmul <8 x float> %156, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %158 = add nsw i64 %130, %1
+  %159 = getelementptr inbounds float, ptr %blurx.host, i64 %158
+  %160 = load <8 x float>, ptr %159, align 4, !tbaa !18
+  %161 = fmul <8 x float> %160, <float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00, float 6.000000e+00>
+  %162 = add nsw i64 %136, %1
+  %163 = getelementptr inbounds float, ptr %blurx.host, i64 %162
+  %164 = load <8 x float>, ptr %163, align 4, !tbaa !18
+  %165 = fmul <8 x float> %164, <float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00, float 4.000000e+00>
+  %166 = add nsw i64 %141, %1
+  %167 = getelementptr inbounds float, ptr %blurx.host, i64 %166
+  %168 = load <8 x float>, ptr %167, align 4, !tbaa !18
+  %169 = fadd <8 x float> %168, %165
+  %170 = fadd <8 x float> %161, %169
+  %171 = fadd <8 x float> %157, %170
+  %172 = fadd <8 x float> %153, %171
+  %173 = add nsw i64 %149, %3
+  %174 = getelementptr inbounds float, ptr %blury.host, i64 %173
   br i1 %lcmp.mod.not, label %"for blury.s0.x.x1.prol.loopexit", label %"for blury.s0.x.x1.prol"
 
 "for blury.s0.x.x1.prol":                         ; preds = %"for blury.s0.x.x1.preheader", %"for blury.s0.x.x1.prol"
   %lsr.iv6.prol = phi i32 [ %lsr.iv.next7.prol, %"for blury.s0.x.x1.prol" ], [ %34, %"for blury.s0.x.x1.preheader" ]
   %prol.iter = phi i32 [ %prol.iter.next, %"for blury.s0.x.x1.prol" ], [ 0, %"for blury.s0.x.x1.preheader" ]
-  store <8 x float> %148, ptr %151, align 4, !tbaa !21
-  store <8 x float> %173, ptr %175, align 4, !tbaa !21
+  store <8 x float> %147, ptr %150, align 4, !tbaa !21
+  store <8 x float> %172, ptr %174, align 4, !tbaa !21
   %lsr.iv.next7.prol = add i32 %lsr.iv6.prol, -1
   %prol.iter.next = add i32 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
@@ -2869,26 +2866,26 @@ entry:
 
 "for blury.s0.x.x1.prol.loopexit":                ; preds = %"for blury.s0.x.x1.prol", %"for blury.s0.x.x1.preheader"
   %lsr.iv6.unr = phi i32 [ %34, %"for blury.s0.x.x1.preheader" ], [ %lsr.iv.next7.prol, %"for blury.s0.x.x1.prol" ]
-  br i1 %51, label %"end for blury.s0.x.x2", label %"for blury.s0.x.x1"
+  br i1 %50, label %"end for blury.s0.x.x2", label %"for blury.s0.x.x1"
 
 "for blury.s0.x.x1":                              ; preds = %"for blury.s0.x.x1.prol.loopexit", %"for blury.s0.x.x1"
   %lsr.iv6 = phi i32 [ %lsr.iv.next7.3, %"for blury.s0.x.x1" ], [ %lsr.iv6.unr, %"for blury.s0.x.x1.prol.loopexit" ]
-  store <8 x float> %148, ptr %151, align 4, !tbaa !21
-  store <8 x float> %173, ptr %175, align 4, !tbaa !21
-  store <8 x float> %148, ptr %151, align 4, !tbaa !21
-  store <8 x float> %173, ptr %175, align 4, !tbaa !21
-  store <8 x float> %148, ptr %151, align 4, !tbaa !21
-  store <8 x float> %173, ptr %175, align 4, !tbaa !21
-  store <8 x float> %148, ptr %151, align 4, !tbaa !21
-  store <8 x float> %173, ptr %175, align 4, !tbaa !21
+  store <8 x float> %147, ptr %150, align 4, !tbaa !21
+  store <8 x float> %172, ptr %174, align 4, !tbaa !21
+  store <8 x float> %147, ptr %150, align 4, !tbaa !21
+  store <8 x float> %172, ptr %174, align 4, !tbaa !21
+  store <8 x float> %147, ptr %150, align 4, !tbaa !21
+  store <8 x float> %172, ptr %174, align 4, !tbaa !21
+  store <8 x float> %147, ptr %150, align 4, !tbaa !21
+  store <8 x float> %172, ptr %174, align 4, !tbaa !21
   %lsr.iv.next7.3 = add i32 %lsr.iv6, -4
   %.not4.3 = icmp eq i32 %lsr.iv.next7.3, 0
   br i1 %.not4.3, label %"end for blury.s0.x.x2", label %"for blury.s0.x.x1"
 
 "end for blury.s0.x.x2":                          ; preds = %"for blury.s0.x.x1.prol.loopexit", %"for blury.s0.x.x1", %"end for blury.s0.x.x"
-  %indvars.iv.next11 = add nsw i64 %indvars.iv10, 1
-  %176 = icmp eq i64 %indvars.iv.next11, %sext
-  br i1 %176, label %destructor_block, label %"for blury.s0.y"
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
+  %175 = icmp eq i64 %indvars.iv.next, %sext
+  br i1 %175, label %destructor_block, label %"for blury.s0.y"
 
 destructor_block:                                 ; preds = %"end for blury.s0.x.x2", %entry
   ret i32 0
@@ -2938,8 +2935,8 @@ entry:
   %a164 = lshr i32 %bilateral_grid.extent.0, 3
   %22 = icmp sgt i32 %bilateral_grid.extent.0, 7
   %23 = select i1 %22, i32 %a164, i32 0
-  %.not2 = icmp eq i32 %23, 0
-  br i1 %.not2, label %"end for bilateral_grid.s0.x.x", label %"for bilateral_grid.s0.x.x.preheader", !prof !4
+  %.not = icmp eq i32 %23, 0
+  br i1 %.not, label %"end for bilateral_grid.s0.x.x", label %"for bilateral_grid.s0.x.x.preheader", !prof !4
 
 "for bilateral_grid.s0.x.x.preheader":            ; preds = %entry
   %24 = sext i32 %bilateral_grid.s0.y to i64
@@ -3741,11 +3738,11 @@ entry:
   %783 = shufflevector <8 x float> %782, <8 x float> undef, <8 x i32> zeroinitializer
   %784 = sext i32 %bilateral_grid.s0.y to i64
   %785 = add nsw i64 %2, %0
-  %reass.add10 = sub nsw i64 %784, %15
-  %reass.mul11 = mul nsw i64 %reass.add10, %17
+  %reass.add9 = sub nsw i64 %784, %15
+  %reass.mul10 = mul nsw i64 %reass.add9, %17
   %786 = add nsw i64 %785, -8
   %787 = sub nsw i64 %786, %13
-  %788 = add i64 %787, %reass.mul11
+  %788 = add i64 %787, %reass.mul10
   %789 = getelementptr inbounds float, ptr %input.host, i64 %788
   %a170 = load <8 x float>, ptr %789, align 4, !tbaa !12
   %790 = fcmp olt <8 x float> %a170, <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>
@@ -4509,10 +4506,10 @@ entry:
   %1531 = fmul <8 x float> %1008, %1530
   %1532 = fadd <8 x float> %1357, %1531
   %1533 = fdiv <8 x float> %1532, %1183
-  %reass.add12 = sub nsw i64 %784, %4
-  %reass.mul13 = mul nsw i64 %reass.add12, %6
+  %reass.add11 = sub nsw i64 %784, %4
+  %reass.mul12 = mul nsw i64 %reass.add11, %6
   %1534 = add nsw i64 %0, -8
-  %1535 = add i64 %1534, %reass.mul13
+  %1535 = add i64 %1534, %reass.mul12
   %1536 = getelementptr inbounds float, ptr %bilateral_grid.host, i64 %1535
   store <8 x float> %1533, ptr %1536, align 4, !tbaa !24
   br label %destructor_block
@@ -4568,13 +4565,7 @@ entry:
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #5
@@ -4582,8 +4573,14 @@ declare i64 @llvm.smin.i64(i64, i64) #5
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #5
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #5
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #5
 
 attributes #0 = { "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) }

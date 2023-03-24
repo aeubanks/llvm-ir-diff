@@ -409,7 +409,7 @@ define dso_local void @_ZN15btCompoundShape13addChildShapeERK11btTransformP16btC
   br label %76
 
 76:                                               ; preds = %69, %65
-  %77 = phi ptr [ undef, %65 ], [ %75, %69 ]
+  %77 = phi ptr [ %75, %69 ], [ undef, %65 ]
   %78 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 2
   %79 = load i32, ptr %78, align 4, !tbaa !18
   %80 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 3
@@ -903,10 +903,10 @@ define dso_local void @_ZNK15btCompoundShape7getAabbERK11btTransformR9btVector3S
   br label %27
 
 27:                                               ; preds = %26, %4
-  %28 = phi <2 x float> [ zeroinitializer, %26 ], [ %20, %4 ]
-  %29 = phi <2 x float> [ zeroinitializer, %26 ], [ %22, %4 ]
-  %30 = phi <2 x float> [ zeroinitializer, %26 ], [ %18, %4 ]
-  %31 = phi <2 x float> [ zeroinitializer, %26 ], [ %13, %4 ]
+  %28 = phi <2 x float> [ %20, %4 ], [ zeroinitializer, %26 ]
+  %29 = phi <2 x float> [ %22, %4 ], [ zeroinitializer, %26 ]
+  %30 = phi <2 x float> [ %18, %4 ], [ zeroinitializer, %26 ]
+  %31 = phi <2 x float> [ %13, %4 ], [ zeroinitializer, %26 ]
   %32 = load ptr, ptr %0, align 8, !tbaa !11
   %33 = getelementptr inbounds ptr, ptr %32, i64 11
   %34 = load ptr, ptr %33, align 8

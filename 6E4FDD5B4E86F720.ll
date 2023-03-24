@@ -588,43 +588,43 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %376 = icmp eq i32 %375, 100
   br i1 %376, label %377, label %261, !llvm.loop !27
 
-377:                                              ; preds = %374, %402
-  %378 = phi i64 [ %403, %402 ], [ 0, %374 ]
+377:                                              ; preds = %374, %395
+  %378 = phi i64 [ %396, %395 ], [ 0, %374 ]
   %379 = getelementptr inbounds double, ptr %7, i64 %378
   %380 = load double, ptr %379, align 8, !tbaa !5
   %381 = getelementptr inbounds double, ptr %17, i64 %378
   %382 = load double, ptr %381, align 8, !tbaa !5
   %383 = fsub double %380, %382
   %384 = call double @llvm.fabs.f64(double %383)
-  %385 = fcmp ule double %384, 1.000000e-05
-  br i1 %385, label %393, label %386
+  %385 = fcmp ogt double %384, 1.000000e-05
+  br i1 %385, label %398, label %386
 
-386:                                              ; preds = %393, %377
-  %387 = phi i64 [ %378, %377 ], [ %394, %393 ]
-  %388 = phi double [ %380, %377 ], [ %396, %393 ]
-  %389 = phi double [ %382, %377 ], [ %398, %393 ]
-  %390 = trunc i64 %387 to i32
-  %391 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %392 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %391, ptr noundef nonnull @.str.2, i32 noundef %390, double noundef %388, i32 noundef %390, double noundef %389, double noundef 1.000000e-05) #12
+386:                                              ; preds = %377
+  %387 = or i64 %378, 1
+  %388 = getelementptr inbounds double, ptr %7, i64 %387
+  %389 = load double, ptr %388, align 8, !tbaa !5
+  %390 = getelementptr inbounds double, ptr %17, i64 %387
+  %391 = load double, ptr %390, align 8, !tbaa !5
+  %392 = fsub double %389, %391
+  %393 = call double @llvm.fabs.f64(double %392)
+  %394 = fcmp ogt double %393, 1.000000e-05
+  br i1 %394, label %398, label %395
+
+395:                                              ; preds = %386
+  %396 = add nuw nsw i64 %378, 2
+  %397 = icmp eq i64 %396, 10000
+  br i1 %397, label %405, label %377, !llvm.loop !40
+
+398:                                              ; preds = %386, %377
+  %399 = phi i64 [ %378, %377 ], [ %387, %386 ]
+  %400 = phi double [ %380, %377 ], [ %389, %386 ]
+  %401 = phi double [ %382, %377 ], [ %391, %386 ]
+  %402 = trunc i64 %399 to i32
+  %403 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %404 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %403, ptr noundef nonnull @.str.2, i32 noundef %402, double noundef %400, i32 noundef %402, double noundef %401, double noundef 1.000000e-05) #12
   br label %465
 
-393:                                              ; preds = %377
-  %394 = or i64 %378, 1
-  %395 = getelementptr inbounds double, ptr %7, i64 %394
-  %396 = load double, ptr %395, align 8, !tbaa !5
-  %397 = getelementptr inbounds double, ptr %17, i64 %394
-  %398 = load double, ptr %397, align 8, !tbaa !5
-  %399 = fsub double %396, %398
-  %400 = call double @llvm.fabs.f64(double %399)
-  %401 = fcmp ule double %400, 1.000000e-05
-  br i1 %401, label %402, label %386
-
-402:                                              ; preds = %393
-  %403 = add nuw nsw i64 %378, 2
-  %404 = icmp eq i64 %403, 10000
-  br i1 %404, label %405, label %377, !llvm.loop !40
-
-405:                                              ; preds = %402
+405:                                              ; preds = %395
   %406 = call noalias dereferenceable_or_null(160001) ptr @malloc(i64 noundef 160001) #14
   %407 = getelementptr inbounds i8, ptr %406, i64 160000
   store i8 0, ptr %407, align 1, !tbaa !41
@@ -634,7 +634,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %409 = phi i64 [ 0, %405 ], [ %460, %408 ]
   %410 = getelementptr inbounds double, ptr %17, i64 %409
   %411 = load i64, ptr %410, align 8, !tbaa !5
-  %412 = shl nuw nsw i64 %409, 4
+  %412 = shl nsw i64 %409, 4
   %413 = trunc i64 %411 to i8
   %414 = and i8 %413, 15
   %415 = or i8 %414, 48
@@ -710,8 +710,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   call void @free(ptr noundef %27) #11
   br label %465
 
-465:                                              ; preds = %386, %462
-  %466 = phi i32 [ 0, %462 ], [ 1, %386 ]
+465:                                              ; preds = %462, %398
+  %466 = phi i32 [ 0, %462 ], [ 1, %398 ]
   ret i32 %466
 }
 

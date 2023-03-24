@@ -768,13 +768,13 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
 
 51:                                               ; preds = %42, %250
   %52 = phi i32 [ %251, %250 ], [ %43, %42 ]
-  %53 = phi i32 [ %252, %250 ], [ %43, %42 ]
-  %54 = phi i32 [ %253, %250 ], [ %43, %42 ]
-  %55 = phi i32 [ %254, %250 ], [ %43, %42 ]
-  %56 = phi i32 [ %255, %250 ], [ %43, %42 ]
-  %57 = phi i32 [ %256, %250 ], [ %43, %42 ]
-  %58 = phi i32 [ %257, %250 ], [ %43, %42 ]
-  %59 = phi ptr [ %259, %250 ], [ %44, %42 ]
+  %53 = phi ptr [ %259, %250 ], [ %44, %42 ]
+  %54 = phi i32 [ %252, %250 ], [ %43, %42 ]
+  %55 = phi i32 [ %253, %250 ], [ %43, %42 ]
+  %56 = phi i32 [ %254, %250 ], [ %43, %42 ]
+  %57 = phi i32 [ %255, %250 ], [ %43, %42 ]
+  %58 = phi i32 [ %256, %250 ], [ %43, %42 ]
+  %59 = phi i32 [ %257, %250 ], [ %43, %42 ]
   %60 = phi i32 [ %258, %250 ], [ 0, %42 ]
   %61 = load ptr, ptr %26, align 8, !tbaa !22
   %62 = add nsw i32 %60, %47
@@ -845,7 +845,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   %119 = mul i32 %115, %118
   %120 = add i32 %87, 1
   %121 = add i32 %120, %114
-  %122 = add i32 %121, %53
+  %122 = add i32 %121, %54
   %123 = add i32 %122, %119
   br label %175
 
@@ -862,7 +862,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   %132 = mul i32 %129, %131
   %133 = add i32 %87, 1
   %134 = add i32 %133, %128
-  %135 = add i32 %134, %54
+  %135 = add i32 %134, %55
   %136 = add i32 %135, %132
   br label %175
 
@@ -877,7 +877,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   %143 = mul i32 %141, %142
   %144 = add i32 %87, 1
   %145 = add i32 %144, %140
-  %146 = add i32 %145, %55
+  %146 = add i32 %145, %56
   %147 = add i32 %146, %143
   br label %175
 
@@ -892,7 +892,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   %154 = mul nsw i32 %153, %111
   %155 = add i32 %87, 1
   %156 = add i32 %155, %152
-  %157 = add i32 %156, %56
+  %157 = add i32 %156, %57
   %158 = add i32 %157, %154
   br label %175
 
@@ -904,7 +904,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   %162 = add i32 %111, %106
   %163 = mul i32 %162, %99
   %164 = add i32 %163, %105
-  %165 = add i32 %164, %57
+  %165 = add i32 %164, %58
   br label %175
 
 166:                                              ; preds = %159
@@ -914,7 +914,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   br i1 %167, label %170, label %172
 
 170:                                              ; preds = %166
-  %171 = add i32 %169, %58
+  %171 = add i32 %169, %59
   br label %175
 
 172:                                              ; preds = %166
@@ -923,11 +923,11 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
   br label %175
 
 175:                                              ; preds = %112, %126, %138, %150, %161, %170, %172
-  %176 = phi i32 [ %53, %112 ], [ %54, %126 ], [ %54, %138 ], [ %54, %150 ], [ %54, %161 ], [ %54, %170 ], [ %54, %172 ]
-  %177 = phi i32 [ %53, %112 ], [ %54, %126 ], [ %55, %138 ], [ %55, %150 ], [ %55, %161 ], [ %55, %170 ], [ %55, %172 ]
-  %178 = phi i32 [ %53, %112 ], [ %54, %126 ], [ %55, %138 ], [ %56, %150 ], [ %56, %161 ], [ %56, %170 ], [ %56, %172 ]
-  %179 = phi i32 [ %53, %112 ], [ %54, %126 ], [ %55, %138 ], [ %56, %150 ], [ %57, %161 ], [ %57, %170 ], [ %57, %172 ]
-  %180 = phi i32 [ %53, %112 ], [ %54, %126 ], [ %55, %138 ], [ %56, %150 ], [ %57, %161 ], [ %58, %170 ], [ %58, %172 ]
+  %176 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %55, %138 ], [ %55, %150 ], [ %55, %161 ], [ %55, %170 ], [ %55, %172 ]
+  %177 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %56, %150 ], [ %56, %161 ], [ %56, %170 ], [ %56, %172 ]
+  %178 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %57, %150 ], [ %57, %161 ], [ %57, %170 ], [ %57, %172 ]
+  %179 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %57, %150 ], [ %58, %161 ], [ %58, %170 ], [ %58, %172 ]
+  %180 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %57, %150 ], [ %58, %161 ], [ %59, %170 ], [ %59, %172 ]
   %181 = phi i32 [ %123, %112 ], [ %136, %126 ], [ %147, %138 ], [ %158, %150 ], [ %165, %161 ], [ %171, %170 ], [ %174, %172 ]
   %182 = zext i32 %181 to i64
   %183 = icmp eq i64 %45, %182
@@ -935,7 +935,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
 
 184:                                              ; preds = %175
   %185 = sext i32 %181 to i64
-  %186 = getelementptr inbounds i32, ptr %59, i64 %185
+  %186 = getelementptr inbounds i32, ptr %53, i64 %185
   %187 = load i32, ptr %186, align 4, !tbaa !9
   %188 = shl nsw i32 %181, 6
   %189 = add nsw i32 %187, %188
@@ -1026,7 +1026,7 @@ define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr no
 
 250:                                              ; preds = %245, %242, %248
   %251 = phi i32 [ %52, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %252 = phi i32 [ %53, %248 ], [ %243, %242 ], [ %243, %245 ]
+  %252 = phi i32 [ %54, %248 ], [ %243, %242 ], [ %243, %245 ]
   %253 = phi i32 [ %176, %248 ], [ %243, %242 ], [ %243, %245 ]
   %254 = phi i32 [ %177, %248 ], [ %243, %242 ], [ %243, %245 ]
   %255 = phi i32 [ %178, %248 ], [ %243, %242 ], [ %243, %245 ]

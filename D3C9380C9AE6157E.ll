@@ -370,14 +370,16 @@ define dso_local void @lua_remove(ptr noundef %0, i32 noundef %1) local_unnamed_
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 1
   %57 = load ptr, ptr %55, align 8, !tbaa !5
@@ -475,14 +477,16 @@ define dso_local void @lua_insert(ptr noundef %0, i32 noundef %1) local_unnamed_
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = icmp ugt ptr %56, %54
@@ -526,11 +530,11 @@ define dso_local void @lua_replace(ptr noundef %0, i32 noundef %1) local_unnamed
   %7 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 12
   %8 = load ptr, ptr %7, align 8, !tbaa !36
   %9 = icmp eq ptr %6, %8
-  br i1 %9, label %10, label %37
+  br i1 %9, label %10, label %63
 
 10:                                               ; preds = %4
   tail call void (ptr, ptr, ...) @luaG_runerror(ptr noundef nonnull %0, ptr noundef nonnull @.str) #14
-  br label %37
+  br label %63
 
 11:                                               ; preds = %2
   %12 = icmp sgt i32 %1, 0
@@ -546,7 +550,7 @@ define dso_local void @lua_replace(ptr noundef %0, i32 noundef %1) local_unnamed
   %20 = load ptr, ptr %19, align 8, !tbaa !5
   %21 = icmp ult ptr %18, %20
   %22 = select i1 %21, ptr %18, ptr @luaO_nilobject_
-  br label %71
+  br label %97
 
 23:                                               ; preds = %11
   %24 = icmp sgt i32 %1, -10000
@@ -557,12 +561,12 @@ define dso_local void @lua_replace(ptr noundef %0, i32 noundef %1) local_unnamed
   %27 = load ptr, ptr %26, align 8, !tbaa !5
   %28 = sext i32 %1 to i64
   %29 = getelementptr inbounds %struct.lua_TValue, ptr %27, i64 %28
-  br label %71
+  br label %97
 
 30:                                               ; preds = %23
-  switch i32 %1, label %80 [
+  switch i32 %1, label %37 [
     i32 -10000, label %31
-    i32 -10001, label %37
+    i32 -10001, label %63
     i32 -10002, label %35
   ]
 
@@ -570,103 +574,103 @@ define dso_local void @lua_replace(ptr noundef %0, i32 noundef %1) local_unnamed
   %32 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 6
   %33 = load ptr, ptr %32, align 8, !tbaa !23
   %34 = getelementptr inbounds %struct.global_State, ptr %33, i64 0, i32 20
-  br label %71
+  br label %97
 
 35:                                               ; preds = %30
   %36 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 22
-  br label %71
+  br label %97
 
-37:                                               ; preds = %4, %10, %30
+37:                                               ; preds = %30
   %38 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
   %39 = load ptr, ptr %38, align 8, !tbaa !17
   %40 = getelementptr inbounds %struct.CallInfo, ptr %39, i64 0, i32 1
   %41 = load ptr, ptr %40, align 8, !tbaa !33
   %42 = load ptr, ptr %41, align 8, !tbaa !31
-  %43 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 23
-  %44 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 6
-  %45 = load ptr, ptr %44, align 8, !tbaa !31
-  store ptr %45, ptr %43, align 8, !tbaa !31
-  %46 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 23, i32 1
-  store i32 5, ptr %46, align 8, !tbaa !14
-  %47 = load ptr, ptr %40, align 8, !tbaa !33
-  %48 = load ptr, ptr %47, align 8, !tbaa !31
-  %49 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
-  %50 = load ptr, ptr %49, align 8, !tbaa !5
-  %51 = getelementptr inbounds %struct.lua_TValue, ptr %50, i64 -1
-  %52 = load ptr, ptr %51, align 8, !tbaa !31
-  %53 = getelementptr inbounds %struct.CClosure, ptr %48, i64 0, i32 6
-  store ptr %52, ptr %53, align 8, !tbaa !31
-  %54 = load ptr, ptr %49, align 8, !tbaa !5
-  %55 = getelementptr %struct.lua_TValue, ptr %54, i64 -1, i32 1
-  %56 = load i32, ptr %55, align 8, !tbaa !14
-  %57 = icmp sgt i32 %56, 3
-  br i1 %57, label %58, label %123
+  %43 = sub nuw nsw i32 -10002, %1
+  %44 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 4
+  %45 = load i8, ptr %44, align 1, !tbaa !31
+  %46 = zext i8 %45 to i32
+  %47 = icmp ugt i32 %43, %46
+  %48 = sub nuw nsw i32 -10003, %1
+  %49 = zext i32 %48 to i64
+  %50 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 8, i64 %49
+  %51 = select i1 %47, ptr @luaO_nilobject_, ptr %50
+  %52 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
+  %53 = load ptr, ptr %52, align 8, !tbaa !5
+  %54 = getelementptr inbounds %struct.lua_TValue, ptr %53, i64 -1
+  %55 = load i64, ptr %54, align 8
+  store i64 %55, ptr %51, align 8
+  %56 = getelementptr %struct.lua_TValue, ptr %53, i64 -1, i32 1
+  %57 = load i32, ptr %56, align 8, !tbaa !14
+  %58 = getelementptr inbounds %struct.lua_TValue, ptr %51, i64 0, i32 1
+  store i32 %57, ptr %58, align 8, !tbaa !14
+  %59 = load ptr, ptr %52, align 8, !tbaa !5
+  %60 = getelementptr %struct.lua_TValue, ptr %59, i64 -1, i32 1
+  %61 = load i32, ptr %60, align 8, !tbaa !14
+  %62 = icmp sgt i32 %61, 3
+  br i1 %62, label %106, label %123
 
-58:                                               ; preds = %37
-  %59 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 -1
-  %60 = load ptr, ptr %59, align 8, !tbaa !31
-  %61 = getelementptr inbounds %struct.GCheader, ptr %60, i64 0, i32 2
-  %62 = load i8, ptr %61, align 1, !tbaa !31
-  %63 = and i8 %62, 3
-  %64 = icmp eq i8 %63, 0
-  br i1 %64, label %123, label %65
+63:                                               ; preds = %4, %10, %30
+  %64 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
+  %65 = load ptr, ptr %64, align 8, !tbaa !17
+  %66 = getelementptr inbounds %struct.CallInfo, ptr %65, i64 0, i32 1
+  %67 = load ptr, ptr %66, align 8, !tbaa !33
+  %68 = load ptr, ptr %67, align 8, !tbaa !31
+  %69 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 23
+  %70 = getelementptr inbounds %struct.CClosure, ptr %68, i64 0, i32 6
+  %71 = load ptr, ptr %70, align 8, !tbaa !31
+  store ptr %71, ptr %69, align 8, !tbaa !31
+  %72 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 23, i32 1
+  store i32 5, ptr %72, align 8, !tbaa !14
+  %73 = load ptr, ptr %66, align 8, !tbaa !33
+  %74 = load ptr, ptr %73, align 8, !tbaa !31
+  %75 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
+  %76 = load ptr, ptr %75, align 8, !tbaa !5
+  %77 = getelementptr inbounds %struct.lua_TValue, ptr %76, i64 -1
+  %78 = load ptr, ptr %77, align 8, !tbaa !31
+  %79 = getelementptr inbounds %struct.CClosure, ptr %74, i64 0, i32 6
+  store ptr %78, ptr %79, align 8, !tbaa !31
+  %80 = load ptr, ptr %75, align 8, !tbaa !5
+  %81 = getelementptr %struct.lua_TValue, ptr %80, i64 -1, i32 1
+  %82 = load i32, ptr %81, align 8, !tbaa !14
+  %83 = icmp sgt i32 %82, 3
+  br i1 %83, label %84, label %123
 
-65:                                               ; preds = %58
-  %66 = getelementptr inbounds %struct.GCheader, ptr %48, i64 0, i32 2
-  %67 = load i8, ptr %66, align 1, !tbaa !31
-  %68 = and i8 %67, 4
-  %69 = icmp eq i8 %68, 0
-  br i1 %69, label %123, label %70
-
-70:                                               ; preds = %65
-  tail call void @luaC_barrierf(ptr noundef nonnull %0, ptr noundef nonnull %48, ptr noundef nonnull %60) #14
-  br label %123
-
-71:                                               ; preds = %13, %25, %31, %35
-  %72 = phi ptr [ %22, %13 ], [ %29, %25 ], [ %36, %35 ], [ %34, %31 ]
-  %73 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
-  %74 = load ptr, ptr %73, align 8, !tbaa !5
-  %75 = getelementptr inbounds %struct.lua_TValue, ptr %74, i64 -1
-  %76 = load i64, ptr %75, align 8
-  store i64 %76, ptr %72, align 8
-  %77 = getelementptr %struct.lua_TValue, ptr %74, i64 -1, i32 1
-  %78 = load i32, ptr %77, align 8, !tbaa !14
-  %79 = getelementptr inbounds %struct.lua_TValue, ptr %72, i64 0, i32 1
-  store i32 %78, ptr %79, align 8, !tbaa !14
-  br label %123
-
-80:                                               ; preds = %30
-  %81 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
-  %82 = load ptr, ptr %81, align 8, !tbaa !17
-  %83 = getelementptr inbounds %struct.CallInfo, ptr %82, i64 0, i32 1
-  %84 = load ptr, ptr %83, align 8, !tbaa !33
-  %85 = load ptr, ptr %84, align 8, !tbaa !31
-  %86 = sub nuw nsw i32 -10002, %1
-  %87 = getelementptr inbounds %struct.CClosure, ptr %85, i64 0, i32 4
+84:                                               ; preds = %63
+  %85 = getelementptr inbounds %struct.lua_TValue, ptr %80, i64 -1
+  %86 = load ptr, ptr %85, align 8, !tbaa !31
+  %87 = getelementptr inbounds %struct.GCheader, ptr %86, i64 0, i32 2
   %88 = load i8, ptr %87, align 1, !tbaa !31
-  %89 = zext i8 %88 to i32
-  %90 = icmp ugt i32 %86, %89
-  %91 = sub nuw nsw i32 -10003, %1
-  %92 = zext i32 %91 to i64
-  %93 = getelementptr inbounds %struct.CClosure, ptr %85, i64 0, i32 8, i64 %92
-  %94 = select i1 %90, ptr @luaO_nilobject_, ptr %93
-  %95 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
-  %96 = load ptr, ptr %95, align 8, !tbaa !5
-  %97 = getelementptr inbounds %struct.lua_TValue, ptr %96, i64 -1
-  %98 = load i64, ptr %97, align 8
-  store i64 %98, ptr %94, align 8
-  %99 = getelementptr %struct.lua_TValue, ptr %96, i64 -1, i32 1
-  %100 = load i32, ptr %99, align 8, !tbaa !14
-  %101 = getelementptr inbounds %struct.lua_TValue, ptr %94, i64 0, i32 1
-  store i32 %100, ptr %101, align 8, !tbaa !14
-  %102 = load ptr, ptr %95, align 8, !tbaa !5
-  %103 = getelementptr %struct.lua_TValue, ptr %102, i64 -1, i32 1
-  %104 = load i32, ptr %103, align 8, !tbaa !14
-  %105 = icmp sgt i32 %104, 3
-  br i1 %105, label %106, label %123
+  %89 = and i8 %88, 3
+  %90 = icmp eq i8 %89, 0
+  br i1 %90, label %123, label %91
 
-106:                                              ; preds = %80
-  %107 = getelementptr inbounds %struct.lua_TValue, ptr %102, i64 -1
+91:                                               ; preds = %84
+  %92 = getelementptr inbounds %struct.GCheader, ptr %74, i64 0, i32 2
+  %93 = load i8, ptr %92, align 1, !tbaa !31
+  %94 = and i8 %93, 4
+  %95 = icmp eq i8 %94, 0
+  br i1 %95, label %123, label %96
+
+96:                                               ; preds = %91
+  tail call void @luaC_barrierf(ptr noundef nonnull %0, ptr noundef nonnull %74, ptr noundef nonnull %86) #14
+  br label %123
+
+97:                                               ; preds = %13, %25, %31, %35
+  %98 = phi ptr [ %29, %25 ], [ %36, %35 ], [ %34, %31 ], [ %22, %13 ]
+  %99 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
+  %100 = load ptr, ptr %99, align 8, !tbaa !5
+  %101 = getelementptr inbounds %struct.lua_TValue, ptr %100, i64 -1
+  %102 = load i64, ptr %101, align 8
+  store i64 %102, ptr %98, align 8
+  %103 = getelementptr %struct.lua_TValue, ptr %100, i64 -1, i32 1
+  %104 = load i32, ptr %103, align 8, !tbaa !14
+  %105 = getelementptr inbounds %struct.lua_TValue, ptr %98, i64 0, i32 1
+  store i32 %104, ptr %105, align 8, !tbaa !14
+  br label %123
+
+106:                                              ; preds = %37
+  %107 = getelementptr inbounds %struct.lua_TValue, ptr %59, i64 -1
   %108 = load ptr, ptr %107, align 8, !tbaa !31
   %109 = getelementptr inbounds %struct.GCheader, ptr %108, i64 0, i32 2
   %110 = load i8, ptr %109, align 1, !tbaa !31
@@ -675,7 +679,7 @@ define dso_local void @lua_replace(ptr noundef %0, i32 noundef %1) local_unnamed
   br i1 %112, label %123, label %113
 
 113:                                              ; preds = %106
-  %114 = load ptr, ptr %81, align 8, !tbaa !17
+  %114 = load ptr, ptr %38, align 8, !tbaa !17
   %115 = getelementptr inbounds %struct.CallInfo, ptr %114, i64 0, i32 1
   %116 = load ptr, ptr %115, align 8, !tbaa !33
   %117 = load ptr, ptr %116, align 8, !tbaa !31
@@ -689,7 +693,7 @@ define dso_local void @lua_replace(ptr noundef %0, i32 noundef %1) local_unnamed
   tail call void @luaC_barrierf(ptr noundef nonnull %0, ptr noundef nonnull %117, ptr noundef nonnull %108) #14
   br label %123
 
-123:                                              ; preds = %71, %37, %58, %65, %70, %122, %113, %106, %80
+123:                                              ; preds = %97, %63, %84, %91, %96, %122, %113, %106, %37
   %124 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %125 = load ptr, ptr %124, align 8, !tbaa !5
   %126 = getelementptr inbounds %struct.lua_TValue, ptr %125, i64 -1
@@ -771,14 +775,16 @@ define dso_local void @lua_pushvalue(ptr nocapture noundef %0, i32 noundef %1) l
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = load i64, ptr %54, align 8
@@ -807,7 +813,7 @@ define dso_local i32 @lua_type(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %10 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %11 = load ptr, ptr %10, align 8, !tbaa !5
   %12 = icmp ult ptr %9, %11
-  br i1 %12, label %51, label %57
+  br i1 %12, label %52, label %58
 
 13:                                               ; preds = %2
   %14 = icmp sgt i32 %1, -10000
@@ -818,7 +824,7 @@ define dso_local i32 @lua_type(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %17 = load ptr, ptr %16, align 8, !tbaa !5
   %18 = sext i32 %1 to i64
   %19 = getelementptr inbounds %struct.lua_TValue, ptr %17, i64 %18
-  br label %51
+  br label %52
 
 20:                                               ; preds = %13
   switch i32 %1, label %37 [
@@ -831,7 +837,7 @@ define dso_local i32 @lua_type(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %22 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 6
   %23 = load ptr, ptr %22, align 8, !tbaa !23
   %24 = getelementptr inbounds %struct.global_State, ptr %23, i64 0, i32 20
-  br label %51
+  br label %52
 
 25:                                               ; preds = %20
   %26 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
@@ -845,11 +851,11 @@ define dso_local i32 @lua_type(ptr noundef %0, i32 noundef %1) local_unnamed_add
   store ptr %33, ptr %31, align 8, !tbaa !31
   %34 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 23, i32 1
   store i32 5, ptr %34, align 8, !tbaa !14
-  br label %51
+  br label %52
 
 35:                                               ; preds = %20
   %36 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 22
-  br label %51
+  br label %52
 
 37:                                               ; preds = %20
   %38 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
@@ -862,24 +868,27 @@ define dso_local i32 @lua_type(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %45 = load i8, ptr %44, align 1, !tbaa !31
   %46 = zext i8 %45 to i32
   %47 = icmp ugt i32 %43, %46
-  %48 = sub nuw nsw i32 -10003, %1
-  %49 = zext i32 %48 to i64
-  %50 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 8, i64 %49
-  br i1 %47, label %57, label %51
+  br i1 %47, label %58, label %48
 
-51:                                               ; preds = %4, %37, %15, %21, %25, %35
-  %52 = phi ptr [ %19, %15 ], [ %50, %37 ], [ %36, %35 ], [ %31, %25 ], [ %24, %21 ], [ %9, %4 ]
-  %53 = icmp eq ptr %52, @luaO_nilobject_
-  br i1 %53, label %57, label %54
+48:                                               ; preds = %37
+  %49 = sub nuw nsw i32 -10003, %1
+  %50 = zext i32 %49 to i64
+  %51 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 8, i64 %50
+  br label %52
 
-54:                                               ; preds = %51
-  %55 = getelementptr inbounds %struct.lua_TValue, ptr %52, i64 0, i32 1
-  %56 = load i32, ptr %55, align 8, !tbaa !14
-  br label %57
+52:                                               ; preds = %4, %15, %21, %25, %35, %48
+  %53 = phi ptr [ %19, %15 ], [ %36, %35 ], [ %31, %25 ], [ %24, %21 ], [ %51, %48 ], [ %9, %4 ]
+  %54 = icmp eq ptr %53, @luaO_nilobject_
+  br i1 %54, label %58, label %55
 
-57:                                               ; preds = %37, %4, %51, %54
-  %58 = phi i32 [ %56, %54 ], [ -1, %51 ], [ -1, %4 ], [ -1, %37 ]
-  ret i32 %58
+55:                                               ; preds = %52
+  %56 = getelementptr inbounds %struct.lua_TValue, ptr %53, i64 0, i32 1
+  %57 = load i32, ptr %56, align 8, !tbaa !14
+  br label %58
+
+58:                                               ; preds = %4, %37, %52, %55
+  %59 = phi i32 [ %57, %55 ], [ -1, %52 ], [ -1, %37 ], [ -1, %4 ]
+  ret i32 %59
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
@@ -968,14 +977,16 @@ define dso_local i32 @lua_iscfunction(ptr nocapture noundef %0, i32 noundef %1) 
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   %57 = icmp eq i32 %56, 6
@@ -1066,14 +1077,16 @@ define dso_local i32 @lua_isnumber(ptr noundef %0, i32 noundef %1) local_unnamed
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %55, i64 0, i32 1
   %57 = load i32, ptr %56, align 8, !tbaa !14
   %58 = icmp eq i32 %57, 3
@@ -1107,7 +1120,7 @@ define dso_local i32 @lua_isstring(ptr noundef %0, i32 noundef %1) local_unnamed
   %10 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %11 = load ptr, ptr %10, align 8, !tbaa !5
   %12 = icmp ult ptr %9, %11
-  br i1 %12, label %51, label %60
+  br i1 %12, label %52, label %61
 
 13:                                               ; preds = %2
   %14 = icmp sgt i32 %1, -10000
@@ -1118,7 +1131,7 @@ define dso_local i32 @lua_isstring(ptr noundef %0, i32 noundef %1) local_unnamed
   %17 = load ptr, ptr %16, align 8, !tbaa !5
   %18 = sext i32 %1 to i64
   %19 = getelementptr inbounds %struct.lua_TValue, ptr %17, i64 %18
-  br label %51
+  br label %52
 
 20:                                               ; preds = %13
   switch i32 %1, label %37 [
@@ -1131,7 +1144,7 @@ define dso_local i32 @lua_isstring(ptr noundef %0, i32 noundef %1) local_unnamed
   %22 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 6
   %23 = load ptr, ptr %22, align 8, !tbaa !23
   %24 = getelementptr inbounds %struct.global_State, ptr %23, i64 0, i32 20
-  br label %51
+  br label %52
 
 25:                                               ; preds = %20
   %26 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
@@ -1145,11 +1158,11 @@ define dso_local i32 @lua_isstring(ptr noundef %0, i32 noundef %1) local_unnamed
   store ptr %33, ptr %31, align 8, !tbaa !31
   %34 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 23, i32 1
   store i32 5, ptr %34, align 8, !tbaa !14
-  br label %51
+  br label %52
 
 35:                                               ; preds = %20
   %36 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 22
-  br label %51
+  br label %52
 
 37:                                               ; preds = %20
   %38 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 7
@@ -1162,27 +1175,30 @@ define dso_local i32 @lua_isstring(ptr noundef %0, i32 noundef %1) local_unnamed
   %45 = load i8, ptr %44, align 1, !tbaa !31
   %46 = zext i8 %45 to i32
   %47 = icmp ugt i32 %43, %46
-  %48 = sub nuw nsw i32 -10003, %1
-  %49 = zext i32 %48 to i64
-  %50 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 8, i64 %49
-  br i1 %47, label %60, label %51
+  br i1 %47, label %61, label %48
 
-51:                                               ; preds = %37, %35, %25, %21, %15, %4
-  %52 = phi ptr [ %19, %15 ], [ %50, %37 ], [ %36, %35 ], [ %31, %25 ], [ %24, %21 ], [ %9, %4 ]
-  %53 = icmp eq ptr %52, @luaO_nilobject_
-  br i1 %53, label %60, label %54
+48:                                               ; preds = %37
+  %49 = sub nuw nsw i32 -10003, %1
+  %50 = zext i32 %49 to i64
+  %51 = getelementptr inbounds %struct.CClosure, ptr %42, i64 0, i32 8, i64 %50
+  br label %52
 
-54:                                               ; preds = %51
-  %55 = getelementptr inbounds %struct.lua_TValue, ptr %52, i64 0, i32 1
-  %56 = load i32, ptr %55, align 8, !tbaa !14
-  %57 = add i32 %56, -3
-  %58 = icmp ult i32 %57, 2
-  %59 = zext i1 %58 to i32
-  br label %60
+52:                                               ; preds = %48, %35, %25, %21, %15, %4
+  %53 = phi ptr [ %19, %15 ], [ %36, %35 ], [ %31, %25 ], [ %24, %21 ], [ %51, %48 ], [ %9, %4 ]
+  %54 = icmp eq ptr %53, @luaO_nilobject_
+  br i1 %54, label %61, label %55
 
-60:                                               ; preds = %4, %37, %51, %54
-  %61 = phi i32 [ %59, %54 ], [ 0, %51 ], [ 0, %4 ], [ 0, %37 ]
-  ret i32 %61
+55:                                               ; preds = %52
+  %56 = getelementptr inbounds %struct.lua_TValue, ptr %53, i64 0, i32 1
+  %57 = load i32, ptr %56, align 8, !tbaa !14
+  %58 = add i32 %57, -3
+  %59 = icmp ult i32 %58, 2
+  %60 = zext i1 %59 to i32
+  br label %61
+
+61:                                               ; preds = %4, %37, %52, %55
+  %62 = phi i32 [ %60, %55 ], [ 0, %52 ], [ 0, %37 ], [ 0, %4 ]
+  ret i32 %62
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
@@ -1255,14 +1271,16 @@ define dso_local i32 @lua_isuserdata(ptr nocapture noundef %0, i32 noundef %1) l
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   %57 = icmp eq i32 %56, 7
@@ -1342,14 +1360,16 @@ define dso_local i32 @lua_rawequal(ptr noundef %0, i32 noundef %1, i32 noundef %
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = icmp sgt i32 %2, 0
   br i1 %56, label %57, label %67
 
@@ -1418,14 +1438,16 @@ define dso_local i32 @lua_rawequal(ptr noundef %0, i32 noundef %1, i32 noundef %
   %99 = load i8, ptr %98, align 1, !tbaa !31
   %100 = zext i8 %99 to i32
   %101 = icmp ugt i32 %97, %100
-  %102 = sub nuw nsw i32 -10003, %2
-  %103 = zext i32 %102 to i64
-  %104 = getelementptr inbounds %struct.CClosure, ptr %96, i64 0, i32 8, i64 %103
-  %105 = select i1 %101, ptr @luaO_nilobject_, ptr %104
+  br i1 %101, label %113, label %102
+
+102:                                              ; preds = %91
+  %103 = sub nuw nsw i32 -10003, %2
+  %104 = zext i32 %103 to i64
+  %105 = getelementptr inbounds %struct.CClosure, ptr %96, i64 0, i32 8, i64 %104
   br label %106
 
-106:                                              ; preds = %57, %69, %75, %79, %89, %91
-  %107 = phi ptr [ %66, %57 ], [ %73, %69 ], [ %105, %91 ], [ %90, %89 ], [ %85, %79 ], [ %78, %75 ]
+106:                                              ; preds = %57, %69, %75, %79, %89, %102
+  %107 = phi ptr [ %73, %69 ], [ %90, %89 ], [ %85, %79 ], [ %78, %75 ], [ %105, %102 ], [ %66, %57 ]
   %108 = icmp eq ptr %55, @luaO_nilobject_
   %109 = icmp eq ptr %107, @luaO_nilobject_
   %110 = select i1 %108, i1 true, i1 %109
@@ -1435,8 +1457,8 @@ define dso_local i32 @lua_rawequal(ptr noundef %0, i32 noundef %1, i32 noundef %
   %112 = tail call i32 @luaO_rawequalObj(ptr noundef %55, ptr noundef %107) #14
   br label %113
 
-113:                                              ; preds = %106, %111
-  %114 = phi i32 [ %112, %111 ], [ 0, %106 ]
+113:                                              ; preds = %91, %106, %111
+  %114 = phi i32 [ %112, %111 ], [ 0, %106 ], [ 0, %91 ]
   ret i32 %114
 }
 
@@ -1512,14 +1534,16 @@ define dso_local i32 @lua_equal(ptr noundef %0, i32 noundef %1, i32 noundef %2) 
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = icmp sgt i32 %2, 0
   br i1 %56, label %57, label %67
 
@@ -1588,14 +1612,16 @@ define dso_local i32 @lua_equal(ptr noundef %0, i32 noundef %1, i32 noundef %2) 
   %99 = load i8, ptr %98, align 1, !tbaa !31
   %100 = zext i8 %99 to i32
   %101 = icmp ugt i32 %97, %100
-  %102 = sub nuw nsw i32 -10003, %2
-  %103 = zext i32 %102 to i64
-  %104 = getelementptr inbounds %struct.CClosure, ptr %96, i64 0, i32 8, i64 %103
-  %105 = select i1 %101, ptr @luaO_nilobject_, ptr %104
+  br i1 %101, label %121, label %102
+
+102:                                              ; preds = %91
+  %103 = sub nuw nsw i32 -10003, %2
+  %104 = zext i32 %103 to i64
+  %105 = getelementptr inbounds %struct.CClosure, ptr %96, i64 0, i32 8, i64 %104
   br label %106
 
-106:                                              ; preds = %57, %69, %75, %79, %89, %91
-  %107 = phi ptr [ %66, %57 ], [ %73, %69 ], [ %105, %91 ], [ %90, %89 ], [ %85, %79 ], [ %78, %75 ]
+106:                                              ; preds = %57, %69, %75, %79, %89, %102
+  %107 = phi ptr [ %73, %69 ], [ %90, %89 ], [ %85, %79 ], [ %78, %75 ], [ %105, %102 ], [ %66, %57 ]
   %108 = icmp eq ptr %55, @luaO_nilobject_
   %109 = icmp eq ptr %107, @luaO_nilobject_
   %110 = select i1 %108, i1 true, i1 %109
@@ -1615,8 +1641,8 @@ define dso_local i32 @lua_equal(ptr noundef %0, i32 noundef %1, i32 noundef %2) 
   %120 = zext i1 %119 to i32
   br label %121
 
-121:                                              ; preds = %111, %117, %106
-  %122 = phi i32 [ 0, %106 ], [ 0, %111 ], [ %120, %117 ]
+121:                                              ; preds = %111, %117, %91, %106
+  %122 = phi i32 [ 0, %106 ], [ 0, %91 ], [ 0, %111 ], [ %120, %117 ]
   ret i32 %122
 }
 
@@ -1692,14 +1718,16 @@ define dso_local i32 @lua_lessthan(ptr noundef %0, i32 noundef %1, i32 noundef %
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = icmp sgt i32 %2, 0
   br i1 %56, label %57, label %67
 
@@ -1768,14 +1796,16 @@ define dso_local i32 @lua_lessthan(ptr noundef %0, i32 noundef %1, i32 noundef %
   %99 = load i8, ptr %98, align 1, !tbaa !31
   %100 = zext i8 %99 to i32
   %101 = icmp ugt i32 %97, %100
-  %102 = sub nuw nsw i32 -10003, %2
-  %103 = zext i32 %102 to i64
-  %104 = getelementptr inbounds %struct.CClosure, ptr %96, i64 0, i32 8, i64 %103
-  %105 = select i1 %101, ptr @luaO_nilobject_, ptr %104
+  br i1 %101, label %113, label %102
+
+102:                                              ; preds = %91
+  %103 = sub nuw nsw i32 -10003, %2
+  %104 = zext i32 %103 to i64
+  %105 = getelementptr inbounds %struct.CClosure, ptr %96, i64 0, i32 8, i64 %104
   br label %106
 
-106:                                              ; preds = %57, %69, %75, %79, %89, %91
-  %107 = phi ptr [ %66, %57 ], [ %73, %69 ], [ %105, %91 ], [ %90, %89 ], [ %85, %79 ], [ %78, %75 ]
+106:                                              ; preds = %57, %69, %75, %79, %89, %102
+  %107 = phi ptr [ %73, %69 ], [ %90, %89 ], [ %85, %79 ], [ %78, %75 ], [ %105, %102 ], [ %66, %57 ]
   %108 = icmp eq ptr %55, @luaO_nilobject_
   %109 = icmp eq ptr %107, @luaO_nilobject_
   %110 = select i1 %108, i1 true, i1 %109
@@ -1785,8 +1815,8 @@ define dso_local i32 @lua_lessthan(ptr noundef %0, i32 noundef %1, i32 noundef %
   %112 = tail call i32 @luaV_lessthan(ptr noundef %0, ptr noundef %55, ptr noundef %107) #14
   br label %113
 
-113:                                              ; preds = %106, %111
-  %114 = phi i32 [ %112, %111 ], [ 0, %106 ]
+113:                                              ; preds = %91, %106, %111
+  %114 = phi i32 [ %112, %111 ], [ 0, %106 ], [ 0, %91 ]
   ret i32 %114
 }
 
@@ -1864,14 +1894,16 @@ define dso_local double @lua_tonumber(ptr noundef %0, i32 noundef %1) local_unna
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %55, i64 0, i32 1
   %57 = load i32, ptr %56, align 8, !tbaa !14
   %58 = icmp eq i32 %57, 3
@@ -1965,14 +1997,16 @@ define dso_local i64 @lua_tointeger(ptr noundef %0, i32 noundef %1) local_unname
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %55, i64 0, i32 1
   %57 = load i32, ptr %56, align 8, !tbaa !14
   %58 = icmp eq i32 %57, 3
@@ -2065,14 +2099,16 @@ define dso_local i32 @lua_toboolean(ptr nocapture noundef %0, i32 noundef %1) lo
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %61 [
@@ -2164,14 +2200,16 @@ define dso_local ptr @lua_tolstring(ptr noundef %0, i32 noundef %1, ptr noundef 
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %55, i64 0, i32 1
   %57 = load i32, ptr %56, align 8, !tbaa !14
   %58 = icmp eq i32 %57, 4
@@ -2271,14 +2309,16 @@ define dso_local ptr @lua_tolstring(ptr noundef %0, i32 noundef %1, ptr noundef 
   %116 = load i8, ptr %115, align 1, !tbaa !31
   %117 = zext i8 %116 to i32
   %118 = icmp ugt i32 %114, %117
-  %119 = sub nuw nsw i32 -10003, %1
-  %120 = zext i32 %119 to i64
-  %121 = getelementptr inbounds %struct.CClosure, ptr %113, i64 0, i32 8, i64 %120
-  %122 = select i1 %118, ptr @luaO_nilobject_, ptr %121
+  br i1 %118, label %123, label %119
+
+119:                                              ; preds = %108
+  %120 = sub nuw nsw i32 -10003, %1
+  %121 = zext i32 %120 to i64
+  %122 = getelementptr inbounds %struct.CClosure, ptr %113, i64 0, i32 8, i64 %121
   br label %123
 
-123:                                              ; preds = %108, %106, %96, %93, %87, %75, %54
-  %124 = phi ptr [ %55, %54 ], [ %84, %75 ], [ %91, %87 ], [ %122, %108 ], [ %107, %106 ], [ %102, %96 ], [ %95, %93 ]
+123:                                              ; preds = %119, %108, %106, %96, %93, %87, %75, %54
+  %124 = phi ptr [ %55, %54 ], [ %91, %87 ], [ %107, %106 ], [ %102, %96 ], [ %95, %93 ], [ %122, %119 ], [ @luaO_nilobject_, %108 ], [ %84, %75 ]
   %125 = icmp eq ptr %2, null
   br i1 %125, label %130, label %126
 
@@ -2371,14 +2411,16 @@ define dso_local i64 @lua_objlen(ptr noundef %0, i32 noundef %1) local_unnamed_a
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %76 [
@@ -2494,14 +2536,16 @@ define dso_local ptr @lua_tocfunction(ptr nocapture noundef %0, i32 noundef %1) 
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   %57 = icmp eq i32 %56, 6
@@ -2594,14 +2638,16 @@ define dso_local ptr @lua_touserdata(ptr nocapture noundef %0, i32 noundef %1) l
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %62 [
@@ -2693,14 +2739,16 @@ define dso_local ptr @lua_tothread(ptr nocapture noundef %0, i32 noundef %1) loc
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   %57 = icmp eq i32 %56, 8
@@ -2785,14 +2833,16 @@ define dso_local ptr @lua_topointer(ptr nocapture noundef %0, i32 noundef %1) lo
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %122 [
@@ -2883,14 +2933,16 @@ define dso_local ptr @lua_topointer(ptr nocapture noundef %0, i32 noundef %1) lo
   %106 = load i8, ptr %105, align 1, !tbaa !31
   %107 = zext i8 %106 to i32
   %108 = icmp ugt i32 %104, %107
-  %109 = sub nuw nsw i32 -10003, %1
-  %110 = zext i32 %109 to i64
-  %111 = getelementptr inbounds %struct.CClosure, ptr %103, i64 0, i32 8, i64 %110
-  %112 = select i1 %108, ptr @luaO_nilobject_, ptr %111
+  br i1 %108, label %113, label %109
+
+109:                                              ; preds = %98
+  %110 = sub nuw nsw i32 -10003, %1
+  %111 = zext i32 %110 to i64
+  %112 = getelementptr inbounds %struct.CClosure, ptr %103, i64 0, i32 8, i64 %111
   br label %113
 
-113:                                              ; preds = %98, %96, %86, %82, %76, %64
-  %114 = phi ptr [ %73, %64 ], [ %80, %76 ], [ %112, %98 ], [ %97, %96 ], [ %92, %86 ], [ %85, %82 ]
+113:                                              ; preds = %109, %98, %96, %86, %82, %76, %64
+  %114 = phi ptr [ %80, %76 ], [ %97, %96 ], [ %92, %86 ], [ %85, %82 ], [ %112, %109 ], [ @luaO_nilobject_, %98 ], [ %73, %64 ]
   %115 = getelementptr inbounds %struct.lua_TValue, ptr %114, i64 0, i32 1
   %116 = load i32, ptr %115, align 8, !tbaa !14
   switch i32 %116, label %122 [
@@ -2907,8 +2959,8 @@ define dso_local ptr @lua_topointer(ptr nocapture noundef %0, i32 noundef %1) lo
   %121 = load ptr, ptr %114, align 8, !tbaa !31
   br label %122
 
-122:                                              ; preds = %120, %117, %113, %53, %61, %59, %57
-  %123 = phi ptr [ %62, %61 ], [ %60, %59 ], [ %58, %57 ], [ null, %53 ], [ %121, %120 ], [ %119, %117 ], [ null, %113 ]
+122:                                              ; preds = %53, %120, %117, %113, %61, %59, %57
+  %123 = phi ptr [ %62, %61 ], [ %60, %59 ], [ %58, %57 ], [ %121, %120 ], [ %119, %117 ], [ null, %113 ], [ null, %53 ]
   ret ptr %123
 }
 
@@ -3313,14 +3365,16 @@ define dso_local void @lua_gettable(ptr noundef %0, i32 noundef %1) local_unname
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = getelementptr inbounds %struct.lua_TValue, ptr %56, i64 -1
@@ -3402,14 +3456,16 @@ define dso_local void @lua_getfield(ptr noundef %0, i32 noundef %1, ptr noundef 
   %48 = load i8, ptr %47, align 1, !tbaa !31
   %49 = zext i8 %48 to i32
   %50 = icmp ugt i32 %46, %49
-  %51 = sub nuw nsw i32 -10003, %1
-  %52 = zext i32 %51 to i64
-  %53 = getelementptr inbounds %struct.CClosure, ptr %45, i64 0, i32 8, i64 %52
-  %54 = select i1 %50, ptr @luaO_nilobject_, ptr %53
+  br i1 %50, label %55, label %51
+
+51:                                               ; preds = %40
+  %52 = sub nuw nsw i32 -10003, %1
+  %53 = zext i32 %52 to i64
+  %54 = getelementptr inbounds %struct.CClosure, ptr %45, i64 0, i32 8, i64 %53
   br label %55
 
-55:                                               ; preds = %6, %18, %24, %28, %38, %40
-  %56 = phi ptr [ %15, %6 ], [ %22, %18 ], [ %54, %40 ], [ %39, %38 ], [ %34, %28 ], [ %27, %24 ]
+55:                                               ; preds = %6, %18, %24, %28, %38, %40, %51
+  %56 = phi ptr [ %22, %18 ], [ %39, %38 ], [ %34, %28 ], [ %27, %24 ], [ %54, %51 ], [ @luaO_nilobject_, %40 ], [ %15, %6 ]
   %57 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #15
   %58 = tail call ptr @luaS_newlstr(ptr noundef %0, ptr noundef %2, i64 noundef %57) #14
   store ptr %58, ptr %4, align 8, !tbaa !31
@@ -3495,14 +3551,16 @@ define dso_local void @lua_rawget(ptr nocapture noundef %0, i32 noundef %1) loca
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = load ptr, ptr %54, align 8, !tbaa !31
   %56 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %57 = load ptr, ptr %56, align 8, !tbaa !5
@@ -3591,14 +3649,16 @@ define dso_local void @lua_rawgeti(ptr nocapture noundef %0, i32 noundef %1, i32
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = load ptr, ptr %55, align 8, !tbaa !31
   %57 = tail call ptr @luaH_getnum(ptr noundef %56, i32 noundef %2) #14
   %58 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
@@ -3717,14 +3777,16 @@ define dso_local i32 @lua_getmetatable(ptr nocapture noundef %0, i32 noundef %1)
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %63 [
@@ -3841,14 +3903,16 @@ define dso_local void @lua_getfenv(ptr nocapture noundef %0, i32 noundef %1) loc
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %77 [
@@ -3973,14 +4037,16 @@ define dso_local void @lua_settable(ptr noundef %0, i32 noundef %1) local_unname
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = getelementptr inbounds %struct.lua_TValue, ptr %56, i64 -2
@@ -4066,14 +4132,16 @@ define dso_local void @lua_setfield(ptr noundef %0, i32 noundef %1, ptr noundef 
   %48 = load i8, ptr %47, align 1, !tbaa !31
   %49 = zext i8 %48 to i32
   %50 = icmp ugt i32 %46, %49
-  %51 = sub nuw nsw i32 -10003, %1
-  %52 = zext i32 %51 to i64
-  %53 = getelementptr inbounds %struct.CClosure, ptr %45, i64 0, i32 8, i64 %52
-  %54 = select i1 %50, ptr @luaO_nilobject_, ptr %53
+  br i1 %50, label %55, label %51
+
+51:                                               ; preds = %40
+  %52 = sub nuw nsw i32 -10003, %1
+  %53 = zext i32 %52 to i64
+  %54 = getelementptr inbounds %struct.CClosure, ptr %45, i64 0, i32 8, i64 %53
   br label %55
 
-55:                                               ; preds = %6, %18, %24, %28, %38, %40
-  %56 = phi ptr [ %15, %6 ], [ %22, %18 ], [ %54, %40 ], [ %39, %38 ], [ %34, %28 ], [ %27, %24 ]
+55:                                               ; preds = %6, %18, %24, %28, %38, %40, %51
+  %56 = phi ptr [ %22, %18 ], [ %39, %38 ], [ %34, %28 ], [ %27, %24 ], [ %54, %51 ], [ @luaO_nilobject_, %40 ], [ %15, %6 ]
   %57 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #15
   %58 = tail call ptr @luaS_newlstr(ptr noundef %0, ptr noundef %2, i64 noundef %57) #14
   store ptr %58, ptr %4, align 8, !tbaa !31
@@ -4160,14 +4228,16 @@ define dso_local void @lua_rawset(ptr noundef %0, i32 noundef %1) local_unnamed_
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = getelementptr inbounds %struct.lua_TValue, ptr %56, i64 -1
@@ -4289,14 +4359,16 @@ define dso_local void @lua_rawseti(ptr noundef %0, i32 noundef %1, i32 noundef %
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %57 = load ptr, ptr %56, align 8, !tbaa !5
   %58 = getelementptr inbounds %struct.lua_TValue, ptr %57, i64 -1
@@ -4415,14 +4487,16 @@ define dso_local i32 @lua_setmetatable(ptr noundef %0, i32 noundef %1) local_unn
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = getelementptr %struct.lua_TValue, ptr %56, i64 -1, i32 1
@@ -4581,14 +4655,16 @@ define dso_local i32 @lua_setfenv(ptr noundef %0, i32 noundef %1) local_unnamed_
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = getelementptr inbounds %struct.lua_TValue, ptr %54, i64 0, i32 1
   %56 = load i32, ptr %55, align 8, !tbaa !14
   switch i32 %56, label %95 [
@@ -4773,14 +4849,16 @@ define dso_local i32 @lua_pcall(ptr noundef %0, i32 noundef %1, i32 noundef %2, 
   %55 = load i8, ptr %54, align 1, !tbaa !31
   %56 = zext i8 %55 to i32
   %57 = icmp ugt i32 %53, %56
-  %58 = sub nuw nsw i32 -10003, %3
-  %59 = zext i32 %58 to i64
-  %60 = getelementptr inbounds %struct.CClosure, ptr %52, i64 0, i32 8, i64 %59
-  %61 = select i1 %57, ptr @luaO_nilobject_, ptr %60
+  br i1 %57, label %62, label %58
+
+58:                                               ; preds = %47
+  %59 = sub nuw nsw i32 -10003, %3
+  %60 = zext i32 %59 to i64
+  %61 = getelementptr inbounds %struct.CClosure, ptr %52, i64 0, i32 8, i64 %60
   br label %62
 
-62:                                               ; preds = %13, %25, %31, %35, %45, %47
-  %63 = phi ptr [ %22, %13 ], [ %29, %25 ], [ %61, %47 ], [ %46, %45 ], [ %41, %35 ], [ %34, %31 ]
+62:                                               ; preds = %13, %25, %31, %35, %45, %47, %58
+  %63 = phi ptr [ %29, %25 ], [ %46, %45 ], [ %41, %35 ], [ %34, %31 ], [ %61, %58 ], [ @luaO_nilobject_, %47 ], [ %22, %13 ]
   %64 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 10
   %65 = load ptr, ptr %64, align 8, !tbaa !41
   %66 = ptrtoint ptr %63 to i64
@@ -5120,14 +5198,16 @@ define dso_local i32 @lua_next(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %46 = load i8, ptr %45, align 1, !tbaa !31
   %47 = zext i8 %46 to i32
   %48 = icmp ugt i32 %44, %47
-  %49 = sub nuw nsw i32 -10003, %1
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %50
-  %52 = select i1 %48, ptr @luaO_nilobject_, ptr %51
+  br i1 %48, label %53, label %49
+
+49:                                               ; preds = %38
+  %50 = sub nuw nsw i32 -10003, %1
+  %51 = zext i32 %50 to i64
+  %52 = getelementptr inbounds %struct.CClosure, ptr %43, i64 0, i32 8, i64 %51
   br label %53
 
-53:                                               ; preds = %4, %16, %22, %26, %36, %38
-  %54 = phi ptr [ %13, %4 ], [ %20, %16 ], [ %52, %38 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ]
+53:                                               ; preds = %4, %16, %22, %26, %36, %38, %49
+  %54 = phi ptr [ %20, %16 ], [ %37, %36 ], [ %32, %26 ], [ %25, %22 ], [ %52, %49 ], [ @luaO_nilobject_, %38 ], [ %13, %4 ]
   %55 = load ptr, ptr %54, align 8, !tbaa !31
   %56 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 4
   %57 = load ptr, ptr %56, align 8, !tbaa !5
@@ -5358,14 +5438,16 @@ define dso_local ptr @lua_getupvalue(ptr nocapture noundef %0, i32 noundef %1, i
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %55, i64 0, i32 1
   %57 = load i32, ptr %56, align 8, !tbaa !14
   %58 = icmp eq i32 %57, 6
@@ -5512,14 +5594,16 @@ define dso_local ptr @lua_setupvalue(ptr noundef %0, i32 noundef %1, i32 noundef
   %47 = load i8, ptr %46, align 1, !tbaa !31
   %48 = zext i8 %47 to i32
   %49 = icmp ugt i32 %45, %48
-  %50 = sub nuw nsw i32 -10003, %1
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %51
-  %53 = select i1 %49, ptr @luaO_nilobject_, ptr %52
+  br i1 %49, label %54, label %50
+
+50:                                               ; preds = %39
+  %51 = sub nuw nsw i32 -10003, %1
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.CClosure, ptr %44, i64 0, i32 8, i64 %52
   br label %54
 
-54:                                               ; preds = %5, %17, %23, %27, %37, %39
-  %55 = phi ptr [ %14, %5 ], [ %21, %17 ], [ %53, %39 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ]
+54:                                               ; preds = %5, %17, %23, %27, %37, %39, %50
+  %55 = phi ptr [ %21, %17 ], [ %38, %37 ], [ %33, %27 ], [ %26, %23 ], [ %53, %50 ], [ @luaO_nilobject_, %39 ], [ %14, %5 ]
   %56 = getelementptr inbounds %struct.lua_TValue, ptr %55, i64 0, i32 1
   %57 = load i32, ptr %56, align 8, !tbaa !14
   %58 = icmp eq i32 %57, 6

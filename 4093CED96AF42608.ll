@@ -257,10 +257,10 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
 32:                                               ; preds = %28, %1
   br label %33
 
-33:                                               ; preds = %32, %88
-  %34 = phi i64 [ %91, %88 ], [ 0, %32 ]
-  %35 = phi i32 [ %90, %88 ], [ 0, %32 ]
-  %36 = phi i32 [ %89, %88 ], [ 0, %32 ]
+33:                                               ; preds = %32, %87
+  %34 = phi i64 [ %90, %87 ], [ 0, %32 ]
+  %35 = phi i32 [ %89, %87 ], [ 0, %32 ]
+  %36 = phi i32 [ %88, %87 ], [ 0, %32 ]
   %37 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34
   %38 = load i32, ptr %37, align 16, !tbaa !21
   %39 = icmp eq i32 %38, 0
@@ -269,7 +269,7 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
 
 41:                                               ; preds = %33
   store i32 -1, ptr %40, align 4, !tbaa !20
-  br label %88
+  br label %87
 
 42:                                               ; preds = %33
   store i32 0, ptr %40, align 4, !tbaa !20
@@ -279,7 +279,7 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
 44:                                               ; preds = %42, %44
   %45 = phi i64 [ 1, %42 ], [ %48, %44 ]
   %46 = phi i32 [ 1, %42 ], [ %47, %44 ]
-  %47 = add i32 %46, 1
+  %47 = add nuw nsw i32 %46, 1
   %48 = shl nuw nsw i64 %45, 1
   %49 = icmp ugt i64 %48, %43
   br i1 %49, label %50, label %44, !llvm.loop !24
@@ -305,7 +305,7 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
   %61 = add i32 %60, -1
   %62 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 2
   store i32 %61, ptr %62, align 8, !tbaa !25
-  br label %70
+  br label %71
 
 63:                                               ; preds = %50
   %64 = trunc i64 %48 to i32
@@ -313,44 +313,43 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
   %66 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 2
   store i32 %65, ptr %66, align 8, !tbaa !25
   %67 = icmp eq i32 %35, 0
-  %68 = zext i32 %35 to i64
-  %69 = shl i64 %48, %68
-  br i1 %67, label %70, label %72
+  br i1 %67, label %71, label %68
 
-70:                                               ; preds = %59, %63
-  %71 = phi i32 [ %54, %59 ], [ %36, %63 ]
-  br label %72
+68:                                               ; preds = %63
+  %69 = zext i32 %35 to i64
+  %70 = shl i64 %48, %69
+  br label %71
 
-72:                                               ; preds = %63, %70
-  %73 = phi i64 [ 0, %70 ], [ %68, %63 ]
-  %74 = phi i32 [ 0, %70 ], [ %35, %63 ]
-  %75 = phi i32 [ %71, %70 ], [ %36, %63 ]
-  %76 = phi i64 [ %48, %70 ], [ %69, %63 ]
-  %77 = zext i32 %75 to i64
-  %78 = getelementptr inbounds [2 x i64], ptr @aqMainSign, i64 0, i64 %77
-  %79 = load i64, ptr %78, align 8, !tbaa !26
-  %80 = or i64 %79, %76
-  store i64 %80, ptr %78, align 8, !tbaa !26
-  %81 = shl i64 %43, %73
-  %82 = getelementptr inbounds [2 x i64], ptr @aqMainMask, i64 0, i64 %77
-  %83 = load i64, ptr %82, align 8, !tbaa !26
-  %84 = or i64 %83, %81
-  store i64 %84, ptr %82, align 8, !tbaa !26
-  %85 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 1
-  store i32 %74, ptr %85, align 4, !tbaa !27
-  %86 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 3
-  store i32 %75, ptr %86, align 4, !tbaa !28
-  %87 = add i32 %74, %47
-  br label %88
+71:                                               ; preds = %59, %68, %63
+  %72 = phi i32 [ %35, %68 ], [ 0, %63 ], [ 0, %59 ]
+  %73 = phi i32 [ %36, %68 ], [ %36, %63 ], [ %54, %59 ]
+  %74 = phi i64 [ %70, %68 ], [ %48, %63 ], [ %48, %59 ]
+  %75 = zext i32 %73 to i64
+  %76 = getelementptr inbounds [2 x i64], ptr @aqMainSign, i64 0, i64 %75
+  %77 = load i64, ptr %76, align 8, !tbaa !26
+  %78 = or i64 %77, %74
+  store i64 %78, ptr %76, align 8, !tbaa !26
+  %79 = zext i32 %72 to i64
+  %80 = shl i64 %43, %79
+  %81 = getelementptr inbounds [2 x i64], ptr @aqMainMask, i64 0, i64 %75
+  %82 = load i64, ptr %81, align 8, !tbaa !26
+  %83 = or i64 %82, %80
+  store i64 %83, ptr %81, align 8, !tbaa !26
+  %84 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 1
+  store i32 %72, ptr %84, align 4, !tbaa !27
+  %85 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 3
+  store i32 %73, ptr %85, align 4, !tbaa !28
+  %86 = add nsw i32 %72, %47
+  br label %87
 
-88:                                               ; preds = %41, %72
-  %89 = phi i32 [ %36, %41 ], [ %75, %72 ]
-  %90 = phi i32 [ %35, %41 ], [ %87, %72 ]
-  %91 = add nuw nsw i64 %34, 1
-  %92 = icmp eq i64 %91, 26
-  br i1 %92, label %93, label %33, !llvm.loop !29
+87:                                               ; preds = %41, %71
+  %88 = phi i32 [ %36, %41 ], [ %73, %71 ]
+  %89 = phi i32 [ %35, %41 ], [ %86, %71 ]
+  %90 = add nuw nsw i64 %34, 1
+  %91 = icmp eq i64 %90, 26
+  br i1 %91, label %92, label %33, !llvm.loop !29
 
-93:                                               ; preds = %88
+92:                                               ; preds = %87
   ret void
 }
 
@@ -1398,183 +1397,180 @@ declare noundef ptr @fgets(ptr noundef, i32 noundef, ptr nocapture noundef) loca
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = add i32 %0, -4
-  %4 = icmp ult i32 %3, -2
-  br i1 %4, label %5, label %8
+  switch i32 %0, label %3 [
+    i32 3, label %6
+    i32 2, label %11
+  ]
 
-5:                                                ; preds = %2
-  %6 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %7 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str.16, i32 noundef 0) #15
+3:                                                ; preds = %2
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %5 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.16, i32 noundef 0) #15
   call void @exit(i32 noundef 1) #16
   unreachable
 
-8:                                                ; preds = %2
-  %9 = icmp eq i32 %0, 3
-  br i1 %9, label %10, label %15
+6:                                                ; preds = %2
+  %7 = getelementptr inbounds ptr, ptr %1, i64 2
+  %8 = load ptr, ptr %7, align 8, !tbaa !5
+  %9 = call i64 @strtol(ptr nocapture noundef nonnull %8, ptr noundef null, i32 noundef 10) #17
+  %10 = trunc i64 %9 to i32
+  store i32 %10, ptr @cchMinLength, align 4, !tbaa !20
+  br label %11
 
-10:                                               ; preds = %8
-  %11 = getelementptr inbounds ptr, ptr %1, i64 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !5
-  %13 = call i64 @strtol(ptr nocapture noundef nonnull %12, ptr noundef null, i32 noundef 10) #17
-  %14 = trunc i64 %13 to i32
-  store i32 %14, ptr @cchMinLength, align 4, !tbaa !20
+11:                                               ; preds = %2, %6
+  %12 = call i32 @isatty(i32 noundef 1) #17
+  store i32 %12, ptr @fInteractive, align 4, !tbaa !20
+  %13 = getelementptr inbounds ptr, ptr %1, i64 1
+  %14 = load ptr, ptr %13, align 8, !tbaa !5
+  call void @ReadDict(ptr noundef %14)
   br label %15
 
-15:                                               ; preds = %10, %8
-  %16 = call i32 @isatty(i32 noundef 1) #17
-  store i32 %16, ptr @fInteractive, align 4, !tbaa !20
-  %17 = getelementptr inbounds ptr, ptr %1, i64 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !5
-  call void @ReadDict(ptr noundef %18)
-  br label %19
+15:                                               ; preds = %40, %11
+  %16 = load i32, ptr @fInteractive, align 4, !tbaa !20
+  %17 = icmp eq i32 %16, 0
+  br i1 %17, label %20, label %18
 
-19:                                               ; preds = %44, %15
-  %20 = load i32, ptr @fInteractive, align 4, !tbaa !20
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %24, label %22
+18:                                               ; preds = %15
+  %19 = call i32 @putchar(i32 62)
+  br label %20
 
-22:                                               ; preds = %19
-  %23 = call i32 @putchar(i32 62)
-  br label %24
+20:                                               ; preds = %18, %15
+  %21 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %22 = call i32 @fflush(ptr noundef %21)
+  %23 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %24 = call ptr @fgets(ptr noundef nonnull @achPhrase, i32 noundef 255, ptr noundef %23)
+  %25 = icmp eq ptr %24, null
+  br i1 %25, label %26, label %27
 
-24:                                               ; preds = %22, %19
-  %25 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %26 = call i32 @fflush(ptr noundef %25)
-  %27 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %28 = call ptr @fgets(ptr noundef nonnull @achPhrase, i32 noundef 255, ptr noundef %27)
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %30, label %31
-
-30:                                               ; preds = %24
+26:                                               ; preds = %20
   call void @exit(i32 noundef 0) #16
   unreachable
 
-31:                                               ; preds = %24
-  %32 = call ptr @__ctype_b_loc() #19
-  %33 = load ptr, ptr %32, align 8, !tbaa !5
-  %34 = load i8, ptr @achPhrase, align 16, !tbaa !16
-  %35 = sext i8 %34 to i64
-  %36 = getelementptr inbounds i16, ptr %33, i64 %35
-  %37 = load i16, ptr %36, align 2, !tbaa !14
-  %38 = and i16 %37, 2048
-  %39 = icmp eq i16 %38, 0
-  br i1 %39, label %45, label %40
+27:                                               ; preds = %20
+  %28 = call ptr @__ctype_b_loc() #19
+  %29 = load ptr, ptr %28, align 8, !tbaa !5
+  %30 = load i8, ptr @achPhrase, align 16, !tbaa !16
+  %31 = sext i8 %30 to i64
+  %32 = getelementptr inbounds i16, ptr %29, i64 %31
+  %33 = load i16, ptr %32, align 2, !tbaa !14
+  %34 = and i16 %33, 2048
+  %35 = icmp eq i16 %34, 0
+  br i1 %35, label %41, label %36
 
-40:                                               ; preds = %31
-  %41 = call i64 @strtol(ptr nocapture noundef nonnull @achPhrase, ptr noundef null, i32 noundef 10) #17
-  %42 = trunc i64 %41 to i32
-  store i32 %42, ptr @cchMinLength, align 4, !tbaa !20
-  %43 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %42)
-  br label %44
+36:                                               ; preds = %27
+  %37 = call i64 @strtol(ptr nocapture noundef nonnull @achPhrase, ptr noundef null, i32 noundef 10) #17
+  %38 = trunc i64 %37 to i32
+  store i32 %38, ptr @cchMinLength, align 4, !tbaa !20
+  %39 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %38)
+  br label %40
 
-44:                                               ; preds = %40, %111, %114, %64, %102
-  br label %19, !llvm.loop !38
+40:                                               ; preds = %36, %107, %110, %60, %98
+  br label %15, !llvm.loop !38
 
-45:                                               ; preds = %31
-  %46 = icmp eq i8 %34, 63
-  br i1 %46, label %47, label %66
+41:                                               ; preds = %27
+  %42 = icmp eq i8 %30, 63
+  br i1 %42, label %43, label %62
 
-47:                                               ; preds = %45
-  %48 = load i32, ptr @cpwCand, align 4, !tbaa !20
-  %49 = icmp eq i32 %48, 0
-  br i1 %49, label %64, label %50
+43:                                               ; preds = %41
+  %44 = load i32, ptr @cpwCand, align 4, !tbaa !20
+  %45 = icmp eq i32 %44, 0
+  br i1 %45, label %60, label %46
 
-50:                                               ; preds = %47, %50
-  %51 = phi i64 [ %60, %50 ], [ 0, %47 ]
-  %52 = getelementptr inbounds [5000 x ptr], ptr @apwCand, i64 0, i64 %51
-  %53 = load ptr, ptr %52, align 8, !tbaa !5
-  %54 = getelementptr inbounds %struct.Word, ptr %53, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !31
-  %56 = and i64 %51, 3
-  %57 = icmp eq i64 %56, 3
-  %58 = select i1 %57, i32 10, i32 32
-  %59 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, ptr noundef %55, i32 noundef %58)
-  %60 = add nuw nsw i64 %51, 1
-  %61 = load i32, ptr @cpwCand, align 4, !tbaa !20
-  %62 = zext i32 %61 to i64
-  %63 = icmp ult i64 %60, %62
-  br i1 %63, label %50, label %64, !llvm.loop !35
+46:                                               ; preds = %43, %46
+  %47 = phi i64 [ %56, %46 ], [ 0, %43 ]
+  %48 = getelementptr inbounds [5000 x ptr], ptr @apwCand, i64 0, i64 %47
+  %49 = load ptr, ptr %48, align 8, !tbaa !5
+  %50 = getelementptr inbounds %struct.Word, ptr %49, i64 0, i32 1
+  %51 = load ptr, ptr %50, align 8, !tbaa !31
+  %52 = and i64 %47, 3
+  %53 = icmp eq i64 %52, 3
+  %54 = select i1 %53, i32 10, i32 32
+  %55 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, ptr noundef %51, i32 noundef %54)
+  %56 = add nuw nsw i64 %47, 1
+  %57 = load i32, ptr @cpwCand, align 4, !tbaa !20
+  %58 = zext i32 %57 to i64
+  %59 = icmp ult i64 %56, %58
+  br i1 %59, label %46, label %60, !llvm.loop !35
 
-64:                                               ; preds = %50, %47
-  %65 = call i32 @putchar(i32 10)
-  br label %44
+60:                                               ; preds = %46, %43
+  %61 = call i32 @putchar(i32 10)
+  br label %40
 
-66:                                               ; preds = %45
+62:                                               ; preds = %41
   call void @BuildMask(ptr noundef nonnull @achPhrase)
-  %67 = load ptr, ptr @pchDictionary, align 8, !tbaa !5
+  %63 = load ptr, ptr @pchDictionary, align 8, !tbaa !5
   store i32 0, ptr @cpwCand, align 4, !tbaa !20
-  %68 = load i8, ptr %67, align 1, !tbaa !16
-  %69 = icmp eq i8 %68, 0
-  br i1 %69, label %102, label %70
+  %64 = load i8, ptr %63, align 1, !tbaa !16
+  %65 = icmp eq i8 %64, 0
+  br i1 %65, label %98, label %66
 
-70:                                               ; preds = %66
-  %71 = load i32, ptr @cchMinLength, align 4, !tbaa !20
-  br label %72
+66:                                               ; preds = %62
+  %67 = load i32, ptr @cchMinLength, align 4, !tbaa !20
+  br label %68
 
-72:                                               ; preds = %93, %70
-  %73 = phi i8 [ %98, %93 ], [ %68, %70 ]
-  %74 = phi i32 [ %95, %93 ], [ %71, %70 ]
-  %75 = phi ptr [ %97, %93 ], [ %67, %70 ]
-  %76 = getelementptr inbounds i8, ptr %75, i64 1
-  %77 = load i8, ptr %76, align 1, !tbaa !16
-  %78 = sext i8 %77 to i32
-  %79 = icmp sgt i32 %74, %78
-  br i1 %79, label %86, label %80
+68:                                               ; preds = %89, %66
+  %69 = phi i8 [ %94, %89 ], [ %64, %66 ]
+  %70 = phi i32 [ %91, %89 ], [ %67, %66 ]
+  %71 = phi ptr [ %93, %89 ], [ %63, %66 ]
+  %72 = getelementptr inbounds i8, ptr %71, i64 1
+  %73 = load i8, ptr %72, align 1, !tbaa !16
+  %74 = sext i8 %73 to i32
+  %75 = icmp sgt i32 %70, %74
+  br i1 %75, label %82, label %76
 
-80:                                               ; preds = %72
-  %81 = add nsw i32 %74, %78
-  %82 = load i32, ptr @cchPhraseLength, align 4
-  %83 = icmp sle i32 %81, %82
-  %84 = icmp eq i32 %82, %78
-  %85 = or i1 %83, %84
-  br i1 %85, label %89, label %93
+76:                                               ; preds = %68
+  %77 = add nsw i32 %70, %74
+  %78 = load i32, ptr @cchPhraseLength, align 4
+  %79 = icmp sle i32 %77, %78
+  %80 = icmp eq i32 %78, %74
+  %81 = or i1 %79, %80
+  br i1 %81, label %85, label %89
 
-86:                                               ; preds = %72
-  %87 = load i32, ptr @cchPhraseLength, align 4, !tbaa !20
-  %88 = icmp eq i32 %87, %78
-  br i1 %88, label %89, label %93
+82:                                               ; preds = %68
+  %83 = load i32, ptr @cchPhraseLength, align 4, !tbaa !20
+  %84 = icmp eq i32 %83, %74
+  br i1 %84, label %85, label %89
 
-89:                                               ; preds = %86, %80
-  %90 = getelementptr inbounds i8, ptr %75, i64 2
-  call void @BuildWord(ptr noundef nonnull %90)
-  %91 = load i32, ptr @cchMinLength, align 4, !tbaa !20
-  %92 = load i8, ptr %75, align 1, !tbaa !16
-  br label %93
+85:                                               ; preds = %82, %76
+  %86 = getelementptr inbounds i8, ptr %71, i64 2
+  call void @BuildWord(ptr noundef nonnull %86)
+  %87 = load i32, ptr @cchMinLength, align 4, !tbaa !20
+  %88 = load i8, ptr %71, align 1, !tbaa !16
+  br label %89
 
-93:                                               ; preds = %89, %86, %80
-  %94 = phi i8 [ %73, %80 ], [ %92, %89 ], [ %73, %86 ]
-  %95 = phi i32 [ %74, %80 ], [ %91, %89 ], [ %74, %86 ]
-  %96 = sext i8 %94 to i64
-  %97 = getelementptr inbounds i8, ptr %75, i64 %96
-  %98 = load i8, ptr %97, align 1, !tbaa !16
-  %99 = icmp eq i8 %98, 0
-  br i1 %99, label %100, label %72, !llvm.loop !34
+89:                                               ; preds = %85, %82, %76
+  %90 = phi i8 [ %69, %76 ], [ %88, %85 ], [ %69, %82 ]
+  %91 = phi i32 [ %70, %76 ], [ %87, %85 ], [ %70, %82 ]
+  %92 = sext i8 %90 to i64
+  %93 = getelementptr inbounds i8, ptr %71, i64 %92
+  %94 = load i8, ptr %93, align 1, !tbaa !16
+  %95 = icmp eq i8 %94, 0
+  br i1 %95, label %96, label %68, !llvm.loop !34
 
-100:                                              ; preds = %93
-  %101 = load i32, ptr @cpwCand, align 4, !tbaa !20
-  br label %102
+96:                                               ; preds = %89
+  %97 = load i32, ptr @cpwCand, align 4, !tbaa !20
+  br label %98
 
-102:                                              ; preds = %66, %100
-  %103 = phi i32 [ %101, %100 ], [ 0, %66 ]
-  %104 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %105 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %104, ptr noundef nonnull @.str.11, i32 noundef %103) #15
-  %106 = load i32, ptr @cpwCand, align 4, !tbaa !20
-  %107 = icmp eq i32 %106, 0
-  %108 = load i32, ptr @cchPhraseLength, align 4
-  %109 = icmp eq i32 %108, 0
-  %110 = select i1 %107, i1 true, i1 %109
-  br i1 %110, label %44, label %111
+98:                                               ; preds = %62, %96
+  %99 = phi i32 [ %97, %96 ], [ 0, %62 ]
+  %100 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %101 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %100, ptr noundef nonnull @.str.11, i32 noundef %99) #15
+  %102 = load i32, ptr @cpwCand, align 4, !tbaa !20
+  %103 = icmp eq i32 %102, 0
+  %104 = load i32, ptr @cchPhraseLength, align 4
+  %105 = icmp eq i32 %104, 0
+  %106 = select i1 %103, i1 true, i1 %105
+  br i1 %106, label %40, label %107
 
-111:                                              ; preds = %102
+107:                                              ; preds = %98
   store i32 0, ptr @cpwLast, align 4, !tbaa !20
   call void @SortCandidates()
-  %112 = call i32 @_setjmp(ptr noundef nonnull @jbAnagram) #20
-  %113 = icmp eq i32 %112, 0
-  br i1 %113, label %114, label %44
+  %108 = call i32 @_setjmp(ptr noundef nonnull @jbAnagram) #20
+  %109 = icmp eq i32 %108, 0
+  br i1 %109, label %110, label %40
 
-114:                                              ; preds = %111
+110:                                              ; preds = %107
   call void @FindAnagram(ptr noundef nonnull @aqMainMask, ptr noundef nonnull @apwCand, i32 noundef 0)
-  br label %44
+  br label %40
 }
 
 ; Function Attrs: nounwind

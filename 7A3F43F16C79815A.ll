@@ -183,7 +183,7 @@ define hidden ptr @luaS_newlstr(ptr noundef %0, ptr nocapture noundef readonly %
   store i8 %54, ptr %45, align 1, !tbaa !22
   br label %97
 
-55:                                               ; preds = %35, %40
+55:                                               ; preds = %40, %35
   %56 = load ptr, ptr %36, align 8, !tbaa !22
   %57 = icmp eq ptr %56, null
   br i1 %57, label %58, label %35, !llvm.loop !30
@@ -246,8 +246,8 @@ define hidden ptr @luaS_newlstr(ptr noundef %0, ptr nocapture noundef readonly %
   tail call void @luaS_resize(ptr noundef nonnull %0, i32 noundef %96)
   br label %97
 
-97:                                               ; preds = %44, %53, %95, %63
-  %98 = phi ptr [ %65, %63 ], [ %65, %95 ], [ %36, %53 ], [ %36, %44 ]
+97:                                               ; preds = %95, %63, %53, %44
+  %98 = phi ptr [ %36, %53 ], [ %36, %44 ], [ %65, %63 ], [ %65, %95 ]
   ret ptr %98
 }
 
@@ -293,17 +293,17 @@ define hidden ptr @luaS_newudata(ptr noundef %0, i64 noundef %1, ptr noundef %2)
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #2
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #3
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #3
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #4
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #3 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #3 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #4 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #5 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

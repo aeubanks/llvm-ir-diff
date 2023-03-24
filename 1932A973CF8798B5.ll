@@ -256,7 +256,7 @@ define dso_local noundef zeroext i1 @_ZN14CByteDynBuffer14EnsureCapacityEm(ptr n
   br label %18
 
 18:                                               ; preds = %17, %5, %2
-  %19 = phi i1 [ true, %2 ], [ false, %5 ], [ true, %17 ]
+  %19 = phi i1 [ true, %2 ], [ true, %17 ], [ false, %5 ]
   ret i1 %19
 }
 
@@ -530,12 +530,12 @@ define dso_local noundef zeroext i1 @_ZN15CCachedInStream5AllocEjj(ptr nocapture
   %8 = shl nuw i64 1, %7
   %9 = getelementptr inbounds %class.CCachedInStream, ptr %0, i64 0, i32 3
   %10 = load ptr, ptr %9, align 8, !tbaa !43
-  %11 = icmp ne ptr %10, null
+  %11 = icmp eq ptr %10, null
   %12 = getelementptr inbounds %class.CCachedInStream, ptr %0, i64 0, i32 4
   %13 = load i64, ptr %12, align 8
-  %14 = icmp eq i64 %8, %13
-  %15 = select i1 %11, i1 %14, i1 false
-  br i1 %15, label %20, label %16
+  %14 = icmp ne i64 %8, %13
+  %15 = select i1 %11, i1 true, i1 %14
+  br i1 %15, label %16, label %20
 
 16:                                               ; preds = %6
   tail call void @MidFree(ptr noundef %10)
@@ -551,12 +551,12 @@ define dso_local noundef zeroext i1 @_ZN15CCachedInStream5AllocEjj(ptr nocapture
 20:                                               ; preds = %6, %19
   %21 = getelementptr inbounds %class.CCachedInStream, ptr %0, i64 0, i32 2
   %22 = load ptr, ptr %21, align 8, !tbaa !41
-  %23 = icmp ne ptr %22, null
+  %23 = icmp eq ptr %22, null
   %24 = getelementptr inbounds %class.CCachedInStream, ptr %0, i64 0, i32 6
   %25 = load i32, ptr %24, align 4
-  %26 = icmp eq i32 %25, %2
-  %27 = select i1 %23, i1 %26, i1 false
-  br i1 %27, label %34, label %28
+  %26 = icmp ne i32 %25, %2
+  %27 = select i1 %23, i1 true, i1 %26
+  br i1 %27, label %28, label %34
 
 28:                                               ; preds = %20
   tail call void @MyFree(ptr noundef %22)
@@ -605,7 +605,7 @@ define dso_local void @_ZN15CCachedInStream4InitEy(ptr nocapture noundef nonnull
   %12 = phi i64 [ 0, %2 ], [ %14, %11 ]
   %13 = getelementptr inbounds i64, ptr %9, i64 %12
   store i64 -1, ptr %13, align 8, !tbaa !21
-  %14 = add i64 %12, 1
+  %14 = add nuw i64 %12, 1
   %15 = lshr i64 %14, %7
   %16 = icmp eq i64 %15, 0
   br i1 %16, label %11, label %10, !llvm.loop !49
@@ -2069,13 +2069,13 @@ declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture read
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #17
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #17
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #18
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #17
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

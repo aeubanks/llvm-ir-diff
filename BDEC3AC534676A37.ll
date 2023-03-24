@@ -310,7 +310,7 @@ define dso_local noundef i32 @_ZN10BitBoard6412readFromFileEP8_IO_FILE(ptr nocap
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
   br label %70
 
-70:                                               ; preds = %69, %63, %39
+70:                                               ; preds = %63, %69, %39
   %71 = phi i32 [ -1, %39 ], [ -1, %69 ], [ 0, %63 ]
   ret i32 %71
 }
@@ -334,10 +334,10 @@ define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapt
   store i8 %6, ptr %3, align 1, !tbaa !12
   %7 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
   %8 = icmp eq i64 %7, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  br i1 %8, label %9, label %52
+  br i1 %8, label %9, label %33
 
 9:                                                ; preds = %2
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
   %10 = load i32, ptr %0, align 4, !tbaa !5
   %11 = lshr i32 %10, 8
@@ -345,10 +345,10 @@ define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapt
   store i8 %12, ptr %3, align 1, !tbaa !12
   %13 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
   %14 = icmp eq i64 %13, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  br i1 %14, label %15, label %52
+  br i1 %14, label %15, label %33
 
 15:                                               ; preds = %9
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
   %16 = load i32, ptr %0, align 4, !tbaa !5
   %17 = lshr i32 %16, 16
@@ -356,10 +356,10 @@ define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapt
   store i8 %18, ptr %3, align 1, !tbaa !12
   %19 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
   %20 = icmp eq i64 %19, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  br i1 %20, label %21, label %52
+  br i1 %20, label %21, label %33
 
 21:                                               ; preds = %15
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
   %22 = load i32, ptr %0, align 4, !tbaa !5
   %23 = lshr i32 %22, 24
@@ -367,10 +367,10 @@ define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapt
   store i8 %24, ptr %3, align 1, !tbaa !12
   %25 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
   %26 = icmp eq i64 %25, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  br i1 %26, label %27, label %52
+  br i1 %26, label %27, label %33
 
 27:                                               ; preds = %21
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
   %28 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
   %29 = load i32, ptr %28, align 4, !tbaa !10
@@ -378,46 +378,56 @@ define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapt
   store i8 %30, ptr %4, align 1, !tbaa !12
   %31 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
   %32 = icmp eq i64 %31, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br i1 %32, label %33, label %52
+  br i1 %32, label %34, label %53
 
-33:                                               ; preds = %27
+33:                                               ; preds = %21, %15, %9, %2
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
+  br label %54
+
+34:                                               ; preds = %27
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %34 = load i32, ptr %28, align 4, !tbaa !10
-  %35 = lshr i32 %34, 8
-  %36 = trunc i32 %35 to i8
-  store i8 %36, ptr %4, align 1, !tbaa !12
-  %37 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %38 = icmp eq i64 %37, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br i1 %38, label %39, label %52
+  %35 = load i32, ptr %28, align 4, !tbaa !10
+  %36 = lshr i32 %35, 8
+  %37 = trunc i32 %36 to i8
+  store i8 %37, ptr %4, align 1, !tbaa !12
+  %38 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
+  %39 = icmp eq i64 %38, 1
+  br i1 %39, label %40, label %53
 
-39:                                               ; preds = %33
+40:                                               ; preds = %34
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %40 = load i32, ptr %28, align 4, !tbaa !10
-  %41 = lshr i32 %40, 16
-  %42 = trunc i32 %41 to i8
-  store i8 %42, ptr %4, align 1, !tbaa !12
-  %43 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %44 = icmp eq i64 %43, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br i1 %44, label %45, label %52
+  %41 = load i32, ptr %28, align 4, !tbaa !10
+  %42 = lshr i32 %41, 16
+  %43 = trunc i32 %42 to i8
+  store i8 %43, ptr %4, align 1, !tbaa !12
+  %44 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
+  %45 = icmp eq i64 %44, 1
+  br i1 %45, label %46, label %53
 
-45:                                               ; preds = %39
+46:                                               ; preds = %40
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %46 = load i32, ptr %28, align 4, !tbaa !10
-  %47 = lshr i32 %46, 24
-  %48 = trunc i32 %47 to i8
-  store i8 %48, ptr %4, align 1, !tbaa !12
-  %49 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %50 = icmp ne i64 %49, 1
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  %51 = sext i1 %50 to i32
-  br label %52
+  %47 = load i32, ptr %28, align 4, !tbaa !10
+  %48 = lshr i32 %47, 24
+  %49 = trunc i32 %48 to i8
+  store i8 %49, ptr %4, align 1, !tbaa !12
+  %50 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
+  %51 = icmp eq i64 %50, 1
+  br i1 %51, label %52, label %53
 
-52:                                               ; preds = %45, %2, %9, %15, %21, %27, %33, %39
-  %53 = phi i32 [ -1, %27 ], [ -1, %33 ], [ -1, %39 ], [ -1, %21 ], [ -1, %15 ], [ -1, %9 ], [ -1, %2 ], [ %51, %45 ]
-  ret i32 %53
+52:                                               ; preds = %46
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
+  br label %54
+
+53:                                               ; preds = %46, %40, %34, %27
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
+  br label %54
+
+54:                                               ; preds = %52, %53, %33
+  %55 = phi i32 [ -1, %33 ], [ -1, %53 ], [ 0, %52 ]
+  ret i32 %55
 }
 
 ; Function Attrs: nofree nounwind
@@ -430,54 +440,67 @@ define dso_local noundef i32 @_Z6getBFPii(i32 noundef %0, i32 noundef %1) local_
   %5 = add i32 %1, -1
   %6 = icmp ult i32 %5, 9
   %7 = and i1 %4, %6
-  br i1 %7, label %8, label %45
+  br i1 %7, label %8, label %44
 
 8:                                                ; preds = %2
   %9 = icmp ult i32 %1, 5
-  %10 = add nuw nsw i32 %1, 4
-  %11 = icmp ult i32 %10, %0
-  %12 = and i1 %9, %11
-  br i1 %12, label %45, label %13
+  br i1 %9, label %10, label %13
+
+10:                                               ; preds = %8
+  %11 = add nuw nsw i32 %1, 4
+  %12 = icmp ult i32 %11, %0
+  br i1 %12, label %44, label %18
 
 13:                                               ; preds = %8
-  %14 = icmp ult i32 %1, 6
+  %14 = icmp ne i32 %1, 5
   %15 = add nsw i32 %1, -5
-  %16 = icmp slt i32 %15, %0
-  %17 = select i1 %14, i1 true, i1 %16
-  br i1 %17, label %18, label %45
+  %16 = icmp uge i32 %15, %0
+  %17 = select i1 %14, i1 %16, i1 false
+  br i1 %17, label %44, label %30
 
-18:                                               ; preds = %13
+18:                                               ; preds = %10
   %19 = mul nuw nsw i32 %1, 9
   %20 = add nuw nsw i32 %19, %0
-  %21 = icmp ugt i32 %1, 1
-  %22 = select i1 %21, i32 -14, i32 -10
-  %23 = add nsw i32 %20, %22
-  %24 = icmp ugt i32 %1, 2
-  %25 = add nsw i32 %23, -3
-  %26 = select i1 %24, i32 %25, i32 %23
-  %27 = icmp ugt i32 %1, 3
-  %28 = add nsw i32 %26, -2
-  %29 = select i1 %27, i32 %28, i32 %26
-  %30 = icmp ugt i32 %1, 4
-  %31 = sext i1 %30 to i32
-  %32 = xor i1 %14, true
-  %33 = sext i1 %32 to i32
-  %34 = add nsw i32 %33, %31
-  %35 = add nsw i32 %34, %29
-  %36 = icmp ugt i32 %1, 6
-  %37 = add nsw i32 %35, -2
-  %38 = select i1 %36, i32 %37, i32 %35
-  %39 = icmp ugt i32 %1, 7
-  %40 = add nsw i32 %38, -3
-  %41 = select i1 %39, i32 %40, i32 %38
-  %42 = icmp ugt i32 %1, 8
-  %43 = add nsw i32 %41, -4
-  %44 = select i1 %42, i32 %43, i32 %41
-  br label %45
+  %21 = add nsw i32 %20, -10
+  %22 = icmp ugt i32 %1, 1
+  br i1 %22, label %23, label %44
 
-45:                                               ; preds = %2, %13, %8, %18
-  %46 = phi i32 [ %44, %18 ], [ -1, %8 ], [ -1, %13 ], [ -1, %2 ]
-  ret i32 %46
+23:                                               ; preds = %18
+  %24 = add nsw i32 %20, -14
+  %25 = icmp eq i32 %1, 2
+  br i1 %25, label %44, label %26
+
+26:                                               ; preds = %23
+  %27 = icmp ugt i32 %1, 3
+  %28 = select i1 %27, i32 -19, i32 -17
+  %29 = add nsw i32 %20, %28
+  br label %44
+
+30:                                               ; preds = %13
+  %31 = mul nuw nsw i32 %1, 9
+  %32 = add nuw nsw i32 %31, %0
+  %33 = add nsw i32 %32, -20
+  br i1 %14, label %34, label %44
+
+34:                                               ; preds = %30
+  %35 = add nsw i32 %32, -21
+  %36 = icmp ugt i32 %1, 6
+  br i1 %36, label %37, label %44
+
+37:                                               ; preds = %34
+  %38 = add nsw i32 %32, -23
+  %39 = icmp eq i32 %1, 7
+  br i1 %39, label %44, label %40
+
+40:                                               ; preds = %37
+  %41 = icmp ugt i32 %1, 8
+  %42 = select i1 %41, i32 -30, i32 -26
+  %43 = add nsw i32 %32, %42
+  br label %44
+
+44:                                               ; preds = %26, %40, %18, %23, %13, %30, %34, %37, %2, %10
+  %45 = phi i32 [ -1, %10 ], [ -1, %2 ], [ %38, %37 ], [ %35, %34 ], [ %33, %30 ], [ -1, %13 ], [ %24, %23 ], [ %21, %18 ], [ %43, %40 ], [ %29, %26 ]
+  ret i32 %45
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -485,12 +508,12 @@ define dso_local void @_ZN10BitBoard645printEv(ptr nocapture noundef nonnull rea
   %2 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
   br label %3
 
-3:                                                ; preds = %1, %72
-  %4 = phi i32 [ 4, %1 ], [ %75, %72 ]
-  %5 = phi i32 [ 1, %1 ], [ %74, %72 ]
+3:                                                ; preds = %1, %70
+  %4 = phi i32 [ 4, %1 ], [ %73, %70 ]
+  %5 = phi i32 [ 1, %1 ], [ %72, %70 ]
   %6 = tail call i32 @llvm.smax.i32(i32 %4, i32 1)
-  %7 = icmp ugt i32 %5, 4
-  br i1 %7, label %13, label %8
+  %7 = icmp ult i32 %5, 5
+  br i1 %7, label %8, label %13
 
 8:                                                ; preds = %3, %8
   %9 = phi i32 [ %11, %8 ], [ 0, %3 ]
@@ -500,90 +523,96 @@ define dso_local void @_ZN10BitBoard645printEv(ptr nocapture noundef nonnull rea
   br i1 %12, label %13, label %8, !llvm.loop !13
 
 13:                                               ; preds = %8, %3
-  %14 = add nuw nsw i32 %5, 4
-  %15 = icmp ult i32 %5, 6
-  %16 = add nsw i32 %5, -5
-  %17 = mul nuw nsw i32 %5, 9
-  %18 = icmp ugt i32 %5, 1
-  %19 = select i1 %18, i32 -14, i32 -10
-  %20 = add nsw i32 %19, %17
-  %21 = icmp ugt i32 %5, 2
-  %22 = icmp ugt i32 %5, 3
-  %23 = sext i1 %7 to i32
-  %24 = xor i1 %15, true
-  %25 = sext i1 %24 to i32
-  %26 = add nsw i32 %25, %23
-  %27 = icmp ugt i32 %5, 6
-  %28 = icmp ugt i32 %5, 7
-  %29 = icmp ugt i32 %5, 8
-  br label %30
+  %14 = icmp ne i32 %5, 5
+  %15 = add nsw i32 %5, -5
+  %16 = mul nuw nsw i32 %5, 9
+  %17 = icmp ugt i32 %5, 6
+  %18 = icmp eq i32 %5, 7
+  %19 = icmp ugt i32 %5, 8
+  %20 = select i1 %19, i32 -30, i32 -26
+  %21 = add nuw nsw i32 %5, 4
+  %22 = icmp ugt i32 %5, 1
+  %23 = icmp eq i32 %5, 2
+  %24 = icmp ugt i32 %5, 3
+  %25 = select i1 %24, i32 -19, i32 -17
+  %26 = select i1 %23, i32 -14, i32 %25
+  %27 = select i1 %18, i32 -23, i32 %20
+  %28 = select i1 %17, i32 %27, i32 -21
+  br label %29
 
-30:                                               ; preds = %13, %69
-  %31 = phi i32 [ 1, %13 ], [ %70, %69 ]
-  %32 = icmp uge i32 %14, %31
-  %33 = or i1 %7, %32
-  %34 = icmp slt i32 %16, %31
-  %35 = select i1 %15, i1 true, i1 %34
-  %36 = select i1 %33, i1 %35, i1 false
-  br i1 %36, label %37, label %51
+29:                                               ; preds = %13, %67
+  %30 = phi i32 [ 1, %13 ], [ %68, %67 ]
+  br i1 %7, label %31, label %33
 
-37:                                               ; preds = %30
-  %38 = add i32 %20, %31
-  %39 = add nsw i32 %38, -3
-  %40 = select i1 %21, i32 %39, i32 %38
-  %41 = add nsw i32 %40, -2
-  %42 = select i1 %22, i32 %41, i32 %40
-  %43 = add nsw i32 %26, %42
-  %44 = add nsw i32 %43, -2
-  %45 = select i1 %27, i32 %44, i32 %43
-  %46 = add nsw i32 %45, -3
-  %47 = select i1 %28, i32 %46, i32 %45
-  %48 = add nsw i32 %47, -4
-  %49 = select i1 %29, i32 %48, i32 %47
-  %50 = icmp eq i32 %49, -1
-  br i1 %50, label %51, label %53
+31:                                               ; preds = %29
+  %32 = icmp ult i32 %21, %30
+  br i1 %32, label %47, label %36
 
-51:                                               ; preds = %30, %37
-  %52 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
-  br label %69
+33:                                               ; preds = %29
+  %34 = icmp uge i32 %15, %30
+  %35 = select i1 %14, i1 %34, i1 false
+  br i1 %35, label %47, label %42
 
-53:                                               ; preds = %37
-  %54 = icmp ugt i32 %49, 63
-  br i1 %54, label %65, label %55
+36:                                               ; preds = %31
+  %37 = add nuw nsw i32 %30, %16
+  %38 = add nsw i32 %37, -10
+  br i1 %22, label %39, label %52
 
-55:                                               ; preds = %53
-  %56 = icmp ult i32 %49, 32
-  %57 = load i32, ptr %0, align 4
-  %58 = load i32, ptr %2, align 4
-  %59 = add nsw i32 %49, -32
-  %60 = select i1 %56, i32 %49, i32 %59
-  %61 = select i1 %56, i32 %57, i32 %58
-  %62 = shl nuw i32 1, %60
-  %63 = and i32 %61, %62
-  %64 = icmp eq i32 %63, 0
-  br i1 %64, label %67, label %65
+39:                                               ; preds = %36
+  %40 = add nsw i32 %37, %26
+  %41 = icmp eq i32 %40, -1
+  br i1 %41, label %47, label %49
 
-65:                                               ; preds = %53, %55
-  %66 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 2)
-  br label %69
+42:                                               ; preds = %33
+  %43 = add nuw nsw i32 %30, %16
+  %44 = add nsw i32 %43, -20
+  %45 = add nsw i32 %43, %28
+  %46 = select i1 %14, i32 %45, i32 %44
+  br label %49
 
-67:                                               ; preds = %55
-  %68 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 2)
-  br label %69
+47:                                               ; preds = %33, %31, %39
+  %48 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
+  br label %67
 
-69:                                               ; preds = %51, %67, %65
-  %70 = add nuw nsw i32 %31, 1
-  %71 = icmp eq i32 %70, 10
-  br i1 %71, label %72, label %30, !llvm.loop !15
+49:                                               ; preds = %42, %39
+  %50 = phi i32 [ %40, %39 ], [ %46, %42 ]
+  %51 = icmp ugt i32 %50, 63
+  br i1 %51, label %63, label %52
 
-72:                                               ; preds = %69
-  %73 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 1)
-  %74 = add nuw nsw i32 %5, 1
-  %75 = add nsw i32 %4, -1
-  %76 = icmp eq i32 %74, 10
-  br i1 %76, label %77, label %3, !llvm.loop !16
+52:                                               ; preds = %36, %49
+  %53 = phi i32 [ %50, %49 ], [ %38, %36 ]
+  %54 = icmp ult i32 %53, 32
+  %55 = load i32, ptr %0, align 4
+  %56 = load i32, ptr %2, align 4
+  %57 = add nsw i32 %53, -32
+  %58 = select i1 %54, i32 %53, i32 %57
+  %59 = select i1 %54, i32 %55, i32 %56
+  %60 = shl nuw i32 1, %58
+  %61 = and i32 %59, %60
+  %62 = icmp eq i32 %61, 0
+  br i1 %62, label %65, label %63
 
-77:                                               ; preds = %72
+63:                                               ; preds = %49, %52
+  %64 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 2)
+  br label %67
+
+65:                                               ; preds = %52
+  %66 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 2)
+  br label %67
+
+67:                                               ; preds = %47, %65, %63
+  %68 = add nuw nsw i32 %30, 1
+  %69 = icmp eq i32 %68, 10
+  br i1 %69, label %70, label %29, !llvm.loop !15
+
+70:                                               ; preds = %67
+  %71 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 1)
+  %72 = add nuw nsw i32 %5, 1
+  %73 = add nsw i32 %4, -1
+  %74 = icmp eq i32 %72, 10
+  br i1 %74, label %75, label %3, !llvm.loop !16
+
+75:                                               ; preds = %70
   ret void
 }
 

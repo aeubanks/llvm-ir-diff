@@ -475,7 +475,7 @@ define dso_local i32 @terminate_slice(i32 noundef %0) local_unnamed_addr #2 {
   tail call void @store_contexts() #12
   br label %111
 
-111:                                              ; preds = %110, %105
+111:                                              ; preds = %105, %110
   tail call void @free_ref_pic_list_reordering_buffer(ptr noundef nonnull %4) #12
   ret i32 0
 }
@@ -605,1792 +605,1814 @@ define dso_local i32 @encode_one_slice(i32 noundef %0, ptr nocapture noundef rea
   %74 = icmp eq i32 %73, 0
   %75 = select i1 %74, i32 1, i32 3
   %76 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 4
+  store i32 %75, ptr %76, align 8, !tbaa !33
   %77 = load ptr, ptr @img, align 8, !tbaa !5
   %78 = getelementptr inbounds %struct.ImageParameters, ptr %77, i64 0, i32 59
   %79 = load ptr, ptr %78, align 8, !tbaa !20
   %80 = getelementptr inbounds %struct.Picture, ptr %79, i64 0, i32 1
   %81 = load i32, ptr %80, align 4, !tbaa !21
   %82 = icmp eq i32 %81, 0
-  %83 = select i1 %82, i32 %75, i32 1
-  store i32 %83, ptr %76, align 8
+  br i1 %82, label %84, label %83
+
+83:                                               ; preds = %70
+  store i32 1, ptr %76, align 8, !tbaa !33
   store ptr @assignSE2partition_NoDP, ptr @assignSE2partition, align 16, !tbaa !5
-  %84 = icmp eq i32 %73, 1
-  %85 = select i1 %82, i1 %84, i1 false
-  %86 = select i1 %85, ptr @assignSE2partition_DP, ptr @assignSE2partition_NoDP
-  store ptr %86, ptr getelementptr inbounds ([2 x ptr], ptr @assignSE2partition, i64 0, i64 1), align 8, !tbaa !5
-  %87 = zext i32 %83 to i64
-  %88 = tail call noalias ptr @calloc(i64 noundef %87, i64 noundef 104) #13
-  %89 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 6
-  store ptr %88, ptr %89, align 8, !tbaa !24
-  %90 = icmp eq ptr %88, null
-  br i1 %90, label %91, label %92
+  br label %86
 
-91:                                               ; preds = %70
+84:                                               ; preds = %70
+  store ptr @assignSE2partition_NoDP, ptr @assignSE2partition, align 16, !tbaa !5
+  %85 = icmp eq i32 %73, 1
+  br i1 %85, label %88, label %86
+
+86:                                               ; preds = %84, %83
+  %87 = phi i32 [ 1, %83 ], [ %75, %84 ]
+  br label %88
+
+88:                                               ; preds = %86, %84
+  %89 = phi i32 [ %87, %86 ], [ %75, %84 ]
+  %90 = phi ptr [ @assignSE2partition_NoDP, %86 ], [ @assignSE2partition_DP, %84 ]
+  store ptr %90, ptr getelementptr inbounds ([2 x ptr], ptr @assignSE2partition, i64 0, i64 1), align 8, !tbaa !5
+  %91 = zext i32 %89 to i64
+  %92 = tail call noalias ptr @calloc(i64 noundef %91, i64 noundef 104) #13
+  %93 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 6
+  store ptr %92, ptr %93, align 8, !tbaa !24
+  %94 = icmp eq ptr %92, null
+  br i1 %94, label %95, label %96
+
+95:                                               ; preds = %88
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #12
-  br label %92
+  br label %96
 
-92:                                               ; preds = %91, %70
-  %93 = sext i32 %54 to i64
-  br label %94
+96:                                               ; preds = %95, %88
+  %97 = sext i32 %54 to i64
+  br label %98
 
-94:                                               ; preds = %107, %92
-  %95 = phi i64 [ 0, %92 ], [ %108, %107 ]
-  %96 = getelementptr inbounds %struct.datapartition, ptr %88, i64 %95
-  %97 = tail call noalias dereferenceable_or_null(48) ptr @calloc(i64 noundef 1, i64 noundef 48) #13
-  store ptr %97, ptr %96, align 8, !tbaa !25
-  %98 = icmp eq ptr %97, null
-  br i1 %98, label %99, label %101
+98:                                               ; preds = %111, %96
+  %99 = phi i64 [ 0, %96 ], [ %112, %111 ]
+  %100 = getelementptr inbounds %struct.datapartition, ptr %92, i64 %99
+  %101 = tail call noalias dereferenceable_or_null(48) ptr @calloc(i64 noundef 1, i64 noundef 48) #13
+  store ptr %101, ptr %100, align 8, !tbaa !25
+  %102 = icmp eq ptr %101, null
+  br i1 %102, label %103, label %105
 
-99:                                               ; preds = %94
+103:                                              ; preds = %98
   tail call void @no_mem_exit(ptr noundef nonnull @.str.5) #12
-  %100 = load ptr, ptr %96, align 8, !tbaa !25
-  br label %101
+  %104 = load ptr, ptr %100, align 8, !tbaa !25
+  br label %105
 
-101:                                              ; preds = %99, %94
-  %102 = phi ptr [ %100, %99 ], [ %97, %94 ]
-  %103 = tail call noalias ptr @calloc(i64 noundef %93, i64 noundef 1) #13
-  %104 = getelementptr inbounds %struct.Bitstream, ptr %102, i64 0, i32 9
-  store ptr %103, ptr %104, align 8, !tbaa !32
-  %105 = icmp eq ptr %103, null
-  br i1 %105, label %106, label %107
+105:                                              ; preds = %103, %98
+  %106 = phi ptr [ %104, %103 ], [ %101, %98 ]
+  %107 = tail call noalias ptr @calloc(i64 noundef %97, i64 noundef 1) #13
+  %108 = getelementptr inbounds %struct.Bitstream, ptr %106, i64 0, i32 9
+  store ptr %107, ptr %108, align 8, !tbaa !32
+  %109 = icmp eq ptr %107, null
+  br i1 %109, label %110, label %111
 
-106:                                              ; preds = %101
+110:                                              ; preds = %105
   tail call void @no_mem_exit(ptr noundef nonnull @.str.6) #12
-  br label %107
+  br label %111
 
-107:                                              ; preds = %106, %101
-  %108 = add nuw nsw i64 %95, 1
-  %109 = icmp eq i64 %108, %87
-  br i1 %109, label %110, label %94, !llvm.loop !60
+111:                                              ; preds = %110, %105
+  %112 = add nuw nsw i64 %99, 1
+  %113 = icmp eq i64 %112, %91
+  br i1 %113, label %114, label %98, !llvm.loop !60
 
-110:                                              ; preds = %107
-  %111 = load i32, ptr %11, align 8, !tbaa !54
-  %112 = add nsw i32 %111, -1
-  %113 = sext i32 %112 to i64
-  %114 = getelementptr inbounds %struct.Picture, ptr %11, i64 0, i32 2, i64 %113
-  store ptr %55, ptr %114, align 8, !tbaa !5
-  %115 = load ptr, ptr @img, align 8, !tbaa !5
-  %116 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 60
-  store ptr %55, ptr %116, align 8, !tbaa !9
-  %117 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 64
-  %118 = load i32, ptr %117, align 8, !tbaa !23
-  %119 = srem i32 %118, 256
-  store i32 %119, ptr %55, align 8, !tbaa !61
-  %120 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 9
-  %121 = load i32, ptr %120, align 4, !tbaa !62
-  %122 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 1
-  store i32 %121, ptr %122, align 4, !tbaa !63
-  %123 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 3
-  store i32 %8, ptr %123, align 4, !tbaa !64
-  %124 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 17
-  store ptr @dummy_slice_too_big, ptr %124, align 8, !tbaa !65
-  %125 = load i32, ptr %76, align 8, !tbaa !33
-  %126 = icmp sgt i32 %125, 0
-  br i1 %126, label %127, label %172
+114:                                              ; preds = %111
+  %115 = load i32, ptr %11, align 8, !tbaa !54
+  %116 = add nsw i32 %115, -1
+  %117 = sext i32 %116 to i64
+  %118 = getelementptr inbounds %struct.Picture, ptr %11, i64 0, i32 2, i64 %117
+  store ptr %55, ptr %118, align 8, !tbaa !5
+  %119 = load ptr, ptr @img, align 8, !tbaa !5
+  %120 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 60
+  store ptr %55, ptr %120, align 8, !tbaa !9
+  %121 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 64
+  %122 = load i32, ptr %121, align 8, !tbaa !23
+  %123 = srem i32 %122, 256
+  store i32 %123, ptr %55, align 8, !tbaa !61
+  %124 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 9
+  %125 = load i32, ptr %124, align 4, !tbaa !62
+  %126 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 1
+  store i32 %125, ptr %126, align 4, !tbaa !63
+  %127 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 3
+  store i32 %8, ptr %127, align 4, !tbaa !64
+  %128 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 17
+  store ptr @dummy_slice_too_big, ptr %128, align 8, !tbaa !65
+  %129 = load i32, ptr %76, align 8, !tbaa !33
+  %130 = icmp sgt i32 %129, 0
+  br i1 %130, label %131, label %176
 
-127:                                              ; preds = %110
-  %128 = load ptr, ptr %89, align 8, !tbaa !24
-  %129 = zext i32 %125 to i64
-  %130 = and i64 %129, 3
-  %131 = icmp ult i32 %125, 4
-  br i1 %131, label %159, label %132
+131:                                              ; preds = %114
+  %132 = load ptr, ptr %93, align 8, !tbaa !24
+  %133 = zext i32 %129 to i64
+  %134 = and i64 %133, 3
+  %135 = icmp ult i32 %129, 4
+  br i1 %135, label %163, label %136
 
-132:                                              ; preds = %127
-  %133 = and i64 %129, 4294967292
-  br label %134
+136:                                              ; preds = %131
+  %137 = and i64 %133, 4294967292
+  br label %138
 
-134:                                              ; preds = %134, %132
-  %135 = phi i64 [ 0, %132 ], [ %156, %134 ]
-  %136 = phi i64 [ 0, %132 ], [ %157, %134 ]
-  %137 = getelementptr inbounds %struct.datapartition, ptr %128, i64 %135
-  %138 = load ptr, ptr %137, align 8, !tbaa !25
-  %139 = getelementptr inbounds %struct.Bitstream, ptr %138, i64 0, i32 1
-  store i32 8, ptr %139, align 4, !tbaa !31
-  store i32 0, ptr %138, align 8, !tbaa !34
-  %140 = getelementptr inbounds %struct.Bitstream, ptr %138, i64 0, i32 2
-  store i8 0, ptr %140, align 8, !tbaa !36
-  %141 = or i64 %135, 1
-  %142 = getelementptr inbounds %struct.datapartition, ptr %128, i64 %141
-  %143 = load ptr, ptr %142, align 8, !tbaa !25
-  %144 = getelementptr inbounds %struct.Bitstream, ptr %143, i64 0, i32 1
-  store i32 8, ptr %144, align 4, !tbaa !31
-  store i32 0, ptr %143, align 8, !tbaa !34
-  %145 = getelementptr inbounds %struct.Bitstream, ptr %143, i64 0, i32 2
-  store i8 0, ptr %145, align 8, !tbaa !36
-  %146 = or i64 %135, 2
-  %147 = getelementptr inbounds %struct.datapartition, ptr %128, i64 %146
-  %148 = load ptr, ptr %147, align 8, !tbaa !25
-  %149 = getelementptr inbounds %struct.Bitstream, ptr %148, i64 0, i32 1
-  store i32 8, ptr %149, align 4, !tbaa !31
-  store i32 0, ptr %148, align 8, !tbaa !34
-  %150 = getelementptr inbounds %struct.Bitstream, ptr %148, i64 0, i32 2
-  store i8 0, ptr %150, align 8, !tbaa !36
-  %151 = or i64 %135, 3
-  %152 = getelementptr inbounds %struct.datapartition, ptr %128, i64 %151
-  %153 = load ptr, ptr %152, align 8, !tbaa !25
-  %154 = getelementptr inbounds %struct.Bitstream, ptr %153, i64 0, i32 1
-  store i32 8, ptr %154, align 4, !tbaa !31
-  store i32 0, ptr %153, align 8, !tbaa !34
-  %155 = getelementptr inbounds %struct.Bitstream, ptr %153, i64 0, i32 2
-  store i8 0, ptr %155, align 8, !tbaa !36
-  %156 = add nuw nsw i64 %135, 4
-  %157 = add i64 %136, 4
-  %158 = icmp eq i64 %157, %133
-  br i1 %158, label %159, label %134, !llvm.loop !66
+138:                                              ; preds = %138, %136
+  %139 = phi i64 [ 0, %136 ], [ %160, %138 ]
+  %140 = phi i64 [ 0, %136 ], [ %161, %138 ]
+  %141 = getelementptr inbounds %struct.datapartition, ptr %132, i64 %139
+  %142 = load ptr, ptr %141, align 8, !tbaa !25
+  %143 = getelementptr inbounds %struct.Bitstream, ptr %142, i64 0, i32 1
+  store i32 8, ptr %143, align 4, !tbaa !31
+  store i32 0, ptr %142, align 8, !tbaa !34
+  %144 = getelementptr inbounds %struct.Bitstream, ptr %142, i64 0, i32 2
+  store i8 0, ptr %144, align 8, !tbaa !36
+  %145 = or i64 %139, 1
+  %146 = getelementptr inbounds %struct.datapartition, ptr %132, i64 %145
+  %147 = load ptr, ptr %146, align 8, !tbaa !25
+  %148 = getelementptr inbounds %struct.Bitstream, ptr %147, i64 0, i32 1
+  store i32 8, ptr %148, align 4, !tbaa !31
+  store i32 0, ptr %147, align 8, !tbaa !34
+  %149 = getelementptr inbounds %struct.Bitstream, ptr %147, i64 0, i32 2
+  store i8 0, ptr %149, align 8, !tbaa !36
+  %150 = or i64 %139, 2
+  %151 = getelementptr inbounds %struct.datapartition, ptr %132, i64 %150
+  %152 = load ptr, ptr %151, align 8, !tbaa !25
+  %153 = getelementptr inbounds %struct.Bitstream, ptr %152, i64 0, i32 1
+  store i32 8, ptr %153, align 4, !tbaa !31
+  store i32 0, ptr %152, align 8, !tbaa !34
+  %154 = getelementptr inbounds %struct.Bitstream, ptr %152, i64 0, i32 2
+  store i8 0, ptr %154, align 8, !tbaa !36
+  %155 = or i64 %139, 3
+  %156 = getelementptr inbounds %struct.datapartition, ptr %132, i64 %155
+  %157 = load ptr, ptr %156, align 8, !tbaa !25
+  %158 = getelementptr inbounds %struct.Bitstream, ptr %157, i64 0, i32 1
+  store i32 8, ptr %158, align 4, !tbaa !31
+  store i32 0, ptr %157, align 8, !tbaa !34
+  %159 = getelementptr inbounds %struct.Bitstream, ptr %157, i64 0, i32 2
+  store i8 0, ptr %159, align 8, !tbaa !36
+  %160 = add nuw nsw i64 %139, 4
+  %161 = add i64 %140, 4
+  %162 = icmp eq i64 %161, %137
+  br i1 %162, label %163, label %138, !llvm.loop !66
 
-159:                                              ; preds = %134, %127
-  %160 = phi i64 [ 0, %127 ], [ %156, %134 ]
-  %161 = icmp eq i64 %130, 0
-  br i1 %161, label %172, label %162
+163:                                              ; preds = %138, %131
+  %164 = phi i64 [ 0, %131 ], [ %160, %138 ]
+  %165 = icmp eq i64 %134, 0
+  br i1 %165, label %176, label %166
 
-162:                                              ; preds = %159, %162
-  %163 = phi i64 [ %169, %162 ], [ %160, %159 ]
-  %164 = phi i64 [ %170, %162 ], [ 0, %159 ]
-  %165 = getelementptr inbounds %struct.datapartition, ptr %128, i64 %163
-  %166 = load ptr, ptr %165, align 8, !tbaa !25
-  %167 = getelementptr inbounds %struct.Bitstream, ptr %166, i64 0, i32 1
-  store i32 8, ptr %167, align 4, !tbaa !31
-  store i32 0, ptr %166, align 8, !tbaa !34
-  %168 = getelementptr inbounds %struct.Bitstream, ptr %166, i64 0, i32 2
-  store i8 0, ptr %168, align 8, !tbaa !36
-  %169 = add nuw nsw i64 %163, 1
-  %170 = add i64 %164, 1
-  %171 = icmp eq i64 %170, %130
-  br i1 %171, label %172, label %162, !llvm.loop !67
+166:                                              ; preds = %163, %166
+  %167 = phi i64 [ %173, %166 ], [ %164, %163 ]
+  %168 = phi i64 [ %174, %166 ], [ 0, %163 ]
+  %169 = getelementptr inbounds %struct.datapartition, ptr %132, i64 %167
+  %170 = load ptr, ptr %169, align 8, !tbaa !25
+  %171 = getelementptr inbounds %struct.Bitstream, ptr %170, i64 0, i32 1
+  store i32 8, ptr %171, align 4, !tbaa !31
+  store i32 0, ptr %170, align 8, !tbaa !34
+  %172 = getelementptr inbounds %struct.Bitstream, ptr %170, i64 0, i32 2
+  store i8 0, ptr %172, align 8, !tbaa !36
+  %173 = add nuw nsw i64 %167, 1
+  %174 = add i64 %168, 1
+  %175 = icmp eq i64 %174, %134
+  br i1 %175, label %176, label %166, !llvm.loop !67
 
-172:                                              ; preds = %159, %162, %110
-  %173 = load ptr, ptr @active_pps, align 8, !tbaa !5
-  %174 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %173, i64 0, i32 17
-  %175 = load i32, ptr %174, align 8, !tbaa !69
-  %176 = add nsw i32 %175, 1
-  %177 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 88
-  store i32 %176, ptr %177, align 8, !tbaa !71
-  %178 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %173, i64 0, i32 18
-  %179 = load i32, ptr %178, align 4, !tbaa !72
+176:                                              ; preds = %163, %166, %114
+  %177 = load ptr, ptr @active_pps, align 8, !tbaa !5
+  %178 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %177, i64 0, i32 17
+  %179 = load i32, ptr %178, align 8, !tbaa !69
   %180 = add nsw i32 %179, 1
-  %181 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 89
-  store i32 %180, ptr %181, align 4, !tbaa !73
-  %182 = load ptr, ptr @input, align 8, !tbaa !5
-  %183 = getelementptr inbounds %struct.InputParameters, ptr %182, i64 0, i32 149
-  %184 = load i32, ptr %183, align 4, !tbaa !74
-  %185 = icmp eq i32 %184, 0
-  br i1 %185, label %196, label %186
+  %181 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 88
+  store i32 %180, ptr %181, align 8, !tbaa !71
+  %182 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %177, i64 0, i32 18
+  %183 = load i32, ptr %182, align 4, !tbaa !72
+  %184 = add nsw i32 %183, 1
+  %185 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 89
+  store i32 %184, ptr %185, align 4, !tbaa !73
+  %186 = load ptr, ptr @input, align 8, !tbaa !5
+  %187 = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 149
+  %188 = load i32, ptr %187, align 4, !tbaa !74
+  %189 = icmp eq i32 %188, 0
+  br i1 %189, label %200, label %190
 
-186:                                              ; preds = %172
-  %187 = load i32, ptr @redundant_coding, align 4, !tbaa !43
-  %188 = icmp eq i32 %187, 0
-  br i1 %188, label %189, label %194
+190:                                              ; preds = %176
+  %191 = load i32, ptr @redundant_coding, align 4, !tbaa !43
+  %192 = icmp eq i32 %191, 0
+  br i1 %192, label %193, label %198
 
-189:                                              ; preds = %186
-  %190 = load i32, ptr %115, align 8, !tbaa !75
-  %191 = getelementptr inbounds %struct.InputParameters, ptr %182, i64 0, i32 196
-  %192 = load i32, ptr %191, align 8, !tbaa !76
-  %193 = tail call i32 @llvm.smin.i32(i32 %190, i32 %192)
-  br label %194
+193:                                              ; preds = %190
+  %194 = load i32, ptr %119, align 8, !tbaa !75
+  %195 = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 196
+  %196 = load i32, ptr %195, align 8, !tbaa !76
+  %197 = tail call i32 @llvm.smin.i32(i32 %194, i32 %196)
+  br label %198
 
-194:                                              ; preds = %189, %186
-  %195 = phi i32 [ %193, %189 ], [ 1, %186 ]
-  store i32 %195, ptr %177, align 8, !tbaa !71
-  br label %196
+198:                                              ; preds = %193, %190
+  %199 = phi i32 [ %197, %193 ], [ 1, %190 ]
+  store i32 %199, ptr %181, align 8, !tbaa !71
+  br label %200
 
-196:                                              ; preds = %194, %172
-  %197 = phi i32 [ %176, %172 ], [ %195, %194 ]
-  %198 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 5
-  %199 = load i32, ptr %198, align 4, !tbaa !77
-  switch i32 %199, label %237 [
-    i32 0, label %200
-    i32 3, label %200
-    i32 1, label %214
+200:                                              ; preds = %198, %176
+  %201 = phi i32 [ %180, %176 ], [ %199, %198 ]
+  %202 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 5
+  %203 = load i32, ptr %202, align 4, !tbaa !77
+  switch i32 %203, label %241 [
+    i32 0, label %204
+    i32 3, label %204
+    i32 1, label %218
   ]
 
-200:                                              ; preds = %196, %196
-  %201 = getelementptr inbounds %struct.InputParameters, ptr %182, i64 0, i32 9
-  %202 = load i32, ptr %201, align 4, !tbaa !78
-  %203 = icmp eq i32 %202, 0
-  br i1 %203, label %211, label %204
-
-204:                                              ; preds = %200
-  %205 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 6
-  %206 = load i32, ptr %205, align 8, !tbaa !79
+204:                                              ; preds = %200, %200
+  %205 = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 9
+  %206 = load i32, ptr %205, align 4, !tbaa !78
   %207 = icmp eq i32 %206, 0
-  %208 = select i1 %207, i32 1, i32 2
-  %209 = mul nsw i32 %208, %202
-  %210 = tail call i32 @llvm.smin.i32(i32 %197, i32 %209)
-  store i32 %210, ptr %177, align 8, !tbaa !71
-  br label %211
+  br i1 %207, label %215, label %208
 
-211:                                              ; preds = %204, %200
-  %212 = phi i32 [ %210, %204 ], [ %197, %200 ]
-  %213 = icmp eq i32 %199, 1
-  br i1 %213, label %214, label %237
+208:                                              ; preds = %204
+  %209 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 6
+  %210 = load i32, ptr %209, align 8, !tbaa !79
+  %211 = icmp eq i32 %210, 0
+  %212 = select i1 %211, i32 1, i32 2
+  %213 = mul nsw i32 %212, %206
+  %214 = tail call i32 @llvm.smin.i32(i32 %201, i32 %213)
+  store i32 %214, ptr %181, align 8, !tbaa !71
+  br label %215
 
-214:                                              ; preds = %211, %196
-  %215 = phi i32 [ %197, %196 ], [ %212, %211 ]
-  %216 = getelementptr inbounds %struct.InputParameters, ptr %182, i64 0, i32 10
-  %217 = load i32, ptr %216, align 8, !tbaa !80
-  %218 = icmp eq i32 %217, 0
-  br i1 %218, label %226, label %219
+215:                                              ; preds = %208, %204
+  %216 = phi i32 [ %214, %208 ], [ %201, %204 ]
+  %217 = icmp eq i32 %203, 1
+  br i1 %217, label %218, label %241
 
-219:                                              ; preds = %214
-  %220 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 6
-  %221 = load i32, ptr %220, align 8, !tbaa !79
+218:                                              ; preds = %215, %200
+  %219 = phi i32 [ %201, %200 ], [ %216, %215 ]
+  %220 = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 10
+  %221 = load i32, ptr %220, align 8, !tbaa !80
   %222 = icmp eq i32 %221, 0
-  %223 = select i1 %222, i32 1, i32 2
-  %224 = mul nsw i32 %223, %217
-  %225 = tail call i32 @llvm.smin.i32(i32 %215, i32 %224)
-  store i32 %225, ptr %177, align 8, !tbaa !71
-  br label %226
+  br i1 %222, label %230, label %223
 
-226:                                              ; preds = %219, %214
-  %227 = getelementptr inbounds %struct.InputParameters, ptr %182, i64 0, i32 11
-  %228 = load i32, ptr %227, align 4, !tbaa !81
-  %229 = icmp eq i32 %228, 0
-  br i1 %229, label %237, label %230
+223:                                              ; preds = %218
+  %224 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 6
+  %225 = load i32, ptr %224, align 8, !tbaa !79
+  %226 = icmp eq i32 %225, 0
+  %227 = select i1 %226, i32 1, i32 2
+  %228 = mul nsw i32 %227, %221
+  %229 = tail call i32 @llvm.smin.i32(i32 %219, i32 %228)
+  store i32 %229, ptr %181, align 8, !tbaa !71
+  br label %230
 
-230:                                              ; preds = %226
-  %231 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 6
-  %232 = load i32, ptr %231, align 8, !tbaa !79
+230:                                              ; preds = %223, %218
+  %231 = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 11
+  %232 = load i32, ptr %231, align 4, !tbaa !81
   %233 = icmp eq i32 %232, 0
-  %234 = select i1 %233, i32 1, i32 2
-  %235 = mul nsw i32 %234, %228
-  %236 = tail call i32 @llvm.smin.i32(i32 %180, i32 %235)
-  store i32 %236, ptr %181, align 4, !tbaa !73
-  br label %237
+  br i1 %233, label %241, label %234
 
-237:                                              ; preds = %230, %226, %211, %196
-  %238 = getelementptr inbounds %struct.ImageParameters, ptr %115, i64 0, i32 6
-  %239 = load i32, ptr %238, align 8, !tbaa !79
-  tail call void @init_lists(i32 noundef %199, i32 noundef %239) #12
-  %240 = load ptr, ptr @img, align 8, !tbaa !5
-  %241 = getelementptr inbounds %struct.ImageParameters, ptr %240, i64 0, i32 88
-  %242 = load <2 x i32>, ptr @listXsize, align 16, !tbaa !43
-  store <2 x i32> %242, ptr %241, align 8, !tbaa !43
-  %243 = getelementptr inbounds %struct.ImageParameters, ptr %240, i64 0, i32 122
-  %244 = load i32, ptr %243, align 8, !tbaa !82
-  %245 = icmp eq i32 %244, 0
-  br i1 %245, label %260, label %246
+234:                                              ; preds = %230
+  %235 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 6
+  %236 = load i32, ptr %235, align 8, !tbaa !79
+  %237 = icmp eq i32 %236, 0
+  %238 = select i1 %237, i32 1, i32 2
+  %239 = mul nsw i32 %238, %232
+  %240 = tail call i32 @llvm.smin.i32(i32 %184, i32 %239)
+  store i32 %240, ptr %185, align 4, !tbaa !73
+  br label %241
 
-246:                                              ; preds = %237
-  %247 = load ptr, ptr @input, align 8, !tbaa !5
-  %248 = getelementptr inbounds %struct.InputParameters, ptr %247, i64 0, i32 73
-  %249 = load i32, ptr %248, align 4, !tbaa !83
-  %250 = icmp eq i32 %249, 0
-  br i1 %250, label %260, label %251
+241:                                              ; preds = %234, %230, %215, %200
+  %242 = getelementptr inbounds %struct.ImageParameters, ptr %119, i64 0, i32 6
+  %243 = load i32, ptr %242, align 8, !tbaa !79
+  tail call void @init_lists(i32 noundef %203, i32 noundef %243) #12
+  %244 = load ptr, ptr @img, align 8, !tbaa !5
+  %245 = getelementptr inbounds %struct.ImageParameters, ptr %244, i64 0, i32 88
+  %246 = load <2 x i32>, ptr @listXsize, align 16, !tbaa !43
+  store <2 x i32> %246, ptr %245, align 8, !tbaa !43
+  %247 = getelementptr inbounds %struct.ImageParameters, ptr %244, i64 0, i32 122
+  %248 = load i32, ptr %247, align 8, !tbaa !82
+  %249 = icmp eq i32 %248, 0
+  br i1 %249, label %264, label %250
 
-251:                                              ; preds = %246
-  %252 = load i32, ptr getelementptr inbounds (%struct.decoded_picture_buffer, ptr @dpb, i64 0, i32 5), align 8, !tbaa !84
-  %253 = load ptr, ptr @active_sps, align 8, !tbaa !5
-  %254 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %253, i64 0, i32 21
-  %255 = load i32, ptr %254, align 4, !tbaa !86
-  %256 = icmp eq i32 %252, %255
-  br i1 %256, label %257, label %260
+250:                                              ; preds = %241
+  %251 = load ptr, ptr @input, align 8, !tbaa !5
+  %252 = getelementptr inbounds %struct.InputParameters, ptr %251, i64 0, i32 73
+  %253 = load i32, ptr %252, align 4, !tbaa !83
+  %254 = icmp eq i32 %253, 0
+  br i1 %254, label %264, label %255
 
-257:                                              ; preds = %251
-  %258 = getelementptr inbounds %struct.ImageParameters, ptr %240, i64 0, i32 115
-  %259 = load i32, ptr %258, align 4, !tbaa !87
-  tail call void @poc_based_ref_management(i32 noundef %259) #12
-  br label %260
+255:                                              ; preds = %250
+  %256 = load i32, ptr getelementptr inbounds (%struct.decoded_picture_buffer, ptr @dpb, i64 0, i32 5), align 8, !tbaa !84
+  %257 = load ptr, ptr @active_sps, align 8, !tbaa !5
+  %258 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %257, i64 0, i32 21
+  %259 = load i32, ptr %258, align 4, !tbaa !86
+  %260 = icmp eq i32 %256, %259
+  br i1 %260, label %261, label %264
 
-260:                                              ; preds = %257, %251, %246, %237
-  %261 = load ptr, ptr @input, align 8, !tbaa !5
-  %262 = getelementptr inbounds %struct.InputParameters, ptr %261, i64 0, i32 31
-  %263 = load i32, ptr %262, align 4, !tbaa !88
-  %264 = icmp eq i32 %263, 0
-  br i1 %264, label %319, label %265
+261:                                              ; preds = %255
+  %262 = getelementptr inbounds %struct.ImageParameters, ptr %244, i64 0, i32 115
+  %263 = load i32, ptr %262, align 4, !tbaa !87
+  tail call void @poc_based_ref_management(i32 noundef %263) #12
+  br label %264
 
-265:                                              ; preds = %260
-  %266 = load i32, ptr @listXsize, align 16, !tbaa !43
-  %267 = icmp sgt i32 %266, 0
-  br i1 %267, label %268, label %292
+264:                                              ; preds = %261, %255, %250, %241
+  %265 = load ptr, ptr @input, align 8, !tbaa !5
+  %266 = getelementptr inbounds %struct.InputParameters, ptr %265, i64 0, i32 31
+  %267 = load i32, ptr %266, align 4, !tbaa !88
+  %268 = icmp eq i32 %267, 0
+  br i1 %268, label %323, label %269
 
-268:                                              ; preds = %265
-  %269 = load ptr, ptr @listX, align 16, !tbaa !5
-  %270 = load ptr, ptr @img, align 8, !tbaa !5
-  %271 = getelementptr inbounds %struct.ImageParameters, ptr %270, i64 0, i32 169
-  %272 = load i32, ptr %271, align 4, !tbaa !89
-  %273 = getelementptr inbounds %struct.ImageParameters, ptr %270, i64 0, i32 114
-  %274 = zext i32 %266 to i64
-  br label %275
+269:                                              ; preds = %264
+  %270 = load i32, ptr @listXsize, align 16, !tbaa !43
+  %271 = icmp sgt i32 %270, 0
+  br i1 %271, label %272, label %296
 
-275:                                              ; preds = %289, %268
-  %276 = phi i64 [ 0, %268 ], [ %290, %289 ]
-  %277 = getelementptr inbounds ptr, ptr %269, i64 %276
-  %278 = load ptr, ptr %277, align 8, !tbaa !5
-  %279 = getelementptr inbounds %struct.storable_picture, ptr %278, i64 0, i32 1
-  %280 = load i32, ptr %279, align 4, !tbaa !90
-  %281 = icmp slt i32 %280, %272
-  br i1 %281, label %282, label %289
+272:                                              ; preds = %269
+  %273 = load ptr, ptr @listX, align 16, !tbaa !5
+  %274 = load ptr, ptr @img, align 8, !tbaa !5
+  %275 = getelementptr inbounds %struct.ImageParameters, ptr %274, i64 0, i32 169
+  %276 = load i32, ptr %275, align 4, !tbaa !89
+  %277 = getelementptr inbounds %struct.ImageParameters, ptr %274, i64 0, i32 114
+  %278 = zext i32 %270 to i64
+  br label %279
 
-282:                                              ; preds = %275
-  %283 = load i32, ptr %273, align 8, !tbaa !92
-  %284 = icmp sgt i32 %283, %272
-  br i1 %284, label %285, label %289
+279:                                              ; preds = %293, %272
+  %280 = phi i64 [ 0, %272 ], [ %294, %293 ]
+  %281 = getelementptr inbounds ptr, ptr %273, i64 %280
+  %282 = load ptr, ptr %281, align 8, !tbaa !5
+  %283 = getelementptr inbounds %struct.storable_picture, ptr %282, i64 0, i32 1
+  %284 = load i32, ptr %283, align 4, !tbaa !90
+  %285 = icmp slt i32 %284, %276
+  br i1 %285, label %286, label %293
 
-285:                                              ; preds = %282
-  %286 = trunc i64 %276 to i32
-  %287 = tail call i32 @llvm.smax.i32(i32 %286, i32 1)
-  %288 = getelementptr inbounds %struct.ImageParameters, ptr %270, i64 0, i32 88
-  store i32 %287, ptr %288, align 8, !tbaa !71
-  store i32 %287, ptr @listXsize, align 16, !tbaa !43
-  br label %292
+286:                                              ; preds = %279
+  %287 = load i32, ptr %277, align 8, !tbaa !92
+  %288 = icmp sgt i32 %287, %276
+  br i1 %288, label %289, label %293
 
-289:                                              ; preds = %282, %275
-  %290 = add nuw nsw i64 %276, 1
-  %291 = icmp eq i64 %290, %274
-  br i1 %291, label %292, label %275, !llvm.loop !93
+289:                                              ; preds = %286
+  %290 = trunc i64 %280 to i32
+  %291 = tail call i32 @llvm.smax.i32(i32 %290, i32 1)
+  %292 = getelementptr inbounds %struct.ImageParameters, ptr %274, i64 0, i32 88
+  store i32 %291, ptr %292, align 8, !tbaa !71
+  store i32 %291, ptr @listXsize, align 16, !tbaa !43
+  br label %296
 
-292:                                              ; preds = %289, %285, %265
-  %293 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
-  %294 = icmp sgt i32 %293, 0
-  br i1 %294, label %295, label %319
+293:                                              ; preds = %286, %279
+  %294 = add nuw nsw i64 %280, 1
+  %295 = icmp eq i64 %294, %278
+  br i1 %295, label %296, label %279, !llvm.loop !93
 
-295:                                              ; preds = %292
-  %296 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
-  %297 = load ptr, ptr @img, align 8, !tbaa !5
-  %298 = getelementptr inbounds %struct.ImageParameters, ptr %297, i64 0, i32 169
-  %299 = load i32, ptr %298, align 4, !tbaa !89
-  %300 = getelementptr inbounds %struct.ImageParameters, ptr %297, i64 0, i32 114
-  %301 = zext i32 %293 to i64
-  br label %302
+296:                                              ; preds = %293, %289, %269
+  %297 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
+  %298 = icmp sgt i32 %297, 0
+  br i1 %298, label %299, label %323
 
-302:                                              ; preds = %316, %295
-  %303 = phi i64 [ 0, %295 ], [ %317, %316 ]
-  %304 = getelementptr inbounds ptr, ptr %296, i64 %303
-  %305 = load ptr, ptr %304, align 8, !tbaa !5
-  %306 = getelementptr inbounds %struct.storable_picture, ptr %305, i64 0, i32 1
-  %307 = load i32, ptr %306, align 4, !tbaa !90
-  %308 = icmp slt i32 %307, %299
-  br i1 %308, label %309, label %316
+299:                                              ; preds = %296
+  %300 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
+  %301 = load ptr, ptr @img, align 8, !tbaa !5
+  %302 = getelementptr inbounds %struct.ImageParameters, ptr %301, i64 0, i32 169
+  %303 = load i32, ptr %302, align 4, !tbaa !89
+  %304 = getelementptr inbounds %struct.ImageParameters, ptr %301, i64 0, i32 114
+  %305 = zext i32 %297 to i64
+  br label %306
 
-309:                                              ; preds = %302
-  %310 = load i32, ptr %300, align 8, !tbaa !92
-  %311 = icmp sgt i32 %310, %299
-  br i1 %311, label %312, label %316
+306:                                              ; preds = %320, %299
+  %307 = phi i64 [ 0, %299 ], [ %321, %320 ]
+  %308 = getelementptr inbounds ptr, ptr %300, i64 %307
+  %309 = load ptr, ptr %308, align 8, !tbaa !5
+  %310 = getelementptr inbounds %struct.storable_picture, ptr %309, i64 0, i32 1
+  %311 = load i32, ptr %310, align 4, !tbaa !90
+  %312 = icmp slt i32 %311, %303
+  br i1 %312, label %313, label %320
 
-312:                                              ; preds = %309
-  %313 = trunc i64 %303 to i32
-  %314 = tail call i32 @llvm.smax.i32(i32 %313, i32 1)
-  %315 = getelementptr inbounds %struct.ImageParameters, ptr %297, i64 0, i32 89
-  store i32 %314, ptr %315, align 4, !tbaa !73
-  store i32 %314, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
-  br label %319
+313:                                              ; preds = %306
+  %314 = load i32, ptr %304, align 8, !tbaa !92
+  %315 = icmp sgt i32 %314, %303
+  br i1 %315, label %316, label %320
 
-316:                                              ; preds = %309, %302
-  %317 = add nuw nsw i64 %303, 1
-  %318 = icmp eq i64 %317, %301
-  br i1 %318, label %319, label %302, !llvm.loop !94
+316:                                              ; preds = %313
+  %317 = trunc i64 %307 to i32
+  %318 = tail call i32 @llvm.smax.i32(i32 %317, i32 1)
+  %319 = getelementptr inbounds %struct.ImageParameters, ptr %301, i64 0, i32 89
+  store i32 %318, ptr %319, align 4, !tbaa !73
+  store i32 %318, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
+  br label %323
 
-319:                                              ; preds = %316, %312, %292, %260
-  %320 = load ptr, ptr @img, align 8, !tbaa !5
-  %321 = getelementptr inbounds %struct.ImageParameters, ptr %320, i64 0, i32 60
-  %322 = load ptr, ptr %321, align 8, !tbaa !9
-  %323 = getelementptr inbounds %struct.Slice, ptr %322, i64 0, i32 9
-  store i32 0, ptr %323, align 8, !tbaa !15
-  %324 = getelementptr inbounds %struct.Slice, ptr %322, i64 0, i32 13
-  store i32 0, ptr %324, align 8, !tbaa !17
-  %325 = getelementptr inbounds %struct.ImageParameters, ptr %320, i64 0, i32 5
-  %326 = load i32, ptr %325, align 4, !tbaa !77
-  %327 = icmp eq i32 %326, 0
-  br i1 %327, label %328, label %427
+320:                                              ; preds = %313, %306
+  %321 = add nuw nsw i64 %307, 1
+  %322 = icmp eq i64 %321, %305
+  br i1 %322, label %323, label %306, !llvm.loop !94
 
-328:                                              ; preds = %319
-  %329 = getelementptr inbounds %struct.InputParameters, ptr %261, i64 0, i32 72
-  %330 = load i32, ptr %329, align 8, !tbaa !95
+323:                                              ; preds = %320, %316, %296, %264
+  %324 = load ptr, ptr @img, align 8, !tbaa !5
+  %325 = getelementptr inbounds %struct.ImageParameters, ptr %324, i64 0, i32 60
+  %326 = load ptr, ptr %325, align 8, !tbaa !9
+  %327 = getelementptr inbounds %struct.Slice, ptr %326, i64 0, i32 9
+  store i32 0, ptr %327, align 8, !tbaa !15
+  %328 = getelementptr inbounds %struct.Slice, ptr %326, i64 0, i32 13
+  store i32 0, ptr %328, align 8, !tbaa !17
+  %329 = getelementptr inbounds %struct.ImageParameters, ptr %324, i64 0, i32 5
+  %330 = load i32, ptr %329, align 4, !tbaa !77
   %331 = icmp eq i32 %330, 0
-  br i1 %331, label %427, label %332
+  br i1 %331, label %332, label %430
 
-332:                                              ; preds = %328
-  tail call void @alloc_ref_pic_list_reordering_buffer(ptr noundef nonnull %55) #12
-  %333 = load ptr, ptr @img, align 8, !tbaa !5
-  %334 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 5
-  %335 = load i32, ptr %334, align 4, !tbaa !77
-  switch i32 %335, label %336 [
-    i32 2, label %384
-    i32 4, label %384
-  ]
+332:                                              ; preds = %323
+  %333 = getelementptr inbounds %struct.InputParameters, ptr %265, i64 0, i32 72
+  %334 = load i32, ptr %333, align 8, !tbaa !95
+  %335 = icmp eq i32 %334, 0
+  br i1 %335, label %430, label %336
 
 336:                                              ; preds = %332
-  %337 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 88
-  %338 = load i32, ptr %337, align 8, !tbaa !71
-  %339 = icmp slt i32 %338, 0
-  br i1 %339, label %358, label %340
+  tail call void @alloc_ref_pic_list_reordering_buffer(ptr noundef nonnull %55) #12
+  %337 = load ptr, ptr @img, align 8, !tbaa !5
+  %338 = getelementptr inbounds %struct.ImageParameters, ptr %337, i64 0, i32 5
+  %339 = load i32, ptr %338, align 4, !tbaa !77
+  switch i32 %339, label %340 [
+    i32 2, label %430
+    i32 4, label %430
+  ]
 
 340:                                              ; preds = %336
-  %341 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 10
-  %342 = load ptr, ptr %341, align 8, !tbaa !96
-  %343 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 11
-  %344 = load ptr, ptr %343, align 8, !tbaa !97
-  %345 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 12
-  %346 = load ptr, ptr %345, align 8, !tbaa !98
-  br label %347
+  %341 = getelementptr inbounds %struct.ImageParameters, ptr %337, i64 0, i32 88
+  %342 = load i32, ptr %341, align 8, !tbaa !71
+  %343 = icmp slt i32 %342, 0
+  br i1 %343, label %362, label %344
 
-347:                                              ; preds = %347, %340
-  %348 = phi i64 [ 0, %340 ], [ %352, %347 ]
-  %349 = getelementptr inbounds i32, ptr %342, i64 %348
-  store i32 3, ptr %349, align 4, !tbaa !43
-  %350 = getelementptr inbounds i32, ptr %344, i64 %348
-  store i32 0, ptr %350, align 4, !tbaa !43
-  %351 = getelementptr inbounds i32, ptr %346, i64 %348
-  store i32 0, ptr %351, align 4, !tbaa !43
-  %352 = add nuw nsw i64 %348, 1
-  %353 = load i32, ptr %337, align 8, !tbaa !71
-  %354 = sext i32 %353 to i64
-  %355 = icmp slt i64 %348, %354
-  br i1 %355, label %347, label %356, !llvm.loop !99
+344:                                              ; preds = %340
+  %345 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 10
+  %346 = load ptr, ptr %345, align 8, !tbaa !96
+  %347 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 11
+  %348 = load ptr, ptr %347, align 8, !tbaa !97
+  %349 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 12
+  %350 = load ptr, ptr %349, align 8, !tbaa !98
+  br label %351
 
-356:                                              ; preds = %347
-  %357 = load i32, ptr %334, align 4, !tbaa !77
-  br label %358
+351:                                              ; preds = %351, %344
+  %352 = phi i64 [ 0, %344 ], [ %356, %351 ]
+  %353 = getelementptr inbounds i32, ptr %346, i64 %352
+  store i32 3, ptr %353, align 4, !tbaa !43
+  %354 = getelementptr inbounds i32, ptr %348, i64 %352
+  store i32 0, ptr %354, align 4, !tbaa !43
+  %355 = getelementptr inbounds i32, ptr %350, i64 %352
+  store i32 0, ptr %355, align 4, !tbaa !43
+  %356 = add nuw nsw i64 %352, 1
+  %357 = load i32, ptr %341, align 8, !tbaa !71
+  %358 = sext i32 %357 to i64
+  %359 = icmp slt i64 %352, %358
+  br i1 %359, label %351, label %360, !llvm.loop !99
 
-358:                                              ; preds = %356, %336
-  %359 = phi i32 [ %353, %356 ], [ %338, %336 ]
-  %360 = phi i32 [ %357, %356 ], [ %335, %336 ]
-  %361 = icmp eq i32 %360, 1
-  br i1 %361, label %362, label %384
+360:                                              ; preds = %351
+  %361 = load i32, ptr %338, align 4, !tbaa !77
+  br label %362
 
-362:                                              ; preds = %358
-  %363 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 89
-  %364 = load i32, ptr %363, align 4, !tbaa !73
-  %365 = icmp slt i32 %364, 0
-  br i1 %365, label %389, label %366
+362:                                              ; preds = %360, %340
+  %363 = phi i32 [ %357, %360 ], [ %342, %340 ]
+  %364 = phi i32 [ %361, %360 ], [ %339, %340 ]
+  %365 = icmp eq i32 %364, 1
+  br i1 %365, label %366, label %388
 
 366:                                              ; preds = %362
-  %367 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 14
-  %368 = load ptr, ptr %367, align 8, !tbaa !100
-  %369 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 15
-  %370 = load ptr, ptr %369, align 8, !tbaa !101
-  %371 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 16
-  %372 = load ptr, ptr %371, align 8, !tbaa !102
-  br label %373
+  %367 = getelementptr inbounds %struct.ImageParameters, ptr %337, i64 0, i32 89
+  %368 = load i32, ptr %367, align 4, !tbaa !73
+  %369 = icmp slt i32 %368, 0
+  br i1 %369, label %392, label %370
 
-373:                                              ; preds = %373, %366
-  %374 = phi i64 [ 0, %366 ], [ %378, %373 ]
-  %375 = getelementptr inbounds i32, ptr %368, i64 %374
-  store i32 3, ptr %375, align 4, !tbaa !43
-  %376 = getelementptr inbounds i32, ptr %370, i64 %374
-  store i32 0, ptr %376, align 4, !tbaa !43
-  %377 = getelementptr inbounds i32, ptr %372, i64 %374
-  store i32 0, ptr %377, align 4, !tbaa !43
-  %378 = add nuw nsw i64 %374, 1
-  %379 = load i32, ptr %363, align 4, !tbaa !73
-  %380 = sext i32 %379 to i64
-  %381 = icmp slt i64 %374, %380
-  br i1 %381, label %373, label %382, !llvm.loop !103
+370:                                              ; preds = %366
+  %371 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 14
+  %372 = load ptr, ptr %371, align 8, !tbaa !100
+  %373 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 15
+  %374 = load ptr, ptr %373, align 8, !tbaa !101
+  %375 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 16
+  %376 = load ptr, ptr %375, align 8, !tbaa !102
+  br label %377
 
-382:                                              ; preds = %373
-  %383 = load i32, ptr %334, align 4, !tbaa !77
-  br label %384
+377:                                              ; preds = %377, %370
+  %378 = phi i64 [ 0, %370 ], [ %382, %377 ]
+  %379 = getelementptr inbounds i32, ptr %372, i64 %378
+  store i32 3, ptr %379, align 4, !tbaa !43
+  %380 = getelementptr inbounds i32, ptr %374, i64 %378
+  store i32 0, ptr %380, align 4, !tbaa !43
+  %381 = getelementptr inbounds i32, ptr %376, i64 %378
+  store i32 0, ptr %381, align 4, !tbaa !43
+  %382 = add nuw nsw i64 %378, 1
+  %383 = load i32, ptr %367, align 4, !tbaa !73
+  %384 = sext i32 %383 to i64
+  %385 = icmp slt i64 %378, %384
+  br i1 %385, label %377, label %386, !llvm.loop !103
 
-384:                                              ; preds = %382, %358, %332, %332
-  %385 = phi i32 [ %335, %332 ], [ %335, %332 ], [ %360, %358 ], [ %383, %382 ]
-  switch i32 %385, label %386 [
-    i32 2, label %427
-    i32 4, label %427
+386:                                              ; preds = %377
+  %387 = load i32, ptr %338, align 4, !tbaa !77
+  br label %388
+
+388:                                              ; preds = %386, %362
+  %389 = phi i32 [ %364, %362 ], [ %387, %386 ]
+  switch i32 %389, label %390 [
+    i32 2, label %430
+    i32 4, label %430
   ]
 
-386:                                              ; preds = %384
-  %387 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 88
-  %388 = load i32, ptr %387, align 8, !tbaa !71
-  br label %389
+390:                                              ; preds = %388
+  %391 = load i32, ptr %341, align 8, !tbaa !71
+  br label %392
 
-389:                                              ; preds = %386, %362
-  %390 = phi i32 [ %388, %386 ], [ %359, %362 ]
-  %391 = load ptr, ptr @listX, align 16, !tbaa !5
-  %392 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 10
-  %393 = load ptr, ptr %392, align 8, !tbaa !96
-  %394 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 11
-  %395 = load ptr, ptr %394, align 8, !tbaa !97
-  %396 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 12
-  tail call void @poc_ref_pic_reorder(ptr noundef %391, i32 noundef %390, ptr noundef %393, ptr noundef %395, ptr poison, i32 noundef 0)
-  %397 = load ptr, ptr @listX, align 16, !tbaa !5
-  %398 = load ptr, ptr @img, align 8, !tbaa !5
-  %399 = getelementptr inbounds %struct.ImageParameters, ptr %398, i64 0, i32 88
-  %400 = load i32, ptr %399, align 8, !tbaa !71
-  %401 = add nsw i32 %400, -1
-  %402 = load ptr, ptr %392, align 8, !tbaa !96
-  %403 = load ptr, ptr %394, align 8, !tbaa !97
-  %404 = load ptr, ptr %396, align 8, !tbaa !98
-  tail call void @reorder_ref_pic_list(ptr noundef %397, ptr noundef nonnull @listXsize, i32 noundef %401, ptr noundef %402, ptr noundef %403, ptr noundef %404) #12
-  %405 = load ptr, ptr @img, align 8, !tbaa !5
-  %406 = getelementptr inbounds %struct.ImageParameters, ptr %405, i64 0, i32 5
-  %407 = load i32, ptr %406, align 4, !tbaa !77
-  %408 = icmp eq i32 %407, 1
-  br i1 %408, label %409, label %427
+392:                                              ; preds = %390, %366
+  %393 = phi i32 [ %391, %390 ], [ %363, %366 ]
+  %394 = load ptr, ptr @listX, align 16, !tbaa !5
+  %395 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 10
+  %396 = load ptr, ptr %395, align 8, !tbaa !96
+  %397 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 11
+  %398 = load ptr, ptr %397, align 8, !tbaa !97
+  %399 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 12
+  tail call void @poc_ref_pic_reorder(ptr noundef %394, i32 noundef %393, ptr noundef %396, ptr noundef %398, ptr poison, i32 noundef 0)
+  %400 = load ptr, ptr @listX, align 16, !tbaa !5
+  %401 = load ptr, ptr @img, align 8, !tbaa !5
+  %402 = getelementptr inbounds %struct.ImageParameters, ptr %401, i64 0, i32 88
+  %403 = load i32, ptr %402, align 8, !tbaa !71
+  %404 = add nsw i32 %403, -1
+  %405 = load ptr, ptr %395, align 8, !tbaa !96
+  %406 = load ptr, ptr %397, align 8, !tbaa !97
+  %407 = load ptr, ptr %399, align 8, !tbaa !98
+  tail call void @reorder_ref_pic_list(ptr noundef %400, ptr noundef nonnull @listXsize, i32 noundef %404, ptr noundef %405, ptr noundef %406, ptr noundef %407) #12
+  %408 = load ptr, ptr @img, align 8, !tbaa !5
+  %409 = getelementptr inbounds %struct.ImageParameters, ptr %408, i64 0, i32 5
+  %410 = load i32, ptr %409, align 4, !tbaa !77
+  %411 = icmp eq i32 %410, 1
+  br i1 %411, label %412, label %430
 
-409:                                              ; preds = %389
-  %410 = getelementptr inbounds %struct.ImageParameters, ptr %405, i64 0, i32 89
-  %411 = load i32, ptr %410, align 4, !tbaa !73
-  %412 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
-  %413 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 14
-  %414 = load ptr, ptr %413, align 8, !tbaa !100
-  %415 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 15
-  %416 = load ptr, ptr %415, align 8, !tbaa !101
-  %417 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 16
-  tail call void @poc_ref_pic_reorder(ptr noundef %412, i32 noundef %411, ptr noundef %414, ptr noundef %416, ptr poison, i32 noundef 1)
-  %418 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
-  %419 = load ptr, ptr @img, align 8, !tbaa !5
-  %420 = getelementptr inbounds %struct.ImageParameters, ptr %419, i64 0, i32 89
-  %421 = load i32, ptr %420, align 4, !tbaa !73
-  %422 = add nsw i32 %421, -1
-  %423 = load ptr, ptr %413, align 8, !tbaa !100
-  %424 = load ptr, ptr %415, align 8, !tbaa !101
-  %425 = load ptr, ptr %417, align 8, !tbaa !102
-  tail call void @reorder_ref_pic_list(ptr noundef %418, ptr noundef nonnull getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), i32 noundef %422, ptr noundef %423, ptr noundef %424, ptr noundef %425) #12
-  %426 = load ptr, ptr @img, align 8, !tbaa !5
-  br label %427
+412:                                              ; preds = %392
+  %413 = getelementptr inbounds %struct.ImageParameters, ptr %408, i64 0, i32 89
+  %414 = load i32, ptr %413, align 4, !tbaa !73
+  %415 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
+  %416 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 14
+  %417 = load ptr, ptr %416, align 8, !tbaa !100
+  %418 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 15
+  %419 = load ptr, ptr %418, align 8, !tbaa !101
+  %420 = getelementptr inbounds %struct.Slice, ptr %55, i64 0, i32 16
+  tail call void @poc_ref_pic_reorder(ptr noundef %415, i32 noundef %414, ptr noundef %417, ptr noundef %419, ptr poison, i32 noundef 1)
+  %421 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
+  %422 = load ptr, ptr @img, align 8, !tbaa !5
+  %423 = getelementptr inbounds %struct.ImageParameters, ptr %422, i64 0, i32 89
+  %424 = load i32, ptr %423, align 4, !tbaa !73
+  %425 = add nsw i32 %424, -1
+  %426 = load ptr, ptr %416, align 8, !tbaa !100
+  %427 = load ptr, ptr %418, align 8, !tbaa !101
+  %428 = load ptr, ptr %420, align 8, !tbaa !102
+  tail call void @reorder_ref_pic_list(ptr noundef %421, ptr noundef nonnull getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), i32 noundef %425, ptr noundef %426, ptr noundef %427, ptr noundef %428) #12
+  %429 = load ptr, ptr @img, align 8, !tbaa !5
+  br label %430
 
-427:                                              ; preds = %409, %389, %384, %384, %328, %319
-  %428 = phi ptr [ %426, %409 ], [ %405, %389 ], [ %333, %384 ], [ %333, %384 ], [ %320, %328 ], [ %320, %319 ]
-  %429 = getelementptr inbounds %struct.ImageParameters, ptr %428, i64 0, i32 6
-  %430 = load i32, ptr %429, align 8, !tbaa !79
-  %431 = icmp eq i32 %430, 0
-  br i1 %431, label %432, label %434
+430:                                              ; preds = %412, %392, %388, %388, %336, %336, %332, %323
+  %431 = phi ptr [ %337, %388 ], [ %337, %388 ], [ %337, %336 ], [ %337, %336 ], [ %429, %412 ], [ %408, %392 ], [ %324, %332 ], [ %324, %323 ]
+  %432 = getelementptr inbounds %struct.ImageParameters, ptr %431, i64 0, i32 6
+  %433 = load i32, ptr %432, align 8, !tbaa !79
+  %434 = icmp eq i32 %433, 0
+  br i1 %434, label %435, label %437
 
-432:                                              ; preds = %427
+435:                                              ; preds = %430
   tail call void @init_mbaff_lists() #12
-  %433 = load ptr, ptr @img, align 8, !tbaa !5
-  br label %434
+  %436 = load ptr, ptr @img, align 8, !tbaa !5
+  br label %437
 
-434:                                              ; preds = %432, %427
-  %435 = phi ptr [ %433, %432 ], [ %428, %427 ]
-  %436 = getelementptr inbounds %struct.ImageParameters, ptr %435, i64 0, i32 5
-  %437 = load i32, ptr %436, align 4, !tbaa !77
-  %438 = icmp eq i32 %437, 2
-  br i1 %438, label %468, label %439
+437:                                              ; preds = %435, %430
+  %438 = phi ptr [ %436, %435 ], [ %431, %430 ]
+  %439 = getelementptr inbounds %struct.ImageParameters, ptr %438, i64 0, i32 5
+  %440 = load i32, ptr %439, align 4, !tbaa !77
+  %441 = icmp eq i32 %440, 2
+  br i1 %441, label %471, label %442
 
-439:                                              ; preds = %434
-  %440 = load ptr, ptr @active_pps, align 8, !tbaa !5
-  %441 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %440, i64 0, i32 19
-  %442 = load i32, ptr %441, align 8, !tbaa !104
-  %443 = icmp eq i32 %442, 1
-  br i1 %443, label %450, label %444
+442:                                              ; preds = %437
+  %443 = load ptr, ptr @active_pps, align 8, !tbaa !5
+  %444 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %443, i64 0, i32 19
+  %445 = load i32, ptr %444, align 8, !tbaa !104
+  %446 = icmp eq i32 %445, 1
+  br i1 %446, label %453, label %447
 
-444:                                              ; preds = %439
-  %445 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %440, i64 0, i32 20
-  %446 = load i32, ptr %445, align 4, !tbaa !105
-  %447 = icmp ne i32 %446, 0
-  %448 = icmp eq i32 %437, 1
-  %449 = select i1 %447, i1 %448, i1 false
-  br i1 %449, label %467, label %468
+447:                                              ; preds = %442
+  %448 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %443, i64 0, i32 20
+  %449 = load i32, ptr %448, align 4, !tbaa !105
+  %450 = icmp ne i32 %449, 0
+  %451 = icmp eq i32 %440, 1
+  %452 = select i1 %450, i1 %451, i1 false
+  br i1 %452, label %470, label %471
 
-450:                                              ; preds = %439
-  switch i32 %437, label %467 [
-    i32 0, label %451
-    i32 3, label %451
+453:                                              ; preds = %442
+  switch i32 %440, label %470 [
+    i32 0, label %454
+    i32 3, label %454
   ]
 
-451:                                              ; preds = %450, %450
-  %452 = load ptr, ptr @input, align 8, !tbaa !5
-  %453 = getelementptr inbounds %struct.InputParameters, ptr %452, i64 0, i32 34
-  %454 = load i32, ptr %453, align 8, !tbaa !106
-  %455 = icmp eq i32 %454, 0
-  br i1 %455, label %466, label %456
+454:                                              ; preds = %453, %453
+  %455 = load ptr, ptr @input, align 8, !tbaa !5
+  %456 = getelementptr inbounds %struct.InputParameters, ptr %455, i64 0, i32 34
+  %457 = load i32, ptr %456, align 8, !tbaa !106
+  %458 = icmp eq i32 %457, 0
+  br i1 %458, label %469, label %459
 
-456:                                              ; preds = %451
-  %457 = getelementptr inbounds %struct.InputParameters, ptr %452, i64 0, i32 62
-  %458 = load i32, ptr %457, align 4, !tbaa !107
-  %459 = icmp eq i32 %458, 0
-  br i1 %459, label %466, label %460
+459:                                              ; preds = %454
+  %460 = getelementptr inbounds %struct.InputParameters, ptr %455, i64 0, i32 62
+  %461 = load i32, ptr %460, align 4, !tbaa !107
+  %462 = icmp eq i32 %461, 0
+  br i1 %462, label %469, label %463
 
-460:                                              ; preds = %456
-  %461 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %462 = load ptr, ptr @enc_frame_picture2, align 8, !tbaa !5
-  %463 = icmp eq ptr %461, %462
-  br i1 %463, label %464, label %465
+463:                                              ; preds = %459
+  %464 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %465 = load ptr, ptr @enc_frame_picture2, align 8, !tbaa !5
+  %466 = icmp eq ptr %464, %465
+  br i1 %466, label %467, label %468
 
-464:                                              ; preds = %460
+467:                                              ; preds = %463
   tail call void @estimate_weighting_factor_P_slice(i32 noundef 0) #12
-  br label %468
+  br label %471
 
-465:                                              ; preds = %460
+468:                                              ; preds = %463
   tail call void @estimate_weighting_factor_P_slice(i32 noundef 1) #12
-  br label %468
+  br label %471
 
-466:                                              ; preds = %456, %451
+469:                                              ; preds = %459, %454
   tail call void @estimate_weighting_factor_P_slice(i32 noundef 0) #12
-  br label %468
+  br label %471
 
-467:                                              ; preds = %450, %444
+470:                                              ; preds = %453, %447
   tail call void @estimate_weighting_factor_B_slice() #12
-  br label %468
+  br label %471
 
-468:                                              ; preds = %467, %466, %465, %464, %444, %434
-  %469 = load i32, ptr @listXsize, align 16, !tbaa !43
-  %470 = icmp sgt i32 %469, 0
-  br i1 %470, label %471, label %479
+471:                                              ; preds = %470, %469, %468, %467, %447, %437
+  %472 = load i32, ptr @listXsize, align 16, !tbaa !43
+  %473 = icmp sgt i32 %472, 0
+  br i1 %473, label %474, label %482
 
-471:                                              ; preds = %468
-  %472 = load ptr, ptr @listX, align 16, !tbaa !5
-  %473 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %474 = getelementptr inbounds %struct.storable_picture, ptr %473, i64 0, i32 6
-  %475 = getelementptr inbounds %struct.storable_picture, ptr %473, i64 0, i32 7
-  %476 = getelementptr inbounds %struct.storable_picture, ptr %473, i64 0, i32 8
-  %477 = getelementptr inbounds %struct.storable_picture, ptr %473, i64 0, i32 9
-  %478 = zext i32 %469 to i64
-  br label %486
+474:                                              ; preds = %471
+  %475 = load ptr, ptr @listX, align 16, !tbaa !5
+  %476 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %477 = getelementptr inbounds %struct.storable_picture, ptr %476, i64 0, i32 6
+  %478 = getelementptr inbounds %struct.storable_picture, ptr %476, i64 0, i32 7
+  %479 = getelementptr inbounds %struct.storable_picture, ptr %476, i64 0, i32 8
+  %480 = getelementptr inbounds %struct.storable_picture, ptr %476, i64 0, i32 9
+  %481 = zext i32 %472 to i64
+  br label %489
 
-479:                                              ; preds = %486, %468
-  %480 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
-  %481 = icmp sgt i32 %480, 0
-  br i1 %481, label %482, label %548
+482:                                              ; preds = %489, %471
+  %483 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
+  %484 = icmp sgt i32 %483, 0
+  br i1 %484, label %485, label %551
 
-482:                                              ; preds = %479
-  %483 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
-  %484 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %485 = zext i32 %480 to i64
-  br label %517
+485:                                              ; preds = %482
+  %486 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 1), align 8, !tbaa !5
+  %487 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %488 = zext i32 %483 to i64
+  br label %520
 
-486:                                              ; preds = %486, %471
-  %487 = phi i64 [ 0, %471 ], [ %515, %486 ]
-  %488 = getelementptr inbounds ptr, ptr %472, i64 %487
-  %489 = load ptr, ptr %488, align 8, !tbaa !5
-  %490 = getelementptr inbounds %struct.storable_picture, ptr %489, i64 0, i32 1
-  %491 = load i32, ptr %490, align 4, !tbaa !90
-  %492 = shl nsw i32 %491, 1
-  %493 = load i32, ptr %489, align 8, !tbaa !108
-  %494 = icmp eq i32 %493, 2
-  %495 = zext i1 %494 to i32
-  %496 = or i32 %492, %495
-  %497 = sext i32 %496 to i64
-  %498 = getelementptr inbounds [33 x i64], ptr %474, i64 0, i64 %487
-  store i64 %497, ptr %498, align 8, !tbaa !109
-  %499 = getelementptr inbounds %struct.storable_picture, ptr %489, i64 0, i32 4
-  %500 = load i32, ptr %499, align 8, !tbaa !110
-  %501 = shl nsw i32 %500, 1
-  %502 = sext i32 %501 to i64
-  %503 = getelementptr inbounds [33 x i64], ptr %475, i64 0, i64 %487
-  store i64 %502, ptr %503, align 8, !tbaa !109
-  %504 = getelementptr inbounds %struct.storable_picture, ptr %489, i64 0, i32 2
-  %505 = load i32, ptr %504, align 8, !tbaa !111
-  %506 = shl nsw i32 %505, 1
-  %507 = sext i32 %506 to i64
-  %508 = getelementptr inbounds [33 x i64], ptr %476, i64 0, i64 %487
-  store i64 %507, ptr %508, align 8, !tbaa !109
-  %509 = getelementptr inbounds %struct.storable_picture, ptr %489, i64 0, i32 3
-  %510 = load i32, ptr %509, align 4, !tbaa !112
-  %511 = shl nsw i32 %510, 1
-  %512 = or i32 %511, 1
-  %513 = sext i32 %512 to i64
-  %514 = getelementptr inbounds [33 x i64], ptr %477, i64 0, i64 %487
-  store i64 %513, ptr %514, align 8, !tbaa !109
-  %515 = add nuw nsw i64 %487, 1
-  %516 = icmp eq i64 %515, %478
-  br i1 %516, label %479, label %486, !llvm.loop !113
+489:                                              ; preds = %489, %474
+  %490 = phi i64 [ 0, %474 ], [ %518, %489 ]
+  %491 = getelementptr inbounds ptr, ptr %475, i64 %490
+  %492 = load ptr, ptr %491, align 8, !tbaa !5
+  %493 = getelementptr inbounds %struct.storable_picture, ptr %492, i64 0, i32 1
+  %494 = load i32, ptr %493, align 4, !tbaa !90
+  %495 = shl nsw i32 %494, 1
+  %496 = load i32, ptr %492, align 8, !tbaa !108
+  %497 = icmp eq i32 %496, 2
+  %498 = zext i1 %497 to i32
+  %499 = or i32 %495, %498
+  %500 = sext i32 %499 to i64
+  %501 = getelementptr inbounds [33 x i64], ptr %477, i64 0, i64 %490
+  store i64 %500, ptr %501, align 8, !tbaa !109
+  %502 = getelementptr inbounds %struct.storable_picture, ptr %492, i64 0, i32 4
+  %503 = load i32, ptr %502, align 8, !tbaa !110
+  %504 = shl nsw i32 %503, 1
+  %505 = sext i32 %504 to i64
+  %506 = getelementptr inbounds [33 x i64], ptr %478, i64 0, i64 %490
+  store i64 %505, ptr %506, align 8, !tbaa !109
+  %507 = getelementptr inbounds %struct.storable_picture, ptr %492, i64 0, i32 2
+  %508 = load i32, ptr %507, align 8, !tbaa !111
+  %509 = shl nsw i32 %508, 1
+  %510 = sext i32 %509 to i64
+  %511 = getelementptr inbounds [33 x i64], ptr %479, i64 0, i64 %490
+  store i64 %510, ptr %511, align 8, !tbaa !109
+  %512 = getelementptr inbounds %struct.storable_picture, ptr %492, i64 0, i32 3
+  %513 = load i32, ptr %512, align 4, !tbaa !112
+  %514 = shl nsw i32 %513, 1
+  %515 = or i32 %514, 1
+  %516 = sext i32 %515 to i64
+  %517 = getelementptr inbounds [33 x i64], ptr %480, i64 0, i64 %490
+  store i64 %516, ptr %517, align 8, !tbaa !109
+  %518 = add nuw nsw i64 %490, 1
+  %519 = icmp eq i64 %518, %481
+  br i1 %519, label %482, label %489, !llvm.loop !113
 
-517:                                              ; preds = %517, %482
-  %518 = phi i64 [ 0, %482 ], [ %546, %517 ]
-  %519 = getelementptr inbounds ptr, ptr %483, i64 %518
-  %520 = load ptr, ptr %519, align 8, !tbaa !5
-  %521 = getelementptr inbounds %struct.storable_picture, ptr %520, i64 0, i32 1
-  %522 = load i32, ptr %521, align 4, !tbaa !90
-  %523 = shl nsw i32 %522, 1
-  %524 = load i32, ptr %520, align 8, !tbaa !108
-  %525 = icmp eq i32 %524, 2
-  %526 = zext i1 %525 to i32
-  %527 = or i32 %523, %526
-  %528 = sext i32 %527 to i64
-  %529 = getelementptr inbounds %struct.storable_picture, ptr %484, i64 0, i32 6, i64 1, i64 %518
-  store i64 %528, ptr %529, align 8, !tbaa !109
-  %530 = getelementptr inbounds %struct.storable_picture, ptr %520, i64 0, i32 4
-  %531 = load i32, ptr %530, align 8, !tbaa !110
-  %532 = shl nsw i32 %531, 1
-  %533 = sext i32 %532 to i64
-  %534 = getelementptr inbounds %struct.storable_picture, ptr %484, i64 0, i32 7, i64 1, i64 %518
-  store i64 %533, ptr %534, align 8, !tbaa !109
-  %535 = getelementptr inbounds %struct.storable_picture, ptr %520, i64 0, i32 2
-  %536 = load i32, ptr %535, align 8, !tbaa !111
-  %537 = shl nsw i32 %536, 1
-  %538 = sext i32 %537 to i64
-  %539 = getelementptr inbounds %struct.storable_picture, ptr %484, i64 0, i32 8, i64 1, i64 %518
-  store i64 %538, ptr %539, align 8, !tbaa !109
-  %540 = getelementptr inbounds %struct.storable_picture, ptr %520, i64 0, i32 3
-  %541 = load i32, ptr %540, align 4, !tbaa !112
-  %542 = shl nsw i32 %541, 1
-  %543 = or i32 %542, 1
-  %544 = sext i32 %543 to i64
-  %545 = getelementptr inbounds %struct.storable_picture, ptr %484, i64 0, i32 9, i64 1, i64 %518
-  store i64 %544, ptr %545, align 8, !tbaa !109
-  %546 = add nuw nsw i64 %518, 1
-  %547 = icmp eq i64 %546, %485
-  br i1 %547, label %548, label %517, !llvm.loop !114
+520:                                              ; preds = %520, %485
+  %521 = phi i64 [ 0, %485 ], [ %549, %520 ]
+  %522 = getelementptr inbounds ptr, ptr %486, i64 %521
+  %523 = load ptr, ptr %522, align 8, !tbaa !5
+  %524 = getelementptr inbounds %struct.storable_picture, ptr %523, i64 0, i32 1
+  %525 = load i32, ptr %524, align 4, !tbaa !90
+  %526 = shl nsw i32 %525, 1
+  %527 = load i32, ptr %523, align 8, !tbaa !108
+  %528 = icmp eq i32 %527, 2
+  %529 = zext i1 %528 to i32
+  %530 = or i32 %526, %529
+  %531 = sext i32 %530 to i64
+  %532 = getelementptr inbounds %struct.storable_picture, ptr %487, i64 0, i32 6, i64 1, i64 %521
+  store i64 %531, ptr %532, align 8, !tbaa !109
+  %533 = getelementptr inbounds %struct.storable_picture, ptr %523, i64 0, i32 4
+  %534 = load i32, ptr %533, align 8, !tbaa !110
+  %535 = shl nsw i32 %534, 1
+  %536 = sext i32 %535 to i64
+  %537 = getelementptr inbounds %struct.storable_picture, ptr %487, i64 0, i32 7, i64 1, i64 %521
+  store i64 %536, ptr %537, align 8, !tbaa !109
+  %538 = getelementptr inbounds %struct.storable_picture, ptr %523, i64 0, i32 2
+  %539 = load i32, ptr %538, align 8, !tbaa !111
+  %540 = shl nsw i32 %539, 1
+  %541 = sext i32 %540 to i64
+  %542 = getelementptr inbounds %struct.storable_picture, ptr %487, i64 0, i32 8, i64 1, i64 %521
+  store i64 %541, ptr %542, align 8, !tbaa !109
+  %543 = getelementptr inbounds %struct.storable_picture, ptr %523, i64 0, i32 3
+  %544 = load i32, ptr %543, align 4, !tbaa !112
+  %545 = shl nsw i32 %544, 1
+  %546 = or i32 %545, 1
+  %547 = sext i32 %546 to i64
+  %548 = getelementptr inbounds %struct.storable_picture, ptr %487, i64 0, i32 9, i64 1, i64 %521
+  store i64 %547, ptr %548, align 8, !tbaa !109
+  %549 = add nuw nsw i64 %521, 1
+  %550 = icmp eq i64 %549, %488
+  br i1 %550, label %551, label %520, !llvm.loop !114
 
-548:                                              ; preds = %517, %479
-  %549 = load ptr, ptr @active_sps, align 8, !tbaa !5
-  %550 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %549, i64 0, i32 25
-  %551 = load i32, ptr %550, align 4, !tbaa !115
-  %552 = icmp eq i32 %551, 0
-  %553 = load ptr, ptr @img, align 8, !tbaa !5
-  br i1 %552, label %554, label %707
+551:                                              ; preds = %520, %482
+  %552 = load ptr, ptr @active_sps, align 8, !tbaa !5
+  %553 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %552, i64 0, i32 25
+  %554 = load i32, ptr %553, align 4, !tbaa !115
+  %555 = icmp eq i32 %554, 0
+  %556 = load ptr, ptr @img, align 8, !tbaa !5
+  br i1 %555, label %557, label %710
 
-554:                                              ; preds = %548
-  %555 = getelementptr inbounds %struct.ImageParameters, ptr %553, i64 0, i32 6
-  %556 = load i32, ptr %555, align 8, !tbaa !79
-  %557 = icmp eq i32 %556, 0
-  br i1 %557, label %558, label %707
+557:                                              ; preds = %551
+  %558 = getelementptr inbounds %struct.ImageParameters, ptr %556, i64 0, i32 6
+  %559 = load i32, ptr %558, align 8, !tbaa !79
+  %560 = icmp eq i32 %559, 0
+  br i1 %560, label %561, label %710
 
-558:                                              ; preds = %554
-  %559 = load ptr, ptr @enc_picture, align 8
-  %560 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 2), align 8, !tbaa !43
-  %561 = icmp sgt i32 %560, 0
-  br i1 %561, label %562, label %596
+561:                                              ; preds = %557
+  %562 = load ptr, ptr @enc_picture, align 8
+  %563 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 2), align 8, !tbaa !43
+  %564 = icmp sgt i32 %563, 0
+  br i1 %564, label %565, label %599
 
-562:                                              ; preds = %558
-  %563 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 2), align 16, !tbaa !5
-  %564 = zext i32 %560 to i64
-  br label %565
+565:                                              ; preds = %561
+  %566 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 2), align 16, !tbaa !5
+  %567 = zext i32 %563 to i64
+  br label %568
 
-565:                                              ; preds = %565, %562
-  %566 = phi i64 [ 0, %562 ], [ %594, %565 ]
-  %567 = getelementptr inbounds ptr, ptr %563, i64 %566
-  %568 = load ptr, ptr %567, align 8, !tbaa !5
-  %569 = getelementptr inbounds %struct.storable_picture, ptr %568, i64 0, i32 1
-  %570 = load i32, ptr %569, align 4, !tbaa !90
-  %571 = shl nsw i32 %570, 1
-  %572 = load i32, ptr %568, align 8, !tbaa !108
-  %573 = icmp eq i32 %572, 2
-  %574 = zext i1 %573 to i32
-  %575 = or i32 %571, %574
-  %576 = sext i32 %575 to i64
-  %577 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 6, i64 2, i64 %566
-  store i64 %576, ptr %577, align 8, !tbaa !109
-  %578 = getelementptr inbounds %struct.storable_picture, ptr %568, i64 0, i32 4
-  %579 = load i32, ptr %578, align 8, !tbaa !110
-  %580 = shl nsw i32 %579, 1
-  %581 = sext i32 %580 to i64
-  %582 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 7, i64 2, i64 %566
-  store i64 %581, ptr %582, align 8, !tbaa !109
-  %583 = getelementptr inbounds %struct.storable_picture, ptr %568, i64 0, i32 2
-  %584 = load i32, ptr %583, align 8, !tbaa !111
-  %585 = shl nsw i32 %584, 1
-  %586 = sext i32 %585 to i64
-  %587 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 8, i64 2, i64 %566
-  store i64 %586, ptr %587, align 8, !tbaa !109
-  %588 = getelementptr inbounds %struct.storable_picture, ptr %568, i64 0, i32 3
-  %589 = load i32, ptr %588, align 4, !tbaa !112
-  %590 = shl nsw i32 %589, 1
-  %591 = or i32 %590, 1
-  %592 = sext i32 %591 to i64
-  %593 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 9, i64 2, i64 %566
-  store i64 %592, ptr %593, align 8, !tbaa !109
-  %594 = add nuw nsw i64 %566, 1
-  %595 = icmp eq i64 %594, %564
-  br i1 %595, label %596, label %565, !llvm.loop !116
+568:                                              ; preds = %568, %565
+  %569 = phi i64 [ 0, %565 ], [ %597, %568 ]
+  %570 = getelementptr inbounds ptr, ptr %566, i64 %569
+  %571 = load ptr, ptr %570, align 8, !tbaa !5
+  %572 = getelementptr inbounds %struct.storable_picture, ptr %571, i64 0, i32 1
+  %573 = load i32, ptr %572, align 4, !tbaa !90
+  %574 = shl nsw i32 %573, 1
+  %575 = load i32, ptr %571, align 8, !tbaa !108
+  %576 = icmp eq i32 %575, 2
+  %577 = zext i1 %576 to i32
+  %578 = or i32 %574, %577
+  %579 = sext i32 %578 to i64
+  %580 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 6, i64 2, i64 %569
+  store i64 %579, ptr %580, align 8, !tbaa !109
+  %581 = getelementptr inbounds %struct.storable_picture, ptr %571, i64 0, i32 4
+  %582 = load i32, ptr %581, align 8, !tbaa !110
+  %583 = shl nsw i32 %582, 1
+  %584 = sext i32 %583 to i64
+  %585 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 7, i64 2, i64 %569
+  store i64 %584, ptr %585, align 8, !tbaa !109
+  %586 = getelementptr inbounds %struct.storable_picture, ptr %571, i64 0, i32 2
+  %587 = load i32, ptr %586, align 8, !tbaa !111
+  %588 = shl nsw i32 %587, 1
+  %589 = sext i32 %588 to i64
+  %590 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 8, i64 2, i64 %569
+  store i64 %589, ptr %590, align 8, !tbaa !109
+  %591 = getelementptr inbounds %struct.storable_picture, ptr %571, i64 0, i32 3
+  %592 = load i32, ptr %591, align 4, !tbaa !112
+  %593 = shl nsw i32 %592, 1
+  %594 = or i32 %593, 1
+  %595 = sext i32 %594 to i64
+  %596 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 9, i64 2, i64 %569
+  store i64 %595, ptr %596, align 8, !tbaa !109
+  %597 = add nuw nsw i64 %569, 1
+  %598 = icmp eq i64 %597, %567
+  br i1 %598, label %599, label %568, !llvm.loop !116
 
-596:                                              ; preds = %565, %558
-  %597 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 3), align 4, !tbaa !43
-  %598 = icmp sgt i32 %597, 0
-  br i1 %598, label %599, label %633
+599:                                              ; preds = %568, %561
+  %600 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 3), align 4, !tbaa !43
+  %601 = icmp sgt i32 %600, 0
+  br i1 %601, label %602, label %636
 
-599:                                              ; preds = %596
-  %600 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 3), align 8, !tbaa !5
-  %601 = zext i32 %597 to i64
-  br label %602
+602:                                              ; preds = %599
+  %603 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 3), align 8, !tbaa !5
+  %604 = zext i32 %600 to i64
+  br label %605
 
-602:                                              ; preds = %602, %599
-  %603 = phi i64 [ 0, %599 ], [ %631, %602 ]
-  %604 = getelementptr inbounds ptr, ptr %600, i64 %603
-  %605 = load ptr, ptr %604, align 8, !tbaa !5
-  %606 = getelementptr inbounds %struct.storable_picture, ptr %605, i64 0, i32 1
-  %607 = load i32, ptr %606, align 4, !tbaa !90
-  %608 = shl nsw i32 %607, 1
-  %609 = load i32, ptr %605, align 8, !tbaa !108
-  %610 = icmp eq i32 %609, 2
-  %611 = zext i1 %610 to i32
-  %612 = or i32 %608, %611
-  %613 = sext i32 %612 to i64
-  %614 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 6, i64 3, i64 %603
-  store i64 %613, ptr %614, align 8, !tbaa !109
-  %615 = getelementptr inbounds %struct.storable_picture, ptr %605, i64 0, i32 4
-  %616 = load i32, ptr %615, align 8, !tbaa !110
-  %617 = shl nsw i32 %616, 1
-  %618 = sext i32 %617 to i64
-  %619 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 7, i64 3, i64 %603
-  store i64 %618, ptr %619, align 8, !tbaa !109
-  %620 = getelementptr inbounds %struct.storable_picture, ptr %605, i64 0, i32 2
-  %621 = load i32, ptr %620, align 8, !tbaa !111
-  %622 = shl nsw i32 %621, 1
-  %623 = sext i32 %622 to i64
-  %624 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 8, i64 3, i64 %603
-  store i64 %623, ptr %624, align 8, !tbaa !109
-  %625 = getelementptr inbounds %struct.storable_picture, ptr %605, i64 0, i32 3
-  %626 = load i32, ptr %625, align 4, !tbaa !112
-  %627 = shl nsw i32 %626, 1
-  %628 = or i32 %627, 1
-  %629 = sext i32 %628 to i64
-  %630 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 9, i64 3, i64 %603
-  store i64 %629, ptr %630, align 8, !tbaa !109
-  %631 = add nuw nsw i64 %603, 1
-  %632 = icmp eq i64 %631, %601
-  br i1 %632, label %633, label %602, !llvm.loop !116
+605:                                              ; preds = %605, %602
+  %606 = phi i64 [ 0, %602 ], [ %634, %605 ]
+  %607 = getelementptr inbounds ptr, ptr %603, i64 %606
+  %608 = load ptr, ptr %607, align 8, !tbaa !5
+  %609 = getelementptr inbounds %struct.storable_picture, ptr %608, i64 0, i32 1
+  %610 = load i32, ptr %609, align 4, !tbaa !90
+  %611 = shl nsw i32 %610, 1
+  %612 = load i32, ptr %608, align 8, !tbaa !108
+  %613 = icmp eq i32 %612, 2
+  %614 = zext i1 %613 to i32
+  %615 = or i32 %611, %614
+  %616 = sext i32 %615 to i64
+  %617 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 6, i64 3, i64 %606
+  store i64 %616, ptr %617, align 8, !tbaa !109
+  %618 = getelementptr inbounds %struct.storable_picture, ptr %608, i64 0, i32 4
+  %619 = load i32, ptr %618, align 8, !tbaa !110
+  %620 = shl nsw i32 %619, 1
+  %621 = sext i32 %620 to i64
+  %622 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 7, i64 3, i64 %606
+  store i64 %621, ptr %622, align 8, !tbaa !109
+  %623 = getelementptr inbounds %struct.storable_picture, ptr %608, i64 0, i32 2
+  %624 = load i32, ptr %623, align 8, !tbaa !111
+  %625 = shl nsw i32 %624, 1
+  %626 = sext i32 %625 to i64
+  %627 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 8, i64 3, i64 %606
+  store i64 %626, ptr %627, align 8, !tbaa !109
+  %628 = getelementptr inbounds %struct.storable_picture, ptr %608, i64 0, i32 3
+  %629 = load i32, ptr %628, align 4, !tbaa !112
+  %630 = shl nsw i32 %629, 1
+  %631 = or i32 %630, 1
+  %632 = sext i32 %631 to i64
+  %633 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 9, i64 3, i64 %606
+  store i64 %632, ptr %633, align 8, !tbaa !109
+  %634 = add nuw nsw i64 %606, 1
+  %635 = icmp eq i64 %634, %604
+  br i1 %635, label %636, label %605, !llvm.loop !116
 
-633:                                              ; preds = %602, %596
-  %634 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 4), align 16, !tbaa !43
-  %635 = icmp sgt i32 %634, 0
-  br i1 %635, label %636, label %670
+636:                                              ; preds = %605, %599
+  %637 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 4), align 16, !tbaa !43
+  %638 = icmp sgt i32 %637, 0
+  br i1 %638, label %639, label %673
 
-636:                                              ; preds = %633
-  %637 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 4), align 16, !tbaa !5
-  %638 = zext i32 %634 to i64
-  br label %639
+639:                                              ; preds = %636
+  %640 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 4), align 16, !tbaa !5
+  %641 = zext i32 %637 to i64
+  br label %642
 
-639:                                              ; preds = %639, %636
-  %640 = phi i64 [ 0, %636 ], [ %668, %639 ]
-  %641 = getelementptr inbounds ptr, ptr %637, i64 %640
-  %642 = load ptr, ptr %641, align 8, !tbaa !5
-  %643 = getelementptr inbounds %struct.storable_picture, ptr %642, i64 0, i32 1
-  %644 = load i32, ptr %643, align 4, !tbaa !90
-  %645 = shl nsw i32 %644, 1
-  %646 = load i32, ptr %642, align 8, !tbaa !108
-  %647 = icmp eq i32 %646, 2
-  %648 = zext i1 %647 to i32
-  %649 = or i32 %645, %648
-  %650 = sext i32 %649 to i64
-  %651 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 6, i64 4, i64 %640
-  store i64 %650, ptr %651, align 8, !tbaa !109
-  %652 = getelementptr inbounds %struct.storable_picture, ptr %642, i64 0, i32 4
-  %653 = load i32, ptr %652, align 8, !tbaa !110
-  %654 = shl nsw i32 %653, 1
-  %655 = sext i32 %654 to i64
-  %656 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 7, i64 4, i64 %640
-  store i64 %655, ptr %656, align 8, !tbaa !109
-  %657 = getelementptr inbounds %struct.storable_picture, ptr %642, i64 0, i32 2
-  %658 = load i32, ptr %657, align 8, !tbaa !111
-  %659 = shl nsw i32 %658, 1
-  %660 = sext i32 %659 to i64
-  %661 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 8, i64 4, i64 %640
-  store i64 %660, ptr %661, align 8, !tbaa !109
-  %662 = getelementptr inbounds %struct.storable_picture, ptr %642, i64 0, i32 3
-  %663 = load i32, ptr %662, align 4, !tbaa !112
-  %664 = shl nsw i32 %663, 1
-  %665 = or i32 %664, 1
-  %666 = sext i32 %665 to i64
-  %667 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 9, i64 4, i64 %640
-  store i64 %666, ptr %667, align 8, !tbaa !109
-  %668 = add nuw nsw i64 %640, 1
-  %669 = icmp eq i64 %668, %638
-  br i1 %669, label %670, label %639, !llvm.loop !116
+642:                                              ; preds = %642, %639
+  %643 = phi i64 [ 0, %639 ], [ %671, %642 ]
+  %644 = getelementptr inbounds ptr, ptr %640, i64 %643
+  %645 = load ptr, ptr %644, align 8, !tbaa !5
+  %646 = getelementptr inbounds %struct.storable_picture, ptr %645, i64 0, i32 1
+  %647 = load i32, ptr %646, align 4, !tbaa !90
+  %648 = shl nsw i32 %647, 1
+  %649 = load i32, ptr %645, align 8, !tbaa !108
+  %650 = icmp eq i32 %649, 2
+  %651 = zext i1 %650 to i32
+  %652 = or i32 %648, %651
+  %653 = sext i32 %652 to i64
+  %654 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 6, i64 4, i64 %643
+  store i64 %653, ptr %654, align 8, !tbaa !109
+  %655 = getelementptr inbounds %struct.storable_picture, ptr %645, i64 0, i32 4
+  %656 = load i32, ptr %655, align 8, !tbaa !110
+  %657 = shl nsw i32 %656, 1
+  %658 = sext i32 %657 to i64
+  %659 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 7, i64 4, i64 %643
+  store i64 %658, ptr %659, align 8, !tbaa !109
+  %660 = getelementptr inbounds %struct.storable_picture, ptr %645, i64 0, i32 2
+  %661 = load i32, ptr %660, align 8, !tbaa !111
+  %662 = shl nsw i32 %661, 1
+  %663 = sext i32 %662 to i64
+  %664 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 8, i64 4, i64 %643
+  store i64 %663, ptr %664, align 8, !tbaa !109
+  %665 = getelementptr inbounds %struct.storable_picture, ptr %645, i64 0, i32 3
+  %666 = load i32, ptr %665, align 4, !tbaa !112
+  %667 = shl nsw i32 %666, 1
+  %668 = or i32 %667, 1
+  %669 = sext i32 %668 to i64
+  %670 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 9, i64 4, i64 %643
+  store i64 %669, ptr %670, align 8, !tbaa !109
+  %671 = add nuw nsw i64 %643, 1
+  %672 = icmp eq i64 %671, %641
+  br i1 %672, label %673, label %642, !llvm.loop !116
 
-670:                                              ; preds = %639, %633
-  %671 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 5), align 4, !tbaa !43
-  %672 = icmp sgt i32 %671, 0
-  br i1 %672, label %673, label %707
+673:                                              ; preds = %642, %636
+  %674 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 5), align 4, !tbaa !43
+  %675 = icmp sgt i32 %674, 0
+  br i1 %675, label %676, label %710
 
-673:                                              ; preds = %670
-  %674 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 5), align 8, !tbaa !5
-  %675 = zext i32 %671 to i64
-  br label %676
+676:                                              ; preds = %673
+  %677 = load ptr, ptr getelementptr inbounds ([6 x ptr], ptr @listX, i64 0, i64 5), align 8, !tbaa !5
+  %678 = zext i32 %674 to i64
+  br label %679
 
-676:                                              ; preds = %676, %673
-  %677 = phi i64 [ 0, %673 ], [ %705, %676 ]
-  %678 = getelementptr inbounds ptr, ptr %674, i64 %677
-  %679 = load ptr, ptr %678, align 8, !tbaa !5
-  %680 = getelementptr inbounds %struct.storable_picture, ptr %679, i64 0, i32 1
-  %681 = load i32, ptr %680, align 4, !tbaa !90
-  %682 = shl nsw i32 %681, 1
-  %683 = load i32, ptr %679, align 8, !tbaa !108
-  %684 = icmp eq i32 %683, 2
-  %685 = zext i1 %684 to i32
-  %686 = or i32 %682, %685
-  %687 = sext i32 %686 to i64
-  %688 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 6, i64 5, i64 %677
-  store i64 %687, ptr %688, align 8, !tbaa !109
-  %689 = getelementptr inbounds %struct.storable_picture, ptr %679, i64 0, i32 4
-  %690 = load i32, ptr %689, align 8, !tbaa !110
-  %691 = shl nsw i32 %690, 1
-  %692 = sext i32 %691 to i64
-  %693 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 7, i64 5, i64 %677
-  store i64 %692, ptr %693, align 8, !tbaa !109
-  %694 = getelementptr inbounds %struct.storable_picture, ptr %679, i64 0, i32 2
-  %695 = load i32, ptr %694, align 8, !tbaa !111
-  %696 = shl nsw i32 %695, 1
-  %697 = sext i32 %696 to i64
-  %698 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 8, i64 5, i64 %677
-  store i64 %697, ptr %698, align 8, !tbaa !109
-  %699 = getelementptr inbounds %struct.storable_picture, ptr %679, i64 0, i32 3
-  %700 = load i32, ptr %699, align 4, !tbaa !112
-  %701 = shl nsw i32 %700, 1
-  %702 = or i32 %701, 1
-  %703 = sext i32 %702 to i64
-  %704 = getelementptr inbounds %struct.storable_picture, ptr %559, i64 0, i32 9, i64 5, i64 %677
-  store i64 %703, ptr %704, align 8, !tbaa !109
-  %705 = add nuw nsw i64 %677, 1
-  %706 = icmp eq i64 %705, %675
-  br i1 %706, label %707, label %676, !llvm.loop !116
+679:                                              ; preds = %679, %676
+  %680 = phi i64 [ 0, %676 ], [ %708, %679 ]
+  %681 = getelementptr inbounds ptr, ptr %677, i64 %680
+  %682 = load ptr, ptr %681, align 8, !tbaa !5
+  %683 = getelementptr inbounds %struct.storable_picture, ptr %682, i64 0, i32 1
+  %684 = load i32, ptr %683, align 4, !tbaa !90
+  %685 = shl nsw i32 %684, 1
+  %686 = load i32, ptr %682, align 8, !tbaa !108
+  %687 = icmp eq i32 %686, 2
+  %688 = zext i1 %687 to i32
+  %689 = or i32 %685, %688
+  %690 = sext i32 %689 to i64
+  %691 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 6, i64 5, i64 %680
+  store i64 %690, ptr %691, align 8, !tbaa !109
+  %692 = getelementptr inbounds %struct.storable_picture, ptr %682, i64 0, i32 4
+  %693 = load i32, ptr %692, align 8, !tbaa !110
+  %694 = shl nsw i32 %693, 1
+  %695 = sext i32 %694 to i64
+  %696 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 7, i64 5, i64 %680
+  store i64 %695, ptr %696, align 8, !tbaa !109
+  %697 = getelementptr inbounds %struct.storable_picture, ptr %682, i64 0, i32 2
+  %698 = load i32, ptr %697, align 8, !tbaa !111
+  %699 = shl nsw i32 %698, 1
+  %700 = sext i32 %699 to i64
+  %701 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 8, i64 5, i64 %680
+  store i64 %700, ptr %701, align 8, !tbaa !109
+  %702 = getelementptr inbounds %struct.storable_picture, ptr %682, i64 0, i32 3
+  %703 = load i32, ptr %702, align 4, !tbaa !112
+  %704 = shl nsw i32 %703, 1
+  %705 = or i32 %704, 1
+  %706 = sext i32 %705 to i64
+  %707 = getelementptr inbounds %struct.storable_picture, ptr %562, i64 0, i32 9, i64 5, i64 %680
+  store i64 %706, ptr %707, align 8, !tbaa !109
+  %708 = add nuw nsw i64 %680, 1
+  %709 = icmp eq i64 %708, %678
+  br i1 %709, label %710, label %679, !llvm.loop !116
 
-707:                                              ; preds = %676, %670, %554, %548
-  %708 = getelementptr inbounds %struct.ImageParameters, ptr %553, i64 0, i32 5
-  %709 = load i32, ptr %708, align 4, !tbaa !77
-  %710 = icmp eq i32 %709, 1
-  br i1 %710, label %711, label %716
+710:                                              ; preds = %679, %673, %557, %551
+  %711 = getelementptr inbounds %struct.ImageParameters, ptr %556, i64 0, i32 5
+  %712 = load i32, ptr %711, align 4, !tbaa !77
+  %713 = icmp eq i32 %712, 1
+  br i1 %713, label %714, label %719
 
-711:                                              ; preds = %707
-  %712 = load ptr, ptr @Co_located, align 8, !tbaa !5
-  tail call void @compute_colocated(ptr noundef %712, ptr noundef nonnull @listX) #12
-  %713 = load ptr, ptr @img, align 8, !tbaa !5
-  %714 = getelementptr inbounds %struct.ImageParameters, ptr %713, i64 0, i32 5
-  %715 = load i32, ptr %714, align 4, !tbaa !77
-  br label %716
+714:                                              ; preds = %710
+  %715 = load ptr, ptr @Co_located, align 8, !tbaa !5
+  tail call void @compute_colocated(ptr noundef %715, ptr noundef nonnull @listX) #12
+  %716 = load ptr, ptr @img, align 8, !tbaa !5
+  %717 = getelementptr inbounds %struct.ImageParameters, ptr %716, i64 0, i32 5
+  %718 = load i32, ptr %717, align 4, !tbaa !77
+  br label %719
 
-716:                                              ; preds = %711, %707
-  %717 = phi i32 [ %715, %711 ], [ %709, %707 ]
-  %718 = icmp eq i32 %717, 2
-  br i1 %718, label %726, label %719
+719:                                              ; preds = %714, %710
+  %720 = phi i32 [ %718, %714 ], [ %712, %710 ]
+  %721 = icmp eq i32 %720, 2
+  br i1 %721, label %729, label %722
 
-719:                                              ; preds = %716
-  %720 = load ptr, ptr @input, align 8, !tbaa !5
-  %721 = getelementptr inbounds %struct.InputParameters, ptr %720, i64 0, i32 169
-  %722 = load i32, ptr %721, align 4, !tbaa !117
-  %723 = icmp eq i32 %722, 3
-  br i1 %723, label %724, label %726
+722:                                              ; preds = %719
+  %723 = load ptr, ptr @input, align 8, !tbaa !5
+  %724 = getelementptr inbounds %struct.InputParameters, ptr %723, i64 0, i32 169
+  %725 = load i32, ptr %724, align 4, !tbaa !117
+  %726 = icmp eq i32 %725, 3
+  br i1 %726, label %727, label %729
 
-724:                                              ; preds = %719
-  %725 = load ptr, ptr @EPZSCo_located, align 8, !tbaa !5
-  tail call void @EPZSSliceInit(ptr noundef %725, ptr noundef nonnull @listX) #12
-  br label %726
+727:                                              ; preds = %722
+  %728 = load ptr, ptr @EPZSCo_located, align 8, !tbaa !5
+  tail call void @EPZSSliceInit(ptr noundef %728, ptr noundef nonnull @listX) #12
+  br label %729
 
-726:                                              ; preds = %724, %719, %716
-  %727 = load ptr, ptr @input, align 8, !tbaa !5
-  %728 = getelementptr inbounds %struct.InputParameters, ptr %727, i64 0, i32 74
-  %729 = load i32, ptr %728, align 8, !tbaa !30
-  %730 = icmp eq i32 %729, 0
-  br i1 %730, label %731, label %774
+729:                                              ; preds = %727, %722, %719
+  %730 = load ptr, ptr @input, align 8, !tbaa !5
+  %731 = getelementptr inbounds %struct.InputParameters, ptr %730, i64 0, i32 74
+  %732 = load i32, ptr %731, align 8, !tbaa !30
+  %733 = icmp eq i32 %732, 0
+  br i1 %733, label %734, label %777
 
-731:                                              ; preds = %726
+734:                                              ; preds = %729
   store ptr @writeSE_UVLC, ptr @writeMB_typeInfo, align 8, !tbaa !5
   store ptr @writeIntraPredMode_CAVLC, ptr @writeIntraPredMode, align 8, !tbaa !5
   store ptr @writeSE_UVLC, ptr @writeB8_typeInfo, align 8, !tbaa !5
-  %732 = load i32, ptr @listXsize, align 16, !tbaa !43
-  %733 = icmp ult i32 %732, 3
-  br i1 %733, label %734, label %738
+  %735 = load i32, ptr @listXsize, align 16, !tbaa !43
+  %736 = icmp ult i32 %735, 3
+  br i1 %736, label %737, label %741
 
-734:                                              ; preds = %731
-  %735 = sext i32 %732 to i64
-  %736 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %735
-  %737 = load ptr, ptr %736, align 8
-  br label %738
+737:                                              ; preds = %734
+  %738 = sext i32 %735 to i64
+  %739 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %738
+  %740 = load ptr, ptr %739, align 8
+  br label %741
 
-738:                                              ; preds = %731, %734
-  %739 = phi ptr [ %737, %734 ], [ @writeSE_UVLC, %731 ]
-  store ptr %739, ptr @writeRefFrame, align 16, !tbaa !5
-  %740 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
-  %741 = icmp ult i32 %740, 3
-  br i1 %741, label %742, label %746
+741:                                              ; preds = %734, %737
+  %742 = phi ptr [ %740, %737 ], [ @writeSE_UVLC, %734 ]
+  store ptr %742, ptr @writeRefFrame, align 16, !tbaa !5
+  %743 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
+  %744 = icmp ult i32 %743, 3
+  br i1 %744, label %745, label %749
 
-742:                                              ; preds = %738
-  %743 = sext i32 %740 to i64
-  %744 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %743
-  %745 = load ptr, ptr %744, align 8
-  br label %746
+745:                                              ; preds = %741
+  %746 = sext i32 %743 to i64
+  %747 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %746
+  %748 = load ptr, ptr %747, align 8
+  br label %749
 
-746:                                              ; preds = %738, %742
-  %747 = phi ptr [ %745, %742 ], [ @writeSE_UVLC, %738 ]
-  store ptr %747, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 1), align 8, !tbaa !5
-  %748 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 2), align 8, !tbaa !43
-  %749 = icmp ult i32 %748, 3
-  br i1 %749, label %750, label %754
+749:                                              ; preds = %741, %745
+  %750 = phi ptr [ %748, %745 ], [ @writeSE_UVLC, %741 ]
+  store ptr %750, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 1), align 8, !tbaa !5
+  %751 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 2), align 8, !tbaa !43
+  %752 = icmp ult i32 %751, 3
+  br i1 %752, label %753, label %757
 
-750:                                              ; preds = %746
-  %751 = sext i32 %748 to i64
-  %752 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %751
-  %753 = load ptr, ptr %752, align 8
-  br label %754
+753:                                              ; preds = %749
+  %754 = sext i32 %751 to i64
+  %755 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %754
+  %756 = load ptr, ptr %755, align 8
+  br label %757
 
-754:                                              ; preds = %746, %750
-  %755 = phi ptr [ %753, %750 ], [ @writeSE_UVLC, %746 ]
-  store ptr %755, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 2), align 16, !tbaa !5
-  %756 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 3), align 4, !tbaa !43
-  %757 = icmp ult i32 %756, 3
-  br i1 %757, label %758, label %762
+757:                                              ; preds = %749, %753
+  %758 = phi ptr [ %756, %753 ], [ @writeSE_UVLC, %749 ]
+  store ptr %758, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 2), align 16, !tbaa !5
+  %759 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 3), align 4, !tbaa !43
+  %760 = icmp ult i32 %759, 3
+  br i1 %760, label %761, label %765
 
-758:                                              ; preds = %754
-  %759 = sext i32 %756 to i64
-  %760 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %759
-  %761 = load ptr, ptr %760, align 8
-  br label %762
+761:                                              ; preds = %757
+  %762 = sext i32 %759 to i64
+  %763 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %762
+  %764 = load ptr, ptr %763, align 8
+  br label %765
 
-762:                                              ; preds = %754, %758
-  %763 = phi ptr [ %761, %758 ], [ @writeSE_UVLC, %754 ]
-  store ptr %763, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 3), align 8, !tbaa !5
-  %764 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 4), align 16, !tbaa !43
-  %765 = icmp ult i32 %764, 3
-  br i1 %765, label %766, label %770
+765:                                              ; preds = %757, %761
+  %766 = phi ptr [ %764, %761 ], [ @writeSE_UVLC, %757 ]
+  store ptr %766, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 3), align 8, !tbaa !5
+  %767 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 4), align 16, !tbaa !43
+  %768 = icmp ult i32 %767, 3
+  br i1 %768, label %769, label %773
 
-766:                                              ; preds = %762
-  %767 = sext i32 %764 to i64
-  %768 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %767
-  %769 = load ptr, ptr %768, align 8
-  br label %770
+769:                                              ; preds = %765
+  %770 = sext i32 %767 to i64
+  %771 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %770
+  %772 = load ptr, ptr %771, align 8
+  br label %773
 
-770:                                              ; preds = %762, %766
-  %771 = phi ptr [ %769, %766 ], [ @writeSE_UVLC, %762 ]
-  store ptr %771, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 4), align 16, !tbaa !5
-  %772 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 5), align 4, !tbaa !43
-  %773 = icmp ult i32 %772, 3
-  br i1 %773, label %793, label %797
+773:                                              ; preds = %765, %769
+  %774 = phi ptr [ %772, %769 ], [ @writeSE_UVLC, %765 ]
+  store ptr %774, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 4), align 16, !tbaa !5
+  %775 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 5), align 4, !tbaa !43
+  %776 = icmp ult i32 %775, 3
+  br i1 %776, label %796, label %800
 
-774:                                              ; preds = %726
+777:                                              ; preds = %729
   store ptr @writeMB_typeInfo_CABAC, ptr @writeMB_typeInfo, align 8, !tbaa !5
   store ptr @writeIntraPredMode_CABAC, ptr @writeIntraPredMode, align 8, !tbaa !5
   store ptr @writeB8_typeInfo_CABAC, ptr @writeB8_typeInfo, align 8, !tbaa !5
-  %775 = load i32, ptr @listXsize, align 16, !tbaa !43
-  %776 = icmp ult i32 %775, 2
-  %777 = select i1 %776, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
-  store ptr %777, ptr @writeRefFrame, align 16, !tbaa !5
-  %778 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
+  %778 = load i32, ptr @listXsize, align 16, !tbaa !43
   %779 = icmp ult i32 %778, 2
   %780 = select i1 %779, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
-  store ptr %780, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 1), align 8, !tbaa !5
-  %781 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 2), align 8, !tbaa !43
+  store ptr %780, ptr @writeRefFrame, align 16, !tbaa !5
+  %781 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 1), align 4, !tbaa !43
   %782 = icmp ult i32 %781, 2
   %783 = select i1 %782, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
-  store ptr %783, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 2), align 16, !tbaa !5
-  %784 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 3), align 4, !tbaa !43
+  store ptr %783, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 1), align 8, !tbaa !5
+  %784 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 2), align 8, !tbaa !43
   %785 = icmp ult i32 %784, 2
   %786 = select i1 %785, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
-  store ptr %786, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 3), align 8, !tbaa !5
-  %787 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 4), align 16, !tbaa !43
+  store ptr %786, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 2), align 16, !tbaa !5
+  %787 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 3), align 4, !tbaa !43
   %788 = icmp ult i32 %787, 2
   %789 = select i1 %788, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
-  store ptr %789, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 4), align 16, !tbaa !5
-  %790 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 5), align 4, !tbaa !43
+  store ptr %789, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 3), align 8, !tbaa !5
+  %790 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 4), align 16, !tbaa !43
   %791 = icmp ult i32 %790, 2
   %792 = select i1 %791, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
-  br label %797
+  store ptr %792, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 4), align 16, !tbaa !5
+  %793 = load i32, ptr getelementptr inbounds ([6 x i32], ptr @listXsize, i64 0, i64 5), align 4, !tbaa !43
+  %794 = icmp ult i32 %793, 2
+  %795 = select i1 %794, ptr @writeSE_Dummy, ptr @writeRefFrame_CABAC
+  br label %800
 
-793:                                              ; preds = %770
-  %794 = sext i32 %772 to i64
-  %795 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %794
-  %796 = load ptr, ptr %795, align 8
-  br label %797
+796:                                              ; preds = %773
+  %797 = sext i32 %775 to i64
+  %798 = getelementptr inbounds [3 x ptr], ptr @switch.table.encode_one_slice.11, i64 0, i64 %797
+  %799 = load ptr, ptr %798, align 8
+  br label %800
 
-797:                                              ; preds = %770, %793, %774
-  %798 = phi ptr [ %792, %774 ], [ %796, %793 ], [ @writeSE_UVLC, %770 ]
-  %799 = phi ptr [ @writeMVD_CABAC, %774 ], [ @writeSE_SVLC, %793 ], [ @writeSE_SVLC, %770 ]
-  %800 = phi ptr [ @writeCBP_CABAC, %774 ], [ @writeCBP_VLC, %793 ], [ @writeCBP_VLC, %770 ]
-  %801 = phi ptr [ @writeDquant_CABAC, %774 ], [ @writeSE_SVLC, %793 ], [ @writeSE_SVLC, %770 ]
-  %802 = phi ptr [ @writeCIPredMode_CABAC, %774 ], [ @writeSE_UVLC, %793 ], [ @writeSE_UVLC, %770 ]
-  %803 = phi ptr [ @writeFieldModeInfo_CABAC, %774 ], [ @writeSE_Flag, %793 ], [ @writeSE_Flag, %770 ]
-  %804 = phi ptr [ @writeMB_transform_size_CABAC, %774 ], [ @writeSE_Flag, %793 ], [ @writeSE_Flag, %770 ]
-  store ptr %798, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 5), align 8, !tbaa !5
-  store ptr %799, ptr @writeMVD, align 8, !tbaa !5
-  store ptr %800, ptr @writeCBP, align 8, !tbaa !5
-  store ptr %801, ptr @writeDquant, align 8, !tbaa !5
-  store ptr %802, ptr @writeCIPredMode, align 8, !tbaa !5
-  store ptr %803, ptr @writeFieldModeInfo, align 8, !tbaa !5
-  store ptr %804, ptr @writeMB_transform_size, align 8, !tbaa !5
-  %805 = load ptr, ptr @img, align 8, !tbaa !5
-  %806 = getelementptr inbounds %struct.ImageParameters, ptr %805, i64 0, i32 60
-  %807 = load ptr, ptr %806, align 8, !tbaa !9
-  %808 = getelementptr inbounds %struct.Slice, ptr %807, i64 0, i32 6
-  %809 = load ptr, ptr %808, align 8, !tbaa !24
-  %810 = load ptr, ptr %809, align 8, !tbaa !25
-  %811 = load i32, ptr %810, align 8, !tbaa !34
-  store i32 %811, ptr @Bytes_After_Header, align 4, !tbaa !43
+800:                                              ; preds = %773, %796, %777
+  %801 = phi ptr [ %795, %777 ], [ %799, %796 ], [ @writeSE_UVLC, %773 ]
+  %802 = phi ptr [ @writeMVD_CABAC, %777 ], [ @writeSE_SVLC, %796 ], [ @writeSE_SVLC, %773 ]
+  %803 = phi ptr [ @writeCBP_CABAC, %777 ], [ @writeCBP_VLC, %796 ], [ @writeCBP_VLC, %773 ]
+  %804 = phi ptr [ @writeDquant_CABAC, %777 ], [ @writeSE_SVLC, %796 ], [ @writeSE_SVLC, %773 ]
+  %805 = phi ptr [ @writeCIPredMode_CABAC, %777 ], [ @writeSE_UVLC, %796 ], [ @writeSE_UVLC, %773 ]
+  %806 = phi ptr [ @writeFieldModeInfo_CABAC, %777 ], [ @writeSE_Flag, %796 ], [ @writeSE_Flag, %773 ]
+  %807 = phi ptr [ @writeMB_transform_size_CABAC, %777 ], [ @writeSE_Flag, %796 ], [ @writeSE_Flag, %773 ]
+  store ptr %801, ptr getelementptr inbounds ([6 x ptr], ptr @writeRefFrame, i64 0, i64 5), align 8, !tbaa !5
+  store ptr %802, ptr @writeMVD, align 8, !tbaa !5
+  store ptr %803, ptr @writeCBP, align 8, !tbaa !5
+  store ptr %804, ptr @writeDquant, align 8, !tbaa !5
+  store ptr %805, ptr @writeCIPredMode, align 8, !tbaa !5
+  store ptr %806, ptr @writeFieldModeInfo, align 8, !tbaa !5
+  store ptr %807, ptr @writeMB_transform_size, align 8, !tbaa !5
+  %808 = load ptr, ptr @img, align 8, !tbaa !5
+  %809 = getelementptr inbounds %struct.ImageParameters, ptr %808, i64 0, i32 60
+  %810 = load ptr, ptr %809, align 8, !tbaa !9
+  %811 = getelementptr inbounds %struct.Slice, ptr %810, i64 0, i32 6
+  %812 = load ptr, ptr %811, align 8, !tbaa !24
+  %813 = load ptr, ptr %812, align 8, !tbaa !25
+  %814 = load i32, ptr %813, align 8, !tbaa !34
+  store i32 %814, ptr @Bytes_After_Header, align 4, !tbaa !43
   tail call void @SetLagrangianMultipliers()
-  %812 = load ptr, ptr @input, align 8, !tbaa !5
-  %813 = getelementptr inbounds %struct.InputParameters, ptr %812, i64 0, i32 74
-  %814 = load i32, ptr %813, align 8, !tbaa !30
-  %815 = icmp eq i32 %814, 1
-  br i1 %815, label %816, label %818
+  %815 = load ptr, ptr @input, align 8, !tbaa !5
+  %816 = getelementptr inbounds %struct.InputParameters, ptr %815, i64 0, i32 74
+  %817 = load i32, ptr %816, align 8, !tbaa !30
+  %818 = icmp eq i32 %817, 1
+  br i1 %818, label %819, label %821
 
-816:                                              ; preds = %797
+819:                                              ; preds = %800
   tail call void @SetCtxModelNumber() #12
-  %817 = load ptr, ptr @input, align 8, !tbaa !5
-  br label %818
+  %820 = load ptr, ptr @input, align 8, !tbaa !5
+  br label %821
 
-818:                                              ; preds = %816, %797
-  %819 = phi ptr [ %817, %816 ], [ %812, %797 ]
-  %820 = getelementptr inbounds %struct.InputParameters, ptr %819, i64 0, i32 113
-  %821 = load i32, ptr %820, align 8, !tbaa !118
-  %822 = icmp eq i32 %821, 0
-  br i1 %822, label %835, label %823
+821:                                              ; preds = %819, %800
+  %822 = phi ptr [ %820, %819 ], [ %815, %800 ]
+  %823 = getelementptr inbounds %struct.InputParameters, ptr %822, i64 0, i32 113
+  %824 = load i32, ptr %823, align 8, !tbaa !118
+  %825 = icmp eq i32 %824, 0
+  br i1 %825, label %838, label %826
 
-823:                                              ; preds = %818
-  %824 = getelementptr inbounds %struct.InputParameters, ptr %819, i64 0, i32 128
-  %825 = load i32, ptr %824, align 4, !tbaa !119
-  %826 = icmp eq i32 %825, 0
-  br i1 %826, label %835, label %827
+826:                                              ; preds = %821
+  %827 = getelementptr inbounds %struct.InputParameters, ptr %822, i64 0, i32 128
+  %828 = load i32, ptr %827, align 4, !tbaa !119
+  %829 = icmp eq i32 %828, 0
+  br i1 %829, label %838, label %830
 
-827:                                              ; preds = %823
-  %828 = load ptr, ptr @img, align 8, !tbaa !5
-  %829 = getelementptr inbounds %struct.ImageParameters, ptr %828, i64 0, i32 5
-  %830 = load i32, ptr %829, align 4, !tbaa !77
-  %831 = icmp eq i32 %830, 0
-  %832 = icmp eq i32 %830, 3
-  %833 = or i1 %831, %832
-  %834 = zext i1 %833 to i16
-  br label %835
+830:                                              ; preds = %826
+  %831 = load ptr, ptr @img, align 8, !tbaa !5
+  %832 = getelementptr inbounds %struct.ImageParameters, ptr %831, i64 0, i32 5
+  %833 = load i32, ptr %832, align 4, !tbaa !77
+  %834 = icmp eq i32 %833, 0
+  %835 = icmp eq i32 %833, 3
+  %836 = or i1 %834, %835
+  %837 = zext i1 %836 to i16
+  br label %838
 
-835:                                              ; preds = %827, %823, %818
-  %836 = phi i16 [ 0, %823 ], [ 0, %818 ], [ %834, %827 ]
-  %837 = load ptr, ptr @img, align 8, !tbaa !5
-  %838 = getelementptr inbounds %struct.ImageParameters, ptr %837, i64 0, i32 168
-  store i16 %836, ptr %838, align 8, !tbaa !120
-  %839 = tail call i32 @start_slice()
-  %840 = load ptr, ptr @input, align 8, !tbaa !5
-  %841 = getelementptr inbounds %struct.InputParameters, ptr %840, i64 0, i32 157
-  %842 = load i32, ptr %841, align 4, !tbaa !121
-  %843 = icmp eq i32 %842, 0
-  br i1 %843, label %844, label %846
+838:                                              ; preds = %830, %826, %821
+  %839 = phi i16 [ 0, %826 ], [ 0, %821 ], [ %837, %830 ]
+  %840 = load ptr, ptr @img, align 8, !tbaa !5
+  %841 = getelementptr inbounds %struct.ImageParameters, ptr %840, i64 0, i32 168
+  store i16 %839, ptr %841, align 8, !tbaa !120
+  %842 = tail call i32 @start_slice()
+  %843 = load ptr, ptr @input, align 8, !tbaa !5
+  %844 = getelementptr inbounds %struct.InputParameters, ptr %843, i64 0, i32 157
+  %845 = load i32, ptr %844, align 4, !tbaa !121
+  %846 = icmp eq i32 %845, 0
+  br i1 %846, label %847, label %849
 
-844:                                              ; preds = %835
-  %845 = load ptr, ptr @img, align 8, !tbaa !5
-  br label %861
+847:                                              ; preds = %838
+  %848 = load ptr, ptr @img, align 8, !tbaa !5
+  br label %864
 
-846:                                              ; preds = %835
-  %847 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %848 = getelementptr inbounds %struct.rc_generic, ptr %847, i64 0, i32 4
-  %849 = load i32, ptr %848, align 8, !tbaa !122
-  %850 = add nsw i32 %849, %839
-  store i32 %850, ptr %848, align 8, !tbaa !122
-  %851 = load ptr, ptr @img, align 8, !tbaa !5
-  %852 = getelementptr inbounds %struct.ImageParameters, ptr %851, i64 0, i32 132
-  %853 = load i32, ptr %852, align 4, !tbaa !124
-  %854 = getelementptr inbounds %struct.ImageParameters, ptr %851, i64 0, i32 120
-  %855 = load i32, ptr %854, align 8, !tbaa !57
-  %856 = icmp ult i32 %853, %855
-  br i1 %856, label %857, label %861
+849:                                              ; preds = %838
+  %850 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  %851 = getelementptr inbounds %struct.rc_generic, ptr %850, i64 0, i32 4
+  %852 = load i32, ptr %851, align 8, !tbaa !122
+  %853 = add nsw i32 %852, %842
+  store i32 %853, ptr %851, align 8, !tbaa !122
+  %854 = load ptr, ptr @img, align 8, !tbaa !5
+  %855 = getelementptr inbounds %struct.ImageParameters, ptr %854, i64 0, i32 132
+  %856 = load i32, ptr %855, align 4, !tbaa !124
+  %857 = getelementptr inbounds %struct.ImageParameters, ptr %854, i64 0, i32 120
+  %858 = load i32, ptr %857, align 8, !tbaa !57
+  %859 = icmp ult i32 %856, %858
+  br i1 %859, label %860, label %864
 
-857:                                              ; preds = %846
-  %858 = getelementptr inbounds %struct.rc_generic, ptr %847, i64 0, i32 6
-  %859 = load i32, ptr %858, align 8, !tbaa !125
-  %860 = add nsw i32 %859, %839
-  store i32 %860, ptr %858, align 8, !tbaa !125
-  br label %861
+860:                                              ; preds = %849
+  %861 = getelementptr inbounds %struct.rc_generic, ptr %850, i64 0, i32 6
+  %862 = load i32, ptr %861, align 8, !tbaa !125
+  %863 = add nsw i32 %862, %842
+  store i32 %863, ptr %861, align 8, !tbaa !125
+  br label %864
 
-861:                                              ; preds = %844, %846, %857
-  %862 = phi ptr [ %845, %844 ], [ %851, %846 ], [ %851, %857 ]
-  %863 = load ptr, ptr @stats, align 8, !tbaa !5
-  %864 = getelementptr inbounds %struct.StatParameters, ptr %863, i64 0, i32 6
-  %865 = load i32, ptr %864, align 8, !tbaa !126
-  %866 = add nsw i32 %865, %839
-  store i32 %866, ptr %864, align 8, !tbaa !126
-  %867 = sext i32 %839 to i64
-  %868 = getelementptr inbounds %struct.ImageParameters, ptr %862, i64 0, i32 5
-  %869 = load i32, ptr %868, align 4, !tbaa !77
-  %870 = sext i32 %869 to i64
-  %871 = getelementptr inbounds %struct.StatParameters, ptr %863, i64 0, i32 26, i64 %870
-  %872 = load i64, ptr %871, align 8, !tbaa !109
-  %873 = add nsw i64 %872, %867
-  store i64 %873, ptr %871, align 8, !tbaa !109
-  %874 = load i32, ptr %4, align 4, !tbaa !51
-  %875 = icmp eq i32 %874, 0
-  br i1 %875, label %876, label %1249
+864:                                              ; preds = %847, %849, %860
+  %865 = phi ptr [ %848, %847 ], [ %854, %849 ], [ %854, %860 ]
+  %866 = load ptr, ptr @stats, align 8, !tbaa !5
+  %867 = getelementptr inbounds %struct.StatParameters, ptr %866, i64 0, i32 6
+  %868 = load i32, ptr %867, align 8, !tbaa !126
+  %869 = add nsw i32 %868, %842
+  store i32 %869, ptr %867, align 8, !tbaa !126
+  %870 = sext i32 %842 to i64
+  %871 = getelementptr inbounds %struct.ImageParameters, ptr %865, i64 0, i32 5
+  %872 = load i32, ptr %871, align 4, !tbaa !77
+  %873 = sext i32 %872 to i64
+  %874 = getelementptr inbounds %struct.StatParameters, ptr %866, i64 0, i32 26, i64 %873
+  %875 = load i64, ptr %874, align 8, !tbaa !109
+  %876 = add nsw i64 %875, %870
+  store i64 %876, ptr %874, align 8, !tbaa !109
+  %877 = load i32, ptr %4, align 4, !tbaa !51
+  %878 = icmp eq i32 %877, 0
+  br i1 %878, label %879, label %1255
 
-876:                                              ; preds = %861, %1240
-  %877 = phi double [ %1243, %1240 ], [ 0x7FEFFFFFFFFFFFFF, %861 ]
-  %878 = phi i32 [ %1242, %1240 ], [ %8, %861 ]
-  %879 = phi i32 [ %1241, %1240 ], [ 0, %861 ]
-  %880 = load ptr, ptr @img, align 8, !tbaa !5
-  %881 = getelementptr inbounds %struct.ImageParameters, ptr %880, i64 0, i32 98
-  %882 = load i32, ptr %881, align 4, !tbaa !127
-  %883 = icmp eq i32 %882, 0
-  br i1 %883, label %900, label %884
+879:                                              ; preds = %864, %1245
+  %880 = phi double [ %1249, %1245 ], [ 0x7FEFFFFFFFFFFFFF, %864 ]
+  %881 = phi double [ %1248, %1245 ], [ 0x7FEFFFFFFFFFFFFF, %864 ]
+  %882 = phi i32 [ %1247, %1245 ], [ %8, %864 ]
+  %883 = phi i32 [ %1246, %1245 ], [ 0, %864 ]
+  %884 = load ptr, ptr @img, align 8, !tbaa !5
+  %885 = getelementptr inbounds %struct.ImageParameters, ptr %884, i64 0, i32 98
+  %886 = load i32, ptr %885, align 4, !tbaa !127
+  %887 = icmp eq i32 %886, 0
+  br i1 %887, label %904, label %888
 
-884:                                              ; preds = %876
-  %885 = load ptr, ptr @input, align 8, !tbaa !5
-  %886 = getelementptr inbounds %struct.InputParameters, ptr %885, i64 0, i32 186
-  %887 = load i32, ptr %886, align 8, !tbaa !128
-  %888 = icmp eq i32 %887, 0
-  br i1 %888, label %900, label %889
+888:                                              ; preds = %879
+  %889 = load ptr, ptr @input, align 8, !tbaa !5
+  %890 = getelementptr inbounds %struct.InputParameters, ptr %889, i64 0, i32 186
+  %891 = load i32, ptr %890, align 8, !tbaa !128
+  %892 = icmp eq i32 %891, 0
+  br i1 %892, label %904, label %893
 
-889:                                              ; preds = %884
-  %890 = getelementptr inbounds %struct.ImageParameters, ptr %880, i64 0, i32 3
-  %891 = load i32, ptr %890, align 4, !tbaa !53
-  %892 = srem i32 %891, %887
-  %893 = icmp eq i32 %892, 0
-  br i1 %893, label %894, label %900
+893:                                              ; preds = %888
+  %894 = getelementptr inbounds %struct.ImageParameters, ptr %884, i64 0, i32 3
+  %895 = load i32, ptr %894, align 4, !tbaa !53
+  %896 = srem i32 %895, %891
+  %897 = icmp eq i32 %896, 0
+  br i1 %897, label %898, label %904
 
-894:                                              ; preds = %889
+898:                                              ; preds = %893
   call void @CalculateOffsetParam() #12
-  %895 = load ptr, ptr @input, align 8, !tbaa !5
-  %896 = getelementptr inbounds %struct.InputParameters, ptr %895, i64 0, i32 153
-  %897 = load i32, ptr %896, align 4, !tbaa !129
-  %898 = icmp eq i32 %897, 0
-  br i1 %898, label %900, label %899
+  %899 = load ptr, ptr @input, align 8, !tbaa !5
+  %900 = getelementptr inbounds %struct.InputParameters, ptr %899, i64 0, i32 153
+  %901 = load i32, ptr %900, align 4, !tbaa !129
+  %902 = icmp eq i32 %901, 0
+  br i1 %902, label %904, label %903
 
-899:                                              ; preds = %894
+903:                                              ; preds = %898
   call void @CalculateOffset8Param() #12
-  br label %900
+  br label %904
 
-900:                                              ; preds = %894, %899, %889, %884, %876
-  %901 = load ptr, ptr @img, align 8, !tbaa !5
-  %902 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 100
-  %903 = load i32, ptr %902, align 4, !tbaa !130
-  %904 = icmp eq i32 %903, 0
-  br i1 %904, label %905, label %924
+904:                                              ; preds = %898, %903, %893, %888, %879
+  %905 = load ptr, ptr @img, align 8, !tbaa !5
+  %906 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 100
+  %907 = load i32, ptr %906, align 4, !tbaa !130
+  %908 = icmp eq i32 %907, 0
+  br i1 %908, label %909, label %928
 
-905:                                              ; preds = %900
+909:                                              ; preds = %904
   store i32 0, ptr %5, align 4, !tbaa !51
   store ptr @rddata_top_frame_mb, ptr @rdopt, align 8, !tbaa !5
-  call void @start_macroblock(i32 noundef %878, i32 noundef 0) #12
-  %906 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
-  call void %906() #12
+  call void @start_macroblock(i32 noundef %882, i32 noundef 0) #12
+  %910 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
+  call void %910() #12
   call void @write_one_macroblock(i32 noundef 1) #12
   call void @terminate_macroblock(ptr noundef nonnull %4, ptr noundef nonnull %5) #12
-  %907 = load i32, ptr %5, align 4, !tbaa !51
-  %908 = icmp eq i32 %907, 0
-  br i1 %908, label %909, label %915
+  %911 = load i32, ptr %5, align 4, !tbaa !51
+  %912 = icmp eq i32 %911, 0
+  br i1 %912, label %913, label %919
 
-909:                                              ; preds = %905
-  %910 = call i32 @FmoGetNextMBNr(i32 noundef %878) #12
-  %911 = icmp eq i32 %910, -1
-  br i1 %911, label %912, label %913
+913:                                              ; preds = %909
+  %914 = call i32 @FmoGetNextMBNr(i32 noundef %882) #12
+  %915 = icmp eq i32 %914, -1
+  br i1 %915, label %916, label %917
 
-912:                                              ; preds = %909
+916:                                              ; preds = %913
   store i32 1, ptr %4, align 4, !tbaa !51
-  br label %913
+  br label %917
 
-913:                                              ; preds = %912, %909
-  %914 = add nsw i32 %879, 1
+917:                                              ; preds = %916, %913
+  %918 = add nsw i32 %883, 1
   call void @proceed2nextMacroblock() #12
-  br label %1240
+  br label %1245
 
-915:                                              ; preds = %905
-  %916 = load ptr, ptr @img, align 8, !tbaa !5
-  %917 = getelementptr inbounds %struct.ImageParameters, ptr %916, i64 0, i32 3
-  %918 = load i32, ptr %917, align 4, !tbaa !53
-  %919 = call i32 @FmoGetPreviousMBNr(i32 noundef %918) #12
+919:                                              ; preds = %909
   %920 = load ptr, ptr @img, align 8, !tbaa !5
   %921 = getelementptr inbounds %struct.ImageParameters, ptr %920, i64 0, i32 3
-  store i32 %919, ptr %921, align 4, !tbaa !53
-  %922 = icmp eq i32 %919, -1
-  br i1 %922, label %923, label %1240
+  %922 = load i32, ptr %921, align 4, !tbaa !53
+  %923 = call i32 @FmoGetPreviousMBNr(i32 noundef %922) #12
+  %924 = load ptr, ptr @img, align 8, !tbaa !5
+  %925 = getelementptr inbounds %struct.ImageParameters, ptr %924, i64 0, i32 3
+  store i32 %923, ptr %925, align 4, !tbaa !53
+  %926 = icmp eq i32 %923, -1
+  br i1 %926, label %927, label %1245
 
-923:                                              ; preds = %915
+927:                                              ; preds = %919
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(84) @errortext, ptr noundef nonnull align 1 dereferenceable(84) @.str.1, i64 84, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 300) #12
-  br label %1240
+  br label %1245
 
-924:                                              ; preds = %900
-  %925 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 133
-  store i32 0, ptr %925, align 8, !tbaa !131
-  %926 = load ptr, ptr @input, align 8, !tbaa !5
-  %927 = getelementptr inbounds %struct.InputParameters, ptr %926, i64 0, i32 122
-  %928 = load i32, ptr %927, align 4, !tbaa !132
-  %929 = and i32 %928, -2
-  %930 = icmp eq i32 %929, 2
-  br i1 %930, label %931, label %1017
+928:                                              ; preds = %904
+  %929 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 133
+  store i32 0, ptr %929, align 8, !tbaa !131
+  %930 = load ptr, ptr @input, align 8, !tbaa !5
+  %931 = getelementptr inbounds %struct.InputParameters, ptr %930, i64 0, i32 122
+  %932 = load i32, ptr %931, align 4, !tbaa !132
+  %933 = and i32 %932, -2
+  %934 = icmp eq i32 %933, 2
+  br i1 %934, label %935, label %1021
 
-931:                                              ; preds = %924
+935:                                              ; preds = %928
+  %936 = icmp ne i32 %932, 2
   store i32 0, ptr %5, align 4, !tbaa !51
-  %932 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 90
-  store i32 0, ptr %932, align 8, !tbaa !133
-  %933 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 91
-  store i32 0, ptr %933, align 4, !tbaa !134
-  %934 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 134
-  store i32 0, ptr %934, align 4, !tbaa !135
-  %935 = getelementptr inbounds %struct.InputParameters, ptr %926, i64 0, i32 157
-  %936 = load i32, ptr %935, align 4, !tbaa !121
-  %937 = icmp ne i32 %936, 0
-  %938 = icmp eq i32 %928, 2
-  %939 = select i1 %937, i1 %938, i1 false
-  br i1 %939, label %940, label %955
+  %937 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 90
+  store i32 0, ptr %937, align 8, !tbaa !133
+  %938 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 91
+  store i32 0, ptr %938, align 4, !tbaa !134
+  %939 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 134
+  store i32 0, ptr %939, align 4, !tbaa !135
+  %940 = getelementptr inbounds %struct.InputParameters, ptr %930, i64 0, i32 157
+  %941 = load i32, ptr %940, align 4, !tbaa !121
+  %942 = icmp eq i32 %941, 0
+  %943 = select i1 %942, i1 true, i1 %936
+  br i1 %943, label %959, label %944
 
-940:                                              ; preds = %931
-  %941 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 128
-  %942 = load i32, ptr %941, align 4, !tbaa !136
-  %943 = icmp sgt i32 %942, 0
-  br i1 %943, label %944, label %959
+944:                                              ; preds = %935
+  %945 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 128
+  %946 = load i32, ptr %945, align 4, !tbaa !136
+  %947 = icmp sgt i32 %946, 0
+  br i1 %947, label %948, label %963
 
-944:                                              ; preds = %940
-  %945 = getelementptr inbounds %struct.ImageParameters, ptr %901, i64 0, i32 132
-  %946 = load i32, ptr %945, align 4, !tbaa !124
-  %947 = urem i32 %942, %946
-  %948 = icmp eq i32 %947, 0
-  br i1 %948, label %949, label %959
+948:                                              ; preds = %944
+  %949 = getelementptr inbounds %struct.ImageParameters, ptr %905, i64 0, i32 132
+  %950 = load i32, ptr %949, align 4, !tbaa !124
+  %951 = urem i32 %946, %950
+  %952 = icmp eq i32 %951, 0
+  br i1 %952, label %953, label %963
 
-949:                                              ; preds = %944
-  %950 = load ptr, ptr @quadratic_RC_init, align 8, !tbaa !5
-  %951 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
-  call void @copy_rc_jvt(ptr noundef %950, ptr noundef %951) #12
-  %952 = load ptr, ptr @input, align 8, !tbaa !5
-  %953 = getelementptr inbounds %struct.InputParameters, ptr %952, i64 0, i32 157
-  %954 = load i32, ptr %953, align 4, !tbaa !121
-  br label %955
+953:                                              ; preds = %948
+  %954 = load ptr, ptr @quadratic_RC_init, align 8, !tbaa !5
+  %955 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
+  call void @copy_rc_jvt(ptr noundef %954, ptr noundef %955) #12
+  %956 = load ptr, ptr @input, align 8, !tbaa !5
+  %957 = getelementptr inbounds %struct.InputParameters, ptr %956, i64 0, i32 157
+  %958 = load i32, ptr %957, align 4, !tbaa !121
+  br label %959
 
-955:                                              ; preds = %949, %931
-  %956 = phi i32 [ %954, %949 ], [ %936, %931 ]
-  %957 = phi ptr [ %952, %949 ], [ %926, %931 ]
-  %958 = icmp eq i32 %956, 0
-  br i1 %958, label %967, label %959
+959:                                              ; preds = %935, %953
+  %960 = phi i32 [ %941, %935 ], [ %958, %953 ]
+  %961 = phi ptr [ %930, %935 ], [ %956, %953 ]
+  %962 = icmp eq i32 %960, 0
+  br i1 %962, label %971, label %963
 
-959:                                              ; preds = %940, %944, %955
-  %960 = phi ptr [ %957, %955 ], [ %926, %944 ], [ %926, %940 ]
-  %961 = getelementptr inbounds %struct.InputParameters, ptr %960, i64 0, i32 122
-  %962 = load i32, ptr %961, align 4, !tbaa !132
-  %963 = icmp eq i32 %962, 2
-  br i1 %963, label %964, label %967
+963:                                              ; preds = %944, %948, %959
+  %964 = phi ptr [ %961, %959 ], [ %930, %948 ], [ %930, %944 ]
+  %965 = getelementptr inbounds %struct.InputParameters, ptr %964, i64 0, i32 122
+  %966 = load i32, ptr %965, align 4, !tbaa !132
+  %967 = icmp eq i32 %966, 2
+  br i1 %967, label %968, label %971
 
-964:                                              ; preds = %959
-  %965 = load ptr, ptr @generic_RC_init, align 8, !tbaa !5
-  %966 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  call void @copy_rc_generic(ptr noundef %965, ptr noundef %966) #12
-  br label %967
+968:                                              ; preds = %963
+  %969 = load ptr, ptr @generic_RC_init, align 8, !tbaa !5
+  %970 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  call void @copy_rc_generic(ptr noundef %969, ptr noundef %970) #12
+  br label %971
 
-967:                                              ; preds = %964, %959, %955
-  call void @start_macroblock(i32 noundef %878, i32 noundef 0) #12
+971:                                              ; preds = %968, %963, %959
+  call void @start_macroblock(i32 noundef %882, i32 noundef 0) #12
   store ptr @rddata_top_frame_mb, ptr @rdopt, align 8, !tbaa !5
-  %968 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
-  call void %968() #12
-  %969 = load ptr, ptr @rdopt, align 8, !tbaa !5
-  %970 = load double, ptr %969, align 8, !tbaa !137
-  %971 = load ptr, ptr @img, align 8, !tbaa !5
-  %972 = getelementptr inbounds %struct.ImageParameters, ptr %971, i64 0, i32 134
-  store i32 1, ptr %972, align 4, !tbaa !135
-  %973 = getelementptr inbounds %struct.ImageParameters, ptr %971, i64 0, i32 90
-  store i32 0, ptr %973, align 8, !tbaa !133
-  %974 = add nsw i32 %878, 1
-  call void @start_macroblock(i32 noundef %974, i32 noundef 0) #12
+  %972 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
+  call void %972() #12
+  %973 = load ptr, ptr @rdopt, align 8, !tbaa !5
+  %974 = load double, ptr %973, align 8, !tbaa !137
+  %975 = load ptr, ptr @img, align 8, !tbaa !5
+  %976 = getelementptr inbounds %struct.ImageParameters, ptr %975, i64 0, i32 134
+  store i32 1, ptr %976, align 4, !tbaa !135
+  %977 = getelementptr inbounds %struct.ImageParameters, ptr %975, i64 0, i32 90
+  store i32 0, ptr %977, align 8, !tbaa !133
+  %978 = add nsw i32 %882, 1
+  call void @start_macroblock(i32 noundef %978, i32 noundef 0) #12
   store ptr @rddata_bot_frame_mb, ptr @rdopt, align 8, !tbaa !5
-  %975 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
-  call void %975() #12
-  %976 = load ptr, ptr @input, align 8, !tbaa !5
-  %977 = getelementptr inbounds %struct.InputParameters, ptr %976, i64 0, i32 157
-  %978 = load i32, ptr %977, align 4, !tbaa !121
-  %979 = icmp eq i32 %978, 0
-  br i1 %979, label %1010, label %980
+  %979 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
+  call void %979() #12
+  %980 = load ptr, ptr @input, align 8, !tbaa !5
+  %981 = getelementptr inbounds %struct.InputParameters, ptr %980, i64 0, i32 157
+  %982 = load i32, ptr %981, align 4, !tbaa !121
+  %983 = icmp eq i32 %982, 0
+  br i1 %983, label %1014, label %984
 
-980:                                              ; preds = %967
-  %981 = getelementptr inbounds %struct.InputParameters, ptr %976, i64 0, i32 122
-  %982 = load i32, ptr %981, align 4, !tbaa !132
-  %983 = icmp eq i32 %982, 2
-  br i1 %983, label %984, label %1001
+984:                                              ; preds = %971
+  %985 = getelementptr inbounds %struct.InputParameters, ptr %980, i64 0, i32 122
+  %986 = load i32, ptr %985, align 4, !tbaa !132
+  %987 = icmp eq i32 %986, 2
+  br i1 %987, label %988, label %1005
 
-984:                                              ; preds = %980
-  %985 = load ptr, ptr @img, align 8, !tbaa !5
-  %986 = getelementptr inbounds %struct.ImageParameters, ptr %985, i64 0, i32 128
-  %987 = load i32, ptr %986, align 4, !tbaa !136
-  %988 = icmp sgt i32 %987, 0
-  br i1 %988, label %989, label %1001
+988:                                              ; preds = %984
+  %989 = load ptr, ptr @img, align 8, !tbaa !5
+  %990 = getelementptr inbounds %struct.ImageParameters, ptr %989, i64 0, i32 128
+  %991 = load i32, ptr %990, align 4, !tbaa !136
+  %992 = icmp sgt i32 %991, 0
+  br i1 %992, label %993, label %1005
 
-989:                                              ; preds = %984
-  %990 = getelementptr inbounds %struct.ImageParameters, ptr %985, i64 0, i32 132
-  %991 = load i32, ptr %990, align 4, !tbaa !124
-  %992 = urem i32 %987, %991
-  %993 = icmp eq i32 %992, 0
-  br i1 %993, label %994, label %1001
+993:                                              ; preds = %988
+  %994 = getelementptr inbounds %struct.ImageParameters, ptr %989, i64 0, i32 132
+  %995 = load i32, ptr %994, align 4, !tbaa !124
+  %996 = urem i32 %991, %995
+  %997 = icmp eq i32 %996, 0
+  br i1 %997, label %998, label %1005
 
-994:                                              ; preds = %989
-  %995 = load ptr, ptr @quadratic_RC_best, align 8, !tbaa !5
-  %996 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
-  call void @copy_rc_jvt(ptr noundef %995, ptr noundef %996) #12
-  %997 = load ptr, ptr @input, align 8, !tbaa !5
-  %998 = getelementptr inbounds %struct.InputParameters, ptr %997, i64 0, i32 157
-  %999 = load i32, ptr %998, align 4, !tbaa !121
-  %1000 = icmp eq i32 %999, 0
-  br i1 %1000, label %1010, label %1001
+998:                                              ; preds = %993
+  %999 = load ptr, ptr @quadratic_RC_best, align 8, !tbaa !5
+  %1000 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
+  call void @copy_rc_jvt(ptr noundef %999, ptr noundef %1000) #12
+  %1001 = load ptr, ptr @input, align 8, !tbaa !5
+  %1002 = getelementptr inbounds %struct.InputParameters, ptr %1001, i64 0, i32 157
+  %1003 = load i32, ptr %1002, align 4, !tbaa !121
+  %1004 = icmp eq i32 %1003, 0
+  br i1 %1004, label %1014, label %1005
 
-1001:                                             ; preds = %980, %984, %989, %994
-  %1002 = phi ptr [ %997, %994 ], [ %976, %989 ], [ %976, %984 ], [ %976, %980 ]
-  %1003 = getelementptr inbounds %struct.InputParameters, ptr %1002, i64 0, i32 122
-  %1004 = load i32, ptr %1003, align 4, !tbaa !132
-  %1005 = icmp eq i32 %1004, 2
-  br i1 %1005, label %1006, label %1010
+1005:                                             ; preds = %984, %988, %993, %998
+  %1006 = phi ptr [ %1001, %998 ], [ %980, %993 ], [ %980, %988 ], [ %980, %984 ]
+  %1007 = getelementptr inbounds %struct.InputParameters, ptr %1006, i64 0, i32 122
+  %1008 = load i32, ptr %1007, align 4, !tbaa !132
+  %1009 = icmp eq i32 %1008, 2
+  br i1 %1009, label %1010, label %1014
 
-1006:                                             ; preds = %1001
-  %1007 = load ptr, ptr @generic_RC_best, align 8, !tbaa !5
-  %1008 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  call void @copy_rc_generic(ptr noundef %1007, ptr noundef %1008) #12
-  %1009 = load ptr, ptr @input, align 8, !tbaa !5
-  br label %1010
+1010:                                             ; preds = %1005
+  %1011 = load ptr, ptr @generic_RC_best, align 8, !tbaa !5
+  %1012 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  call void @copy_rc_generic(ptr noundef %1011, ptr noundef %1012) #12
+  %1013 = load ptr, ptr @input, align 8, !tbaa !5
+  br label %1014
 
-1010:                                             ; preds = %967, %1006, %1001, %994
-  %1011 = phi ptr [ %1009, %1006 ], [ %1002, %1001 ], [ %997, %994 ], [ %976, %967 ]
-  %1012 = load ptr, ptr @rdopt, align 8, !tbaa !5
-  %1013 = load double, ptr %1012, align 8, !tbaa !137
-  %1014 = fadd double %970, %1013
-  %1015 = getelementptr inbounds %struct.InputParameters, ptr %1011, i64 0, i32 122
-  %1016 = load i32, ptr %1015, align 4, !tbaa !132
-  br label %1017
+1014:                                             ; preds = %971, %1010, %1005, %998
+  %1015 = phi ptr [ %1013, %1010 ], [ %1006, %1005 ], [ %1001, %998 ], [ %980, %971 ]
+  %1016 = load ptr, ptr @rdopt, align 8, !tbaa !5
+  %1017 = load double, ptr %1016, align 8, !tbaa !137
+  %1018 = fadd double %974, %1017
+  %1019 = getelementptr inbounds %struct.InputParameters, ptr %1015, i64 0, i32 122
+  %1020 = load i32, ptr %1019, align 4, !tbaa !132
+  br label %1021
 
-1017:                                             ; preds = %924, %1010
-  %1018 = phi i32 [ %1016, %1010 ], [ %928, %924 ]
-  %1019 = phi ptr [ %1011, %1010 ], [ %926, %924 ]
-  %1020 = phi double [ %1014, %1010 ], [ %877, %924 ]
-  %1021 = add i32 %1018, -1
-  %1022 = icmp ult i32 %1021, 2
-  %1023 = load ptr, ptr @img, align 8, !tbaa !5
-  br i1 %1022, label %1026, label %1024
+1021:                                             ; preds = %928, %1014
+  %1022 = phi i32 [ %1020, %1014 ], [ %932, %928 ]
+  %1023 = phi ptr [ %1015, %1014 ], [ %930, %928 ]
+  %1024 = phi double [ %1018, %1014 ], [ %881, %928 ]
+  %1025 = add i32 %1022, -1
+  %1026 = icmp ult i32 %1025, 2
+  br i1 %1026, label %1027, label %1089
 
-1024:                                             ; preds = %1017
-  %1025 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 135
-  store i32 0, ptr %1025, align 8, !tbaa !139
-  br label %1092
-
-1026:                                             ; preds = %1017
-  %1027 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 134
-  store i32 0, ptr %1027, align 4, !tbaa !135
-  %1028 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 90
-  store i32 1, ptr %1028, align 8, !tbaa !133
-  %1029 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 91
-  store i32 1, ptr %1029, align 4, !tbaa !134
-  %1030 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 93
-  %1031 = load i32, ptr %1030, align 8, !tbaa !140
-  %1032 = shl i32 %1031, 1
-  store i32 %1032, ptr %1030, align 8, !tbaa !140
-  %1033 = getelementptr inbounds %struct.InputParameters, ptr %1019, i64 0, i32 8
-  %1034 = load i32, ptr %1033, align 8, !tbaa !141
+1027:                                             ; preds = %1021
+  %1028 = icmp ne i32 %1022, 2
+  %1029 = load ptr, ptr @img, align 8, !tbaa !5
+  %1030 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 134
+  store i32 0, ptr %1030, align 4, !tbaa !135
+  %1031 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 90
+  store i32 1, ptr %1031, align 8, !tbaa !133
+  %1032 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 91
+  store i32 1, ptr %1032, align 4, !tbaa !134
+  %1033 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 93
+  %1034 = load i32, ptr %1033, align 8, !tbaa !139
   %1035 = shl i32 %1034, 1
-  store i32 %1035, ptr %1033, align 8, !tbaa !141
-  %1036 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 88
-  %1037 = load i32, ptr %1036, align 8, !tbaa !71
+  store i32 %1035, ptr %1033, align 8, !tbaa !139
+  %1036 = getelementptr inbounds %struct.InputParameters, ptr %1023, i64 0, i32 8
+  %1037 = load i32, ptr %1036, align 8, !tbaa !140
   %1038 = shl i32 %1037, 1
-  %1039 = or i32 %1038, 1
-  store i32 %1039, ptr %1036, align 8, !tbaa !71
-  %1040 = getelementptr inbounds %struct.InputParameters, ptr %1019, i64 0, i32 157
-  %1041 = load i32, ptr %1040, align 4, !tbaa !121
-  %1042 = icmp ne i32 %1041, 0
-  %1043 = icmp eq i32 %1018, 2
-  %1044 = select i1 %1042, i1 %1043, i1 false
-  br i1 %1044, label %1045, label %1060
+  store i32 %1038, ptr %1036, align 8, !tbaa !140
+  %1039 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 88
+  %1040 = load i32, ptr %1039, align 8, !tbaa !71
+  %1041 = shl i32 %1040, 1
+  %1042 = or i32 %1041, 1
+  store i32 %1042, ptr %1039, align 8, !tbaa !71
+  %1043 = getelementptr inbounds %struct.InputParameters, ptr %1023, i64 0, i32 157
+  %1044 = load i32, ptr %1043, align 4, !tbaa !121
+  %1045 = icmp eq i32 %1044, 0
+  %1046 = select i1 %1045, i1 true, i1 %1028
+  br i1 %1046, label %1062, label %1047
 
-1045:                                             ; preds = %1026
-  %1046 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 128
-  %1047 = load i32, ptr %1046, align 4, !tbaa !136
-  %1048 = icmp sgt i32 %1047, 0
-  br i1 %1048, label %1049, label %1064
+1047:                                             ; preds = %1027
+  %1048 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 128
+  %1049 = load i32, ptr %1048, align 4, !tbaa !136
+  %1050 = icmp sgt i32 %1049, 0
+  br i1 %1050, label %1051, label %1066
 
-1049:                                             ; preds = %1045
-  %1050 = getelementptr inbounds %struct.ImageParameters, ptr %1023, i64 0, i32 132
-  %1051 = load i32, ptr %1050, align 4, !tbaa !124
-  %1052 = urem i32 %1047, %1051
-  %1053 = icmp eq i32 %1052, 0
-  br i1 %1053, label %1054, label %1064
+1051:                                             ; preds = %1047
+  %1052 = getelementptr inbounds %struct.ImageParameters, ptr %1029, i64 0, i32 132
+  %1053 = load i32, ptr %1052, align 4, !tbaa !124
+  %1054 = urem i32 %1049, %1053
+  %1055 = icmp eq i32 %1054, 0
+  br i1 %1055, label %1056, label %1066
 
-1054:                                             ; preds = %1049
-  %1055 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
-  %1056 = load ptr, ptr @quadratic_RC_init, align 8, !tbaa !5
-  call void @copy_rc_jvt(ptr noundef %1055, ptr noundef %1056) #12
-  %1057 = load ptr, ptr @input, align 8, !tbaa !5
-  %1058 = getelementptr inbounds %struct.InputParameters, ptr %1057, i64 0, i32 157
-  %1059 = load i32, ptr %1058, align 4, !tbaa !121
-  br label %1060
+1056:                                             ; preds = %1051
+  %1057 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
+  %1058 = load ptr, ptr @quadratic_RC_init, align 8, !tbaa !5
+  call void @copy_rc_jvt(ptr noundef %1057, ptr noundef %1058) #12
+  %1059 = load ptr, ptr @input, align 8, !tbaa !5
+  %1060 = getelementptr inbounds %struct.InputParameters, ptr %1059, i64 0, i32 157
+  %1061 = load i32, ptr %1060, align 4, !tbaa !121
+  br label %1062
 
-1060:                                             ; preds = %1054, %1026
-  %1061 = phi i32 [ %1059, %1054 ], [ %1041, %1026 ]
-  %1062 = phi ptr [ %1057, %1054 ], [ %1019, %1026 ]
-  %1063 = icmp eq i32 %1061, 0
-  br i1 %1063, label %1072, label %1064
+1062:                                             ; preds = %1027, %1056
+  %1063 = phi i32 [ %1044, %1027 ], [ %1061, %1056 ]
+  %1064 = phi ptr [ %1023, %1027 ], [ %1059, %1056 ]
+  %1065 = icmp eq i32 %1063, 0
+  br i1 %1065, label %1074, label %1066
 
-1064:                                             ; preds = %1045, %1049, %1060
-  %1065 = phi ptr [ %1062, %1060 ], [ %1019, %1049 ], [ %1019, %1045 ]
-  %1066 = getelementptr inbounds %struct.InputParameters, ptr %1065, i64 0, i32 122
-  %1067 = load i32, ptr %1066, align 4, !tbaa !132
-  %1068 = icmp eq i32 %1067, 2
-  br i1 %1068, label %1069, label %1072
+1066:                                             ; preds = %1047, %1051, %1062
+  %1067 = phi ptr [ %1064, %1062 ], [ %1023, %1051 ], [ %1023, %1047 ]
+  %1068 = getelementptr inbounds %struct.InputParameters, ptr %1067, i64 0, i32 122
+  %1069 = load i32, ptr %1068, align 4, !tbaa !132
+  %1070 = icmp eq i32 %1069, 2
+  br i1 %1070, label %1071, label %1074
 
-1069:                                             ; preds = %1064
-  %1070 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %1071 = load ptr, ptr @generic_RC_init, align 8, !tbaa !5
-  call void @copy_rc_generic(ptr noundef %1070, ptr noundef %1071) #12
-  br label %1072
+1071:                                             ; preds = %1066
+  %1072 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  %1073 = load ptr, ptr @generic_RC_init, align 8, !tbaa !5
+  call void @copy_rc_generic(ptr noundef %1072, ptr noundef %1073) #12
+  br label %1074
 
-1072:                                             ; preds = %1060, %1064, %1069
-  call void @start_macroblock(i32 noundef %878, i32 noundef 1) #12
+1074:                                             ; preds = %1071, %1066, %1062
+  call void @start_macroblock(i32 noundef %882, i32 noundef 1) #12
   store ptr @rddata_top_field_mb, ptr @rdopt, align 8, !tbaa !5
-  %1073 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
-  call void %1073() #12
-  %1074 = load ptr, ptr @rdopt, align 8, !tbaa !5
-  %1075 = load double, ptr %1074, align 8, !tbaa !137
-  %1076 = load ptr, ptr @img, align 8, !tbaa !5
-  %1077 = getelementptr inbounds %struct.ImageParameters, ptr %1076, i64 0, i32 134
-  store i32 1, ptr %1077, align 4, !tbaa !135
-  %1078 = getelementptr inbounds %struct.ImageParameters, ptr %1076, i64 0, i32 91
-  store i32 0, ptr %1078, align 4, !tbaa !134
-  %1079 = add nsw i32 %878, 1
-  call void @start_macroblock(i32 noundef %1079, i32 noundef 1) #12
+  %1075 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
+  call void %1075() #12
+  %1076 = load ptr, ptr @rdopt, align 8, !tbaa !5
+  %1077 = load double, ptr %1076, align 8, !tbaa !137
+  %1078 = load ptr, ptr @img, align 8, !tbaa !5
+  %1079 = getelementptr inbounds %struct.ImageParameters, ptr %1078, i64 0, i32 134
+  store i32 1, ptr %1079, align 4, !tbaa !135
+  %1080 = getelementptr inbounds %struct.ImageParameters, ptr %1078, i64 0, i32 91
+  store i32 0, ptr %1080, align 4, !tbaa !134
+  %1081 = add nsw i32 %882, 1
+  call void @start_macroblock(i32 noundef %1081, i32 noundef 1) #12
   store ptr @rddata_bot_field_mb, ptr @rdopt, align 8, !tbaa !5
-  %1080 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
-  call void %1080() #12
-  %1081 = load ptr, ptr @rdopt, align 8, !tbaa !5
-  %1082 = load double, ptr %1081, align 8, !tbaa !137
-  %1083 = fadd double %1075, %1082
-  %1084 = load ptr, ptr @input, align 8, !tbaa !5
-  %1085 = getelementptr inbounds %struct.InputParameters, ptr %1084, i64 0, i32 122
-  %1086 = load i32, ptr %1085, align 4, !tbaa !132
-  %1087 = load ptr, ptr @img, align 8, !tbaa !5
-  %1088 = getelementptr inbounds %struct.ImageParameters, ptr %1087, i64 0, i32 135
-  store i32 0, ptr %1088, align 8, !tbaa !139
-  %1089 = icmp eq i32 %1086, 2
-  %1090 = fcmp olt double %1020, %1083
-  %1091 = select i1 %1089, i1 %1090, i1 false
-  br i1 %1091, label %1100, label %1092
+  %1082 = load ptr, ptr @encode_one_macroblock, align 8, !tbaa !5
+  call void %1082() #12
+  %1083 = load ptr, ptr @rdopt, align 8, !tbaa !5
+  %1084 = load double, ptr %1083, align 8, !tbaa !137
+  %1085 = fadd double %1077, %1084
+  %1086 = load ptr, ptr @input, align 8, !tbaa !5
+  %1087 = getelementptr inbounds %struct.InputParameters, ptr %1086, i64 0, i32 122
+  %1088 = load i32, ptr %1087, align 4, !tbaa !132
+  br label %1089
 
-1092:                                             ; preds = %1024, %1072
-  %1093 = phi i1 [ false, %1024 ], [ %1089, %1072 ]
-  %1094 = phi ptr [ %1023, %1024 ], [ %1087, %1072 ]
-  %1095 = phi ptr [ %1019, %1024 ], [ %1084, %1072 ]
-  %1096 = phi i32 [ %1018, %1024 ], [ %1086, %1072 ]
-  %1097 = icmp eq i32 %1096, 3
-  %1098 = getelementptr inbounds %struct.ImageParameters, ptr %1094, i64 0, i32 90
-  br i1 %1097, label %1099, label %1144
+1089:                                             ; preds = %1021, %1074
+  %1090 = phi i32 [ %1088, %1074 ], [ %1022, %1021 ]
+  %1091 = phi ptr [ %1086, %1074 ], [ %1023, %1021 ]
+  %1092 = phi double [ %1085, %1074 ], [ %880, %1021 ]
+  %1093 = load ptr, ptr @img, align 8, !tbaa !5
+  %1094 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 135
+  store i32 0, ptr %1094, align 8, !tbaa !141
+  switch i32 %1090, label %1147 [
+    i32 2, label %1095
+    i32 3, label %1112
+  ]
 
-1099:                                             ; preds = %1092
+1095:                                             ; preds = %1089
+  %1096 = fcmp olt double %1024, %1092
+  br i1 %1096, label %1097, label %1147
+
+1097:                                             ; preds = %1095
+  %1098 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 90
   store i32 0, ptr %1098, align 8, !tbaa !133
   store i32 0, ptr @MBPairIsField, align 4, !tbaa !43
-  br label %1112
-
-1100:                                             ; preds = %1072
-  %1101 = getelementptr inbounds %struct.ImageParameters, ptr %1087, i64 0, i32 90
-  store i32 0, ptr %1101, align 8, !tbaa !133
-  store i32 0, ptr @MBPairIsField, align 4, !tbaa !43
-  %1102 = getelementptr inbounds %struct.ImageParameters, ptr %1087, i64 0, i32 93
+  %1099 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 93
+  %1100 = load i32, ptr %1099, align 8, !tbaa !139
+  %1101 = ashr i32 %1100, 1
+  store i32 %1101, ptr %1099, align 8, !tbaa !139
+  %1102 = getelementptr inbounds %struct.InputParameters, ptr %1091, i64 0, i32 8
   %1103 = load i32, ptr %1102, align 8, !tbaa !140
   %1104 = ashr i32 %1103, 1
   store i32 %1104, ptr %1102, align 8, !tbaa !140
-  %1105 = getelementptr inbounds %struct.InputParameters, ptr %1084, i64 0, i32 8
-  %1106 = load i32, ptr %1105, align 8, !tbaa !141
-  %1107 = ashr i32 %1106, 1
-  store i32 %1107, ptr %1105, align 8, !tbaa !141
-  %1108 = getelementptr inbounds %struct.ImageParameters, ptr %1087, i64 0, i32 88
-  %1109 = load i32, ptr %1108, align 8, !tbaa !71
-  %1110 = add nsw i32 %1109, -1
-  %1111 = ashr i32 %1110, 1
-  store i32 %1111, ptr %1108, align 8, !tbaa !71
-  br label %1112
+  %1105 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 88
+  %1106 = load i32, ptr %1105, align 8, !tbaa !71
+  %1107 = add nsw i32 %1106, -1
+  %1108 = ashr i32 %1107, 1
+  store i32 %1108, ptr %1105, align 8, !tbaa !71
+  %1109 = getelementptr inbounds %struct.InputParameters, ptr %1091, i64 0, i32 157
+  %1110 = load i32, ptr %1109, align 4, !tbaa !121
+  %1111 = icmp eq i32 %1110, 0
+  br i1 %1111, label %1150, label %1121
 
-1112:                                             ; preds = %1099, %1100
-  %1113 = phi i1 [ %1093, %1099 ], [ %1089, %1100 ]
-  %1114 = phi ptr [ %1094, %1099 ], [ %1087, %1100 ]
-  %1115 = phi ptr [ %1095, %1099 ], [ %1084, %1100 ]
-  %1116 = getelementptr inbounds %struct.InputParameters, ptr %1115, i64 0, i32 157
-  %1117 = load i32, ptr %1116, align 4, !tbaa !121
-  %1118 = icmp eq i32 %1117, 0
-  br i1 %1118, label %1146, label %1119
+1112:                                             ; preds = %1089
+  %1113 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 90
+  store i32 0, ptr %1113, align 8, !tbaa !133
+  store i32 0, ptr @MBPairIsField, align 4, !tbaa !43
+  %1114 = getelementptr inbounds %struct.InputParameters, ptr %1091, i64 0, i32 157
+  %1115 = load i32, ptr %1114, align 4, !tbaa !121
+  %1116 = icmp eq i32 %1115, 0
+  br i1 %1116, label %1117, label %1139
 
-1119:                                             ; preds = %1112
-  br i1 %1113, label %1120, label %1136
+1117:                                             ; preds = %1112
+  %1118 = load ptr, ptr @img, align 8, !tbaa !5
+  %1119 = getelementptr inbounds %struct.ImageParameters, ptr %1118, i64 0, i32 135
+  store i32 1, ptr %1119, align 8, !tbaa !141
+  %1120 = getelementptr inbounds %struct.ImageParameters, ptr %1118, i64 0, i32 133
+  store i32 1, ptr %1120, align 8, !tbaa !131
+  br label %1156
 
-1120:                                             ; preds = %1119
-  %1121 = getelementptr inbounds %struct.ImageParameters, ptr %1114, i64 0, i32 128
-  %1122 = load i32, ptr %1121, align 4, !tbaa !136
-  %1123 = icmp sgt i32 %1122, 0
-  br i1 %1123, label %1124, label %1136
+1121:                                             ; preds = %1097
+  %1122 = icmp eq i32 %1090, 2
+  br i1 %1122, label %1123, label %1139
 
-1124:                                             ; preds = %1120
-  %1125 = getelementptr inbounds %struct.ImageParameters, ptr %1114, i64 0, i32 132
-  %1126 = load i32, ptr %1125, align 4, !tbaa !124
-  %1127 = urem i32 %1122, %1126
-  %1128 = icmp eq i32 %1127, 0
-  br i1 %1128, label %1129, label %1136
+1123:                                             ; preds = %1121
+  %1124 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 128
+  %1125 = load i32, ptr %1124, align 4, !tbaa !136
+  %1126 = icmp sgt i32 %1125, 0
+  br i1 %1126, label %1127, label %1139
 
-1129:                                             ; preds = %1124
-  %1130 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
-  %1131 = load ptr, ptr @quadratic_RC_best, align 8, !tbaa !5
-  call void @copy_rc_jvt(ptr noundef %1130, ptr noundef %1131) #12
-  %1132 = load ptr, ptr @input, align 8, !tbaa !5
-  %1133 = getelementptr inbounds %struct.InputParameters, ptr %1132, i64 0, i32 157
-  %1134 = load i32, ptr %1133, align 4, !tbaa !121
-  %1135 = icmp eq i32 %1134, 0
-  br i1 %1135, label %1146, label %1136
+1127:                                             ; preds = %1123
+  %1128 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 132
+  %1129 = load i32, ptr %1128, align 4, !tbaa !124
+  %1130 = urem i32 %1125, %1129
+  %1131 = icmp eq i32 %1130, 0
+  br i1 %1131, label %1132, label %1139
 
-1136:                                             ; preds = %1119, %1120, %1124, %1129
-  %1137 = phi ptr [ %1132, %1129 ], [ %1115, %1124 ], [ %1115, %1120 ], [ %1115, %1119 ]
-  %1138 = getelementptr inbounds %struct.InputParameters, ptr %1137, i64 0, i32 122
-  %1139 = load i32, ptr %1138, align 4, !tbaa !132
-  %1140 = icmp eq i32 %1139, 2
-  br i1 %1140, label %1141, label %1146
+1132:                                             ; preds = %1127
+  %1133 = load ptr, ptr @quadratic_RC, align 8, !tbaa !5
+  %1134 = load ptr, ptr @quadratic_RC_best, align 8, !tbaa !5
+  call void @copy_rc_jvt(ptr noundef %1133, ptr noundef %1134) #12
+  %1135 = load ptr, ptr @input, align 8, !tbaa !5
+  %1136 = getelementptr inbounds %struct.InputParameters, ptr %1135, i64 0, i32 157
+  %1137 = load i32, ptr %1136, align 4, !tbaa !121
+  %1138 = icmp eq i32 %1137, 0
+  br i1 %1138, label %1150, label %1139
 
-1141:                                             ; preds = %1136
-  %1142 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %1143 = load ptr, ptr @generic_RC_best, align 8, !tbaa !5
-  call void @copy_rc_generic(ptr noundef %1142, ptr noundef %1143) #12
-  br label %1146
+1139:                                             ; preds = %1112, %1121, %1123, %1127, %1132
+  %1140 = phi ptr [ %1135, %1132 ], [ %1091, %1127 ], [ %1091, %1123 ], [ %1091, %1121 ], [ %1091, %1112 ]
+  %1141 = getelementptr inbounds %struct.InputParameters, ptr %1140, i64 0, i32 122
+  %1142 = load i32, ptr %1141, align 4, !tbaa !132
+  %1143 = icmp eq i32 %1142, 2
+  br i1 %1143, label %1144, label %1150
 
-1144:                                             ; preds = %1092
-  store i32 1, ptr %1098, align 8, !tbaa !133
+1144:                                             ; preds = %1139
+  %1145 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  %1146 = load ptr, ptr @generic_RC_best, align 8, !tbaa !5
+  call void @copy_rc_generic(ptr noundef %1145, ptr noundef %1146) #12
+  br label %1150
+
+1147:                                             ; preds = %1089, %1095
+  %1148 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 90
+  store i32 1, ptr %1148, align 8, !tbaa !133
   store i32 1, ptr @MBPairIsField, align 4, !tbaa !43
-  %1145 = getelementptr inbounds %struct.ImageParameters, ptr %1094, i64 0, i32 133
-  store i32 1, ptr %1145, align 8, !tbaa !131
-  br label %1153
+  %1149 = getelementptr inbounds %struct.ImageParameters, ptr %1093, i64 0, i32 133
+  store i32 1, ptr %1149, align 8, !tbaa !131
+  br label %1158
 
-1146:                                             ; preds = %1112, %1129, %1136, %1141
-  %1147 = load ptr, ptr @img, align 8, !tbaa !5
-  %1148 = getelementptr inbounds %struct.ImageParameters, ptr %1147, i64 0, i32 135
-  store i32 1, ptr %1148, align 8, !tbaa !139
-  %1149 = load i32, ptr @MBPairIsField, align 4, !tbaa !43
-  %1150 = getelementptr inbounds %struct.ImageParameters, ptr %1147, i64 0, i32 133
-  store i32 1, ptr %1150, align 8, !tbaa !131
-  %1151 = icmp ne i32 %1149, 0
-  %1152 = zext i1 %1151 to i32
-  br label %1153
+1150:                                             ; preds = %1097, %1132, %1139, %1144
+  %1151 = load i32, ptr @MBPairIsField, align 4, !tbaa !43
+  %1152 = load ptr, ptr @img, align 8, !tbaa !5
+  %1153 = getelementptr inbounds %struct.ImageParameters, ptr %1152, i64 0, i32 135
+  store i32 1, ptr %1153, align 8, !tbaa !141
+  %1154 = getelementptr inbounds %struct.ImageParameters, ptr %1152, i64 0, i32 133
+  store i32 1, ptr %1154, align 8, !tbaa !131
+  %1155 = icmp eq i32 %1151, 0
+  br i1 %1155, label %1156, label %1158
 
-1153:                                             ; preds = %1146, %1144
-  %1154 = phi ptr [ %1094, %1144 ], [ %1147, %1146 ]
-  %1155 = phi i32 [ 1, %1144 ], [ %1152, %1146 ]
-  %1156 = getelementptr inbounds %struct.ImageParameters, ptr %1154, i64 0, i32 91
-  store i32 %1155, ptr %1156, align 4, !tbaa !134
-  %1157 = getelementptr inbounds %struct.ImageParameters, ptr %1154, i64 0, i32 134
-  store i32 0, ptr %1157, align 4, !tbaa !135
-  %1158 = getelementptr inbounds %struct.ImageParameters, ptr %1154, i64 0, i32 90
-  %1159 = load i32, ptr %1158, align 8, !tbaa !133
-  call void @start_macroblock(i32 noundef %878, i32 noundef %1159) #12
-  %1160 = load ptr, ptr @img, align 8, !tbaa !5
-  %1161 = getelementptr inbounds %struct.ImageParameters, ptr %1160, i64 0, i32 90
-  %1162 = load i32, ptr %1161, align 8, !tbaa !133
-  %1163 = icmp eq i32 %1162, 0
-  %1164 = select i1 %1163, ptr @rddata_top_frame_mb, ptr @rddata_top_field_mb
-  store ptr %1164, ptr @rdopt, align 8, !tbaa !5
+1156:                                             ; preds = %1117, %1150
+  %1157 = phi ptr [ %1118, %1117 ], [ %1152, %1150 ]
+  br label %1158
+
+1158:                                             ; preds = %1150, %1147, %1156
+  %1159 = phi ptr [ %1157, %1156 ], [ %1093, %1147 ], [ %1152, %1150 ]
+  %1160 = phi i32 [ 0, %1156 ], [ 1, %1147 ], [ 1, %1150 ]
+  %1161 = getelementptr inbounds %struct.ImageParameters, ptr %1159, i64 0, i32 91
+  store i32 %1160, ptr %1161, align 4, !tbaa !134
+  %1162 = getelementptr inbounds %struct.ImageParameters, ptr %1159, i64 0, i32 134
+  store i32 0, ptr %1162, align 4, !tbaa !135
+  %1163 = getelementptr inbounds %struct.ImageParameters, ptr %1159, i64 0, i32 90
+  %1164 = load i32, ptr %1163, align 8, !tbaa !133
+  call void @start_macroblock(i32 noundef %882, i32 noundef %1164) #12
+  %1165 = load ptr, ptr @img, align 8, !tbaa !5
+  %1166 = getelementptr inbounds %struct.ImageParameters, ptr %1165, i64 0, i32 90
+  %1167 = load i32, ptr %1166, align 8, !tbaa !133
+  %1168 = icmp eq i32 %1167, 0
+  %1169 = select i1 %1168, ptr @rddata_top_frame_mb, ptr @rddata_top_field_mb
+  store ptr %1169, ptr @rdopt, align 8, !tbaa !5
   call void @copy_rdopt_data(i32 noundef 0) #12
   call void @write_one_macroblock(i32 noundef 1) #12
   call void @terminate_macroblock(ptr noundef nonnull %4, ptr noundef nonnull %5) #12
-  %1165 = load i32, ptr %5, align 4, !tbaa !51
-  %1166 = icmp eq i32 %1165, 0
-  br i1 %1166, label %1167, label %1203
+  %1170 = load i32, ptr %5, align 4, !tbaa !51
+  %1171 = icmp eq i32 %1170, 0
+  br i1 %1171, label %1172, label %1208
 
-1167:                                             ; preds = %1153
-  %1168 = call i32 @FmoGetNextMBNr(i32 noundef %878) #12
-  %1169 = icmp eq i32 %1168, -1
-  br i1 %1169, label %1170, label %1171
+1172:                                             ; preds = %1158
+  %1173 = call i32 @FmoGetNextMBNr(i32 noundef %882) #12
+  %1174 = icmp eq i32 %1173, -1
+  br i1 %1174, label %1175, label %1176
 
-1170:                                             ; preds = %1167
+1175:                                             ; preds = %1172
   store i32 1, ptr %4, align 4, !tbaa !51
-  br label %1171
+  br label %1176
 
-1171:                                             ; preds = %1170, %1167
-  %1172 = add nsw i32 %879, 1
+1176:                                             ; preds = %1175, %1172
+  %1177 = add nsw i32 %883, 1
   call void @proceed2nextMacroblock() #12
-  %1173 = load ptr, ptr @img, align 8, !tbaa !5
-  %1174 = getelementptr inbounds %struct.ImageParameters, ptr %1173, i64 0, i32 134
-  store i32 1, ptr %1174, align 4, !tbaa !135
-  %1175 = getelementptr inbounds %struct.ImageParameters, ptr %1173, i64 0, i32 91
-  store i32 0, ptr %1175, align 4, !tbaa !134
-  %1176 = getelementptr inbounds %struct.ImageParameters, ptr %1173, i64 0, i32 90
-  %1177 = load i32, ptr %1176, align 8, !tbaa !133
-  call void @start_macroblock(i32 noundef %1168, i32 noundef %1177) #12
   %1178 = load ptr, ptr @img, align 8, !tbaa !5
-  %1179 = getelementptr inbounds %struct.ImageParameters, ptr %1178, i64 0, i32 90
-  %1180 = load i32, ptr %1179, align 8, !tbaa !133
-  %1181 = icmp eq i32 %1180, 0
-  %1182 = select i1 %1181, ptr @rddata_bot_frame_mb, ptr @rddata_bot_field_mb
-  store ptr %1182, ptr @rdopt, align 8, !tbaa !5
+  %1179 = getelementptr inbounds %struct.ImageParameters, ptr %1178, i64 0, i32 134
+  store i32 1, ptr %1179, align 4, !tbaa !135
+  %1180 = getelementptr inbounds %struct.ImageParameters, ptr %1178, i64 0, i32 91
+  store i32 0, ptr %1180, align 4, !tbaa !134
+  %1181 = getelementptr inbounds %struct.ImageParameters, ptr %1178, i64 0, i32 90
+  %1182 = load i32, ptr %1181, align 8, !tbaa !133
+  call void @start_macroblock(i32 noundef %1173, i32 noundef %1182) #12
+  %1183 = load ptr, ptr @img, align 8, !tbaa !5
+  %1184 = getelementptr inbounds %struct.ImageParameters, ptr %1183, i64 0, i32 90
+  %1185 = load i32, ptr %1184, align 8, !tbaa !133
+  %1186 = icmp eq i32 %1185, 0
+  %1187 = select i1 %1186, ptr @rddata_bot_frame_mb, ptr @rddata_bot_field_mb
+  store ptr %1187, ptr @rdopt, align 8, !tbaa !5
   call void @copy_rdopt_data(i32 noundef 1) #12
   call void @write_one_macroblock(i32 noundef 0) #12
   call void @terminate_macroblock(ptr noundef nonnull %4, ptr noundef nonnull %5) #12
-  %1183 = load i32, ptr %5, align 4, !tbaa !51
-  %1184 = icmp eq i32 %1183, 0
-  br i1 %1184, label %1185, label %1191
+  %1188 = load i32, ptr %5, align 4, !tbaa !51
+  %1189 = icmp eq i32 %1188, 0
+  br i1 %1189, label %1190, label %1196
 
-1185:                                             ; preds = %1171
-  %1186 = call i32 @FmoGetNextMBNr(i32 noundef %1168) #12
-  %1187 = icmp eq i32 %1186, -1
-  br i1 %1187, label %1188, label %1189
+1190:                                             ; preds = %1176
+  %1191 = call i32 @FmoGetNextMBNr(i32 noundef %1173) #12
+  %1192 = icmp eq i32 %1191, -1
+  br i1 %1192, label %1193, label %1194
 
-1188:                                             ; preds = %1185
+1193:                                             ; preds = %1190
   store i32 1, ptr %4, align 4, !tbaa !51
-  br label %1189
+  br label %1194
 
-1189:                                             ; preds = %1188, %1185
-  %1190 = add nsw i32 %879, 2
+1194:                                             ; preds = %1193, %1190
+  %1195 = add nsw i32 %883, 2
   call void @proceed2nextMacroblock() #12
-  br label %1212
+  br label %1217
 
-1191:                                             ; preds = %1171
-  %1192 = load ptr, ptr @img, align 8, !tbaa !5
-  %1193 = getelementptr inbounds %struct.ImageParameters, ptr %1192, i64 0, i32 3
-  %1194 = load i32, ptr %1193, align 4, !tbaa !53
-  %1195 = call i32 @FmoGetPreviousMBNr(i32 noundef %1194) #12
-  %1196 = load ptr, ptr @img, align 8, !tbaa !5
-  %1197 = getelementptr inbounds %struct.ImageParameters, ptr %1196, i64 0, i32 3
-  store i32 %1195, ptr %1197, align 4, !tbaa !53
-  %1198 = call i32 @FmoGetPreviousMBNr(i32 noundef %1195) #12
-  %1199 = load ptr, ptr @img, align 8, !tbaa !5
-  %1200 = getelementptr inbounds %struct.ImageParameters, ptr %1199, i64 0, i32 3
-  store i32 %1198, ptr %1200, align 4, !tbaa !53
-  %1201 = icmp eq i32 %1198, -1
-  br i1 %1201, label %1202, label %1212
-
-1202:                                             ; preds = %1191
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(84) @errortext, ptr noundef nonnull align 1 dereferenceable(84) @.str.1, i64 84, i1 false)
-  call void @error(ptr noundef nonnull @errortext, i32 noundef 300) #12
-  br label %1212
-
-1203:                                             ; preds = %1153
+1196:                                             ; preds = %1176
+  %1197 = load ptr, ptr @img, align 8, !tbaa !5
+  %1198 = getelementptr inbounds %struct.ImageParameters, ptr %1197, i64 0, i32 3
+  %1199 = load i32, ptr %1198, align 4, !tbaa !53
+  %1200 = call i32 @FmoGetPreviousMBNr(i32 noundef %1199) #12
+  %1201 = load ptr, ptr @img, align 8, !tbaa !5
+  %1202 = getelementptr inbounds %struct.ImageParameters, ptr %1201, i64 0, i32 3
+  store i32 %1200, ptr %1202, align 4, !tbaa !53
+  %1203 = call i32 @FmoGetPreviousMBNr(i32 noundef %1200) #12
   %1204 = load ptr, ptr @img, align 8, !tbaa !5
   %1205 = getelementptr inbounds %struct.ImageParameters, ptr %1204, i64 0, i32 3
-  %1206 = load i32, ptr %1205, align 4, !tbaa !53
-  %1207 = call i32 @FmoGetPreviousMBNr(i32 noundef %1206) #12
-  %1208 = load ptr, ptr @img, align 8, !tbaa !5
-  %1209 = getelementptr inbounds %struct.ImageParameters, ptr %1208, i64 0, i32 3
-  store i32 %1207, ptr %1209, align 4, !tbaa !53
-  %1210 = icmp eq i32 %1207, -1
-  br i1 %1210, label %1211, label %1212
+  store i32 %1203, ptr %1205, align 4, !tbaa !53
+  %1206 = icmp eq i32 %1203, -1
+  br i1 %1206, label %1207, label %1217
 
-1211:                                             ; preds = %1203
+1207:                                             ; preds = %1196
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(84) @errortext, ptr noundef nonnull align 1 dereferenceable(84) @.str.1, i64 84, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 300) #12
-  br label %1212
+  br label %1217
 
-1212:                                             ; preds = %1203, %1211, %1189, %1202, %1191
-  %1213 = phi i32 [ %1190, %1189 ], [ %1172, %1202 ], [ %1172, %1191 ], [ %879, %1211 ], [ %879, %1203 ]
-  %1214 = phi i32 [ %1186, %1189 ], [ %1168, %1202 ], [ %1168, %1191 ], [ %878, %1211 ], [ %878, %1203 ]
-  %1215 = load i32, ptr @MBPairIsField, align 4, !tbaa !43
-  %1216 = icmp eq i32 %1215, 0
-  %1217 = load ptr, ptr @img, align 8, !tbaa !5
-  br i1 %1216, label %1230, label %1218
+1208:                                             ; preds = %1158
+  %1209 = load ptr, ptr @img, align 8, !tbaa !5
+  %1210 = getelementptr inbounds %struct.ImageParameters, ptr %1209, i64 0, i32 3
+  %1211 = load i32, ptr %1210, align 4, !tbaa !53
+  %1212 = call i32 @FmoGetPreviousMBNr(i32 noundef %1211) #12
+  %1213 = load ptr, ptr @img, align 8, !tbaa !5
+  %1214 = getelementptr inbounds %struct.ImageParameters, ptr %1213, i64 0, i32 3
+  store i32 %1212, ptr %1214, align 4, !tbaa !53
+  %1215 = icmp eq i32 %1212, -1
+  br i1 %1215, label %1216, label %1217
 
-1218:                                             ; preds = %1212
-  %1219 = getelementptr inbounds %struct.ImageParameters, ptr %1217, i64 0, i32 93
-  %1220 = load i32, ptr %1219, align 8, !tbaa !140
-  %1221 = ashr i32 %1220, 1
-  store i32 %1221, ptr %1219, align 8, !tbaa !140
-  %1222 = load ptr, ptr @input, align 8, !tbaa !5
-  %1223 = getelementptr inbounds %struct.InputParameters, ptr %1222, i64 0, i32 8
-  %1224 = load i32, ptr %1223, align 8, !tbaa !141
-  %1225 = ashr i32 %1224, 1
-  store i32 %1225, ptr %1223, align 8, !tbaa !141
-  %1226 = getelementptr inbounds %struct.ImageParameters, ptr %1217, i64 0, i32 88
-  %1227 = load i32, ptr %1226, align 8, !tbaa !71
-  %1228 = add nsw i32 %1227, -1
-  %1229 = ashr i32 %1228, 1
-  store i32 %1229, ptr %1226, align 8, !tbaa !71
-  br label %1230
+1216:                                             ; preds = %1208
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(84) @errortext, ptr noundef nonnull align 1 dereferenceable(84) @.str.1, i64 84, i1 false)
+  call void @error(ptr noundef nonnull @errortext, i32 noundef 300) #12
+  br label %1217
 
-1230:                                             ; preds = %1212, %1218
-  %1231 = getelementptr inbounds %struct.ImageParameters, ptr %1217, i64 0, i32 91
-  store i32 0, ptr %1231, align 4, !tbaa !134
-  %1232 = getelementptr inbounds %struct.ImageParameters, ptr %1217, i64 0, i32 90
-  store i32 0, ptr %1232, align 8, !tbaa !133
-  %1233 = load i32, ptr %4, align 4, !tbaa !51
-  %1234 = icmp eq i32 %1233, 0
-  br i1 %1234, label %1235, label %1246
+1217:                                             ; preds = %1208, %1216, %1194, %1207, %1196
+  %1218 = phi i32 [ %1195, %1194 ], [ %1177, %1207 ], [ %1177, %1196 ], [ %883, %1216 ], [ %883, %1208 ]
+  %1219 = phi i32 [ %1191, %1194 ], [ %1173, %1207 ], [ %1173, %1196 ], [ %882, %1216 ], [ %882, %1208 ]
+  %1220 = load i32, ptr @MBPairIsField, align 4, !tbaa !43
+  %1221 = icmp eq i32 %1220, 0
+  %1222 = load ptr, ptr @img, align 8, !tbaa !5
+  br i1 %1221, label %1235, label %1223
 
-1235:                                             ; preds = %1230
-  %1236 = call i32 @FmoMB2SliceGroup(i32 noundef %1214) #12
-  %1237 = call i32 @FmoGetLastCodedMBOfSliceGroup(i32 noundef %1236) #12
-  %1238 = icmp eq i32 %1214, %1237
-  br i1 %1238, label %1239, label %1240
+1223:                                             ; preds = %1217
+  %1224 = getelementptr inbounds %struct.ImageParameters, ptr %1222, i64 0, i32 93
+  %1225 = load i32, ptr %1224, align 8, !tbaa !139
+  %1226 = ashr i32 %1225, 1
+  store i32 %1226, ptr %1224, align 8, !tbaa !139
+  %1227 = load ptr, ptr @input, align 8, !tbaa !5
+  %1228 = getelementptr inbounds %struct.InputParameters, ptr %1227, i64 0, i32 8
+  %1229 = load i32, ptr %1228, align 8, !tbaa !140
+  %1230 = ashr i32 %1229, 1
+  store i32 %1230, ptr %1228, align 8, !tbaa !140
+  %1231 = getelementptr inbounds %struct.ImageParameters, ptr %1222, i64 0, i32 88
+  %1232 = load i32, ptr %1231, align 8, !tbaa !71
+  %1233 = add nsw i32 %1232, -1
+  %1234 = ashr i32 %1233, 1
+  store i32 %1234, ptr %1231, align 8, !tbaa !71
+  br label %1235
 
-1239:                                             ; preds = %1235
+1235:                                             ; preds = %1217, %1223
+  %1236 = getelementptr inbounds %struct.ImageParameters, ptr %1222, i64 0, i32 91
+  store i32 0, ptr %1236, align 4, !tbaa !134
+  %1237 = getelementptr inbounds %struct.ImageParameters, ptr %1222, i64 0, i32 90
+  store i32 0, ptr %1237, align 8, !tbaa !133
+  %1238 = load i32, ptr %4, align 4, !tbaa !51
+  %1239 = icmp eq i32 %1238, 0
+  br i1 %1239, label %1240, label %1252
+
+1240:                                             ; preds = %1235
+  %1241 = call i32 @FmoMB2SliceGroup(i32 noundef %1219) #12
+  %1242 = call i32 @FmoGetLastCodedMBOfSliceGroup(i32 noundef %1241) #12
+  %1243 = icmp eq i32 %1219, %1242
+  br i1 %1243, label %1244, label %1245
+
+1244:                                             ; preds = %1240
   store i32 1, ptr %4, align 4, !tbaa !51
-  br label %1246
+  br label %1252
 
-1240:                                             ; preds = %1235, %913, %923, %915
-  %1241 = phi i32 [ %879, %915 ], [ %879, %923 ], [ %914, %913 ], [ %1213, %1235 ]
-  %1242 = phi i32 [ %878, %915 ], [ %878, %923 ], [ %910, %913 ], [ %1214, %1235 ]
-  %1243 = phi double [ %877, %915 ], [ %877, %923 ], [ %877, %913 ], [ %1020, %1235 ]
-  %1244 = load i32, ptr %4, align 4, !tbaa !51
-  %1245 = icmp eq i32 %1244, 0
-  br i1 %1245, label %876, label %1246, !llvm.loop !142
+1245:                                             ; preds = %1240, %917, %927, %919
+  %1246 = phi i32 [ %883, %919 ], [ %883, %927 ], [ %918, %917 ], [ %1218, %1240 ]
+  %1247 = phi i32 [ %882, %919 ], [ %882, %927 ], [ %914, %917 ], [ %1219, %1240 ]
+  %1248 = phi double [ %881, %919 ], [ %881, %927 ], [ %881, %917 ], [ %1024, %1240 ]
+  %1249 = phi double [ %880, %919 ], [ %880, %927 ], [ %880, %917 ], [ %1092, %1240 ]
+  %1250 = load i32, ptr %4, align 4, !tbaa !51
+  %1251 = icmp eq i32 %1250, 0
+  br i1 %1251, label %879, label %1252, !llvm.loop !142
 
-1246:                                             ; preds = %1230, %1240, %1239
-  %1247 = phi i32 [ %1213, %1239 ], [ %1213, %1230 ], [ %1241, %1240 ]
-  %1248 = load ptr, ptr @img, align 8, !tbaa !5
-  br label %1249
+1252:                                             ; preds = %1235, %1245, %1244
+  %1253 = phi i32 [ %1218, %1244 ], [ %1218, %1235 ], [ %1246, %1245 ]
+  %1254 = load ptr, ptr @img, align 8, !tbaa !5
+  br label %1255
 
-1249:                                             ; preds = %1246, %861
-  %1250 = phi ptr [ %862, %861 ], [ %1248, %1246 ]
-  %1251 = phi i32 [ 0, %861 ], [ %1247, %1246 ]
-  %1252 = add nsw i32 %1251, %2
-  %1253 = getelementptr inbounds %struct.ImageParameters, ptr %1250, i64 0, i32 119
-  %1254 = load i32, ptr %1253, align 4, !tbaa !45
-  %1255 = icmp sge i32 %1252, %1254
-  %1256 = zext i1 %1255 to i32
-  %1257 = call i32 @terminate_slice(i32 noundef %1256)
+1255:                                             ; preds = %1252, %864
+  %1256 = phi ptr [ %865, %864 ], [ %1254, %1252 ]
+  %1257 = phi i32 [ 0, %864 ], [ %1253, %1252 ]
+  %1258 = add nsw i32 %1257, %2
+  %1259 = getelementptr inbounds %struct.ImageParameters, ptr %1256, i64 0, i32 119
+  %1260 = load i32, ptr %1259, align 4, !tbaa !45
+  %1261 = icmp sge i32 %1258, %1260
+  %1262 = zext i1 %1261 to i32
+  %1263 = call i32 @terminate_slice(i32 noundef %1262)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #12
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #12
-  ret i32 %1251
+  ret i32 %1257
 }
 
 declare i32 @FmoGetFirstMacroblockInSlice(i32 noundef) local_unnamed_addr #3
@@ -3659,21 +3681,19 @@ define dso_local void @SetLagrangianMultipliers() local_unnamed_addr #2 {
   %570 = getelementptr inbounds %struct.InputParameters, ptr %555, i64 0, i32 68
   %571 = load i32, ptr %570, align 4, !tbaa !172
   %572 = icmp eq i32 %571, 2
-  br i1 %572, label %573, label %579
+  br i1 %572, label %573, label %580
 
 573:                                              ; preds = %569
   %574 = getelementptr inbounds %struct.ImageParameters, ptr %549, i64 0, i32 76
   %575 = load i32, ptr %574, align 4, !tbaa !173
   %576 = freeze i32 %575
   %577 = icmp eq i32 %576, 0
-  br i1 %577, label %578, label %579
+  %578 = select i1 %577, double 5.000000e-01, double 1.000000e+00
+  %579 = fmul double %568, %578
+  br label %580
 
-578:                                              ; preds = %573
-  br label %579
-
-579:                                              ; preds = %569, %578, %573
-  %580 = phi double [ 5.000000e-01, %578 ], [ 1.000000e+00, %573 ], [ 1.000000e+00, %569 ]
-  %581 = fmul double %568, %580
+580:                                              ; preds = %569, %573
+  %581 = phi double [ %579, %573 ], [ %568, %569 ]
   store double %581, ptr %567, align 8, !tbaa !167
   %582 = getelementptr inbounds ptr, ptr %551, i64 5
   %583 = load ptr, ptr %582, align 8, !tbaa !5
@@ -3683,7 +3703,7 @@ define dso_local void @SetLagrangianMultipliers() local_unnamed_addr #2 {
   %587 = icmp eq i32 %586, 2
   br i1 %587, label %588, label %601
 
-588:                                              ; preds = %579
+588:                                              ; preds = %580
   %589 = load ptr, ptr @gop_structure, align 8, !tbaa !5
   %590 = getelementptr inbounds %struct.ImageParameters, ptr %549, i64 0, i32 76
   %591 = load i32, ptr %590, align 4, !tbaa !173
@@ -3698,8 +3718,8 @@ define dso_local void @SetLagrangianMultipliers() local_unnamed_addr #2 {
   %600 = fsub double 1.000000e+00, %599
   br label %601
 
-601:                                              ; preds = %579, %588
-  %602 = phi double [ %600, %588 ], [ 8.000000e-01, %579 ]
+601:                                              ; preds = %580, %588
+  %602 = phi double [ %600, %588 ], [ 8.000000e-01, %580 ]
   %603 = fmul double %581, %602
   %604 = fmul double %10, %603
   store double %604, ptr %584, align 8, !tbaa !167
@@ -4230,19 +4250,19 @@ declare void @delete_contexts_MotionInfo(ptr noundef) local_unnamed_addr #3
 
 declare void @delete_contexts_TextureInfo(ptr noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #11
+declare i32 @llvm.smax.i32(i32, i32) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
 
 declare double @exp2(double) local_unnamed_addr
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #11
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -4254,8 +4274,8 @@ attributes #6 = { mustprogress nofree nounwind willreturn memory(write) "no-trap
 attributes #7 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #8 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0,1) }
 
@@ -4401,9 +4421,9 @@ attributes #13 = { nounwind allocsize(0,1) }
 !136 = !{!10, !11, i64 15388}
 !137 = !{!138, !13, i64 0}
 !138 = !{!"", !13, i64 0, !7, i64 8, !7, i64 520, !7, i64 1032, !6, i64 1544, !6, i64 1552, !11, i64 1560, !14, i64 1564, !7, i64 1568, !7, i64 1584, !6, i64 1600, !7, i64 1608, !7, i64 1624, !11, i64 1640, !48, i64 1648, !11, i64 1656, !6, i64 1664, !6, i64 1672, !7, i64 1680, !11, i64 1712, !11, i64 1716, !11, i64 1720, !11, i64 1724, !11, i64 1728, !11, i64 1732, !11, i64 1736, !11, i64 1740, !11, i64 1744}
-!139 = !{!10, !11, i64 15416}
-!140 = !{!10, !11, i64 15240}
-!141 = !{!19, !11, i64 32}
+!139 = !{!10, !11, i64 15240}
+!140 = !{!19, !11, i64 32}
+!141 = !{!10, !11, i64 15416}
 !142 = distinct !{!142, !50}
 !143 = distinct !{!143, !50, !144}
 !144 = !{!"llvm.loop.unswitch.partial.disable"}

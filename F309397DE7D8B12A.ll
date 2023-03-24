@@ -95,7 +95,7 @@ define dso_local void @fap(i32 noundef %0, ptr nocapture noundef readonly %1, pt
   %41 = zext i32 %37 to i64
   %42 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %41
   %43 = load i8, ptr %42, align 1, !tbaa !5
-  %44 = icmp eq i8 %43, %15
+  %44 = icmp eq i8 %15, %43
   br i1 %44, label %13, label %45, !llvm.loop !8
 
 45:                                               ; preds = %40
@@ -143,7 +143,7 @@ define dso_local void @fap(i32 noundef %0, ptr nocapture noundef readonly %1, pt
   %69 = zext i32 %65 to i64
   %70 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %69
   %71 = load i8, ptr %70, align 1, !tbaa !5
-  %72 = icmp eq i8 %71, %50
+  %72 = icmp eq i8 %50, %71
   br i1 %72, label %46, label %73, !llvm.loop !10
 
 73:                                               ; preds = %68

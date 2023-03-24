@@ -78,7 +78,7 @@ define dso_local i32 @hypre_StructAxpy(double noundef %0, ptr nocapture noundef 
   %62 = select i1 %60, i32 0, i32 %61
   %63 = getelementptr inbounds %struct.hypre_Box_struct, ptr %32, i64 %26, i32 1
   %64 = load i32, ptr %63, align 4, !tbaa !19
-  %65 = sub nsw i32 %64, %54
+  %65 = sub i32 %64, %54
   %66 = icmp slt i32 %65, 0
   %67 = add nsw i32 %65, 1
   %68 = select i1 %66, i32 0, i32 %67
@@ -94,7 +94,7 @@ define dso_local i32 @hypre_StructAxpy(double noundef %0, ptr nocapture noundef 
   %78 = select i1 %76, i32 0, i32 %77
   %79 = getelementptr inbounds %struct.hypre_Box_struct, ptr %30, i64 %26, i32 1
   %80 = load i32, ptr %79, align 4, !tbaa !19
-  %81 = sub nsw i32 %80, %70
+  %81 = sub i32 %80, %70
   %82 = icmp slt i32 %81, 0
   %83 = add nsw i32 %81, 1
   %84 = select i1 %82, i32 0, i32 %83

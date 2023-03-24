@@ -176,7 +176,7 @@ define dso_local void @bigTableSetup() local_unnamed_addr #3 {
   %52 = phi i32 [ %35, %39 ], [ %50, %41 ]
   %53 = phi i32 [ %40, %39 ], [ %47, %41 ]
   %54 = or i32 %53, %36
-  %55 = shl nuw nsw i32 %52, 16
+  %55 = shl i32 %52, 16
   %56 = or i32 %54, %55
   %57 = getelementptr inbounds [1024 x i32], ptr @bigTable, i64 0, i64 %2
   store i32 %56, ptr %57, align 4, !tbaa !5

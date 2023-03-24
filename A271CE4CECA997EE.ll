@@ -25,10 +25,10 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @do_isofs_readdir() unnamed_addr #1 {
-  %1 = load i64, ptr @f, align 8, !tbaa !16
+  %1 = load i64, ptr @f, align 8
   %2 = load i64, ptr @i, align 8, !tbaa !11
   %3 = icmp slt i64 %1, %2
-  br i1 %3, label %4, label %11
+  br i1 %3, label %4, label %14
 
 4:                                                ; preds = %0
   %5 = load ptr, ptr getelementptr inbounds (%struct.inode, ptr @i, i64 0, i32 1), align 8, !tbaa !15
@@ -36,30 +36,24 @@ define internal fastcc void @do_isofs_readdir() unnamed_addr #1 {
   %7 = load i8, ptr %6, align 4, !tbaa !10
   %8 = zext i8 %7 to i64
   %9 = ashr i64 %1, %8
-  %10 = trunc i64 %9 to i32
-  tail call fastcc void @isofs_bread(i32 noundef %10)
+  %10 = and i64 %9, 4294967295
+  %11 = icmp eq i64 %10, 0
+  br i1 %11, label %13, label %12
+
+12:                                               ; preds = %4
+  tail call void @abort() #3
   unreachable
 
-11:                                               ; preds = %0
+13:                                               ; preds = %4
+  tail call void @exit(i32 noundef 0) #3
+  unreachable
+
+14:                                               ; preds = %0
   ret void
 }
 
 ; Function Attrs: noreturn
 declare void @abort() local_unnamed_addr #2
-
-; Function Attrs: noreturn nounwind uwtable
-define internal fastcc void @isofs_bread(i32 noundef %0) unnamed_addr #0 {
-  %2 = icmp eq i32 %0, 0
-  br i1 %2, label %4, label %3
-
-3:                                                ; preds = %1
-  tail call void @abort() #3
-  unreachable
-
-4:                                                ; preds = %1
-  tail call void @exit(i32 noundef 0) #3
-  unreachable
-}
 
 ; Function Attrs: noreturn
 declare void @exit(i32 noundef) local_unnamed_addr #2

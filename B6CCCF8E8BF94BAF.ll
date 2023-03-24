@@ -194,7 +194,7 @@ define dso_local noundef i32 @_ZN16CStdInFileStream4ReadEPvjPj(ptr nocapture non
 9:                                                ; preds = %12, %7
   %10 = tail call i64 @read(i32 noundef 0, ptr noundef %1, i64 noundef %8)
   %11 = icmp slt i64 %10, 0
-  br i1 %11, label %12, label %16
+  br i1 %11, label %12, label %20
 
 12:                                               ; preds = %9
   %13 = tail call ptr @__errno_location() #12
@@ -202,20 +202,23 @@ define dso_local noundef i32 @_ZN16CStdInFileStream4ReadEPvjPj(ptr nocapture non
   %15 = icmp eq i32 %14, 4
   br i1 %15, label %9, label %16, !llvm.loop !24
 
-16:                                               ; preds = %9, %12
+16:                                               ; preds = %12
   %17 = icmp eq i64 %10, -1
   %18 = or i1 %5, %17
   %19 = select i1 %17, i32 -2147467259, i32 0
-  br i1 %18, label %22, label %20
+  br i1 %18, label %23, label %21
 
-20:                                               ; preds = %16
-  %21 = trunc i64 %10 to i32
-  store i32 %21, ptr %3, align 4, !tbaa !23
-  br label %22
+20:                                               ; preds = %9
+  br i1 %5, label %23, label %21
 
-22:                                               ; preds = %16, %20
-  %23 = phi i32 [ %19, %16 ], [ 0, %20 ]
-  ret i32 %23
+21:                                               ; preds = %16, %20
+  %22 = trunc i64 %10 to i32
+  store i32 %22, ptr %3, align 4, !tbaa !23
+  br label %23
+
+23:                                               ; preds = %16, %20, %21
+  %24 = phi i32 [ %19, %16 ], [ 0, %21 ], [ 0, %20 ]
+  ret i32 %24
 }
 
 ; Function Attrs: nofree
@@ -388,7 +391,7 @@ define dso_local noundef i32 @_ZN17CStdOutFileStream5WriteEPKvjPj(ptr nocapture 
 9:                                                ; preds = %12, %7
   %10 = tail call i64 @write(i32 noundef 1, ptr noundef %1, i64 noundef %8)
   %11 = icmp slt i64 %10, 0
-  br i1 %11, label %12, label %16
+  br i1 %11, label %12, label %20
 
 12:                                               ; preds = %9
   %13 = tail call ptr @__errno_location() #12
@@ -396,20 +399,23 @@ define dso_local noundef i32 @_ZN17CStdOutFileStream5WriteEPKvjPj(ptr nocapture 
   %15 = icmp eq i32 %14, 4
   br i1 %15, label %9, label %16, !llvm.loop !33
 
-16:                                               ; preds = %9, %12
+16:                                               ; preds = %12
   %17 = icmp eq i64 %10, -1
   %18 = or i1 %5, %17
   %19 = select i1 %17, i32 -2147467259, i32 0
-  br i1 %18, label %22, label %20
+  br i1 %18, label %23, label %21
 
-20:                                               ; preds = %16
-  %21 = trunc i64 %10 to i32
-  store i32 %21, ptr %3, align 4, !tbaa !23
-  br label %22
+20:                                               ; preds = %9
+  br i1 %5, label %23, label %21
 
-22:                                               ; preds = %16, %20
-  %23 = phi i32 [ %19, %16 ], [ 0, %20 ]
-  ret i32 %23
+21:                                               ; preds = %16, %20
+  %22 = trunc i64 %10 to i32
+  store i32 %22, ptr %3, align 4, !tbaa !23
+  br label %23
+
+23:                                               ; preds = %16, %20, %21
+  %24 = phi i32 [ %19, %16 ], [ 0, %21 ], [ 0, %20 ]
+  ret i32 %24
 }
 
 ; Function Attrs: nofree

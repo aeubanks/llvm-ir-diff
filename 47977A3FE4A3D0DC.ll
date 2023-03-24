@@ -434,35 +434,37 @@ define internal i32 @BaseOption(ptr nocapture noundef writeonly %0, ptr noundef 
 
 5:                                                ; preds = %3
   %6 = load i8, ptr %1, align 1, !tbaa !15
-  %7 = add i8 %6, -48
-  %8 = icmp ult i8 %7, 10
-  br i1 %8, label %9, label %25
+  %7 = icmp sgt i8 %6, 47
+  br i1 %7, label %8, label %25
 
-9:                                                ; preds = %5, %9
-  %10 = phi i32 [ %16, %9 ], [ 0, %5 ]
-  %11 = phi ptr [ %17, %9 ], [ %1, %5 ]
-  %12 = phi i8 [ %18, %9 ], [ %6, %5 ]
-  %13 = zext i8 %12 to i32
-  %14 = mul nsw i32 %10, 10
-  %15 = add nsw i32 %13, -48
-  %16 = add nsw i32 %15, %14
-  %17 = getelementptr inbounds i8, ptr %11, i64 1
-  %18 = load i8, ptr %17, align 1, !tbaa !15
-  %19 = add i8 %18, -48
-  %20 = icmp ult i8 %19, 10
-  br i1 %20, label %9, label %21, !llvm.loop !17
+8:                                                ; preds = %5, %13
+  %9 = phi i8 [ %19, %13 ], [ %6, %5 ]
+  %10 = phi i32 [ %17, %13 ], [ 0, %5 ]
+  %11 = phi ptr [ %18, %13 ], [ %1, %5 ]
+  %12 = icmp ult i8 %9, 58
+  br i1 %12, label %13, label %25
 
-21:                                               ; preds = %9
-  %22 = icmp eq i8 %18, 0
+13:                                               ; preds = %8
+  %14 = zext i8 %9 to i32
+  %15 = mul nsw i32 %10, 10
+  %16 = add i32 %15, -48
+  %17 = add i32 %16, %14
+  %18 = getelementptr inbounds i8, ptr %11, i64 1
+  %19 = load i8, ptr %18, align 1, !tbaa !15
+  %20 = icmp sgt i8 %19, 47
+  br i1 %20, label %8, label %21, !llvm.loop !17
+
+21:                                               ; preds = %13
+  %22 = icmp eq i8 %19, 0
   br i1 %22, label %23, label %25
 
 23:                                               ; preds = %21
   %24 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 12
-  store i32 %16, ptr %24, align 8, !tbaa !19
+  store i32 %17, ptr %24, align 8, !tbaa !19
   br label %25
 
-25:                                               ; preds = %23, %21, %5, %3
-  %26 = phi i32 [ 4, %3 ], [ 3, %5 ], [ 0, %23 ], [ 3, %21 ]
+25:                                               ; preds = %8, %23, %21, %5, %3
+  %26 = phi i32 [ 4, %3 ], [ 3, %5 ], [ 0, %23 ], [ 3, %21 ], [ 3, %8 ]
   ret i32 %26
 }
 
@@ -554,35 +556,37 @@ define internal i32 @BlockSizeOption(ptr nocapture noundef writeonly %0, ptr nou
 
 5:                                                ; preds = %3
   %6 = load i8, ptr %1, align 1, !tbaa !15
-  %7 = add i8 %6, -48
-  %8 = icmp ult i8 %7, 10
-  br i1 %8, label %9, label %25
+  %7 = icmp sgt i8 %6, 47
+  br i1 %7, label %8, label %25
 
-9:                                                ; preds = %5, %9
-  %10 = phi i32 [ %16, %9 ], [ 0, %5 ]
-  %11 = phi ptr [ %17, %9 ], [ %1, %5 ]
-  %12 = phi i8 [ %18, %9 ], [ %6, %5 ]
-  %13 = zext i8 %12 to i32
-  %14 = mul nsw i32 %10, 10
-  %15 = add nsw i32 %13, -48
-  %16 = add nsw i32 %15, %14
-  %17 = getelementptr inbounds i8, ptr %11, i64 1
-  %18 = load i8, ptr %17, align 1, !tbaa !15
-  %19 = add i8 %18, -48
-  %20 = icmp ult i8 %19, 10
-  br i1 %20, label %9, label %21, !llvm.loop !21
+8:                                                ; preds = %5, %13
+  %9 = phi i8 [ %19, %13 ], [ %6, %5 ]
+  %10 = phi i32 [ %17, %13 ], [ 0, %5 ]
+  %11 = phi ptr [ %18, %13 ], [ %1, %5 ]
+  %12 = icmp ult i8 %9, 58
+  br i1 %12, label %13, label %25
 
-21:                                               ; preds = %9
-  %22 = icmp eq i8 %18, 0
+13:                                               ; preds = %8
+  %14 = zext i8 %9 to i32
+  %15 = mul nsw i32 %10, 10
+  %16 = add i32 %15, -48
+  %17 = add i32 %16, %14
+  %18 = getelementptr inbounds i8, ptr %11, i64 1
+  %19 = load i8, ptr %18, align 1, !tbaa !15
+  %20 = icmp sgt i8 %19, 47
+  br i1 %20, label %8, label %21, !llvm.loop !21
+
+21:                                               ; preds = %13
+  %22 = icmp eq i8 %19, 0
   br i1 %22, label %23, label %25
 
 23:                                               ; preds = %21
   %24 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 14
-  store i32 %16, ptr %24, align 8, !tbaa !22
+  store i32 %17, ptr %24, align 8, !tbaa !22
   br label %25
 
-25:                                               ; preds = %23, %21, %5, %3
-  %26 = phi i32 [ 4, %3 ], [ 3, %5 ], [ 0, %23 ], [ 3, %21 ]
+25:                                               ; preds = %8, %23, %21, %5, %3
+  %26 = phi i32 [ 4, %3 ], [ 3, %5 ], [ 0, %23 ], [ 3, %21 ], [ 3, %8 ]
   ret i32 %26
 }
 

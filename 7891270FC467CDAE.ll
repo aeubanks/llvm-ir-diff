@@ -534,8 +534,8 @@ define dso_local noundef ptr @_ZN2kc23mergephylumdeclarationsEPNS_22impl_phylumd
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 215, ptr noundef nonnull @.str.6)
   br label %269
 
-269:                                              ; preds = %254, %243, %255, %256, %18, %24, %22, %268
-  %270 = phi ptr [ null, %268 ], [ %25, %24 ], [ %19, %18 ], [ %1, %22 ], [ %1, %256 ], [ null, %255 ], [ null, %243 ], [ null, %254 ]
+269:                                              ; preds = %254, %243, %255, %18, %24, %256, %22, %268
+  %270 = phi ptr [ null, %268 ], [ %25, %24 ], [ %1, %256 ], [ %19, %18 ], [ %1, %22 ], [ null, %255 ], [ null, %243 ], [ null, %254 ]
   ret ptr %270
 }
 
@@ -1941,8 +1941,8 @@ define dso_local noundef i32 @_ZN2kc21f_stars_of_declaratorEPNS_18impl_ac_declar
   %31 = add nuw nsw i32 %22, 2
   br label %32
 
-32:                                               ; preds = %30, %13, %6, %1
-  %33 = phi i32 [ 0, %1 ], [ 0, %6 ], [ 1, %13 ], [ %31, %30 ]
+32:                                               ; preds = %1, %30, %13, %6
+  %33 = phi i32 [ 1, %13 ], [ %31, %30 ], [ 0, %6 ], [ 0, %1 ]
   ret i32 %33
 }
 
@@ -2243,7 +2243,7 @@ define dso_local noundef ptr @_ZN2kc33f_ID_of_ac_declaration_specifiersEPNS_30im
   %38 = icmp eq ptr %37, null
   br i1 %38, label %39, label %51
 
-39:                                               ; preds = %23, %29, %24, %34, %35
+39:                                               ; preds = %29, %24, %23, %34, %35
   %40 = load ptr, ptr %11, align 8, !tbaa !5
   %41 = load ptr, ptr %40, align 8
   %42 = tail call noundef i32 %41(ptr noundef nonnull align 8 dereferenceable(24) %11)
@@ -2417,7 +2417,7 @@ define dso_local void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternc
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.36, i32 noundef 936, ptr noundef nonnull @.str.6)
   br label %39
 
-39:                                               ; preds = %32, %23, %37, %27, %38, %4
+39:                                               ; preds = %23, %37, %27, %32, %38, %4
   ret void
 }
 

@@ -423,12 +423,12 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CEncoder18SetCoderPropertiesEP
   ]
 
 20:                                               ; preds = %15
-  %21 = add i32 %17, -65536
-  %22 = icmp ult i32 %21, -65572
+  %21 = add i32 %17, 36
+  %22 = icmp ult i32 %21, 65572
   %23 = and i32 %17, 3
-  %24 = icmp eq i32 %23, 0
-  %25 = and i1 %22, %24
-  br i1 %25, label %26, label %35
+  %24 = icmp ne i32 %23, 0
+  %25 = or i1 %22, %24
+  br i1 %25, label %35, label %26
 
 26:                                               ; preds = %20
   store i32 %17, ptr %8, align 8, !tbaa !27
@@ -449,8 +449,8 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CEncoder18SetCoderPropertiesEP
   %34 = icmp eq i64 %33, %9
   br i1 %34, label %35, label %10, !llvm.loop !34
 
-35:                                               ; preds = %32, %10, %20, %27, %15, %4
-  %36 = phi i32 [ 0, %4 ], [ -2147024809, %15 ], [ -2147024809, %27 ], [ -2147024809, %20 ], [ -2147024809, %10 ], [ 0, %32 ]
+35:                                               ; preds = %10, %20, %27, %15, %32, %4
+  %36 = phi i32 [ 0, %4 ], [ 0, %32 ], [ -2147024809, %15 ], [ -2147024809, %27 ], [ -2147024809, %20 ], [ -2147024809, %10 ]
   ret i32 %36
 }
 
@@ -489,12 +489,12 @@ define dso_local noundef i32 @_ZThn8_N9NCompress5NPpmd8CEncoder18SetCoderPropert
   ]
 
 20:                                               ; preds = %15
-  %21 = add i32 %17, -65536
-  %22 = icmp ult i32 %21, -65572
+  %21 = add i32 %17, 36
+  %22 = icmp ult i32 %21, 65572
   %23 = and i32 %17, 3
-  %24 = icmp eq i32 %23, 0
-  %25 = and i1 %22, %24
-  br i1 %25, label %26, label %35
+  %24 = icmp ne i32 %23, 0
+  %25 = or i1 %22, %24
+  br i1 %25, label %35, label %26
 
 26:                                               ; preds = %20
   store i32 %17, ptr %8, align 8, !tbaa !27
@@ -516,7 +516,7 @@ define dso_local noundef i32 @_ZThn8_N9NCompress5NPpmd8CEncoder18SetCoderPropert
   br i1 %34, label %35, label %10, !llvm.loop !34
 
 35:                                               ; preds = %10, %15, %20, %27, %32, %4
-  %36 = phi i32 [ 0, %4 ], [ 0, %32 ], [ -2147024809, %10 ], [ -2147024809, %20 ], [ -2147024809, %27 ], [ -2147024809, %15 ]
+  %36 = phi i32 [ 0, %4 ], [ -2147024809, %10 ], [ -2147024809, %20 ], [ -2147024809, %27 ], [ -2147024809, %15 ], [ 0, %32 ]
   ret i32 %36
 }
 

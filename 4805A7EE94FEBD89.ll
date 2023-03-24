@@ -596,7 +596,7 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
   %56 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 1, i32 0, i32 2
   %57 = load i32, ptr %56, align 4, !tbaa !55
   %58 = icmp sgt i32 %57, 0
-  br i1 %58, label %59, label %218
+  br i1 %58, label %59, label %209
 
 59:                                               ; preds = %55
   %60 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 1, i32 0, i32 5
@@ -604,8 +604,8 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
   %62 = zext i32 %57 to i64
   br label %63
 
-63:                                               ; preds = %59, %216
-  %64 = phi i32 [ 0, %59 ], [ %89, %216 ]
+63:                                               ; preds = %59, %207
+  %64 = phi i32 [ 0, %59 ], [ %89, %207 ]
   %65 = load ptr, ptr %60, align 8, !tbaa !45
   %66 = sext i32 %64 to i64
   %67 = getelementptr inbounds %struct.btElement, ptr %65, i64 %66
@@ -630,12 +630,12 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
 80:                                               ; preds = %53
   %81 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
 82:                                               ; preds = %19
   %83 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
 84:                                               ; preds = %76
   %85 = trunc i64 %73 to i32
@@ -646,7 +646,7 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
   %88 = phi i32 [ %85, %84 ], [ %71, %72 ]
   %89 = phi i32 [ %86, %84 ], [ %70, %72 ]
   %90 = icmp slt i32 %88, %64
-  br i1 %90, label %216, label %91
+  br i1 %90, label %207, label %91
 
 91:                                               ; preds = %87
   %92 = load ptr, ptr %61, align 8, !tbaa !21
@@ -654,16 +654,16 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
   %94 = sub i32 %93, %64
   %95 = and i32 %94, 1
   %96 = icmp eq i32 %88, %64
-  br i1 %96, label %141, label %97
+  br i1 %96, label %135, label %97
 
 97:                                               ; preds = %91
   %98 = and i32 %94, -2
   br label %99
 
-99:                                               ; preds = %136, %97
-  %100 = phi i64 [ %66, %97 ], [ %138, %136 ]
-  %101 = phi i8 [ 1, %97 ], [ %137, %136 ]
-  %102 = phi i32 [ 0, %97 ], [ %139, %136 ]
+99:                                               ; preds = %130, %97
+  %100 = phi i64 [ %66, %97 ], [ %132, %130 ]
+  %101 = phi i8 [ 1, %97 ], [ %131, %130 ]
+  %102 = phi i32 [ 0, %97 ], [ %133, %130 ]
   %103 = getelementptr inbounds %struct.btElement, ptr %65, i64 %100, i32 1
   %104 = load i32, ptr %103, align 4, !tbaa !48
   %105 = sext i32 %104 to i64
@@ -672,427 +672,433 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
   %108 = getelementptr inbounds %class.btCollisionObject, ptr %107, i64 0, i32 12
   %109 = load i32, ptr %108, align 4, !tbaa !44
   %110 = icmp eq i32 %109, %68
-  br i1 %110, label %111, label %118
+  br i1 %110, label %111, label %115
 
 111:                                              ; preds = %99
   %112 = getelementptr inbounds %class.btCollisionObject, ptr %107, i64 0, i32 14
   %113 = load i32, ptr %112, align 4, !tbaa !56
-  %114 = icmp eq i32 %113, 1
-  %115 = icmp eq i32 %113, 4
-  %116 = or i1 %115, %114
-  %117 = select i1 %116, i8 0, i8 %101
-  br label %118
+  switch i32 %113, label %114 [
+    i32 1, label %115
+    i32 4, label %115
+  ]
 
-118:                                              ; preds = %111, %99
-  %119 = phi i8 [ %101, %99 ], [ %117, %111 ]
-  %120 = add nsw i64 %100, 1
-  %121 = getelementptr inbounds %struct.btElement, ptr %65, i64 %120, i32 1
-  %122 = load i32, ptr %121, align 4, !tbaa !48
-  %123 = sext i32 %122 to i64
-  %124 = getelementptr inbounds ptr, ptr %92, i64 %123
-  %125 = load ptr, ptr %124, align 8, !tbaa !49
-  %126 = getelementptr inbounds %class.btCollisionObject, ptr %125, i64 0, i32 12
-  %127 = load i32, ptr %126, align 4, !tbaa !44
-  %128 = icmp eq i32 %127, %68
-  br i1 %128, label %129, label %136
+114:                                              ; preds = %111
+  br label %115
 
-129:                                              ; preds = %118
-  %130 = getelementptr inbounds %class.btCollisionObject, ptr %125, i64 0, i32 14
-  %131 = load i32, ptr %130, align 4, !tbaa !56
-  %132 = icmp eq i32 %131, 1
-  %133 = icmp eq i32 %131, 4
-  %134 = or i1 %133, %132
-  %135 = select i1 %134, i8 0, i8 %119
-  br label %136
+115:                                              ; preds = %111, %111, %114, %99
+  %116 = phi i8 [ %101, %99 ], [ 0, %111 ], [ %101, %114 ], [ 0, %111 ]
+  %117 = add nsw i64 %100, 1
+  %118 = getelementptr inbounds %struct.btElement, ptr %65, i64 %117, i32 1
+  %119 = load i32, ptr %118, align 4, !tbaa !48
+  %120 = sext i32 %119 to i64
+  %121 = getelementptr inbounds ptr, ptr %92, i64 %120
+  %122 = load ptr, ptr %121, align 8, !tbaa !49
+  %123 = getelementptr inbounds %class.btCollisionObject, ptr %122, i64 0, i32 12
+  %124 = load i32, ptr %123, align 4, !tbaa !44
+  %125 = icmp eq i32 %124, %68
+  br i1 %125, label %126, label %130
 
-136:                                              ; preds = %129, %118
-  %137 = phi i8 [ %119, %118 ], [ %135, %129 ]
-  %138 = add nsw i64 %100, 2
-  %139 = add i32 %102, 2
-  %140 = icmp eq i32 %139, %98
-  br i1 %140, label %141, label %99
+126:                                              ; preds = %115
+  %127 = getelementptr inbounds %class.btCollisionObject, ptr %122, i64 0, i32 14
+  %128 = load i32, ptr %127, align 4, !tbaa !56
+  switch i32 %128, label %129 [
+    i32 1, label %130
+    i32 4, label %130
+  ]
 
-141:                                              ; preds = %136, %91
-  %142 = phi i8 [ undef, %91 ], [ %137, %136 ]
-  %143 = phi i64 [ %66, %91 ], [ %138, %136 ]
-  %144 = phi i8 [ 1, %91 ], [ %137, %136 ]
-  %145 = icmp eq i32 %95, 0
-  br i1 %145, label %162, label %146
+129:                                              ; preds = %126
+  br label %130
 
-146:                                              ; preds = %141
-  %147 = getelementptr inbounds %struct.btElement, ptr %65, i64 %143, i32 1
-  %148 = load i32, ptr %147, align 4, !tbaa !48
-  %149 = sext i32 %148 to i64
-  %150 = getelementptr inbounds ptr, ptr %92, i64 %149
-  %151 = load ptr, ptr %150, align 8, !tbaa !49
-  %152 = getelementptr inbounds %class.btCollisionObject, ptr %151, i64 0, i32 12
-  %153 = load i32, ptr %152, align 4, !tbaa !44
-  %154 = icmp eq i32 %153, %68
-  br i1 %154, label %155, label %162
+130:                                              ; preds = %129, %126, %126, %115
+  %131 = phi i8 [ %116, %115 ], [ 0, %126 ], [ %116, %129 ], [ 0, %126 ]
+  %132 = add nsw i64 %100, 2
+  %133 = add i32 %102, 2
+  %134 = icmp eq i32 %133, %98
+  br i1 %134, label %135, label %99
 
-155:                                              ; preds = %146
-  %156 = getelementptr inbounds %class.btCollisionObject, ptr %151, i64 0, i32 14
-  %157 = load i32, ptr %156, align 4, !tbaa !56
-  %158 = icmp eq i32 %157, 1
-  %159 = icmp eq i32 %157, 4
-  %160 = or i1 %159, %158
-  %161 = select i1 %160, i8 0, i8 %144
-  br label %162
+135:                                              ; preds = %130, %91
+  %136 = phi i8 [ undef, %91 ], [ %131, %130 ]
+  %137 = phi i64 [ %66, %91 ], [ %132, %130 ]
+  %138 = phi i8 [ 1, %91 ], [ %131, %130 ]
+  %139 = icmp eq i32 %95, 0
+  br i1 %139, label %153, label %140
 
-162:                                              ; preds = %146, %155, %141
-  %163 = phi i8 [ %142, %141 ], [ %144, %146 ], [ %161, %155 ]
-  %164 = and i8 %163, 1
-  %165 = icmp eq i8 %164, 0
-  br i1 %165, label %169, label %166
+140:                                              ; preds = %135
+  %141 = getelementptr inbounds %struct.btElement, ptr %65, i64 %137, i32 1
+  %142 = load i32, ptr %141, align 4, !tbaa !48
+  %143 = sext i32 %142 to i64
+  %144 = getelementptr inbounds ptr, ptr %92, i64 %143
+  %145 = load ptr, ptr %144, align 8, !tbaa !49
+  %146 = getelementptr inbounds %class.btCollisionObject, ptr %145, i64 0, i32 12
+  %147 = load i32, ptr %146, align 4, !tbaa !44
+  %148 = icmp eq i32 %147, %68
+  br i1 %148, label %149, label %153
 
-166:                                              ; preds = %162
-  br i1 %90, label %216, label %167
+149:                                              ; preds = %140
+  %150 = getelementptr inbounds %class.btCollisionObject, ptr %145, i64 0, i32 14
+  %151 = load i32, ptr %150, align 4, !tbaa !56
+  switch i32 %151, label %152 [
+    i32 1, label %153
+    i32 4, label %153
+  ]
 
-167:                                              ; preds = %166
-  %168 = add i32 %88, 1
-  br label %172
+152:                                              ; preds = %149
+  br label %153
 
-169:                                              ; preds = %162
-  br i1 %90, label %216, label %170
+153:                                              ; preds = %140, %149, %149, %152, %135
+  %154 = phi i8 [ %136, %135 ], [ %138, %140 ], [ 0, %149 ], [ %138, %152 ], [ 0, %149 ]
+  %155 = and i8 %154, 1
+  %156 = icmp eq i8 %155, 0
+  br i1 %156, label %160, label %157
 
-170:                                              ; preds = %169
-  %171 = add i32 %88, 1
-  br label %191
+157:                                              ; preds = %153
+  br i1 %90, label %207, label %158
 
-172:                                              ; preds = %167, %187
-  %173 = phi i64 [ %66, %167 ], [ %188, %187 ]
-  %174 = load ptr, ptr %60, align 8, !tbaa !45
-  %175 = getelementptr inbounds %struct.btElement, ptr %174, i64 %173, i32 1
-  %176 = load i32, ptr %175, align 4, !tbaa !48
-  %177 = load ptr, ptr %61, align 8, !tbaa !21
-  %178 = sext i32 %176 to i64
-  %179 = getelementptr inbounds ptr, ptr %177, i64 %178
-  %180 = load ptr, ptr %179, align 8, !tbaa !49
-  %181 = getelementptr inbounds %class.btCollisionObject, ptr %180, i64 0, i32 12
-  %182 = load i32, ptr %181, align 4, !tbaa !44
-  %183 = icmp eq i32 %182, %68
-  br i1 %183, label %186, label %187
+158:                                              ; preds = %157
+  %159 = add i32 %88, 1
+  br label %163
 
-184:                                              ; preds = %186
-  %185 = landingpad { ptr, i32 }
+160:                                              ; preds = %153
+  br i1 %90, label %207, label %161
+
+161:                                              ; preds = %160
+  %162 = add i32 %88, 1
+  br label %182
+
+163:                                              ; preds = %158, %178
+  %164 = phi i64 [ %66, %158 ], [ %179, %178 ]
+  %165 = load ptr, ptr %60, align 8, !tbaa !45
+  %166 = getelementptr inbounds %struct.btElement, ptr %165, i64 %164, i32 1
+  %167 = load i32, ptr %166, align 4, !tbaa !48
+  %168 = load ptr, ptr %61, align 8, !tbaa !21
+  %169 = sext i32 %167 to i64
+  %170 = getelementptr inbounds ptr, ptr %168, i64 %169
+  %171 = load ptr, ptr %170, align 8, !tbaa !49
+  %172 = getelementptr inbounds %class.btCollisionObject, ptr %171, i64 0, i32 12
+  %173 = load i32, ptr %172, align 4, !tbaa !44
+  %174 = icmp eq i32 %173, %68
+  br i1 %174, label %177, label %178
+
+175:                                              ; preds = %177
+  %176 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
-186:                                              ; preds = %172
-  invoke void @_ZN17btCollisionObject18setActivationStateEi(ptr noundef nonnull align 8 dereferenceable(280) %180, i32 noundef 2)
-          to label %187 unwind label %184
+177:                                              ; preds = %163
+  invoke void @_ZN17btCollisionObject18setActivationStateEi(ptr noundef nonnull align 8 dereferenceable(280) %171, i32 noundef 2)
+          to label %178 unwind label %175
 
-187:                                              ; preds = %186, %172
-  %188 = add nsw i64 %173, 1
-  %189 = trunc i64 %188 to i32
-  %190 = icmp eq i32 %168, %189
-  br i1 %190, label %216, label %172
+178:                                              ; preds = %177, %163
+  %179 = add nsw i64 %164, 1
+  %180 = trunc i64 %179 to i32
+  %181 = icmp eq i32 %159, %180
+  br i1 %181, label %207, label %163
 
-191:                                              ; preds = %170, %212
-  %192 = phi i64 [ %66, %170 ], [ %213, %212 ]
-  %193 = load ptr, ptr %60, align 8, !tbaa !45
-  %194 = getelementptr inbounds %struct.btElement, ptr %193, i64 %192, i32 1
-  %195 = load i32, ptr %194, align 4, !tbaa !48
-  %196 = load ptr, ptr %61, align 8, !tbaa !21
-  %197 = sext i32 %195 to i64
-  %198 = getelementptr inbounds ptr, ptr %196, i64 %197
-  %199 = load ptr, ptr %198, align 8, !tbaa !49
-  %200 = getelementptr inbounds %class.btCollisionObject, ptr %199, i64 0, i32 12
-  %201 = load i32, ptr %200, align 4, !tbaa !44
-  %202 = icmp eq i32 %201, %68
-  br i1 %202, label %205, label %212
+182:                                              ; preds = %161, %203
+  %183 = phi i64 [ %66, %161 ], [ %204, %203 ]
+  %184 = load ptr, ptr %60, align 8, !tbaa !45
+  %185 = getelementptr inbounds %struct.btElement, ptr %184, i64 %183, i32 1
+  %186 = load i32, ptr %185, align 4, !tbaa !48
+  %187 = load ptr, ptr %61, align 8, !tbaa !21
+  %188 = sext i32 %186 to i64
+  %189 = getelementptr inbounds ptr, ptr %187, i64 %188
+  %190 = load ptr, ptr %189, align 8, !tbaa !49
+  %191 = getelementptr inbounds %class.btCollisionObject, ptr %190, i64 0, i32 12
+  %192 = load i32, ptr %191, align 4, !tbaa !44
+  %193 = icmp eq i32 %192, %68
+  br i1 %193, label %196, label %203
 
-203:                                              ; preds = %209
-  %204 = landingpad { ptr, i32 }
+194:                                              ; preds = %200
+  %195 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
-205:                                              ; preds = %191
-  %206 = getelementptr inbounds %class.btCollisionObject, ptr %199, i64 0, i32 14
-  %207 = load i32, ptr %206, align 4, !tbaa !56
-  %208 = icmp eq i32 %207, 2
-  br i1 %208, label %209, label %212
+196:                                              ; preds = %182
+  %197 = getelementptr inbounds %class.btCollisionObject, ptr %190, i64 0, i32 14
+  %198 = load i32, ptr %197, align 4, !tbaa !56
+  %199 = icmp eq i32 %198, 2
+  br i1 %199, label %200, label %203
 
-209:                                              ; preds = %205
-  invoke void @_ZN17btCollisionObject18setActivationStateEi(ptr noundef nonnull align 8 dereferenceable(280) %199, i32 noundef 3)
-          to label %210 unwind label %203
+200:                                              ; preds = %196
+  invoke void @_ZN17btCollisionObject18setActivationStateEi(ptr noundef nonnull align 8 dereferenceable(280) %190, i32 noundef 3)
+          to label %201 unwind label %194
 
-210:                                              ; preds = %209
-  %211 = getelementptr inbounds %class.btCollisionObject, ptr %199, i64 0, i32 15
-  store float 0.000000e+00, ptr %211, align 8, !tbaa !57
-  br label %212
+201:                                              ; preds = %200
+  %202 = getelementptr inbounds %class.btCollisionObject, ptr %190, i64 0, i32 15
+  store float 0.000000e+00, ptr %202, align 8, !tbaa !57
+  br label %203
 
-212:                                              ; preds = %205, %210, %191
-  %213 = add nsw i64 %192, 1
-  %214 = trunc i64 %213 to i32
-  %215 = icmp eq i32 %171, %214
-  br i1 %215, label %216, label %191
+203:                                              ; preds = %196, %201, %182
+  %204 = add nsw i64 %183, 1
+  %205 = trunc i64 %204 to i32
+  %206 = icmp eq i32 %162, %205
+  br i1 %206, label %207, label %182
 
-216:                                              ; preds = %187, %212, %87, %166, %169
-  %217 = icmp slt i32 %89, %57
-  br i1 %217, label %63, label %218
+207:                                              ; preds = %178, %203, %87, %157, %160
+  %208 = icmp slt i32 %89, %57
+  br i1 %208, label %63, label %209
 
-218:                                              ; preds = %216, %55
-  %219 = load ptr, ptr %1, align 8, !tbaa !5
-  %220 = getelementptr inbounds ptr, ptr %219, i64 9
-  %221 = load ptr, ptr %220, align 8
-  %222 = invoke noundef i32 %221(ptr noundef nonnull align 8 dereferenceable(8) %1)
-          to label %223 unwind label %262
+209:                                              ; preds = %207, %55
+  %210 = load ptr, ptr %1, align 8, !tbaa !5
+  %211 = getelementptr inbounds ptr, ptr %210, i64 9
+  %212 = load ptr, ptr %211, align 8
+  %213 = invoke noundef i32 %212(ptr noundef nonnull align 8 dereferenceable(8) %1)
+          to label %214 unwind label %253
 
-223:                                              ; preds = %218
-  %224 = icmp sgt i32 %222, 0
-  br i1 %224, label %225, label %372
+214:                                              ; preds = %209
+  %215 = icmp sgt i32 %213, 0
+  br i1 %215, label %216, label %363
 
-225:                                              ; preds = %223
-  %226 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 4
-  %227 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 3
-  %228 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 5
-  %229 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 6
-  br label %230
+216:                                              ; preds = %214
+  %217 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 4
+  %218 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 3
+  %219 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 5
+  %220 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 6
+  br label %221
 
-230:                                              ; preds = %225, %369
-  %231 = phi i32 [ 0, %225 ], [ %370, %369 ]
-  %232 = load ptr, ptr %1, align 8, !tbaa !5
-  %233 = getelementptr inbounds ptr, ptr %232, i64 10
-  %234 = load ptr, ptr %233, align 8
-  %235 = invoke noundef ptr %234(ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef %231)
-          to label %236 unwind label %264
+221:                                              ; preds = %216, %360
+  %222 = phi i32 [ 0, %216 ], [ %361, %360 ]
+  %223 = load ptr, ptr %1, align 8, !tbaa !5
+  %224 = getelementptr inbounds ptr, ptr %223, i64 10
+  %225 = load ptr, ptr %224, align 8
+  %226 = invoke noundef ptr %225(ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef %222)
+          to label %227 unwind label %255
 
-236:                                              ; preds = %230
-  %237 = getelementptr inbounds %class.btPersistentManifold, ptr %235, i64 0, i32 3
-  %238 = load ptr, ptr %237, align 8, !tbaa !58
-  %239 = getelementptr inbounds %class.btPersistentManifold, ptr %235, i64 0, i32 4
-  %240 = load ptr, ptr %239, align 8, !tbaa !61
-  %241 = icmp eq ptr %238, null
-  br i1 %241, label %246, label %242
+227:                                              ; preds = %221
+  %228 = getelementptr inbounds %class.btPersistentManifold, ptr %226, i64 0, i32 3
+  %229 = load ptr, ptr %228, align 8, !tbaa !58
+  %230 = getelementptr inbounds %class.btPersistentManifold, ptr %226, i64 0, i32 4
+  %231 = load ptr, ptr %230, align 8, !tbaa !61
+  %232 = icmp eq ptr %229, null
+  br i1 %232, label %237, label %233
 
-242:                                              ; preds = %236
-  %243 = getelementptr inbounds %class.btCollisionObject, ptr %238, i64 0, i32 14
-  %244 = load i32, ptr %243, align 4, !tbaa !56
-  %245 = icmp eq i32 %244, 2
-  br i1 %245, label %246, label %252
+233:                                              ; preds = %227
+  %234 = getelementptr inbounds %class.btCollisionObject, ptr %229, i64 0, i32 14
+  %235 = load i32, ptr %234, align 4, !tbaa !56
+  %236 = icmp eq i32 %235, 2
+  br i1 %236, label %237, label %243
 
-246:                                              ; preds = %242, %236
-  %247 = icmp eq ptr %240, null
-  br i1 %247, label %369, label %248
+237:                                              ; preds = %233, %227
+  %238 = icmp eq ptr %231, null
+  br i1 %238, label %360, label %239
 
-248:                                              ; preds = %246
-  %249 = getelementptr inbounds %class.btCollisionObject, ptr %240, i64 0, i32 14
+239:                                              ; preds = %237
+  %240 = getelementptr inbounds %class.btCollisionObject, ptr %231, i64 0, i32 14
+  %241 = load i32, ptr %240, align 4, !tbaa !56
+  %242 = icmp eq i32 %241, 2
+  br i1 %242, label %360, label %243
+
+243:                                              ; preds = %239, %233
+  %244 = getelementptr inbounds %class.btCollisionObject, ptr %229, i64 0, i32 11
+  %245 = load i32, ptr %244, align 8, !tbaa !40
+  %246 = and i32 %245, 2
+  %247 = icmp eq i32 %246, 0
+  br i1 %247, label %259, label %248
+
+248:                                              ; preds = %243
+  %249 = getelementptr inbounds %class.btCollisionObject, ptr %229, i64 0, i32 14
   %250 = load i32, ptr %249, align 4, !tbaa !56
   %251 = icmp eq i32 %250, 2
-  br i1 %251, label %369, label %252
+  br i1 %251, label %259, label %252
 
-252:                                              ; preds = %248, %242
-  %253 = getelementptr inbounds %class.btCollisionObject, ptr %238, i64 0, i32 11
-  %254 = load i32, ptr %253, align 8, !tbaa !40
-  %255 = and i32 %254, 2
-  %256 = icmp eq i32 %255, 0
-  br i1 %256, label %268, label %257
+252:                                              ; preds = %248
+  invoke void @_ZN17btCollisionObject8activateEb(ptr noundef nonnull align 8 dereferenceable(280) %231, i1 noundef zeroext false)
+          to label %259 unwind label %257
 
-257:                                              ; preds = %252
-  %258 = getelementptr inbounds %class.btCollisionObject, ptr %238, i64 0, i32 14
-  %259 = load i32, ptr %258, align 4, !tbaa !56
-  %260 = icmp eq i32 %259, 2
-  br i1 %260, label %268, label %261
-
-261:                                              ; preds = %257
-  invoke void @_ZN17btCollisionObject8activateEb(ptr noundef nonnull align 8 dereferenceable(280) %240, i1 noundef zeroext false)
-          to label %268 unwind label %266
-
-262:                                              ; preds = %218
-  %263 = landingpad { ptr, i32 }
+253:                                              ; preds = %209
+  %254 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
-264:                                              ; preds = %230
-  %265 = landingpad { ptr, i32 }
+255:                                              ; preds = %221
+  %256 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
-266:                                              ; preds = %358, %298, %281, %277, %261
-  %267 = landingpad { ptr, i32 }
+257:                                              ; preds = %349, %289, %272, %268, %252
+  %258 = landingpad { ptr, i32 }
           cleanup
-  br label %373
+  br label %364
 
-268:                                              ; preds = %261, %257, %252
-  %269 = getelementptr inbounds %class.btCollisionObject, ptr %240, i64 0, i32 11
-  %270 = load i32, ptr %269, align 8, !tbaa !40
-  %271 = and i32 %270, 2
-  %272 = icmp eq i32 %271, 0
-  br i1 %272, label %278, label %273
+259:                                              ; preds = %252, %248, %243
+  %260 = getelementptr inbounds %class.btCollisionObject, ptr %231, i64 0, i32 11
+  %261 = load i32, ptr %260, align 8, !tbaa !40
+  %262 = and i32 %261, 2
+  %263 = icmp eq i32 %262, 0
+  br i1 %263, label %269, label %264
 
-273:                                              ; preds = %268
-  %274 = getelementptr inbounds %class.btCollisionObject, ptr %240, i64 0, i32 14
-  %275 = load i32, ptr %274, align 4, !tbaa !56
-  %276 = icmp eq i32 %275, 2
-  br i1 %276, label %278, label %277
+264:                                              ; preds = %259
+  %265 = getelementptr inbounds %class.btCollisionObject, ptr %231, i64 0, i32 14
+  %266 = load i32, ptr %265, align 4, !tbaa !56
+  %267 = icmp eq i32 %266, 2
+  br i1 %267, label %269, label %268
 
-277:                                              ; preds = %273
-  invoke void @_ZN17btCollisionObject8activateEb(ptr noundef nonnull align 8 dereferenceable(280) %238, i1 noundef zeroext false)
-          to label %278 unwind label %266
+268:                                              ; preds = %264
+  invoke void @_ZN17btCollisionObject8activateEb(ptr noundef nonnull align 8 dereferenceable(280) %229, i1 noundef zeroext false)
+          to label %269 unwind label %257
 
-278:                                              ; preds = %277, %273, %268
-  %279 = load i8, ptr %226, align 8, !tbaa !24, !range !62, !noundef !63
-  %280 = icmp eq i8 %279, 0
-  br i1 %280, label %369, label %281
+269:                                              ; preds = %268, %264, %259
+  %270 = load i8, ptr %217, align 8, !tbaa !24, !range !62, !noundef !63
+  %271 = icmp eq i8 %270, 0
+  br i1 %271, label %360, label %272
 
-281:                                              ; preds = %278
-  %282 = load ptr, ptr %1, align 8, !tbaa !5
-  %283 = getelementptr inbounds ptr, ptr %282, i64 7
-  %284 = load ptr, ptr %283, align 8
-  %285 = invoke noundef zeroext i1 %284(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull %238, ptr noundef nonnull %240)
-          to label %286 unwind label %266
+272:                                              ; preds = %269
+  %273 = load ptr, ptr %1, align 8, !tbaa !5
+  %274 = getelementptr inbounds ptr, ptr %273, i64 7
+  %275 = load ptr, ptr %274, align 8
+  %276 = invoke noundef zeroext i1 %275(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull %229, ptr noundef nonnull %231)
+          to label %277 unwind label %257
 
-286:                                              ; preds = %281
-  br i1 %285, label %287, label %369
+277:                                              ; preds = %272
+  br i1 %276, label %278, label %360
 
-287:                                              ; preds = %286
-  %288 = load i32, ptr %4, align 4, !tbaa !16
-  %289 = load i32, ptr %227, align 8, !tbaa !17
-  %290 = icmp eq i32 %288, %289
-  br i1 %290, label %291, label %363
+278:                                              ; preds = %277
+  %279 = load i32, ptr %4, align 4, !tbaa !16
+  %280 = load i32, ptr %218, align 8, !tbaa !17
+  %281 = icmp eq i32 %279, %280
+  br i1 %281, label %282, label %354
 
-291:                                              ; preds = %287
-  %292 = icmp eq i32 %288, 0
-  %293 = shl nsw i32 %288, 1
-  %294 = select i1 %292, i32 1, i32 %293
-  %295 = icmp slt i32 %288, %294
-  br i1 %295, label %296, label %363
+282:                                              ; preds = %278
+  %283 = icmp eq i32 %279, 0
+  %284 = shl nsw i32 %279, 1
+  %285 = select i1 %283, i32 1, i32 %284
+  %286 = icmp slt i32 %279, %285
+  br i1 %286, label %287, label %354
 
-296:                                              ; preds = %291
-  %297 = icmp eq i32 %294, 0
-  br i1 %297, label %304, label %298
+287:                                              ; preds = %282
+  %288 = icmp eq i32 %285, 0
+  br i1 %288, label %295, label %289
 
-298:                                              ; preds = %296
-  %299 = sext i32 %294 to i64
-  %300 = shl nsw i64 %299, 3
-  %301 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %300, i32 noundef 16)
-          to label %302 unwind label %266
+289:                                              ; preds = %287
+  %290 = sext i32 %285 to i64
+  %291 = shl nsw i64 %290, 3
+  %292 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %291, i32 noundef 16)
+          to label %293 unwind label %257
 
-302:                                              ; preds = %298
-  %303 = load i32, ptr %4, align 4, !tbaa !16
-  br label %304
+293:                                              ; preds = %289
+  %294 = load i32, ptr %4, align 4, !tbaa !16
+  br label %295
 
-304:                                              ; preds = %302, %296
-  %305 = phi i32 [ %303, %302 ], [ %288, %296 ]
-  %306 = phi ptr [ %301, %302 ], [ null, %296 ]
-  %307 = icmp sgt i32 %305, 0
-  br i1 %307, label %308, label %352
+295:                                              ; preds = %293, %287
+  %296 = phi i32 [ %294, %293 ], [ %279, %287 ]
+  %297 = phi ptr [ %292, %293 ], [ null, %287 ]
+  %298 = icmp sgt i32 %296, 0
+  br i1 %298, label %299, label %343
 
-308:                                              ; preds = %304
-  %309 = zext i32 %305 to i64
-  %310 = and i64 %309, 3
-  %311 = icmp ult i32 %305, 4
-  br i1 %311, label %339, label %312
+299:                                              ; preds = %295
+  %300 = zext i32 %296 to i64
+  %301 = and i64 %300, 3
+  %302 = icmp ult i32 %296, 4
+  br i1 %302, label %330, label %303
 
-312:                                              ; preds = %308
-  %313 = and i64 %309, 4294967292
-  br label %314
+303:                                              ; preds = %299
+  %304 = and i64 %300, 4294967292
+  br label %305
 
-314:                                              ; preds = %314, %312
-  %315 = phi i64 [ 0, %312 ], [ %336, %314 ]
-  %316 = phi i64 [ 0, %312 ], [ %337, %314 ]
-  %317 = getelementptr inbounds ptr, ptr %306, i64 %315
-  %318 = load ptr, ptr %228, align 8, !tbaa !15
-  %319 = getelementptr inbounds ptr, ptr %318, i64 %315
-  %320 = load ptr, ptr %319, align 8, !tbaa !49
-  store ptr %320, ptr %317, align 8, !tbaa !49
-  %321 = or i64 %315, 1
-  %322 = getelementptr inbounds ptr, ptr %306, i64 %321
-  %323 = load ptr, ptr %228, align 8, !tbaa !15
-  %324 = getelementptr inbounds ptr, ptr %323, i64 %321
-  %325 = load ptr, ptr %324, align 8, !tbaa !49
-  store ptr %325, ptr %322, align 8, !tbaa !49
-  %326 = or i64 %315, 2
-  %327 = getelementptr inbounds ptr, ptr %306, i64 %326
-  %328 = load ptr, ptr %228, align 8, !tbaa !15
-  %329 = getelementptr inbounds ptr, ptr %328, i64 %326
-  %330 = load ptr, ptr %329, align 8, !tbaa !49
-  store ptr %330, ptr %327, align 8, !tbaa !49
-  %331 = or i64 %315, 3
-  %332 = getelementptr inbounds ptr, ptr %306, i64 %331
-  %333 = load ptr, ptr %228, align 8, !tbaa !15
-  %334 = getelementptr inbounds ptr, ptr %333, i64 %331
-  %335 = load ptr, ptr %334, align 8, !tbaa !49
-  store ptr %335, ptr %332, align 8, !tbaa !49
-  %336 = add nuw nsw i64 %315, 4
-  %337 = add i64 %316, 4
-  %338 = icmp eq i64 %337, %313
-  br i1 %338, label %339, label %314
+305:                                              ; preds = %305, %303
+  %306 = phi i64 [ 0, %303 ], [ %327, %305 ]
+  %307 = phi i64 [ 0, %303 ], [ %328, %305 ]
+  %308 = getelementptr inbounds ptr, ptr %297, i64 %306
+  %309 = load ptr, ptr %219, align 8, !tbaa !15
+  %310 = getelementptr inbounds ptr, ptr %309, i64 %306
+  %311 = load ptr, ptr %310, align 8, !tbaa !49
+  store ptr %311, ptr %308, align 8, !tbaa !49
+  %312 = or i64 %306, 1
+  %313 = getelementptr inbounds ptr, ptr %297, i64 %312
+  %314 = load ptr, ptr %219, align 8, !tbaa !15
+  %315 = getelementptr inbounds ptr, ptr %314, i64 %312
+  %316 = load ptr, ptr %315, align 8, !tbaa !49
+  store ptr %316, ptr %313, align 8, !tbaa !49
+  %317 = or i64 %306, 2
+  %318 = getelementptr inbounds ptr, ptr %297, i64 %317
+  %319 = load ptr, ptr %219, align 8, !tbaa !15
+  %320 = getelementptr inbounds ptr, ptr %319, i64 %317
+  %321 = load ptr, ptr %320, align 8, !tbaa !49
+  store ptr %321, ptr %318, align 8, !tbaa !49
+  %322 = or i64 %306, 3
+  %323 = getelementptr inbounds ptr, ptr %297, i64 %322
+  %324 = load ptr, ptr %219, align 8, !tbaa !15
+  %325 = getelementptr inbounds ptr, ptr %324, i64 %322
+  %326 = load ptr, ptr %325, align 8, !tbaa !49
+  store ptr %326, ptr %323, align 8, !tbaa !49
+  %327 = add nuw nsw i64 %306, 4
+  %328 = add i64 %307, 4
+  %329 = icmp eq i64 %328, %304
+  br i1 %329, label %330, label %305
 
-339:                                              ; preds = %314, %308
-  %340 = phi i64 [ 0, %308 ], [ %336, %314 ]
-  %341 = icmp eq i64 %310, 0
-  br i1 %341, label %352, label %342
+330:                                              ; preds = %305, %299
+  %331 = phi i64 [ 0, %299 ], [ %327, %305 ]
+  %332 = icmp eq i64 %301, 0
+  br i1 %332, label %343, label %333
 
-342:                                              ; preds = %339, %342
-  %343 = phi i64 [ %349, %342 ], [ %340, %339 ]
-  %344 = phi i64 [ %350, %342 ], [ 0, %339 ]
-  %345 = getelementptr inbounds ptr, ptr %306, i64 %343
-  %346 = load ptr, ptr %228, align 8, !tbaa !15
-  %347 = getelementptr inbounds ptr, ptr %346, i64 %343
-  %348 = load ptr, ptr %347, align 8, !tbaa !49
-  store ptr %348, ptr %345, align 8, !tbaa !49
-  %349 = add nuw nsw i64 %343, 1
-  %350 = add i64 %344, 1
-  %351 = icmp eq i64 %350, %310
-  br i1 %351, label %352, label %342, !llvm.loop !64
+333:                                              ; preds = %330, %333
+  %334 = phi i64 [ %340, %333 ], [ %331, %330 ]
+  %335 = phi i64 [ %341, %333 ], [ 0, %330 ]
+  %336 = getelementptr inbounds ptr, ptr %297, i64 %334
+  %337 = load ptr, ptr %219, align 8, !tbaa !15
+  %338 = getelementptr inbounds ptr, ptr %337, i64 %334
+  %339 = load ptr, ptr %338, align 8, !tbaa !49
+  store ptr %339, ptr %336, align 8, !tbaa !49
+  %340 = add nuw nsw i64 %334, 1
+  %341 = add i64 %335, 1
+  %342 = icmp eq i64 %341, %301
+  br i1 %342, label %343, label %333, !llvm.loop !64
 
-352:                                              ; preds = %339, %342, %304
-  %353 = load ptr, ptr %228, align 8, !tbaa !15
-  %354 = icmp eq ptr %353, null
-  %355 = load i8, ptr %229, align 8
-  %356 = icmp eq i8 %355, 0
-  %357 = select i1 %354, i1 true, i1 %356
-  br i1 %357, label %361, label %358
+343:                                              ; preds = %330, %333, %295
+  %344 = load ptr, ptr %219, align 8, !tbaa !15
+  %345 = icmp eq ptr %344, null
+  %346 = load i8, ptr %220, align 8
+  %347 = icmp eq i8 %346, 0
+  %348 = select i1 %345, i1 true, i1 %347
+  br i1 %348, label %352, label %349
 
-358:                                              ; preds = %352
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %353)
-          to label %359 unwind label %266
+349:                                              ; preds = %343
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %344)
+          to label %350 unwind label %257
 
-359:                                              ; preds = %358
-  %360 = load i32, ptr %4, align 4, !tbaa !16
-  br label %361
+350:                                              ; preds = %349
+  %351 = load i32, ptr %4, align 4, !tbaa !16
+  br label %352
 
-361:                                              ; preds = %359, %352
-  %362 = phi i32 [ %360, %359 ], [ %305, %352 ]
-  store i8 1, ptr %229, align 8, !tbaa !8
-  store ptr %306, ptr %228, align 8, !tbaa !15
-  store i32 %294, ptr %227, align 8, !tbaa !17
-  br label %363
+352:                                              ; preds = %350, %343
+  %353 = phi i32 [ %351, %350 ], [ %296, %343 ]
+  store i8 1, ptr %220, align 8, !tbaa !8
+  store ptr %297, ptr %219, align 8, !tbaa !15
+  store i32 %285, ptr %218, align 8, !tbaa !17
+  br label %354
 
-363:                                              ; preds = %287, %291, %361
-  %364 = phi i32 [ %362, %361 ], [ %288, %291 ], [ %288, %287 ]
-  %365 = load ptr, ptr %228, align 8, !tbaa !15
-  %366 = sext i32 %364 to i64
-  %367 = getelementptr inbounds ptr, ptr %365, i64 %366
-  store ptr %235, ptr %367, align 8, !tbaa !49
-  %368 = add nsw i32 %364, 1
-  store i32 %368, ptr %4, align 4, !tbaa !16
-  br label %369
+354:                                              ; preds = %278, %282, %352
+  %355 = phi i32 [ %353, %352 ], [ %279, %282 ], [ %279, %278 ]
+  %356 = load ptr, ptr %219, align 8, !tbaa !15
+  %357 = sext i32 %355 to i64
+  %358 = getelementptr inbounds ptr, ptr %356, i64 %357
+  store ptr %226, ptr %358, align 8, !tbaa !49
+  %359 = add nsw i32 %355, 1
+  store i32 %359, ptr %4, align 4, !tbaa !16
+  br label %360
 
-369:                                              ; preds = %363, %278, %286, %248, %246
-  %370 = add nuw nsw i32 %231, 1
-  %371 = icmp eq i32 %370, %222
-  br i1 %371, label %372, label %230
+360:                                              ; preds = %354, %269, %277, %239, %237
+  %361 = add nuw nsw i32 %222, 1
+  %362 = icmp eq i32 %361, %213
+  br i1 %362, label %363, label %221
 
-372:                                              ; preds = %369, %223
+363:                                              ; preds = %360, %214
   tail call void @_ZN15CProfileManager12Stop_ProfileEv()
   ret void
 
-373:                                              ; preds = %264, %266, %262, %184, %203, %82, %80
-  %374 = phi { ptr, i32 } [ %81, %80 ], [ %83, %82 ], [ %185, %184 ], [ %204, %203 ], [ %263, %262 ], [ %267, %266 ], [ %265, %264 ]
+364:                                              ; preds = %253, %257, %255, %175, %194, %82, %80
+  %365 = phi { ptr, i32 } [ %81, %80 ], [ %83, %82 ], [ %176, %175 ], [ %195, %194 ], [ %254, %253 ], [ %258, %257 ], [ %256, %255 ]
   invoke void @_ZN15CProfileManager12Stop_ProfileEv()
-          to label %375 unwind label %376
+          to label %366 unwind label %367
 
-375:                                              ; preds = %373
-  resume { ptr, i32 } %374
+366:                                              ; preds = %364
+  resume { ptr, i32 } %365
 
-376:                                              ; preds = %373
-  %377 = landingpad { ptr, i32 }
+367:                                              ; preds = %364
+  %368 = landingpad { ptr, i32 }
           catch ptr null
-  %378 = extractvalue { ptr, i32 } %377, 0
-  tail call void @__clang_call_terminate(ptr %378) #7
+  %369 = extractvalue { ptr, i32 } %368, 0
+  tail call void @__clang_call_terminate(ptr %369) #7
   unreachable
 }
 
@@ -1104,7 +1110,7 @@ declare void @_ZN17btCollisionObject8activateEb(ptr noundef nonnull align 8 dere
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP12btDispatcherP16btCollisionWorldPNS_14IslandCallbackE(ptr noundef nonnull align 8 dereferenceable(105) %0, ptr noundef %1, ptr nocapture noundef readonly %2, ptr noundef %3) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  tail call void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatcherP16btCollisionWorld(ptr noundef nonnull align 8 dereferenceable(105) %0, ptr noundef %1, ptr noundef nonnull %2)
+  tail call void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatcherP16btCollisionWorld(ptr noundef nonnull align 8 dereferenceable(105) %0, ptr noundef %1, ptr noundef %2)
   %5 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 1, i32 0, i32 2
   %6 = load i32, ptr %5, align 4, !tbaa !55
   tail call void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef nonnull @.str.1)
@@ -1135,18 +1141,18 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %25 = load ptr, ptr %3, align 8, !tbaa !5
   %26 = getelementptr inbounds ptr, ptr %25, i64 2
   %27 = load ptr, ptr %26, align 8
-  invoke void %27(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %22, i32 noundef %24, ptr noundef %14, i32 noundef %19, i32 noundef -1)
-          to label %285 unwind label %30
+  invoke void %27(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %22, i32 noundef %24, ptr noundef %14, i32 noundef %19, i32 noundef -1)
+          to label %284 unwind label %30
 
 28:                                               ; preds = %10
   %29 = landingpad { ptr, i32 }
           cleanup
-  br label %286
+  br label %285
 
 30:                                               ; preds = %20, %15
   %31 = landingpad { ptr, i32 }
           cleanup
-  br label %286
+  br label %285
 
 32:                                               ; preds = %4
   %33 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 2
@@ -1158,11 +1164,11 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %37 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2
   %38 = add nsw i32 %34, -1
   invoke void @_ZN20btAlignedObjectArrayIP20btPersistentManifoldE17quickSortInternalI33btPersistentManifoldSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %37, i32 noundef 0, i32 noundef %38)
-          to label %39 unwind label %164
+          to label %39 unwind label %159
 
-39:                                               ; preds = %36, %32
+39:                                               ; preds = %32, %36
   %40 = icmp sgt i32 %6, 0
-  br i1 %40, label %41, label %285
+  br i1 %40, label %41, label %284
 
 41:                                               ; preds = %39
   %42 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 1, i32 0, i32 5
@@ -1176,10 +1182,10 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %50 = sext i32 %34 to i64
   br label %51
 
-51:                                               ; preds = %41, %281
-  %52 = phi i32 [ 0, %41 ], [ %172, %281 ]
-  %53 = phi i32 [ 1, %41 ], [ %221, %281 ]
-  %54 = phi i32 [ 0, %41 ], [ %236, %281 ]
+51:                                               ; preds = %41, %280
+  %52 = phi i32 [ 0, %41 ], [ %171, %280 ]
+  %53 = phi i32 [ 1, %41 ], [ %220, %280 ]
+  %54 = phi i32 [ 0, %41 ], [ %235, %280 ]
   %55 = load ptr, ptr %42, align 8, !tbaa !45
   %56 = sext i32 %52 to i64
   %57 = getelementptr inbounds %struct.btElement, ptr %55, i64 %56
@@ -1188,14 +1194,14 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %60 = tail call i32 @llvm.smax.i32(i32 %6, i32 %59)
   br label %61
 
-61:                                               ; preds = %51, %150
-  %62 = phi i64 [ %56, %51 ], [ %162, %150 ]
-  %63 = phi i8 [ 0, %51 ], [ %161, %150 ]
+61:                                               ; preds = %51, %163
+  %62 = phi i64 [ %56, %51 ], [ %165, %163 ]
+  %63 = phi i8 [ 0, %51 ], [ %164, %163 ]
   %64 = load ptr, ptr %42, align 8, !tbaa !45
   %65 = getelementptr inbounds %struct.btElement, ptr %64, i64 %62
   %66 = load i32, ptr %65, align 4, !tbaa !46
   %67 = icmp eq i32 %66, %58
-  br i1 %67, label %68, label %168
+  br i1 %67, label %68, label %167
 
 68:                                               ; preds = %61
   %69 = getelementptr inbounds %struct.btElement, ptr %64, i64 %62, i32 1
@@ -1224,7 +1230,7 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %86 = sext i32 %81 to i64
   %87 = shl nsw i64 %86, 3
   %88 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %87, i32 noundef 16)
-          to label %89 unwind label %166
+          to label %89 unwind label %161
 
 89:                                               ; preds = %85
   %90 = load i32, ptr %44, align 4, !tbaa !22
@@ -1305,7 +1311,7 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
 
 145:                                              ; preds = %139
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %140)
-          to label %146 unwind label %166
+          to label %146 unwind label %161
 
 146:                                              ; preds = %145
   %147 = load i32, ptr %44, align 4, !tbaa !22
@@ -1328,223 +1334,229 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   store i32 %155, ptr %44, align 4, !tbaa !22
   %156 = getelementptr inbounds %class.btCollisionObject, ptr %74, i64 0, i32 14
   %157 = load i32, ptr %156, align 4, !tbaa !56
-  %158 = icmp ne i32 %157, 2
-  %159 = icmp ne i32 %157, 5
-  %160 = and i1 %158, %159
-  %161 = select i1 %160, i8 %63, i8 1
-  %162 = add nsw i64 %62, 1
-  %163 = icmp slt i64 %162, %49
-  br i1 %163, label %61, label %170
+  switch i32 %157, label %163 [
+    i32 5, label %158
+    i32 2, label %158
+  ]
 
-164:                                              ; preds = %36
-  %165 = landingpad { ptr, i32 }
+158:                                              ; preds = %150, %150
+  br label %163
+
+159:                                              ; preds = %36
+  %160 = landingpad { ptr, i32 }
           cleanup
-  br label %286
+  br label %285
 
-166:                                              ; preds = %145, %85
-  %167 = landingpad { ptr, i32 }
+161:                                              ; preds = %145, %85
+  %162 = landingpad { ptr, i32 }
           cleanup
-  br label %286
+  br label %285
 
-168:                                              ; preds = %61
-  %169 = trunc i64 %62 to i32
-  br label %170
+163:                                              ; preds = %150, %158
+  %164 = phi i8 [ %63, %150 ], [ 1, %158 ]
+  %165 = add nsw i64 %62, 1
+  %166 = icmp slt i64 %165, %49
+  br i1 %166, label %61, label %169
 
-170:                                              ; preds = %150, %168
-  %171 = phi i8 [ %63, %168 ], [ %161, %150 ]
-  %172 = phi i32 [ %169, %168 ], [ %60, %150 ]
-  %173 = icmp slt i32 %54, %34
-  br i1 %173, label %174, label %220
+167:                                              ; preds = %61
+  %168 = trunc i64 %62 to i32
+  br label %169
 
-174:                                              ; preds = %170
-  %175 = load ptr, ptr %48, align 8, !tbaa !15
-  %176 = sext i32 %54 to i64
-  %177 = getelementptr inbounds ptr, ptr %175, i64 %176
-  %178 = load ptr, ptr %177, align 8, !tbaa !49
-  %179 = getelementptr inbounds %class.btPersistentManifold, ptr %178, i64 0, i32 3
-  %180 = load ptr, ptr %179, align 8, !tbaa !58
-  %181 = getelementptr inbounds %class.btCollisionObject, ptr %180, i64 0, i32 12
-  %182 = load i32, ptr %181, align 4, !tbaa !44
-  %183 = icmp sgt i32 %182, -1
-  br i1 %183, label %189, label %184
+169:                                              ; preds = %163, %167
+  %170 = phi i8 [ %63, %167 ], [ %164, %163 ]
+  %171 = phi i32 [ %168, %167 ], [ %60, %163 ]
+  %172 = icmp slt i32 %54, %34
+  br i1 %172, label %173, label %219
 
-184:                                              ; preds = %174
-  %185 = getelementptr inbounds %class.btPersistentManifold, ptr %178, i64 0, i32 4
-  %186 = load ptr, ptr %185, align 8, !tbaa !61
-  %187 = getelementptr inbounds %class.btCollisionObject, ptr %186, i64 0, i32 12
-  %188 = load i32, ptr %187, align 4, !tbaa !44
-  br label %189
+173:                                              ; preds = %169
+  %174 = load ptr, ptr %48, align 8, !tbaa !15
+  %175 = sext i32 %54 to i64
+  %176 = getelementptr inbounds ptr, ptr %174, i64 %175
+  %177 = load ptr, ptr %176, align 8, !tbaa !49
+  %178 = getelementptr inbounds %class.btPersistentManifold, ptr %177, i64 0, i32 3
+  %179 = load ptr, ptr %178, align 8, !tbaa !58
+  %180 = getelementptr inbounds %class.btCollisionObject, ptr %179, i64 0, i32 12
+  %181 = load i32, ptr %180, align 4, !tbaa !44
+  %182 = icmp sgt i32 %181, -1
+  br i1 %182, label %188, label %183
 
-189:                                              ; preds = %184, %174
-  %190 = phi i32 [ %188, %184 ], [ %182, %174 ]
-  %191 = icmp eq i32 %190, %58
-  br i1 %191, label %192, label %220
+183:                                              ; preds = %173
+  %184 = getelementptr inbounds %class.btPersistentManifold, ptr %177, i64 0, i32 4
+  %185 = load ptr, ptr %184, align 8, !tbaa !61
+  %186 = getelementptr inbounds %class.btCollisionObject, ptr %185, i64 0, i32 12
+  %187 = load i32, ptr %186, align 4, !tbaa !44
+  br label %188
 
-192:                                              ; preds = %189
-  %193 = add nsw i32 %54, 1
-  %194 = tail call i32 @llvm.smax.i32(i32 %34, i32 %193)
-  br label %195
+188:                                              ; preds = %183, %173
+  %189 = phi i32 [ %187, %183 ], [ %181, %173 ]
+  %190 = icmp eq i32 %189, %58
+  br i1 %190, label %191, label %219
 
-195:                                              ; preds = %192, %212
-  %196 = phi i64 [ %176, %192 ], [ %197, %212 ]
-  %197 = add nsw i64 %196, 1
-  %198 = icmp slt i64 %197, %50
-  br i1 %198, label %199, label %217
+191:                                              ; preds = %188
+  %192 = add nsw i32 %54, 1
+  %193 = tail call i32 @llvm.smax.i32(i32 %34, i32 %192)
+  br label %194
 
-199:                                              ; preds = %195
-  %200 = getelementptr inbounds ptr, ptr %175, i64 %197
-  %201 = load ptr, ptr %200, align 8, !tbaa !49
-  %202 = getelementptr inbounds %class.btPersistentManifold, ptr %201, i64 0, i32 3
-  %203 = load ptr, ptr %202, align 8, !tbaa !58
-  %204 = getelementptr inbounds %class.btCollisionObject, ptr %203, i64 0, i32 12
-  %205 = load i32, ptr %204, align 4, !tbaa !44
-  %206 = icmp sgt i32 %205, -1
-  br i1 %206, label %212, label %207
+194:                                              ; preds = %191, %211
+  %195 = phi i64 [ %175, %191 ], [ %196, %211 ]
+  %196 = add nsw i64 %195, 1
+  %197 = icmp slt i64 %196, %50
+  br i1 %197, label %198, label %216
 
-207:                                              ; preds = %199
-  %208 = getelementptr inbounds %class.btPersistentManifold, ptr %201, i64 0, i32 4
-  %209 = load ptr, ptr %208, align 8, !tbaa !61
-  %210 = getelementptr inbounds %class.btCollisionObject, ptr %209, i64 0, i32 12
-  %211 = load i32, ptr %210, align 4, !tbaa !44
-  br label %212
+198:                                              ; preds = %194
+  %199 = getelementptr inbounds ptr, ptr %174, i64 %196
+  %200 = load ptr, ptr %199, align 8, !tbaa !49
+  %201 = getelementptr inbounds %class.btPersistentManifold, ptr %200, i64 0, i32 3
+  %202 = load ptr, ptr %201, align 8, !tbaa !58
+  %203 = getelementptr inbounds %class.btCollisionObject, ptr %202, i64 0, i32 12
+  %204 = load i32, ptr %203, align 4, !tbaa !44
+  %205 = icmp sgt i32 %204, -1
+  br i1 %205, label %211, label %206
 
-212:                                              ; preds = %207, %199
-  %213 = phi i32 [ %211, %207 ], [ %205, %199 ]
-  %214 = icmp eq i32 %58, %213
-  br i1 %214, label %195, label %215
+206:                                              ; preds = %198
+  %207 = getelementptr inbounds %class.btPersistentManifold, ptr %200, i64 0, i32 4
+  %208 = load ptr, ptr %207, align 8, !tbaa !61
+  %209 = getelementptr inbounds %class.btCollisionObject, ptr %208, i64 0, i32 12
+  %210 = load i32, ptr %209, align 4, !tbaa !44
+  br label %211
 
-215:                                              ; preds = %212
-  %216 = trunc i64 %197 to i32
-  br label %217
+211:                                              ; preds = %206, %198
+  %212 = phi i32 [ %210, %206 ], [ %204, %198 ]
+  %213 = icmp eq i32 %58, %212
+  br i1 %213, label %194, label %214
 
-217:                                              ; preds = %195, %215
-  %218 = phi i32 [ %216, %215 ], [ %194, %195 ]
-  %219 = sub nsw i32 %218, %54
-  br label %220
+214:                                              ; preds = %211
+  %215 = trunc i64 %196 to i32
+  br label %216
 
-220:                                              ; preds = %189, %217, %170
-  %221 = phi i32 [ %53, %170 ], [ %218, %217 ], [ %53, %189 ]
-  %222 = phi i32 [ 0, %170 ], [ %219, %217 ], [ 0, %189 ]
-  %223 = phi ptr [ null, %170 ], [ %177, %217 ], [ null, %189 ]
-  %224 = and i8 %171, 1
-  %225 = icmp eq i8 %224, 0
-  br i1 %225, label %226, label %234
+216:                                              ; preds = %194, %214
+  %217 = phi i32 [ %215, %214 ], [ %193, %194 ]
+  %218 = sub nsw i32 %217, %54
+  br label %219
 
-226:                                              ; preds = %220
-  %227 = load ptr, ptr %46, align 8, !tbaa !21
-  %228 = load i32, ptr %44, align 4, !tbaa !22
-  %229 = load ptr, ptr %3, align 8, !tbaa !5
-  %230 = getelementptr inbounds ptr, ptr %229, i64 2
-  %231 = load ptr, ptr %230, align 8
-  invoke void %231(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %227, i32 noundef %228, ptr noundef %223, i32 noundef %222, i32 noundef %58)
-          to label %234 unwind label %232
+219:                                              ; preds = %188, %216, %169
+  %220 = phi i32 [ %53, %169 ], [ %217, %216 ], [ %53, %188 ]
+  %221 = phi i32 [ 0, %169 ], [ %218, %216 ], [ 0, %188 ]
+  %222 = phi ptr [ null, %169 ], [ %176, %216 ], [ null, %188 ]
+  %223 = and i8 %170, 1
+  %224 = icmp eq i8 %223, 0
+  br i1 %224, label %225, label %233
 
-232:                                              ; preds = %226
-  %233 = landingpad { ptr, i32 }
+225:                                              ; preds = %219
+  %226 = load ptr, ptr %46, align 8, !tbaa !21
+  %227 = load i32, ptr %44, align 4, !tbaa !22
+  %228 = load ptr, ptr %3, align 8, !tbaa !5
+  %229 = getelementptr inbounds ptr, ptr %228, i64 2
+  %230 = load ptr, ptr %229, align 8
+  invoke void %230(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %226, i32 noundef %227, ptr noundef %222, i32 noundef %221, i32 noundef %58)
+          to label %233 unwind label %231
+
+231:                                              ; preds = %225
+  %232 = landingpad { ptr, i32 }
           cleanup
-  br label %286
+  br label %285
 
-234:                                              ; preds = %226, %220
-  %235 = icmp eq i32 %222, 0
-  %236 = select i1 %235, i32 %54, i32 %221
-  %237 = load i32, ptr %44, align 4, !tbaa !22
-  %238 = icmp slt i32 %237, 0
-  br i1 %238, label %239, label %281
+233:                                              ; preds = %225, %219
+  %234 = icmp eq i32 %221, 0
+  %235 = select i1 %234, i32 %54, i32 %220
+  %236 = load i32, ptr %44, align 4, !tbaa !22
+  %237 = icmp slt i32 %236, 0
+  br i1 %237, label %238, label %280
 
-239:                                              ; preds = %234
-  %240 = load i32, ptr %45, align 8, !tbaa !23
-  %241 = icmp slt i32 %240, 0
-  br i1 %241, label %242, label %250
+238:                                              ; preds = %233
+  %239 = load i32, ptr %45, align 8, !tbaa !23
+  %240 = icmp slt i32 %239, 0
+  br i1 %240, label %241, label %249
 
-242:                                              ; preds = %239
-  %243 = load ptr, ptr %46, align 8, !tbaa !21
-  %244 = icmp eq ptr %243, null
-  %245 = load i8, ptr %47, align 8
-  %246 = icmp eq i8 %245, 0
-  %247 = select i1 %244, i1 true, i1 %246
-  br i1 %247, label %249, label %248
+241:                                              ; preds = %238
+  %242 = load ptr, ptr %46, align 8, !tbaa !21
+  %243 = icmp eq ptr %242, null
+  %244 = load i8, ptr %47, align 8
+  %245 = icmp eq i8 %244, 0
+  %246 = select i1 %243, i1 true, i1 %245
+  br i1 %246, label %248, label %247
 
-248:                                              ; preds = %242
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %243)
-          to label %249 unwind label %283
+247:                                              ; preds = %241
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %242)
+          to label %248 unwind label %282
 
-249:                                              ; preds = %248, %242
+248:                                              ; preds = %247, %241
   store i8 1, ptr %47, align 8, !tbaa !18
   store ptr null, ptr %46, align 8, !tbaa !21
   store i32 0, ptr %45, align 8, !tbaa !23
-  br label %250
+  br label %249
 
-250:                                              ; preds = %249, %239
-  %251 = sext i32 %237 to i64
-  %252 = sub nsw i64 0, %251
-  %253 = and i64 %252, 3
-  %254 = icmp eq i64 %253, 0
-  br i1 %254, label %263, label %255
+249:                                              ; preds = %248, %238
+  %250 = sext i32 %236 to i64
+  %251 = sub nsw i64 0, %250
+  %252 = and i64 %251, 3
+  %253 = icmp eq i64 %252, 0
+  br i1 %253, label %262, label %254
 
-255:                                              ; preds = %250, %255
-  %256 = phi i64 [ %260, %255 ], [ %251, %250 ]
-  %257 = phi i64 [ %261, %255 ], [ 0, %250 ]
-  %258 = load ptr, ptr %46, align 8, !tbaa !21
-  %259 = getelementptr inbounds ptr, ptr %258, i64 %256
-  store ptr null, ptr %259, align 8, !tbaa !49
-  %260 = add nsw i64 %256, 1
-  %261 = add i64 %257, 1
-  %262 = icmp eq i64 %261, %253
-  br i1 %262, label %263, label %255, !llvm.loop !66
+254:                                              ; preds = %249, %254
+  %255 = phi i64 [ %259, %254 ], [ %250, %249 ]
+  %256 = phi i64 [ %260, %254 ], [ 0, %249 ]
+  %257 = load ptr, ptr %46, align 8, !tbaa !21
+  %258 = getelementptr inbounds ptr, ptr %257, i64 %255
+  store ptr null, ptr %258, align 8, !tbaa !49
+  %259 = add nsw i64 %255, 1
+  %260 = add i64 %256, 1
+  %261 = icmp eq i64 %260, %252
+  br i1 %261, label %262, label %254, !llvm.loop !66
 
-263:                                              ; preds = %255, %250
-  %264 = phi i64 [ %251, %250 ], [ %260, %255 ]
-  %265 = icmp ugt i32 %237, -4
-  br i1 %265, label %281, label %266
+262:                                              ; preds = %254, %249
+  %263 = phi i64 [ %250, %249 ], [ %259, %254 ]
+  %264 = icmp ugt i32 %236, -4
+  br i1 %264, label %280, label %265
 
-266:                                              ; preds = %263, %266
-  %267 = phi i64 [ %279, %266 ], [ %264, %263 ]
-  %268 = load ptr, ptr %46, align 8, !tbaa !21
-  %269 = getelementptr inbounds ptr, ptr %268, i64 %267
-  store ptr null, ptr %269, align 8, !tbaa !49
-  %270 = add nsw i64 %267, 1
-  %271 = load ptr, ptr %46, align 8, !tbaa !21
-  %272 = getelementptr inbounds ptr, ptr %271, i64 %270
-  store ptr null, ptr %272, align 8, !tbaa !49
-  %273 = add nsw i64 %267, 2
-  %274 = load ptr, ptr %46, align 8, !tbaa !21
-  %275 = getelementptr inbounds ptr, ptr %274, i64 %273
-  store ptr null, ptr %275, align 8, !tbaa !49
-  %276 = add nsw i64 %267, 3
-  %277 = load ptr, ptr %46, align 8, !tbaa !21
-  %278 = getelementptr inbounds ptr, ptr %277, i64 %276
-  store ptr null, ptr %278, align 8, !tbaa !49
-  %279 = add nsw i64 %267, 4
-  %280 = icmp eq i64 %279, 0
-  br i1 %280, label %281, label %266
+265:                                              ; preds = %262, %265
+  %266 = phi i64 [ %278, %265 ], [ %263, %262 ]
+  %267 = load ptr, ptr %46, align 8, !tbaa !21
+  %268 = getelementptr inbounds ptr, ptr %267, i64 %266
+  store ptr null, ptr %268, align 8, !tbaa !49
+  %269 = add nsw i64 %266, 1
+  %270 = load ptr, ptr %46, align 8, !tbaa !21
+  %271 = getelementptr inbounds ptr, ptr %270, i64 %269
+  store ptr null, ptr %271, align 8, !tbaa !49
+  %272 = add nsw i64 %266, 2
+  %273 = load ptr, ptr %46, align 8, !tbaa !21
+  %274 = getelementptr inbounds ptr, ptr %273, i64 %272
+  store ptr null, ptr %274, align 8, !tbaa !49
+  %275 = add nsw i64 %266, 3
+  %276 = load ptr, ptr %46, align 8, !tbaa !21
+  %277 = getelementptr inbounds ptr, ptr %276, i64 %275
+  store ptr null, ptr %277, align 8, !tbaa !49
+  %278 = add nsw i64 %266, 4
+  %279 = icmp eq i64 %278, 0
+  br i1 %279, label %280, label %265
 
-281:                                              ; preds = %263, %266, %234
+280:                                              ; preds = %262, %265, %233
   store i32 0, ptr %44, align 4, !tbaa !22
-  %282 = icmp slt i32 %172, %6
-  br i1 %282, label %51, label %285
+  %281 = icmp slt i32 %171, %6
+  br i1 %281, label %51, label %284
 
-283:                                              ; preds = %248
-  %284 = landingpad { ptr, i32 }
+282:                                              ; preds = %247
+  %283 = landingpad { ptr, i32 }
           cleanup
-  br label %286
+  br label %285
 
-285:                                              ; preds = %281, %39, %20
+284:                                              ; preds = %280, %39, %20
   tail call void @_ZN15CProfileManager12Stop_ProfileEv()
   ret void
 
-286:                                              ; preds = %164, %232, %283, %166, %28, %30
-  %287 = phi { ptr, i32 } [ %31, %30 ], [ %29, %28 ], [ %165, %164 ], [ %167, %166 ], [ %284, %283 ], [ %233, %232 ]
+285:                                              ; preds = %159, %231, %282, %161, %28, %30
+  %286 = phi { ptr, i32 } [ %31, %30 ], [ %29, %28 ], [ %160, %159 ], [ %162, %161 ], [ %283, %282 ], [ %232, %231 ]
   invoke void @_ZN15CProfileManager12Stop_ProfileEv()
-          to label %288 unwind label %289
+          to label %287 unwind label %288
 
-288:                                              ; preds = %286
-  resume { ptr, i32 } %287
+287:                                              ; preds = %285
+  resume { ptr, i32 } %286
 
-289:                                              ; preds = %286
-  %290 = landingpad { ptr, i32 }
+288:                                              ; preds = %285
+  %289 = landingpad { ptr, i32 }
           catch ptr null
-  %291 = extractvalue { ptr, i32 } %290, 0
-  tail call void @__clang_call_terminate(ptr %291) #7
+  %290 = extractvalue { ptr, i32 } %289, 0
+  tail call void @__clang_call_terminate(ptr %290) #7
   unreachable
 }
 
@@ -1643,90 +1655,90 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP20btPersistentMan
   br i1 %64, label %48, label %66
 
 66:                                               ; preds = %62, %39
-  %67 = phi i64 [ %26, %39 ], [ %49, %62 ]
-  %68 = phi ptr [ %28, %39 ], [ %51, %62 ]
-  %69 = trunc i64 %67 to i32
-  %70 = getelementptr inbounds ptr, ptr %18, i64 %67
-  br i1 %22, label %71, label %91
+  %67 = phi ptr [ %28, %39 ], [ %51, %62 ]
+  %68 = phi i64 [ %26, %39 ], [ %49, %62 ]
+  %69 = trunc i64 %68 to i32
+  br i1 %22, label %70, label %90
 
-71:                                               ; preds = %66
-  %72 = sext i32 %16 to i64
-  br label %73
+70:                                               ; preds = %66
+  %71 = sext i32 %16 to i64
+  br label %72
 
-73:                                               ; preds = %71, %87
-  %74 = phi i64 [ %72, %71 ], [ %90, %87 ]
-  %75 = getelementptr inbounds ptr, ptr %18, i64 %74
-  %76 = load ptr, ptr %75, align 8, !tbaa !49
-  %77 = getelementptr inbounds %class.btPersistentManifold, ptr %76, i64 0, i32 3
-  %78 = load ptr, ptr %77, align 8, !tbaa !58
-  %79 = getelementptr inbounds %class.btCollisionObject, ptr %78, i64 0, i32 12
-  %80 = load i32, ptr %79, align 4, !tbaa !44
-  %81 = icmp sgt i32 %80, -1
-  br i1 %81, label %87, label %82
+72:                                               ; preds = %70, %86
+  %73 = phi i64 [ %71, %70 ], [ %89, %86 ]
+  %74 = getelementptr inbounds ptr, ptr %18, i64 %73
+  %75 = load ptr, ptr %74, align 8, !tbaa !49
+  %76 = getelementptr inbounds %class.btPersistentManifold, ptr %75, i64 0, i32 3
+  %77 = load ptr, ptr %76, align 8, !tbaa !58
+  %78 = getelementptr inbounds %class.btCollisionObject, ptr %77, i64 0, i32 12
+  %79 = load i32, ptr %78, align 4, !tbaa !44
+  %80 = icmp sgt i32 %79, -1
+  br i1 %80, label %86, label %81
 
-82:                                               ; preds = %73
-  %83 = getelementptr inbounds %class.btPersistentManifold, ptr %76, i64 0, i32 4
-  %84 = load ptr, ptr %83, align 8, !tbaa !61
-  %85 = getelementptr inbounds %class.btCollisionObject, ptr %84, i64 0, i32 12
-  %86 = load i32, ptr %85, align 4, !tbaa !44
-  br label %87
+81:                                               ; preds = %72
+  %82 = getelementptr inbounds %class.btPersistentManifold, ptr %75, i64 0, i32 4
+  %83 = load ptr, ptr %82, align 8, !tbaa !61
+  %84 = getelementptr inbounds %class.btCollisionObject, ptr %83, i64 0, i32 12
+  %85 = load i32, ptr %84, align 4, !tbaa !44
+  br label %86
 
-87:                                               ; preds = %82, %73
-  %88 = phi i32 [ %86, %82 ], [ %80, %73 ]
-  %89 = icmp slt i32 %21, %88
-  %90 = add i64 %74, -1
-  br i1 %89, label %73, label %114
+86:                                               ; preds = %81, %72
+  %87 = phi i32 [ %85, %81 ], [ %79, %72 ]
+  %88 = icmp slt i32 %21, %87
+  %89 = add i64 %73, -1
+  br i1 %88, label %72, label %113
 
-91:                                               ; preds = %66
-  %92 = load ptr, ptr %14, align 8, !tbaa !61
-  %93 = getelementptr inbounds %class.btCollisionObject, ptr %92, i64 0, i32 12
-  %94 = load i32, ptr %93, align 4, !tbaa !44
-  %95 = sext i32 %16 to i64
-  br label %96
+90:                                               ; preds = %66
+  %91 = load ptr, ptr %14, align 8, !tbaa !61
+  %92 = getelementptr inbounds %class.btCollisionObject, ptr %91, i64 0, i32 12
+  %93 = load i32, ptr %92, align 4, !tbaa !44
+  %94 = sext i32 %16 to i64
+  br label %95
 
-96:                                               ; preds = %110, %91
-  %97 = phi i64 [ %113, %110 ], [ %95, %91 ]
-  %98 = getelementptr inbounds ptr, ptr %18, i64 %97
-  %99 = load ptr, ptr %98, align 8, !tbaa !49
-  %100 = getelementptr inbounds %class.btPersistentManifold, ptr %99, i64 0, i32 3
-  %101 = load ptr, ptr %100, align 8, !tbaa !58
-  %102 = getelementptr inbounds %class.btCollisionObject, ptr %101, i64 0, i32 12
-  %103 = load i32, ptr %102, align 4, !tbaa !44
-  %104 = icmp sgt i32 %103, -1
-  br i1 %104, label %110, label %105
+95:                                               ; preds = %109, %90
+  %96 = phi i64 [ %112, %109 ], [ %94, %90 ]
+  %97 = getelementptr inbounds ptr, ptr %18, i64 %96
+  %98 = load ptr, ptr %97, align 8, !tbaa !49
+  %99 = getelementptr inbounds %class.btPersistentManifold, ptr %98, i64 0, i32 3
+  %100 = load ptr, ptr %99, align 8, !tbaa !58
+  %101 = getelementptr inbounds %class.btCollisionObject, ptr %100, i64 0, i32 12
+  %102 = load i32, ptr %101, align 4, !tbaa !44
+  %103 = icmp sgt i32 %102, -1
+  br i1 %103, label %109, label %104
 
-105:                                              ; preds = %96
-  %106 = getelementptr inbounds %class.btPersistentManifold, ptr %99, i64 0, i32 4
-  %107 = load ptr, ptr %106, align 8, !tbaa !61
-  %108 = getelementptr inbounds %class.btCollisionObject, ptr %107, i64 0, i32 12
-  %109 = load i32, ptr %108, align 4, !tbaa !44
-  br label %110
+104:                                              ; preds = %95
+  %105 = getelementptr inbounds %class.btPersistentManifold, ptr %98, i64 0, i32 4
+  %106 = load ptr, ptr %105, align 8, !tbaa !61
+  %107 = getelementptr inbounds %class.btCollisionObject, ptr %106, i64 0, i32 12
+  %108 = load i32, ptr %107, align 4, !tbaa !44
+  br label %109
 
-110:                                              ; preds = %96, %105
-  %111 = phi i32 [ %109, %105 ], [ %103, %96 ]
-  %112 = icmp slt i32 %94, %111
-  %113 = add i64 %97, -1
-  br i1 %112, label %96, label %114
+109:                                              ; preds = %95, %104
+  %110 = phi i32 [ %108, %104 ], [ %102, %95 ]
+  %111 = icmp slt i32 %93, %110
+  %112 = add i64 %96, -1
+  br i1 %111, label %95, label %113
 
-114:                                              ; preds = %110, %87
-  %115 = phi i64 [ %74, %87 ], [ %97, %110 ]
-  %116 = phi ptr [ %76, %87 ], [ %99, %110 ]
-  %117 = trunc i64 %115 to i32
-  %118 = icmp sgt i32 %69, %117
-  br i1 %118, label %124, label %119
+113:                                              ; preds = %109, %86
+  %114 = phi ptr [ %75, %86 ], [ %98, %109 ]
+  %115 = phi i64 [ %73, %86 ], [ %96, %109 ]
+  %116 = trunc i64 %115 to i32
+  %117 = icmp sgt i32 %69, %116
+  br i1 %117, label %124, label %118
 
-119:                                              ; preds = %114
-  store ptr %116, ptr %70, align 8, !tbaa !49
+118:                                              ; preds = %113
+  %119 = getelementptr inbounds ptr, ptr %18, i64 %68
+  store ptr %114, ptr %119, align 8, !tbaa !49
   %120 = load ptr, ptr %4, align 8, !tbaa !15
   %121 = getelementptr inbounds ptr, ptr %120, i64 %115
-  store ptr %68, ptr %121, align 8, !tbaa !49
+  store ptr %67, ptr %121, align 8, !tbaa !49
   %122 = add nsw i32 %69, 1
-  %123 = add nsw i32 %117, -1
+  %123 = add nsw i32 %116, -1
   br label %124
 
-124:                                              ; preds = %114, %119
-  %125 = phi i32 [ %123, %119 ], [ %117, %114 ]
-  %126 = phi i32 [ %122, %119 ], [ %69, %114 ]
+124:                                              ; preds = %113, %118
+  %125 = phi i32 [ %123, %118 ], [ %116, %113 ]
+  %126 = phi i32 [ %122, %118 ], [ %69, %113 ]
   %127 = icmp sgt i32 %126, %125
   br i1 %127, label %128, label %15
 

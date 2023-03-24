@@ -468,149 +468,148 @@ define dso_local void @GenerateSequenceParameterSet(ptr nocapture noundef %0, i3
   store i32 %114, ptr %115, align 4, !tbaa !61
   %116 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 8
   store i32 %113, ptr %116, align 4, !tbaa !62
-  %117 = shl i32 %80, 4
-  %118 = add i32 %117, 16
-  %119 = mul i32 %88, %91
-  %120 = tail call ptr @alloc_colocated(i32 noundef %118, i32 noundef %119, i32 noundef %95) #12
-  store ptr %120, ptr @Co_located, align 8, !tbaa !5
-  br i1 %11, label %121, label %166
+  %117 = shl nsw i32 %79, 4
+  %118 = mul i32 %88, %91
+  %119 = tail call ptr @alloc_colocated(i32 noundef %117, i32 noundef %118, i32 noundef %95) #12
+  store ptr %119, ptr @Co_located, align 8, !tbaa !5
+  br i1 %11, label %120, label %165
 
-121:                                              ; preds = %112
-  %122 = load ptr, ptr @input, align 8, !tbaa !5
-  %123 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 167
-  %124 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 9
-  %125 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 153
-  %126 = load <2 x i32>, ptr %123, align 8, !tbaa !29
-  %127 = and <2 x i32> %126, <i32 1, i32 1>
-  store <2 x i32> %127, ptr %124, align 4, !tbaa !39
-  %128 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 1
-  %129 = load i32, ptr %128, align 4, !tbaa !29
-  %130 = and i32 %129, 1
-  %131 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 1
-  store i32 %130, ptr %131, align 4, !tbaa !29
-  %132 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 2
-  %133 = load i32, ptr %132, align 4, !tbaa !29
-  %134 = and i32 %133, 1
-  %135 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 2
-  store i32 %134, ptr %135, align 4, !tbaa !29
-  %136 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 3
-  %137 = load i32, ptr %136, align 4, !tbaa !29
-  %138 = and i32 %137, 1
-  %139 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 3
-  store i32 %138, ptr %139, align 4, !tbaa !29
-  %140 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 4
-  %141 = load i32, ptr %140, align 4, !tbaa !29
-  %142 = and i32 %141, 1
-  %143 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 4
-  store i32 %142, ptr %143, align 4, !tbaa !29
-  %144 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 5
-  %145 = load i32, ptr %144, align 4, !tbaa !29
-  %146 = and i32 %145, 1
-  %147 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 5
-  store i32 %146, ptr %147, align 4, !tbaa !29
-  %148 = load i32, ptr %125, align 4, !tbaa !63
-  %149 = icmp eq i32 %148, 0
-  br i1 %149, label %154, label %150
+120:                                              ; preds = %112
+  %121 = load ptr, ptr @input, align 8, !tbaa !5
+  %122 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 167
+  %123 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 9
+  %124 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 153
+  %125 = load <2 x i32>, ptr %122, align 8, !tbaa !29
+  %126 = and <2 x i32> %125, <i32 1, i32 1>
+  store <2 x i32> %126, ptr %123, align 4, !tbaa !39
+  %127 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 1
+  %128 = load i32, ptr %127, align 4, !tbaa !29
+  %129 = and i32 %128, 1
+  %130 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 1
+  store i32 %129, ptr %130, align 4, !tbaa !29
+  %131 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 2
+  %132 = load i32, ptr %131, align 4, !tbaa !29
+  %133 = and i32 %132, 1
+  %134 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 2
+  store i32 %133, ptr %134, align 4, !tbaa !29
+  %135 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 3
+  %136 = load i32, ptr %135, align 4, !tbaa !29
+  %137 = and i32 %136, 1
+  %138 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 3
+  store i32 %137, ptr %138, align 4, !tbaa !29
+  %139 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 4
+  %140 = load i32, ptr %139, align 4, !tbaa !29
+  %141 = and i32 %140, 1
+  %142 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 4
+  store i32 %141, ptr %142, align 4, !tbaa !29
+  %143 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 5
+  %144 = load i32, ptr %143, align 4, !tbaa !29
+  %145 = and i32 %144, 1
+  %146 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 5
+  store i32 %145, ptr %146, align 4, !tbaa !29
+  %147 = load i32, ptr %124, align 4, !tbaa !63
+  %148 = icmp eq i32 %147, 0
+  br i1 %148, label %153, label %149
 
-150:                                              ; preds = %121
-  %151 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 6
-  %152 = load i32, ptr %151, align 4, !tbaa !29
-  %153 = and i32 %152, 1
-  br label %154
+149:                                              ; preds = %120
+  %150 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 6
+  %151 = load i32, ptr %150, align 4, !tbaa !29
+  %152 = and i32 %151, 1
+  br label %153
 
-154:                                              ; preds = %121, %150
-  %155 = phi i32 [ %153, %150 ], [ 0, %121 ]
-  %156 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 6
-  store i32 %155, ptr %156, align 4, !tbaa !29
-  %157 = load i32, ptr %125, align 4, !tbaa !63
-  %158 = icmp eq i32 %157, 0
-  br i1 %158, label %164, label %159
+153:                                              ; preds = %120, %149
+  %154 = phi i32 [ %152, %149 ], [ 0, %120 ]
+  %155 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 6
+  store i32 %154, ptr %155, align 4, !tbaa !29
+  %156 = load i32, ptr %124, align 4, !tbaa !63
+  %157 = icmp eq i32 %156, 0
+  br i1 %157, label %163, label %158
 
-159:                                              ; preds = %154
-  %160 = getelementptr inbounds %struct.InputParameters, ptr %122, i64 0, i32 168, i64 7
-  %161 = load i32, ptr %160, align 4, !tbaa !29
-  %162 = and i32 %161, 1
-  %163 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 7
-  store i32 %162, ptr %163, align 4, !tbaa !29
-  br label %168
+158:                                              ; preds = %153
+  %159 = getelementptr inbounds %struct.InputParameters, ptr %121, i64 0, i32 168, i64 7
+  %160 = load i32, ptr %159, align 4, !tbaa !29
+  %161 = and i32 %160, 1
+  %162 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 7
+  store i32 %161, ptr %162, align 4, !tbaa !29
+  br label %167
 
-164:                                              ; preds = %154
-  %165 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 7
-  store i32 0, ptr %165, align 4, !tbaa !29
-  br label %168
+163:                                              ; preds = %153
+  %164 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 10, i64 7
+  store i32 0, ptr %164, align 4, !tbaa !29
+  br label %167
 
-166:                                              ; preds = %112
-  %167 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 9
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(36) %167, i8 0, i64 36, i1 false)
-  br label %168
+165:                                              ; preds = %112
+  %166 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(36) %166, i8 0, i64 36, i1 false)
+  br label %167
 
-168:                                              ; preds = %159, %164, %166
-  %169 = load ptr, ptr @img, align 8, !tbaa !5
-  %170 = getelementptr inbounds %struct.ImageParameters, ptr %169, i64 0, i32 166
-  %171 = load i32, ptr %170, align 8, !tbaa !50
-  %172 = icmp eq i32 %171, 0
-  %173 = getelementptr inbounds %struct.ImageParameters, ptr %169, i64 0, i32 167
-  %174 = load i32, ptr %173, align 4, !tbaa !53
-  %175 = icmp eq i32 %174, 0
-  %176 = select i1 %172, i1 %175, i1 false
-  %177 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 28
-  br i1 %176, label %213, label %178
+167:                                              ; preds = %158, %163, %165
+  %168 = load ptr, ptr @img, align 8, !tbaa !5
+  %169 = getelementptr inbounds %struct.ImageParameters, ptr %168, i64 0, i32 166
+  %170 = load i32, ptr %169, align 8, !tbaa !50
+  %171 = icmp eq i32 %170, 0
+  %172 = getelementptr inbounds %struct.ImageParameters, ptr %168, i64 0, i32 167
+  %173 = load i32, ptr %172, align 4, !tbaa !53
+  %174 = icmp eq i32 %173, 0
+  %175 = select i1 %171, i1 %174, i1 false
+  %176 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 28
+  br i1 %175, label %212, label %177
 
-178:                                              ; preds = %168
-  store i32 1, ptr %177, align 4, !tbaa !64
-  %179 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 29
-  store i32 0, ptr %179, align 4, !tbaa !65
-  %180 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 31
-  store i32 0, ptr %180, align 4, !tbaa !66
-  %181 = load i32, ptr %116, align 4, !tbaa !62
-  %182 = zext i32 %181 to i64
-  %183 = getelementptr inbounds [4 x i32], ptr @__const.GenerateSequenceParameterSet.SubWidthC, i64 0, i64 %182
-  %184 = load i32, ptr %183, align 4, !tbaa !29
-  %185 = sdiv i32 %171, %184
-  %186 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 30
-  store i32 %185, ptr %186, align 4, !tbaa !67
-  %187 = getelementptr inbounds [4 x i32], ptr @__const.GenerateSequenceParameterSet.SubHeightC, i64 0, i64 %182
-  %188 = load i32, ptr %187, align 4, !tbaa !29
-  %189 = load i32, ptr %73, align 4, !tbaa !48
-  %190 = sub i32 2, %189
-  %191 = mul i32 %190, %188
-  %192 = udiv i32 %174, %191
-  %193 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 32
-  store i32 %192, ptr %193, align 4, !tbaa !68
-  %194 = srem i32 %171, %184
-  %195 = icmp eq i32 %194, 0
-  br i1 %195, label %207, label %196
+177:                                              ; preds = %167
+  store i32 1, ptr %176, align 4, !tbaa !64
+  %178 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 29
+  store i32 0, ptr %178, align 4, !tbaa !65
+  %179 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 31
+  store i32 0, ptr %179, align 4, !tbaa !66
+  %180 = load i32, ptr %116, align 4, !tbaa !62
+  %181 = zext i32 %180 to i64
+  %182 = getelementptr inbounds [4 x i32], ptr @__const.GenerateSequenceParameterSet.SubWidthC, i64 0, i64 %181
+  %183 = load i32, ptr %182, align 4, !tbaa !29
+  %184 = sdiv i32 %170, %183
+  %185 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 30
+  store i32 %184, ptr %185, align 4, !tbaa !67
+  %186 = getelementptr inbounds [4 x i32], ptr @__const.GenerateSequenceParameterSet.SubHeightC, i64 0, i64 %181
+  %187 = load i32, ptr %186, align 4, !tbaa !29
+  %188 = load i32, ptr %73, align 4, !tbaa !48
+  %189 = sub i32 2, %188
+  %190 = mul i32 %189, %187
+  %191 = udiv i32 %173, %190
+  %192 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 32
+  store i32 %191, ptr %192, align 4, !tbaa !68
+  %193 = srem i32 %170, %183
+  %194 = icmp eq i32 %193, 0
+  br i1 %194, label %206, label %195
 
-196:                                              ; preds = %178
+195:                                              ; preds = %177
   tail call void @error(ptr noundef nonnull @.str, i32 noundef 500) #12
-  %197 = load ptr, ptr @img, align 8, !tbaa !5
-  %198 = getelementptr inbounds %struct.ImageParameters, ptr %197, i64 0, i32 167
-  %199 = load i32, ptr %198, align 4, !tbaa !53
-  %200 = load i32, ptr %116, align 4, !tbaa !62
-  %201 = zext i32 %200 to i64
-  %202 = getelementptr inbounds [4 x i32], ptr @__const.GenerateSequenceParameterSet.SubHeightC, i64 0, i64 %201
-  %203 = load i32, ptr %202, align 4, !tbaa !29
-  %204 = load i32, ptr %73, align 4, !tbaa !48
-  %205 = sub i32 2, %204
-  %206 = mul i32 %205, %203
-  br label %207
+  %196 = load ptr, ptr @img, align 8, !tbaa !5
+  %197 = getelementptr inbounds %struct.ImageParameters, ptr %196, i64 0, i32 167
+  %198 = load i32, ptr %197, align 4, !tbaa !53
+  %199 = load i32, ptr %116, align 4, !tbaa !62
+  %200 = zext i32 %199 to i64
+  %201 = getelementptr inbounds [4 x i32], ptr @__const.GenerateSequenceParameterSet.SubHeightC, i64 0, i64 %200
+  %202 = load i32, ptr %201, align 4, !tbaa !29
+  %203 = load i32, ptr %73, align 4, !tbaa !48
+  %204 = sub i32 2, %203
+  %205 = mul i32 %204, %202
+  br label %206
 
-207:                                              ; preds = %196, %178
-  %208 = phi i32 [ %206, %196 ], [ %191, %178 ]
-  %209 = phi i32 [ %199, %196 ], [ %174, %178 ]
-  %210 = urem i32 %209, %208
-  %211 = icmp eq i32 %210, 0
-  br i1 %211, label %214, label %212
+206:                                              ; preds = %195, %177
+  %207 = phi i32 [ %205, %195 ], [ %190, %177 ]
+  %208 = phi i32 [ %198, %195 ], [ %173, %177 ]
+  %209 = urem i32 %208, %207
+  %210 = icmp eq i32 %209, 0
+  br i1 %210, label %213, label %211
 
-212:                                              ; preds = %207
+211:                                              ; preds = %206
   tail call void @error(ptr noundef nonnull @.str.1, i32 noundef 500) #12
-  br label %214
+  br label %213
 
-213:                                              ; preds = %168
-  store i32 0, ptr %177, align 4, !tbaa !64
-  br label %214
+212:                                              ; preds = %167
+  store i32 0, ptr %176, align 4, !tbaa !64
+  br label %213
 
-214:                                              ; preds = %207, %212, %213
+213:                                              ; preds = %206, %211, %212
   ret void
 }
 
@@ -2045,11 +2044,11 @@ declare ptr @strncpy(ptr noalias noundef returned writeonly, ptr noalias nocaptu
 ; Function Attrs: noreturn nounwind
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #11
@@ -2063,8 +2062,8 @@ attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0,1) }

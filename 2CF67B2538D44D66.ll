@@ -295,7 +295,7 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder21SetDecoderProperties
   %24 = select i1 %23, i32 -2147024882, i32 0
   br label %25
 
-25:                                               ; preds = %11, %5, %17, %20, %3
+25:                                               ; preds = %20, %11, %5, %17, %3
   %26 = phi i32 [ -2147024809, %3 ], [ -2147467263, %11 ], [ -2147467263, %5 ], [ -2147024882, %17 ], [ %24, %20 ]
   ret i32 %26
 }
@@ -412,7 +412,7 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder8CodeSpecEPhj(ptr noun
   br label %38
 
 38:                                               ; preds = %28, %24
-  %39 = phi i32 [ %37, %28 ], [ %2, %24 ]
+  %39 = phi i32 [ %2, %24 ], [ %37, %28 ]
   %40 = icmp eq i32 %39, 0
   br i1 %40, label %69, label %41
 
@@ -510,19 +510,19 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder4CodeEP19ISequentialIn
   %17 = getelementptr inbounds ptr, ptr %16, i64 7
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(19376) %0, ptr noundef %4)
-  %20 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 12
-  %21 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 14
-  %22 = load i64, ptr %21, align 8, !tbaa !45
-  %23 = load ptr, ptr %8, align 8, !tbaa !8
-  %24 = tail call noundef i32 @_ZN9NCompress5NPpmd8CDecoder8CodeSpecEPhj(ptr noundef nonnull align 8 dereferenceable(19376) %0, ptr noundef %23, i32 noundef 1048576)
-  %25 = load i64, ptr %21, align 8, !tbaa !45
-  %26 = sub i64 %25, %22
-  %27 = load ptr, ptr %8, align 8, !tbaa !8
-  %28 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %27, i64 noundef %26)
-  %29 = icmp eq i32 %28, 0
-  br i1 %29, label %30, label %92
+  %20 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 14
+  %21 = load i64, ptr %20, align 8, !tbaa !45
+  %22 = load ptr, ptr %8, align 8, !tbaa !8
+  %23 = tail call noundef i32 @_ZN9NCompress5NPpmd8CDecoder8CodeSpecEPhj(ptr noundef nonnull align 8 dereferenceable(19376) %0, ptr noundef %22, i32 noundef 1048576)
+  %24 = load i64, ptr %20, align 8, !tbaa !45
+  %25 = sub i64 %24, %21
+  %26 = load ptr, ptr %8, align 8, !tbaa !8
+  %27 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %26, i64 noundef %25)
+  %28 = icmp eq i32 %27, 0
+  br i1 %28, label %29, label %92
 
-30:                                               ; preds = %14
+29:                                               ; preds = %14
+  %30 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 12
   %31 = icmp eq ptr %5, null
   %32 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 8, i32 6
   %33 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 8, i32 1
@@ -531,20 +531,20 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder4CodeEP19ISequentialIn
   %36 = getelementptr inbounds %"class.NCompress::NPpmd::CDecoder", ptr %0, i64 0, i32 13
   br i1 %31, label %37, label %58
 
-37:                                               ; preds = %30, %50
-  %38 = phi i32 [ %52, %50 ], [ %24, %30 ]
+37:                                               ; preds = %29, %50
+  %38 = phi i32 [ %52, %50 ], [ %23, %29 ]
   %39 = icmp eq i32 %38, 0
   br i1 %39, label %40, label %92
 
 40:                                               ; preds = %37
-  %41 = load i32, ptr %20, align 4, !tbaa !34
+  %41 = load i32, ptr %30, align 4, !tbaa !34
   %42 = icmp eq i32 %41, 2
   br i1 %42, label %92, label %43
 
 43:                                               ; preds = %40
   %44 = load i8, ptr %35, align 1, !tbaa !41, !range !42, !noundef !43
   %45 = icmp eq i8 %44, 0
-  %46 = load i64, ptr %21, align 8, !tbaa !45
+  %46 = load i64, ptr %20, align 8, !tbaa !45
   %47 = load i64, ptr %36, align 8
   %48 = icmp ult i64 %46, %47
   %49 = select i1 %45, i1 true, i1 %48
@@ -553,20 +553,20 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder4CodeEP19ISequentialIn
 50:                                               ; preds = %43
   %51 = load ptr, ptr %8, align 8, !tbaa !8
   %52 = tail call noundef i32 @_ZN9NCompress5NPpmd8CDecoder8CodeSpecEPhj(ptr noundef nonnull align 8 dereferenceable(19376) %0, ptr noundef %51, i32 noundef 1048576)
-  %53 = load i64, ptr %21, align 8, !tbaa !45
+  %53 = load i64, ptr %20, align 8, !tbaa !45
   %54 = sub i64 %53, %46
   %55 = load ptr, ptr %8, align 8, !tbaa !8
   %56 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %55, i64 noundef %54)
   %57 = icmp eq i32 %56, 0
   br i1 %57, label %37, label %92, !llvm.loop !51
 
-58:                                               ; preds = %30, %84
-  %59 = phi i32 [ %86, %84 ], [ %24, %30 ]
+58:                                               ; preds = %29, %84
+  %59 = phi i32 [ %86, %84 ], [ %23, %29 ]
   %60 = icmp eq i32 %59, 0
   br i1 %60, label %61, label %92
 
 61:                                               ; preds = %58
-  %62 = load i32, ptr %20, align 4, !tbaa !34
+  %62 = load i32, ptr %30, align 4, !tbaa !34
   %63 = icmp eq i32 %62, 2
   br i1 %63, label %92, label %64
 
@@ -583,7 +583,7 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder4CodeEP19ISequentialIn
   %72 = load ptr, ptr %5, align 8, !tbaa !5
   %73 = getelementptr inbounds ptr, ptr %72, i64 5
   %74 = load ptr, ptr %73, align 8
-  %75 = call noundef i32 %74(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %7, ptr noundef nonnull %21)
+  %75 = call noundef i32 %74(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %7, ptr noundef nonnull %20)
   %76 = icmp eq i32 %75, 0
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #10
   br i1 %76, label %77, label %92
@@ -591,7 +591,7 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder4CodeEP19ISequentialIn
 77:                                               ; preds = %64
   %78 = load i8, ptr %35, align 1, !tbaa !41, !range !42, !noundef !43
   %79 = icmp eq i8 %78, 0
-  %80 = load i64, ptr %21, align 8, !tbaa !45
+  %80 = load i64, ptr %20, align 8, !tbaa !45
   %81 = load i64, ptr %36, align 8
   %82 = icmp ult i64 %80, %81
   %83 = select i1 %79, i1 true, i1 %82
@@ -600,15 +600,15 @@ define dso_local noundef i32 @_ZN9NCompress5NPpmd8CDecoder4CodeEP19ISequentialIn
 84:                                               ; preds = %77
   %85 = load ptr, ptr %8, align 8, !tbaa !8
   %86 = call noundef i32 @_ZN9NCompress5NPpmd8CDecoder8CodeSpecEPhj(ptr noundef nonnull align 8 dereferenceable(19376) %0, ptr noundef %85, i32 noundef 1048576)
-  %87 = load i64, ptr %21, align 8, !tbaa !45
+  %87 = load i64, ptr %20, align 8, !tbaa !45
   %88 = sub i64 %87, %80
   %89 = load ptr, ptr %8, align 8, !tbaa !8
   %90 = call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %89, i64 noundef %88)
   %91 = icmp eq i32 %90, 0
   br i1 %91, label %58, label %92, !llvm.loop !51
 
-92:                                               ; preds = %61, %64, %58, %84, %77, %40, %37, %50, %43, %14, %11
-  %93 = phi i32 [ -2147024882, %11 ], [ %28, %14 ], [ 0, %40 ], [ %38, %37 ], [ %56, %50 ], [ 0, %43 ], [ 0, %61 ], [ %75, %64 ], [ %59, %58 ], [ %90, %84 ], [ 0, %77 ]
+92:                                               ; preds = %61, %84, %58, %77, %64, %40, %50, %37, %43, %14, %11
+  %93 = phi i32 [ -2147024882, %11 ], [ %27, %14 ], [ 0, %40 ], [ %56, %50 ], [ %38, %37 ], [ 0, %43 ], [ 0, %61 ], [ %90, %84 ], [ %59, %58 ], [ 0, %77 ], [ %75, %64 ]
   ret i32 %93
 }
 

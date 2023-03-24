@@ -112,12 +112,12 @@ define dso_local i32 @woverlapx(i32 noundef %0, i32 noundef %1, i32 noundef %2, 
   store i32 %92, ptr @binX, align 4, !tbaa !22
   store i32 %93, ptr @binY, align 4, !tbaa !22
   %94 = icmp slt i32 %74, 0
-  br i1 %94, label %413, label %95
+  br i1 %94, label %417, label %95
 
 95:                                               ; preds = %6
   %96 = icmp slt i32 %88, 0
   %97 = getelementptr inbounds %struct.cellbox, ptr %10, i64 0, i32 6
-  br i1 %96, label %413, label %98
+  br i1 %96, label %417, label %98
 
 98:                                               ; preds = %95
   %99 = sext i32 %82 to i64
@@ -128,371 +128,377 @@ define dso_local i32 @woverlapx(i32 noundef %0, i32 noundef %1, i32 noundef %2, 
   %104 = zext i32 %100 to i64
   br label %105
 
-105:                                              ; preds = %98, %409
-  %106 = phi i64 [ 0, %98 ], [ %411, %409 ]
-  %107 = phi i32 [ 0, %98 ], [ %410, %409 ]
+105:                                              ; preds = %98, %413
+  %106 = phi i64 [ 0, %98 ], [ %415, %413 ]
+  %107 = phi i32 [ 0, %98 ], [ %414, %413 ]
   %108 = icmp eq i64 %106, 0
   %109 = icmp sge i64 %106, %101
   %110 = select i1 %108, i1 true, i1 %109
-  br i1 %110, label %111, label %409
+  br i1 %110, label %111, label %413
 
-111:                                              ; preds = %105, %405
-  %112 = phi i64 [ %407, %405 ], [ 0, %105 ]
-  %113 = phi i32 [ %406, %405 ], [ %107, %105 ]
-  %114 = icmp ne i64 %112, 0
-  %115 = icmp slt i64 %112, %99
-  %116 = select i1 %108, i1 %114, i1 %115
-  br i1 %116, label %405, label %117
+111:                                              ; preds = %105
+  %112 = icmp ne i64 %106, 0
+  br label %113
 
-117:                                              ; preds = %111
-  %118 = load ptr, ptr @blockarray, align 8, !tbaa !5
-  %119 = getelementptr inbounds ptr, ptr %118, i64 %106
-  %120 = load ptr, ptr %119, align 8, !tbaa !5
-  %121 = getelementptr inbounds ptr, ptr %120, i64 %112
-  %122 = load ptr, ptr %121, align 8, !tbaa !5
-  %123 = load i32, ptr %122, align 4, !tbaa !22
-  %124 = icmp slt i32 %123, 1
-  br i1 %124, label %405, label %125
+113:                                              ; preds = %111, %409
+  %114 = phi i64 [ 0, %111 ], [ %411, %409 ]
+  %115 = phi i32 [ %107, %111 ], [ %410, %409 ]
+  %116 = icmp eq i64 %114, 0
+  %117 = select i1 %108, i1 %116, i1 false
+  %118 = icmp sge i64 %114, %99
+  %119 = select i1 %112, i1 %118, i1 false
+  %120 = select i1 %117, i1 true, i1 %119
+  br i1 %120, label %121, label %409
 
-125:                                              ; preds = %117, %399
-  %126 = phi i64 [ %401, %399 ], [ 1, %117 ]
-  %127 = phi i32 [ %400, %399 ], [ %113, %117 ]
-  %128 = getelementptr inbounds i32, ptr %122, i64 %126
-  %129 = load i32, ptr %128, align 4, !tbaa !22
-  %130 = icmp eq i32 %129, %0
-  br i1 %130, label %399, label %131
+121:                                              ; preds = %113
+  %122 = load ptr, ptr @blockarray, align 8, !tbaa !5
+  %123 = getelementptr inbounds ptr, ptr %122, i64 %106
+  %124 = load ptr, ptr %123, align 8, !tbaa !5
+  %125 = getelementptr inbounds ptr, ptr %124, i64 %114
+  %126 = load ptr, ptr %125, align 8, !tbaa !5
+  %127 = load i32, ptr %126, align 4, !tbaa !22
+  %128 = icmp slt i32 %127, 1
+  br i1 %128, label %409, label %129
 
-131:                                              ; preds = %125
-  %132 = load ptr, ptr @cellarray, align 8, !tbaa !5
-  %133 = sext i32 %129 to i64
-  %134 = getelementptr inbounds ptr, ptr %132, i64 %133
-  %135 = load ptr, ptr %134, align 8, !tbaa !5
-  %136 = getelementptr inbounds %struct.cellbox, ptr %135, i64 0, i32 5
-  %137 = load i32, ptr %136, align 8, !tbaa !9
-  %138 = sext i32 %137 to i64
-  %139 = getelementptr inbounds %struct.cellbox, ptr %135, i64 0, i32 21, i64 %138
-  %140 = load ptr, ptr %139, align 8, !tbaa !5
-  %141 = getelementptr inbounds %struct.cellbox, ptr %135, i64 0, i32 2
-  %142 = load i32, ptr %141, align 4, !tbaa !13
-  %143 = getelementptr inbounds %struct.cellbox, ptr %135, i64 0, i32 3
-  %144 = load i32, ptr %143, align 8, !tbaa !16
-  %145 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 9
-  %146 = load i32, ptr %145, align 8, !tbaa !23
-  %147 = add nsw i32 %146, %142
-  %148 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 10
-  %149 = load i32, ptr %148, align 4, !tbaa !24
-  %150 = add nsw i32 %149, %142
-  %151 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 11
-  %152 = load i32, ptr %151, align 8, !tbaa !25
-  %153 = add nsw i32 %152, %144
-  %154 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 12
-  %155 = load i32, ptr %154, align 4, !tbaa !26
-  %156 = add nsw i32 %155, %144
-  %157 = load i32, ptr @numcells, align 4, !tbaa !22
-  %158 = icmp sgt i32 %129, %157
-  br i1 %158, label %176, label %159
+129:                                              ; preds = %121, %403
+  %130 = phi i64 [ %405, %403 ], [ 1, %121 ]
+  %131 = phi i32 [ %404, %403 ], [ %115, %121 ]
+  %132 = getelementptr inbounds i32, ptr %126, i64 %130
+  %133 = load i32, ptr %132, align 4, !tbaa !22
+  %134 = icmp eq i32 %133, %0
+  br i1 %134, label %403, label %135
 
-159:                                              ; preds = %131
-  %160 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 1
-  %161 = load double, ptr %160, align 8, !tbaa !18
-  %162 = tail call i32 @wireestx(i32 noundef %147, i32 noundef %153, i32 noundef %156, double noundef %161) #3
-  %163 = sub nsw i32 %147, %162
-  %164 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 2
-  %165 = load double, ptr %164, align 8, !tbaa !19
-  %166 = tail call i32 @wireestx(i32 noundef %150, i32 noundef %153, i32 noundef %156, double noundef %165) #3
-  %167 = add nsw i32 %166, %150
-  %168 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 3
-  %169 = load double, ptr %168, align 8, !tbaa !20
-  %170 = tail call i32 @wireesty(i32 noundef %153, i32 noundef %163, i32 noundef %167, double noundef %169) #3
-  %171 = sub nsw i32 %153, %170
-  %172 = getelementptr inbounds %struct.tilebox, ptr %140, i64 0, i32 4
-  %173 = load double, ptr %172, align 8, !tbaa !21
-  %174 = tail call i32 @wireesty(i32 noundef %156, i32 noundef %163, i32 noundef %167, double noundef %173) #3
-  %175 = add nsw i32 %174, %156
-  br label %176
+135:                                              ; preds = %129
+  %136 = load ptr, ptr @cellarray, align 8, !tbaa !5
+  %137 = sext i32 %133 to i64
+  %138 = getelementptr inbounds ptr, ptr %136, i64 %137
+  %139 = load ptr, ptr %138, align 8, !tbaa !5
+  %140 = getelementptr inbounds %struct.cellbox, ptr %139, i64 0, i32 5
+  %141 = load i32, ptr %140, align 8, !tbaa !9
+  %142 = sext i32 %141 to i64
+  %143 = getelementptr inbounds %struct.cellbox, ptr %139, i64 0, i32 21, i64 %142
+  %144 = load ptr, ptr %143, align 8, !tbaa !5
+  %145 = getelementptr inbounds %struct.cellbox, ptr %139, i64 0, i32 2
+  %146 = load i32, ptr %145, align 4, !tbaa !13
+  %147 = getelementptr inbounds %struct.cellbox, ptr %139, i64 0, i32 3
+  %148 = load i32, ptr %147, align 8, !tbaa !16
+  %149 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 9
+  %150 = load i32, ptr %149, align 8, !tbaa !23
+  %151 = add nsw i32 %150, %146
+  %152 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 10
+  %153 = load i32, ptr %152, align 4, !tbaa !24
+  %154 = add nsw i32 %153, %146
+  %155 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 11
+  %156 = load i32, ptr %155, align 8, !tbaa !25
+  %157 = add nsw i32 %156, %148
+  %158 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 12
+  %159 = load i32, ptr %158, align 4, !tbaa !26
+  %160 = add nsw i32 %159, %148
+  %161 = load i32, ptr @numcells, align 4, !tbaa !22
+  %162 = icmp sgt i32 %133, %161
+  br i1 %162, label %180, label %163
 
-176:                                              ; preds = %159, %131
-  %177 = phi i32 [ %163, %159 ], [ %147, %131 ]
-  %178 = phi i32 [ %167, %159 ], [ %150, %131 ]
-  %179 = phi i32 [ %171, %159 ], [ %153, %131 ]
-  %180 = phi i32 [ %175, %159 ], [ %156, %131 ]
-  %181 = icmp slt i32 %177, %53
-  %182 = icmp slt i32 %49, %178
-  %183 = select i1 %181, i1 %182, i1 false
-  %184 = icmp slt i32 %179, %61
-  %185 = select i1 %183, i1 %184, i1 false
-  %186 = icmp slt i32 %57, %180
-  %187 = select i1 %185, i1 %186, i1 false
-  br i1 %187, label %188, label %399
+163:                                              ; preds = %135
+  %164 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 1
+  %165 = load double, ptr %164, align 8, !tbaa !18
+  %166 = tail call i32 @wireestx(i32 noundef %151, i32 noundef %157, i32 noundef %160, double noundef %165) #3
+  %167 = sub nsw i32 %151, %166
+  %168 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 2
+  %169 = load double, ptr %168, align 8, !tbaa !19
+  %170 = tail call i32 @wireestx(i32 noundef %154, i32 noundef %157, i32 noundef %160, double noundef %169) #3
+  %171 = add nsw i32 %170, %154
+  %172 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 3
+  %173 = load double, ptr %172, align 8, !tbaa !20
+  %174 = tail call i32 @wireesty(i32 noundef %157, i32 noundef %167, i32 noundef %171, double noundef %173) #3
+  %175 = sub nsw i32 %157, %174
+  %176 = getelementptr inbounds %struct.tilebox, ptr %144, i64 0, i32 4
+  %177 = load double, ptr %176, align 8, !tbaa !21
+  %178 = tail call i32 @wireesty(i32 noundef %160, i32 noundef %167, i32 noundef %171, double noundef %177) #3
+  %179 = add nsw i32 %178, %160
+  br label %180
 
-188:                                              ; preds = %176
-  %189 = load i32, ptr %97, align 4, !tbaa !27
-  %190 = icmp eq i32 %189, 1
-  br i1 %190, label %191, label %210
+180:                                              ; preds = %163, %135
+  %181 = phi i32 [ %167, %163 ], [ %151, %135 ]
+  %182 = phi i32 [ %171, %163 ], [ %154, %135 ]
+  %183 = phi i32 [ %175, %163 ], [ %157, %135 ]
+  %184 = phi i32 [ %179, %163 ], [ %160, %135 ]
+  %185 = icmp sge i32 %181, %53
+  %186 = icmp sge i32 %49, %182
+  %187 = select i1 %185, i1 true, i1 %186
+  %188 = icmp sge i32 %183, %61
+  %189 = select i1 %187, i1 true, i1 %188
+  %190 = icmp sge i32 %57, %184
+  %191 = select i1 %189, i1 true, i1 %190
+  br i1 %191, label %403, label %192
 
-191:                                              ; preds = %188
-  %192 = getelementptr inbounds %struct.cellbox, ptr %135, i64 0, i32 6
-  %193 = load i32, ptr %192, align 4, !tbaa !27
+192:                                              ; preds = %180
+  %193 = load i32, ptr %97, align 4, !tbaa !27
   %194 = icmp eq i32 %193, 1
-  br i1 %194, label %195, label %210
+  br i1 %194, label %195, label %214
 
-195:                                              ; preds = %191
-  %196 = tail call i32 @llvm.smax.i32(i32 %49, i32 %177)
-  %197 = tail call i32 @llvm.smin.i32(i32 %53, i32 %178)
-  %198 = tail call i32 @llvm.smax.i32(i32 %57, i32 %179)
-  %199 = tail call i32 @llvm.smin.i32(i32 %61, i32 %180)
-  %200 = load double, ptr @lapFactor, align 8, !tbaa !28
-  %201 = sub nsw i32 %199, %198
-  %202 = sub nsw i32 %197, %196
-  %203 = mul nsw i32 %201, %202
-  %204 = load i32, ptr @offset, align 4, !tbaa !22
-  %205 = add nsw i32 %204, %203
-  %206 = sitofp i32 %205 to double
-  %207 = fmul double %200, %206
-  %208 = fptosi double %207 to i32
-  %209 = add nsw i32 %127, %208
-  br label %399
+195:                                              ; preds = %192
+  %196 = getelementptr inbounds %struct.cellbox, ptr %139, i64 0, i32 6
+  %197 = load i32, ptr %196, align 4, !tbaa !27
+  %198 = icmp eq i32 %197, 1
+  br i1 %198, label %199, label %214
 
-210:                                              ; preds = %191, %188
-  %211 = load ptr, ptr %15, align 8, !tbaa !29
-  %212 = icmp eq ptr %211, null
-  br i1 %212, label %399, label %217
+199:                                              ; preds = %195
+  %200 = tail call i32 @llvm.smax.i32(i32 %49, i32 %181)
+  %201 = tail call i32 @llvm.smin.i32(i32 %53, i32 %182)
+  %202 = tail call i32 @llvm.smax.i32(i32 %57, i32 %183)
+  %203 = tail call i32 @llvm.smin.i32(i32 %61, i32 %184)
+  %204 = load double, ptr @lapFactor, align 8, !tbaa !28
+  %205 = sub nsw i32 %203, %202
+  %206 = sub nsw i32 %201, %200
+  %207 = mul nsw i32 %205, %206
+  %208 = load i32, ptr @offset, align 4, !tbaa !22
+  %209 = add nsw i32 %208, %207
+  %210 = sitofp i32 %209 to double
+  %211 = fmul double %204, %210
+  %212 = fptosi double %211 to i32
+  %213 = add nsw i32 %131, %212
+  br label %403
 
-213:                                              ; preds = %385, %324, %217
-  %214 = phi i32 [ %219, %217 ], [ %325, %324 ], [ %386, %385 ]
-  %215 = load ptr, ptr %218, align 8, !tbaa !29
+214:                                              ; preds = %195, %192
+  %215 = load ptr, ptr %15, align 8, !tbaa !29
   %216 = icmp eq ptr %215, null
-  br i1 %216, label %389, label %217, !llvm.loop !30
+  br i1 %216, label %403, label %221
 
-217:                                              ; preds = %210, %213
-  %218 = phi ptr [ %215, %213 ], [ %211, %210 ]
-  %219 = phi i32 [ %214, %213 ], [ 0, %210 ]
-  %220 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 13
-  %221 = load i32, ptr %220, align 8, !tbaa !32
-  %222 = sub nsw i32 %221, %1
-  %223 = sitofp i32 %222 to double
-  %224 = fdiv double %223, %5
-  %225 = load i32, ptr %16, align 4, !tbaa !13
-  %226 = fptosi double %224 to i32
+217:                                              ; preds = %389, %328, %221
+  %218 = phi i32 [ %223, %221 ], [ %329, %328 ], [ %390, %389 ]
+  %219 = load ptr, ptr %222, align 8, !tbaa !29
+  %220 = icmp eq ptr %219, null
+  br i1 %220, label %393, label %221, !llvm.loop !30
+
+221:                                              ; preds = %214, %217
+  %222 = phi ptr [ %219, %217 ], [ %215, %214 ]
+  %223 = phi i32 [ %218, %217 ], [ 0, %214 ]
+  %224 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 13
+  %225 = load i32, ptr %224, align 8, !tbaa !32
+  %226 = sub nsw i32 %225, %1
   %227 = sitofp i32 %226 to double
-  %228 = fsub double %224, %227
-  %229 = fcmp oge double %228, 5.000000e-01
-  %230 = zext i1 %229 to i32
-  %231 = sub i32 %225, %3
-  %232 = add i32 %231, %226
-  %233 = add i32 %232, %230
-  %234 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 14
-  %235 = load i32, ptr %234, align 4, !tbaa !14
-  %236 = sub nsw i32 %235, %1
-  %237 = sitofp i32 %236 to double
-  %238 = fdiv double %237, %5
-  %239 = fptosi double %238 to i32
-  %240 = sitofp i32 %239 to double
-  %241 = fsub double %238, %240
-  %242 = fcmp oge double %241, 5.000000e-01
-  %243 = zext i1 %242 to i32
-  %244 = add i32 %231, %239
-  %245 = add i32 %244, %243
-  %246 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 15
-  %247 = load i32, ptr %246, align 8, !tbaa !33
-  %248 = sub nsw i32 %247, %2
-  %249 = sitofp i32 %248 to double
-  %250 = fmul double %249, %5
-  %251 = load i32, ptr %31, align 8, !tbaa !16
-  %252 = fptosi double %250 to i32
+  %228 = fdiv double %227, %5
+  %229 = load i32, ptr %16, align 4, !tbaa !13
+  %230 = fptosi double %228 to i32
+  %231 = sitofp i32 %230 to double
+  %232 = fsub double %228, %231
+  %233 = fcmp oge double %232, 5.000000e-01
+  %234 = zext i1 %233 to i32
+  %235 = sub i32 %229, %3
+  %236 = add i32 %235, %230
+  %237 = add i32 %236, %234
+  %238 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 14
+  %239 = load i32, ptr %238, align 4, !tbaa !14
+  %240 = sub nsw i32 %239, %1
+  %241 = sitofp i32 %240 to double
+  %242 = fdiv double %241, %5
+  %243 = fptosi double %242 to i32
+  %244 = sitofp i32 %243 to double
+  %245 = fsub double %242, %244
+  %246 = fcmp oge double %245, 5.000000e-01
+  %247 = zext i1 %246 to i32
+  %248 = add i32 %235, %243
+  %249 = add i32 %248, %247
+  %250 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 15
+  %251 = load i32, ptr %250, align 8, !tbaa !33
+  %252 = sub nsw i32 %251, %2
   %253 = sitofp i32 %252 to double
-  %254 = fsub double %250, %253
-  %255 = fcmp oge double %254, 5.000000e-01
-  %256 = zext i1 %255 to i32
-  %257 = sub i32 %251, %4
-  %258 = add i32 %257, %252
-  %259 = add i32 %258, %256
-  %260 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 16
-  %261 = load i32, ptr %260, align 4, !tbaa !17
-  %262 = sub nsw i32 %261, %2
-  %263 = sitofp i32 %262 to double
-  %264 = fmul double %263, %5
-  %265 = fptosi double %264 to i32
-  %266 = sitofp i32 %265 to double
-  %267 = fsub double %264, %266
-  %268 = fcmp oge double %267, 5.000000e-01
-  %269 = zext i1 %268 to i32
-  %270 = add i32 %257, %265
-  %271 = add i32 %270, %269
-  %272 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 1
-  %273 = load double, ptr %272, align 8, !tbaa !18
-  %274 = tail call i32 @wireestx(i32 noundef %233, i32 noundef %259, i32 noundef %271, double noundef %273) #3
-  %275 = sub nsw i32 %233, %274
-  %276 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 2
-  %277 = load double, ptr %276, align 8, !tbaa !19
-  %278 = tail call i32 @wireestx(i32 noundef %245, i32 noundef %259, i32 noundef %271, double noundef %277) #3
-  %279 = add nsw i32 %245, %278
-  %280 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 3
-  %281 = load double, ptr %280, align 8, !tbaa !20
-  %282 = tail call i32 @wireesty(i32 noundef %259, i32 noundef %275, i32 noundef %279, double noundef %281) #3
-  %283 = sub nsw i32 %259, %282
-  %284 = getelementptr inbounds %struct.tilebox, ptr %218, i64 0, i32 4
-  %285 = load double, ptr %284, align 8, !tbaa !21
-  %286 = tail call i32 @wireesty(i32 noundef %271, i32 noundef %275, i32 noundef %279, double noundef %285) #3
-  %287 = add nsw i32 %271, %286
-  %288 = load ptr, ptr %140, align 8, !tbaa !29
-  %289 = icmp eq ptr %288, null
-  br i1 %289, label %213, label %290
+  %254 = fmul double %253, %5
+  %255 = load i32, ptr %31, align 8, !tbaa !16
+  %256 = fptosi double %254 to i32
+  %257 = sitofp i32 %256 to double
+  %258 = fsub double %254, %257
+  %259 = fcmp oge double %258, 5.000000e-01
+  %260 = zext i1 %259 to i32
+  %261 = sub i32 %255, %4
+  %262 = add i32 %261, %256
+  %263 = add i32 %262, %260
+  %264 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 16
+  %265 = load i32, ptr %264, align 4, !tbaa !17
+  %266 = sub nsw i32 %265, %2
+  %267 = sitofp i32 %266 to double
+  %268 = fmul double %267, %5
+  %269 = fptosi double %268 to i32
+  %270 = sitofp i32 %269 to double
+  %271 = fsub double %268, %270
+  %272 = fcmp oge double %271, 5.000000e-01
+  %273 = zext i1 %272 to i32
+  %274 = add i32 %261, %269
+  %275 = add i32 %274, %273
+  %276 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 1
+  %277 = load double, ptr %276, align 8, !tbaa !18
+  %278 = tail call i32 @wireestx(i32 noundef %237, i32 noundef %263, i32 noundef %275, double noundef %277) #3
+  %279 = sub nsw i32 %237, %278
+  %280 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 2
+  %281 = load double, ptr %280, align 8, !tbaa !19
+  %282 = tail call i32 @wireestx(i32 noundef %249, i32 noundef %263, i32 noundef %275, double noundef %281) #3
+  %283 = add nsw i32 %249, %282
+  %284 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 3
+  %285 = load double, ptr %284, align 8, !tbaa !20
+  %286 = tail call i32 @wireesty(i32 noundef %263, i32 noundef %279, i32 noundef %283, double noundef %285) #3
+  %287 = sub nsw i32 %263, %286
+  %288 = getelementptr inbounds %struct.tilebox, ptr %222, i64 0, i32 4
+  %289 = load double, ptr %288, align 8, !tbaa !21
+  %290 = tail call i32 @wireesty(i32 noundef %275, i32 noundef %279, i32 noundef %283, double noundef %289) #3
+  %291 = add nsw i32 %275, %290
+  %292 = load ptr, ptr %144, align 8, !tbaa !29
+  %293 = icmp eq ptr %292, null
+  br i1 %293, label %217, label %294
 
-290:                                              ; preds = %217
-  %291 = load i32, ptr @numcells, align 4, !tbaa !22
-  %292 = icmp sgt i32 %129, %291
-  br i1 %292, label %293, label %328
+294:                                              ; preds = %221
+  %295 = load i32, ptr @numcells, align 4, !tbaa !22
+  %296 = icmp sgt i32 %133, %295
+  br i1 %296, label %297, label %332
 
-293:                                              ; preds = %290, %324
-  %294 = phi ptr [ %326, %324 ], [ %288, %290 ]
-  %295 = phi i32 [ %325, %324 ], [ %219, %290 ]
-  %296 = getelementptr inbounds %struct.tilebox, ptr %294, i64 0, i32 9
-  %297 = load i32, ptr %296, align 8, !tbaa !23
-  %298 = add nsw i32 %297, %142
-  %299 = getelementptr inbounds %struct.tilebox, ptr %294, i64 0, i32 10
-  %300 = load i32, ptr %299, align 4, !tbaa !24
-  %301 = add nsw i32 %300, %142
-  %302 = getelementptr inbounds %struct.tilebox, ptr %294, i64 0, i32 11
-  %303 = load i32, ptr %302, align 8, !tbaa !25
-  %304 = add nsw i32 %303, %144
-  %305 = getelementptr inbounds %struct.tilebox, ptr %294, i64 0, i32 12
-  %306 = load i32, ptr %305, align 4, !tbaa !26
-  %307 = add nsw i32 %306, %144
-  %308 = icmp slt i32 %298, %279
-  %309 = icmp slt i32 %275, %301
-  %310 = select i1 %308, i1 %309, i1 false
-  %311 = icmp slt i32 %304, %287
-  %312 = select i1 %310, i1 %311, i1 false
-  %313 = icmp slt i32 %283, %307
-  %314 = select i1 %312, i1 %313, i1 false
-  br i1 %314, label %315, label %324
+297:                                              ; preds = %294, %328
+  %298 = phi ptr [ %330, %328 ], [ %292, %294 ]
+  %299 = phi i32 [ %329, %328 ], [ %223, %294 ]
+  %300 = getelementptr inbounds %struct.tilebox, ptr %298, i64 0, i32 9
+  %301 = load i32, ptr %300, align 8, !tbaa !23
+  %302 = add nsw i32 %301, %146
+  %303 = getelementptr inbounds %struct.tilebox, ptr %298, i64 0, i32 10
+  %304 = load i32, ptr %303, align 4, !tbaa !24
+  %305 = add nsw i32 %304, %146
+  %306 = getelementptr inbounds %struct.tilebox, ptr %298, i64 0, i32 11
+  %307 = load i32, ptr %306, align 8, !tbaa !25
+  %308 = add nsw i32 %307, %148
+  %309 = getelementptr inbounds %struct.tilebox, ptr %298, i64 0, i32 12
+  %310 = load i32, ptr %309, align 4, !tbaa !26
+  %311 = add nsw i32 %310, %148
+  %312 = icmp sge i32 %302, %283
+  %313 = icmp sge i32 %279, %305
+  %314 = select i1 %312, i1 true, i1 %313
+  %315 = icmp sge i32 %308, %291
+  %316 = select i1 %314, i1 true, i1 %315
+  %317 = icmp sge i32 %287, %311
+  %318 = select i1 %316, i1 true, i1 %317
+  br i1 %318, label %328, label %319
 
-315:                                              ; preds = %293
-  %316 = tail call i32 @llvm.smax.i32(i32 %275, i32 %298)
-  %317 = tail call i32 @llvm.smin.i32(i32 %279, i32 %301)
-  %318 = tail call i32 @llvm.smax.i32(i32 %283, i32 %304)
-  %319 = tail call i32 @llvm.smin.i32(i32 %287, i32 %307)
-  %320 = sub nsw i32 %319, %318
-  %321 = sub nsw i32 %317, %316
-  %322 = mul nsw i32 %320, %321
-  %323 = add nsw i32 %322, %295
-  br label %324
+319:                                              ; preds = %297
+  %320 = tail call i32 @llvm.smax.i32(i32 %279, i32 %302)
+  %321 = tail call i32 @llvm.smin.i32(i32 %283, i32 %305)
+  %322 = tail call i32 @llvm.smax.i32(i32 %287, i32 %308)
+  %323 = tail call i32 @llvm.smin.i32(i32 %291, i32 %311)
+  %324 = sub nsw i32 %323, %322
+  %325 = sub nsw i32 %321, %320
+  %326 = mul nsw i32 %324, %325
+  %327 = add nsw i32 %326, %299
+  br label %328
 
-324:                                              ; preds = %315, %293
-  %325 = phi i32 [ %295, %293 ], [ %323, %315 ]
-  %326 = load ptr, ptr %294, align 8, !tbaa !29
-  %327 = icmp eq ptr %326, null
-  br i1 %327, label %213, label %293, !llvm.loop !34
+328:                                              ; preds = %319, %297
+  %329 = phi i32 [ %299, %297 ], [ %327, %319 ]
+  %330 = load ptr, ptr %298, align 8, !tbaa !29
+  %331 = icmp eq ptr %330, null
+  br i1 %331, label %217, label %297, !llvm.loop !34
 
-328:                                              ; preds = %290, %385
-  %329 = phi i32 [ %364, %385 ], [ %291, %290 ]
-  %330 = phi ptr [ %387, %385 ], [ %288, %290 ]
-  %331 = phi i32 [ %386, %385 ], [ %219, %290 ]
-  %332 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 9
-  %333 = load i32, ptr %332, align 8, !tbaa !23
-  %334 = add nsw i32 %333, %142
-  %335 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 10
-  %336 = load i32, ptr %335, align 4, !tbaa !24
-  %337 = add nsw i32 %336, %142
-  %338 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 11
-  %339 = load i32, ptr %338, align 8, !tbaa !25
-  %340 = add nsw i32 %339, %144
-  %341 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 12
-  %342 = load i32, ptr %341, align 4, !tbaa !26
-  %343 = add nsw i32 %342, %144
-  %344 = icmp sgt i32 %129, %329
-  br i1 %344, label %363, label %345
+332:                                              ; preds = %294, %389
+  %333 = phi i32 [ %368, %389 ], [ %295, %294 ]
+  %334 = phi ptr [ %391, %389 ], [ %292, %294 ]
+  %335 = phi i32 [ %390, %389 ], [ %223, %294 ]
+  %336 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 9
+  %337 = load i32, ptr %336, align 8, !tbaa !23
+  %338 = add nsw i32 %337, %146
+  %339 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 10
+  %340 = load i32, ptr %339, align 4, !tbaa !24
+  %341 = add nsw i32 %340, %146
+  %342 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 11
+  %343 = load i32, ptr %342, align 8, !tbaa !25
+  %344 = add nsw i32 %343, %148
+  %345 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 12
+  %346 = load i32, ptr %345, align 4, !tbaa !26
+  %347 = add nsw i32 %346, %148
+  %348 = icmp sgt i32 %133, %333
+  br i1 %348, label %367, label %349
 
-345:                                              ; preds = %328
-  %346 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 1
-  %347 = load double, ptr %346, align 8, !tbaa !18
-  %348 = tail call i32 @wireestx(i32 noundef %334, i32 noundef %340, i32 noundef %343, double noundef %347) #3
-  %349 = sub nsw i32 %334, %348
-  %350 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 2
-  %351 = load double, ptr %350, align 8, !tbaa !19
-  %352 = tail call i32 @wireestx(i32 noundef %337, i32 noundef %340, i32 noundef %343, double noundef %351) #3
-  %353 = add nsw i32 %352, %337
-  %354 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 3
-  %355 = load double, ptr %354, align 8, !tbaa !20
-  %356 = tail call i32 @wireesty(i32 noundef %340, i32 noundef %349, i32 noundef %353, double noundef %355) #3
-  %357 = sub nsw i32 %340, %356
-  %358 = getelementptr inbounds %struct.tilebox, ptr %330, i64 0, i32 4
-  %359 = load double, ptr %358, align 8, !tbaa !21
-  %360 = tail call i32 @wireesty(i32 noundef %343, i32 noundef %349, i32 noundef %353, double noundef %359) #3
-  %361 = add nsw i32 %360, %343
-  %362 = load i32, ptr @numcells, align 4, !tbaa !22
-  br label %363
+349:                                              ; preds = %332
+  %350 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 1
+  %351 = load double, ptr %350, align 8, !tbaa !18
+  %352 = tail call i32 @wireestx(i32 noundef %338, i32 noundef %344, i32 noundef %347, double noundef %351) #3
+  %353 = sub nsw i32 %338, %352
+  %354 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 2
+  %355 = load double, ptr %354, align 8, !tbaa !19
+  %356 = tail call i32 @wireestx(i32 noundef %341, i32 noundef %344, i32 noundef %347, double noundef %355) #3
+  %357 = add nsw i32 %356, %341
+  %358 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 3
+  %359 = load double, ptr %358, align 8, !tbaa !20
+  %360 = tail call i32 @wireesty(i32 noundef %344, i32 noundef %353, i32 noundef %357, double noundef %359) #3
+  %361 = sub nsw i32 %344, %360
+  %362 = getelementptr inbounds %struct.tilebox, ptr %334, i64 0, i32 4
+  %363 = load double, ptr %362, align 8, !tbaa !21
+  %364 = tail call i32 @wireesty(i32 noundef %347, i32 noundef %353, i32 noundef %357, double noundef %363) #3
+  %365 = add nsw i32 %364, %347
+  %366 = load i32, ptr @numcells, align 4, !tbaa !22
+  br label %367
 
-363:                                              ; preds = %345, %328
-  %364 = phi i32 [ %362, %345 ], [ %329, %328 ]
-  %365 = phi i32 [ %349, %345 ], [ %334, %328 ]
-  %366 = phi i32 [ %353, %345 ], [ %337, %328 ]
-  %367 = phi i32 [ %357, %345 ], [ %340, %328 ]
-  %368 = phi i32 [ %361, %345 ], [ %343, %328 ]
-  %369 = icmp slt i32 %365, %279
-  %370 = icmp slt i32 %275, %366
-  %371 = select i1 %369, i1 %370, i1 false
-  %372 = icmp slt i32 %367, %287
-  %373 = select i1 %371, i1 %372, i1 false
-  %374 = icmp slt i32 %283, %368
-  %375 = select i1 %373, i1 %374, i1 false
-  br i1 %375, label %376, label %385
+367:                                              ; preds = %349, %332
+  %368 = phi i32 [ %366, %349 ], [ %333, %332 ]
+  %369 = phi i32 [ %353, %349 ], [ %338, %332 ]
+  %370 = phi i32 [ %357, %349 ], [ %341, %332 ]
+  %371 = phi i32 [ %361, %349 ], [ %344, %332 ]
+  %372 = phi i32 [ %365, %349 ], [ %347, %332 ]
+  %373 = icmp sge i32 %369, %283
+  %374 = icmp sge i32 %279, %370
+  %375 = select i1 %373, i1 true, i1 %374
+  %376 = icmp sge i32 %371, %291
+  %377 = select i1 %375, i1 true, i1 %376
+  %378 = icmp sge i32 %287, %372
+  %379 = select i1 %377, i1 true, i1 %378
+  br i1 %379, label %389, label %380
 
-376:                                              ; preds = %363
-  %377 = tail call i32 @llvm.smax.i32(i32 %275, i32 %365)
-  %378 = tail call i32 @llvm.smin.i32(i32 %279, i32 %366)
-  %379 = tail call i32 @llvm.smax.i32(i32 %283, i32 %367)
-  %380 = tail call i32 @llvm.smin.i32(i32 %287, i32 %368)
-  %381 = sub nsw i32 %380, %379
-  %382 = sub nsw i32 %378, %377
-  %383 = mul nsw i32 %381, %382
-  %384 = add nsw i32 %383, %331
-  br label %385
+380:                                              ; preds = %367
+  %381 = tail call i32 @llvm.smax.i32(i32 %279, i32 %369)
+  %382 = tail call i32 @llvm.smin.i32(i32 %283, i32 %370)
+  %383 = tail call i32 @llvm.smax.i32(i32 %287, i32 %371)
+  %384 = tail call i32 @llvm.smin.i32(i32 %291, i32 %372)
+  %385 = sub nsw i32 %384, %383
+  %386 = sub nsw i32 %382, %381
+  %387 = mul nsw i32 %385, %386
+  %388 = add nsw i32 %387, %335
+  br label %389
 
-385:                                              ; preds = %363, %376
-  %386 = phi i32 [ %331, %363 ], [ %384, %376 ]
-  %387 = load ptr, ptr %330, align 8, !tbaa !29
-  %388 = icmp eq ptr %387, null
-  br i1 %388, label %213, label %328, !llvm.loop !35
+389:                                              ; preds = %367, %380
+  %390 = phi i32 [ %335, %367 ], [ %388, %380 ]
+  %391 = load ptr, ptr %334, align 8, !tbaa !29
+  %392 = icmp eq ptr %391, null
+  br i1 %392, label %217, label %332, !llvm.loop !35
 
-389:                                              ; preds = %213
-  %390 = icmp eq i32 %214, 0
-  br i1 %390, label %399, label %391
+393:                                              ; preds = %217
+  %394 = icmp eq i32 %218, 0
+  br i1 %394, label %403, label %395
 
-391:                                              ; preds = %389
-  %392 = load double, ptr @lapFactor, align 8, !tbaa !28
-  %393 = load i32, ptr @offset, align 4, !tbaa !22
-  %394 = add nsw i32 %393, %214
-  %395 = sitofp i32 %394 to double
-  %396 = fmul double %392, %395
-  %397 = fptosi double %396 to i32
-  %398 = add nsw i32 %127, %397
-  br label %399
+395:                                              ; preds = %393
+  %396 = load double, ptr @lapFactor, align 8, !tbaa !28
+  %397 = load i32, ptr @offset, align 4, !tbaa !22
+  %398 = add nsw i32 %397, %218
+  %399 = sitofp i32 %398 to double
+  %400 = fmul double %396, %399
+  %401 = fptosi double %400 to i32
+  %402 = add nsw i32 %131, %401
+  br label %403
 
-399:                                              ; preds = %210, %195, %391, %389, %176, %125
-  %400 = phi i32 [ %127, %125 ], [ %127, %176 ], [ %209, %195 ], [ %398, %391 ], [ %127, %389 ], [ %127, %210 ]
-  %401 = add nuw nsw i64 %126, 1
-  %402 = load i32, ptr %122, align 4, !tbaa !22
-  %403 = sext i32 %402 to i64
-  %404 = icmp slt i64 %126, %403
-  br i1 %404, label %125, label %405, !llvm.loop !37
+403:                                              ; preds = %214, %199, %395, %393, %180, %129
+  %404 = phi i32 [ %131, %129 ], [ %131, %180 ], [ %213, %199 ], [ %402, %395 ], [ %131, %393 ], [ %131, %214 ]
+  %405 = add nuw nsw i64 %130, 1
+  %406 = load i32, ptr %126, align 4, !tbaa !22
+  %407 = sext i32 %406 to i64
+  %408 = icmp slt i64 %130, %407
+  br i1 %408, label %129, label %409, !llvm.loop !37
 
-405:                                              ; preds = %399, %117, %111
-  %406 = phi i32 [ %113, %111 ], [ %113, %117 ], [ %400, %399 ]
-  %407 = add nuw nsw i64 %112, 1
-  %408 = icmp eq i64 %407, %104
-  br i1 %408, label %409, label %111, !llvm.loop !38
+409:                                              ; preds = %403, %121, %113
+  %410 = phi i32 [ %115, %113 ], [ %115, %121 ], [ %404, %403 ]
+  %411 = add nuw nsw i64 %114, 1
+  %412 = icmp eq i64 %411, %104
+  br i1 %412, label %413, label %113, !llvm.loop !38
 
-409:                                              ; preds = %405, %105
-  %410 = phi i32 [ %107, %105 ], [ %406, %405 ]
-  %411 = add nuw nsw i64 %106, 1
-  %412 = icmp eq i64 %411, %103
-  br i1 %412, label %413, label %105, !llvm.loop !39
+413:                                              ; preds = %409, %105
+  %414 = phi i32 [ %107, %105 ], [ %410, %409 ]
+  %415 = add nuw nsw i64 %106, 1
+  %416 = icmp eq i64 %415, %103
+  br i1 %416, label %417, label %105, !llvm.loop !39
 
-413:                                              ; preds = %409, %95, %6
-  %414 = phi i32 [ 0, %6 ], [ 0, %95 ], [ %410, %409 ]
-  ret i32 %414
+417:                                              ; preds = %413, %95, %6
+  %418 = phi i32 [ 0, %6 ], [ 0, %95 ], [ %414, %413 ]
+  ret i32 %418
 }
 
 declare i32 @wireestx(i32 noundef, i32 noundef, i32 noundef, double noundef) local_unnamed_addr #1
@@ -500,10 +506,10 @@ declare i32 @wireestx(i32 noundef, i32 noundef, i32 noundef, double noundef) loc
 declare i32 @wireesty(i32 noundef, i32 noundef, i32 noundef, double noundef) local_unnamed_addr #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #2
+declare i32 @llvm.smin.i32(i32, i32) #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #2
+declare i32 @llvm.smax.i32(i32, i32) #2
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

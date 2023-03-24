@@ -90,8 +90,8 @@ define dso_local ptr @AllocateMemory(i64 noundef %0, ptr nocapture noundef write
   store i32 2, ptr %1, align 4, !tbaa !5
   br label %48
 
-48:                                               ; preds = %42, %17, %47, %22
-  %49 = phi ptr [ %7, %22 ], [ %39, %47 ], [ %7, %17 ], [ %39, %42 ]
+48:                                               ; preds = %47, %42, %22, %17
+  %49 = phi ptr [ %7, %17 ], [ %7, %22 ], [ %39, %42 ], [ %39, %47 ]
   ret ptr %49
 }
 

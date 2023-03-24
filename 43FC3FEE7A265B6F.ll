@@ -87,7 +87,7 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
 18:                                               ; preds = %14
   %19 = add i32 %16, 1
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1, i32 noundef %19) #9
-  br label %284
+  br label %287
 
 20:                                               ; preds = %14, %11, %3
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(41288) %7, i8 0, i64 41288, i1 false)
@@ -98,7 +98,7 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
   %23 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 3
   store ptr %22, ptr %23, align 8, !tbaa !24
   %24 = icmp eq ptr %22, null
-  br i1 %24, label %284, label %25
+  br i1 %24, label %287, label %25
 
 25:                                               ; preds = %20
   %26 = tail call i32 @mkdir(ptr noundef nonnull %22, i32 noundef 448) #9
@@ -108,7 +108,7 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
 28:                                               ; preds = %25
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.2, ptr noundef nonnull %22) #9
   tail call void @free(ptr noundef nonnull %22) #9
-  br label %284
+  br label %287
 
 29:                                               ; preds = %25
   %30 = load i8, ptr @cli_leavetemps_flag, align 1, !tbaa !25
@@ -396,7 +396,7 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
 
 218:                                              ; preds = %55, %216
   %219 = phi i32 [ %56, %55 ], [ %217, %216 ]
-  switch i32 %219, label %248 [
+  switch i32 %219, label %251 [
     i32 0, label %229
     i32 -101, label %220
   ]
@@ -410,12 +410,12 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
 224:                                              ; preds = %220
   %225 = load ptr, ptr %1, align 8, !tbaa !38
   store ptr @.str.4, ptr %225, align 8, !tbaa !39
-  br label %253
+  br label %256
 
 226:                                              ; preds = %220
   %227 = load i8, ptr %45, align 1, !tbaa !33
   %228 = icmp eq i8 %227, 0
-  br i1 %228, label %248, label %253
+  br i1 %228, label %248, label %255
 
 229:                                              ; preds = %218
   %230 = load i32, ptr %37, align 8, !tbaa !26
@@ -447,83 +447,85 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
   %247 = call i32 @unlink(ptr noundef nonnull %51) #9
   br label %248
 
-248:                                              ; preds = %226, %218, %246, %240
-  %249 = phi i32 [ %241, %240 ], [ %241, %246 ], [ %219, %218 ], [ 0, %226 ]
-  %250 = freeze i32 %249
-  switch i32 %250, label %251 [
-    i32 0, label %52
-    i32 2, label %253
+248:                                              ; preds = %226, %246, %240
+  %249 = phi i32 [ 0, %226 ], [ %241, %240 ], [ %241, %246 ]
+  %250 = icmp eq i32 %249, 0
+  br i1 %250, label %52, label %251, !llvm.loop !41
+
+251:                                              ; preds = %218, %248
+  %252 = phi i32 [ %249, %248 ], [ %219, %218 ]
+  %253 = freeze i32 %252
+  %254 = icmp eq i32 %253, 2
+  br i1 %254, label %255, label %256
+
+255:                                              ; preds = %226, %251
+  br label %256
+
+256:                                              ; preds = %224, %251, %255
+  %257 = phi i32 [ 0, %255 ], [ %253, %251 ], [ 1, %224 ]
+  %258 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 14
+  %259 = load i8, ptr %258, align 2, !tbaa !42
+  %260 = icmp eq i8 %259, 0
+  br i1 %260, label %269, label %261
+
+261:                                              ; preds = %256
+  %262 = load i8, ptr %44, align 8, !tbaa !32
+  switch i8 %262, label %268 [
+    i8 1, label %263
+    i8 2, label %266
   ]
 
-251:                                              ; preds = %248
-  %252 = freeze i32 %249
-  br label %253
+263:                                              ; preds = %261
+  %264 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 8
+  %265 = call i32 @nsis_BZ2_bzDecompressEnd(ptr noundef nonnull %264) #9
+  br label %268
 
-253:                                              ; preds = %226, %248, %251, %224
-  %254 = phi i32 [ 1, %224 ], [ %252, %251 ], [ 0, %248 ], [ 0, %226 ]
-  %255 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 14
-  %256 = load i8, ptr %255, align 2, !tbaa !41
-  %257 = icmp eq i8 %256, 0
-  br i1 %257, label %266, label %258
+266:                                              ; preds = %261
+  %267 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 9
+  call void @lzmaShutdown(ptr noundef nonnull %267) #9
+  br label %268
 
-258:                                              ; preds = %253
-  %259 = load i8, ptr %44, align 8, !tbaa !32
-  switch i8 %259, label %265 [
-    i8 1, label %260
-    i8 2, label %263
-  ]
+268:                                              ; preds = %266, %263, %261
+  store i8 0, ptr %258, align 2, !tbaa !42
+  br label %269
 
-260:                                              ; preds = %258
-  %261 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 8
-  %262 = call i32 @nsis_BZ2_bzDecompressEnd(ptr noundef nonnull %261) #9
-  br label %265
+269:                                              ; preds = %268, %256
+  %270 = load i8, ptr %45, align 1, !tbaa !33
+  %271 = icmp eq i8 %270, 0
+  br i1 %271, label %277, label %272
 
-263:                                              ; preds = %258
-  %264 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 9
-  call void @lzmaShutdown(ptr noundef nonnull %264) #9
-  br label %265
+272:                                              ; preds = %269
+  %273 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 11
+  %274 = load ptr, ptr %273, align 8, !tbaa !43
+  %275 = icmp eq ptr %274, null
+  br i1 %275, label %277, label %276
 
-265:                                              ; preds = %263, %260, %258
-  store i8 0, ptr %255, align 2, !tbaa !41
-  br label %266
+276:                                              ; preds = %272
+  call void @free(ptr noundef nonnull %274) #9
+  br label %277
 
-266:                                              ; preds = %265, %253
-  %267 = load i8, ptr %45, align 1, !tbaa !33
-  %268 = icmp eq i8 %267, 0
-  br i1 %268, label %274, label %269
+277:                                              ; preds = %269, %272, %276
+  %278 = load i8, ptr @cli_leavetemps_flag, align 1, !tbaa !25
+  %279 = icmp eq i8 %278, 0
+  br i1 %279, label %280, label %283
 
-269:                                              ; preds = %266
-  %270 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 11
-  %271 = load ptr, ptr %270, align 8, !tbaa !42
-  %272 = icmp eq ptr %271, null
-  br i1 %272, label %274, label %273
-
-273:                                              ; preds = %269
-  call void @free(ptr noundef nonnull %271) #9
-  br label %274
-
-274:                                              ; preds = %266, %269, %273
-  %275 = load i8, ptr @cli_leavetemps_flag, align 1, !tbaa !25
-  %276 = icmp eq i8 %275, 0
-  br i1 %276, label %277, label %280
-
-277:                                              ; preds = %274
-  %278 = load ptr, ptr %23, align 8, !tbaa !24
-  %279 = call i32 @cli_rmdirs(ptr noundef %278) #9
-  br label %280
-
-280:                                              ; preds = %277, %274
+280:                                              ; preds = %277
   %281 = load ptr, ptr %23, align 8, !tbaa !24
-  call void @free(ptr noundef %281) #9
-  %282 = load i32, ptr %34, align 4, !tbaa !15
-  %283 = add i32 %282, -1
-  store i32 %283, ptr %34, align 4, !tbaa !15
-  br label %284
+  %282 = call i32 @cli_rmdirs(ptr noundef %281) #9
+  br label %283
 
-284:                                              ; preds = %20, %280, %28, %18
-  %285 = phi i32 [ -100, %18 ], [ -118, %28 ], [ %254, %280 ], [ -118, %20 ]
+283:                                              ; preds = %280, %277
+  %284 = load ptr, ptr %23, align 8, !tbaa !24
+  call void @free(ptr noundef %284) #9
+  %285 = load i32, ptr %34, align 4, !tbaa !15
+  %286 = add i32 %285, -1
+  store i32 %286, ptr %34, align 4, !tbaa !15
+  br label %287
+
+287:                                              ; preds = %20, %283, %28, %18
+  %288 = phi i32 [ -100, %18 ], [ -118, %28 ], [ %257, %283 ], [ -118, %20 ]
   call void @llvm.lifetime.end.p0(i64 41288, ptr nonnull %7) #9
-  ret i32 %285
+  ret i32 %288
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -566,7 +568,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #9
   call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %4) #9
   %5 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 15
-  %6 = load i8, ptr %5, align 1, !tbaa !43
+  %6 = load i8, ptr %5, align 1, !tbaa !44
   %7 = icmp eq i8 %6, 0
   br i1 %7, label %9, label %8
 
@@ -582,7 +584,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 13:                                               ; preds = %9
   %14 = getelementptr inbounds %struct.cl_limits, ptr %11, i64 0, i32 1
-  %15 = load i32, ptr %14, align 4, !tbaa !44
+  %15 = load i32, ptr %14, align 4, !tbaa !45
   %16 = icmp eq i32 %15, 0
   br i1 %16, label %22, label %17
 
@@ -659,9 +661,9 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 59:                                               ; preds = %52
-  %60 = load i32, ptr %3, align 4, !tbaa !45
+  %60 = load i32, ptr %3, align 4, !tbaa !46
   %61 = and i32 %60, 2147483647
-  store i32 %61, ptr %3, align 4, !tbaa !45
+  store i32 %61, ptr %3, align 4, !tbaa !46
   %62 = icmp eq i32 %61, 0
   br i1 %62, label %63, label %64
 
@@ -695,7 +697,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 78:                                               ; preds = %72
   %79 = getelementptr inbounds %struct.cl_limits, ptr %74, i64 0, i32 5
-  %80 = load i64, ptr %79, align 8, !tbaa !46
+  %80 = load i64, ptr %79, align 8, !tbaa !47
   %81 = icmp ne i64 %80, 0
   %82 = zext i32 %61 to i64
   %83 = icmp ult i64 %80, %82
@@ -707,7 +709,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   %86 = load i32, ptr %38, align 4, !tbaa !40
   %87 = call i32 @close(i32 noundef %86) #9
   %88 = load i32, ptr %0, align 8, !tbaa !16
-  %89 = load i32, ptr %3, align 4, !tbaa !45
+  %89 = load i32, ptr %3, align 4, !tbaa !46
   %90 = zext i32 %89 to i64
   %91 = call i64 @lseek(i32 noundef %88, i64 noundef %90, i32 noundef 1) #9
   %92 = icmp eq i64 %91, -1
@@ -728,10 +730,10 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 101:                                              ; preds = %94
   %102 = load i32, ptr %0, align 8, !tbaa !16
-  %103 = load i32, ptr %3, align 4, !tbaa !45
+  %103 = load i32, ptr %3, align 4, !tbaa !46
   %104 = call i32 @cli_readn(i32 noundef %102, ptr noundef nonnull %96, i32 noundef %103) #9
   %105 = sext i32 %104 to i64
-  %106 = load i32, ptr %3, align 4, !tbaa !45
+  %106 = load i32, ptr %3, align 4, !tbaa !46
   %107 = zext i32 %106 to i64
   %108 = icmp eq i64 %105, %107
   br i1 %108, label %112, label %109
@@ -751,7 +753,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   %115 = load i32, ptr %38, align 4, !tbaa !40
   %116 = call i32 @cli_writen(i32 noundef %115, ptr noundef nonnull %96, i32 noundef %60) #9
   %117 = sext i32 %116 to i64
-  %118 = load i32, ptr %3, align 4, !tbaa !45
+  %118 = load i32, ptr %3, align 4, !tbaa !46
   %119 = zext i32 %118 to i64
   %120 = icmp eq i64 %117, %119
   br i1 %120, label %193, label %121
@@ -764,7 +766,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 124:                                              ; preds = %112
-  %125 = call fastcc i32 @nsis_init(ptr noundef nonnull %0), !range !47
+  %125 = call fastcc i32 @nsis_init(ptr noundef nonnull %0), !range !48
   %126 = icmp eq i32 %125, 0
   br i1 %126, label %130, label %127
 
@@ -776,32 +778,32 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 130:                                              ; preds = %124
-  %131 = load i32, ptr %3, align 4, !tbaa !45
+  %131 = load i32, ptr %3, align 4, !tbaa !46
   %132 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7
-  store i32 %131, ptr %132, align 8, !tbaa !48
+  store i32 %131, ptr %132, align 8, !tbaa !49
   %133 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 1
-  store ptr %96, ptr %133, align 8, !tbaa !49
+  store ptr %96, ptr %133, align 8, !tbaa !50
   %134 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 3
-  store ptr %4, ptr %134, align 8, !tbaa !50
+  store ptr %4, ptr %134, align 8, !tbaa !51
   %135 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 2
-  store i32 8192, ptr %135, align 8, !tbaa !51
+  store i32 8192, ptr %135, align 8, !tbaa !52
   %136 = ptrtoint ptr %4 to i64
   br label %137
 
 137:                                              ; preds = %171, %130
   %138 = phi i32 [ 0, %130 ], [ %172, %171 ]
-  %139 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %139 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   switch i32 %139, label %174 [
     i32 0, label %140
     i32 2, label %177
   ]
 
 140:                                              ; preds = %137
-  %141 = load ptr, ptr %134, align 8, !tbaa !50
+  %141 = load ptr, ptr %134, align 8, !tbaa !51
   %142 = ptrtoint ptr %141 to i64
   %143 = sub i64 %142, %136
   %144 = trunc i64 %143 to i32
-  store i32 %144, ptr %3, align 4, !tbaa !45
+  store i32 %144, ptr %3, align 4, !tbaa !46
   %145 = icmp eq i32 %144, 0
   br i1 %145, label %168, label %146
 
@@ -809,7 +811,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   %147 = load i32, ptr %38, align 4, !tbaa !40
   %148 = call i32 @cli_writen(i32 noundef %147, ptr noundef nonnull %4, i32 noundef %144) #9
   %149 = sext i32 %148 to i64
-  %150 = load i32, ptr %3, align 4, !tbaa !45
+  %150 = load i32, ptr %3, align 4, !tbaa !46
   %151 = zext i32 %150 to i64
   %152 = icmp eq i64 %149, %151
   br i1 %152, label %156, label %153
@@ -822,15 +824,15 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 156:                                              ; preds = %146
-  store ptr %4, ptr %134, align 8, !tbaa !50
-  store i32 8192, ptr %135, align 8, !tbaa !51
+  store ptr %4, ptr %134, align 8, !tbaa !51
+  store i32 8192, ptr %135, align 8, !tbaa !52
   %157 = load ptr, ptr %10, align 8, !tbaa !5
   %158 = icmp eq ptr %157, null
   br i1 %158, label %171, label %159
 
 159:                                              ; preds = %156
   %160 = getelementptr inbounds %struct.cl_limits, ptr %157, i64 0, i32 5
-  %161 = load i64, ptr %160, align 8, !tbaa !46
+  %161 = load i64, ptr %160, align 8, !tbaa !47
   %162 = icmp ne i64 %161, 0
   %163 = icmp ult i64 %161, %149
   %164 = select i1 %162, i1 %163, i1 false
@@ -851,7 +853,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 171:                                              ; preds = %168, %156, %159
   %172 = phi i32 [ 0, %159 ], [ 0, %156 ], [ %169, %168 ]
-  br label %137, !llvm.loop !53
+  br label %137, !llvm.loop !54
 
 173:                                              ; preds = %168
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.21) #9
@@ -866,13 +868,13 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 177:                                              ; preds = %137, %173
   %178 = load i32, ptr %38, align 4, !tbaa !40
-  %179 = load ptr, ptr %134, align 8, !tbaa !50
+  %179 = load ptr, ptr %134, align 8, !tbaa !51
   %180 = ptrtoint ptr %179 to i64
   %181 = sub i64 %180, %136
   %182 = trunc i64 %181 to i32
   %183 = call i32 @cli_writen(i32 noundef %178, ptr noundef nonnull %4, i32 noundef %182) #9
   %184 = sext i32 %183 to i64
-  %185 = load ptr, ptr %134, align 8, !tbaa !50
+  %185 = load ptr, ptr %134, align 8, !tbaa !51
   %186 = ptrtoint ptr %185 to i64
   %187 = sub i64 %186, %136
   %188 = icmp eq i64 %187, %184
@@ -895,13 +897,13 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 194:                                              ; preds = %41
   %195 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 11
-  %196 = load ptr, ptr %195, align 8, !tbaa !42
+  %196 = load ptr, ptr %195, align 8, !tbaa !43
   %197 = icmp eq ptr %196, null
   br i1 %197, label %201, label %198
 
 198:                                              ; preds = %194
   %199 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7
-  %200 = load i32, ptr %199, align 8, !tbaa !48
+  %200 = load i32, ptr %199, align 8, !tbaa !49
   br label %248
 
 201:                                              ; preds = %194
@@ -926,24 +928,24 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 210:                                              ; preds = %201
   %211 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5
-  store i32 8, ptr %211, align 8, !tbaa !54
+  store i32 8, ptr %211, align 8, !tbaa !55
   %212 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 4
-  store i64 0, ptr %212, align 8, !tbaa !55
+  store i64 0, ptr %212, align 8, !tbaa !56
   %213 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 3
-  store i32 0, ptr %213, align 4, !tbaa !56
+  store i32 0, ptr %213, align 4, !tbaa !57
   %214 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 6
   %215 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 9
-  store ptr %214, ptr %215, align 8, !tbaa !57
+  store ptr %214, ptr %215, align 8, !tbaa !58
   %216 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 8
-  store ptr %214, ptr %216, align 8, !tbaa !58
+  store ptr %214, ptr %216, align 8, !tbaa !59
   %217 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 7
-  store ptr %217, ptr %217, align 8, !tbaa !59
+  store ptr %217, ptr %217, align 8, !tbaa !60
   br label %218
 
 218:                                              ; preds = %210, %208, %204
   %219 = phi i8 [ 1, %208 ], [ 0, %210 ], [ 1, %204 ]
   %220 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 14
-  store i8 %219, ptr %220, align 2, !tbaa !41
+  store i8 %219, ptr %220, align 2, !tbaa !42
   br label %224
 
 221:                                              ; preds = %204
@@ -957,7 +959,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   %226 = load i32, ptr %225, align 8, !tbaa !28
   %227 = zext i32 %226 to i64
   %228 = tail call ptr @cli_malloc(i64 noundef %227) #9
-  store ptr %228, ptr %195, align 8, !tbaa !42
+  store ptr %228, ptr %195, align 8, !tbaa !43
   %229 = icmp eq ptr %228, null
   br i1 %229, label %230, label %233
 
@@ -984,11 +986,11 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 244:                                              ; preds = %233
-  %245 = load ptr, ptr %195, align 8, !tbaa !42
+  %245 = load ptr, ptr %195, align 8, !tbaa !43
   %246 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7
   %247 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 1
-  store ptr %245, ptr %247, align 8, !tbaa !49
-  store i32 %238, ptr %246, align 8, !tbaa !48
+  store ptr %245, ptr %247, align 8, !tbaa !50
+  store i32 %238, ptr %246, align 8, !tbaa !49
   br label %248
 
 248:                                              ; preds = %198, %244
@@ -1004,256 +1006,256 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 254:                                              ; preds = %248
   %255 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 3
-  store ptr %4, ptr %255, align 8, !tbaa !50
+  store ptr %4, ptr %255, align 8, !tbaa !51
   %256 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 2
-  store i32 4, ptr %256, align 8, !tbaa !51
+  store i32 4, ptr %256, align 8, !tbaa !52
   %257 = ptrtoint ptr %4 to i64
-  %258 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %258 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %259 = icmp eq i32 %258, 0
   br i1 %259, label %260, label %426
 
 260:                                              ; preds = %254
-  %261 = load ptr, ptr %255, align 8, !tbaa !50
+  %261 = load ptr, ptr %255, align 8, !tbaa !51
   %262 = ptrtoint ptr %261 to i64
   %263 = sub i64 %262, %257
   %264 = icmp eq i64 %263, 4
   br i1 %264, label %429, label %265
 
 265:                                              ; preds = %260
-  %266 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %266 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %267 = icmp eq i32 %266, 0
   br i1 %267, label %268, label %426
 
 268:                                              ; preds = %265
-  %269 = load ptr, ptr %255, align 8, !tbaa !50
+  %269 = load ptr, ptr %255, align 8, !tbaa !51
   %270 = ptrtoint ptr %269 to i64
   %271 = sub i64 %270, %257
   %272 = icmp eq i64 %271, 4
   br i1 %272, label %429, label %273
 
 273:                                              ; preds = %268
-  %274 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %274 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %275 = icmp eq i32 %274, 0
   br i1 %275, label %276, label %426
 
 276:                                              ; preds = %273
-  %277 = load ptr, ptr %255, align 8, !tbaa !50
+  %277 = load ptr, ptr %255, align 8, !tbaa !51
   %278 = ptrtoint ptr %277 to i64
   %279 = sub i64 %278, %257
   %280 = icmp eq i64 %279, 4
   br i1 %280, label %429, label %281
 
 281:                                              ; preds = %276
-  %282 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %282 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %283 = icmp eq i32 %282, 0
   br i1 %283, label %284, label %426
 
 284:                                              ; preds = %281
-  %285 = load ptr, ptr %255, align 8, !tbaa !50
+  %285 = load ptr, ptr %255, align 8, !tbaa !51
   %286 = ptrtoint ptr %285 to i64
   %287 = sub i64 %286, %257
   %288 = icmp eq i64 %287, 4
   br i1 %288, label %429, label %289
 
 289:                                              ; preds = %284
-  %290 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %290 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %291 = icmp eq i32 %290, 0
   br i1 %291, label %292, label %426
 
 292:                                              ; preds = %289
-  %293 = load ptr, ptr %255, align 8, !tbaa !50
+  %293 = load ptr, ptr %255, align 8, !tbaa !51
   %294 = ptrtoint ptr %293 to i64
   %295 = sub i64 %294, %257
   %296 = icmp eq i64 %295, 4
   br i1 %296, label %429, label %297
 
 297:                                              ; preds = %292
-  %298 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %298 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %299 = icmp eq i32 %298, 0
   br i1 %299, label %300, label %426
 
 300:                                              ; preds = %297
-  %301 = load ptr, ptr %255, align 8, !tbaa !50
+  %301 = load ptr, ptr %255, align 8, !tbaa !51
   %302 = ptrtoint ptr %301 to i64
   %303 = sub i64 %302, %257
   %304 = icmp eq i64 %303, 4
   br i1 %304, label %429, label %305
 
 305:                                              ; preds = %300
-  %306 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %306 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %307 = icmp eq i32 %306, 0
   br i1 %307, label %308, label %426
 
 308:                                              ; preds = %305
-  %309 = load ptr, ptr %255, align 8, !tbaa !50
+  %309 = load ptr, ptr %255, align 8, !tbaa !51
   %310 = ptrtoint ptr %309 to i64
   %311 = sub i64 %310, %257
   %312 = icmp eq i64 %311, 4
   br i1 %312, label %429, label %313
 
 313:                                              ; preds = %308
-  %314 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %314 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %315 = icmp eq i32 %314, 0
   br i1 %315, label %316, label %426
 
 316:                                              ; preds = %313
-  %317 = load ptr, ptr %255, align 8, !tbaa !50
+  %317 = load ptr, ptr %255, align 8, !tbaa !51
   %318 = ptrtoint ptr %317 to i64
   %319 = sub i64 %318, %257
   %320 = icmp eq i64 %319, 4
   br i1 %320, label %429, label %321
 
 321:                                              ; preds = %316
-  %322 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %322 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %323 = icmp eq i32 %322, 0
   br i1 %323, label %324, label %426
 
 324:                                              ; preds = %321
-  %325 = load ptr, ptr %255, align 8, !tbaa !50
+  %325 = load ptr, ptr %255, align 8, !tbaa !51
   %326 = ptrtoint ptr %325 to i64
   %327 = sub i64 %326, %257
   %328 = icmp eq i64 %327, 4
   br i1 %328, label %429, label %329
 
 329:                                              ; preds = %324
-  %330 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %330 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %331 = icmp eq i32 %330, 0
   br i1 %331, label %332, label %426
 
 332:                                              ; preds = %329
-  %333 = load ptr, ptr %255, align 8, !tbaa !50
+  %333 = load ptr, ptr %255, align 8, !tbaa !51
   %334 = ptrtoint ptr %333 to i64
   %335 = sub i64 %334, %257
   %336 = icmp eq i64 %335, 4
   br i1 %336, label %429, label %337
 
 337:                                              ; preds = %332
-  %338 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %338 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %339 = icmp eq i32 %338, 0
   br i1 %339, label %340, label %426
 
 340:                                              ; preds = %337
-  %341 = load ptr, ptr %255, align 8, !tbaa !50
+  %341 = load ptr, ptr %255, align 8, !tbaa !51
   %342 = ptrtoint ptr %341 to i64
   %343 = sub i64 %342, %257
   %344 = icmp eq i64 %343, 4
   br i1 %344, label %429, label %345
 
 345:                                              ; preds = %340
-  %346 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %346 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %347 = icmp eq i32 %346, 0
   br i1 %347, label %348, label %426
 
 348:                                              ; preds = %345
-  %349 = load ptr, ptr %255, align 8, !tbaa !50
+  %349 = load ptr, ptr %255, align 8, !tbaa !51
   %350 = ptrtoint ptr %349 to i64
   %351 = sub i64 %350, %257
   %352 = icmp eq i64 %351, 4
   br i1 %352, label %429, label %353
 
 353:                                              ; preds = %348
-  %354 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %354 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %355 = icmp eq i32 %354, 0
   br i1 %355, label %356, label %426
 
 356:                                              ; preds = %353
-  %357 = load ptr, ptr %255, align 8, !tbaa !50
+  %357 = load ptr, ptr %255, align 8, !tbaa !51
   %358 = ptrtoint ptr %357 to i64
   %359 = sub i64 %358, %257
   %360 = icmp eq i64 %359, 4
   br i1 %360, label %429, label %361
 
 361:                                              ; preds = %356
-  %362 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %362 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %363 = icmp eq i32 %362, 0
   br i1 %363, label %364, label %426
 
 364:                                              ; preds = %361
-  %365 = load ptr, ptr %255, align 8, !tbaa !50
+  %365 = load ptr, ptr %255, align 8, !tbaa !51
   %366 = ptrtoint ptr %365 to i64
   %367 = sub i64 %366, %257
   %368 = icmp eq i64 %367, 4
   br i1 %368, label %429, label %369
 
 369:                                              ; preds = %364
-  %370 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %370 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %371 = icmp eq i32 %370, 0
   br i1 %371, label %372, label %426
 
 372:                                              ; preds = %369
-  %373 = load ptr, ptr %255, align 8, !tbaa !50
+  %373 = load ptr, ptr %255, align 8, !tbaa !51
   %374 = ptrtoint ptr %373 to i64
   %375 = sub i64 %374, %257
   %376 = icmp eq i64 %375, 4
   br i1 %376, label %429, label %377
 
 377:                                              ; preds = %372
-  %378 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %378 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %379 = icmp eq i32 %378, 0
   br i1 %379, label %380, label %426
 
 380:                                              ; preds = %377
-  %381 = load ptr, ptr %255, align 8, !tbaa !50
+  %381 = load ptr, ptr %255, align 8, !tbaa !51
   %382 = ptrtoint ptr %381 to i64
   %383 = sub i64 %382, %257
   %384 = icmp eq i64 %383, 4
   br i1 %384, label %429, label %385
 
 385:                                              ; preds = %380
-  %386 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %386 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %387 = icmp eq i32 %386, 0
   br i1 %387, label %388, label %426
 
 388:                                              ; preds = %385
-  %389 = load ptr, ptr %255, align 8, !tbaa !50
+  %389 = load ptr, ptr %255, align 8, !tbaa !51
   %390 = ptrtoint ptr %389 to i64
   %391 = sub i64 %390, %257
   %392 = icmp eq i64 %391, 4
   br i1 %392, label %429, label %393
 
 393:                                              ; preds = %388
-  %394 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %394 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %395 = icmp eq i32 %394, 0
   br i1 %395, label %396, label %426
 
 396:                                              ; preds = %393
-  %397 = load ptr, ptr %255, align 8, !tbaa !50
+  %397 = load ptr, ptr %255, align 8, !tbaa !51
   %398 = ptrtoint ptr %397 to i64
   %399 = sub i64 %398, %257
   %400 = icmp eq i64 %399, 4
   br i1 %400, label %429, label %401
 
 401:                                              ; preds = %396
-  %402 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %402 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %403 = icmp eq i32 %402, 0
   br i1 %403, label %404, label %426
 
 404:                                              ; preds = %401
-  %405 = load ptr, ptr %255, align 8, !tbaa !50
+  %405 = load ptr, ptr %255, align 8, !tbaa !51
   %406 = ptrtoint ptr %405 to i64
   %407 = sub i64 %406, %257
   %408 = icmp eq i64 %407, 4
   br i1 %408, label %429, label %409
 
 409:                                              ; preds = %404
-  %410 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %410 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %411 = icmp eq i32 %410, 0
   br i1 %411, label %412, label %426
 
 412:                                              ; preds = %409
-  %413 = load ptr, ptr %255, align 8, !tbaa !50
+  %413 = load ptr, ptr %255, align 8, !tbaa !51
   %414 = ptrtoint ptr %413 to i64
   %415 = sub i64 %414, %257
   %416 = icmp eq i64 %415, 4
   br i1 %416, label %429, label %417
 
 417:                                              ; preds = %412
-  %418 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %418 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   %419 = icmp eq i32 %418, 0
   br i1 %419, label %420, label %426
 
 420:                                              ; preds = %417
-  %421 = load ptr, ptr %255, align 8, !tbaa !50
+  %421 = load ptr, ptr %255, align 8, !tbaa !51
   %422 = ptrtoint ptr %421 to i64
   %423 = sub i64 %422, %257
   %424 = icmp eq i64 %423, 4
@@ -1271,14 +1273,14 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 429:                                              ; preds = %420, %412, %404, %396, %388, %380, %372, %364, %356, %348, %340, %332, %324, %316, %308, %300, %292, %284, %276, %268, %260
   %430 = load i32, ptr %4, align 16
-  store i32 %430, ptr %3, align 4, !tbaa !45
+  store i32 %430, ptr %3, align 4, !tbaa !46
   %431 = load ptr, ptr %10, align 8, !tbaa !5
   %432 = icmp eq ptr %431, null
   br i1 %432, label %443, label %433
 
 433:                                              ; preds = %429
   %434 = getelementptr inbounds %struct.cl_limits, ptr %431, i64 0, i32 5
-  %435 = load i64, ptr %434, align 8, !tbaa !46
+  %435 = load i64, ptr %434, align 8, !tbaa !47
   %436 = icmp ne i64 %435, 0
   %437 = zext i32 %430 to i64
   %438 = icmp ult i64 %435, %437
@@ -1292,22 +1294,22 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 443:                                              ; preds = %433, %429
-  store ptr %4, ptr %255, align 8, !tbaa !50
+  store ptr %4, ptr %255, align 8, !tbaa !51
   %444 = call i32 @llvm.umin.i32(i32 %430, i32 8192)
-  store i32 %444, ptr %256, align 8, !tbaa !51
+  store i32 %444, ptr %256, align 8, !tbaa !52
   %445 = icmp eq i32 %430, 0
   br i1 %445, label %497, label %446
 
 446:                                              ; preds = %443, %474
   %447 = phi i32 [ %476, %474 ], [ 0, %443 ]
-  %448 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !52
+  %448 = call fastcc i32 @nsis_decomp(ptr noundef nonnull %0), !range !53
   switch i32 %448, label %494 [
     i32 0, label %449
     i32 2, label %478
   ]
 
 449:                                              ; preds = %446
-  %450 = load ptr, ptr %255, align 8, !tbaa !50
+  %450 = load ptr, ptr %255, align 8, !tbaa !51
   %451 = ptrtoint ptr %450 to i64
   %452 = sub i64 %451, %257
   %453 = trunc i64 %452 to i32
@@ -1328,12 +1330,12 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 464:                                              ; preds = %455
-  %465 = load i32, ptr %3, align 4, !tbaa !45
+  %465 = load i32, ptr %3, align 4, !tbaa !46
   %466 = sub i32 %465, %453
-  store i32 %466, ptr %3, align 4, !tbaa !45
-  store ptr %4, ptr %255, align 8, !tbaa !50
+  store i32 %466, ptr %3, align 4, !tbaa !46
+  store ptr %4, ptr %255, align 8, !tbaa !51
   %467 = call i32 @llvm.umin.i32(i32 %466, i32 8192)
-  store i32 %467, ptr %256, align 8, !tbaa !51
+  store i32 %467, ptr %256, align 8, !tbaa !52
   br label %474
 
 468:                                              ; preds = %449
@@ -1342,7 +1344,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br i1 %470, label %473, label %471
 
 471:                                              ; preds = %468
-  %472 = load i32, ptr %3, align 4, !tbaa !45
+  %472 = load i32, ptr %3, align 4, !tbaa !46
   br label %474
 
 473:                                              ; preds = %468
@@ -1357,13 +1359,13 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
 
 478:                                              ; preds = %446, %473
   %479 = load i32, ptr %38, align 4, !tbaa !40
-  %480 = load ptr, ptr %255, align 8, !tbaa !50
+  %480 = load ptr, ptr %255, align 8, !tbaa !51
   %481 = ptrtoint ptr %480 to i64
   %482 = sub i64 %481, %257
   %483 = trunc i64 %482 to i32
   %484 = call i32 @cli_writen(i32 noundef %479, ptr noundef nonnull %4, i32 noundef %483) #9
   %485 = sext i32 %484 to i64
-  %486 = load ptr, ptr %255, align 8, !tbaa !50
+  %486 = load ptr, ptr %255, align 8, !tbaa !51
   %487 = ptrtoint ptr %486 to i64
   %488 = sub i64 %487, %257
   %489 = icmp eq i64 %488, %485
@@ -1375,7 +1377,7 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   br label %497
 
 493:                                              ; preds = %478
-  store i8 1, ptr %5, align 1, !tbaa !43
+  store i8 1, ptr %5, align 1, !tbaa !44
   br label %497
 
 494:                                              ; preds = %446
@@ -1384,8 +1386,8 @@ define internal fastcc i32 @nsis_unpack_next(ptr noundef %0, ptr nocapture nound
   %496 = call i32 @close(i32 noundef %495) #9
   br label %497
 
-497:                                              ; preds = %474, %443, %461, %493, %85, %494, %490, %440, %426, %251, %241, %230, %221, %193, %189, %174, %165, %153, %127, %121, %109, %98, %69, %63, %56, %49, %40, %21, %8
-  %498 = phi i32 [ 2, %8 ], [ -102, %21 ], [ -123, %40 ], [ 2, %251 ], [ -124, %426 ], [ -124, %440 ], [ -123, %490 ], [ -124, %494 ], [ -106, %221 ], [ -123, %241 ], [ -114, %230 ], [ 2, %49 ], [ 2, %56 ], [ 2, %69 ], [ -123, %109 ], [ -123, %121 ], [ 0, %193 ], [ %125, %127 ], [ -123, %153 ], [ -101, %165 ], [ -124, %174 ], [ -123, %189 ], [ -114, %98 ], [ 0, %63 ], [ %93, %85 ], [ 0, %493 ], [ -123, %461 ], [ 0, %443 ], [ 0, %474 ]
+497:                                              ; preds = %474, %443, %85, %493, %461, %494, %490, %440, %426, %251, %241, %230, %221, %193, %189, %174, %165, %153, %127, %121, %109, %98, %69, %63, %56, %49, %40, %21, %8
+  %498 = phi i32 [ 2, %8 ], [ -102, %21 ], [ -123, %40 ], [ 2, %251 ], [ -124, %426 ], [ -124, %440 ], [ -123, %490 ], [ -124, %494 ], [ -106, %221 ], [ -123, %241 ], [ -114, %230 ], [ 2, %49 ], [ 2, %56 ], [ 2, %69 ], [ -123, %109 ], [ -123, %121 ], [ 0, %193 ], [ %125, %127 ], [ -123, %153 ], [ -101, %165 ], [ -124, %174 ], [ -123, %189 ], [ -114, %98 ], [ 0, %63 ], [ -123, %461 ], [ 0, %493 ], [ %93, %85 ], [ 0, %443 ], [ 0, %474 ]
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %4) #9
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #9
   ret i32 %498
@@ -1428,24 +1430,24 @@ define internal fastcc i32 @nsis_init(ptr noundef %0) unnamed_addr #0 {
 
 10:                                               ; preds = %1
   %11 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5
-  store i32 8, ptr %11, align 8, !tbaa !54
+  store i32 8, ptr %11, align 8, !tbaa !55
   %12 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 4
-  store i64 0, ptr %12, align 8, !tbaa !55
+  store i64 0, ptr %12, align 8, !tbaa !56
   %13 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 3
-  store i32 0, ptr %13, align 4, !tbaa !56
+  store i32 0, ptr %13, align 4, !tbaa !57
   %14 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 6
   %15 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 9
-  store ptr %14, ptr %15, align 8, !tbaa !57
+  store ptr %14, ptr %15, align 8, !tbaa !58
   %16 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 8
-  store ptr %14, ptr %16, align 8, !tbaa !58
+  store ptr %14, ptr %16, align 8, !tbaa !59
   %17 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 5, i32 7
-  store ptr %17, ptr %17, align 8, !tbaa !59
+  store ptr %17, ptr %17, align 8, !tbaa !60
   br label %18
 
 18:                                               ; preds = %4, %10, %8
   %19 = phi i8 [ 1, %8 ], [ 0, %10 ], [ 1, %4 ]
   %20 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 14
-  store i8 %19, ptr %20, align 2, !tbaa !41
+  store i8 %19, ptr %20, align 2, !tbaa !42
   br label %21
 
 21:                                               ; preds = %18, %1, %4
@@ -1465,64 +1467,64 @@ define internal fastcc i32 @nsis_decomp(ptr noundef %0) unnamed_addr #0 {
 
 4:                                                ; preds = %1
   %5 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7
-  %6 = load i32, ptr %5, align 8, !tbaa !48
+  %6 = load i32, ptr %5, align 8, !tbaa !49
   %7 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 8
   %8 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 8, i32 1
-  store i32 %6, ptr %8, align 8, !tbaa !60
+  store i32 %6, ptr %8, align 8, !tbaa !61
   %9 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !49
-  store ptr %10, ptr %7, align 8, !tbaa !61
+  %10 = load ptr, ptr %9, align 8, !tbaa !50
+  store ptr %10, ptr %7, align 8, !tbaa !62
   %11 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 2
-  %12 = load i32, ptr %11, align 8, !tbaa !51
+  %12 = load i32, ptr %11, align 8, !tbaa !52
   %13 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 8, i32 5
-  store i32 %12, ptr %13, align 8, !tbaa !62
+  store i32 %12, ptr %13, align 8, !tbaa !63
   %14 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !50
+  %15 = load ptr, ptr %14, align 8, !tbaa !51
   %16 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 8, i32 4
-  store ptr %15, ptr %16, align 8, !tbaa !63
+  store ptr %15, ptr %16, align 8, !tbaa !64
   %17 = tail call i32 @nsis_BZ2_bzDecompress(ptr noundef nonnull %7) #9
   %18 = icmp eq i32 %17, 4
   br label %50
 
 19:                                               ; preds = %1
   %20 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7
-  %21 = load i32, ptr %20, align 8, !tbaa !48
+  %21 = load i32, ptr %20, align 8, !tbaa !49
   %22 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 9
   %23 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 9, i32 7
-  store i32 %21, ptr %23, align 8, !tbaa !64
+  store i32 %21, ptr %23, align 8, !tbaa !65
   %24 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !49
+  %25 = load ptr, ptr %24, align 8, !tbaa !50
   %26 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 9, i32 6
-  store ptr %25, ptr %26, align 8, !tbaa !65
+  store ptr %25, ptr %26, align 8, !tbaa !66
   %27 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 2
-  %28 = load i32, ptr %27, align 8, !tbaa !51
+  %28 = load i32, ptr %27, align 8, !tbaa !52
   %29 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 9, i32 9
-  store i32 %28, ptr %29, align 8, !tbaa !66
+  store i32 %28, ptr %29, align 8, !tbaa !67
   %30 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 3
-  %31 = load ptr, ptr %30, align 8, !tbaa !50
+  %31 = load ptr, ptr %30, align 8, !tbaa !51
   %32 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 9, i32 8
-  store ptr %31, ptr %32, align 8, !tbaa !67
+  store ptr %31, ptr %32, align 8, !tbaa !68
   %33 = tail call i32 @lzmaDecode(ptr noundef nonnull %22) #9
   %34 = icmp eq i32 %33, 1
   br label %50
 
 35:                                               ; preds = %1
   %36 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7
-  %37 = load i32, ptr %36, align 8, !tbaa !48
+  %37 = load i32, ptr %36, align 8, !tbaa !49
   %38 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10
   %39 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 1
-  store i32 %37, ptr %39, align 8, !tbaa !68
+  store i32 %37, ptr %39, align 8, !tbaa !69
   %40 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 1
-  %41 = load ptr, ptr %40, align 8, !tbaa !49
-  store ptr %41, ptr %38, align 8, !tbaa !69
+  %41 = load ptr, ptr %40, align 8, !tbaa !50
+  store ptr %41, ptr %38, align 8, !tbaa !70
   %42 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 2
-  %43 = load i32, ptr %42, align 8, !tbaa !51
+  %43 = load i32, ptr %42, align 8, !tbaa !52
   %44 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 4
-  store i32 %43, ptr %44, align 8, !tbaa !70
+  store i32 %43, ptr %44, align 8, !tbaa !71
   %45 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 7, i32 3
-  %46 = load ptr, ptr %45, align 8, !tbaa !50
+  %46 = load ptr, ptr %45, align 8, !tbaa !51
   %47 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 10, i32 3
-  store ptr %46, ptr %47, align 8, !tbaa !71
+  store ptr %46, ptr %47, align 8, !tbaa !72
   %48 = tail call i32 @nsis_inflate(ptr noundef nonnull %38) #9
   %49 = icmp eq i32 %48, 1
   br label %50
@@ -1541,14 +1543,14 @@ define internal fastcc i32 @nsis_decomp(ptr noundef %0) unnamed_addr #0 {
   %61 = select i1 %51, i32 2, i32 -124
   %62 = icmp eq i32 %52, 0
   %63 = select i1 %62, i32 0, i32 %61
-  %64 = load i32, ptr %53, align 8, !tbaa !45
-  store i32 %64, ptr %54, align 8, !tbaa !48
+  %64 = load i32, ptr %53, align 8, !tbaa !46
+  store i32 %64, ptr %54, align 8, !tbaa !49
   %65 = load ptr, ptr %55, align 8, !tbaa !39
-  store ptr %65, ptr %56, align 8, !tbaa !49
-  %66 = load i32, ptr %57, align 8, !tbaa !45
-  store i32 %66, ptr %58, align 8, !tbaa !51
+  store ptr %65, ptr %56, align 8, !tbaa !50
+  %66 = load i32, ptr %57, align 8, !tbaa !46
+  store i32 %66, ptr %58, align 8, !tbaa !52
   %67 = load ptr, ptr %59, align 8, !tbaa !39
-  store ptr %67, ptr %60, align 8, !tbaa !50
+  store ptr %67, ptr %60, align 8, !tbaa !51
   br label %68
 
 68:                                               ; preds = %50, %1
@@ -1559,7 +1561,7 @@ define internal fastcc i32 @nsis_decomp(ptr noundef %0) unnamed_addr #0 {
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @nsis_shutdown(ptr noundef %0) unnamed_addr #0 {
   %2 = getelementptr inbounds %struct.nsis_st, ptr %0, i64 0, i32 14
-  %3 = load i8, ptr %2, align 2, !tbaa !41
+  %3 = load i8, ptr %2, align 2, !tbaa !42
   %4 = icmp eq i8 %3, 0
   br i1 %4, label %14, label %5
 
@@ -1582,7 +1584,7 @@ define internal fastcc void @nsis_shutdown(ptr noundef %0) unnamed_addr #0 {
   br label %13
 
 13:                                               ; preds = %5, %11, %8
-  store i8 0, ptr %2, align 2, !tbaa !41
+  store i8 0, ptr %2, align 2, !tbaa !42
   br label %14
 
 14:                                               ; preds = %1, %13
@@ -1664,34 +1666,35 @@ attributes #9 = { nounwind }
 !38 = !{!6, !7, i64 0}
 !39 = !{!7, !7, i64 0}
 !40 = !{!17, !10, i64 4}
-!41 = !{!17, !8, i64 40258}
-!42 = !{!17, !7, i64 40248}
-!43 = !{!17, !8, i64 40259}
-!44 = !{!12, !10, i64 4}
-!45 = !{!10, !10, i64 0}
-!46 = !{!12, !14, i64 24}
-!47 = !{i32 -106, i32 1}
-!48 = !{!17, !10, i64 40}
-!49 = !{!17, !7, i64 48}
-!50 = !{!17, !7, i64 64}
-!51 = !{!17, !10, i64 56}
-!52 = !{i32 -124, i32 3}
-!53 = distinct !{!53, !35}
-!54 = !{!17, !8, i64 360}
-!55 = !{!17, !14, i64 1680}
-!56 = !{!17, !10, i64 1676}
-!57 = !{!17, !7, i64 40232}
-!58 = !{!17, !7, i64 40224}
-!59 = !{!17, !7, i64 40216}
-!60 = !{!17, !10, i64 80}
-!61 = !{!17, !7, i64 72}
-!62 = !{!17, !10, i64 104}
-!63 = !{!17, !7, i64 96}
-!64 = !{!17, !10, i64 184}
-!65 = !{!17, !7, i64 176}
-!66 = !{!17, !10, i64 200}
-!67 = !{!17, !7, i64 192}
-!68 = !{!17, !10, i64 328}
-!69 = !{!17, !7, i64 320}
-!70 = !{!17, !10, i64 352}
-!71 = !{!17, !7, i64 344}
+!41 = distinct !{!41, !35}
+!42 = !{!17, !8, i64 40258}
+!43 = !{!17, !7, i64 40248}
+!44 = !{!17, !8, i64 40259}
+!45 = !{!12, !10, i64 4}
+!46 = !{!10, !10, i64 0}
+!47 = !{!12, !14, i64 24}
+!48 = !{i32 -106, i32 1}
+!49 = !{!17, !10, i64 40}
+!50 = !{!17, !7, i64 48}
+!51 = !{!17, !7, i64 64}
+!52 = !{!17, !10, i64 56}
+!53 = !{i32 -124, i32 3}
+!54 = distinct !{!54, !35}
+!55 = !{!17, !8, i64 360}
+!56 = !{!17, !14, i64 1680}
+!57 = !{!17, !10, i64 1676}
+!58 = !{!17, !7, i64 40232}
+!59 = !{!17, !7, i64 40224}
+!60 = !{!17, !7, i64 40216}
+!61 = !{!17, !10, i64 80}
+!62 = !{!17, !7, i64 72}
+!63 = !{!17, !10, i64 104}
+!64 = !{!17, !7, i64 96}
+!65 = !{!17, !10, i64 184}
+!66 = !{!17, !7, i64 176}
+!67 = !{!17, !10, i64 200}
+!68 = !{!17, !7, i64 192}
+!69 = !{!17, !10, i64 328}
+!70 = !{!17, !7, i64 320}
+!71 = !{!17, !10, i64 352}
+!72 = !{!17, !7, i64 344}

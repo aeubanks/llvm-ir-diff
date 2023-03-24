@@ -138,23 +138,23 @@ define dso_local void @ADD_TO_RECORD(ptr nocapture noundef readonly %0, ptr noca
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
   br label %33
 
-33:                                               ; preds = %29, %25
-  %34 = phi i32 [ %19, %29 ], [ %28, %25 ]
-  %35 = phi i32 [ %32, %29 ], [ %27, %25 ]
+33:                                               ; preds = %25, %29
+  %34 = phi i32 [ %28, %25 ], [ %19, %29 ]
+  %35 = phi i32 [ %27, %25 ], [ %32, %29 ]
   %36 = add nsw i32 %35, %8
   %37 = icmp sgt i32 %36, %34
   br i1 %37, label %44, label %38
 
-38:                                               ; preds = %5, %33
-  %39 = phi i32 [ %9, %5 ], [ %36, %33 ]
-  %40 = phi i32 [ %6, %5 ], [ %35, %33 ]
+38:                                               ; preds = %33, %5
+  %39 = phi i32 [ %36, %33 ], [ %9, %5 ]
+  %40 = phi i32 [ %35, %33 ], [ %6, %5 ]
   %41 = sext i32 %40 to i64
   %42 = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %41
   %43 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %42, ptr noundef nonnull dereferenceable(1) %0) #8
   store i32 %39, ptr @NEXT_COL, align 4, !tbaa !5
   br label %46
 
-44:                                               ; preds = %2, %33
+44:                                               ; preds = %33, %2
   %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   br label %46
 
@@ -230,7 +230,7 @@ define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32
   %8 = load i32, ptr @MAX_SIZE, align 4
   %9 = icmp slt i32 %8, %5
   %10 = select i1 %7, i1 true, i1 %9
-  br i1 %10, label %60, label %11
+  br i1 %10, label %59, label %11
 
 11:                                               ; preds = %3
   %12 = load i32, ptr @LOCATION, align 4, !tbaa !5
@@ -272,7 +272,7 @@ define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32
   %32 = phi i32 [ %13, %11 ], [ %28, %26 ]
   %33 = add nsw i32 %32, %5
   %34 = icmp sgt i32 %33, %31
-  br i1 %34, label %35, label %54
+  br i1 %34, label %35, label %53
 
 35:                                               ; preds = %29
   %36 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
@@ -290,7 +290,7 @@ define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32
   %44 = load i32, ptr @LOCATION, align 4, !tbaa !5
   br label %45
 
-45:                                               ; preds = %35, %38
+45:                                               ; preds = %38, %35
   %46 = phi i32 [ %44, %38 ], [ %30, %35 ]
   %47 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
   %48 = lshr i64 %47, 1
@@ -304,23 +304,22 @@ define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32
   %52 = trunc i64 %51 to i32
   store i32 %52, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %53 = add nsw i32 %52, %5
-  br label %54
+  br label %53
 
-54:                                               ; preds = %45, %29
-  %55 = phi i32 [ %53, %45 ], [ %33, %29 ]
-  %56 = phi i32 [ %52, %45 ], [ %32, %29 ]
-  %57 = sext i32 %56 to i64
-  %58 = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %57
-  %59 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %58, ptr noundef nonnull dereferenceable(1) %0) #8
-  store i32 %55, ptr @NEXT_COL, align 4, !tbaa !5
-  br label %62
+53:                                               ; preds = %29, %45
+  %54 = phi i32 [ %32, %29 ], [ %52, %45 ]
+  %55 = sext i32 %54 to i64
+  %56 = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %55
+  %57 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %56, ptr noundef nonnull dereferenceable(1) %0) #8
+  %58 = add nsw i32 %54, %5
+  store i32 %58, ptr @NEXT_COL, align 4, !tbaa !5
+  br label %61
 
-60:                                               ; preds = %3
-  %61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %62
+59:                                               ; preds = %3
+  %60 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  br label %61
 
-62:                                               ; preds = %60, %54
+61:                                               ; preds = %59, %53
   ret void
 }
 

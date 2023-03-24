@@ -47,11 +47,11 @@ define dso_local void @process_arg(ptr noundef %0, i32 noundef %1, ptr nocapture
 10:                                               ; preds = %3
   %11 = load i8, ptr %8, align 1, !tbaa !13
   %12 = sext i8 %11 to i32
-  switch i8 %11, label %29 [
-    i8 102, label %13
-    i8 70, label %13
-    i8 84, label %18
-    i8 43, label %24
+  switch i32 %12, label %29 [
+    i32 102, label %13
+    i32 70, label %13
+    i32 84, label %18
+    i32 43, label %24
   ]
 
 13:                                               ; preds = %10, %10

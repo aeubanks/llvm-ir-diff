@@ -891,7 +891,7 @@ define dso_local void @REAL_CODE(ptr nocapture noundef readonly %0, i32 noundef 
 386:                                              ; preds = %272, %121
   %387 = phi i32 [ %385, %272 ], [ %122, %121 ]
   %388 = icmp eq i32 %387, 2
-  br i1 %388, label %389, label %1422
+  br i1 %388, label %389, label %1416
 
 389:                                              ; preds = %386
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %17) #16
@@ -1199,7 +1199,7 @@ define dso_local void @REAL_CODE(ptr nocapture noundef readonly %0, i32 noundef 
   %658 = call i32 @fputs(ptr nonnull %12, ptr %6)
   call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %12, i32 noundef %3, ptr noundef %5) #16
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #16
-  br label %1421
+  br label %1415
 
 659:                                              ; preds = %440
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #16
@@ -1376,7 +1376,7 @@ define dso_local void @REAL_CODE(ptr nocapture noundef readonly %0, i32 noundef 
   %822 = call i32 @fputc(i32 32, ptr %6)
   %823 = call i32 @fputc(i32 32, ptr %6)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #16
-  br label %1421
+  br label %1415
 
 824:                                              ; preds = %413
   %825 = load ptr, ptr %15, align 8, !tbaa !5
@@ -1818,324 +1818,319 @@ define dso_local void @REAL_CODE(ptr nocapture noundef readonly %0, i32 noundef 
   call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %10, i32 noundef %3, ptr noundef %5) #16
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #16
   call void @llvm.lifetime.end.p0(i64 9, ptr nonnull %18) #16
-  br label %1408
+  br label %1402
 
 1172:                                             ; preds = %920
   %1173 = load i32, ptr %17, align 4, !tbaa !12
-  %1174 = icmp eq i32 %1173, 3
-  br i1 %1174, label %1175, label %1177
+  switch i32 %1173, label %1182 [
+    i32 3, label %1174
+    i32 2, label %1177
+  ]
 
-1175:                                             ; preds = %1172
+1174:                                             ; preds = %1172
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef nonnull @.str.17) #16
   store i32 1, ptr %7, align 4, !tbaa !12
-  %1176 = load i32, ptr %17, align 4, !tbaa !12
-  br label %1177
+  %1175 = load i32, ptr %17, align 4, !tbaa !12
+  %1176 = icmp eq i32 %1175, 2
+  br i1 %1176, label %1177, label %1193
 
-1177:                                             ; preds = %1175, %1172
-  %1178 = phi i32 [ %1176, %1175 ], [ %1173, %1172 ]
-  %1179 = phi i32 [ 0, %1175 ], [ %891, %1172 ]
-  %1180 = icmp eq i32 %1178, 2
-  %1181 = add nsw i32 %3, 3
-  %1182 = select i1 %1180, i32 %1181, i32 0
-  %1183 = sub nsw i32 %1179, %1182
-  %1184 = icmp sgt i32 %1183, 2047
-  %1185 = select i1 %1180, i1 %1184, i1 false
-  br i1 %1185, label %1197, label %1186
+1177:                                             ; preds = %1172, %1174
+  %1178 = phi i32 [ 0, %1174 ], [ %891, %1172 ]
+  %1179 = sub i32 %1178, %3
+  %1180 = add i32 %1179, -3
+  %1181 = icmp sgt i32 %1180, 2047
+  br i1 %1181, label %1191, label %1184
 
-1186:                                             ; preds = %1177
-  %1187 = icmp ne i32 %1178, 2
-  %1188 = icmp sgt i32 %1183, 4095
-  %1189 = select i1 %1187, i1 %1188, i1 false
-  br i1 %1189, label %1197, label %1190
+1182:                                             ; preds = %1172
+  %1183 = icmp sgt i32 %891, 4095
+  br i1 %1183, label %1191, label %1184
 
-1190:                                             ; preds = %1186
-  %1191 = icmp slt i32 %1183, 0
-  br i1 %1191, label %1192, label %1199
+1184:                                             ; preds = %1177, %1182
+  %1185 = phi ptr [ @.str.19, %1182 ], [ @.str.18, %1177 ]
+  %1186 = phi i32 [ %891, %1182 ], [ %1180, %1177 ]
+  %1187 = icmp slt i32 %1186, 0
+  br i1 %1187, label %1188, label %1193
 
-1192:                                             ; preds = %1190
-  %1193 = add nsw i32 %1183, 4096
-  %1194 = icmp ult i32 %1183, -2048
-  br i1 %1194, label %1195, label %1199
+1188:                                             ; preds = %1184
+  %1189 = add nsw i32 %1186, 4096
+  %1190 = icmp ult i32 %1186, -2048
+  br i1 %1190, label %1191, label %1193
 
-1195:                                             ; preds = %1192
-  %1196 = select i1 %1180, ptr @.str.18, ptr @.str.19
-  br label %1197
-
-1197:                                             ; preds = %1177, %1186, %1195
-  %1198 = phi ptr [ %1196, %1195 ], [ @.str.18, %1177 ], [ @.str.19, %1186 ]
-  call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef nonnull %1198) #16
+1191:                                             ; preds = %1188, %1177, %1182
+  %1192 = phi ptr [ @.str.18, %1177 ], [ @.str.19, %1182 ], [ %1185, %1188 ]
+  call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef nonnull %1192) #16
   store i32 1, ptr %7, align 4, !tbaa !12
-  br label %1199
+  br label %1193
 
-1199:                                             ; preds = %1197, %1192, %1190
-  %1200 = phi i32 [ %1193, %1192 ], [ %1183, %1190 ], [ 0, %1197 ]
-  %1201 = call double @ldexp(double 1.000000e+00, i32 11) #16
-  %1202 = fptosi double %1201 to i32
-  %1203 = icmp sgt i32 %1202, 0
-  br i1 %1203, label %1204, label %1219
+1193:                                             ; preds = %1191, %1174, %1188, %1184
+  %1194 = phi i32 [ %1189, %1188 ], [ %1186, %1184 ], [ 0, %1174 ], [ 0, %1191 ]
+  %1195 = call double @ldexp(double 1.000000e+00, i32 11) #16
+  %1196 = fptosi double %1195 to i32
+  %1197 = icmp sgt i32 %1196, 0
+  br i1 %1197, label %1198, label %1213
 
-1204:                                             ; preds = %1199, %1204
-  %1205 = phi i64 [ %1216, %1204 ], [ 23, %1199 ]
-  %1206 = phi i32 [ %1208, %1204 ], [ %1200, %1199 ]
-  %1207 = phi i32 [ %1217, %1204 ], [ %1202, %1199 ]
-  %1208 = sdiv i32 %1206, 2
-  %1209 = shl i32 %1208, 25
-  %1210 = shl i32 %1206, 24
-  %1211 = sub i32 %1210, %1209
-  %1212 = lshr exact i32 %1211, 24
-  %1213 = trunc i32 %1212 to i8
-  %1214 = add i8 %1213, 48
-  %1215 = getelementptr inbounds i8, ptr %16, i64 %1205
-  store i8 %1214, ptr %1215, align 1, !tbaa !11
-  %1216 = add nsw i64 %1205, -1
-  %1217 = lshr i32 %1207, 1
-  %1218 = icmp ult i32 %1207, 2
-  br i1 %1218, label %1219, label %1204, !llvm.loop !15
+1198:                                             ; preds = %1193, %1198
+  %1199 = phi i64 [ %1210, %1198 ], [ 23, %1193 ]
+  %1200 = phi i32 [ %1202, %1198 ], [ %1194, %1193 ]
+  %1201 = phi i32 [ %1211, %1198 ], [ %1196, %1193 ]
+  %1202 = sdiv i32 %1200, 2
+  %1203 = shl i32 %1202, 25
+  %1204 = shl i32 %1200, 24
+  %1205 = sub i32 %1204, %1203
+  %1206 = lshr exact i32 %1205, 24
+  %1207 = trunc i32 %1206 to i8
+  %1208 = add i8 %1207, 48
+  %1209 = getelementptr inbounds i8, ptr %16, i64 %1199
+  store i8 %1208, ptr %1209, align 1, !tbaa !11
+  %1210 = add nsw i64 %1199, -1
+  %1211 = lshr i32 %1201, 1
+  %1212 = icmp ult i32 %1201, 2
+  br i1 %1212, label %1213, label %1198, !llvm.loop !15
 
-1219:                                             ; preds = %1204, %1199
-  %1220 = phi i32 [ %1200, %1199 ], [ %1208, %1204 ]
-  %1221 = icmp eq i32 %1220, 0
-  br i1 %1221, label %1224, label %1222
+1213:                                             ; preds = %1198, %1193
+  %1214 = phi i32 [ %1194, %1193 ], [ %1202, %1198 ]
+  %1215 = icmp eq i32 %1214, 0
+  br i1 %1215, label %1218, label %1216
 
-1222:                                             ; preds = %1219
-  %1223 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %1224
+1216:                                             ; preds = %1213
+  %1217 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %1218
 
-1224:                                             ; preds = %1219, %1222
-  %1225 = load i32, ptr %17, align 4, !tbaa !12
-  %1226 = icmp eq i32 %1225, 2
-  br i1 %1226, label %1227, label %1243
+1218:                                             ; preds = %1213, %1216
+  %1219 = load i32, ptr %17, align 4, !tbaa !12
+  %1220 = icmp eq i32 %1219, 2
+  br i1 %1220, label %1221, label %1237
 
-1227:                                             ; preds = %1224
-  %1228 = call double @ldexp(double 1.000000e+00, i32 0) #16
-  %1229 = fptosi double %1228 to i32
-  %1230 = icmp sgt i32 %1229, 0
-  br i1 %1230, label %1231, label %1241
+1221:                                             ; preds = %1218
+  %1222 = call double @ldexp(double 1.000000e+00, i32 0) #16
+  %1223 = fptosi double %1222 to i32
+  %1224 = icmp sgt i32 %1223, 0
+  br i1 %1224, label %1225, label %1235
 
-1231:                                             ; preds = %1227
-  %1232 = getelementptr inbounds i8, ptr %16, i64 10
-  store i8 49, ptr %1232, align 2, !tbaa !11
-  %1233 = icmp ult i32 %1229, 2
-  br i1 %1233, label %1243, label %1234
+1225:                                             ; preds = %1221
+  %1226 = getelementptr inbounds i8, ptr %16, i64 10
+  store i8 49, ptr %1226, align 2, !tbaa !11
+  %1227 = icmp ult i32 %1223, 2
+  br i1 %1227, label %1237, label %1228
 
-1234:                                             ; preds = %1231, %1234
-  %1235 = phi i64 [ %1239, %1234 ], [ 9, %1231 ]
-  %1236 = phi i32 [ %1237, %1234 ], [ %1229, %1231 ]
-  %1237 = lshr i32 %1236, 1
-  %1238 = getelementptr inbounds i8, ptr %16, i64 %1235
-  store i8 48, ptr %1238, align 1, !tbaa !11
-  %1239 = add nsw i64 %1235, -1
-  %1240 = icmp ult i32 %1236, 4
-  br i1 %1240, label %1243, label %1234, !llvm.loop !29
+1228:                                             ; preds = %1225, %1228
+  %1229 = phi i64 [ %1233, %1228 ], [ 9, %1225 ]
+  %1230 = phi i32 [ %1231, %1228 ], [ %1223, %1225 ]
+  %1231 = lshr i32 %1230, 1
+  %1232 = getelementptr inbounds i8, ptr %16, i64 %1229
+  store i8 48, ptr %1232, align 1, !tbaa !11
+  %1233 = add nsw i64 %1229, -1
+  %1234 = icmp ult i32 %1230, 4
+  br i1 %1234, label %1237, label %1228, !llvm.loop !29
 
-1241:                                             ; preds = %1227
-  %1242 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %1243
+1235:                                             ; preds = %1221
+  %1236 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %1237
 
-1243:                                             ; preds = %1231, %1234, %1241, %1224
+1237:                                             ; preds = %1225, %1228, %1235, %1218
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #16
-  %1244 = load i8, ptr %16, align 16, !tbaa !11
-  %1245 = sext i8 %1244 to i32
-  %1246 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1245, i32 noundef 2) #16
-  %1247 = getelementptr inbounds i8, ptr %16, i64 1
-  %1248 = load i8, ptr %1247, align 1, !tbaa !11
-  %1249 = sext i8 %1248 to i32
-  %1250 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1249, i32 noundef 2) #16
-  %1251 = shl i32 %1246, 2
-  %1252 = shl i32 %1250, 1
-  %1253 = add i32 %1252, %1251
-  %1254 = getelementptr inbounds i8, ptr %16, i64 2
-  %1255 = load i8, ptr %1254, align 2, !tbaa !11
+  %1238 = load i8, ptr %16, align 16, !tbaa !11
+  %1239 = sext i8 %1238 to i32
+  %1240 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1239, i32 noundef 2) #16
+  %1241 = getelementptr inbounds i8, ptr %16, i64 1
+  %1242 = load i8, ptr %1241, align 1, !tbaa !11
+  %1243 = sext i8 %1242 to i32
+  %1244 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1243, i32 noundef 2) #16
+  %1245 = shl i32 %1240, 2
+  %1246 = shl i32 %1244, 1
+  %1247 = add i32 %1246, %1245
+  %1248 = getelementptr inbounds i8, ptr %16, i64 2
+  %1249 = load i8, ptr %1248, align 2, !tbaa !11
+  %1250 = sext i8 %1249 to i32
+  %1251 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1250, i32 noundef 2) #16
+  %1252 = add nsw i32 %1247, %1251
+  %1253 = shl nsw i32 %1252, 1
+  %1254 = getelementptr inbounds i8, ptr %16, i64 3
+  %1255 = load i8, ptr %1254, align 1, !tbaa !11
   %1256 = sext i8 %1255 to i32
   %1257 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1256, i32 noundef 2) #16
-  %1258 = add nsw i32 %1253, %1257
-  %1259 = shl nsw i32 %1258, 1
-  %1260 = getelementptr inbounds i8, ptr %16, i64 3
-  %1261 = load i8, ptr %1260, align 1, !tbaa !11
-  %1262 = sext i8 %1261 to i32
-  %1263 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1262, i32 noundef 2) #16
-  %1264 = add nsw i32 %1263, %1259
-  %1265 = icmp ult i32 %1264, 10
-  %1266 = trunc i32 %1264 to i8
-  %1267 = select i1 %1265, i8 48, i8 55
-  %1268 = add i8 %1267, %1266
-  store i8 %1268, ptr %9, align 1
-  %1269 = getelementptr inbounds i8, ptr %16, i64 4
-  %1270 = load i8, ptr %1269, align 4, !tbaa !11
-  %1271 = sext i8 %1270 to i32
-  %1272 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1271, i32 noundef 2) #16
-  %1273 = getelementptr inbounds i8, ptr %16, i64 5
-  %1274 = load i8, ptr %1273, align 1, !tbaa !11
-  %1275 = sext i8 %1274 to i32
-  %1276 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1275, i32 noundef 2) #16
-  %1277 = shl i32 %1272, 2
-  %1278 = shl i32 %1276, 1
-  %1279 = add i32 %1278, %1277
-  %1280 = getelementptr inbounds i8, ptr %16, i64 6
-  %1281 = load i8, ptr %1280, align 2, !tbaa !11
+  %1258 = add nsw i32 %1257, %1253
+  %1259 = icmp ult i32 %1258, 10
+  %1260 = trunc i32 %1258 to i8
+  %1261 = select i1 %1259, i8 48, i8 55
+  %1262 = add i8 %1261, %1260
+  store i8 %1262, ptr %9, align 1
+  %1263 = getelementptr inbounds i8, ptr %16, i64 4
+  %1264 = load i8, ptr %1263, align 4, !tbaa !11
+  %1265 = sext i8 %1264 to i32
+  %1266 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1265, i32 noundef 2) #16
+  %1267 = getelementptr inbounds i8, ptr %16, i64 5
+  %1268 = load i8, ptr %1267, align 1, !tbaa !11
+  %1269 = sext i8 %1268 to i32
+  %1270 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1269, i32 noundef 2) #16
+  %1271 = shl i32 %1266, 2
+  %1272 = shl i32 %1270, 1
+  %1273 = add i32 %1272, %1271
+  %1274 = getelementptr inbounds i8, ptr %16, i64 6
+  %1275 = load i8, ptr %1274, align 2, !tbaa !11
+  %1276 = sext i8 %1275 to i32
+  %1277 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1276, i32 noundef 2) #16
+  %1278 = add nsw i32 %1273, %1277
+  %1279 = shl nsw i32 %1278, 1
+  %1280 = getelementptr inbounds i8, ptr %16, i64 7
+  %1281 = load i8, ptr %1280, align 1, !tbaa !11
   %1282 = sext i8 %1281 to i32
   %1283 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1282, i32 noundef 2) #16
-  %1284 = add nsw i32 %1279, %1283
-  %1285 = shl nsw i32 %1284, 1
-  %1286 = getelementptr inbounds i8, ptr %16, i64 7
-  %1287 = load i8, ptr %1286, align 1, !tbaa !11
-  %1288 = sext i8 %1287 to i32
-  %1289 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1288, i32 noundef 2) #16
-  %1290 = add nsw i32 %1289, %1285
-  %1291 = icmp ult i32 %1290, 10
-  %1292 = trunc i32 %1290 to i8
-  %1293 = select i1 %1291, i8 48, i8 55
-  %1294 = add i8 %1293, %1292
-  %1295 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 1
-  store i8 %1294, ptr %1295, align 1
-  %1296 = getelementptr inbounds i8, ptr %16, i64 8
-  %1297 = load i8, ptr %1296, align 8, !tbaa !11
-  %1298 = sext i8 %1297 to i32
-  %1299 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1298, i32 noundef 2) #16
-  %1300 = getelementptr inbounds i8, ptr %16, i64 9
-  %1301 = load i8, ptr %1300, align 1, !tbaa !11
-  %1302 = sext i8 %1301 to i32
-  %1303 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1302, i32 noundef 2) #16
-  %1304 = shl i32 %1299, 2
-  %1305 = shl i32 %1303, 1
-  %1306 = add i32 %1305, %1304
-  %1307 = getelementptr inbounds i8, ptr %16, i64 10
-  %1308 = load i8, ptr %1307, align 2, !tbaa !11
+  %1284 = add nsw i32 %1283, %1279
+  %1285 = icmp ult i32 %1284, 10
+  %1286 = trunc i32 %1284 to i8
+  %1287 = select i1 %1285, i8 48, i8 55
+  %1288 = add i8 %1287, %1286
+  %1289 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 1
+  store i8 %1288, ptr %1289, align 1
+  %1290 = getelementptr inbounds i8, ptr %16, i64 8
+  %1291 = load i8, ptr %1290, align 8, !tbaa !11
+  %1292 = sext i8 %1291 to i32
+  %1293 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1292, i32 noundef 2) #16
+  %1294 = getelementptr inbounds i8, ptr %16, i64 9
+  %1295 = load i8, ptr %1294, align 1, !tbaa !11
+  %1296 = sext i8 %1295 to i32
+  %1297 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1296, i32 noundef 2) #16
+  %1298 = shl i32 %1293, 2
+  %1299 = shl i32 %1297, 1
+  %1300 = add i32 %1299, %1298
+  %1301 = getelementptr inbounds i8, ptr %16, i64 10
+  %1302 = load i8, ptr %1301, align 2, !tbaa !11
+  %1303 = sext i8 %1302 to i32
+  %1304 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1303, i32 noundef 2) #16
+  %1305 = add nsw i32 %1300, %1304
+  %1306 = shl nsw i32 %1305, 1
+  %1307 = getelementptr inbounds i8, ptr %16, i64 11
+  %1308 = load i8, ptr %1307, align 1, !tbaa !11
   %1309 = sext i8 %1308 to i32
   %1310 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1309, i32 noundef 2) #16
-  %1311 = add nsw i32 %1306, %1310
-  %1312 = shl nsw i32 %1311, 1
-  %1313 = getelementptr inbounds i8, ptr %16, i64 11
-  %1314 = load i8, ptr %1313, align 1, !tbaa !11
-  %1315 = sext i8 %1314 to i32
-  %1316 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1315, i32 noundef 2) #16
-  %1317 = add nsw i32 %1316, %1312
-  %1318 = icmp ult i32 %1317, 10
-  %1319 = trunc i32 %1317 to i8
-  %1320 = select i1 %1318, i8 48, i8 55
-  %1321 = add i8 %1320, %1319
-  %1322 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 2
-  store i8 %1321, ptr %1322, align 1
-  %1323 = getelementptr inbounds i8, ptr %16, i64 12
-  %1324 = load i8, ptr %1323, align 4, !tbaa !11
-  %1325 = sext i8 %1324 to i32
-  %1326 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1325, i32 noundef 2) #16
-  %1327 = getelementptr inbounds i8, ptr %16, i64 13
-  %1328 = load i8, ptr %1327, align 1, !tbaa !11
-  %1329 = sext i8 %1328 to i32
-  %1330 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1329, i32 noundef 2) #16
-  %1331 = shl i32 %1326, 2
-  %1332 = shl i32 %1330, 1
-  %1333 = add i32 %1332, %1331
-  %1334 = getelementptr inbounds i8, ptr %16, i64 14
-  %1335 = load i8, ptr %1334, align 2, !tbaa !11
+  %1311 = add nsw i32 %1310, %1306
+  %1312 = icmp ult i32 %1311, 10
+  %1313 = trunc i32 %1311 to i8
+  %1314 = select i1 %1312, i8 48, i8 55
+  %1315 = add i8 %1314, %1313
+  %1316 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 2
+  store i8 %1315, ptr %1316, align 1
+  %1317 = getelementptr inbounds i8, ptr %16, i64 12
+  %1318 = load i8, ptr %1317, align 4, !tbaa !11
+  %1319 = sext i8 %1318 to i32
+  %1320 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1319, i32 noundef 2) #16
+  %1321 = getelementptr inbounds i8, ptr %16, i64 13
+  %1322 = load i8, ptr %1321, align 1, !tbaa !11
+  %1323 = sext i8 %1322 to i32
+  %1324 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1323, i32 noundef 2) #16
+  %1325 = shl i32 %1320, 2
+  %1326 = shl i32 %1324, 1
+  %1327 = add i32 %1326, %1325
+  %1328 = getelementptr inbounds i8, ptr %16, i64 14
+  %1329 = load i8, ptr %1328, align 2, !tbaa !11
+  %1330 = sext i8 %1329 to i32
+  %1331 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1330, i32 noundef 2) #16
+  %1332 = add nsw i32 %1327, %1331
+  %1333 = shl nsw i32 %1332, 1
+  %1334 = getelementptr inbounds i8, ptr %16, i64 15
+  %1335 = load i8, ptr %1334, align 1, !tbaa !11
   %1336 = sext i8 %1335 to i32
   %1337 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1336, i32 noundef 2) #16
-  %1338 = add nsw i32 %1333, %1337
-  %1339 = shl nsw i32 %1338, 1
-  %1340 = getelementptr inbounds i8, ptr %16, i64 15
-  %1341 = load i8, ptr %1340, align 1, !tbaa !11
-  %1342 = sext i8 %1341 to i32
-  %1343 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1342, i32 noundef 2) #16
-  %1344 = add nsw i32 %1343, %1339
-  %1345 = icmp ult i32 %1344, 10
-  %1346 = trunc i32 %1344 to i8
-  %1347 = select i1 %1345, i8 48, i8 55
-  %1348 = add i8 %1347, %1346
-  %1349 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 3
-  store i8 %1348, ptr %1349, align 1
-  %1350 = getelementptr inbounds i8, ptr %16, i64 16
-  %1351 = load i8, ptr %1350, align 16, !tbaa !11
-  %1352 = sext i8 %1351 to i32
-  %1353 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1352, i32 noundef 2) #16
-  %1354 = getelementptr inbounds i8, ptr %16, i64 17
-  %1355 = load i8, ptr %1354, align 1, !tbaa !11
-  %1356 = sext i8 %1355 to i32
-  %1357 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1356, i32 noundef 2) #16
-  %1358 = shl i32 %1353, 2
-  %1359 = shl i32 %1357, 1
-  %1360 = add i32 %1359, %1358
-  %1361 = getelementptr inbounds i8, ptr %16, i64 18
-  %1362 = load i8, ptr %1361, align 2, !tbaa !11
+  %1338 = add nsw i32 %1337, %1333
+  %1339 = icmp ult i32 %1338, 10
+  %1340 = trunc i32 %1338 to i8
+  %1341 = select i1 %1339, i8 48, i8 55
+  %1342 = add i8 %1341, %1340
+  %1343 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 3
+  store i8 %1342, ptr %1343, align 1
+  %1344 = getelementptr inbounds i8, ptr %16, i64 16
+  %1345 = load i8, ptr %1344, align 16, !tbaa !11
+  %1346 = sext i8 %1345 to i32
+  %1347 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1346, i32 noundef 2) #16
+  %1348 = getelementptr inbounds i8, ptr %16, i64 17
+  %1349 = load i8, ptr %1348, align 1, !tbaa !11
+  %1350 = sext i8 %1349 to i32
+  %1351 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1350, i32 noundef 2) #16
+  %1352 = shl i32 %1347, 2
+  %1353 = shl i32 %1351, 1
+  %1354 = add i32 %1353, %1352
+  %1355 = getelementptr inbounds i8, ptr %16, i64 18
+  %1356 = load i8, ptr %1355, align 2, !tbaa !11
+  %1357 = sext i8 %1356 to i32
+  %1358 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1357, i32 noundef 2) #16
+  %1359 = add nsw i32 %1354, %1358
+  %1360 = shl nsw i32 %1359, 1
+  %1361 = getelementptr inbounds i8, ptr %16, i64 19
+  %1362 = load i8, ptr %1361, align 1, !tbaa !11
   %1363 = sext i8 %1362 to i32
   %1364 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1363, i32 noundef 2) #16
-  %1365 = add nsw i32 %1360, %1364
-  %1366 = shl nsw i32 %1365, 1
-  %1367 = getelementptr inbounds i8, ptr %16, i64 19
-  %1368 = load i8, ptr %1367, align 1, !tbaa !11
-  %1369 = sext i8 %1368 to i32
-  %1370 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1369, i32 noundef 2) #16
-  %1371 = add nsw i32 %1370, %1366
-  %1372 = icmp ult i32 %1371, 10
-  %1373 = trunc i32 %1371 to i8
-  %1374 = select i1 %1372, i8 48, i8 55
-  %1375 = add i8 %1374, %1373
-  %1376 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 4
-  store i8 %1375, ptr %1376, align 1
-  %1377 = getelementptr inbounds i8, ptr %16, i64 20
-  %1378 = load i8, ptr %1377, align 4, !tbaa !11
-  %1379 = sext i8 %1378 to i32
-  %1380 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1379, i32 noundef 2) #16
-  %1381 = getelementptr inbounds i8, ptr %16, i64 21
-  %1382 = load i8, ptr %1381, align 1, !tbaa !11
-  %1383 = sext i8 %1382 to i32
-  %1384 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1383, i32 noundef 2) #16
-  %1385 = shl i32 %1380, 2
-  %1386 = shl i32 %1384, 1
-  %1387 = add i32 %1386, %1385
-  %1388 = getelementptr inbounds i8, ptr %16, i64 22
-  %1389 = load i8, ptr %1388, align 2, !tbaa !11
+  %1365 = add nsw i32 %1364, %1360
+  %1366 = icmp ult i32 %1365, 10
+  %1367 = trunc i32 %1365 to i8
+  %1368 = select i1 %1366, i8 48, i8 55
+  %1369 = add i8 %1368, %1367
+  %1370 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 4
+  store i8 %1369, ptr %1370, align 1
+  %1371 = getelementptr inbounds i8, ptr %16, i64 20
+  %1372 = load i8, ptr %1371, align 4, !tbaa !11
+  %1373 = sext i8 %1372 to i32
+  %1374 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1373, i32 noundef 2) #16
+  %1375 = getelementptr inbounds i8, ptr %16, i64 21
+  %1376 = load i8, ptr %1375, align 1, !tbaa !11
+  %1377 = sext i8 %1376 to i32
+  %1378 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1377, i32 noundef 2) #16
+  %1379 = shl i32 %1374, 2
+  %1380 = shl i32 %1378, 1
+  %1381 = add i32 %1380, %1379
+  %1382 = getelementptr inbounds i8, ptr %16, i64 22
+  %1383 = load i8, ptr %1382, align 2, !tbaa !11
+  %1384 = sext i8 %1383 to i32
+  %1385 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1384, i32 noundef 2) #16
+  %1386 = add nsw i32 %1381, %1385
+  %1387 = shl nsw i32 %1386, 1
+  %1388 = getelementptr inbounds i8, ptr %16, i64 23
+  %1389 = load i8, ptr %1388, align 1, !tbaa !11
   %1390 = sext i8 %1389 to i32
   %1391 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1390, i32 noundef 2) #16
-  %1392 = add nsw i32 %1387, %1391
-  %1393 = shl nsw i32 %1392, 1
-  %1394 = getelementptr inbounds i8, ptr %16, i64 23
-  %1395 = load i8, ptr %1394, align 1, !tbaa !11
-  %1396 = sext i8 %1395 to i32
-  %1397 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %1396, i32 noundef 2) #16
-  %1398 = add nsw i32 %1397, %1393
-  %1399 = icmp ult i32 %1398, 10
-  %1400 = trunc i32 %1398 to i8
-  %1401 = select i1 %1399, i8 48, i8 55
-  %1402 = add i8 %1401, %1400
-  %1403 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 5
-  store i8 %1402, ptr %1403, align 1
-  %1404 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 6
-  store i8 0, ptr %1404, align 1, !tbaa !11
-  %1405 = call i32 @fputs(ptr nonnull %9, ptr %6)
+  %1392 = add nsw i32 %1391, %1387
+  %1393 = icmp ult i32 %1392, 10
+  %1394 = trunc i32 %1392 to i8
+  %1395 = select i1 %1393, i8 48, i8 55
+  %1396 = add i8 %1395, %1394
+  %1397 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 5
+  store i8 %1396, ptr %1397, align 1
+  %1398 = getelementptr inbounds [8 x i8], ptr %9, i64 0, i64 6
+  store i8 0, ptr %1398, align 1, !tbaa !11
+  %1399 = call i32 @fputs(ptr nonnull %9, ptr %6)
   call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %9, i32 noundef %3, ptr noundef %5) #16
-  %1406 = call i32 @fputc(i32 32, ptr %6)
-  %1407 = call i32 @fputc(i32 32, ptr %6)
+  %1400 = call i32 @fputc(i32 32, ptr %6)
+  %1401 = call i32 @fputc(i32 32, ptr %6)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #16
-  br label %1408
+  br label %1402
 
-1408:                                             ; preds = %1243, %955
+1402:                                             ; preds = %1237, %955
+  %1403 = load ptr, ptr %15, align 8, !tbaa !5
+  %1404 = load i8, ptr %1403, align 1, !tbaa !11
+  %1405 = sext i8 %1404 to i32
+  %1406 = call i32 (i32, ...) @IS_BLANK_OR_TAB(i32 noundef %1405) #16
+  %1407 = icmp eq i32 %1406, 0
+  br i1 %1407, label %1408, label %1415
+
+1408:                                             ; preds = %1402
   %1409 = load ptr, ptr %15, align 8, !tbaa !5
   %1410 = load i8, ptr %1409, align 1, !tbaa !11
   %1411 = sext i8 %1410 to i32
-  %1412 = call i32 (i32, ...) @IS_BLANK_OR_TAB(i32 noundef %1411) #16
+  %1412 = call i32 (i32, ...) @eoln(i32 noundef %1411) #16
   %1413 = icmp eq i32 %1412, 0
-  br i1 %1413, label %1414, label %1421
+  br i1 %1413, label %1414, label %1415
 
 1414:                                             ; preds = %1408
-  %1415 = load ptr, ptr %15, align 8, !tbaa !5
-  %1416 = load i8, ptr %1415, align 1, !tbaa !11
-  %1417 = sext i8 %1416 to i32
-  %1418 = call i32 (i32, ...) @eoln(i32 noundef %1417) #16
-  %1419 = icmp eq i32 %1418, 0
-  br i1 %1419, label %1420, label %1421
-
-1420:                                             ; preds = %1414
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef nonnull @.str.15) #16
   store i32 1, ptr %7, align 4, !tbaa !12
-  br label %1421
+  br label %1415
 
-1421:                                             ; preds = %1408, %1414, %1420, %442, %659
+1415:                                             ; preds = %1402, %1408, %1414, %442, %659
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %17) #16
-  br label %1422
+  br label %1416
 
-1422:                                             ; preds = %1421, %386
-  %1423 = call i64 @fwrite(ptr nonnull @.str.20, i64 2, i64 1, ptr %6)
+1416:                                             ; preds = %1415, %386
+  %1417 = call i64 @fwrite(ptr nonnull @.str.20, i64 2, i64 1, ptr %6)
   call void @llvm.lifetime.end.p0(i64 33, ptr nonnull %16) #16
   ret void
 }
@@ -2351,11 +2346,11 @@ declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #13
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2370,8 +2365,8 @@ attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #10 = { nofree nounwind }
 attributes #11 = { nofree willreturn }
 attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }

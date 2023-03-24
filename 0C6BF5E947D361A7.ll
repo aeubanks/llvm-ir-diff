@@ -137,33 +137,30 @@ define dso_local i32 @Proc5() local_unnamed_addr #6 {
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable
 define dso_local i32 @Proc6(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #7 {
   %3 = icmp eq i32 %0, 10001
-  %4 = select i1 %3, i32 10001, i32 10002
-  store i32 %4, ptr %1, align 4
-  switch i32 %0, label %13 [
-    i32 0, label %11
+  br i1 %3, label %9, label %4
+
+4:                                                ; preds = %2
+  store i32 10002, ptr %1, align 4, !tbaa !18
+  switch i32 %0, label %11 [
+    i32 0, label %9
     i32 10000, label %5
-    i32 10001, label %9
-    i32 10003, label %10
+    i32 10003, label %8
   ]
 
-5:                                                ; preds = %2
+5:                                                ; preds = %4
   %6 = load i32, ptr @IntGlob, align 4, !tbaa !15
   %7 = icmp sgt i32 %6, 100
-  %8 = select i1 %7, i32 0, i32 10002
+  br i1 %7, label %9, label %11
+
+8:                                                ; preds = %4
+  br label %9
+
+9:                                                ; preds = %2, %5, %4, %8
+  %10 = phi i32 [ 10001, %8 ], [ %0, %4 ], [ 0, %5 ], [ 10000, %2 ]
+  store i32 %10, ptr %1, align 4, !tbaa !18
   br label %11
 
-9:                                                ; preds = %2
-  br label %11
-
-10:                                               ; preds = %2
-  br label %11
-
-11:                                               ; preds = %5, %2, %9, %10
-  %12 = phi i32 [ 10001, %10 ], [ 10000, %9 ], [ %0, %2 ], [ %8, %5 ]
-  store i32 %12, ptr %1, align 4, !tbaa !18
-  br label %13
-
-13:                                               ; preds = %11, %2
+11:                                               ; preds = %9, %5, %4
   ret i32 undef
 }
 

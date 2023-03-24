@@ -43,7 +43,7 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %23 = load ptr, ptr %2, align 8, !tbaa !14, !noalias !5
   %24 = load ptr, ptr %5, align 8, !tbaa !14, !noalias !5
   %25 = invoke noundef i32 @_Z21MyStringCompareNoCasePKwS0_(ptr noundef %23, ptr noundef %24)
-          to label %26 unwind label %70, !noalias !5
+          to label %26 unwind label %69, !noalias !5
 
 26:                                               ; preds = %21
   %27 = icmp eq i32 %25, 0
@@ -80,7 +80,7 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %42 = shl nuw nsw i64 %40, 2
   %43 = select i1 %41, i64 -1, i64 %42
   %44 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %43) #11
-          to label %45 unwind label %76, !noalias !5
+          to label %45 unwind label %75, !noalias !5
 
 45:                                               ; preds = %39
   %46 = getelementptr inbounds %class.CStringBase, ptr %0, i64 0, i32 2
@@ -115,58 +115,58 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
           cleanup
   %62 = load ptr, ptr %0, align 8, !tbaa !14, !alias.scope !20
   %63 = icmp eq ptr %62, null
-  br i1 %63, label %78, label %64
+  br i1 %63, label %77, label %64
 
 64:                                               ; preds = %60
   call void @_ZdaPv(ptr noundef nonnull %62) #10
-  br label %78
+  br label %77
 
 65:                                               ; preds = %57
   %66 = load ptr, ptr %6, align 8, !tbaa !14, !noalias !5
   %67 = icmp eq ptr %66, null
-  br i1 %67, label %69, label %68
+  br i1 %67, label %83, label %68
 
 68:                                               ; preds = %65
   call void @_ZdaPv(ptr noundef nonnull %66) #10
-  br label %69
+  br label %83
 
-69:                                               ; preds = %68, %65
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #9, !noalias !5
-  br label %211
-
-70:                                               ; preds = %21
-  %71 = landingpad { ptr, i32 }
+69:                                               ; preds = %21
+  %70 = landingpad { ptr, i32 }
           cleanup
-  %72 = load ptr, ptr %5, align 8, !tbaa !14, !noalias !5
-  %73 = icmp eq ptr %72, null
-  br i1 %73, label %75, label %74
+  %71 = load ptr, ptr %5, align 8, !tbaa !14, !noalias !5
+  %72 = icmp eq ptr %71, null
+  br i1 %72, label %74, label %73
 
-74:                                               ; preds = %70
-  call void @_ZdaPv(ptr noundef nonnull %72) #10, !noalias !5
-  br label %75
+73:                                               ; preds = %69
+  call void @_ZdaPv(ptr noundef nonnull %71) #10, !noalias !5
+  br label %74
 
-75:                                               ; preds = %74, %70
+74:                                               ; preds = %73, %69
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #9, !noalias !5
   br label %181
 
-76:                                               ; preds = %39
-  %77 = landingpad { ptr, i32 }
+75:                                               ; preds = %39
+  %76 = landingpad { ptr, i32 }
           cleanup
-  br label %78
+  br label %77
 
-78:                                               ; preds = %76, %64, %60
-  %79 = phi { ptr, i32 } [ %77, %76 ], [ %61, %64 ], [ %61, %60 ]
-  %80 = load ptr, ptr %6, align 8, !tbaa !14, !noalias !5
-  %81 = icmp eq ptr %80, null
-  br i1 %81, label %83, label %82
+77:                                               ; preds = %75, %64, %60
+  %78 = phi { ptr, i32 } [ %76, %75 ], [ %61, %64 ], [ %61, %60 ]
+  %79 = load ptr, ptr %6, align 8, !tbaa !14, !noalias !5
+  %80 = icmp eq ptr %79, null
+  br i1 %80, label %82, label %81
 
-82:                                               ; preds = %78
-  call void @_ZdaPv(ptr noundef nonnull %80) #10
-  br label %83
+81:                                               ; preds = %77
+  call void @_ZdaPv(ptr noundef nonnull %79) #10
+  br label %82
 
-83:                                               ; preds = %82, %78
+82:                                               ; preds = %81, %77
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #9, !noalias !5
   br label %181
+
+83:                                               ; preds = %68, %65
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #9, !noalias !5
+  br label %211
 
 84:                                               ; preds = %32, %14, %4
   %85 = phi i32 [ %11, %4 ], [ %33, %32 ], [ %11, %14 ]
@@ -346,8 +346,8 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   call void @_ZdaPv(ptr noundef nonnull %178) #10
   br label %181
 
-181:                                              ; preds = %277, %273, %75, %83, %148, %176, %180, %206, %210
-  %182 = phi { ptr, i32 } [ %177, %180 ], [ %177, %176 ], [ %207, %210 ], [ %207, %206 ], [ %144, %148 ], [ %79, %83 ], [ %71, %75 ], [ %274, %273 ], [ %274, %277 ]
+181:                                              ; preds = %272, %268, %74, %82, %148, %176, %180, %206, %210
+  %182 = phi { ptr, i32 } [ %177, %180 ], [ %177, %176 ], [ %207, %210 ], [ %207, %206 ], [ %144, %148 ], [ %78, %82 ], [ %70, %74 ], [ %269, %268 ], [ %269, %272 ]
   resume { ptr, i32 } %182
 
 183:                                              ; preds = %149
@@ -401,25 +401,25 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   call void @_ZdaPv(ptr noundef nonnull %208) #10
   br label %181
 
-211:                                              ; preds = %69, %140, %173, %203
+211:                                              ; preds = %83, %140, %173, %203
   %212 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
-          to label %213 unwind label %273
+          to label %213 unwind label %268
 
 213:                                              ; preds = %211
   store <4 x i32> <i32 32, i32 10, i32 9, i32 0>, ptr %212, align 4, !tbaa !15
   %214 = load ptr, ptr %0, align 8, !tbaa !14
   %215 = load i32, ptr %214, align 4, !tbaa !15
   %216 = icmp eq i32 %215, 0
-  br i1 %216, label %278, label %217
+  br i1 %216, label %273, label %217
 
 217:                                              ; preds = %213
   %218 = ptrtoint ptr %212 to i64
   br label %219
 
-219:                                              ; preds = %249, %217
-  %220 = phi i32 [ %215, %217 ], [ %250, %249 ]
-  %221 = phi ptr [ %214, %217 ], [ %251, %249 ]
-  %222 = phi ptr [ null, %217 ], [ %252, %249 ]
+219:                                              ; preds = %242, %217
+  %220 = phi i32 [ %215, %217 ], [ %245, %242 ]
+  %221 = phi ptr [ %214, %217 ], [ %244, %242 ]
+  %222 = phi ptr [ null, %217 ], [ %243, %242 ]
   %223 = icmp eq i32 %220, 32
   br i1 %223, label %234, label %224
 
@@ -427,7 +427,7 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %225 = phi i32 [ %230, %228 ], [ 32, %219 ]
   %226 = phi ptr [ %229, %228 ], [ %212, %219 ]
   %227 = icmp eq i32 %225, 0
-  br i1 %227, label %245, label %228
+  br i1 %227, label %242, label %228
 
 228:                                              ; preds = %224
   %229 = getelementptr inbounds i32, ptr %226, i64 1
@@ -444,66 +444,61 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %236 = sub i64 %235, %218
   %237 = and i64 %236, 8589934592
   %238 = icmp eq i64 %237, 0
-  %239 = icmp eq ptr %222, null
-  %240 = select i1 %239, ptr %221, ptr %222
-  %241 = select i1 %238, ptr %240, ptr null
-  %242 = getelementptr inbounds i32, ptr %221, i64 1
-  %243 = load i32, ptr %242, align 4, !tbaa !15
-  %244 = icmp eq i32 %243, 0
-  br i1 %244, label %253, label %249
+  br i1 %238, label %239, label %242
 
-245:                                              ; preds = %224
-  %246 = getelementptr inbounds i32, ptr %221, i64 1
-  %247 = load i32, ptr %246, align 4, !tbaa !15
-  %248 = icmp eq i32 %247, 0
-  br i1 %248, label %278, label %249
+239:                                              ; preds = %234
+  %240 = icmp eq ptr %222, null
+  %241 = select i1 %240, ptr %221, ptr %222
+  br label %242
 
-249:                                              ; preds = %245, %234
-  %250 = phi i32 [ %243, %234 ], [ %247, %245 ]
-  %251 = phi ptr [ %242, %234 ], [ %246, %245 ]
-  %252 = phi ptr [ %241, %234 ], [ null, %245 ]
-  br label %219, !llvm.loop !38
+242:                                              ; preds = %224, %239, %234
+  %243 = phi ptr [ null, %234 ], [ %241, %239 ], [ null, %224 ]
+  %244 = getelementptr inbounds i32, ptr %221, i64 1
+  %245 = load i32, ptr %244, align 4, !tbaa !15
+  %246 = icmp eq i32 %245, 0
+  br i1 %246, label %247, label %219, !llvm.loop !38
 
-253:                                              ; preds = %234
-  br i1 %238, label %254, label %278
+247:                                              ; preds = %242
+  %248 = icmp eq ptr %243, null
+  br i1 %248, label %273, label %249
 
-254:                                              ; preds = %253
-  %255 = ptrtoint ptr %241 to i64
-  %256 = ptrtoint ptr %214 to i64
-  %257 = sub i64 %255, %256
-  %258 = lshr exact i64 %257, 2
-  %259 = trunc i64 %258 to i32
-  %260 = getelementptr inbounds %class.CStringBase, ptr %0, i64 0, i32 1
-  %261 = load i32, ptr %260, align 8, !tbaa !8
-  %262 = sub nsw i32 %261, %259
-  %263 = icmp sgt i32 %262, 0
-  br i1 %263, label %264, label %278
+249:                                              ; preds = %247
+  %250 = ptrtoint ptr %243 to i64
+  %251 = ptrtoint ptr %214 to i64
+  %252 = sub i64 %250, %251
+  %253 = lshr exact i64 %252, 2
+  %254 = trunc i64 %253 to i32
+  %255 = getelementptr inbounds %class.CStringBase, ptr %0, i64 0, i32 1
+  %256 = load i32, ptr %255, align 8, !tbaa !8
+  %257 = sub nsw i32 %256, %254
+  %258 = icmp sgt i32 %257, 0
+  br i1 %258, label %259, label %273
 
-264:                                              ; preds = %254
-  %265 = shl i64 %257, 30
-  %266 = ashr i64 %265, 32
-  %267 = getelementptr inbounds i32, ptr %214, i64 %266
-  %268 = sext i32 %261 to i64
-  %269 = getelementptr inbounds i32, ptr %214, i64 %268
-  %270 = load i32, ptr %269, align 4
-  store i32 %270, ptr %267, align 4
-  %271 = load i32, ptr %260, align 8, !tbaa !8
-  %272 = sub nsw i32 %271, %262
-  store i32 %272, ptr %260, align 8, !tbaa !8
-  br label %278
+259:                                              ; preds = %249
+  %260 = shl i64 %252, 30
+  %261 = ashr i64 %260, 32
+  %262 = getelementptr inbounds i32, ptr %214, i64 %261
+  %263 = sext i32 %256 to i64
+  %264 = getelementptr inbounds i32, ptr %214, i64 %263
+  %265 = load i32, ptr %264, align 4
+  store i32 %265, ptr %262, align 4
+  %266 = load i32, ptr %255, align 8, !tbaa !8
+  %267 = sub nsw i32 %266, %257
+  store i32 %267, ptr %255, align 8, !tbaa !8
+  br label %273
 
-273:                                              ; preds = %211
-  %274 = landingpad { ptr, i32 }
+268:                                              ; preds = %211
+  %269 = landingpad { ptr, i32 }
           cleanup
-  %275 = load ptr, ptr %0, align 8, !tbaa !14
-  %276 = icmp eq ptr %275, null
-  br i1 %276, label %181, label %277
+  %270 = load ptr, ptr %0, align 8, !tbaa !14
+  %271 = icmp eq ptr %270, null
+  br i1 %271, label %181, label %272
 
-277:                                              ; preds = %273
-  call void @_ZdaPv(ptr noundef nonnull %275) #10
+272:                                              ; preds = %268
+  call void @_ZdaPv(ptr noundef nonnull %270) #10
   br label %181
 
-278:                                              ; preds = %245, %264, %254, %253, %213
+273:                                              ; preds = %213, %247, %249, %259
   call void @_ZdaPv(ptr noundef nonnull %212) #10
   ret void
 }

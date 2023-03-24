@@ -1033,25 +1033,25 @@ define dso_local ptr @pfactorbase(ptr noundef %0, i32 noundef %1, ptr nocapture 
 84:                                               ; preds = %68
   %85 = load i16, ptr %72, align 2, !tbaa !14
   %86 = zext i16 %85 to i32
+  %87 = getelementptr inbounds i32, ptr %71, i64 1
   store i32 %86, ptr %71, align 4, !tbaa !16
-  %87 = add i32 %70, 1
-  %88 = load i32, ptr %2, align 4, !tbaa !16
-  %89 = icmp ne i32 %87, %88
-  %90 = getelementptr inbounds i32, ptr %71, i64 1
-  %91 = icmp ugt i32 %55, %86
-  %92 = select i1 %89, i1 %91, i1 false
-  br i1 %92, label %93, label %99
+  %88 = add i32 %70, 1
+  %89 = load i32, ptr %2, align 4, !tbaa !16
+  %90 = icmp eq i32 %88, %89
+  %91 = icmp ule i32 %55, %86
+  %92 = select i1 %90, i1 true, i1 %91
+  br i1 %92, label %99, label %93
 
 93:                                               ; preds = %84, %68
-  %94 = phi i32 [ %70, %68 ], [ %87, %84 ]
-  %95 = phi ptr [ %71, %68 ], [ %90, %84 ]
+  %94 = phi i32 [ %70, %68 ], [ %88, %84 ]
+  %95 = phi ptr [ %71, %68 ], [ %87, %84 ]
   %96 = getelementptr inbounds i16, ptr %72, i64 1
   %97 = load i16, ptr %96, align 2, !tbaa !14
   %98 = icmp eq i16 %97, 1
   br i1 %98, label %99, label %68, !llvm.loop !35
 
 99:                                               ; preds = %93, %84, %60
-  %100 = phi i32 [ 1, %60 ], [ %94, %93 ], [ %87, %84 ]
+  %100 = phi i32 [ 1, %60 ], [ %94, %93 ], [ %88, %84 ]
   store i32 %100, ptr %2, align 4, !tbaa !16
   br label %101
 
@@ -2463,20 +2463,20 @@ define dso_local i32 @pcfracInit(i32 noundef %0, i32 noundef %1, i32 noundef %2)
   ret i32 1
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #16
-
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #17
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #16
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.sqrt.f64(double) #18
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #18
@@ -2497,8 +2497,8 @@ attributes #12 = { mustprogress nofree nosync nounwind willreturn memory(none) u
 attributes #13 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #16 = { nofree nounwind }
-attributes #17 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #16 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #17 = { nofree nounwind }
 attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #19 = { nounwind }
 attributes #20 = { nounwind allocsize(0) }

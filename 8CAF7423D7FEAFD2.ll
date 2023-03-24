@@ -147,54 +147,55 @@ define hidden i32 @luaO_str2d(ptr noundef %0, ptr nocapture noundef writeonly %1
   store double %4, ptr %1, align 8, !tbaa !14
   %5 = load ptr, ptr %3, align 8, !tbaa !16
   %6 = icmp eq ptr %5, %0
-  br i1 %6, label %33, label %7
+  br i1 %6, label %34, label %7
 
 7:                                                ; preds = %2
   %8 = load i8, ptr %5, align 1, !tbaa !8
-  switch i8 %8, label %14 [
-    i8 120, label %9
-    i8 88, label %9
+  %9 = sext i8 %8 to i32
+  switch i32 %9, label %15 [
+    i32 120, label %10
+    i32 88, label %10
   ]
 
-9:                                                ; preds = %7, %7
-  %10 = call i64 @strtoul(ptr noundef %0, ptr noundef nonnull %3, i32 noundef 16) #16
-  %11 = uitofp i64 %10 to double
-  store double %11, ptr %1, align 8, !tbaa !14
-  %12 = load ptr, ptr %3, align 8, !tbaa !16
-  %13 = load i8, ptr %12, align 1, !tbaa !8
-  br label %14
+10:                                               ; preds = %7, %7
+  %11 = call i64 @strtoul(ptr noundef %0, ptr noundef nonnull %3, i32 noundef 16) #16
+  %12 = uitofp i64 %11 to double
+  store double %12, ptr %1, align 8, !tbaa !14
+  %13 = load ptr, ptr %3, align 8, !tbaa !16
+  %14 = load i8, ptr %13, align 1, !tbaa !8
+  br label %15
 
-14:                                               ; preds = %7, %9
-  %15 = phi i8 [ %8, %7 ], [ %13, %9 ]
-  %16 = phi ptr [ %5, %7 ], [ %12, %9 ]
-  %17 = icmp eq i8 %15, 0
-  br i1 %17, label %33, label %18
+15:                                               ; preds = %7, %10
+  %16 = phi i8 [ %8, %7 ], [ %14, %10 ]
+  %17 = phi ptr [ %5, %7 ], [ %13, %10 ]
+  %18 = icmp eq i8 %16, 0
+  br i1 %18, label %34, label %19
 
-18:                                               ; preds = %14
-  %19 = tail call ptr @__ctype_b_loc() #17
-  %20 = load ptr, ptr %19, align 8, !tbaa !16
-  br label %21
+19:                                               ; preds = %15
+  %20 = tail call ptr @__ctype_b_loc() #17
+  %21 = load ptr, ptr %20, align 8, !tbaa !16
+  br label %22
 
-21:                                               ; preds = %21, %18
-  %22 = phi ptr [ %16, %18 ], [ %29, %21 ]
-  %23 = load i8, ptr %22, align 1, !tbaa !8
-  %24 = zext i8 %23 to i64
-  %25 = getelementptr inbounds i16, ptr %20, i64 %24
-  %26 = load i16, ptr %25, align 2, !tbaa !18
-  %27 = and i16 %26, 8192
-  %28 = icmp eq i16 %27, 0
-  %29 = getelementptr inbounds i8, ptr %22, i64 1
-  br i1 %28, label %30, label %21, !llvm.loop !20
+22:                                               ; preds = %22, %19
+  %23 = phi ptr [ %17, %19 ], [ %30, %22 ]
+  %24 = load i8, ptr %23, align 1, !tbaa !8
+  %25 = zext i8 %24 to i64
+  %26 = getelementptr inbounds i16, ptr %21, i64 %25
+  %27 = load i16, ptr %26, align 2, !tbaa !18
+  %28 = and i16 %27, 8192
+  %29 = icmp eq i16 %28, 0
+  %30 = getelementptr inbounds i8, ptr %23, i64 1
+  br i1 %29, label %31, label %22, !llvm.loop !20
 
-30:                                               ; preds = %21
-  %31 = icmp eq i8 %23, 0
-  %32 = zext i1 %31 to i32
-  br label %33
+31:                                               ; preds = %22
+  %32 = icmp eq i8 %24, 0
+  %33 = zext i1 %32 to i32
+  br label %34
 
-33:                                               ; preds = %30, %14, %2
-  %34 = phi i32 [ 0, %2 ], [ 1, %14 ], [ %32, %30 ]
+34:                                               ; preds = %31, %15, %2
+  %35 = phi i32 [ 0, %2 ], [ 1, %15 ], [ %33, %31 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #16
-  ret i32 %34
+  ret i32 %35
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn
@@ -670,68 +671,69 @@ declare void @llvm.va_end(ptr) #11
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
 define hidden void @luaO_chunkid(ptr noundef %0, ptr nocapture noundef readonly %1, i64 noundef %2) local_unnamed_addr #12 {
   %4 = load i8, ptr %1, align 1, !tbaa !8
-  switch i8 %4, label %23 [
-    i8 61, label %5
-    i8 64, label %10
+  %5 = sext i8 %4 to i32
+  switch i32 %5, label %24 [
+    i32 61, label %6
+    i32 64, label %11
   ]
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds i8, ptr %1, i64 1
-  %7 = tail call ptr @strncpy(ptr noundef %0, ptr noundef nonnull %6, i64 noundef %2) #16
-  %8 = add i64 %2, -1
-  %9 = getelementptr inbounds i8, ptr %0, i64 %8
-  store i8 0, ptr %9, align 1, !tbaa !8
-  br label %39
+6:                                                ; preds = %3
+  %7 = getelementptr inbounds i8, ptr %1, i64 1
+  %8 = tail call ptr @strncpy(ptr noundef %0, ptr noundef nonnull %7, i64 noundef %2) #16
+  %9 = add i64 %2, -1
+  %10 = getelementptr inbounds i8, ptr %0, i64 %9
+  store i8 0, ptr %10, align 1, !tbaa !8
+  br label %40
 
-10:                                               ; preds = %3
-  %11 = getelementptr inbounds i8, ptr %1, i64 1
-  %12 = add i64 %2, -8
-  %13 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %11) #18
+11:                                               ; preds = %3
+  %12 = getelementptr inbounds i8, ptr %1, i64 1
+  %13 = add i64 %2, -8
+  %14 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %12) #18
   store i8 0, ptr %0, align 1
-  %14 = icmp ugt i64 %13, %12
-  br i1 %14, label %15, label %20
+  %15 = icmp ugt i64 %14, %13
+  br i1 %15, label %16, label %21
 
-15:                                               ; preds = %10
-  %16 = sub i64 %13, %12
-  %17 = getelementptr inbounds i8, ptr %11, i64 %16
-  %18 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %0)
-  %19 = getelementptr inbounds i8, ptr %0, i64 %18
-  store i32 3026478, ptr %19, align 1
-  br label %20
+16:                                               ; preds = %11
+  %17 = sub i64 %14, %13
+  %18 = getelementptr inbounds i8, ptr %12, i64 %17
+  %19 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %0)
+  %20 = getelementptr inbounds i8, ptr %0, i64 %19
+  store i32 3026478, ptr %20, align 1
+  br label %21
 
-20:                                               ; preds = %15, %10
-  %21 = phi ptr [ %17, %15 ], [ %11, %10 ]
-  %22 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %21) #16
-  br label %39
+21:                                               ; preds = %16, %11
+  %22 = phi ptr [ %18, %16 ], [ %12, %11 ]
+  %23 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %22) #16
+  br label %40
 
-23:                                               ; preds = %3
-  %24 = tail call i64 @strcspn(ptr noundef nonnull %1, ptr noundef nonnull @.str.5) #18
-  %25 = add i64 %2, -17
-  %26 = tail call i64 @llvm.umin.i64(i64 %24, i64 %25)
+24:                                               ; preds = %3
+  %25 = tail call i64 @strcspn(ptr noundef nonnull %1, ptr noundef nonnull @.str.5) #18
+  %26 = add i64 %2, -17
+  %27 = tail call i64 @llvm.umin.i64(i64 %25, i64 %26)
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(10) %0, ptr noundef nonnull align 1 dereferenceable(10) @.str.6, i64 10, i1 false) #16
-  %27 = getelementptr inbounds i8, ptr %1, i64 %26
-  %28 = load i8, ptr %27, align 1, !tbaa !8
-  %29 = icmp eq i8 %28, 0
-  br i1 %29, label %34, label %30
+  %28 = getelementptr inbounds i8, ptr %1, i64 %27
+  %29 = load i8, ptr %28, align 1, !tbaa !8
+  %30 = icmp eq i8 %29, 0
+  br i1 %30, label %35, label %31
 
-30:                                               ; preds = %23
-  %31 = tail call ptr @strncat(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull %1, i64 noundef %26) #16
-  %32 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %0)
-  %33 = getelementptr inbounds i8, ptr %0, i64 %32
-  store i32 3026478, ptr %33, align 1
-  br label %36
+31:                                               ; preds = %24
+  %32 = tail call ptr @strncat(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull %1, i64 noundef %27) #16
+  %33 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %0)
+  %34 = getelementptr inbounds i8, ptr %0, i64 %33
+  store i32 3026478, ptr %34, align 1
+  br label %37
 
-34:                                               ; preds = %23
-  %35 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1) #16
-  br label %36
+35:                                               ; preds = %24
+  %36 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1) #16
+  br label %37
 
-36:                                               ; preds = %34, %30
-  %37 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %0)
-  %38 = getelementptr inbounds i8, ptr %0, i64 %37
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %38, ptr noundef nonnull align 1 dereferenceable(3) @.str.7, i64 3, i1 false)
-  br label %39
+37:                                               ; preds = %35, %31
+  %38 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %0)
+  %39 = getelementptr inbounds i8, ptr %0, i64 %38
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %39, ptr noundef nonnull align 1 dereferenceable(3) @.str.7, i64 3, i1 false)
+  br label %40
 
-39:                                               ; preds = %20, %36, %5
+40:                                               ; preds = %21, %37, %6
   ret void
 }
 

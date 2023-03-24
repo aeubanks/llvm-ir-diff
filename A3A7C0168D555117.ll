@@ -9,33 +9,36 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @foo(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 {
   %3 = ptrtoint ptr %0 to i64
   switch i64 %3, label %7 [
-    i64 1, label %9
+    i64 1, label %11
     i64 0, label %4
   ]
 
 4:                                                ; preds = %2
-  %5 = icmp ne i32 %1, 0
-  %6 = zext i1 %5 to i32
+  %5 = icmp eq i32 %1, 0
+  %6 = select i1 %5, ptr inttoptr (i64 1 to ptr), ptr inttoptr (i64 2 to ptr)
   br label %7
 
 7:                                                ; preds = %2, %4
-  %8 = phi i32 [ %6, %4 ], [ 1, %2 ]
-  br label %9
+  %8 = phi ptr [ %6, %4 ], [ %0, %2 ]
+  %9 = icmp ne ptr %8, inttoptr (i64 1 to ptr)
+  %10 = zext i1 %9 to i32
+  br label %11
 
-9:                                                ; preds = %2, %7
-  %10 = phi i32 [ %8, %7 ], [ 0, %2 ]
-  ret i32 %10
+11:                                               ; preds = %2, %7
+  %12 = phi i32 [ %10, %7 ], [ 0, %2 ]
+  ret i32 %12
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  br i1 icmp eq (i64 ptrtoint (ptr getelementptr inbounds ([8 x i32], ptr @v, i64 0, i64 7) to i64), i64 1), label %1, label %2
+  %1 = select i1 icmp eq (i64 ptrtoint (ptr getelementptr inbounds ([8 x i32], ptr @v, i64 0, i64 7) to i64), i64 1), i1 true, i1 icmp eq (ptr getelementptr inbounds ([8 x i32], ptr @v, i64 0, i64 7), ptr inttoptr (i64 1 to ptr))
+  br i1 %1, label %2, label %3
 
-1:                                                ; preds = %0
+2:                                                ; preds = %0
   tail call void @abort() #3
   unreachable
 
-2:                                                ; preds = %0
+3:                                                ; preds = %0
   ret i32 0
 }
 

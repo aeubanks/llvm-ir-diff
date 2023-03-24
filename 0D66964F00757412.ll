@@ -236,20 +236,18 @@ define dso_local void @exploreUp() local_unnamed_addr #0 {
   br i1 %32, label %56, label %33
 
 33:                                               ; preds = %24
-  %34 = icmp sgt i32 %31, %9
-  br i1 %34, label %35, label %50
-
-35:                                               ; preds = %33
+  %34 = getelementptr inbounds %struct.rect, ptr %25, i64 %29, i32 4
+  %35 = load i32, ptr %34, align 4, !tbaa !26
   %36 = getelementptr inbounds %struct.rect, ptr %25, i64 %29, i32 5
   %37 = load i32, ptr %36, align 4, !tbaa !25
-  %38 = getelementptr inbounds %struct.rect, ptr %25, i64 %29, i32 4
-  %39 = load i32, ptr %38, align 4, !tbaa !26
-  %40 = icmp sgt i32 %39, %11
+  %38 = icmp sle i32 %31, %9
+  %39 = icmp sgt i32 %35, %11
+  %40 = select i1 %38, i1 true, i1 %39
   %41 = icmp slt i32 %37, %13
   %42 = select i1 %40, i1 true, i1 %41
   br i1 %42, label %50, label %43
 
-43:                                               ; preds = %35
+43:                                               ; preds = %33
   %44 = tail call i32 @constructVedge(i32 noundef %23, i32 noundef %28), !range !32
   %45 = icmp eq i32 %44, 0
   br i1 %45, label %46, label %56
@@ -260,9 +258,9 @@ define dso_local void @exploreUp() local_unnamed_addr #0 {
   %49 = load i32, ptr %48, align 4, !tbaa !27
   br label %50
 
-50:                                               ; preds = %33, %35, %46
-  %51 = phi ptr [ %25, %33 ], [ %25, %35 ], [ %47, %46 ]
-  %52 = phi i32 [ %27, %33 ], [ %27, %35 ], [ %49, %46 ]
+50:                                               ; preds = %33, %46
+  %51 = phi ptr [ %25, %33 ], [ %47, %46 ]
+  %52 = phi i32 [ %27, %33 ], [ %49, %46 ]
   %53 = getelementptr inbounds %struct.dlink2, ptr %26, i64 0, i32 2
   %54 = load ptr, ptr %53, align 8, !tbaa !5
   %55 = icmp eq ptr %54, null
@@ -322,20 +320,18 @@ define dso_local void @exploreRite() local_unnamed_addr #0 {
   br i1 %32, label %56, label %33
 
 33:                                               ; preds = %24
-  %34 = icmp sgt i32 %31, %9
-  br i1 %34, label %35, label %50
-
-35:                                               ; preds = %33
+  %34 = getelementptr inbounds %struct.rect, ptr %25, i64 %29, i32 6
+  %35 = load i32, ptr %34, align 4, !tbaa !28
   %36 = getelementptr inbounds %struct.rect, ptr %25, i64 %29, i32 7
   %37 = load i32, ptr %36, align 4, !tbaa !27
-  %38 = getelementptr inbounds %struct.rect, ptr %25, i64 %29, i32 6
-  %39 = load i32, ptr %38, align 4, !tbaa !28
-  %40 = icmp sgt i32 %39, %11
+  %38 = icmp sle i32 %31, %9
+  %39 = icmp sgt i32 %35, %11
+  %40 = select i1 %38, i1 true, i1 %39
   %41 = icmp slt i32 %37, %13
   %42 = select i1 %40, i1 true, i1 %41
   br i1 %42, label %50, label %43
 
-43:                                               ; preds = %35
+43:                                               ; preds = %33
   %44 = tail call i32 @constructHedge(i32 noundef %23, i32 noundef %28), !range !32
   %45 = icmp eq i32 %44, 0
   br i1 %45, label %46, label %56
@@ -346,9 +342,9 @@ define dso_local void @exploreRite() local_unnamed_addr #0 {
   %49 = load i32, ptr %48, align 4, !tbaa !25
   br label %50
 
-50:                                               ; preds = %33, %35, %46
-  %51 = phi ptr [ %25, %33 ], [ %25, %35 ], [ %47, %46 ]
-  %52 = phi i32 [ %27, %33 ], [ %27, %35 ], [ %49, %46 ]
+50:                                               ; preds = %33, %46
+  %51 = phi ptr [ %25, %33 ], [ %47, %46 ]
+  %52 = phi i32 [ %27, %33 ], [ %49, %46 ]
   %53 = getelementptr inbounds %struct.dlink2, ptr %26, i64 0, i32 2
   %54 = load ptr, ptr %53, align 8, !tbaa !5
   %55 = icmp eq ptr %54, null
@@ -557,74 +553,74 @@ define dso_local i32 @constructVedge(i32 noundef %0, i32 noundef %1) local_unnam
   %139 = select i1 %137, i32 %108, i32 1000000
   br label %140
 
-140:                                              ; preds = %124, %134, %135, %131, %128, %125
-  %141 = phi i32 [ %127, %125 ], [ %129, %128 ], [ %132, %131 ], [ %138, %135 ], [ -1000000, %134 ], [ %104, %124 ]
-  %142 = phi i32 [ %126, %125 ], [ %130, %128 ], [ %133, %131 ], [ %139, %135 ], [ 1000000, %134 ], [ %102, %124 ]
+140:                                              ; preds = %135, %131, %128, %134, %124, %125
+  %141 = phi i32 [ %127, %125 ], [ %104, %124 ], [ -1000000, %134 ], [ %129, %128 ], [ %132, %131 ], [ %138, %135 ]
+  %142 = phi i32 [ %126, %125 ], [ %102, %124 ], [ 1000000, %134 ], [ %130, %128 ], [ %133, %131 ], [ %139, %135 ]
   %143 = load ptr, ptr @rectArray, align 8, !tbaa !5
-  %144 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 7
-  %145 = load i32, ptr %144, align 4, !tbaa !27
-  %146 = icmp sgt i32 %142, %145
-  br i1 %146, label %153, label %147
+  %144 = getelementptr inbounds %struct.rect, ptr %143, i64 %9
+  %145 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 7
+  %146 = load i32, ptr %145, align 4, !tbaa !27
+  %147 = icmp sgt i32 %142, %146
+  br i1 %147, label %154, label %148
 
-147:                                              ; preds = %140
-  %148 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 1
-  %149 = load i32, ptr %148, align 4, !tbaa !24
-  %150 = icmp slt i32 %149, %142
-  br i1 %150, label %151, label %153
+148:                                              ; preds = %140
+  %149 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 1
+  %150 = load i32, ptr %149, align 4, !tbaa !24
+  %151 = icmp slt i32 %150, %142
+  br i1 %151, label %152, label %154
 
-151:                                              ; preds = %147
-  store i32 %142, ptr %148, align 4, !tbaa !24
-  %152 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 3
-  store i32 2, ptr %152, align 4, !tbaa !48
-  br label %153
+152:                                              ; preds = %148
+  store i32 %142, ptr %149, align 4, !tbaa !24
+  %153 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 3
+  store i32 2, ptr %153, align 4, !tbaa !48
+  br label %154
 
-153:                                              ; preds = %147, %151, %140
-  %154 = getelementptr inbounds %struct.rect, ptr %143, i64 %4, i32 6
-  %155 = load i32, ptr %154, align 4, !tbaa !28
-  %156 = icmp slt i32 %141, %155
-  br i1 %156, label %163, label %157
+154:                                              ; preds = %148, %152, %140
+  %155 = getelementptr inbounds %struct.rect, ptr %143, i64 %4
+  %156 = getelementptr inbounds %struct.rect, ptr %143, i64 %4, i32 6
+  %157 = load i32, ptr %156, align 4, !tbaa !28
+  %158 = icmp slt i32 %141, %157
+  br i1 %158, label %165, label %159
 
-157:                                              ; preds = %153
-  %158 = getelementptr inbounds %struct.rect, ptr %143, i64 %4, i32 1
-  %159 = load i32, ptr %158, align 4, !tbaa !24
-  %160 = icmp sgt i32 %159, %141
-  br i1 %160, label %161, label %163
+159:                                              ; preds = %154
+  %160 = getelementptr inbounds %struct.rect, ptr %143, i64 %4, i32 1
+  %161 = load i32, ptr %160, align 4, !tbaa !24
+  %162 = icmp sgt i32 %161, %141
+  br i1 %162, label %163, label %165
 
-161:                                              ; preds = %157
-  store i32 %141, ptr %158, align 4, !tbaa !24
-  %162 = getelementptr inbounds %struct.rect, ptr %143, i64 %4, i32 3
-  store i32 1, ptr %162, align 4, !tbaa !48
-  br label %163
+163:                                              ; preds = %159
+  store i32 %141, ptr %160, align 4, !tbaa !24
+  %164 = getelementptr inbounds %struct.rect, ptr %143, i64 %4, i32 3
+  store i32 1, ptr %164, align 4, !tbaa !48
+  br label %165
 
-163:                                              ; preds = %157, %161, %153
-  %164 = getelementptr inbounds %struct.rect, ptr %143, i64 %4
-  %165 = load i32, ptr %164, align 4, !tbaa !22
-  %166 = icmp slt i32 %165, %59
-  %167 = icmp sgt i32 %165, %97
-  %168 = select i1 %166, i1 true, i1 %167
-  br i1 %168, label %169, label %172
+165:                                              ; preds = %159, %163, %154
+  %166 = load i32, ptr %155, align 4, !tbaa !22
+  %167 = icmp slt i32 %166, %59
+  %168 = icmp sgt i32 %166, %97
+  %169 = select i1 %167, i1 true, i1 %168
+  br i1 %169, label %170, label %173
 
-169:                                              ; preds = %163
-  %170 = add nsw i32 %97, %59
-  %171 = sdiv i32 %170, 2
-  store i32 %171, ptr %164, align 4, !tbaa !22
-  br label %172
+170:                                              ; preds = %165
+  %171 = add nsw i32 %97, %59
+  %172 = sdiv i32 %171, 2
+  store i32 %172, ptr %155, align 4, !tbaa !22
+  br label %173
 
-172:                                              ; preds = %163, %169
-  %173 = getelementptr inbounds %struct.rect, ptr %143, i64 %9
-  %174 = load i32, ptr %173, align 4, !tbaa !22
+173:                                              ; preds = %165, %170
+  %174 = load i32, ptr %144, align 4, !tbaa !22
   %175 = icmp slt i32 %174, %59
   %176 = icmp sgt i32 %174, %97
   %177 = select i1 %175, i1 true, i1 %176
   br i1 %177, label %178, label %181
 
-178:                                              ; preds = %172
+178:                                              ; preds = %173
   %179 = add nsw i32 %97, %59
   %180 = sdiv i32 %179, 2
-  store i32 %180, ptr %173, align 4, !tbaa !22
+  store i32 %180, ptr %144, align 4, !tbaa !22
   br label %181
 
-181:                                              ; preds = %172, %178
+181:                                              ; preds = %173, %178
   %182 = icmp eq i32 %112, 0
   br i1 %182, label %183, label %241
 
@@ -1011,9 +1007,9 @@ define dso_local i32 @constructHedge(i32 noundef %0, i32 noundef %1) local_unnam
   %139 = select i1 %137, i32 %108, i32 1000000
   br label %140
 
-140:                                              ; preds = %124, %134, %135, %131, %128, %125
-  %141 = phi i32 [ %127, %125 ], [ %129, %128 ], [ %132, %131 ], [ %138, %135 ], [ -1000000, %134 ], [ %104, %124 ]
-  %142 = phi i32 [ %126, %125 ], [ %130, %128 ], [ %133, %131 ], [ %139, %135 ], [ 1000000, %134 ], [ %102, %124 ]
+140:                                              ; preds = %135, %131, %128, %134, %124, %125
+  %141 = phi i32 [ %127, %125 ], [ %104, %124 ], [ -1000000, %134 ], [ %129, %128 ], [ %132, %131 ], [ %138, %135 ]
+  %142 = phi i32 [ %126, %125 ], [ %102, %124 ], [ 1000000, %134 ], [ %130, %128 ], [ %133, %131 ], [ %139, %135 ]
   %143 = load ptr, ptr @rectArray, align 8, !tbaa !5
   %144 = getelementptr inbounds %struct.rect, ptr %143, i64 %9
   %145 = getelementptr inbounds %struct.rect, ptr %143, i64 %9, i32 5
@@ -1283,22 +1279,22 @@ define dso_local i32 @constructHedge(i32 noundef %0, i32 noundef %1) local_unnam
 ; Function Attrs: mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite)
 declare noalias noundef ptr @realloc(ptr allocptr nocapture noundef, i64 noundef) local_unnamed_addr #4
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #5
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #5
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #6
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nofree nounwind }
-attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nofree nounwind }
 attributes #7 = { nounwind allocsize(0) }
 attributes #8 = { nounwind }
 attributes #9 = { nounwind allocsize(1) }

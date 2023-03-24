@@ -43,19 +43,19 @@ define dso_local void @getframebits(ptr nocapture noundef readonly %0, ptr nocap
   %18 = select i1 %17, i32 168, i32 288
   %19 = select i1 %17, i32 104, i32 168
   %20 = select i1 %14, i32 %18, i32 %19
-  %21 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 14
-  %22 = load i32, ptr %21, align 4, !tbaa !17
-  %23 = icmp eq i32 %22, 0
-  %24 = or i32 %20, 16
-  %25 = select i1 %23, i32 %20, i32 %24
-  %26 = sitofp i32 %13 to double
-  %27 = sitofp i32 %5 to double
-  %28 = fdiv double %27, 1.000000e+03
+  %21 = sitofp i32 %13 to double
+  %22 = sitofp i32 %5 to double
+  %23 = fdiv double %22, 1.000000e+03
+  %24 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 14
+  %25 = load i32, ptr %24, align 4, !tbaa !17
+  %26 = icmp eq i32 %25, 0
+  %27 = or i32 %20, 16
+  %28 = select i1 %26, i32 %20, i32 %27
   %29 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 42
   %30 = load i32, ptr %29, align 4, !tbaa !18
   %31 = sitofp i32 %30 to double
-  %32 = fdiv double %31, %28
-  %33 = fmul double %26, 1.250000e-01
+  %32 = fdiv double %31, %23
+  %33 = fmul double %21, 1.250000e-01
   %34 = tail call double @llvm.fmuladd.f64(double %32, double %33, double 1.000000e-09)
   %35 = tail call double @llvm.floor.f64(double %34)
   %36 = fptosi double %35 to i32
@@ -64,7 +64,7 @@ define dso_local void @getframebits(ptr nocapture noundef readonly %0, ptr nocap
   %39 = add i32 %38, %36
   %40 = shl i32 %39, 3
   store i32 %40, ptr %1, align 4, !tbaa !15
-  %41 = sub nsw i32 %40, %25
+  %41 = sub nsw i32 %40, %28
   %42 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 45
   %43 = load i32, ptr %42, align 8, !tbaa !20
   %44 = sdiv i32 %41, %43
@@ -429,9 +429,9 @@ define dso_local i32 @copy_buffer(ptr nocapture noundef writeonly %0, i32 nounde
 
 37:                                               ; preds = %34, %13
   %38 = phi i32 [ %6, %13 ], [ %36, %34 ]
-  %39 = phi i32 [ 0, %13 ], [ %35, %34 ]
-  %40 = phi i32 [ %8, %13 ], [ %31, %34 ]
-  %41 = xor i32 %40, -1
+  %39 = phi i32 [ %8, %13 ], [ %31, %34 ]
+  %40 = phi i32 [ 0, %13 ], [ %35, %34 ]
+  %41 = xor i32 %39, -1
   %42 = add i32 %38, %41
   %43 = icmp slt i32 %42, 1
   br i1 %43, label %51, label %44
@@ -449,7 +449,7 @@ define dso_local i32 @copy_buffer(ptr nocapture noundef writeonly %0, i32 nounde
   br label %51
 
 51:                                               ; preds = %44, %37, %9
-  %52 = phi i32 [ -1, %9 ], [ %39, %37 ], [ %39, %44 ]
+  %52 = phi i32 [ -1, %9 ], [ %40, %37 ], [ %40, %44 ]
   ret i32 %52
 }
 
@@ -592,11 +592,11 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
-
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #15
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #16
@@ -615,8 +615,8 @@ attributes #10 = { mustprogress nofree norecurse nosync nounwind willreturn memo
 attributes #11 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { nofree nounwind }
-attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #15 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #14 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #15 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #17 = { cold }
 attributes #18 = { noreturn nounwind }

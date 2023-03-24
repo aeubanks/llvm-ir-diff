@@ -270,411 +270,404 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   store i32 7, ptr %72, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo7, i64 0, inrange i32 0, i64 2), ptr %9, align 8, !tbaa !26
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %3)
-          to label %190 unwind label %188
+          to label %184 unwind label %182
 
-73:                                               ; preds = %231
+73:                                               ; preds = %224
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %74 unwind label %188
+          to label %74 unwind label %182
 
-74:                                               ; preds = %73, %87
-  %75 = phi i32 [ %88, %87 ], [ 0, %73 ]
+74:                                               ; preds = %73, %86
+  %75 = phi i32 [ %87, %86 ], [ 0, %73 ]
   %76 = load ptr, ptr %4, align 8, !tbaa !26
   %77 = getelementptr inbounds ptr, ptr %76, i64 4
   %78 = load ptr, ptr %77, align 8
   invoke void %78(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %79 unwind label %205
+          to label %79 unwind label %198
 
 79:                                               ; preds = %74
   %80 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %81 unwind label %219
+          to label %81 unwind label %212
 
 81:                                               ; preds = %79
-  %82 = trunc i32 %75 to i8
-  %83 = urem i8 %82, 25
-  %84 = icmp eq i8 %83, 0
-  br i1 %84, label %85, label %87
+  %82 = urem i32 %75, 25
+  %83 = icmp eq i32 %82, 0
+  br i1 %83, label %84, label %86
 
-85:                                               ; preds = %81
-  %86 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.1, i32 noundef %75)
-  br label %87
+84:                                               ; preds = %81
+  %85 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.1, i32 noundef %75)
+  br label %86
 
-87:                                               ; preds = %85, %81
-  %88 = add nuw nsw i32 %75, 1
-  %89 = icmp eq i32 %88, 100
-  br i1 %89, label %90, label %74
+86:                                               ; preds = %84, %81
+  %87 = add nuw nsw i32 %75, 1
+  %88 = icmp eq i32 %87, 100
+  br i1 %88, label %89, label %74
 
-90:                                               ; preds = %87
+89:                                               ; preds = %86
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %91 unwind label %188
+          to label %90 unwind label %182
 
-91:                                               ; preds = %90, %104
-  %92 = phi i32 [ %105, %104 ], [ 0, %90 ]
-  %93 = load ptr, ptr %5, align 8, !tbaa !26
-  %94 = getelementptr inbounds ptr, ptr %93, i64 4
-  %95 = load ptr, ptr %94, align 8
-  invoke void %95(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %96 unwind label %207
+90:                                               ; preds = %89, %102
+  %91 = phi i32 [ %103, %102 ], [ 0, %89 ]
+  %92 = load ptr, ptr %5, align 8, !tbaa !26
+  %93 = getelementptr inbounds ptr, ptr %92, i64 4
+  %94 = load ptr, ptr %93, align 8
+  invoke void %94(ptr noundef nonnull align 8 dereferenceable(136) %5)
+          to label %95 unwind label %200
 
-96:                                               ; preds = %91
-  %97 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %98 unwind label %221
+95:                                               ; preds = %90
+  %96 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %97 unwind label %214
 
-98:                                               ; preds = %96
-  %99 = trunc i32 %92 to i8
-  %100 = urem i8 %99, 25
-  %101 = icmp eq i8 %100, 0
-  br i1 %101, label %102, label %104
+97:                                               ; preds = %95
+  %98 = urem i32 %91, 25
+  %99 = icmp eq i32 %98, 0
+  br i1 %99, label %100, label %102
 
-102:                                              ; preds = %98
-  %103 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.2, i32 noundef %92)
-  br label %104
+100:                                              ; preds = %97
+  %101 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.2, i32 noundef %91)
+  br label %102
 
-104:                                              ; preds = %102, %98
-  %105 = add nuw nsw i32 %92, 1
-  %106 = icmp eq i32 %105, 100
-  br i1 %106, label %107, label %91
+102:                                              ; preds = %100, %97
+  %103 = add nuw nsw i32 %91, 1
+  %104 = icmp eq i32 %103, 100
+  br i1 %104, label %105, label %90
 
-107:                                              ; preds = %104
+105:                                              ; preds = %102
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %108 unwind label %188
+          to label %106 unwind label %182
 
-108:                                              ; preds = %107, %121
-  %109 = phi i32 [ %122, %121 ], [ 0, %107 ]
-  %110 = load ptr, ptr %6, align 8, !tbaa !26
-  %111 = getelementptr inbounds ptr, ptr %110, i64 4
-  %112 = load ptr, ptr %111, align 8
-  invoke void %112(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %113 unwind label %209
+106:                                              ; preds = %105, %118
+  %107 = phi i32 [ %119, %118 ], [ 0, %105 ]
+  %108 = load ptr, ptr %6, align 8, !tbaa !26
+  %109 = getelementptr inbounds ptr, ptr %108, i64 4
+  %110 = load ptr, ptr %109, align 8
+  invoke void %110(ptr noundef nonnull align 8 dereferenceable(136) %6)
+          to label %111 unwind label %202
 
-113:                                              ; preds = %108
-  %114 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %115 unwind label %223
+111:                                              ; preds = %106
+  %112 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %113 unwind label %216
 
-115:                                              ; preds = %113
-  %116 = trunc i32 %109 to i8
-  %117 = urem i8 %116, 25
-  %118 = icmp eq i8 %117, 0
-  br i1 %118, label %119, label %121
+113:                                              ; preds = %111
+  %114 = urem i32 %107, 25
+  %115 = icmp eq i32 %114, 0
+  br i1 %115, label %116, label %118
 
-119:                                              ; preds = %115
-  %120 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.3, i32 noundef %109)
-  br label %121
+116:                                              ; preds = %113
+  %117 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.3, i32 noundef %107)
+  br label %118
 
-121:                                              ; preds = %119, %115
-  %122 = add nuw nsw i32 %109, 1
-  %123 = icmp eq i32 %122, 100
-  br i1 %123, label %124, label %108
+118:                                              ; preds = %116, %113
+  %119 = add nuw nsw i32 %107, 1
+  %120 = icmp eq i32 %119, 100
+  br i1 %120, label %121, label %106
 
-124:                                              ; preds = %121
+121:                                              ; preds = %118
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %125 unwind label %188
+          to label %122 unwind label %182
 
-125:                                              ; preds = %124, %138
-  %126 = phi i32 [ %139, %138 ], [ 0, %124 ]
-  %127 = load ptr, ptr %7, align 8, !tbaa !26
-  %128 = getelementptr inbounds ptr, ptr %127, i64 4
-  %129 = load ptr, ptr %128, align 8
-  invoke void %129(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %130 unwind label %211
+122:                                              ; preds = %121, %134
+  %123 = phi i32 [ %135, %134 ], [ 0, %121 ]
+  %124 = load ptr, ptr %7, align 8, !tbaa !26
+  %125 = getelementptr inbounds ptr, ptr %124, i64 4
+  %126 = load ptr, ptr %125, align 8
+  invoke void %126(ptr noundef nonnull align 8 dereferenceable(136) %7)
+          to label %127 unwind label %204
 
-130:                                              ; preds = %125
-  %131 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %132 unwind label %225
+127:                                              ; preds = %122
+  %128 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %129 unwind label %218
 
-132:                                              ; preds = %130
-  %133 = trunc i32 %126 to i8
-  %134 = urem i8 %133, 25
-  %135 = icmp eq i8 %134, 0
-  br i1 %135, label %136, label %138
+129:                                              ; preds = %127
+  %130 = urem i32 %123, 25
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %132, label %134
 
-136:                                              ; preds = %132
-  %137 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.4, i32 noundef %126)
-  br label %138
+132:                                              ; preds = %129
+  %133 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.4, i32 noundef %123)
+  br label %134
 
-138:                                              ; preds = %136, %132
-  %139 = add nuw nsw i32 %126, 1
-  %140 = icmp eq i32 %139, 100
-  br i1 %140, label %141, label %125
+134:                                              ; preds = %132, %129
+  %135 = add nuw nsw i32 %123, 1
+  %136 = icmp eq i32 %135, 100
+  br i1 %136, label %137, label %122
 
-141:                                              ; preds = %138
+137:                                              ; preds = %134
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %142 unwind label %188
+          to label %138 unwind label %182
 
-142:                                              ; preds = %141, %155
-  %143 = phi i32 [ %156, %155 ], [ 0, %141 ]
-  %144 = load ptr, ptr %8, align 8, !tbaa !26
-  %145 = getelementptr inbounds ptr, ptr %144, i64 4
-  %146 = load ptr, ptr %145, align 8
-  invoke void %146(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %147 unwind label %213
+138:                                              ; preds = %137, %150
+  %139 = phi i32 [ %151, %150 ], [ 0, %137 ]
+  %140 = load ptr, ptr %8, align 8, !tbaa !26
+  %141 = getelementptr inbounds ptr, ptr %140, i64 4
+  %142 = load ptr, ptr %141, align 8
+  invoke void %142(ptr noundef nonnull align 8 dereferenceable(136) %8)
+          to label %143 unwind label %206
 
-147:                                              ; preds = %142
-  %148 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %149 unwind label %227
+143:                                              ; preds = %138
+  %144 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %145 unwind label %220
 
-149:                                              ; preds = %147
-  %150 = trunc i32 %143 to i8
-  %151 = urem i8 %150, 25
-  %152 = icmp eq i8 %151, 0
-  br i1 %152, label %153, label %155
+145:                                              ; preds = %143
+  %146 = urem i32 %139, 25
+  %147 = icmp eq i32 %146, 0
+  br i1 %147, label %148, label %150
 
-153:                                              ; preds = %149
-  %154 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.5, i32 noundef %143)
-  br label %155
+148:                                              ; preds = %145
+  %149 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.5, i32 noundef %139)
+  br label %150
 
-155:                                              ; preds = %153, %149
-  %156 = add nuw nsw i32 %143, 1
-  %157 = icmp eq i32 %156, 100
-  br i1 %157, label %158, label %142
+150:                                              ; preds = %148, %145
+  %151 = add nuw nsw i32 %139, 1
+  %152 = icmp eq i32 %151, 100
+  br i1 %152, label %153, label %138
 
-158:                                              ; preds = %155
+153:                                              ; preds = %150
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %159 unwind label %188
+          to label %154 unwind label %182
 
-159:                                              ; preds = %158, %172
-  %160 = phi i32 [ %173, %172 ], [ 0, %158 ]
-  %161 = load ptr, ptr %9, align 8, !tbaa !26
-  %162 = getelementptr inbounds ptr, ptr %161, i64 4
-  %163 = load ptr, ptr %162, align 8
-  invoke void %163(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %164 unwind label %215
+154:                                              ; preds = %153, %166
+  %155 = phi i32 [ %167, %166 ], [ 0, %153 ]
+  %156 = load ptr, ptr %9, align 8, !tbaa !26
+  %157 = getelementptr inbounds ptr, ptr %156, i64 4
+  %158 = load ptr, ptr %157, align 8
+  invoke void %158(ptr noundef nonnull align 8 dereferenceable(136) %9)
+          to label %159 unwind label %208
 
-164:                                              ; preds = %159
-  %165 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %166 unwind label %229
+159:                                              ; preds = %154
+  %160 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %161 unwind label %222
 
-166:                                              ; preds = %164
-  %167 = trunc i32 %160 to i8
-  %168 = urem i8 %167, 25
-  %169 = icmp eq i8 %168, 0
-  br i1 %169, label %170, label %172
+161:                                              ; preds = %159
+  %162 = urem i32 %155, 25
+  %163 = icmp eq i32 %162, 0
+  br i1 %163, label %164, label %166
 
-170:                                              ; preds = %166
-  %171 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.6, i32 noundef %160)
-  br label %172
+164:                                              ; preds = %161
+  %165 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.6, i32 noundef %155)
+  br label %166
 
-172:                                              ; preds = %170, %166
-  %173 = add nuw nsw i32 %160, 1
-  %174 = icmp eq i32 %173, 100
-  br i1 %174, label %175, label %159
+166:                                              ; preds = %164, %161
+  %167 = add nuw nsw i32 %155, 1
+  %168 = icmp eq i32 %167, 100
+  br i1 %168, label %169, label %154
 
-175:                                              ; preds = %172
+169:                                              ; preds = %166
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %236 unwind label %186
+          to label %229 unwind label %180
 
-176:                                              ; preds = %248
+170:                                              ; preds = %241
+  %171 = landingpad { ptr, i32 }
+          cleanup
+  br label %245
+
+172:                                              ; preds = %238
+  %173 = landingpad { ptr, i32 }
+          cleanup
+  br label %242
+
+174:                                              ; preds = %235
+  %175 = landingpad { ptr, i32 }
+          cleanup
+  br label %239
+
+176:                                              ; preds = %232
   %177 = landingpad { ptr, i32 }
           cleanup
-  br label %252
+  br label %236
 
-178:                                              ; preds = %245
+178:                                              ; preds = %229
   %179 = landingpad { ptr, i32 }
           cleanup
-  br label %249
+  br label %233
 
-180:                                              ; preds = %242
+180:                                              ; preds = %169
   %181 = landingpad { ptr, i32 }
           cleanup
-  br label %246
+  br label %230
 
-182:                                              ; preds = %239
+182:                                              ; preds = %153, %137, %121, %105, %89, %73, %2
   %183 = landingpad { ptr, i32 }
           cleanup
-  br label %243
+  br label %227
 
-184:                                              ; preds = %236
-  %185 = landingpad { ptr, i32 }
+184:                                              ; preds = %2, %224
+  %185 = phi i32 [ %225, %224 ], [ 0, %2 ]
+  %186 = load ptr, ptr %3, align 8, !tbaa !26
+  %187 = getelementptr inbounds ptr, ptr %186, i64 4
+  %188 = load ptr, ptr %187, align 8
+  invoke void %188(ptr noundef nonnull align 8 dereferenceable(136) %3)
+          to label %189 unwind label %196
+
+189:                                              ; preds = %184
+  %190 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %191 unwind label %210
+
+191:                                              ; preds = %189
+  %192 = urem i32 %185, 25
+  %193 = icmp eq i32 %192, 0
+  br i1 %193, label %194, label %224
+
+194:                                              ; preds = %191
+  %195 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str, i32 noundef %185)
+  br label %224
+
+196:                                              ; preds = %184
+  %197 = landingpad { ptr, i32 }
           cleanup
-  br label %240
+  br label %227
 
-186:                                              ; preds = %175
-  %187 = landingpad { ptr, i32 }
+198:                                              ; preds = %74
+  %199 = landingpad { ptr, i32 }
           cleanup
-  br label %237
+  br label %227
 
-188:                                              ; preds = %158, %141, %124, %107, %90, %73, %2
-  %189 = landingpad { ptr, i32 }
+200:                                              ; preds = %90
+  %201 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-190:                                              ; preds = %2, %231
-  %191 = phi i32 [ %232, %231 ], [ 0, %2 ]
-  %192 = load ptr, ptr %3, align 8, !tbaa !26
-  %193 = getelementptr inbounds ptr, ptr %192, i64 4
-  %194 = load ptr, ptr %193, align 8
-  invoke void %194(ptr noundef nonnull align 8 dereferenceable(136) %3)
-          to label %195 unwind label %203
-
-195:                                              ; preds = %190
-  %196 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %197 unwind label %217
-
-197:                                              ; preds = %195
-  %198 = trunc i32 %191 to i8
-  %199 = urem i8 %198, 25
-  %200 = icmp eq i8 %199, 0
-  br i1 %200, label %201, label %231
-
-201:                                              ; preds = %197
-  %202 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str, i32 noundef %191)
-  br label %231
-
-203:                                              ; preds = %190
-  %204 = landingpad { ptr, i32 }
+202:                                              ; preds = %106
+  %203 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-205:                                              ; preds = %74
-  %206 = landingpad { ptr, i32 }
+204:                                              ; preds = %122
+  %205 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-207:                                              ; preds = %91
-  %208 = landingpad { ptr, i32 }
+206:                                              ; preds = %138
+  %207 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-209:                                              ; preds = %108
-  %210 = landingpad { ptr, i32 }
+208:                                              ; preds = %154
+  %209 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-211:                                              ; preds = %125
-  %212 = landingpad { ptr, i32 }
+210:                                              ; preds = %189
+  %211 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-213:                                              ; preds = %142
-  %214 = landingpad { ptr, i32 }
+212:                                              ; preds = %79
+  %213 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-215:                                              ; preds = %159
-  %216 = landingpad { ptr, i32 }
+214:                                              ; preds = %95
+  %215 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-217:                                              ; preds = %195
-  %218 = landingpad { ptr, i32 }
+216:                                              ; preds = %111
+  %217 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-219:                                              ; preds = %79
-  %220 = landingpad { ptr, i32 }
+218:                                              ; preds = %127
+  %219 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-221:                                              ; preds = %96
-  %222 = landingpad { ptr, i32 }
+220:                                              ; preds = %143
+  %221 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-223:                                              ; preds = %113
-  %224 = landingpad { ptr, i32 }
+222:                                              ; preds = %159
+  %223 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %227
 
-225:                                              ; preds = %130
-  %226 = landingpad { ptr, i32 }
-          cleanup
-  br label %234
+224:                                              ; preds = %194, %191
+  %225 = add nuw nsw i32 %185, 1
+  %226 = icmp eq i32 %225, 100
+  br i1 %226, label %73, label %184
 
-227:                                              ; preds = %147
-  %228 = landingpad { ptr, i32 }
-          cleanup
-  br label %234
-
-229:                                              ; preds = %164
-  %230 = landingpad { ptr, i32 }
-          cleanup
-  br label %234
-
-231:                                              ; preds = %201, %197
-  %232 = add nuw nsw i32 %191, 1
-  %233 = icmp eq i32 %232, 100
-  br i1 %233, label %73, label %190
-
-234:                                              ; preds = %217, %221, %225, %229, %227, %223, %219, %203, %207, %211, %215, %213, %209, %205, %188
-  %235 = phi { ptr, i32 } [ %189, %188 ], [ %204, %203 ], [ %206, %205 ], [ %208, %207 ], [ %210, %209 ], [ %212, %211 ], [ %214, %213 ], [ %216, %215 ], [ %218, %217 ], [ %220, %219 ], [ %222, %221 ], [ %224, %223 ], [ %226, %225 ], [ %228, %227 ], [ %230, %229 ]
+227:                                              ; preds = %210, %214, %218, %222, %220, %216, %212, %196, %200, %204, %208, %206, %202, %198, %182
+  %228 = phi { ptr, i32 } [ %183, %182 ], [ %197, %196 ], [ %199, %198 ], [ %201, %200 ], [ %203, %202 ], [ %205, %204 ], [ %207, %206 ], [ %209, %208 ], [ %211, %210 ], [ %213, %212 ], [ %215, %214 ], [ %217, %216 ], [ %219, %218 ], [ %221, %220 ], [ %223, %222 ]
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %237 unwind label %255
+          to label %230 unwind label %248
 
-236:                                              ; preds = %175
+229:                                              ; preds = %169
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %9) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %239 unwind label %184
+          to label %232 unwind label %178
 
-237:                                              ; preds = %234, %186
-  %238 = phi { ptr, i32 } [ %235, %234 ], [ %187, %186 ]
+230:                                              ; preds = %227, %180
+  %231 = phi { ptr, i32 } [ %228, %227 ], [ %181, %180 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %9) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %240 unwind label %255
+          to label %233 unwind label %248
 
-239:                                              ; preds = %236
+232:                                              ; preds = %229
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %8) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %242 unwind label %182
+          to label %235 unwind label %176
 
-240:                                              ; preds = %237, %184
-  %241 = phi { ptr, i32 } [ %238, %237 ], [ %185, %184 ]
+233:                                              ; preds = %230, %178
+  %234 = phi { ptr, i32 } [ %231, %230 ], [ %179, %178 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %8) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %243 unwind label %255
+          to label %236 unwind label %248
 
-242:                                              ; preds = %239
+235:                                              ; preds = %232
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %7) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %245 unwind label %180
+          to label %238 unwind label %174
 
-243:                                              ; preds = %240, %182
-  %244 = phi { ptr, i32 } [ %241, %240 ], [ %183, %182 ]
+236:                                              ; preds = %233, %176
+  %237 = phi { ptr, i32 } [ %234, %233 ], [ %177, %176 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %7) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %246 unwind label %255
+          to label %239 unwind label %248
 
-245:                                              ; preds = %242
+238:                                              ; preds = %235
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %6) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %248 unwind label %178
+          to label %241 unwind label %172
 
-246:                                              ; preds = %243, %180
-  %247 = phi { ptr, i32 } [ %244, %243 ], [ %181, %180 ]
+239:                                              ; preds = %236, %174
+  %240 = phi { ptr, i32 } [ %237, %236 ], [ %175, %174 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %6) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %249 unwind label %255
+          to label %242 unwind label %248
 
-248:                                              ; preds = %245
+241:                                              ; preds = %238
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %5) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %251 unwind label %176
+          to label %244 unwind label %170
 
-249:                                              ; preds = %246, %178
-  %250 = phi { ptr, i32 } [ %247, %246 ], [ %179, %178 ]
+242:                                              ; preds = %239, %172
+  %243 = phi { ptr, i32 } [ %240, %239 ], [ %173, %172 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %5) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %252 unwind label %255
+          to label %245 unwind label %248
 
-251:                                              ; preds = %248
+244:                                              ; preds = %241
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %4) #9
   call void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %3)
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %3) #9
   ret i32 0
 
-252:                                              ; preds = %249, %176
-  %253 = phi { ptr, i32 } [ %250, %249 ], [ %177, %176 ]
+245:                                              ; preds = %242, %170
+  %246 = phi { ptr, i32 } [ %243, %242 ], [ %171, %170 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %4) #9
   invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %3)
-          to label %254 unwind label %255
+          to label %247 unwind label %248
 
-254:                                              ; preds = %252
+247:                                              ; preds = %245
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %3) #9
-  resume { ptr, i32 } %253
+  resume { ptr, i32 } %246
 
-255:                                              ; preds = %252, %249, %246, %243, %240, %237, %234
-  %256 = landingpad { ptr, i32 }
+248:                                              ; preds = %245, %242, %239, %236, %233, %230, %227
+  %249 = landingpad { ptr, i32 }
           catch ptr null
-  %257 = extractvalue { ptr, i32 } %256, 0
-  call void @__clang_call_terminate(ptr %257) #10
+  %250 = extractvalue { ptr, i32 } %249, 0
+  call void @__clang_call_terminate(ptr %250) #10
   unreachable
 }
 

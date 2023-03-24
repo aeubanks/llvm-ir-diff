@@ -161,7 +161,7 @@ declare i32 @LessThan(ptr noundef, ptr noundef) local_unnamed_addr #5
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @DeleteMin(ptr noundef %0) local_unnamed_addr #3 {
   %2 = icmp eq ptr %0, null
-  br i1 %2, label %234, label %3
+  br i1 %2, label %238, label %3
 
 3:                                                ; preds = %1
   %4 = getelementptr inbounds %struct._Heap, ptr %0, i64 0, i32 3
@@ -191,7 +191,7 @@ define dso_local ptr @DeleteMin(ptr noundef %0) local_unnamed_addr #3 {
 
 19:                                               ; preds = %15
   tail call void @free(ptr noundef nonnull %0) #17
-  br label %234
+  br label %238
 
 20:                                               ; preds = %15
   %21 = getelementptr inbounds %struct._Heap, ptr %0, i64 0, i32 2
@@ -206,9 +206,9 @@ define dso_local ptr @DeleteMin(ptr noundef %0) local_unnamed_addr #3 {
 25:                                               ; preds = %24, %20
   br label %26
 
-26:                                               ; preds = %25, %96
-  %27 = phi i32 [ %100, %96 ], [ 0, %25 ]
-  %28 = phi ptr [ %30, %96 ], [ %17, %25 ]
+26:                                               ; preds = %25, %98
+  %27 = phi i32 [ %102, %98 ], [ 0, %25 ]
+  %28 = phi ptr [ %30, %98 ], [ %17, %25 ]
   %29 = getelementptr inbounds %struct._Heap, ptr %28, i64 0, i32 3
   %30 = load ptr, ptr %29, align 8, !tbaa !13
   store ptr %28, ptr %29, align 8, !tbaa !13
@@ -222,322 +222,326 @@ define dso_local ptr @DeleteMin(ptr noundef %0) local_unnamed_addr #3 {
   %36 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %35
   %37 = load ptr, ptr %36, align 8, !tbaa !5
   %38 = icmp eq ptr %37, null
-  br i1 %38, label %96, label %39
+  br i1 %38, label %98, label %39
 
-39:                                               ; preds = %26, %88
-  %40 = phi ptr [ %94, %88 ], [ %37, %26 ]
-  %41 = phi ptr [ %93, %88 ], [ %36, %26 ]
-  %42 = phi ptr [ %90, %88 ], [ %33, %26 ]
-  %43 = phi ptr [ %89, %88 ], [ %28, %26 ]
-  %44 = load ptr, ptr %40, align 8, !tbaa !9
-  %45 = load ptr, ptr %43, align 8, !tbaa !9
-  %46 = tail call i32 @LessThan(ptr noundef %44, ptr noundef %45) #17
-  %47 = icmp eq i32 %46, 0
-  %48 = load ptr, ptr %41, align 8, !tbaa !5
-  br i1 %47, label %69, label %49
+39:                                               ; preds = %26, %91
+  %40 = phi ptr [ %96, %91 ], [ %37, %26 ]
+  %41 = phi ptr [ %95, %91 ], [ %36, %26 ]
+  %42 = phi ptr [ %93, %91 ], [ %28, %26 ]
+  %43 = load ptr, ptr %40, align 8, !tbaa !9
+  %44 = load ptr, ptr %42, align 8, !tbaa !9
+  %45 = tail call i32 @LessThan(ptr noundef %43, ptr noundef %44) #17
+  %46 = icmp eq i32 %45, 0
+  %47 = load ptr, ptr %41, align 8, !tbaa !5
+  br i1 %46, label %71, label %48
 
-49:                                               ; preds = %39
-  %50 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 2
-  %51 = load ptr, ptr %50, align 8, !tbaa !17
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %54
+48:                                               ; preds = %39
+  %49 = getelementptr inbounds %struct._Heap, ptr %47, i64 0, i32 2
+  %50 = load ptr, ptr %49, align 8, !tbaa !17
+  %51 = icmp eq ptr %50, null
+  br i1 %51, label %52, label %53
 
-53:                                               ; preds = %49
-  store ptr %43, ptr %50, align 8, !tbaa !17
-  br label %61
+52:                                               ; preds = %48
+  store ptr %42, ptr %49, align 8, !tbaa !17
+  br label %60
 
-54:                                               ; preds = %49
-  %55 = getelementptr inbounds %struct._Heap, ptr %51, i64 0, i32 3
-  %56 = load ptr, ptr %55, align 8, !tbaa !13
-  %57 = getelementptr inbounds %struct._Heap, ptr %56, i64 0, i32 4
-  store ptr %43, ptr %57, align 8, !tbaa !14
-  %58 = getelementptr inbounds %struct._Heap, ptr %43, i64 0, i32 3
-  %59 = load ptr, ptr %58, align 8, !tbaa !13
-  %60 = getelementptr inbounds %struct._Heap, ptr %59, i64 0, i32 4
-  store ptr %51, ptr %60, align 8, !tbaa !14
-  store ptr %59, ptr %55, align 8, !tbaa !13
-  store ptr %56, ptr %58, align 8, !tbaa !13
-  br label %61
+53:                                               ; preds = %48
+  %54 = getelementptr inbounds %struct._Heap, ptr %50, i64 0, i32 3
+  %55 = load ptr, ptr %54, align 8, !tbaa !13
+  %56 = getelementptr inbounds %struct._Heap, ptr %55, i64 0, i32 4
+  store ptr %42, ptr %56, align 8, !tbaa !14
+  %57 = getelementptr inbounds %struct._Heap, ptr %42, i64 0, i32 3
+  %58 = load ptr, ptr %57, align 8, !tbaa !13
+  %59 = getelementptr inbounds %struct._Heap, ptr %58, i64 0, i32 4
+  store ptr %50, ptr %59, align 8, !tbaa !14
+  store ptr %58, ptr %54, align 8, !tbaa !13
+  store ptr %55, ptr %57, align 8, !tbaa !13
+  br label %60
 
-61:                                               ; preds = %53, %54
-  %62 = getelementptr inbounds %struct._Heap, ptr %43, i64 0, i32 1
-  store ptr %48, ptr %62, align 8, !tbaa !18
-  %63 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 5
-  %64 = load i32, ptr %63, align 8, !tbaa !15
-  %65 = load i32, ptr %42, align 8, !tbaa !15
-  %66 = add i32 %64, 1
+60:                                               ; preds = %52, %53
+  %61 = getelementptr inbounds %struct._Heap, ptr %42, i64 0, i32 1
+  store ptr %47, ptr %61, align 8, !tbaa !18
+  %62 = getelementptr inbounds %struct._Heap, ptr %47, i64 0, i32 5
+  %63 = load i32, ptr %62, align 8, !tbaa !15
+  %64 = getelementptr inbounds %struct._Heap, ptr %42, i64 0, i32 5
+  %65 = load i32, ptr %64, align 8, !tbaa !15
+  %66 = add i32 %63, 1
   %67 = add i32 %66, %65
-  store i32 %67, ptr %63, align 8, !tbaa !15
+  store i32 %67, ptr %62, align 8, !tbaa !15
   %68 = load ptr, ptr %41, align 8, !tbaa !5
-  br label %88
+  %69 = getelementptr inbounds %struct._Heap, ptr %68, i64 0, i32 5
+  %70 = load i32, ptr %69, align 8, !tbaa !15
+  br label %91
 
-69:                                               ; preds = %39
-  %70 = getelementptr inbounds %struct._Heap, ptr %43, i64 0, i32 2
-  %71 = load ptr, ptr %70, align 8, !tbaa !17
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %73, label %74
+71:                                               ; preds = %39
+  %72 = getelementptr inbounds %struct._Heap, ptr %42, i64 0, i32 2
+  %73 = load ptr, ptr %72, align 8, !tbaa !17
+  %74 = icmp eq ptr %73, null
+  br i1 %74, label %75, label %76
 
-73:                                               ; preds = %69
-  store ptr %48, ptr %70, align 8, !tbaa !17
-  br label %81
+75:                                               ; preds = %71
+  store ptr %47, ptr %72, align 8, !tbaa !17
+  br label %83
 
-74:                                               ; preds = %69
-  %75 = getelementptr inbounds %struct._Heap, ptr %71, i64 0, i32 3
-  %76 = load ptr, ptr %75, align 8, !tbaa !13
-  %77 = getelementptr inbounds %struct._Heap, ptr %76, i64 0, i32 4
-  store ptr %48, ptr %77, align 8, !tbaa !14
-  %78 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 3
-  %79 = load ptr, ptr %78, align 8, !tbaa !13
-  %80 = getelementptr inbounds %struct._Heap, ptr %79, i64 0, i32 4
-  store ptr %71, ptr %80, align 8, !tbaa !14
-  store ptr %79, ptr %75, align 8, !tbaa !13
-  store ptr %76, ptr %78, align 8, !tbaa !13
-  br label %81
+76:                                               ; preds = %71
+  %77 = getelementptr inbounds %struct._Heap, ptr %73, i64 0, i32 3
+  %78 = load ptr, ptr %77, align 8, !tbaa !13
+  %79 = getelementptr inbounds %struct._Heap, ptr %78, i64 0, i32 4
+  store ptr %47, ptr %79, align 8, !tbaa !14
+  %80 = getelementptr inbounds %struct._Heap, ptr %47, i64 0, i32 3
+  %81 = load ptr, ptr %80, align 8, !tbaa !13
+  %82 = getelementptr inbounds %struct._Heap, ptr %81, i64 0, i32 4
+  store ptr %73, ptr %82, align 8, !tbaa !14
+  store ptr %81, ptr %77, align 8, !tbaa !13
+  store ptr %78, ptr %80, align 8, !tbaa !13
+  br label %83
 
-81:                                               ; preds = %73, %74
-  %82 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 1
-  store ptr %43, ptr %82, align 8, !tbaa !18
-  %83 = load i32, ptr %42, align 8, !tbaa !15
-  %84 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 5
-  %85 = load i32, ptr %84, align 8, !tbaa !15
-  %86 = add i32 %83, 1
-  %87 = add i32 %86, %85
-  store i32 %87, ptr %42, align 8, !tbaa !15
-  br label %88
+83:                                               ; preds = %75, %76
+  %84 = getelementptr inbounds %struct._Heap, ptr %47, i64 0, i32 1
+  store ptr %42, ptr %84, align 8, !tbaa !18
+  %85 = getelementptr inbounds %struct._Heap, ptr %42, i64 0, i32 5
+  %86 = load i32, ptr %85, align 8, !tbaa !15
+  %87 = getelementptr inbounds %struct._Heap, ptr %47, i64 0, i32 5
+  %88 = load i32, ptr %87, align 8, !tbaa !15
+  %89 = add i32 %86, 1
+  %90 = add i32 %89, %88
+  store i32 %90, ptr %85, align 8, !tbaa !15
+  br label %91
 
-88:                                               ; preds = %81, %61
-  %89 = phi ptr [ %68, %61 ], [ %43, %81 ]
+91:                                               ; preds = %83, %60
+  %92 = phi i32 [ %70, %60 ], [ %90, %83 ]
+  %93 = phi ptr [ %68, %60 ], [ %42, %83 ]
   store ptr null, ptr %41, align 8, !tbaa !5
-  %90 = getelementptr inbounds %struct._Heap, ptr %89, i64 0, i32 5
-  %91 = load i32, ptr %90, align 8, !tbaa !15
-  %92 = sext i32 %91 to i64
-  %93 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %92
-  %94 = load ptr, ptr %93, align 8, !tbaa !5
-  %95 = icmp eq ptr %94, null
-  br i1 %95, label %96, label %39, !llvm.loop !19
+  %94 = sext i32 %92 to i64
+  %95 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %94
+  %96 = load ptr, ptr %95, align 8, !tbaa !5
+  %97 = icmp eq ptr %96, null
+  br i1 %97, label %98, label %39, !llvm.loop !19
 
-96:                                               ; preds = %88, %26
-  %97 = phi ptr [ %28, %26 ], [ %89, %88 ]
-  %98 = phi i32 [ %34, %26 ], [ %91, %88 ]
-  %99 = phi ptr [ %36, %26 ], [ %93, %88 ]
-  store ptr %97, ptr %99, align 8, !tbaa !5
-  %100 = tail call i32 @llvm.smax.i32(i32 %98, i32 %27)
-  %101 = icmp eq ptr %30, %17
-  br i1 %101, label %102, label %26, !llvm.loop !21
+98:                                               ; preds = %91, %26
+  %99 = phi ptr [ %28, %26 ], [ %93, %91 ]
+  %100 = phi i32 [ %34, %26 ], [ %92, %91 ]
+  %101 = phi ptr [ %36, %26 ], [ %95, %91 ]
+  store ptr %99, ptr %101, align 8, !tbaa !5
+  %102 = tail call i32 @llvm.smax.i32(i32 %100, i32 %27)
+  %103 = icmp eq ptr %30, %17
+  br i1 %103, label %104, label %26, !llvm.loop !21
 
-102:                                              ; preds = %96
-  %103 = load ptr, ptr %21, align 8, !tbaa !17
-  %104 = icmp eq ptr %103, null
-  br i1 %104, label %185, label %105
+104:                                              ; preds = %98
+  %105 = load ptr, ptr %21, align 8, !tbaa !17
+  %106 = icmp eq ptr %105, null
+  br i1 %106, label %189, label %107
 
-105:                                              ; preds = %102, %178
-  %106 = phi ptr [ %179, %178 ], [ %103, %102 ]
-  %107 = phi i32 [ %183, %178 ], [ %100, %102 ]
-  %108 = phi ptr [ %110, %178 ], [ %103, %102 ]
-  %109 = getelementptr inbounds %struct._Heap, ptr %108, i64 0, i32 3
-  %110 = load ptr, ptr %109, align 8, !tbaa !13
-  store ptr %108, ptr %109, align 8, !tbaa !13
-  %111 = getelementptr inbounds %struct._Heap, ptr %108, i64 0, i32 4
-  store ptr %108, ptr %111, align 8, !tbaa !14
-  %112 = getelementptr inbounds %struct._Heap, ptr %108, i64 0, i32 1
-  store ptr null, ptr %112, align 8, !tbaa !18
-  %113 = getelementptr inbounds %struct._Heap, ptr %108, i64 0, i32 5
-  %114 = load i32, ptr %113, align 8, !tbaa !15
-  %115 = sext i32 %114 to i64
-  %116 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %115
-  %117 = load ptr, ptr %116, align 8, !tbaa !5
-  %118 = icmp eq ptr %117, null
-  br i1 %118, label %178, label %119
+107:                                              ; preds = %104, %182
+  %108 = phi ptr [ %183, %182 ], [ %105, %104 ]
+  %109 = phi i32 [ %187, %182 ], [ %102, %104 ]
+  %110 = phi ptr [ %112, %182 ], [ %105, %104 ]
+  %111 = getelementptr inbounds %struct._Heap, ptr %110, i64 0, i32 3
+  %112 = load ptr, ptr %111, align 8, !tbaa !13
+  store ptr %110, ptr %111, align 8, !tbaa !13
+  %113 = getelementptr inbounds %struct._Heap, ptr %110, i64 0, i32 4
+  store ptr %110, ptr %113, align 8, !tbaa !14
+  %114 = getelementptr inbounds %struct._Heap, ptr %110, i64 0, i32 1
+  store ptr null, ptr %114, align 8, !tbaa !18
+  %115 = getelementptr inbounds %struct._Heap, ptr %110, i64 0, i32 5
+  %116 = load i32, ptr %115, align 8, !tbaa !15
+  %117 = sext i32 %116 to i64
+  %118 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %117
+  %119 = load ptr, ptr %118, align 8, !tbaa !5
+  %120 = icmp eq ptr %119, null
+  br i1 %120, label %182, label %121
 
-119:                                              ; preds = %105, %168
-  %120 = phi ptr [ %174, %168 ], [ %117, %105 ]
-  %121 = phi ptr [ %173, %168 ], [ %116, %105 ]
-  %122 = phi ptr [ %170, %168 ], [ %113, %105 ]
-  %123 = phi ptr [ %169, %168 ], [ %108, %105 ]
-  %124 = load ptr, ptr %120, align 8, !tbaa !9
-  %125 = load ptr, ptr %123, align 8, !tbaa !9
-  %126 = tail call i32 @LessThan(ptr noundef %124, ptr noundef %125) #17
-  %127 = icmp eq i32 %126, 0
-  %128 = load ptr, ptr %121, align 8, !tbaa !5
-  br i1 %127, label %149, label %129
+121:                                              ; preds = %107, %173
+  %122 = phi ptr [ %178, %173 ], [ %119, %107 ]
+  %123 = phi ptr [ %177, %173 ], [ %118, %107 ]
+  %124 = phi ptr [ %175, %173 ], [ %110, %107 ]
+  %125 = load ptr, ptr %122, align 8, !tbaa !9
+  %126 = load ptr, ptr %124, align 8, !tbaa !9
+  %127 = tail call i32 @LessThan(ptr noundef %125, ptr noundef %126) #17
+  %128 = icmp eq i32 %127, 0
+  %129 = load ptr, ptr %123, align 8, !tbaa !5
+  br i1 %128, label %153, label %130
 
-129:                                              ; preds = %119
-  %130 = getelementptr inbounds %struct._Heap, ptr %128, i64 0, i32 2
-  %131 = load ptr, ptr %130, align 8, !tbaa !17
-  %132 = icmp eq ptr %131, null
-  br i1 %132, label %133, label %134
+130:                                              ; preds = %121
+  %131 = getelementptr inbounds %struct._Heap, ptr %129, i64 0, i32 2
+  %132 = load ptr, ptr %131, align 8, !tbaa !17
+  %133 = icmp eq ptr %132, null
+  br i1 %133, label %134, label %135
 
-133:                                              ; preds = %129
-  store ptr %123, ptr %130, align 8, !tbaa !17
-  br label %141
+134:                                              ; preds = %130
+  store ptr %124, ptr %131, align 8, !tbaa !17
+  br label %142
 
-134:                                              ; preds = %129
-  %135 = getelementptr inbounds %struct._Heap, ptr %131, i64 0, i32 3
-  %136 = load ptr, ptr %135, align 8, !tbaa !13
-  %137 = getelementptr inbounds %struct._Heap, ptr %136, i64 0, i32 4
-  store ptr %123, ptr %137, align 8, !tbaa !14
-  %138 = getelementptr inbounds %struct._Heap, ptr %123, i64 0, i32 3
-  %139 = load ptr, ptr %138, align 8, !tbaa !13
-  %140 = getelementptr inbounds %struct._Heap, ptr %139, i64 0, i32 4
-  store ptr %131, ptr %140, align 8, !tbaa !14
-  store ptr %139, ptr %135, align 8, !tbaa !13
-  store ptr %136, ptr %138, align 8, !tbaa !13
-  br label %141
+135:                                              ; preds = %130
+  %136 = getelementptr inbounds %struct._Heap, ptr %132, i64 0, i32 3
+  %137 = load ptr, ptr %136, align 8, !tbaa !13
+  %138 = getelementptr inbounds %struct._Heap, ptr %137, i64 0, i32 4
+  store ptr %124, ptr %138, align 8, !tbaa !14
+  %139 = getelementptr inbounds %struct._Heap, ptr %124, i64 0, i32 3
+  %140 = load ptr, ptr %139, align 8, !tbaa !13
+  %141 = getelementptr inbounds %struct._Heap, ptr %140, i64 0, i32 4
+  store ptr %132, ptr %141, align 8, !tbaa !14
+  store ptr %140, ptr %136, align 8, !tbaa !13
+  store ptr %137, ptr %139, align 8, !tbaa !13
+  br label %142
 
-141:                                              ; preds = %133, %134
-  %142 = getelementptr inbounds %struct._Heap, ptr %123, i64 0, i32 1
-  store ptr %128, ptr %142, align 8, !tbaa !18
-  %143 = getelementptr inbounds %struct._Heap, ptr %128, i64 0, i32 5
-  %144 = load i32, ptr %143, align 8, !tbaa !15
-  %145 = load i32, ptr %122, align 8, !tbaa !15
-  %146 = add i32 %144, 1
-  %147 = add i32 %146, %145
-  store i32 %147, ptr %143, align 8, !tbaa !15
-  %148 = load ptr, ptr %121, align 8, !tbaa !5
-  br label %168
+142:                                              ; preds = %134, %135
+  %143 = getelementptr inbounds %struct._Heap, ptr %124, i64 0, i32 1
+  store ptr %129, ptr %143, align 8, !tbaa !18
+  %144 = getelementptr inbounds %struct._Heap, ptr %129, i64 0, i32 5
+  %145 = load i32, ptr %144, align 8, !tbaa !15
+  %146 = getelementptr inbounds %struct._Heap, ptr %124, i64 0, i32 5
+  %147 = load i32, ptr %146, align 8, !tbaa !15
+  %148 = add i32 %145, 1
+  %149 = add i32 %148, %147
+  store i32 %149, ptr %144, align 8, !tbaa !15
+  %150 = load ptr, ptr %123, align 8, !tbaa !5
+  %151 = getelementptr inbounds %struct._Heap, ptr %150, i64 0, i32 5
+  %152 = load i32, ptr %151, align 8, !tbaa !15
+  br label %173
 
-149:                                              ; preds = %119
-  %150 = getelementptr inbounds %struct._Heap, ptr %123, i64 0, i32 2
-  %151 = load ptr, ptr %150, align 8, !tbaa !17
-  %152 = icmp eq ptr %151, null
-  br i1 %152, label %153, label %154
+153:                                              ; preds = %121
+  %154 = getelementptr inbounds %struct._Heap, ptr %124, i64 0, i32 2
+  %155 = load ptr, ptr %154, align 8, !tbaa !17
+  %156 = icmp eq ptr %155, null
+  br i1 %156, label %157, label %158
 
-153:                                              ; preds = %149
-  store ptr %128, ptr %150, align 8, !tbaa !17
-  br label %161
+157:                                              ; preds = %153
+  store ptr %129, ptr %154, align 8, !tbaa !17
+  br label %165
 
-154:                                              ; preds = %149
-  %155 = getelementptr inbounds %struct._Heap, ptr %151, i64 0, i32 3
-  %156 = load ptr, ptr %155, align 8, !tbaa !13
-  %157 = getelementptr inbounds %struct._Heap, ptr %156, i64 0, i32 4
-  store ptr %128, ptr %157, align 8, !tbaa !14
-  %158 = getelementptr inbounds %struct._Heap, ptr %128, i64 0, i32 3
-  %159 = load ptr, ptr %158, align 8, !tbaa !13
-  %160 = getelementptr inbounds %struct._Heap, ptr %159, i64 0, i32 4
-  store ptr %151, ptr %160, align 8, !tbaa !14
-  store ptr %159, ptr %155, align 8, !tbaa !13
-  store ptr %156, ptr %158, align 8, !tbaa !13
-  br label %161
+158:                                              ; preds = %153
+  %159 = getelementptr inbounds %struct._Heap, ptr %155, i64 0, i32 3
+  %160 = load ptr, ptr %159, align 8, !tbaa !13
+  %161 = getelementptr inbounds %struct._Heap, ptr %160, i64 0, i32 4
+  store ptr %129, ptr %161, align 8, !tbaa !14
+  %162 = getelementptr inbounds %struct._Heap, ptr %129, i64 0, i32 3
+  %163 = load ptr, ptr %162, align 8, !tbaa !13
+  %164 = getelementptr inbounds %struct._Heap, ptr %163, i64 0, i32 4
+  store ptr %155, ptr %164, align 8, !tbaa !14
+  store ptr %163, ptr %159, align 8, !tbaa !13
+  store ptr %160, ptr %162, align 8, !tbaa !13
+  br label %165
 
-161:                                              ; preds = %153, %154
-  %162 = getelementptr inbounds %struct._Heap, ptr %128, i64 0, i32 1
-  store ptr %123, ptr %162, align 8, !tbaa !18
-  %163 = load i32, ptr %122, align 8, !tbaa !15
-  %164 = getelementptr inbounds %struct._Heap, ptr %128, i64 0, i32 5
-  %165 = load i32, ptr %164, align 8, !tbaa !15
-  %166 = add i32 %163, 1
-  %167 = add i32 %166, %165
-  store i32 %167, ptr %122, align 8, !tbaa !15
-  br label %168
+165:                                              ; preds = %157, %158
+  %166 = getelementptr inbounds %struct._Heap, ptr %129, i64 0, i32 1
+  store ptr %124, ptr %166, align 8, !tbaa !18
+  %167 = getelementptr inbounds %struct._Heap, ptr %124, i64 0, i32 5
+  %168 = load i32, ptr %167, align 8, !tbaa !15
+  %169 = getelementptr inbounds %struct._Heap, ptr %129, i64 0, i32 5
+  %170 = load i32, ptr %169, align 8, !tbaa !15
+  %171 = add i32 %168, 1
+  %172 = add i32 %171, %170
+  store i32 %172, ptr %167, align 8, !tbaa !15
+  br label %173
 
-168:                                              ; preds = %161, %141
-  %169 = phi ptr [ %148, %141 ], [ %123, %161 ]
-  store ptr null, ptr %121, align 8, !tbaa !5
-  %170 = getelementptr inbounds %struct._Heap, ptr %169, i64 0, i32 5
-  %171 = load i32, ptr %170, align 8, !tbaa !15
-  %172 = sext i32 %171 to i64
-  %173 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %172
-  %174 = load ptr, ptr %173, align 8, !tbaa !5
-  %175 = icmp eq ptr %174, null
-  br i1 %175, label %176, label %119, !llvm.loop !22
+173:                                              ; preds = %165, %142
+  %174 = phi i32 [ %152, %142 ], [ %172, %165 ]
+  %175 = phi ptr [ %150, %142 ], [ %124, %165 ]
+  store ptr null, ptr %123, align 8, !tbaa !5
+  %176 = sext i32 %174 to i64
+  %177 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %176
+  %178 = load ptr, ptr %177, align 8, !tbaa !5
+  %179 = icmp eq ptr %178, null
+  br i1 %179, label %180, label %121, !llvm.loop !22
 
-176:                                              ; preds = %168
-  %177 = load ptr, ptr %21, align 8, !tbaa !17
-  br label %178
+180:                                              ; preds = %173
+  %181 = load ptr, ptr %21, align 8, !tbaa !17
+  br label %182
 
-178:                                              ; preds = %176, %105
-  %179 = phi ptr [ %106, %105 ], [ %177, %176 ]
-  %180 = phi ptr [ %108, %105 ], [ %169, %176 ]
-  %181 = phi i32 [ %114, %105 ], [ %171, %176 ]
-  %182 = phi ptr [ %116, %105 ], [ %173, %176 ]
-  store ptr %180, ptr %182, align 8, !tbaa !5
-  %183 = tail call i32 @llvm.smax.i32(i32 %181, i32 %107)
-  %184 = icmp eq ptr %110, %179
-  br i1 %184, label %185, label %105, !llvm.loop !23
+182:                                              ; preds = %180, %107
+  %183 = phi ptr [ %108, %107 ], [ %181, %180 ]
+  %184 = phi ptr [ %110, %107 ], [ %175, %180 ]
+  %185 = phi i32 [ %116, %107 ], [ %174, %180 ]
+  %186 = phi ptr [ %118, %107 ], [ %177, %180 ]
+  store ptr %184, ptr %186, align 8, !tbaa !5
+  %187 = tail call i32 @llvm.smax.i32(i32 %185, i32 %109)
+  %188 = icmp eq ptr %112, %183
+  br i1 %188, label %189, label %107, !llvm.loop !23
 
-185:                                              ; preds = %178, %102
-  %186 = phi i32 [ %100, %102 ], [ %183, %178 ]
-  %187 = add nuw i32 %186, 1
-  %188 = zext i32 %187 to i64
-  br label %189
+189:                                              ; preds = %182, %104
+  %190 = phi i32 [ %102, %104 ], [ %187, %182 ]
+  %191 = add nuw i32 %190, 1
+  %192 = zext i32 %191 to i64
+  br label %193
 
-189:                                              ; preds = %185, %194
-  %190 = phi i64 [ 0, %185 ], [ %195, %194 ]
-  %191 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %190
-  %192 = load ptr, ptr %191, align 8, !tbaa !5
-  %193 = icmp eq ptr %192, null
-  br i1 %193, label %194, label %197
+193:                                              ; preds = %189, %198
+  %194 = phi i64 [ 0, %189 ], [ %199, %198 ]
+  %195 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %194
+  %196 = load ptr, ptr %195, align 8, !tbaa !5
+  %197 = icmp eq ptr %196, null
+  br i1 %197, label %198, label %201
 
-194:                                              ; preds = %189
-  %195 = add nuw nsw i64 %190, 1
-  %196 = icmp eq i64 %195, %188
-  br i1 %196, label %199, label %189, !llvm.loop !24
+198:                                              ; preds = %193
+  %199 = add nuw nsw i64 %194, 1
+  %200 = icmp eq i64 %199, %192
+  br i1 %200, label %203, label %193, !llvm.loop !24
 
-197:                                              ; preds = %189
-  %198 = trunc i64 %190 to i32
-  br label %199
+201:                                              ; preds = %193
+  %202 = trunc i64 %194 to i32
+  br label %203
 
-199:                                              ; preds = %194, %197
-  %200 = phi i32 [ %198, %197 ], [ %187, %194 ]
-  %201 = zext i32 %200 to i64
-  %202 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %201
-  %203 = load ptr, ptr %202, align 8, !tbaa !5
-  store ptr null, ptr %202, align 8, !tbaa !5
-  %204 = icmp slt i32 %200, %186
-  br i1 %204, label %205, label %232
+203:                                              ; preds = %198, %201
+  %204 = phi i32 [ %202, %201 ], [ %191, %198 ]
+  %205 = zext i32 %204 to i64
+  %206 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %205
+  %207 = load ptr, ptr %206, align 8, !tbaa !5
+  store ptr null, ptr %206, align 8, !tbaa !5
+  %208 = icmp slt i32 %204, %190
+  br i1 %208, label %209, label %236
 
-205:                                              ; preds = %199
-  %206 = getelementptr inbounds %struct._Heap, ptr %203, i64 0, i32 3
-  br label %207
+209:                                              ; preds = %203
+  %210 = getelementptr inbounds %struct._Heap, ptr %207, i64 0, i32 3
+  br label %211
 
-207:                                              ; preds = %205, %228
-  %208 = phi i64 [ %201, %205 ], [ %210, %228 ]
-  %209 = phi ptr [ %203, %205 ], [ %229, %228 ]
-  %210 = add nuw nsw i64 %208, 1
-  %211 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %210
-  %212 = load ptr, ptr %211, align 8, !tbaa !5
-  %213 = icmp eq ptr %212, null
-  br i1 %213, label %228, label %214
+211:                                              ; preds = %209, %232
+  %212 = phi i64 [ %205, %209 ], [ %214, %232 ]
+  %213 = phi ptr [ %207, %209 ], [ %233, %232 ]
+  %214 = add nuw nsw i64 %212, 1
+  %215 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %214
+  %216 = load ptr, ptr %215, align 8, !tbaa !5
+  %217 = icmp eq ptr %216, null
+  br i1 %217, label %232, label %218
 
-214:                                              ; preds = %207
-  %215 = load ptr, ptr %206, align 8, !tbaa !13
-  %216 = getelementptr inbounds %struct._Heap, ptr %215, i64 0, i32 4
-  store ptr %212, ptr %216, align 8, !tbaa !14
-  %217 = getelementptr inbounds %struct._Heap, ptr %212, i64 0, i32 3
-  %218 = load ptr, ptr %217, align 8, !tbaa !13
-  %219 = getelementptr inbounds %struct._Heap, ptr %218, i64 0, i32 4
-  store ptr %203, ptr %219, align 8, !tbaa !14
-  store ptr %218, ptr %206, align 8, !tbaa !13
-  store ptr %215, ptr %217, align 8, !tbaa !13
-  %220 = load ptr, ptr %212, align 8, !tbaa !9
-  %221 = load ptr, ptr %209, align 8, !tbaa !9
-  %222 = tail call i32 @LessThan(ptr noundef %220, ptr noundef %221) #17
-  %223 = icmp eq i32 %222, 0
-  br i1 %223, label %226, label %224
+218:                                              ; preds = %211
+  %219 = load ptr, ptr %210, align 8, !tbaa !13
+  %220 = getelementptr inbounds %struct._Heap, ptr %219, i64 0, i32 4
+  store ptr %216, ptr %220, align 8, !tbaa !14
+  %221 = getelementptr inbounds %struct._Heap, ptr %216, i64 0, i32 3
+  %222 = load ptr, ptr %221, align 8, !tbaa !13
+  %223 = getelementptr inbounds %struct._Heap, ptr %222, i64 0, i32 4
+  store ptr %207, ptr %223, align 8, !tbaa !14
+  store ptr %222, ptr %210, align 8, !tbaa !13
+  store ptr %219, ptr %221, align 8, !tbaa !13
+  %224 = load ptr, ptr %216, align 8, !tbaa !9
+  %225 = load ptr, ptr %213, align 8, !tbaa !9
+  %226 = tail call i32 @LessThan(ptr noundef %224, ptr noundef %225) #17
+  %227 = icmp eq i32 %226, 0
+  br i1 %227, label %230, label %228
 
-224:                                              ; preds = %214
-  %225 = load ptr, ptr %211, align 8, !tbaa !5
-  br label %226
+228:                                              ; preds = %218
+  %229 = load ptr, ptr %215, align 8, !tbaa !5
+  br label %230
 
-226:                                              ; preds = %224, %214
-  %227 = phi ptr [ %225, %224 ], [ %209, %214 ]
-  store ptr null, ptr %211, align 8, !tbaa !5
-  br label %228
+230:                                              ; preds = %228, %218
+  %231 = phi ptr [ %229, %228 ], [ %213, %218 ]
+  store ptr null, ptr %215, align 8, !tbaa !5
+  br label %232
 
-228:                                              ; preds = %207, %226
-  %229 = phi ptr [ %227, %226 ], [ %209, %207 ]
-  %230 = trunc i64 %210 to i32
-  %231 = icmp sgt i32 %186, %230
-  br i1 %231, label %207, label %232, !llvm.loop !25
+232:                                              ; preds = %211, %230
+  %233 = phi ptr [ %231, %230 ], [ %213, %211 ]
+  %234 = trunc i64 %214 to i32
+  %235 = icmp sgt i32 %190, %234
+  br i1 %235, label %211, label %236, !llvm.loop !25
 
-232:                                              ; preds = %228, %199
-  %233 = phi ptr [ %203, %199 ], [ %229, %228 ]
+236:                                              ; preds = %232, %203
+  %237 = phi ptr [ %207, %203 ], [ %233, %232 ]
   tail call void @free(ptr noundef %0) #17
-  br label %234
+  br label %238
 
-234:                                              ; preds = %1, %232, %19
-  %235 = phi ptr [ null, %19 ], [ %233, %232 ], [ null, %1 ]
-  ret ptr %235
+238:                                              ; preds = %1, %236, %19
+  %239 = phi ptr [ null, %19 ], [ %237, %236 ], [ null, %1 ]
+  ret ptr %239
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
@@ -953,11 +957,11 @@ define dso_local ptr @Find(ptr noundef readonly %0, ptr noundef %1) local_unname
 
 declare i32 @Equal(ptr noundef, ptr noundef) local_unnamed_addr #5
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #13
@@ -973,8 +977,8 @@ attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #8 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind allocsize(0) }
 attributes #15 = { cold }

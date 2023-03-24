@@ -17,10 +17,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.6 = private unnamed_addr constant [12 x i8] c"x:%d  y:%d\0A\00", align 1
 @.str.9 = private unnamed_addr constant [24 x i8] c"l:%d  r:%d  b:%d  t:%d\0A\00", align 1
 @stdout = external local_unnamed_addr global ptr, align 8
-@str = private unnamed_addr constant [24 x i8] c"Fatal error in unbust.c\00", align 1
-@str.10 = private unnamed_addr constant [8 x i8] c"PtsOut:\00", align 1
-@str.11 = private unnamed_addr constant [10 x i8] c"PtsArray:\00", align 1
-@str.12 = private unnamed_addr constant [12 x i8] c"Rectangles:\00", align 1
+@str = private unnamed_addr constant [8 x i8] c"PtsOut:\00", align 1
+@str.10 = private unnamed_addr constant [10 x i8] c"PtsArray:\00", align 1
+@str.11 = private unnamed_addr constant [12 x i8] c"Rectangles:\00", align 1
+@str.12 = private unnamed_addr constant [24 x i8] c"Fatal error in unbust.c\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @unbust() local_unnamed_addr #0 {
@@ -714,8 +714,8 @@ define dso_local void @unbust() local_unnamed_addr #0 {
   br label %498
 
 498:                                              ; preds = %474, %450, %426, %393, %369, %345, %312, %288, %264, %231, %207, %183, %171
-  %499 = phi i32 [ %172, %171 ], [ %449, %426 ], [ %473, %450 ], [ %497, %474 ], [ %368, %345 ], [ %392, %369 ], [ %416, %393 ], [ %287, %264 ], [ %311, %288 ], [ %335, %312 ], [ %206, %183 ], [ %230, %207 ], [ %254, %231 ]
-  %500 = phi i32 [ %173, %171 ], [ 2, %426 ], [ 4, %450 ], [ 3, %474 ], [ 4, %345 ], [ 3, %369 ], [ 1, %393 ], [ 1, %264 ], [ 2, %288 ], [ 4, %312 ], [ 3, %183 ], [ 1, %207 ], [ 2, %231 ]
+  %499 = phi i32 [ %172, %171 ], [ %206, %183 ], [ %230, %207 ], [ %254, %231 ], [ %287, %264 ], [ %311, %288 ], [ %335, %312 ], [ %368, %345 ], [ %392, %369 ], [ %416, %393 ], [ %449, %426 ], [ %473, %450 ], [ %497, %474 ]
+  %500 = phi i32 [ %173, %171 ], [ 3, %183 ], [ 1, %207 ], [ 2, %231 ], [ 1, %264 ], [ 2, %288 ], [ 4, %312 ], [ 4, %345 ], [ 3, %369 ], [ 1, %393 ], [ 2, %426 ], [ 4, %450 ], [ 3, %474 ]
   br label %171
 
 501:                                              ; preds = %423, %342, %261, %180
@@ -1044,24 +1044,24 @@ define dso_local i32 @u(i32 noundef %0) local_unnamed_addr #2 {
   %62 = load i32, ptr %61, align 4, !tbaa !28
   %63 = getelementptr inbounds %struct.Rangle, ptr %46, i64 %56, i32 3
   %64 = load i32, ptr %63, align 4, !tbaa !29
-  %65 = icmp slt i32 %5, %58
-  %66 = icmp sgt i32 %5, %60
-  %67 = select i1 %65, i1 true, i1 %66
-  %68 = icmp slt i32 %7, %62
-  %69 = select i1 %67, i1 true, i1 %68
-  %70 = icmp sgt i32 %7, %64
-  %71 = select i1 %69, i1 true, i1 %70
-  %72 = icmp slt i32 %43, %58
-  %73 = select i1 %71, i1 true, i1 %72
-  %74 = icmp sgt i32 %43, %60
-  %75 = select i1 %73, i1 true, i1 %74
-  %76 = icmp slt i32 %45, %62
-  %77 = select i1 %75, i1 true, i1 %76
-  %78 = icmp sgt i32 %45, %64
-  %79 = select i1 %77, i1 true, i1 %78
-  br i1 %79, label %52, label %80
+  %65 = icmp sge i32 %5, %58
+  %66 = icmp sle i32 %5, %60
+  %67 = select i1 %65, i1 %66, i1 false
+  %68 = icmp sge i32 %7, %62
+  %69 = select i1 %67, i1 %68, i1 false
+  %70 = icmp sle i32 %7, %64
+  %71 = select i1 %69, i1 %70, i1 false
+  %72 = icmp sge i32 %43, %58
+  %73 = select i1 %71, i1 %72, i1 false
+  %74 = icmp sle i32 %43, %60
+  %75 = select i1 %73, i1 %74, i1 false
+  %76 = icmp sge i32 %45, %62
+  %77 = select i1 %75, i1 %76, i1 false
+  %78 = icmp sle i32 %45, %64
+  %79 = select i1 %77, i1 %78, i1 false
+  br i1 %79, label %80, label %52
 
-80:                                               ; preds = %55, %52, %1, %40, %38
+80:                                               ; preds = %52, %55, %1, %40, %38
   %81 = phi i32 [ 0, %38 ], [ 0, %40 ], [ 0, %1 ], [ 0, %52 ], [ %35, %55 ]
   ret i32 %81
 }
@@ -1178,24 +1178,24 @@ define dso_local i32 @l(i32 noundef %0) local_unnamed_addr #2 {
   %62 = load i32, ptr %61, align 4, !tbaa !28
   %63 = getelementptr inbounds %struct.Rangle, ptr %46, i64 %56, i32 3
   %64 = load i32, ptr %63, align 4, !tbaa !29
-  %65 = icmp slt i32 %5, %58
-  %66 = icmp sgt i32 %5, %60
-  %67 = select i1 %65, i1 true, i1 %66
-  %68 = icmp slt i32 %7, %62
-  %69 = select i1 %67, i1 true, i1 %68
-  %70 = icmp sgt i32 %7, %64
-  %71 = select i1 %69, i1 true, i1 %70
-  %72 = icmp slt i32 %43, %58
-  %73 = select i1 %71, i1 true, i1 %72
-  %74 = icmp sgt i32 %43, %60
-  %75 = select i1 %73, i1 true, i1 %74
-  %76 = icmp slt i32 %45, %62
-  %77 = select i1 %75, i1 true, i1 %76
-  %78 = icmp sgt i32 %45, %64
-  %79 = select i1 %77, i1 true, i1 %78
-  br i1 %79, label %52, label %80
+  %65 = icmp sge i32 %5, %58
+  %66 = icmp sle i32 %5, %60
+  %67 = select i1 %65, i1 %66, i1 false
+  %68 = icmp sge i32 %7, %62
+  %69 = select i1 %67, i1 %68, i1 false
+  %70 = icmp sle i32 %7, %64
+  %71 = select i1 %69, i1 %70, i1 false
+  %72 = icmp sge i32 %43, %58
+  %73 = select i1 %71, i1 %72, i1 false
+  %74 = icmp sle i32 %43, %60
+  %75 = select i1 %73, i1 %74, i1 false
+  %76 = icmp sge i32 %45, %62
+  %77 = select i1 %75, i1 %76, i1 false
+  %78 = icmp sle i32 %45, %64
+  %79 = select i1 %77, i1 %78, i1 false
+  br i1 %79, label %80, label %52
 
-80:                                               ; preds = %55, %52, %1, %40, %38
+80:                                               ; preds = %52, %55, %1, %40, %38
   %81 = phi i32 [ 0, %38 ], [ 0, %40 ], [ 0, %1 ], [ 0, %52 ], [ %35, %55 ]
   ret i32 %81
 }
@@ -1287,24 +1287,24 @@ define dso_local i32 @r(i32 noundef %0) local_unnamed_addr #2 {
   %62 = load i32, ptr %61, align 4, !tbaa !28
   %63 = getelementptr inbounds %struct.Rangle, ptr %46, i64 %56, i32 3
   %64 = load i32, ptr %63, align 4, !tbaa !29
-  %65 = icmp slt i32 %5, %58
-  %66 = icmp sgt i32 %5, %60
-  %67 = select i1 %65, i1 true, i1 %66
-  %68 = icmp slt i32 %7, %62
-  %69 = select i1 %67, i1 true, i1 %68
-  %70 = icmp sgt i32 %7, %64
-  %71 = select i1 %69, i1 true, i1 %70
-  %72 = icmp slt i32 %43, %58
-  %73 = select i1 %71, i1 true, i1 %72
-  %74 = icmp sgt i32 %43, %60
-  %75 = select i1 %73, i1 true, i1 %74
-  %76 = icmp slt i32 %45, %62
-  %77 = select i1 %75, i1 true, i1 %76
-  %78 = icmp sgt i32 %45, %64
-  %79 = select i1 %77, i1 true, i1 %78
-  br i1 %79, label %52, label %80
+  %65 = icmp sge i32 %5, %58
+  %66 = icmp sle i32 %5, %60
+  %67 = select i1 %65, i1 %66, i1 false
+  %68 = icmp sge i32 %7, %62
+  %69 = select i1 %67, i1 %68, i1 false
+  %70 = icmp sle i32 %7, %64
+  %71 = select i1 %69, i1 %70, i1 false
+  %72 = icmp sge i32 %43, %58
+  %73 = select i1 %71, i1 %72, i1 false
+  %74 = icmp sle i32 %43, %60
+  %75 = select i1 %73, i1 %74, i1 false
+  %76 = icmp sge i32 %45, %62
+  %77 = select i1 %75, i1 %76, i1 false
+  %78 = icmp sle i32 %45, %64
+  %79 = select i1 %77, i1 %78, i1 false
+  br i1 %79, label %80, label %52
 
-80:                                               ; preds = %55, %52, %1, %40, %38
+80:                                               ; preds = %52, %55, %1, %40, %38
   %81 = phi i32 [ 0, %38 ], [ 0, %40 ], [ 0, %1 ], [ 0, %52 ], [ %35, %55 ]
   ret i32 %81
 }
@@ -1323,7 +1323,7 @@ define dso_local void @condense() local_unnamed_addr #0 {
   br i1 %7, label %76, label %10
 
 8:                                                ; preds = %0
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @dumpError()
   tail call void @exit(i32 noundef 0) #12
   unreachable
@@ -1532,24 +1532,24 @@ define dso_local i32 @b(i32 noundef %0) local_unnamed_addr #2 {
   %62 = load i32, ptr %61, align 4, !tbaa !28
   %63 = getelementptr inbounds %struct.Rangle, ptr %46, i64 %56, i32 3
   %64 = load i32, ptr %63, align 4, !tbaa !29
-  %65 = icmp slt i32 %5, %58
-  %66 = icmp sgt i32 %5, %60
-  %67 = select i1 %65, i1 true, i1 %66
-  %68 = icmp slt i32 %7, %62
-  %69 = select i1 %67, i1 true, i1 %68
-  %70 = icmp sgt i32 %7, %64
-  %71 = select i1 %69, i1 true, i1 %70
-  %72 = icmp slt i32 %43, %58
-  %73 = select i1 %71, i1 true, i1 %72
-  %74 = icmp sgt i32 %43, %60
-  %75 = select i1 %73, i1 true, i1 %74
-  %76 = icmp slt i32 %45, %62
-  %77 = select i1 %75, i1 true, i1 %76
-  %78 = icmp sgt i32 %45, %64
-  %79 = select i1 %77, i1 true, i1 %78
-  br i1 %79, label %52, label %80
+  %65 = icmp sge i32 %5, %58
+  %66 = icmp sle i32 %5, %60
+  %67 = select i1 %65, i1 %66, i1 false
+  %68 = icmp sge i32 %7, %62
+  %69 = select i1 %67, i1 %68, i1 false
+  %70 = icmp sle i32 %7, %64
+  %71 = select i1 %69, i1 %70, i1 false
+  %72 = icmp sge i32 %43, %58
+  %73 = select i1 %71, i1 %72, i1 false
+  %74 = icmp sle i32 %43, %60
+  %75 = select i1 %73, i1 %74, i1 false
+  %76 = icmp sge i32 %45, %62
+  %77 = select i1 %75, i1 %76, i1 false
+  %78 = icmp sle i32 %45, %64
+  %79 = select i1 %77, i1 %78, i1 false
+  br i1 %79, label %80, label %52
 
-80:                                               ; preds = %55, %52, %1, %40, %38
+80:                                               ; preds = %52, %55, %1, %40, %38
   %81 = phi i32 [ 0, %38 ], [ 0, %40 ], [ 0, %1 ], [ 0, %52 ], [ %35, %55 ]
   ret i32 %81
 }
@@ -1684,25 +1684,25 @@ define dso_local i32 @recCheck(i32 noundef %0, i32 noundef %1) local_unnamed_add
   %30 = load i32, ptr %29, align 4, !tbaa !28
   %31 = getelementptr inbounds %struct.Rangle, ptr %14, i64 %24, i32 3
   %32 = load i32, ptr %31, align 4, !tbaa !29
-  %33 = icmp slt i32 %6, %26
-  %34 = icmp sgt i32 %6, %28
-  %35 = select i1 %33, i1 true, i1 %34
-  %36 = icmp slt i32 %8, %30
-  %37 = select i1 %35, i1 true, i1 %36
-  %38 = icmp sgt i32 %8, %32
-  %39 = select i1 %37, i1 true, i1 %38
-  %40 = icmp slt i32 %11, %26
-  %41 = select i1 %39, i1 true, i1 %40
-  %42 = icmp sgt i32 %11, %28
-  %43 = select i1 %41, i1 true, i1 %42
-  %44 = icmp slt i32 %13, %30
-  %45 = select i1 %43, i1 true, i1 %44
-  %46 = icmp sgt i32 %13, %32
-  %47 = select i1 %45, i1 true, i1 %46
-  br i1 %47, label %20, label %48
+  %33 = icmp sge i32 %6, %26
+  %34 = icmp sle i32 %6, %28
+  %35 = select i1 %33, i1 %34, i1 false
+  %36 = icmp sge i32 %8, %30
+  %37 = select i1 %35, i1 %36, i1 false
+  %38 = icmp sle i32 %8, %32
+  %39 = select i1 %37, i1 %38, i1 false
+  %40 = icmp sge i32 %11, %26
+  %41 = select i1 %39, i1 %40, i1 false
+  %42 = icmp sle i32 %11, %28
+  %43 = select i1 %41, i1 %42, i1 false
+  %44 = icmp sge i32 %13, %30
+  %45 = select i1 %43, i1 %44, i1 false
+  %46 = icmp sle i32 %13, %32
+  %47 = select i1 %45, i1 %46, i1 false
+  br i1 %47, label %48, label %20
 
-48:                                               ; preds = %23, %20, %2
-  %49 = phi i32 [ 0, %2 ], [ 0, %20 ], [ 1, %23 ]
+48:                                               ; preds = %20, %23, %2
+  %49 = phi i32 [ 0, %2 ], [ 1, %23 ], [ 0, %20 ]
   ret i32 %49
 }
 
@@ -1711,7 +1711,7 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @dumpError() local_unnamed_addr #8 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %2 = load ptr, ptr @PtsOut, align 8, !tbaa !5
   %3 = load i32, ptr %2, align 4, !tbaa !9
   %4 = icmp slt i32 %3, 1
@@ -1733,7 +1733,7 @@ define dso_local void @dumpError() local_unnamed_addr #8 {
   br i1 %17, label %5, label %18, !llvm.loop !38
 
 18:                                               ; preds = %5, %0
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   %20 = load ptr, ptr @PtsArray, align 8, !tbaa !5
   %21 = load i32, ptr %20, align 4, !tbaa !9
   %22 = icmp slt i32 %21, 1
@@ -1755,7 +1755,7 @@ define dso_local void @dumpError() local_unnamed_addr #8 {
   br i1 %35, label %23, label %36, !llvm.loop !39
 
 36:                                               ; preds = %23, %18
-  %37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   %38 = load ptr, ptr @rectang, align 8, !tbaa !5
   %39 = load i32, ptr %38, align 4, !tbaa !24
   %40 = icmp slt i32 %39, 1
@@ -1789,23 +1789,23 @@ define dso_local void @dumpError() local_unnamed_addr #8 {
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #7
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
+declare i32 @llvm.smin.i32(i32, i32) #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #10
+declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smin.v4i32(<4 x i32>) #10
+declare i32 @llvm.vector.reduce.smin.v4i32(<4 x i32>) #9
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1816,8 +1816,8 @@ attributes #5 = { nofree nosync nounwind memory(readwrite, argmem: write, inacce
 attributes #6 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { noreturn nounwind }
 

@@ -332,11 +332,11 @@ define dso_local i32 @findcost() local_unnamed_addr #0 {
   %225 = phi i64 [ %253, %249 ], [ 1, %218 ]
   %226 = phi i32 [ %254, %249 ], [ %5, %218 ]
   %227 = sext i32 %224 to i64
-  %228 = icmp sle i64 %225, %227
+  %228 = icmp sgt i64 %225, %227
   %229 = sext i32 %226 to i64
-  %230 = icmp sgt i64 %225, %229
-  %231 = select i1 %228, i1 true, i1 %230
-  br i1 %231, label %232, label %249
+  %230 = icmp sle i64 %225, %229
+  %231 = select i1 %228, i1 %230, i1 false
+  br i1 %231, label %249, label %232
 
 232:                                              ; preds = %221
   %233 = load ptr, ptr @overlap, align 8, !tbaa !11

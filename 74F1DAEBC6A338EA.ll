@@ -25,52 +25,53 @@ define dso_local noalias ptr @d_dup_pathname_str(ptr noundef %0) local_unnamed_a
 
 3:                                                ; preds = %1
   %4 = tail call noalias dereferenceable_or_null(1) ptr @strdup(ptr noundef nonnull @.str) #23
-  br label %31
+  br label %32
 
 5:                                                ; preds = %1
   %6 = load i8, ptr %0, align 1, !tbaa !5
   %7 = icmp eq i8 %6, 34
-  br i1 %7, label %8, label %23
+  br i1 %7, label %8, label %24
 
 8:                                                ; preds = %5, %8
   %9 = phi ptr [ %10, %8 ], [ %0, %5 ]
   %10 = getelementptr inbounds i8, ptr %9, i64 1
   %11 = load i8, ptr %10, align 1, !tbaa !5
-  switch i8 %11, label %8 [
-    i8 0, label %12
-    i8 34, label %12
+  %12 = sext i8 %11 to i32
+  switch i32 %12, label %8 [
+    i32 0, label %13
+    i32 34, label %13
   ], !llvm.loop !8
 
-12:                                               ; preds = %8, %8
-  %13 = getelementptr inbounds i8, ptr %0, i64 1
-  %14 = ptrtoint ptr %10 to i64
-  %15 = ptrtoint ptr %13 to i64
-  %16 = sub i64 %14, %15
-  %17 = shl i64 %16, 32
-  %18 = add i64 %17, 4294967296
-  %19 = ashr exact i64 %18, 32
-  %20 = tail call noalias ptr @malloc(i64 noundef %19) #24
-  %21 = ashr exact i64 %17, 32
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %20, ptr nonnull align 1 %13, i64 %21, i1 false)
-  %22 = getelementptr inbounds i8, ptr %20, i64 %21
-  store i8 0, ptr %22, align 1, !tbaa !5
-  br label %31
+13:                                               ; preds = %8, %8
+  %14 = getelementptr inbounds i8, ptr %0, i64 1
+  %15 = ptrtoint ptr %10 to i64
+  %16 = ptrtoint ptr %14 to i64
+  %17 = sub i64 %15, %16
+  %18 = shl i64 %17, 32
+  %19 = add i64 %18, 4294967296
+  %20 = ashr exact i64 %19, 32
+  %21 = tail call noalias ptr @malloc(i64 noundef %20) #24
+  %22 = ashr exact i64 %18, 32
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %21, ptr nonnull align 1 %14, i64 %22, i1 false)
+  %23 = getelementptr inbounds i8, ptr %21, i64 %22
+  store i8 0, ptr %23, align 1, !tbaa !5
+  br label %32
 
-23:                                               ; preds = %5
-  %24 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #25
-  %25 = shl i64 %24, 32
-  %26 = add i64 %25, 4294967296
-  %27 = ashr exact i64 %26, 32
-  %28 = tail call noalias ptr @malloc(i64 noundef %27) #24
-  %29 = ashr exact i64 %25, 32
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %28, ptr nonnull align 1 %0, i64 %29, i1 false)
-  %30 = getelementptr inbounds i8, ptr %28, i64 %29
-  store i8 0, ptr %30, align 1, !tbaa !5
-  br label %31
+24:                                               ; preds = %5
+  %25 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #25
+  %26 = shl i64 %25, 32
+  %27 = add i64 %26, 4294967296
+  %28 = ashr exact i64 %27, 32
+  %29 = tail call noalias ptr @malloc(i64 noundef %28) #24
+  %30 = ashr exact i64 %26, 32
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %29, ptr nonnull align 1 %0, i64 %30, i1 false)
+  %31 = getelementptr inbounds i8, ptr %29, i64 %30
+  store i8 0, ptr %31, align 1, !tbaa !5
+  br label %32
 
-31:                                               ; preds = %23, %12, %3
-  %32 = phi ptr [ %20, %12 ], [ %28, %23 ], [ %4, %3 ]
-  ret ptr %32
+32:                                               ; preds = %24, %13, %3
+  %33 = phi ptr [ %21, %13 ], [ %29, %24 ], [ %4, %3 ]
+  ret ptr %33
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -247,31 +248,28 @@ define dso_local noalias ptr @sbuf_read(ptr nocapture noundef readonly %0) local
   %7 = call i32 @fstat(i32 noundef %3, ptr noundef nonnull %2) #23
   %8 = getelementptr inbounds %struct.stat, ptr %2, i64 0, i32 8
   %9 = load i64, ptr %8, align 8, !tbaa !15
-  %10 = freeze i64 %9
-  %11 = shl i64 %10, 32
-  %12 = add i64 %11, 8589934592
-  %13 = ashr exact i64 %12, 32
-  %14 = tail call noalias ptr @malloc(i64 noundef %13) #24
-  %15 = ashr exact i64 %11, 32
-  %16 = getelementptr inbounds i8, ptr %14, i64 %15
-  store i8 0, ptr %16, align 1, !tbaa !5
-  %17 = add i64 %11, 4294967296
-  %18 = ashr exact i64 %17, 32
-  %19 = getelementptr inbounds i8, ptr %14, i64 %18
-  store i8 0, ptr %19, align 1, !tbaa !5
-  %20 = tail call i64 @read(i32 noundef %3, ptr noundef %14, i64 noundef %15) #23
-  %21 = tail call i32 @close(i32 noundef %3) #23
+  %10 = shl i64 %9, 32
+  %11 = add i64 %10, 8589934592
+  %12 = ashr exact i64 %11, 32
+  %13 = tail call noalias ptr @malloc(i64 noundef %12) #24
+  %14 = ashr exact i64 %10, 32
+  %15 = getelementptr inbounds i8, ptr %13, i64 %14
+  store i8 0, ptr %15, align 1, !tbaa !5
+  %16 = add i64 %10, 4294967296
+  %17 = ashr exact i64 %16, 32
+  %18 = getelementptr inbounds i8, ptr %13, i64 %17
+  store i8 0, ptr %18, align 1, !tbaa !5
+  %19 = tail call i64 @read(i32 noundef %3, ptr noundef %13, i64 noundef %14) #23
+  %20 = tail call i32 @close(i32 noundef %3) #23
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #23
-  %22 = and i64 %10, 2147483648
-  %23 = icmp eq i64 %22, 0
-  br i1 %23, label %25, label %24
+  %21 = and i64 %9, 2147483648
+  %22 = icmp eq i64 %21, 0
+  %23 = select i1 %22, ptr %13, ptr null
+  br label %24
 
-24:                                               ; preds = %5, %6
-  br label %25
-
-25:                                               ; preds = %6, %24
-  %26 = phi ptr [ null, %24 ], [ %14, %6 ]
-  ret ptr %26
+24:                                               ; preds = %6, %5
+  %25 = phi ptr [ null, %5 ], [ %23, %6 ]
+  ret ptr %25
 }
 
 ; Function Attrs: noreturn nounwind uwtable
@@ -354,8 +352,8 @@ define dso_local void @vec_add_internal(ptr noundef %0, ptr noundef %1) local_un
 31:                                               ; preds = %24, %20
   %32 = phi i32 [ %21, %20 ], [ %27, %24 ]
   %33 = phi i32 [ 4, %20 ], [ %28, %24 ]
-  %34 = icmp ugt i32 %32, 1
-  br i1 %34, label %41, label %35
+  %34 = icmp ult i32 %32, 2
+  br i1 %34, label %35, label %41
 
 35:                                               ; preds = %31
   %36 = shl nuw i32 1, %33
@@ -731,10 +729,10 @@ define dso_local ptr @set_add_fn(ptr nocapture noundef %0, ptr noundef %1, ptr n
   %40 = icmp eq i32 %38, %10
   %41 = select i1 %40, i32 0, i32 %38
   %42 = load i32, ptr %0, align 8, !tbaa !19
-  %43 = icmp uge i32 %41, %42
-  %44 = icmp ugt i32 %16, 3
-  %45 = select i1 %43, i1 true, i1 %44
-  br i1 %45, label %46, label %14, !llvm.loop !33
+  %43 = icmp ult i32 %41, %42
+  %44 = icmp ult i32 %16, 4
+  %45 = select i1 %43, i1 %44, i1 false
+  br i1 %45, label %14, label %46, !llvm.loop !33
 
 46:                                               ; preds = %37
   %47 = load ptr, ptr %4, align 8, !tbaa !21
@@ -911,8 +909,8 @@ define dso_local void @set_to_vec(ptr noundef %0) local_unnamed_addr #8 {
 47:                                               ; preds = %40, %36
   %48 = phi i32 [ %37, %36 ], [ %43, %40 ]
   %49 = phi i32 [ 4, %36 ], [ %44, %40 ]
-  %50 = icmp ugt i32 %48, 1
-  br i1 %50, label %58, label %51
+  %50 = icmp ult i32 %48, 2
+  br i1 %50, label %51, label %58
 
 51:                                               ; preds = %47
   %52 = shl nuw i32 1, %49
@@ -1154,12 +1152,12 @@ define dso_local noalias ptr @escape_string(ptr nocapture noundef readonly %0) l
   %5 = tail call noalias ptr @malloc(i64 noundef %4) #24
   %6 = load i8, ptr %0, align 1, !tbaa !5
   %7 = icmp eq i8 %6, 0
-  br i1 %7, label %63, label %8
+  br i1 %7, label %64, label %8
 
-8:                                                ; preds = %1, %58
-  %9 = phi i8 [ %61, %58 ], [ %6, %1 ]
-  %10 = phi ptr [ %60, %58 ], [ %0, %1 ]
-  %11 = phi ptr [ %59, %58 ], [ %5, %1 ]
+8:                                                ; preds = %1, %59
+  %9 = phi i8 [ %62, %59 ], [ %6, %1 ]
+  %10 = phi ptr [ %61, %59 ], [ %0, %1 ]
+  %11 = phi ptr [ %60, %59 ], [ %5, %1 ]
   %12 = sext i8 %9 to i32
   switch i32 %12, label %37 [
     i32 8, label %13
@@ -1178,56 +1176,56 @@ define dso_local noalias ptr @escape_string(ptr nocapture noundef readonly %0) l
   store i8 92, ptr %11, align 1, !tbaa !5
   %15 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 98, ptr %14, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 16:                                               ; preds = %8
   %17 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %18 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 102, ptr %17, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 19:                                               ; preds = %8
   %20 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %21 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 110, ptr %20, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 22:                                               ; preds = %8
   %23 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %24 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 114, ptr %23, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 25:                                               ; preds = %8
   %26 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %27 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 116, ptr %26, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 28:                                               ; preds = %8
   %29 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %30 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 118, ptr %29, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 31:                                               ; preds = %8
   %32 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %33 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 97, ptr %32, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 34:                                               ; preds = %8, %8
   %35 = getelementptr inbounds i8, ptr %11, i64 1
   store i8 92, ptr %11, align 1, !tbaa !5
   %36 = getelementptr inbounds i8, ptr %11, i64 2
   store i8 %9, ptr %35, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 37:                                               ; preds = %8
   %38 = tail call ptr @__ctype_b_loc() #29
@@ -1242,7 +1240,7 @@ define dso_local noalias ptr @escape_string(ptr nocapture noundef readonly %0) l
 
 46:                                               ; preds = %37
   store i8 %9, ptr %11, align 1, !tbaa !5
-  br label %58
+  br label %59
 
 47:                                               ; preds = %37
   store i8 92, ptr %11, align 1, !tbaa !5
@@ -1252,25 +1250,26 @@ define dso_local noalias ptr @escape_string(ptr nocapture noundef readonly %0) l
   %50 = add nsw i8 %49, 48
   %51 = getelementptr inbounds i8, ptr %11, i64 3
   store i8 %50, ptr %48, align 1, !tbaa !5
-  %52 = and i8 %9, 15
-  %53 = icmp ugt i8 %52, 9
-  %54 = add nuw nsw i8 %52, 55
-  %55 = or i8 %52, 48
-  %56 = select i1 %53, i8 %54, i8 %55
-  %57 = getelementptr inbounds i8, ptr %11, i64 4
-  store i8 %56, ptr %51, align 1, !tbaa !5
-  br label %58
+  %52 = and i32 %12, 15
+  %53 = icmp ugt i32 %52, 9
+  %54 = add nuw nsw i32 %52, 55
+  %55 = or i32 %52, 48
+  %56 = select i1 %53, i32 %54, i32 %55
+  %57 = trunc i32 %56 to i8
+  %58 = getelementptr inbounds i8, ptr %11, i64 4
+  store i8 %57, ptr %51, align 1, !tbaa !5
+  br label %59
 
-58:                                               ; preds = %13, %16, %19, %22, %25, %28, %31, %34, %47, %46
-  %59 = phi ptr [ %45, %46 ], [ %57, %47 ], [ %36, %34 ], [ %33, %31 ], [ %30, %28 ], [ %27, %25 ], [ %24, %22 ], [ %21, %19 ], [ %18, %16 ], [ %15, %13 ]
-  %60 = getelementptr inbounds i8, ptr %10, i64 1
-  %61 = load i8, ptr %60, align 1, !tbaa !5
-  %62 = icmp eq i8 %61, 0
-  br i1 %62, label %63, label %8, !llvm.loop !41
+59:                                               ; preds = %13, %16, %19, %22, %25, %28, %31, %34, %47, %46
+  %60 = phi ptr [ %45, %46 ], [ %58, %47 ], [ %36, %34 ], [ %33, %31 ], [ %30, %28 ], [ %27, %25 ], [ %24, %22 ], [ %21, %19 ], [ %18, %16 ], [ %15, %13 ]
+  %61 = getelementptr inbounds i8, ptr %10, i64 1
+  %62 = load i8, ptr %61, align 1, !tbaa !5
+  %63 = icmp eq i8 %62, 0
+  br i1 %63, label %64, label %8, !llvm.loop !41
 
-63:                                               ; preds = %58, %1
-  %64 = phi ptr [ %5, %1 ], [ %59, %58 ]
-  store i8 0, ptr %64, align 1, !tbaa !5
+64:                                               ; preds = %59, %1
+  %65 = phi ptr [ %5, %1 ], [ %60, %59 ]
+  store i8 0, ptr %65, align 1, !tbaa !5
   ret ptr %5
 }
 

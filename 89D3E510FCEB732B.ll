@@ -314,7 +314,7 @@ define dso_local noundef i32 @_ZN9NCompress6NLzma212SetLzma2PropEjRK14tagPROPVAR
 4:                                                ; preds = %3
   %5 = load i16, ptr %1, align 8, !tbaa !20
   %6 = icmp eq i16 %5, 19
-  br i1 %6, label %7, label %23
+  br i1 %6, label %7, label %21
 
 7:                                                ; preds = %4
   %8 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %1, i64 0, i32 4
@@ -322,31 +322,27 @@ define dso_local noundef i32 @_ZN9NCompress6NLzma212SetLzma2PropEjRK14tagPROPVAR
   %10 = zext i32 %9 to i64
   %11 = getelementptr inbounds %struct.CLzma2EncProps, ptr %2, i64 0, i32 1
   store i64 %10, ptr %11, align 8, !tbaa !24
-  br label %22
+  br label %21
 
 12:                                               ; preds = %3
   %13 = load i16, ptr %1, align 8, !tbaa !20
   %14 = icmp eq i16 %13, 19
-  br i1 %14, label %15, label %23
+  br i1 %14, label %15, label %21
 
 15:                                               ; preds = %12
   %16 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %1, i64 0, i32 4
   %17 = load i32, ptr %16, align 8, !tbaa !23
   %18 = getelementptr inbounds %struct.CLzma2EncProps, ptr %2, i64 0, i32 3
   store i32 %17, ptr %18, align 4, !tbaa !28
-  br label %22
+  br label %21
 
 19:                                               ; preds = %3
   %20 = tail call noundef i32 @_ZN9NCompress5NLzma11SetLzmaPropEjRK14tagPROPVARIANTR14_CLzmaEncProps(i32 noundef %0, ptr noundef nonnull align 8 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(48) %2)
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %22, label %23
+  br label %21
 
-22:                                               ; preds = %19, %15, %7
-  br label %23
-
-23:                                               ; preds = %19, %12, %4, %22
-  %24 = phi i32 [ %20, %19 ], [ 0, %22 ], [ -2147024809, %4 ], [ -2147024809, %12 ]
-  ret i32 %24
+21:                                               ; preds = %19, %7, %15, %12, %4
+  %22 = phi i32 [ -2147024809, %4 ], [ -2147024809, %12 ], [ 0, %15 ], [ 0, %7 ], [ %20, %19 ]
+  ret i32 %22
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -409,7 +405,7 @@ define dso_local noundef i32 @_ZN9NCompress6NLzma28CEncoder18SetCoderPropertiesE
   %31 = icmp eq i32 %30, 0
   br i1 %31, label %32, label %40
 
-32:                                               ; preds = %29, %26, %19
+32:                                               ; preds = %19, %26, %29
   %33 = add nuw nsw i64 %12, 1
   %34 = icmp eq i64 %33, %10
   br i1 %34, label %35, label %11, !llvm.loop !29
@@ -422,7 +418,7 @@ define dso_local noundef i32 @_ZN9NCompress6NLzma28CEncoder18SetCoderPropertiesE
   br label %40
 
 40:                                               ; preds = %23, %16, %29, %35
-  %41 = phi i32 [ %39, %35 ], [ %30, %29 ], [ -2147024809, %16 ], [ -2147024809, %23 ]
+  %41 = phi i32 [ %39, %35 ], [ -2147024809, %23 ], [ -2147024809, %16 ], [ %30, %29 ]
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %5) #8
   ret i32 %41
 }
@@ -498,7 +494,7 @@ define dso_local noundef i32 @_ZThn8_N9NCompress6NLzma28CEncoder18SetCoderProper
   br label %40
 
 40:                                               ; preds = %16, %23, %29, %35
-  %41 = phi i32 [ %39, %35 ], [ -2147024809, %23 ], [ -2147024809, %16 ], [ %30, %29 ]
+  %41 = phi i32 [ %39, %35 ], [ %30, %29 ], [ -2147024809, %16 ], [ -2147024809, %23 ]
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %5) #8
   ret i32 %41
 }

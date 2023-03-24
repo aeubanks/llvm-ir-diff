@@ -260,139 +260,139 @@ define dso_local void @HashThreadFunc(ptr noundef %0) local_unnamed_addr #1 {
   %20 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 7
   br label %21
 
-21:                                               ; preds = %116, %9
-  %22 = phi i32 [ 0, %9 ], [ %117, %116 ]
+21:                                               ; preds = %110, %9
+  %22 = phi i32 [ 0, %9 ], [ %111, %110 ]
   br label %23
 
-23:                                               ; preds = %21, %90
+23:                                               ; preds = %21, %84
   %24 = load i32, ptr %10, align 4, !tbaa !25
   %25 = icmp eq i32 %24, 0
-  br i1 %25, label %32, label %26
+  br i1 %25, label %26, label %112
 
 26:                                               ; preds = %23
-  store i32 %22, ptr %19, align 8, !tbaa !24
-  %27 = tail call i32 @Event_Set(ptr noundef nonnull %20) #10
-  %28 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
-  %29 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
-  %30 = load i32, ptr %6, align 8, !tbaa !26
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %116, label %118
+  %27 = load ptr, ptr %11, align 8, !tbaa !29
+  %28 = tail call i32 @MatchFinder_NeedMove(ptr noundef %27) #10
+  %29 = icmp eq i32 %28, 0
+  br i1 %29, label %30, label %84
 
-32:                                               ; preds = %23
-  %33 = load ptr, ptr %11, align 8, !tbaa !29
-  %34 = tail call i32 @MatchFinder_NeedMove(ptr noundef %33) #10
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %90
+30:                                               ; preds = %26
+  %31 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %15) #10
+  tail call void @MatchFinder_ReadIfRequired(ptr noundef %27) #10
+  %32 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 1
+  %33 = load i32, ptr %32, align 8, !tbaa !32
+  %34 = icmp ugt i32 %33, -8193
+  br i1 %34, label %35, label %50
 
-36:                                               ; preds = %32
-  %37 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %15) #10
-  tail call void @MatchFinder_ReadIfRequired(ptr noundef %33) #10
-  %38 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 1
-  %39 = load i32, ptr %38, align 8, !tbaa !32
-  %40 = icmp ugt i32 %39, -8193
-  br i1 %40, label %41, label %56
+35:                                               ; preds = %30
+  %36 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 23
+  %37 = load i32, ptr %36, align 8, !tbaa !34
+  %38 = xor i32 %37, -1
+  %39 = add i32 %33, %38
+  tail call void @MatchFinder_ReduceOffsets(ptr noundef nonnull %27, i32 noundef %39) #10
+  %40 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 8
+  %41 = load ptr, ptr %40, align 8, !tbaa !35
+  %42 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 24
+  %43 = load i32, ptr %42, align 4, !tbaa !36
+  %44 = zext i32 %43 to i64
+  %45 = getelementptr inbounds i32, ptr %41, i64 %44
+  %46 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 10
+  %47 = load i32, ptr %46, align 8, !tbaa !37
+  %48 = add i32 %47, 1
+  tail call void @MatchFinder_Normalize3(i32 noundef %39, ptr noundef %45, i32 noundef %48) #10
+  %49 = load i32, ptr %32, align 8, !tbaa !32
+  br label %50
 
-41:                                               ; preds = %36
-  %42 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 23
-  %43 = load i32, ptr %42, align 8, !tbaa !34
-  %44 = xor i32 %43, -1
-  %45 = add i32 %39, %44
-  tail call void @MatchFinder_ReduceOffsets(ptr noundef nonnull %33, i32 noundef %45) #10
-  %46 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 8
-  %47 = load ptr, ptr %46, align 8, !tbaa !35
-  %48 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 24
-  %49 = load i32, ptr %48, align 4, !tbaa !36
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds i32, ptr %47, i64 %50
-  %52 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 10
-  %53 = load i32, ptr %52, align 8, !tbaa !37
-  %54 = add i32 %53, 1
-  tail call void @MatchFinder_Normalize3(i32 noundef %45, ptr noundef %51, i32 noundef %54) #10
-  %55 = load i32, ptr %38, align 8, !tbaa !32
-  br label %56
+50:                                               ; preds = %35, %30
+  %51 = phi i32 [ %49, %35 ], [ %33, %30 ]
+  %52 = load ptr, ptr %16, align 8, !tbaa !38
+  %53 = add i32 %22, 1
+  %54 = shl i32 %22, 13
+  %55 = and i32 %54, 57344
+  %56 = zext i32 %55 to i64
+  %57 = getelementptr inbounds i32, ptr %52, i64 %56
+  %58 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 3
+  %59 = load i32, ptr %58, align 8, !tbaa !39
+  %60 = sub i32 %59, %51
+  store i32 2, ptr %57, align 4, !tbaa !40
+  %61 = getelementptr inbounds i32, ptr %57, i64 1
+  store i32 %60, ptr %61, align 4, !tbaa !40
+  %62 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 18
+  %63 = load i32, ptr %62, align 8, !tbaa !41
+  %64 = icmp ult i32 %60, %63
+  br i1 %64, label %100, label %65
 
-56:                                               ; preds = %41, %36
-  %57 = phi i32 [ %55, %41 ], [ %39, %36 ]
-  %58 = load ptr, ptr %16, align 8, !tbaa !38
-  %59 = add i32 %22, 1
-  %60 = shl i32 %22, 13
-  %61 = and i32 %60, 57344
-  %62 = zext i32 %61 to i64
-  %63 = getelementptr inbounds i32, ptr %58, i64 %62
-  %64 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 3
-  %65 = load i32, ptr %64, align 8, !tbaa !39
-  %66 = sub i32 %65, %57
-  store i32 2, ptr %63, align 4, !tbaa !40
-  %67 = getelementptr inbounds i32, ptr %63, i64 1
-  store i32 %66, ptr %67, align 4, !tbaa !40
-  %68 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 18
-  %69 = load i32, ptr %68, align 8, !tbaa !41
-  %70 = icmp ult i32 %66, %69
-  br i1 %70, label %106, label %71
+65:                                               ; preds = %50
+  %66 = add i32 %60, 1
+  %67 = sub i32 %66, %63
+  %68 = tail call i32 @llvm.umin.i32(i32 %67, i32 8190)
+  %69 = load ptr, ptr %17, align 8, !tbaa !42
+  %70 = load ptr, ptr %27, align 8, !tbaa !43
+  %71 = load i32, ptr %32, align 8, !tbaa !32
+  %72 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 8
+  %73 = load ptr, ptr %72, align 8, !tbaa !35
+  %74 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 24
+  %75 = load i32, ptr %74, align 4, !tbaa !36
+  %76 = zext i32 %75 to i64
+  %77 = getelementptr inbounds i32, ptr %73, i64 %76
+  %78 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 10
+  %79 = load i32, ptr %78, align 8, !tbaa !37
+  %80 = getelementptr inbounds i32, ptr %57, i64 2
+  %81 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 28
+  tail call void %69(ptr noundef %70, i32 noundef %71, ptr noundef %77, i32 noundef %79, ptr noundef nonnull %80, i32 noundef %68, ptr noundef nonnull %81) #10
+  %82 = load i32, ptr %57, align 4, !tbaa !40
+  %83 = add i32 %82, %68
+  store i32 %83, ptr %57, align 4, !tbaa !40
+  br label %100
 
-71:                                               ; preds = %56
-  %72 = add i32 %66, 1
-  %73 = sub i32 %72, %69
-  %74 = tail call i32 @llvm.umin.i32(i32 %73, i32 8190)
-  %75 = load ptr, ptr %17, align 8, !tbaa !42
-  %76 = load ptr, ptr %33, align 8, !tbaa !43
-  %77 = load i32, ptr %38, align 8, !tbaa !32
-  %78 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 8
-  %79 = load ptr, ptr %78, align 8, !tbaa !35
-  %80 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 24
-  %81 = load i32, ptr %80, align 4, !tbaa !36
-  %82 = zext i32 %81 to i64
-  %83 = getelementptr inbounds i32, ptr %79, i64 %82
-  %84 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 10
-  %85 = load i32, ptr %84, align 8, !tbaa !37
-  %86 = getelementptr inbounds i32, ptr %63, i64 2
-  %87 = getelementptr inbounds %struct._CMatchFinder, ptr %33, i64 0, i32 28
-  tail call void %75(ptr noundef %76, i32 noundef %77, ptr noundef %83, i32 noundef %85, ptr noundef nonnull %86, i32 noundef %74, ptr noundef nonnull %87) #10
-  %88 = load i32, ptr %63, align 4, !tbaa !40
-  %89 = add i32 %88, %74
-  store i32 %89, ptr %63, align 4, !tbaa !40
-  br label %106
+84:                                               ; preds = %26
+  %85 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %12) #10
+  %86 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %13) #10
+  %87 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %27) #10
+  tail call void @MatchFinder_MoveBlock(ptr noundef %27) #10
+  %88 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %27) #10
+  %89 = ptrtoint ptr %87 to i64
+  %90 = ptrtoint ptr %88 to i64
+  %91 = sub i64 %90, %89
+  %92 = load ptr, ptr %0, align 8, !tbaa !44
+  %93 = getelementptr inbounds i8, ptr %92, i64 %91
+  store ptr %93, ptr %0, align 8, !tbaa !44
+  %94 = load ptr, ptr %14, align 8, !tbaa !45
+  %95 = getelementptr inbounds i8, ptr %94, i64 %91
+  store ptr %95, ptr %14, align 8, !tbaa !45
+  %96 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %12) #10
+  %97 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %13) #10
+  %98 = load i32, ptr %6, align 8, !tbaa !26
+  %99 = icmp eq i32 %98, 0
+  br i1 %99, label %23, label %118
 
-90:                                               ; preds = %32
-  %91 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %12) #10
-  %92 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %13) #10
-  %93 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %33) #10
-  tail call void @MatchFinder_MoveBlock(ptr noundef %33) #10
-  %94 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %33) #10
-  %95 = ptrtoint ptr %93 to i64
-  %96 = ptrtoint ptr %94 to i64
-  %97 = sub i64 %96, %95
-  %98 = load ptr, ptr %0, align 8, !tbaa !44
-  %99 = getelementptr inbounds i8, ptr %98, i64 %97
-  store ptr %99, ptr %0, align 8, !tbaa !44
-  %100 = load ptr, ptr %14, align 8, !tbaa !45
-  %101 = getelementptr inbounds i8, ptr %100, i64 %97
-  store ptr %101, ptr %14, align 8, !tbaa !45
-  %102 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %12) #10
-  %103 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %13) #10
-  %104 = load i32, ptr %6, align 8, !tbaa !26
-  %105 = icmp eq i32 %104, 0
-  br i1 %105, label %23, label %118
+100:                                              ; preds = %50, %65
+  %101 = phi i32 [ %68, %65 ], [ %60, %50 ]
+  %102 = load i32, ptr %32, align 8, !tbaa !32
+  %103 = add i32 %102, %101
+  store i32 %103, ptr %32, align 8, !tbaa !32
+  %104 = load ptr, ptr %27, align 8, !tbaa !43
+  %105 = zext i32 %101 to i64
+  %106 = getelementptr inbounds i8, ptr %104, i64 %105
+  store ptr %106, ptr %27, align 8, !tbaa !43
+  %107 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %18, i32 noundef 1) #10
+  %108 = load i32, ptr %6, align 8, !tbaa !26
+  %109 = icmp eq i32 %108, 0
+  br i1 %109, label %110, label %118
 
-106:                                              ; preds = %56, %71
-  %107 = phi i32 [ %74, %71 ], [ %66, %56 ]
-  %108 = load i32, ptr %38, align 8, !tbaa !32
-  %109 = add i32 %108, %107
-  store i32 %109, ptr %38, align 8, !tbaa !32
-  %110 = load ptr, ptr %33, align 8, !tbaa !43
-  %111 = zext i32 %107 to i64
-  %112 = getelementptr inbounds i8, ptr %110, i64 %111
-  store ptr %112, ptr %33, align 8, !tbaa !43
-  %113 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %18, i32 noundef 1) #10
-  %114 = load i32, ptr %6, align 8, !tbaa !26
-  %115 = icmp eq i32 %114, 0
-  br i1 %115, label %116, label %118
-
-116:                                              ; preds = %106, %26
-  %117 = phi i32 [ %59, %106 ], [ 0, %26 ]
+110:                                              ; preds = %100, %112
+  %111 = phi i32 [ %53, %100 ], [ 0, %112 ]
   br label %21
 
-118:                                              ; preds = %26, %106, %90, %1
+112:                                              ; preds = %23
+  store i32 %22, ptr %19, align 8, !tbaa !24
+  %113 = tail call i32 @Event_Set(ptr noundef nonnull %20) #10
+  %114 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
+  %115 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
+  %116 = load i32, ptr %6, align 8, !tbaa !26
+  %117 = icmp eq i32 %116, 0
+  br i1 %117, label %110, label %118
+
+118:                                              ; preds = %112, %100, %84, %1
   ret void
 }
 
@@ -701,77 +701,77 @@ define dso_local void @BtThreadFunc(ptr noundef %0) local_unnamed_addr #1 {
   %22 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 7
   br label %23
 
-23:                                               ; preds = %64, %9
-  %24 = phi i32 [ 0, %9 ], [ %65, %64 ]
+23:                                               ; preds = %58, %9
+  %24 = phi i32 [ 0, %9 ], [ %59, %58 ]
   %25 = load i32, ptr %10, align 4, !tbaa !25
   %26 = icmp eq i32 %25, 0
-  br i1 %26, label %33, label %27
+  br i1 %26, label %27, label %60
 
 27:                                               ; preds = %23
-  store i32 %24, ptr %20, align 8, !tbaa !24
-  tail call void @MtSync_StopWriting(ptr noundef nonnull %21)
-  %28 = tail call i32 @Event_Set(ptr noundef nonnull %22) #10
-  %29 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
-  %30 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
-  %31 = load i32, ptr %6, align 8, !tbaa !26
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %64, label %66
+  %28 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %11) #10
+  %29 = add i32 %24, 1
+  %30 = load i32, ptr %12, align 4, !tbaa !23
+  %31 = icmp eq i32 %30, 0
+  br i1 %31, label %32, label %34
 
-33:                                               ; preds = %23
-  %34 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %11) #10
-  %35 = add i32 %24, 1
-  %36 = load i32, ptr %12, align 4, !tbaa !23
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %40
-
-38:                                               ; preds = %33
-  %39 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %13) #10
+32:                                               ; preds = %27
+  %33 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %13) #10
   store i32 1, ptr %14, align 4, !tbaa !16
-  br label %40
+  br label %34
 
-40:                                               ; preds = %38, %33
-  %41 = load ptr, ptr %15, align 8, !tbaa !60
-  %42 = shl i32 %24, 14
-  %43 = and i32 %42, 1032192
-  %44 = zext i32 %43 to i64
-  %45 = getelementptr inbounds i32, ptr %41, i64 %44
-  tail call void @BtGetMatches(ptr noundef nonnull %0, ptr noundef %45)
-  %46 = load i32, ptr %16, align 8, !tbaa !54
-  %47 = icmp ugt i32 %46, -16385
-  br i1 %47, label %48, label %55
+34:                                               ; preds = %32, %27
+  %35 = load ptr, ptr %15, align 8, !tbaa !60
+  %36 = shl i32 %24, 14
+  %37 = and i32 %36, 1032192
+  %38 = zext i32 %37 to i64
+  %39 = getelementptr inbounds i32, ptr %35, i64 %38
+  tail call void @BtGetMatches(ptr noundef nonnull %0, ptr noundef %39)
+  %40 = load i32, ptr %16, align 8, !tbaa !54
+  %41 = icmp ugt i32 %40, -16385
+  br i1 %41, label %42, label %49
 
-48:                                               ; preds = %40
-  %49 = load i32, ptr %17, align 4, !tbaa !56
-  %50 = sub i32 %46, %49
-  %51 = load ptr, ptr %18, align 8, !tbaa !57
-  %52 = shl i32 %49, 1
-  tail call void @MatchFinder_Normalize3(i32 noundef %50, ptr noundef %51, i32 noundef %52) #10
-  %53 = load i32, ptr %16, align 8, !tbaa !54
-  %54 = sub i32 %53, %50
-  store i32 %54, ptr %16, align 8, !tbaa !54
-  br label %55
+42:                                               ; preds = %34
+  %43 = load i32, ptr %17, align 4, !tbaa !56
+  %44 = sub i32 %40, %43
+  %45 = load ptr, ptr %18, align 8, !tbaa !57
+  %46 = shl i32 %43, 1
+  tail call void @MatchFinder_Normalize3(i32 noundef %44, ptr noundef %45, i32 noundef %46) #10
+  %47 = load i32, ptr %16, align 8, !tbaa !54
+  %48 = sub i32 %47, %44
+  store i32 %48, ptr %16, align 8, !tbaa !54
+  br label %49
 
-55:                                               ; preds = %48, %40
-  %56 = load i32, ptr %12, align 4, !tbaa !23
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %58, label %60
+49:                                               ; preds = %42, %34
+  %50 = load i32, ptr %12, align 4, !tbaa !23
+  %51 = icmp eq i32 %50, 0
+  br i1 %51, label %52, label %54
 
-58:                                               ; preds = %55
-  %59 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %13) #10
+52:                                               ; preds = %49
+  %53 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %13) #10
   store i32 0, ptr %14, align 4, !tbaa !16
-  br label %60
+  br label %54
 
-60:                                               ; preds = %55, %58
-  %61 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %19, i32 noundef 1) #10
-  %62 = load i32, ptr %6, align 8, !tbaa !26
-  %63 = icmp eq i32 %62, 0
-  br i1 %63, label %64, label %66
+54:                                               ; preds = %49, %52
+  %55 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %19, i32 noundef 1) #10
+  %56 = load i32, ptr %6, align 8, !tbaa !26
+  %57 = icmp eq i32 %56, 0
+  br i1 %57, label %58, label %66
 
-64:                                               ; preds = %60, %27
-  %65 = phi i32 [ %35, %60 ], [ 0, %27 ]
+58:                                               ; preds = %54, %60
+  %59 = phi i32 [ %29, %54 ], [ 0, %60 ]
   br label %23
 
-66:                                               ; preds = %27, %60, %1
+60:                                               ; preds = %23
+  store i32 %24, ptr %20, align 8, !tbaa !24
+  tail call void @MtSync_StopWriting(ptr noundef nonnull %21)
+  %61 = tail call i32 @Event_Set(ptr noundef nonnull %22) #10
+  %62 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
+  %63 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
+  %64 = load i32, ptr %6, align 8, !tbaa !26
+  %65 = icmp eq i32 %64, 0
+  br i1 %65, label %58, label %66
+
+66:                                               ; preds = %60, %54, %1
   ret void
 }
 
@@ -891,8 +891,8 @@ define dso_local i32 @MatchFinderMt_Create(ptr noundef %0, i32 noundef %1, i32 n
   %34 = tail call fastcc i32 @MtSync_Create(ptr noundef nonnull %33, ptr noundef nonnull @BtThreadFunc2, ptr noundef nonnull %0, i32 noundef 64), !range !65
   br label %35
 
-35:                                               ; preds = %32, %23, %16, %6, %28
-  %36 = phi i32 [ %30, %28 ], [ 5, %6 ], [ 2, %16 ], [ 2, %23 ], [ %34, %32 ]
+35:                                               ; preds = %32, %28, %23, %16, %6
+  %36 = phi i32 [ 5, %6 ], [ 2, %16 ], [ 2, %23 ], [ %30, %28 ], [ %34, %32 ]
   ret i32 %36
 }
 

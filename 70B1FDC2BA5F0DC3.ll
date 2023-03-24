@@ -191,9 +191,9 @@ define dso_local i32 @set1d(ptr nocapture noundef writeonly %0, double noundef %
 4:                                                ; preds = %3, %4
   %5 = phi i64 [ %13, %4 ], [ 0, %3 ]
   %6 = phi <2 x i64> [ %14, %4 ], [ <i64 0, i64 1>, %3 ]
-  %7 = add nuw nsw <2 x i64> %6, <i64 1, i64 1>
-  %8 = mul nuw nsw <2 x i64> %7, %7
-  %9 = trunc <2 x i64> %8 to <2 x i32>
+  %7 = trunc <2 x i64> %6 to <2 x i32>
+  %8 = add <2 x i32> %7, <i32 1, i32 1>
+  %9 = mul nsw <2 x i32> %8, %8
   %10 = sitofp <2 x i32> %9 to <2 x double>
   %11 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %10
   %12 = getelementptr inbounds double, ptr %0, i64 %5
@@ -256,9 +256,9 @@ define dso_local i32 @set1ds(i32 noundef %0, ptr nocapture noundef writeonly %1,
 5:                                                ; preds = %4, %5
   %6 = phi i64 [ %14, %5 ], [ 0, %4 ]
   %7 = phi <2 x i64> [ %15, %5 ], [ <i64 0, i64 1>, %4 ]
-  %8 = add nuw nsw <2 x i64> %7, <i64 1, i64 1>
-  %9 = mul nuw nsw <2 x i64> %8, %8
-  %10 = trunc <2 x i64> %9 to <2 x i32>
+  %8 = trunc <2 x i64> %7 to <2 x i32>
+  %9 = add <2 x i32> %8, <i32 1, i32 1>
+  %10 = mul nsw <2 x i32> %9, %9
   %11 = sitofp <2 x i32> %10 to <2 x double>
   %12 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %11
   %13 = getelementptr inbounds double, ptr %1, i64 %6
@@ -694,7 +694,7 @@ define dso_local void @check(i32 noundef %0) local_unnamed_addr #3 {
   %146 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %143, double noundef %145)
   br label %147
 
-147:                                              ; preds = %138, %134, %129, %125, %120, %116, %112, %108, %105, %102, %99, %96, %93, %90, %87, %84, %81, %60, %142
+147:                                              ; preds = %60, %102, %99, %96, %93, %90, %87, %81, %84, %125, %120, %116, %112, %105, %108, %134, %129, %138, %142
   ret void
 }
 
@@ -782,9 +782,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 55:                                               ; preds = %37, %55
   %56 = phi i64 [ %64, %55 ], [ 0, %37 ]
   %57 = phi <2 x i64> [ %65, %55 ], [ <i64 0, i64 1>, %37 ]
-  %58 = add nuw nsw <2 x i64> %57, <i64 1, i64 1>
-  %59 = mul nuw nsw <2 x i64> %58, %58
-  %60 = trunc <2 x i64> %59 to <2 x i32>
+  %58 = trunc <2 x i64> %57 to <2 x i32>
+  %59 = add <2 x i32> %58, <i32 1, i32 1>
+  %60 = mul nsw <2 x i32> %59, %59
   %61 = sitofp <2 x i32> %60 to <2 x double>
   %62 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %61
   %63 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %56
@@ -797,9 +797,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 67:                                               ; preds = %55, %67
   %68 = phi i64 [ %76, %67 ], [ 0, %55 ]
   %69 = phi <2 x i64> [ %77, %67 ], [ <i64 0, i64 1>, %55 ]
-  %70 = add nuw nsw <2 x i64> %69, <i64 1, i64 1>
-  %71 = mul nuw nsw <2 x i64> %70, %70
-  %72 = trunc <2 x i64> %71 to <2 x i32>
+  %70 = trunc <2 x i64> %69 to <2 x i32>
+  %71 = add <2 x i32> %70, <i32 1, i32 1>
+  %72 = mul nsw <2 x i32> %71, %71
   %73 = sitofp <2 x i32> %72 to <2 x double>
   %74 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %73
   %75 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 %68
@@ -812,9 +812,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 79:                                               ; preds = %67, %79
   %80 = phi i64 [ %88, %79 ], [ 0, %67 ]
   %81 = phi <2 x i64> [ %89, %79 ], [ <i64 0, i64 1>, %67 ]
-  %82 = add nuw nsw <2 x i64> %81, <i64 1, i64 1>
-  %83 = mul nuw nsw <2 x i64> %82, %82
-  %84 = trunc <2 x i64> %83 to <2 x i32>
+  %82 = trunc <2 x i64> %81 to <2 x i32>
+  %83 = add <2 x i32> %82, <i32 1, i32 1>
+  %84 = mul nsw <2 x i32> %83, %83
   %85 = sitofp <2 x i32> %84 to <2 x double>
   %86 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %85
   %87 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 8, i64 %80
@@ -827,9 +827,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 91:                                               ; preds = %79, %91
   %92 = phi i64 [ %100, %91 ], [ 0, %79 ]
   %93 = phi <2 x i64> [ %101, %91 ], [ <i64 0, i64 1>, %79 ]
-  %94 = add nuw nsw <2 x i64> %93, <i64 1, i64 1>
-  %95 = mul nuw nsw <2 x i64> %94, %94
-  %96 = trunc <2 x i64> %95 to <2 x i32>
+  %94 = trunc <2 x i64> %93 to <2 x i32>
+  %95 = add <2 x i32> %94, <i32 1, i32 1>
+  %96 = mul nsw <2 x i32> %95, %95
   %97 = sitofp <2 x i32> %96 to <2 x double>
   %98 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %97
   %99 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 11, i64 %92
@@ -877,9 +877,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 124:                                              ; preds = %106, %124
   %125 = phi i64 [ %133, %124 ], [ 0, %106 ]
   %126 = phi <2 x i64> [ %134, %124 ], [ <i64 0, i64 1>, %106 ]
-  %127 = add nuw nsw <2 x i64> %126, <i64 1, i64 1>
-  %128 = mul nuw nsw <2 x i64> %127, %127
-  %129 = trunc <2 x i64> %128 to <2 x i32>
+  %127 = trunc <2 x i64> %126 to <2 x i32>
+  %128 = add <2 x i32> %127, <i32 1, i32 1>
+  %129 = mul nsw <2 x i32> %128, %128
   %130 = sitofp <2 x i32> %129 to <2 x double>
   %131 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %130
   %132 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %125
@@ -927,9 +927,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 157:                                              ; preds = %139, %157
   %158 = phi i64 [ %166, %157 ], [ 0, %139 ]
   %159 = phi <2 x i64> [ %167, %157 ], [ <i64 0, i64 1>, %139 ]
-  %160 = add nuw nsw <2 x i64> %159, <i64 1, i64 1>
-  %161 = mul nuw nsw <2 x i64> %160, %160
-  %162 = trunc <2 x i64> %161 to <2 x i32>
+  %160 = trunc <2 x i64> %159 to <2 x i32>
+  %161 = add <2 x i32> %160, <i32 1, i32 1>
+  %162 = mul nsw <2 x i32> %161, %161
   %163 = sitofp <2 x i32> %162 to <2 x double>
   %164 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %163
   %165 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %158
@@ -1387,9 +1387,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 442:                                              ; preds = %424, %442
   %443 = phi i64 [ %451, %442 ], [ 0, %424 ]
   %444 = phi <2 x i64> [ %452, %442 ], [ <i64 0, i64 1>, %424 ]
-  %445 = add nuw nsw <2 x i64> %444, <i64 1, i64 1>
-  %446 = mul nuw nsw <2 x i64> %445, %445
-  %447 = trunc <2 x i64> %446 to <2 x i32>
+  %445 = trunc <2 x i64> %444 to <2 x i32>
+  %446 = add <2 x i32> %445, <i32 1, i32 1>
+  %447 = mul nsw <2 x i32> %446, %446
   %448 = sitofp <2 x i32> %447 to <2 x double>
   %449 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %448
   %450 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %443
@@ -1437,9 +1437,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 475:                                              ; preds = %457, %475
   %476 = phi i64 [ %484, %475 ], [ 0, %457 ]
   %477 = phi <2 x i64> [ %485, %475 ], [ <i64 0, i64 1>, %457 ]
-  %478 = add nuw nsw <2 x i64> %477, <i64 1, i64 1>
-  %479 = mul nuw nsw <2 x i64> %478, %478
-  %480 = trunc <2 x i64> %479 to <2 x i32>
+  %478 = trunc <2 x i64> %477 to <2 x i32>
+  %479 = add <2 x i32> %478, <i32 1, i32 1>
+  %480 = mul nsw <2 x i32> %479, %479
   %481 = sitofp <2 x i32> %480 to <2 x double>
   %482 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %481
   %483 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %476
@@ -2122,9 +2122,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 918:                                              ; preds = %900, %918
   %919 = phi i64 [ %927, %918 ], [ 0, %900 ]
   %920 = phi <2 x i64> [ %928, %918 ], [ <i64 0, i64 1>, %900 ]
-  %921 = add nuw nsw <2 x i64> %920, <i64 1, i64 1>
-  %922 = mul nuw nsw <2 x i64> %921, %921
-  %923 = trunc <2 x i64> %922 to <2 x i32>
+  %921 = trunc <2 x i64> %920 to <2 x i32>
+  %922 = add <2 x i32> %921, <i32 1, i32 1>
+  %923 = mul nsw <2 x i32> %922, %922
   %924 = sitofp <2 x i32> %923 to <2 x double>
   %925 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %924
   %926 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %919
@@ -2330,9 +2330,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 1057:                                             ; preds = %1039, %1057
   %1058 = phi i64 [ %1066, %1057 ], [ 0, %1039 ]
   %1059 = phi <2 x i64> [ %1067, %1057 ], [ <i64 0, i64 1>, %1039 ]
-  %1060 = add nuw nsw <2 x i64> %1059, <i64 1, i64 1>
-  %1061 = mul nuw nsw <2 x i64> %1060, %1060
-  %1062 = trunc <2 x i64> %1061 to <2 x i32>
+  %1060 = trunc <2 x i64> %1059 to <2 x i32>
+  %1061 = add <2 x i32> %1060, <i32 1, i32 1>
+  %1062 = mul nsw <2 x i32> %1061, %1061
   %1063 = sitofp <2 x i32> %1062 to <2 x double>
   %1064 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %1063
   %1065 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %1058
@@ -2715,9 +2715,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 1323:                                             ; preds = %1305, %1323
   %1324 = phi i64 [ %1332, %1323 ], [ 0, %1305 ]
   %1325 = phi <2 x i64> [ %1333, %1323 ], [ <i64 0, i64 1>, %1305 ]
-  %1326 = add nuw nsw <2 x i64> %1325, <i64 1, i64 1>
-  %1327 = mul nuw nsw <2 x i64> %1326, %1326
-  %1328 = trunc <2 x i64> %1327 to <2 x i32>
+  %1326 = trunc <2 x i64> %1325 to <2 x i32>
+  %1327 = add <2 x i32> %1326, <i32 1, i32 1>
+  %1328 = mul nsw <2 x i32> %1327, %1327
   %1329 = sitofp <2 x i32> %1328 to <2 x double>
   %1330 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %1329
   %1331 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %1324
@@ -2765,9 +2765,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 1356:                                             ; preds = %1338, %1356
   %1357 = phi i64 [ %1365, %1356 ], [ 0, %1338 ]
   %1358 = phi <2 x i64> [ %1366, %1356 ], [ <i64 0, i64 1>, %1338 ]
-  %1359 = add nuw nsw <2 x i64> %1358, <i64 1, i64 1>
-  %1360 = mul nuw nsw <2 x i64> %1359, %1359
-  %1361 = trunc <2 x i64> %1360 to <2 x i32>
+  %1359 = trunc <2 x i64> %1358 to <2 x i32>
+  %1360 = add <2 x i32> %1359, <i32 1, i32 1>
+  %1361 = mul nsw <2 x i32> %1360, %1360
   %1362 = sitofp <2 x i32> %1361 to <2 x double>
   %1363 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %1362
   %1364 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %1357
@@ -2815,9 +2815,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 1389:                                             ; preds = %1371, %1389
   %1390 = phi i64 [ %1398, %1389 ], [ 0, %1371 ]
   %1391 = phi <2 x i64> [ %1399, %1389 ], [ <i64 0, i64 1>, %1371 ]
-  %1392 = add nuw nsw <2 x i64> %1391, <i64 1, i64 1>
-  %1393 = mul nuw nsw <2 x i64> %1392, %1392
-  %1394 = trunc <2 x i64> %1393 to <2 x i32>
+  %1392 = trunc <2 x i64> %1391 to <2 x i32>
+  %1393 = add <2 x i32> %1392, <i32 1, i32 1>
+  %1394 = mul nsw <2 x i32> %1393, %1393
   %1395 = sitofp <2 x i32> %1394 to <2 x double>
   %1396 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %1395
   %1397 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %1390
@@ -2865,9 +2865,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 1422:                                             ; preds = %1404, %1422
   %1423 = phi i64 [ %1431, %1422 ], [ 0, %1404 ]
   %1424 = phi <2 x i64> [ %1432, %1422 ], [ <i64 0, i64 1>, %1404 ]
-  %1425 = add nuw nsw <2 x i64> %1424, <i64 1, i64 1>
-  %1426 = mul nuw nsw <2 x i64> %1425, %1425
-  %1427 = trunc <2 x i64> %1426 to <2 x i32>
+  %1425 = trunc <2 x i64> %1424 to <2 x i32>
+  %1426 = add <2 x i32> %1425, <i32 1, i32 1>
+  %1427 = mul nsw <2 x i32> %1426, %1426
   %1428 = sitofp <2 x i32> %1427 to <2 x double>
   %1429 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %1428
   %1430 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %1423
@@ -2915,9 +2915,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 1455:                                             ; preds = %1437, %1455
   %1456 = phi i64 [ %1464, %1455 ], [ 0, %1437 ]
   %1457 = phi <2 x i64> [ %1465, %1455 ], [ <i64 0, i64 1>, %1437 ]
-  %1458 = add nuw nsw <2 x i64> %1457, <i64 1, i64 1>
-  %1459 = mul nuw nsw <2 x i64> %1458, %1458
-  %1460 = trunc <2 x i64> %1459 to <2 x i32>
+  %1458 = trunc <2 x i64> %1457 to <2 x i32>
+  %1459 = add <2 x i32> %1458, <i32 1, i32 1>
+  %1460 = mul nsw <2 x i32> %1459, %1459
   %1461 = sitofp <2 x i32> %1460 to <2 x double>
   %1462 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %1461
   %1463 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %1456
@@ -5083,9 +5083,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 2857:                                             ; preds = %2839, %2857
   %2858 = phi i64 [ %2866, %2857 ], [ 0, %2839 ]
   %2859 = phi <2 x i64> [ %2867, %2857 ], [ <i64 0, i64 1>, %2839 ]
-  %2860 = add nuw nsw <2 x i64> %2859, <i64 1, i64 1>
-  %2861 = mul nuw nsw <2 x i64> %2860, %2860
-  %2862 = trunc <2 x i64> %2861 to <2 x i32>
+  %2860 = trunc <2 x i64> %2859 to <2 x i32>
+  %2861 = add <2 x i32> %2860, <i32 1, i32 1>
+  %2862 = mul nsw <2 x i32> %2861, %2861
   %2863 = sitofp <2 x i32> %2862 to <2 x double>
   %2864 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %2863
   %2865 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %2858
@@ -5098,9 +5098,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 2869:                                             ; preds = %2857, %2869
   %2870 = phi i64 [ %2878, %2869 ], [ 0, %2857 ]
   %2871 = phi <2 x i64> [ %2879, %2869 ], [ <i64 0, i64 1>, %2857 ]
-  %2872 = add nuw nsw <2 x i64> %2871, <i64 1, i64 1>
-  %2873 = mul nuw nsw <2 x i64> %2872, %2872
-  %2874 = trunc <2 x i64> %2873 to <2 x i32>
+  %2872 = trunc <2 x i64> %2871 to <2 x i32>
+  %2873 = add <2 x i32> %2872, <i32 1, i32 1>
+  %2874 = mul nsw <2 x i32> %2873, %2873
   %2875 = sitofp <2 x i32> %2874 to <2 x double>
   %2876 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %2875
   %2877 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 %2870
@@ -7262,9 +7262,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 4330:                                             ; preds = %4327, %4330
   %4331 = phi i64 [ %4339, %4330 ], [ 0, %4327 ]
   %4332 = phi <2 x i64> [ %4340, %4330 ], [ <i64 0, i64 1>, %4327 ]
-  %4333 = add nuw nsw <2 x i64> %4332, <i64 1, i64 1>
-  %4334 = mul nuw nsw <2 x i64> %4333, %4333
-  %4335 = trunc <2 x i64> %4334 to <2 x i32>
+  %4333 = trunc <2 x i64> %4332 to <2 x i32>
+  %4334 = add <2 x i32> %4333, <i32 1, i32 1>
+  %4335 = mul nsw <2 x i32> %4334, %4334
   %4336 = sitofp <2 x i32> %4335 to <2 x double>
   %4337 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %4336
   %4338 = getelementptr inbounds double, ptr @global_data, i64 %4331
@@ -7553,9 +7553,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 4522:                                             ; preds = %4519, %4522
   %4523 = phi i64 [ %4531, %4522 ], [ 0, %4519 ]
   %4524 = phi <2 x i64> [ %4532, %4522 ], [ <i64 0, i64 1>, %4519 ]
-  %4525 = add nuw nsw <2 x i64> %4524, <i64 1, i64 1>
-  %4526 = mul nuw nsw <2 x i64> %4525, %4525
-  %4527 = trunc <2 x i64> %4526 to <2 x i32>
+  %4525 = trunc <2 x i64> %4524 to <2 x i32>
+  %4526 = add <2 x i32> %4525, <i32 1, i32 1>
+  %4527 = mul nsw <2 x i32> %4526, %4526
   %4528 = sitofp <2 x i32> %4527 to <2 x double>
   %4529 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %4528
   %4530 = getelementptr inbounds double, ptr @global_data, i64 %4523
@@ -8386,9 +8386,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5080:                                             ; preds = %5077, %5080
   %5081 = phi i64 [ %5089, %5080 ], [ 0, %5077 ]
   %5082 = phi <2 x i64> [ %5090, %5080 ], [ <i64 0, i64 1>, %5077 ]
-  %5083 = add nuw nsw <2 x i64> %5082, <i64 1, i64 1>
-  %5084 = mul nuw nsw <2 x i64> %5083, %5083
-  %5085 = trunc <2 x i64> %5084 to <2 x i32>
+  %5083 = trunc <2 x i64> %5082 to <2 x i32>
+  %5084 = add <2 x i32> %5083, <i32 1, i32 1>
+  %5085 = mul nsw <2 x i32> %5084, %5084
   %5086 = sitofp <2 x i32> %5085 to <2 x double>
   %5087 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5086
   %5088 = getelementptr inbounds double, ptr @global_data, i64 %5081
@@ -8466,9 +8466,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5131:                                             ; preds = %5113, %5131
   %5132 = phi i64 [ %5140, %5131 ], [ 0, %5113 ]
   %5133 = phi <2 x i64> [ %5141, %5131 ], [ <i64 0, i64 1>, %5113 ]
-  %5134 = add nuw nsw <2 x i64> %5133, <i64 1, i64 1>
-  %5135 = mul nuw nsw <2 x i64> %5134, %5134
-  %5136 = trunc <2 x i64> %5135 to <2 x i32>
+  %5134 = trunc <2 x i64> %5133 to <2 x i32>
+  %5135 = add <2 x i32> %5134, <i32 1, i32 1>
+  %5136 = mul nsw <2 x i32> %5135, %5135
   %5137 = sitofp <2 x i32> %5136 to <2 x double>
   %5138 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5137
   %5139 = getelementptr inbounds double, ptr @global_data, i64 %5132
@@ -8490,9 +8490,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5147:                                             ; preds = %5147, %5146
   %5148 = phi i64 [ 0, %5146 ], [ %5156, %5147 ]
   %5149 = phi <2 x i64> [ <i64 0, i64 1>, %5146 ], [ %5157, %5147 ]
-  %5150 = add nuw nsw <2 x i64> %5149, <i64 1, i64 1>
-  %5151 = mul nuw nsw <2 x i64> %5150, %5150
-  %5152 = trunc <2 x i64> %5151 to <2 x i32>
+  %5150 = trunc <2 x i64> %5149 to <2 x i32>
+  %5151 = add <2 x i32> %5150, <i32 1, i32 1>
+  %5152 = mul nsw <2 x i32> %5151, %5151
   %5153 = sitofp <2 x i32> %5152 to <2 x double>
   %5154 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5153
   %5155 = getelementptr inbounds double, ptr @global_data, i64 %5148
@@ -8540,9 +8540,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5180:                                             ; preds = %5162, %5180
   %5181 = phi i64 [ %5189, %5180 ], [ 0, %5162 ]
   %5182 = phi <2 x i64> [ %5190, %5180 ], [ <i64 0, i64 1>, %5162 ]
-  %5183 = add nuw nsw <2 x i64> %5182, <i64 1, i64 1>
-  %5184 = mul nuw nsw <2 x i64> %5183, %5183
-  %5185 = trunc <2 x i64> %5184 to <2 x i32>
+  %5183 = trunc <2 x i64> %5182 to <2 x i32>
+  %5184 = add <2 x i32> %5183, <i32 1, i32 1>
+  %5185 = mul nsw <2 x i32> %5184, %5184
   %5186 = sitofp <2 x i32> %5185 to <2 x double>
   %5187 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5186
   %5188 = getelementptr inbounds double, ptr @global_data, i64 %5181
@@ -8590,9 +8590,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5213:                                             ; preds = %5195, %5213
   %5214 = phi i64 [ %5222, %5213 ], [ 0, %5195 ]
   %5215 = phi <2 x i64> [ %5223, %5213 ], [ <i64 0, i64 1>, %5195 ]
-  %5216 = add nuw nsw <2 x i64> %5215, <i64 1, i64 1>
-  %5217 = mul nuw nsw <2 x i64> %5216, %5216
-  %5218 = trunc <2 x i64> %5217 to <2 x i32>
+  %5216 = trunc <2 x i64> %5215 to <2 x i32>
+  %5217 = add <2 x i32> %5216, <i32 1, i32 1>
+  %5218 = mul nsw <2 x i32> %5217, %5217
   %5219 = sitofp <2 x i32> %5218 to <2 x double>
   %5220 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5219
   %5221 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %5214
@@ -8640,9 +8640,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5246:                                             ; preds = %5228, %5246
   %5247 = phi i64 [ %5255, %5246 ], [ 0, %5228 ]
   %5248 = phi <2 x i64> [ %5256, %5246 ], [ <i64 0, i64 1>, %5228 ]
-  %5249 = add nuw nsw <2 x i64> %5248, <i64 1, i64 1>
-  %5250 = mul nuw nsw <2 x i64> %5249, %5249
-  %5251 = trunc <2 x i64> %5250 to <2 x i32>
+  %5249 = trunc <2 x i64> %5248 to <2 x i32>
+  %5250 = add <2 x i32> %5249, <i32 1, i32 1>
+  %5251 = mul nsw <2 x i32> %5250, %5250
   %5252 = sitofp <2 x i32> %5251 to <2 x double>
   %5253 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5252
   %5254 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %5247
@@ -9117,9 +9117,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5575:                                             ; preds = %5575, %5574
   %5576 = phi i64 [ 0, %5574 ], [ %5584, %5575 ]
   %5577 = phi <2 x i64> [ <i64 0, i64 1>, %5574 ], [ %5585, %5575 ]
-  %5578 = add nuw nsw <2 x i64> %5577, <i64 1, i64 1>
-  %5579 = mul nuw nsw <2 x i64> %5578, %5578
-  %5580 = trunc <2 x i64> %5579 to <2 x i32>
+  %5578 = trunc <2 x i64> %5577 to <2 x i32>
+  %5579 = add <2 x i32> %5578, <i32 1, i32 1>
+  %5580 = mul nsw <2 x i32> %5579, %5579
   %5581 = sitofp <2 x i32> %5580 to <2 x double>
   %5582 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5581
   %5583 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %5576
@@ -9620,9 +9620,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 5921:                                             ; preds = %5903, %5921
   %5922 = phi i64 [ %5930, %5921 ], [ 0, %5903 ]
   %5923 = phi <2 x i64> [ %5931, %5921 ], [ <i64 0, i64 1>, %5903 ]
-  %5924 = add nuw nsw <2 x i64> %5923, <i64 1, i64 1>
-  %5925 = mul nuw nsw <2 x i64> %5924, %5924
-  %5926 = trunc <2 x i64> %5925 to <2 x i32>
+  %5924 = trunc <2 x i64> %5923 to <2 x i32>
+  %5925 = add <2 x i32> %5924, <i32 1, i32 1>
+  %5926 = mul nsw <2 x i32> %5925, %5925
   %5927 = sitofp <2 x i32> %5926 to <2 x double>
   %5928 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %5927
   %5929 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 %5922
@@ -9997,9 +9997,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6188:                                             ; preds = %6188, %6187
   %6189 = phi i64 [ 0, %6187 ], [ %6197, %6188 ]
   %6190 = phi <2 x i64> [ <i64 0, i64 1>, %6187 ], [ %6198, %6188 ]
-  %6191 = add nuw nsw <2 x i64> %6190, <i64 1, i64 1>
-  %6192 = mul nuw nsw <2 x i64> %6191, %6191
-  %6193 = trunc <2 x i64> %6192 to <2 x i32>
+  %6191 = trunc <2 x i64> %6190 to <2 x i32>
+  %6192 = add <2 x i32> %6191, <i32 1, i32 1>
+  %6193 = mul nsw <2 x i32> %6192, %6192
   %6194 = sitofp <2 x i32> %6193 to <2 x double>
   %6195 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6194
   %6196 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %6189
@@ -10021,9 +10021,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6204:                                             ; preds = %6204, %6203
   %6205 = phi i64 [ 0, %6203 ], [ %6213, %6204 ]
   %6206 = phi <2 x i64> [ <i64 0, i64 1>, %6203 ], [ %6214, %6204 ]
-  %6207 = add nuw nsw <2 x i64> %6206, <i64 1, i64 1>
-  %6208 = mul nuw nsw <2 x i64> %6207, %6207
-  %6209 = trunc <2 x i64> %6208 to <2 x i32>
+  %6207 = trunc <2 x i64> %6206 to <2 x i32>
+  %6208 = add <2 x i32> %6207, <i32 1, i32 1>
+  %6209 = mul nsw <2 x i32> %6208, %6208
   %6210 = sitofp <2 x i32> %6209 to <2 x double>
   %6211 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6210
   %6212 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %6205
@@ -10045,9 +10045,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6220:                                             ; preds = %6220, %6219
   %6221 = phi i64 [ 0, %6219 ], [ %6229, %6220 ]
   %6222 = phi <2 x i64> [ <i64 0, i64 1>, %6219 ], [ %6230, %6220 ]
-  %6223 = add nuw nsw <2 x i64> %6222, <i64 1, i64 1>
-  %6224 = mul nuw nsw <2 x i64> %6223, %6223
-  %6225 = trunc <2 x i64> %6224 to <2 x i32>
+  %6223 = trunc <2 x i64> %6222 to <2 x i32>
+  %6224 = add <2 x i32> %6223, <i32 1, i32 1>
+  %6225 = mul nsw <2 x i32> %6224, %6224
   %6226 = sitofp <2 x i32> %6225 to <2 x double>
   %6227 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6226
   %6228 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %6221
@@ -10069,9 +10069,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6236:                                             ; preds = %6236, %6235
   %6237 = phi i64 [ 0, %6235 ], [ %6245, %6236 ]
   %6238 = phi <2 x i64> [ <i64 0, i64 1>, %6235 ], [ %6246, %6236 ]
-  %6239 = add nuw nsw <2 x i64> %6238, <i64 1, i64 1>
-  %6240 = mul nuw nsw <2 x i64> %6239, %6239
-  %6241 = trunc <2 x i64> %6240 to <2 x i32>
+  %6239 = trunc <2 x i64> %6238 to <2 x i32>
+  %6240 = add <2 x i32> %6239, <i32 1, i32 1>
+  %6241 = mul nsw <2 x i32> %6240, %6240
   %6242 = sitofp <2 x i32> %6241 to <2 x double>
   %6243 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6242
   %6244 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %6237
@@ -10093,9 +10093,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6252:                                             ; preds = %6252, %6251
   %6253 = phi i64 [ 0, %6251 ], [ %6261, %6252 ]
   %6254 = phi <2 x i64> [ <i64 0, i64 1>, %6251 ], [ %6262, %6252 ]
-  %6255 = add nuw nsw <2 x i64> %6254, <i64 1, i64 1>
-  %6256 = mul nuw nsw <2 x i64> %6255, %6255
-  %6257 = trunc <2 x i64> %6256 to <2 x i32>
+  %6255 = trunc <2 x i64> %6254 to <2 x i32>
+  %6256 = add <2 x i32> %6255, <i32 1, i32 1>
+  %6257 = mul nsw <2 x i32> %6256, %6256
   %6258 = sitofp <2 x i32> %6257 to <2 x double>
   %6259 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6258
   %6260 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %6253
@@ -10285,9 +10285,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6379:                                             ; preds = %6361, %6379
   %6380 = phi i64 [ %6388, %6379 ], [ 0, %6361 ]
   %6381 = phi <2 x i64> [ %6389, %6379 ], [ <i64 0, i64 1>, %6361 ]
-  %6382 = add nuw nsw <2 x i64> %6381, <i64 1, i64 1>
-  %6383 = mul nuw nsw <2 x i64> %6382, %6382
-  %6384 = trunc <2 x i64> %6383 to <2 x i32>
+  %6382 = trunc <2 x i64> %6381 to <2 x i32>
+  %6383 = add <2 x i32> %6382, <i32 1, i32 1>
+  %6384 = mul nsw <2 x i32> %6383, %6383
   %6385 = sitofp <2 x i32> %6384 to <2 x double>
   %6386 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6385
   %6387 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %6380
@@ -10305,9 +10305,9 @@ define dso_local i32 @init(ptr noundef readonly %0) local_unnamed_addr #5 {
 6394:                                             ; preds = %6391, %6394
   %6395 = phi i64 [ %6403, %6394 ], [ 0, %6391 ]
   %6396 = phi <2 x i64> [ %6404, %6394 ], [ <i64 0, i64 1>, %6391 ]
-  %6397 = add nuw nsw <2 x i64> %6396, <i64 1, i64 1>
-  %6398 = mul nuw nsw <2 x i64> %6397, %6397
-  %6399 = trunc <2 x i64> %6398 to <2 x i32>
+  %6397 = trunc <2 x i64> %6396 to <2 x i32>
+  %6398 = add <2 x i32> %6397, <i32 1, i32 1>
+  %6399 = mul nsw <2 x i32> %6398, %6398
   %6400 = sitofp <2 x i32> %6399 to <2 x double>
   %6401 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %6400
   %6402 = getelementptr inbounds double, ptr @global_data, i64 %6395
@@ -11189,77 +11189,77 @@ define dso_local i32 @s254() local_unnamed_addr #7 {
   %1 = tail call i32 @init(ptr noundef nonnull @.str.47)
   %2 = load i32, ptr @ntimes, align 4, !tbaa !17
   %3 = icmp sgt i32 %2, 0
-  br i1 %3, label %4, label %25
+  br i1 %3, label %33, label %4
 
-4:                                                ; preds = %0, %54
-  %5 = phi i32 [ %56, %54 ], [ 0, %0 ]
-  %6 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
-  %7 = insertelement <2 x double> poison, double %6, i64 1
-  br label %8
+4:                                                ; preds = %54, %0
+  %5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.143, double noundef 0.000000e+00)
+  br label %6
 
-8:                                                ; preds = %8, %4
-  %9 = phi i64 [ 0, %4 ], [ %23, %8 ]
-  %10 = phi <2 x double> [ %7, %4 ], [ %14, %8 ]
-  %11 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %9
-  %12 = load <2 x double>, ptr %11, align 32, !tbaa !5
-  %13 = getelementptr inbounds double, ptr %11, i64 2
-  %14 = load <2 x double>, ptr %13, align 16, !tbaa !5
-  %15 = shufflevector <2 x double> %10, <2 x double> %12, <2 x i32> <i32 1, i32 2>
-  %16 = shufflevector <2 x double> %12, <2 x double> %14, <2 x i32> <i32 1, i32 2>
-  %17 = fadd <2 x double> %15, %12
-  %18 = fadd <2 x double> %16, %14
-  %19 = fmul <2 x double> %17, <double 5.000000e-01, double 5.000000e-01>
-  %20 = fmul <2 x double> %18, <double 5.000000e-01, double 5.000000e-01>
-  %21 = getelementptr inbounds double, ptr @global_data, i64 %9
-  store <2 x double> %19, ptr %21, align 32, !tbaa !5
-  %22 = getelementptr inbounds double, ptr %21, i64 2
-  store <2 x double> %20, ptr %22, align 16, !tbaa !5
-  %23 = add nuw i64 %9, 4
-  %24 = icmp eq i64 %23, 32000
-  br i1 %24, label %54, label %8, !llvm.loop !371
+6:                                                ; preds = %6, %4
+  %7 = phi i64 [ 0, %4 ], [ %28, %6 ]
+  %8 = phi double [ 0.000000e+00, %4 ], [ %27, %6 ]
+  %9 = getelementptr inbounds double, ptr @global_data, i64 %7
+  %10 = load double, ptr %9, align 8, !tbaa !5
+  %11 = fadd double %8, %10
+  %12 = add nuw nsw i64 %7, 1
+  %13 = getelementptr inbounds double, ptr @global_data, i64 %12
+  %14 = load double, ptr %13, align 8, !tbaa !5
+  %15 = fadd double %11, %14
+  %16 = add nuw nsw i64 %7, 2
+  %17 = getelementptr inbounds double, ptr @global_data, i64 %16
+  %18 = load double, ptr %17, align 8, !tbaa !5
+  %19 = fadd double %15, %18
+  %20 = add nuw nsw i64 %7, 3
+  %21 = getelementptr inbounds double, ptr @global_data, i64 %20
+  %22 = load double, ptr %21, align 8, !tbaa !5
+  %23 = fadd double %19, %22
+  %24 = add nuw nsw i64 %7, 4
+  %25 = getelementptr inbounds double, ptr @global_data, i64 %24
+  %26 = load double, ptr %25, align 8, !tbaa !5
+  %27 = fadd double %23, %26
+  %28 = add nuw nsw i64 %7, 5
+  %29 = icmp eq i64 %28, 32000
+  br i1 %29, label %30, label %6
 
-25:                                               ; preds = %54, %0
-  %26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.143, double noundef 0.000000e+00)
-  br label %27
-
-27:                                               ; preds = %27, %25
-  %28 = phi i64 [ 0, %25 ], [ %49, %27 ]
-  %29 = phi double [ 0.000000e+00, %25 ], [ %48, %27 ]
-  %30 = getelementptr inbounds double, ptr @global_data, i64 %28
-  %31 = load double, ptr %30, align 8, !tbaa !5
-  %32 = fadd double %29, %31
-  %33 = add nuw nsw i64 %28, 1
-  %34 = getelementptr inbounds double, ptr @global_data, i64 %33
-  %35 = load double, ptr %34, align 8, !tbaa !5
-  %36 = fadd double %32, %35
-  %37 = add nuw nsw i64 %28, 2
-  %38 = getelementptr inbounds double, ptr @global_data, i64 %37
-  %39 = load double, ptr %38, align 8, !tbaa !5
-  %40 = fadd double %36, %39
-  %41 = add nuw nsw i64 %28, 3
-  %42 = getelementptr inbounds double, ptr @global_data, i64 %41
-  %43 = load double, ptr %42, align 8, !tbaa !5
-  %44 = fadd double %40, %43
-  %45 = add nuw nsw i64 %28, 4
-  %46 = getelementptr inbounds double, ptr @global_data, i64 %45
-  %47 = load double, ptr %46, align 8, !tbaa !5
-  %48 = fadd double %44, %47
-  %49 = add nuw nsw i64 %28, 5
-  %50 = icmp eq i64 %49, 32000
-  br i1 %50, label %51, label %27
-
-51:                                               ; preds = %27
-  %52 = load i32, ptr @digits, align 4, !tbaa !17
-  %53 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %52, double noundef %48)
+30:                                               ; preds = %6
+  %31 = load i32, ptr @digits, align 4, !tbaa !17
+  %32 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %31, double noundef %27)
   ret i32 0
 
-54:                                               ; preds = %8
+33:                                               ; preds = %0, %54
+  %34 = phi i32 [ %56, %54 ], [ 0, %0 ]
+  %35 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
+  %36 = insertelement <2 x double> poison, double %35, i64 1
+  br label %37
+
+37:                                               ; preds = %37, %33
+  %38 = phi i64 [ 0, %33 ], [ %52, %37 ]
+  %39 = phi <2 x double> [ %36, %33 ], [ %43, %37 ]
+  %40 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %38
+  %41 = load <2 x double>, ptr %40, align 32, !tbaa !5
+  %42 = getelementptr inbounds double, ptr %40, i64 2
+  %43 = load <2 x double>, ptr %42, align 16, !tbaa !5
+  %44 = shufflevector <2 x double> %39, <2 x double> %41, <2 x i32> <i32 1, i32 2>
+  %45 = shufflevector <2 x double> %41, <2 x double> %43, <2 x i32> <i32 1, i32 2>
+  %46 = fadd <2 x double> %44, %41
+  %47 = fadd <2 x double> %45, %43
+  %48 = fmul <2 x double> %46, <double 5.000000e-01, double 5.000000e-01>
+  %49 = fmul <2 x double> %47, <double 5.000000e-01, double 5.000000e-01>
+  %50 = getelementptr inbounds double, ptr @global_data, i64 %38
+  store <2 x double> %48, ptr %50, align 32, !tbaa !5
+  %51 = getelementptr inbounds double, ptr %50, i64 2
+  store <2 x double> %49, ptr %51, align 16, !tbaa !5
+  %52 = add nuw i64 %38, 4
+  %53 = icmp eq i64 %52, 32000
+  br i1 %53, label %54, label %37, !llvm.loop !371
+
+54:                                               ; preds = %37
   %55 = tail call i32 @dummy(ptr noundef nonnull @global_data, ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 8, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 11, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 14, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 17, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 20, i64 0, i64 0), double noundef 0.000000e+00) #16
-  %56 = add nuw nsw i32 %5, 1
+  %56 = add nuw nsw i32 %34, 1
   %57 = load i32, ptr @ntimes, align 4, !tbaa !17
   %58 = shl nsw i32 %57, 2
   %59 = icmp slt i32 %56, %58
-  br i1 %59, label %4, label %25
+  br i1 %59, label %33, label %4
 }
 
 ; Function Attrs: nounwind uwtable
@@ -11306,23 +11306,23 @@ define dso_local i32 @s255() local_unnamed_addr #7 {
 
 33:                                               ; preds = %0, %60
   %34 = phi i32 [ %62, %60 ], [ 0, %0 ]
-  %35 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
-  %36 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31998), align 16, !tbaa !5
+  %35 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31998), align 16, !tbaa !5
+  %36 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
   %37 = insertelement <2 x double> poison, double %35, i64 1
   %38 = insertelement <2 x double> poison, double %36, i64 1
   br label %39
 
 39:                                               ; preds = %39, %33
   %40 = phi i64 [ 0, %33 ], [ %58, %39 ]
-  %41 = phi <2 x double> [ %37, %33 ], [ %46, %39 ]
-  %42 = phi <2 x double> [ %38, %33 ], [ %48, %39 ]
+  %41 = phi <2 x double> [ %37, %33 ], [ %48, %39 ]
+  %42 = phi <2 x double> [ %38, %33 ], [ %46, %39 ]
   %43 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %40
   %44 = load <2 x double>, ptr %43, align 32, !tbaa !5
   %45 = getelementptr inbounds double, ptr %43, i64 2
   %46 = load <2 x double>, ptr %45, align 16, !tbaa !5
-  %47 = shufflevector <2 x double> %41, <2 x double> %44, <2 x i32> <i32 1, i32 2>
+  %47 = shufflevector <2 x double> %42, <2 x double> %44, <2 x i32> <i32 1, i32 2>
   %48 = shufflevector <2 x double> %44, <2 x double> %46, <2 x i32> <i32 1, i32 2>
-  %49 = shufflevector <2 x double> %42, <2 x double> %47, <2 x i32> <i32 1, i32 2>
+  %49 = shufflevector <2 x double> %41, <2 x double> %47, <2 x i32> <i32 1, i32 2>
   %50 = fadd <2 x double> %47, %44
   %51 = fadd <2 x double> %48, %46
   %52 = fadd <2 x double> %49, %50
@@ -12132,20 +12132,20 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 ; Function Attrs: mustprogress nofree nounwind willreturn
 declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) local_unnamed_addr #11
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #12
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #13
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #12
+declare i32 @llvm.smin.i32(i32, i32) #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #13
 
 attributes #0 = { nofree norecurse nosync nounwind memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -12159,9 +12159,9 @@ attributes #8 = { mustprogress nocallback nofree nosync nounwind speculatable wi
 attributes #9 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind }
 

@@ -65,66 +65,73 @@ define dso_local ptr @TreeCCResolvePathname(ptr noundef readonly %0, ptr nocaptu
   %6 = add i64 %5, 1
   %7 = tail call noalias ptr @malloc(i64 noundef %6) #15
   %8 = icmp eq ptr %7, null
-  br i1 %8, label %9, label %38
+  br i1 %8, label %9, label %43
 
 9:                                                ; preds = %4
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %38
+  br label %43
 
 10:                                               ; preds = %2
   %11 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #14
-  %12 = and i64 %11, 4294967295
-  br label %13
+  %12 = trunc i64 %11 to i32
+  %13 = icmp sgt i32 %12, 0
+  br i1 %13, label %14, label %26
 
-13:                                               ; preds = %17, %10
-  %14 = phi i64 [ %18, %17 ], [ %12, %10 ]
-  %15 = trunc i64 %14 to i32
-  %16 = icmp sgt i32 %15, 0
-  br i1 %16, label %17, label %21
+14:                                               ; preds = %10
+  %15 = and i64 %11, 4294967295
+  br label %16
 
-17:                                               ; preds = %13
-  %18 = add nsw i64 %14, -1
-  %19 = getelementptr inbounds i8, ptr %0, i64 %18
-  %20 = load i8, ptr %19, align 1, !tbaa !5
-  switch i8 %20, label %13 [
-    i8 47, label %27
-    i8 92, label %27
-  ], !llvm.loop !8
+16:                                               ; preds = %14, %23
+  %17 = phi i64 [ %15, %14 ], [ %24, %23 ]
+  %18 = add nuw i64 %17, 4294967295
+  %19 = and i64 %18, 4294967295
+  %20 = getelementptr inbounds i8, ptr %0, i64 %19
+  %21 = load i8, ptr %20, align 1, !tbaa !5
+  %22 = sext i8 %21 to i32
+  switch i32 %22, label %23 [
+    i32 47, label %32
+    i32 92, label %32
+  ]
 
-21:                                               ; preds = %13
-  %22 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %23 = add i64 %22, 1
-  %24 = tail call noalias ptr @malloc(i64 noundef %23) #15
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %38
+23:                                               ; preds = %16
+  %24 = add nsw i64 %17, -1
+  %25 = icmp sgt i64 %17, 1
+  br i1 %25, label %16, label %26, !llvm.loop !8
 
-26:                                               ; preds = %21
+26:                                               ; preds = %23, %10
+  %27 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
+  %28 = add i64 %27, 1
+  %29 = tail call noalias ptr @malloc(i64 noundef %28) #15
+  %30 = icmp eq ptr %29, null
+  br i1 %30, label %31, label %43
+
+31:                                               ; preds = %26
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %38
+  br label %43
 
-27:                                               ; preds = %17, %17
-  %28 = and i64 %14, 4294967295
-  %29 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %30 = add nuw nsw i64 %28, 1
-  %31 = add i64 %30, %29
-  %32 = tail call noalias ptr @malloc(i64 noundef %31) #15
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %34, label %35
+32:                                               ; preds = %16, %16
+  %33 = and i64 %17, 4294967295
+  %34 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
+  %35 = add nuw nsw i64 %33, 1
+  %36 = add i64 %35, %34
+  %37 = tail call noalias ptr @malloc(i64 noundef %36) #15
+  %38 = icmp eq ptr %37, null
+  br i1 %38, label %39, label %40
 
-34:                                               ; preds = %27
+39:                                               ; preds = %32
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %35
+  br label %40
 
-35:                                               ; preds = %34, %27
-  %36 = tail call ptr @strncpy(ptr noundef %32, ptr noundef nonnull %0, i64 noundef %28) #16
-  %37 = getelementptr inbounds i8, ptr %32, i64 %28
-  br label %38
+40:                                               ; preds = %39, %32
+  %41 = tail call ptr @strncpy(ptr noundef %37, ptr noundef nonnull %0, i64 noundef %33) #16
+  %42 = getelementptr inbounds i8, ptr %37, i64 %33
+  br label %43
 
-38:                                               ; preds = %26, %21, %9, %4, %35
-  %39 = phi ptr [ %37, %35 ], [ %7, %4 ], [ %7, %9 ], [ %24, %21 ], [ %24, %26 ]
-  %40 = phi ptr [ %32, %35 ], [ %7, %4 ], [ %7, %9 ], [ %24, %21 ], [ %24, %26 ]
-  %41 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %39, ptr noundef nonnull dereferenceable(1) %1) #16
-  ret ptr %40
+43:                                               ; preds = %31, %26, %9, %4, %40
+  %44 = phi ptr [ %42, %40 ], [ %7, %4 ], [ %7, %9 ], [ %29, %26 ], [ %29, %31 ]
+  %45 = phi ptr [ %37, %40 ], [ %7, %4 ], [ %7, %9 ], [ %29, %26 ], [ %29, %31 ]
+  %46 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %44, ptr noundef nonnull dereferenceable(1) %1) #16
+  ret ptr %45
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: readwrite)
@@ -445,25 +452,25 @@ define dso_local i32 @TreeCCStreamFlush(ptr nocapture noundef readonly %0) local
   %8 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
   %9 = load ptr, ptr %8, align 8, !tbaa !28
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %106, label %11
+  br i1 %10, label %105, label %11
 
 11:                                               ; preds = %7, %1
   %12 = and i8 %4, 3
   %13 = icmp eq i8 %12, 1
-  br i1 %13, label %67, label %14
+  br i1 %13, label %66, label %14
 
 14:                                               ; preds = %11
   %15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 1
   %16 = load ptr, ptr %15, align 8, !tbaa !18
   %17 = tail call noalias ptr @fopen(ptr noundef %16, ptr noundef nonnull @.str.1)
   %18 = icmp eq ptr %17, null
-  br i1 %18, label %59, label %19
+  br i1 %18, label %58, label %19
 
 19:                                               ; preds = %14
   %20 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
   %21 = load ptr, ptr %20, align 8, !tbaa !28
-  %22 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %23 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
+  %22 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
+  %23 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
   br label %24
 
 24:                                               ; preds = %47, %19
@@ -475,33 +482,33 @@ define dso_local i32 @TreeCCStreamFlush(ptr nocapture noundef readonly %0) local
 
 29:                                               ; preds = %24
   %30 = icmp eq ptr %25, null
-  br i1 %30, label %51, label %31
+  br i1 %30, label %54, label %31
 
 31:                                               ; preds = %29
-  %32 = load ptr, ptr %23, align 8, !tbaa !38
+  %32 = load ptr, ptr %22, align 8, !tbaa !38
   %33 = icmp eq ptr %25, %32
   br i1 %33, label %34, label %42
 
 34:                                               ; preds = %31
-  %35 = load i32, ptr %22, align 8, !tbaa !24
+  %35 = load i32, ptr %23, align 8, !tbaa !24
   %36 = icmp eq i32 %35, %27
-  br i1 %36, label %37, label %51
+  br i1 %36, label %37, label %54
 
 37:                                               ; preds = %34
   %38 = shl i64 %26, 32
   %39 = ashr exact i64 %38, 32
   %40 = call i32 @bcmp(ptr nonnull %25, ptr nonnull %2, i64 %39)
   %41 = icmp eq i32 %40, 0
-  br i1 %41, label %47, label %51
+  br i1 %41, label %47, label %54
 
 42:                                               ; preds = %31
   %43 = icmp eq i32 %27, 2048
-  br i1 %43, label %44, label %51
+  br i1 %43, label %44, label %54
 
 44:                                               ; preds = %42
   %45 = call i32 @bcmp(ptr noundef nonnull dereferenceable(2048) %25, ptr noundef nonnull dereferenceable(2048) %2, i64 2048)
   %46 = icmp eq i32 %45, 0
-  br i1 %46, label %47, label %51
+  br i1 %46, label %47, label %54
 
 47:                                               ; preds = %44, %37
   %48 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %25, i64 0, i32 1
@@ -509,92 +516,95 @@ define dso_local i32 @TreeCCStreamFlush(ptr nocapture noundef readonly %0) local
   %50 = icmp slt i32 %27, 2048
   br i1 %50, label %51, label %24, !llvm.loop !39
 
-51:                                               ; preds = %47, %44, %42, %37, %34, %29, %24
-  %52 = phi ptr [ %25, %24 ], [ null, %29 ], [ %25, %34 ], [ %25, %37 ], [ %25, %42 ], [ %25, %44 ], [ %49, %47 ]
-  %53 = phi i1 [ true, %24 ], [ false, %29 ], [ false, %34 ], [ false, %37 ], [ false, %42 ], [ false, %44 ], [ true, %47 ]
-  %54 = icmp eq ptr %52, null
-  %55 = xor i1 %53, true
-  %56 = select i1 %55, i1 true, i1 %54
+51:                                               ; preds = %47, %24
+  %52 = phi ptr [ %25, %24 ], [ %49, %47 ]
+  %53 = icmp eq ptr %52, null
+  br i1 %53, label %56, label %54
+
+54:                                               ; preds = %29, %34, %37, %42, %44, %51
+  %55 = tail call i32 @fclose(ptr noundef nonnull %17)
+  br label %58
+
+56:                                               ; preds = %51
   %57 = tail call i32 @fclose(ptr noundef nonnull %17)
-  %58 = and i1 %53, %56
-  br i1 %58, label %106, label %59
+  br label %105
 
-59:                                               ; preds = %51, %14
-  %60 = load i8, ptr %3, align 4
-  %61 = and i8 %60, 2
-  %62 = icmp eq i8 %61, 0
-  br i1 %62, label %67, label %63
+58:                                               ; preds = %54, %14
+  %59 = load i8, ptr %3, align 4
+  %60 = and i8 %59, 2
+  %61 = icmp eq i8 %60, 0
+  br i1 %61, label %66, label %62
 
-63:                                               ; preds = %59
-  %64 = load ptr, ptr @stderr, align 8, !tbaa !17
-  %65 = load ptr, ptr %15, align 8, !tbaa !18
-  %66 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %64, ptr noundef nonnull @.str.2, ptr noundef %65) #17
-  br label %106
+62:                                               ; preds = %58
+  %63 = load ptr, ptr @stderr, align 8, !tbaa !17
+  %64 = load ptr, ptr %15, align 8, !tbaa !18
+  %65 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %63, ptr noundef nonnull @.str.2, ptr noundef %64) #17
+  br label %105
 
-67:                                               ; preds = %11, %59
-  %68 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 1
-  %69 = load ptr, ptr %68, align 8, !tbaa !18
-  %70 = tail call noalias ptr @fopen(ptr noundef %69, ptr noundef nonnull @.str.3)
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %72, label %74
+66:                                               ; preds = %11, %58
+  %67 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 1
+  %68 = load ptr, ptr %67, align 8, !tbaa !18
+  %69 = tail call noalias ptr @fopen(ptr noundef %68, ptr noundef nonnull @.str.3)
+  %70 = icmp eq ptr %69, null
+  br i1 %70, label %71, label %73
 
-72:                                               ; preds = %67
-  %73 = load ptr, ptr %68, align 8, !tbaa !18
-  tail call void @perror(ptr noundef %73) #17
-  br label %106
+71:                                               ; preds = %66
+  %72 = load ptr, ptr %67, align 8, !tbaa !18
+  tail call void @perror(ptr noundef %72) #17
+  br label %105
 
-74:                                               ; preds = %67
-  %75 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %76 = load ptr, ptr %75, align 8, !tbaa !17
-  %77 = icmp eq ptr %76, null
-  br i1 %77, label %99, label %78
+73:                                               ; preds = %66
+  %74 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
+  %75 = load ptr, ptr %74, align 8, !tbaa !17
+  %76 = icmp eq ptr %75, null
+  br i1 %76, label %98, label %77
 
-78:                                               ; preds = %74
-  %79 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %80 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  br label %81
+77:                                               ; preds = %73
+  %78 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
+  %79 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
+  br label %80
 
-81:                                               ; preds = %95, %78
-  %82 = phi ptr [ %76, %78 ], [ %97, %95 ]
-  %83 = load ptr, ptr %79, align 8, !tbaa !38
-  %84 = icmp eq ptr %82, %83
-  br i1 %84, label %85, label %92
+80:                                               ; preds = %94, %77
+  %81 = phi ptr [ %75, %77 ], [ %96, %94 ]
+  %82 = load ptr, ptr %78, align 8, !tbaa !38
+  %83 = icmp eq ptr %81, %82
+  br i1 %83, label %84, label %91
 
-85:                                               ; preds = %81
-  %86 = load i32, ptr %80, align 8, !tbaa !24
-  %87 = sext i32 %86 to i64
-  %88 = tail call i64 @fwrite(ptr noundef nonnull %82, i64 noundef 1, i64 noundef %87, ptr noundef nonnull %70)
-  %89 = load i32, ptr %80, align 8, !tbaa !24
-  %90 = sext i32 %89 to i64
-  %91 = icmp eq i64 %88, %90
-  br i1 %91, label %95, label %103
+84:                                               ; preds = %80
+  %85 = load i32, ptr %79, align 8, !tbaa !24
+  %86 = sext i32 %85 to i64
+  %87 = tail call i64 @fwrite(ptr noundef nonnull %81, i64 noundef 1, i64 noundef %86, ptr noundef nonnull %69)
+  %88 = load i32, ptr %79, align 8, !tbaa !24
+  %89 = sext i32 %88 to i64
+  %90 = icmp eq i64 %87, %89
+  br i1 %90, label %94, label %102
 
-92:                                               ; preds = %81
-  %93 = tail call i64 @fwrite(ptr noundef nonnull %82, i64 noundef 1, i64 noundef 2048, ptr noundef nonnull %70)
-  %94 = icmp eq i64 %93, 2048
-  br i1 %94, label %95, label %103
+91:                                               ; preds = %80
+  %92 = tail call i64 @fwrite(ptr noundef nonnull %81, i64 noundef 1, i64 noundef 2048, ptr noundef nonnull %69)
+  %93 = icmp eq i64 %92, 2048
+  br i1 %93, label %94, label %102
 
-95:                                               ; preds = %92, %85
-  %96 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %82, i64 0, i32 1
-  %97 = load ptr, ptr %96, align 8, !tbaa !17
-  %98 = icmp eq ptr %97, null
-  br i1 %98, label %99, label %81, !llvm.loop !40
+94:                                               ; preds = %91, %84
+  %95 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %81, i64 0, i32 1
+  %96 = load ptr, ptr %95, align 8, !tbaa !17
+  %97 = icmp eq ptr %96, null
+  br i1 %97, label %98, label %80, !llvm.loop !40
 
-99:                                               ; preds = %95, %74
-  %100 = tail call i32 @fflush(ptr noundef nonnull %70)
-  %101 = icmp eq i32 %100, 0
-  %102 = zext i1 %101 to i32
-  br label %103
+98:                                               ; preds = %94, %73
+  %99 = tail call i32 @fflush(ptr noundef nonnull %69)
+  %100 = icmp eq i32 %99, 0
+  %101 = zext i1 %100 to i32
+  br label %102
 
-103:                                              ; preds = %85, %92, %99
-  %104 = phi i32 [ %102, %99 ], [ 0, %92 ], [ 0, %85 ]
-  %105 = tail call i32 @fclose(ptr noundef nonnull %70)
-  br label %106
+102:                                              ; preds = %84, %91, %98
+  %103 = phi i32 [ %101, %98 ], [ 0, %91 ], [ 0, %84 ]
+  %104 = tail call i32 @fclose(ptr noundef nonnull %69)
+  br label %105
 
-106:                                              ; preds = %51, %7, %103, %72, %63
-  %107 = phi i32 [ 0, %63 ], [ 0, %72 ], [ %104, %103 ], [ 1, %7 ], [ 1, %51 ]
+105:                                              ; preds = %7, %102, %71, %62, %56
+  %106 = phi i32 [ 0, %62 ], [ 0, %71 ], [ %103, %102 ], [ 1, %56 ], [ 1, %7 ]
   call void @llvm.lifetime.end.p0(i64 2048, ptr nonnull %2) #16
-  ret i32 %107
+  ret i32 %106
 }
 
 ; Function Attrs: nofree nounwind
@@ -1309,51 +1319,53 @@ define dso_local void @TreeCCStreamFixLine(ptr nocapture noundef %0) local_unnam
   %9 = load i16, ptr %8, align 8
   %10 = and i16 %9, 512
   %11 = icmp eq i16 %10, 0
-  br i1 %11, label %36, label %12
+  br i1 %11, label %38, label %12
 
 12:                                               ; preds = %1
   %13 = and i16 %9, 256
   %14 = icmp eq i16 %13, 0
-  br i1 %14, label %34, label %15
+  br i1 %14, label %36, label %15
 
 15:                                               ; preds = %12
   %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #14
   %17 = trunc i64 %16 to i32
-  %18 = and i64 %16, 4294967295
-  %19 = tail call i32 @llvm.smin.i32(i32 %17, i32 0)
-  br label %20
+  %18 = icmp sgt i32 %17, 0
+  br i1 %18, label %19, label %31
 
-20:                                               ; preds = %24, %15
-  %21 = phi i64 [ %25, %24 ], [ %18, %15 ]
-  %22 = trunc i64 %21 to i32
-  %23 = icmp sgt i32 %22, 0
-  br i1 %23, label %24, label %30
+19:                                               ; preds = %15
+  %20 = and i64 %16, 4294967295
+  br label %21
 
-24:                                               ; preds = %20
-  %25 = add nsw i64 %21, -1
-  %26 = getelementptr inbounds i8, ptr %6, i64 %25
-  %27 = load i8, ptr %26, align 1, !tbaa !5
-  switch i8 %27, label %20 [
-    i8 47, label %28
-    i8 92, label %28
-  ], !llvm.loop !47
+21:                                               ; preds = %28, %19
+  %22 = phi i64 [ %20, %19 ], [ %29, %28 ]
+  %23 = add nuw nsw i64 %22, 4294967295
+  %24 = and i64 %23, 4294967295
+  %25 = getelementptr inbounds i8, ptr %6, i64 %24
+  %26 = load i8, ptr %25, align 1, !tbaa !5
+  %27 = sext i8 %26 to i32
+  switch i32 %27, label %28 [
+    i32 47, label %31
+    i32 92, label %31
+  ]
 
-28:                                               ; preds = %24, %24
-  %29 = trunc i64 %21 to i32
-  br label %30
+28:                                               ; preds = %21
+  %29 = add nsw i64 %22, -1
+  %30 = icmp sgt i64 %22, 1
+  br i1 %30, label %21, label %31, !llvm.loop !47
 
-30:                                               ; preds = %20, %28
-  %31 = phi i32 [ %29, %28 ], [ %19, %20 ]
-  %32 = sext i32 %31 to i64
-  %33 = getelementptr inbounds i8, ptr %6, i64 %32
-  br label %34
-
-34:                                               ; preds = %30, %12
-  %35 = phi ptr [ %33, %30 ], [ %6, %12 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %4, ptr noundef %35)
+31:                                               ; preds = %28, %21, %21, %15
+  %32 = phi i64 [ %16, %15 ], [ 0, %28 ], [ %22, %21 ], [ %22, %21 ]
+  %33 = shl i64 %32, 32
+  %34 = ashr exact i64 %33, 32
+  %35 = getelementptr inbounds i8, ptr %6, i64 %34
   br label %36
 
-36:                                               ; preds = %1, %34
+36:                                               ; preds = %31, %12
+  %37 = phi ptr [ %35, %31 ], [ %6, %12 ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %4, ptr noundef %37)
+  br label %38
+
+38:                                               ; preds = %1, %36
   ret void
 }
 
@@ -1364,51 +1376,53 @@ define dso_local void @TreeCCStreamLine(ptr nocapture noundef %0, i64 noundef %1
   %6 = load i16, ptr %5, align 8
   %7 = and i16 %6, 512
   %8 = icmp eq i16 %7, 0
-  br i1 %8, label %33, label %9
+  br i1 %8, label %35, label %9
 
 9:                                                ; preds = %3
   %10 = and i16 %6, 256
   %11 = icmp eq i16 %10, 0
-  br i1 %11, label %31, label %12
+  br i1 %11, label %33, label %12
 
 12:                                               ; preds = %9
   %13 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #14
   %14 = trunc i64 %13 to i32
-  %15 = and i64 %13, 4294967295
-  %16 = tail call i32 @llvm.smin.i32(i32 %14, i32 0)
-  br label %17
+  %15 = icmp sgt i32 %14, 0
+  br i1 %15, label %16, label %28
 
-17:                                               ; preds = %21, %12
-  %18 = phi i64 [ %22, %21 ], [ %15, %12 ]
-  %19 = trunc i64 %18 to i32
-  %20 = icmp sgt i32 %19, 0
-  br i1 %20, label %21, label %27
+16:                                               ; preds = %12
+  %17 = and i64 %13, 4294967295
+  br label %18
 
-21:                                               ; preds = %17
-  %22 = add nsw i64 %18, -1
-  %23 = getelementptr inbounds i8, ptr %2, i64 %22
-  %24 = load i8, ptr %23, align 1, !tbaa !5
-  switch i8 %24, label %17 [
-    i8 47, label %25
-    i8 92, label %25
-  ], !llvm.loop !47
+18:                                               ; preds = %16, %25
+  %19 = phi i64 [ %17, %16 ], [ %26, %25 ]
+  %20 = add nuw i64 %19, 4294967295
+  %21 = and i64 %20, 4294967295
+  %22 = getelementptr inbounds i8, ptr %2, i64 %21
+  %23 = load i8, ptr %22, align 1, !tbaa !5
+  %24 = sext i8 %23 to i32
+  switch i32 %24, label %25 [
+    i32 47, label %28
+    i32 92, label %28
+  ]
 
-25:                                               ; preds = %21, %21
-  %26 = trunc i64 %18 to i32
-  br label %27
+25:                                               ; preds = %18
+  %26 = add nsw i64 %19, -1
+  %27 = icmp sgt i64 %19, 1
+  br i1 %27, label %18, label %28, !llvm.loop !47
 
-27:                                               ; preds = %17, %25
-  %28 = phi i32 [ %26, %25 ], [ %16, %17 ]
-  %29 = sext i32 %28 to i64
-  %30 = getelementptr inbounds i8, ptr %2, i64 %29
-  br label %31
-
-31:                                               ; preds = %27, %9
-  %32 = phi ptr [ %30, %27 ], [ %2, %9 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %1, ptr noundef %32)
+28:                                               ; preds = %25, %18, %18, %12
+  %29 = phi i64 [ %13, %12 ], [ %19, %18 ], [ %19, %18 ], [ 0, %25 ]
+  %30 = shl i64 %29, 32
+  %31 = ashr exact i64 %30, 32
+  %32 = getelementptr inbounds i8, ptr %2, i64 %31
   br label %33
 
-33:                                               ; preds = %31, %3
+33:                                               ; preds = %28, %9
+  %34 = phi ptr [ %32, %28 ], [ %2, %9 ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %1, ptr noundef %34)
+  br label %35
+
+35:                                               ; preds = %33, %3
   ret void
 }
 
@@ -1478,7 +1492,7 @@ define internal fastcc void @OutputMacroName(ptr nocapture noundef %0, ptr nocap
   %5 = alloca [2 x i8], align 1
   %6 = load i8, ptr %1, align 1, !tbaa !5
   %7 = icmp eq i8 %6, 0
-  br i1 %7, label %122, label %8
+  br i1 %7, label %127, label %8
 
 8:                                                ; preds = %2
   %9 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
@@ -1489,285 +1503,294 @@ define internal fastcc void @OutputMacroName(ptr nocapture noundef %0, ptr nocap
   %14 = getelementptr inbounds [2 x i8], ptr %5, i64 0, i64 1
   br label %15
 
-15:                                               ; preds = %8, %118
-  %16 = phi i8 [ %6, %8 ], [ %120, %118 ]
-  %17 = phi ptr [ %1, %8 ], [ %119, %118 ]
-  %18 = and i8 %16, -33
-  %19 = add i8 %18, -65
-  %20 = icmp ult i8 %19, 26
-  %21 = add i8 %16, -48
-  %22 = icmp ult i8 %21, 10
-  %23 = select i1 %20, i1 true, i1 %22
-  %24 = load i32, ptr %9, align 8, !tbaa !24
-  %25 = icmp slt i32 %24, 2048
-  br i1 %23, label %26, label %72
+15:                                               ; preds = %8, %123
+  %16 = phi i8 [ %6, %8 ], [ %125, %123 ]
+  %17 = phi ptr [ %1, %8 ], [ %124, %123 ]
+  %18 = icmp sgt i8 %16, 64
+  br i1 %18, label %19, label %24
 
-26:                                               ; preds = %15
-  br i1 %25, label %27, label %34
+19:                                               ; preds = %15
+  %20 = icmp ult i8 %16, 91
+  %21 = add nsw i8 %16, -97
+  %22 = icmp ult i8 %21, 26
+  %23 = or i1 %20, %22
+  br i1 %23, label %27, label %75
 
-27:                                               ; preds = %26
-  %28 = load ptr, ptr %12, align 8, !tbaa !38
-  %29 = add nsw i32 %24, 1
-  store i32 %29, ptr %9, align 8, !tbaa !24
-  %30 = sext i32 %24 to i64
-  %31 = getelementptr inbounds [2048 x i8], ptr %28, i64 0, i64 %30
-  store i8 %16, ptr %31, align 1, !tbaa !5
-  %32 = load i8, ptr %11, align 4
-  %33 = or i8 %32, 16
-  store i8 %33, ptr %11, align 4
-  br label %118
+24:                                               ; preds = %15
+  %25 = add i8 %16, -48
+  %26 = icmp ult i8 %25, 10
+  br i1 %26, label %27, label %75
 
-34:                                               ; preds = %26
+27:                                               ; preds = %24, %19
+  %28 = load i32, ptr %9, align 8, !tbaa !24
+  %29 = icmp slt i32 %28, 2048
+  br i1 %29, label %30, label %37
+
+30:                                               ; preds = %27
+  %31 = load ptr, ptr %12, align 8, !tbaa !38
+  %32 = add nsw i32 %28, 1
+  store i32 %32, ptr %9, align 8, !tbaa !24
+  %33 = sext i32 %28 to i64
+  %34 = getelementptr inbounds [2048 x i8], ptr %31, i64 0, i64 %33
+  store i8 %16, ptr %34, align 1, !tbaa !5
+  %35 = load i8, ptr %11, align 4
+  %36 = or i8 %35, 16
+  store i8 %36, ptr %11, align 4
+  br label %123
+
+37:                                               ; preds = %27
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %5) #16
   store i8 %16, ptr %5, align 1, !tbaa !5
   store i8 0, ptr %14, align 1, !tbaa !5
-  %35 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #14
-  %36 = trunc i64 %35 to i32
-  %37 = load i8, ptr %11, align 4
-  %38 = or i8 %37, 16
-  store i8 %38, ptr %11, align 4
-  %39 = icmp sgt i32 %36, 0
-  br i1 %39, label %40, label %71
+  %38 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #14
+  %39 = trunc i64 %38 to i32
+  %40 = load i8, ptr %11, align 4
+  %41 = or i8 %40, 16
+  store i8 %41, ptr %11, align 4
+  %42 = icmp sgt i32 %39, 0
+  br i1 %42, label %43, label %74
 
-40:                                               ; preds = %34, %58
-  %41 = phi i32 [ %69, %58 ], [ %24, %34 ]
-  %42 = phi i32 [ %67, %58 ], [ %36, %34 ]
-  %43 = phi ptr [ %66, %58 ], [ %5, %34 ]
-  %44 = icmp sgt i32 %41, 2047
-  br i1 %44, label %45, label %55
+43:                                               ; preds = %37, %61
+  %44 = phi i32 [ %72, %61 ], [ %28, %37 ]
+  %45 = phi i32 [ %70, %61 ], [ %39, %37 ]
+  %46 = phi ptr [ %69, %61 ], [ %5, %37 ]
+  %47 = icmp sgt i32 %44, 2047
+  br i1 %47, label %48, label %58
 
-45:                                               ; preds = %40
-  %46 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %48, label %49
+48:                                               ; preds = %43
+  %49 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %50 = icmp eq ptr %49, null
+  br i1 %50, label %51, label %52
 
-48:                                               ; preds = %45
+51:                                               ; preds = %48
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %49
+  br label %52
 
-49:                                               ; preds = %48, %45
-  %50 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %46, i64 0, i32 1
-  store ptr null, ptr %50, align 8, !tbaa !29
-  %51 = load ptr, ptr %12, align 8, !tbaa !38
-  %52 = icmp eq ptr %51, null
-  %53 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %51, i64 0, i32 1
-  %54 = select i1 %52, ptr %13, ptr %53
-  store ptr %46, ptr %54, align 8, !tbaa !17
-  store ptr %46, ptr %12, align 8, !tbaa !38
+52:                                               ; preds = %51, %48
+  %53 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %49, i64 0, i32 1
+  store ptr null, ptr %53, align 8, !tbaa !29
+  %54 = load ptr, ptr %12, align 8, !tbaa !38
+  %55 = icmp eq ptr %54, null
+  %56 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %54, i64 0, i32 1
+  %57 = select i1 %55, ptr %13, ptr %56
+  store ptr %49, ptr %57, align 8, !tbaa !17
+  store ptr %49, ptr %12, align 8, !tbaa !38
   store i32 0, ptr %9, align 8, !tbaa !24
-  br label %58
+  br label %61
 
-55:                                               ; preds = %40
-  %56 = load ptr, ptr %12, align 8, !tbaa !38
-  %57 = sub nsw i32 2048, %41
-  br label %58
+58:                                               ; preds = %43
+  %59 = load ptr, ptr %12, align 8, !tbaa !38
+  %60 = sub nsw i32 2048, %44
+  br label %61
 
-58:                                               ; preds = %55, %49
-  %59 = phi i32 [ 0, %49 ], [ %41, %55 ]
-  %60 = phi i32 [ 2048, %49 ], [ %57, %55 ]
-  %61 = phi ptr [ %46, %49 ], [ %56, %55 ]
-  %62 = tail call i32 @llvm.umin.i32(i32 %60, i32 %42)
-  %63 = sext i32 %59 to i64
-  %64 = getelementptr inbounds i8, ptr %61, i64 %63
-  %65 = zext i32 %62 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %64, ptr align 1 %43, i64 %65, i1 false)
-  %66 = getelementptr inbounds i8, ptr %43, i64 %65
-  %67 = sub nsw i32 %42, %62
-  %68 = load i32, ptr %9, align 8, !tbaa !24
-  %69 = add nsw i32 %68, %62
-  store i32 %69, ptr %9, align 8, !tbaa !24
-  %70 = icmp sgt i32 %67, 0
-  br i1 %70, label %40, label %71, !llvm.loop !41
+61:                                               ; preds = %58, %52
+  %62 = phi i32 [ 0, %52 ], [ %44, %58 ]
+  %63 = phi i32 [ 2048, %52 ], [ %60, %58 ]
+  %64 = phi ptr [ %49, %52 ], [ %59, %58 ]
+  %65 = tail call i32 @llvm.umin.i32(i32 %63, i32 %45)
+  %66 = sext i32 %62 to i64
+  %67 = getelementptr inbounds i8, ptr %64, i64 %66
+  %68 = zext i32 %65 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %67, ptr align 1 %46, i64 %68, i1 false)
+  %69 = getelementptr inbounds i8, ptr %46, i64 %68
+  %70 = sub nsw i32 %45, %65
+  %71 = load i32, ptr %9, align 8, !tbaa !24
+  %72 = add nsw i32 %71, %65
+  store i32 %72, ptr %9, align 8, !tbaa !24
+  %73 = icmp sgt i32 %70, 0
+  br i1 %73, label %43, label %74, !llvm.loop !41
 
-71:                                               ; preds = %58, %34
+74:                                               ; preds = %61, %37
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %5) #16
-  br label %118
+  br label %123
 
-72:                                               ; preds = %15
-  br i1 %25, label %73, label %80
+75:                                               ; preds = %19, %24
+  %76 = load i32, ptr %9, align 8, !tbaa !24
+  %77 = icmp slt i32 %76, 2048
+  br i1 %77, label %78, label %85
 
-73:                                               ; preds = %72
-  %74 = load ptr, ptr %12, align 8, !tbaa !38
-  %75 = add nsw i32 %24, 1
-  store i32 %75, ptr %9, align 8, !tbaa !24
-  %76 = sext i32 %24 to i64
-  %77 = getelementptr inbounds [2048 x i8], ptr %74, i64 0, i64 %76
-  store i8 95, ptr %77, align 1, !tbaa !5
-  %78 = load i8, ptr %11, align 4
-  %79 = or i8 %78, 16
-  store i8 %79, ptr %11, align 4
-  br label %118
-
-80:                                               ; preds = %72
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %4) #16
-  store i8 95, ptr %4, align 1, !tbaa !5
-  store i8 0, ptr %10, align 1, !tbaa !5
-  %81 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %4) #14
-  %82 = trunc i64 %81 to i32
+78:                                               ; preds = %75
+  %79 = load ptr, ptr %12, align 8, !tbaa !38
+  %80 = add nsw i32 %76, 1
+  store i32 %80, ptr %9, align 8, !tbaa !24
+  %81 = sext i32 %76 to i64
+  %82 = getelementptr inbounds [2048 x i8], ptr %79, i64 0, i64 %81
+  store i8 95, ptr %82, align 1, !tbaa !5
   %83 = load i8, ptr %11, align 4
   %84 = or i8 %83, 16
   store i8 %84, ptr %11, align 4
-  %85 = icmp sgt i32 %82, 0
-  br i1 %85, label %86, label %117
+  br label %123
 
-86:                                               ; preds = %80, %104
-  %87 = phi i32 [ %115, %104 ], [ %24, %80 ]
-  %88 = phi i32 [ %113, %104 ], [ %82, %80 ]
-  %89 = phi ptr [ %112, %104 ], [ %4, %80 ]
-  %90 = icmp sgt i32 %87, 2047
-  br i1 %90, label %91, label %101
+85:                                               ; preds = %75
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %4) #16
+  store i8 95, ptr %4, align 1, !tbaa !5
+  store i8 0, ptr %10, align 1, !tbaa !5
+  %86 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %4) #14
+  %87 = trunc i64 %86 to i32
+  %88 = load i8, ptr %11, align 4
+  %89 = or i8 %88, 16
+  store i8 %89, ptr %11, align 4
+  %90 = icmp sgt i32 %87, 0
+  br i1 %90, label %91, label %122
 
-91:                                               ; preds = %86
-  %92 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %94, label %95
+91:                                               ; preds = %85, %109
+  %92 = phi i32 [ %120, %109 ], [ %76, %85 ]
+  %93 = phi i32 [ %118, %109 ], [ %87, %85 ]
+  %94 = phi ptr [ %117, %109 ], [ %4, %85 ]
+  %95 = icmp sgt i32 %92, 2047
+  br i1 %95, label %96, label %106
 
-94:                                               ; preds = %91
-  tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %95
-
-95:                                               ; preds = %94, %91
-  %96 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %92, i64 0, i32 1
-  store ptr null, ptr %96, align 8, !tbaa !29
-  %97 = load ptr, ptr %12, align 8, !tbaa !38
+96:                                               ; preds = %91
+  %97 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
   %98 = icmp eq ptr %97, null
-  %99 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %97, i64 0, i32 1
-  %100 = select i1 %98, ptr %13, ptr %99
-  store ptr %92, ptr %100, align 8, !tbaa !17
-  store ptr %92, ptr %12, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %104
+  br i1 %98, label %99, label %100
 
-101:                                              ; preds = %86
+99:                                               ; preds = %96
+  tail call void @TreeCCOutOfMemory(ptr noundef null) #16
+  br label %100
+
+100:                                              ; preds = %99, %96
+  %101 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %97, i64 0, i32 1
+  store ptr null, ptr %101, align 8, !tbaa !29
   %102 = load ptr, ptr %12, align 8, !tbaa !38
-  %103 = sub nsw i32 2048, %87
-  br label %104
+  %103 = icmp eq ptr %102, null
+  %104 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %102, i64 0, i32 1
+  %105 = select i1 %103, ptr %13, ptr %104
+  store ptr %97, ptr %105, align 8, !tbaa !17
+  store ptr %97, ptr %12, align 8, !tbaa !38
+  store i32 0, ptr %9, align 8, !tbaa !24
+  br label %109
 
-104:                                              ; preds = %101, %95
-  %105 = phi i32 [ 0, %95 ], [ %87, %101 ]
-  %106 = phi i32 [ 2048, %95 ], [ %103, %101 ]
-  %107 = phi ptr [ %92, %95 ], [ %102, %101 ]
-  %108 = tail call i32 @llvm.umin.i32(i32 %106, i32 %88)
-  %109 = sext i32 %105 to i64
-  %110 = getelementptr inbounds i8, ptr %107, i64 %109
-  %111 = zext i32 %108 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %110, ptr align 1 %89, i64 %111, i1 false)
-  %112 = getelementptr inbounds i8, ptr %89, i64 %111
-  %113 = sub nsw i32 %88, %108
-  %114 = load i32, ptr %9, align 8, !tbaa !24
-  %115 = add nsw i32 %114, %108
-  store i32 %115, ptr %9, align 8, !tbaa !24
-  %116 = icmp sgt i32 %113, 0
-  br i1 %116, label %86, label %117, !llvm.loop !41
+106:                                              ; preds = %91
+  %107 = load ptr, ptr %12, align 8, !tbaa !38
+  %108 = sub nsw i32 2048, %92
+  br label %109
 
-117:                                              ; preds = %104, %80
+109:                                              ; preds = %106, %100
+  %110 = phi i32 [ 0, %100 ], [ %92, %106 ]
+  %111 = phi i32 [ 2048, %100 ], [ %108, %106 ]
+  %112 = phi ptr [ %97, %100 ], [ %107, %106 ]
+  %113 = tail call i32 @llvm.umin.i32(i32 %111, i32 %93)
+  %114 = sext i32 %110 to i64
+  %115 = getelementptr inbounds i8, ptr %112, i64 %114
+  %116 = zext i32 %113 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %115, ptr align 1 %94, i64 %116, i1 false)
+  %117 = getelementptr inbounds i8, ptr %94, i64 %116
+  %118 = sub nsw i32 %93, %113
+  %119 = load i32, ptr %9, align 8, !tbaa !24
+  %120 = add nsw i32 %119, %113
+  store i32 %120, ptr %9, align 8, !tbaa !24
+  %121 = icmp sgt i32 %118, 0
+  br i1 %121, label %91, label %122, !llvm.loop !41
+
+122:                                              ; preds = %109, %85
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %4) #16
-  br label %118
+  br label %123
 
-118:                                              ; preds = %117, %73, %71, %27
-  %119 = getelementptr inbounds i8, ptr %17, i64 1
-  %120 = load i8, ptr %119, align 1, !tbaa !5
-  %121 = icmp eq i8 %120, 0
-  br i1 %121, label %122, label %15, !llvm.loop !53
+123:                                              ; preds = %122, %78, %74, %30
+  %124 = getelementptr inbounds i8, ptr %17, i64 1
+  %125 = load i8, ptr %124, align 1, !tbaa !5
+  %126 = icmp eq i8 %125, 0
+  br i1 %126, label %127, label %15, !llvm.loop !53
 
-122:                                              ; preds = %118, %2
-  %123 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %124 = load i32, ptr %123, align 8, !tbaa !24
-  %125 = icmp slt i32 %124, 2048
-  br i1 %125, label %126, label %135
+127:                                              ; preds = %123, %2
+  %128 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
+  %129 = load i32, ptr %128, align 8, !tbaa !24
+  %130 = icmp slt i32 %129, 2048
+  br i1 %130, label %131, label %140
 
-126:                                              ; preds = %122
-  %127 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %128 = load ptr, ptr %127, align 8, !tbaa !38
-  %129 = add nsw i32 %124, 1
-  store i32 %129, ptr %123, align 8, !tbaa !24
-  %130 = sext i32 %124 to i64
-  %131 = getelementptr inbounds [2048 x i8], ptr %128, i64 0, i64 %130
-  store i8 10, ptr %131, align 1, !tbaa !5
-  %132 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %133 = load i8, ptr %132, align 4
-  %134 = or i8 %133, 16
-  store i8 %134, ptr %132, align 4
-  br label %178
+131:                                              ; preds = %127
+  %132 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
+  %133 = load ptr, ptr %132, align 8, !tbaa !38
+  %134 = add nsw i32 %129, 1
+  store i32 %134, ptr %128, align 8, !tbaa !24
+  %135 = sext i32 %129 to i64
+  %136 = getelementptr inbounds [2048 x i8], ptr %133, i64 0, i64 %135
+  store i8 10, ptr %136, align 1, !tbaa !5
+  %137 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
+  %138 = load i8, ptr %137, align 4
+  %139 = or i8 %138, 16
+  store i8 %139, ptr %137, align 4
+  br label %183
 
-135:                                              ; preds = %122
+140:                                              ; preds = %127
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #16
   store i8 10, ptr %3, align 1, !tbaa !5
-  %136 = getelementptr inbounds [2 x i8], ptr %3, i64 0, i64 1
-  store i8 0, ptr %136, align 1, !tbaa !5
-  %137 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
-  %138 = trunc i64 %137 to i32
-  %139 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %140 = load i8, ptr %139, align 4
-  %141 = or i8 %140, 16
-  store i8 %141, ptr %139, align 4
-  %142 = icmp sgt i32 %138, 0
-  br i1 %142, label %143, label %177
+  %141 = getelementptr inbounds [2 x i8], ptr %3, i64 0, i64 1
+  store i8 0, ptr %141, align 1, !tbaa !5
+  %142 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
+  %143 = trunc i64 %142 to i32
+  %144 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
+  %145 = load i8, ptr %144, align 4
+  %146 = or i8 %145, 16
+  store i8 %146, ptr %144, align 4
+  %147 = icmp sgt i32 %143, 0
+  br i1 %147, label %148, label %182
 
-143:                                              ; preds = %135
-  %144 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %145 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  br label %146
+148:                                              ; preds = %140
+  %149 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
+  %150 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
+  br label %151
 
-146:                                              ; preds = %164, %143
-  %147 = phi i32 [ %124, %143 ], [ %175, %164 ]
-  %148 = phi i32 [ %138, %143 ], [ %173, %164 ]
-  %149 = phi ptr [ %3, %143 ], [ %172, %164 ]
-  %150 = icmp sgt i32 %147, 2047
-  br i1 %150, label %151, label %161
+151:                                              ; preds = %169, %148
+  %152 = phi i32 [ %129, %148 ], [ %180, %169 ]
+  %153 = phi i32 [ %143, %148 ], [ %178, %169 ]
+  %154 = phi ptr [ %3, %148 ], [ %177, %169 ]
+  %155 = icmp sgt i32 %152, 2047
+  br i1 %155, label %156, label %166
 
-151:                                              ; preds = %146
-  %152 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %153 = icmp eq ptr %152, null
-  br i1 %153, label %154, label %155
-
-154:                                              ; preds = %151
-  tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %155
-
-155:                                              ; preds = %154, %151
-  %156 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %152, i64 0, i32 1
-  store ptr null, ptr %156, align 8, !tbaa !29
-  %157 = load ptr, ptr %144, align 8, !tbaa !38
+156:                                              ; preds = %151
+  %157 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
   %158 = icmp eq ptr %157, null
-  %159 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %157, i64 0, i32 1
-  %160 = select i1 %158, ptr %145, ptr %159
-  store ptr %152, ptr %160, align 8, !tbaa !17
-  store ptr %152, ptr %144, align 8, !tbaa !38
-  store i32 0, ptr %123, align 8, !tbaa !24
-  br label %164
+  br i1 %158, label %159, label %160
 
-161:                                              ; preds = %146
-  %162 = load ptr, ptr %144, align 8, !tbaa !38
-  %163 = sub nsw i32 2048, %147
-  br label %164
+159:                                              ; preds = %156
+  tail call void @TreeCCOutOfMemory(ptr noundef null) #16
+  br label %160
 
-164:                                              ; preds = %161, %155
-  %165 = phi i32 [ 0, %155 ], [ %147, %161 ]
-  %166 = phi i32 [ 2048, %155 ], [ %163, %161 ]
-  %167 = phi ptr [ %152, %155 ], [ %162, %161 ]
-  %168 = tail call i32 @llvm.umin.i32(i32 %166, i32 %148)
-  %169 = sext i32 %165 to i64
-  %170 = getelementptr inbounds i8, ptr %167, i64 %169
-  %171 = zext i32 %168 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %170, ptr align 1 %149, i64 %171, i1 false)
-  %172 = getelementptr inbounds i8, ptr %149, i64 %171
-  %173 = sub nsw i32 %148, %168
-  %174 = load i32, ptr %123, align 8, !tbaa !24
-  %175 = add nsw i32 %174, %168
-  store i32 %175, ptr %123, align 8, !tbaa !24
-  %176 = icmp sgt i32 %173, 0
-  br i1 %176, label %146, label %177, !llvm.loop !41
+160:                                              ; preds = %159, %156
+  %161 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %157, i64 0, i32 1
+  store ptr null, ptr %161, align 8, !tbaa !29
+  %162 = load ptr, ptr %149, align 8, !tbaa !38
+  %163 = icmp eq ptr %162, null
+  %164 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %162, i64 0, i32 1
+  %165 = select i1 %163, ptr %150, ptr %164
+  store ptr %157, ptr %165, align 8, !tbaa !17
+  store ptr %157, ptr %149, align 8, !tbaa !38
+  store i32 0, ptr %128, align 8, !tbaa !24
+  br label %169
 
-177:                                              ; preds = %164, %135
+166:                                              ; preds = %151
+  %167 = load ptr, ptr %149, align 8, !tbaa !38
+  %168 = sub nsw i32 2048, %152
+  br label %169
+
+169:                                              ; preds = %166, %160
+  %170 = phi i32 [ 0, %160 ], [ %152, %166 ]
+  %171 = phi i32 [ 2048, %160 ], [ %168, %166 ]
+  %172 = phi ptr [ %157, %160 ], [ %167, %166 ]
+  %173 = tail call i32 @llvm.umin.i32(i32 %171, i32 %153)
+  %174 = sext i32 %170 to i64
+  %175 = getelementptr inbounds i8, ptr %172, i64 %174
+  %176 = zext i32 %173 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %175, ptr align 1 %154, i64 %176, i1 false)
+  %177 = getelementptr inbounds i8, ptr %154, i64 %176
+  %178 = sub nsw i32 %153, %173
+  %179 = load i32, ptr %128, align 8, !tbaa !24
+  %180 = add nsw i32 %179, %173
+  store i32 %180, ptr %128, align 8, !tbaa !24
+  %181 = icmp sgt i32 %178, 0
+  br i1 %181, label %151, label %182, !llvm.loop !41
+
+182:                                              ; preds = %169, %140
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #16
-  br label %178
+  br label %183
 
-178:                                              ; preds = %126, %177
-  %179 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %180 = load i64, ptr %179, align 8, !tbaa !23
-  %181 = add nsw i64 %180, 1
-  store i64 %181, ptr %179, align 8, !tbaa !23
+183:                                              ; preds = %131, %182
+  %184 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
+  %185 = load i64, ptr %184, align 8, !tbaa !23
+  %186 = add nsw i64 %185, 1
+  store i64 %186, ptr %184, align 8, !tbaa !23
   ret void
 }
 
@@ -1777,7 +1800,7 @@ define internal fastcc void @OutputDefns(ptr nocapture noundef %0, i32 noundef %
   %4 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 8
   %5 = load ptr, ptr %4, align 8, !tbaa !17
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %209, label %7
+  br i1 %6, label %213, label %7
 
 7:                                                ; preds = %2
   %8 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
@@ -1788,13 +1811,13 @@ define internal fastcc void @OutputDefns(ptr nocapture noundef %0, i32 noundef %
   %13 = getelementptr inbounds [2 x i8], ptr %3, i64 0, i64 1
   br label %14
 
-14:                                               ; preds = %7, %167
-  %15 = phi ptr [ %5, %7 ], [ %170, %167 ]
-  %16 = phi i32 [ 0, %7 ], [ %168, %167 ]
+14:                                               ; preds = %7, %169
+  %15 = phi ptr [ %5, %7 ], [ %172, %169 ]
+  %16 = phi i32 [ 0, %7 ], [ %170, %169 ]
   %17 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 3
   %18 = load i32, ptr %17, align 8, !tbaa !50
   %19 = icmp eq i32 %18, %1
-  br i1 %19, label %20, label %167
+  br i1 %19, label %20, label %169
 
 20:                                               ; preds = %14
   %21 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 2
@@ -1806,303 +1829,307 @@ define internal fastcc void @OutputDefns(ptr nocapture noundef %0, i32 noundef %
   %27 = load i16, ptr %26, align 8
   %28 = and i16 %27, 512
   %29 = icmp eq i16 %28, 0
-  br i1 %29, label %54, label %30
+  br i1 %29, label %56, label %30
 
 30:                                               ; preds = %20
   %31 = and i16 %27, 256
   %32 = icmp eq i16 %31, 0
-  br i1 %32, label %52, label %33
+  br i1 %32, label %54, label %33
 
 33:                                               ; preds = %30
   %34 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %24) #14
   %35 = trunc i64 %34 to i32
-  %36 = and i64 %34, 4294967295
-  %37 = tail call i32 @llvm.smin.i32(i32 %35, i32 0)
-  br label %38
+  %36 = icmp sgt i32 %35, 0
+  br i1 %36, label %37, label %49
 
-38:                                               ; preds = %42, %33
-  %39 = phi i64 [ %43, %42 ], [ %36, %33 ]
-  %40 = trunc i64 %39 to i32
-  %41 = icmp sgt i32 %40, 0
-  br i1 %41, label %42, label %48
+37:                                               ; preds = %33
+  %38 = and i64 %34, 4294967295
+  br label %39
 
-42:                                               ; preds = %38
-  %43 = add nsw i64 %39, -1
-  %44 = getelementptr inbounds i8, ptr %24, i64 %43
-  %45 = load i8, ptr %44, align 1, !tbaa !5
-  switch i8 %45, label %38 [
-    i8 47, label %46
-    i8 92, label %46
-  ], !llvm.loop !47
+39:                                               ; preds = %46, %37
+  %40 = phi i64 [ %38, %37 ], [ %47, %46 ]
+  %41 = add nuw nsw i64 %40, 4294967295
+  %42 = and i64 %41, 4294967295
+  %43 = getelementptr inbounds i8, ptr %24, i64 %42
+  %44 = load i8, ptr %43, align 1, !tbaa !5
+  %45 = sext i8 %44 to i32
+  switch i32 %45, label %46 [
+    i32 47, label %49
+    i32 92, label %49
+  ]
 
-46:                                               ; preds = %42, %42
-  %47 = trunc i64 %39 to i32
-  br label %48
+46:                                               ; preds = %39
+  %47 = add nsw i64 %40, -1
+  %48 = icmp sgt i64 %40, 1
+  br i1 %48, label %39, label %49, !llvm.loop !47
 
-48:                                               ; preds = %38, %46
-  %49 = phi i32 [ %47, %46 ], [ %37, %38 ]
-  %50 = sext i32 %49 to i64
-  %51 = getelementptr inbounds i8, ptr %24, i64 %50
-  br label %52
-
-52:                                               ; preds = %48, %30
-  %53 = phi ptr [ %51, %48 ], [ %24, %30 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %22, ptr noundef %53)
+49:                                               ; preds = %46, %39, %39, %33
+  %50 = phi i64 [ %34, %33 ], [ 0, %46 ], [ %40, %39 ], [ %40, %39 ]
+  %51 = shl i64 %50, 32
+  %52 = ashr exact i64 %51, 32
+  %53 = getelementptr inbounds i8, ptr %24, i64 %52
   br label %54
 
-54:                                               ; preds = %20, %52
-  %55 = load ptr, ptr %15, align 8, !tbaa !36
-  %56 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %55) #14
-  %57 = trunc i64 %56 to i32
-  %58 = load i8, ptr %8, align 4
-  %59 = or i8 %58, 16
-  store i8 %59, ptr %8, align 4
-  %60 = icmp sgt i32 %57, 0
-  br i1 %60, label %61, label %94
+54:                                               ; preds = %49, %30
+  %55 = phi ptr [ %53, %49 ], [ %24, %30 ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %22, ptr noundef %55)
+  br label %56
 
-61:                                               ; preds = %54
-  %62 = load i32, ptr %9, align 8, !tbaa !24
-  br label %63
+56:                                               ; preds = %20, %54
+  %57 = load ptr, ptr %15, align 8, !tbaa !36
+  %58 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %57) #14
+  %59 = trunc i64 %58 to i32
+  %60 = load i8, ptr %8, align 4
+  %61 = or i8 %60, 16
+  store i8 %61, ptr %8, align 4
+  %62 = icmp sgt i32 %59, 0
+  br i1 %62, label %63, label %96
 
-63:                                               ; preds = %81, %61
-  %64 = phi i32 [ %62, %61 ], [ %92, %81 ]
-  %65 = phi i32 [ %57, %61 ], [ %90, %81 ]
-  %66 = phi ptr [ %55, %61 ], [ %89, %81 ]
-  %67 = icmp sgt i32 %64, 2047
-  br i1 %67, label %68, label %78
+63:                                               ; preds = %56
+  %64 = load i32, ptr %9, align 8, !tbaa !24
+  br label %65
 
-68:                                               ; preds = %63
-  %69 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %70 = icmp eq ptr %69, null
-  br i1 %70, label %71, label %72
+65:                                               ; preds = %83, %63
+  %66 = phi i32 [ %64, %63 ], [ %94, %83 ]
+  %67 = phi i32 [ %59, %63 ], [ %92, %83 ]
+  %68 = phi ptr [ %57, %63 ], [ %91, %83 ]
+  %69 = icmp sgt i32 %66, 2047
+  br i1 %69, label %70, label %80
 
-71:                                               ; preds = %68
+70:                                               ; preds = %65
+  %71 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %72 = icmp eq ptr %71, null
+  br i1 %72, label %73, label %74
+
+73:                                               ; preds = %70
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %72
+  br label %74
 
-72:                                               ; preds = %71, %68
-  %73 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %69, i64 0, i32 1
-  store ptr null, ptr %73, align 8, !tbaa !29
-  %74 = load ptr, ptr %10, align 8, !tbaa !38
-  %75 = icmp eq ptr %74, null
-  %76 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %74, i64 0, i32 1
-  %77 = select i1 %75, ptr %11, ptr %76
-  store ptr %69, ptr %77, align 8, !tbaa !17
-  store ptr %69, ptr %10, align 8, !tbaa !38
+74:                                               ; preds = %73, %70
+  %75 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %71, i64 0, i32 1
+  store ptr null, ptr %75, align 8, !tbaa !29
+  %76 = load ptr, ptr %10, align 8, !tbaa !38
+  %77 = icmp eq ptr %76, null
+  %78 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %76, i64 0, i32 1
+  %79 = select i1 %77, ptr %11, ptr %78
+  store ptr %71, ptr %79, align 8, !tbaa !17
+  store ptr %71, ptr %10, align 8, !tbaa !38
   store i32 0, ptr %9, align 8, !tbaa !24
-  br label %81
+  br label %83
 
-78:                                               ; preds = %63
-  %79 = load ptr, ptr %10, align 8, !tbaa !38
-  %80 = sub nsw i32 2048, %64
-  br label %81
+80:                                               ; preds = %65
+  %81 = load ptr, ptr %10, align 8, !tbaa !38
+  %82 = sub nsw i32 2048, %66
+  br label %83
 
-81:                                               ; preds = %78, %72
-  %82 = phi i32 [ 0, %72 ], [ %64, %78 ]
-  %83 = phi i32 [ 2048, %72 ], [ %80, %78 ]
-  %84 = phi ptr [ %69, %72 ], [ %79, %78 ]
-  %85 = tail call i32 @llvm.umin.i32(i32 %83, i32 %65)
-  %86 = sext i32 %82 to i64
-  %87 = getelementptr inbounds i8, ptr %84, i64 %86
-  %88 = zext i32 %85 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %87, ptr align 1 %66, i64 %88, i1 false)
-  %89 = getelementptr inbounds i8, ptr %66, i64 %88
-  %90 = sub nsw i32 %65, %85
-  %91 = load i32, ptr %9, align 8, !tbaa !24
-  %92 = add nsw i32 %91, %85
-  store i32 %92, ptr %9, align 8, !tbaa !24
-  %93 = icmp sgt i32 %90, 0
-  br i1 %93, label %63, label %94, !llvm.loop !41
+83:                                               ; preds = %80, %74
+  %84 = phi i32 [ 0, %74 ], [ %66, %80 ]
+  %85 = phi i32 [ 2048, %74 ], [ %82, %80 ]
+  %86 = phi ptr [ %71, %74 ], [ %81, %80 ]
+  %87 = tail call i32 @llvm.umin.i32(i32 %85, i32 %67)
+  %88 = sext i32 %84 to i64
+  %89 = getelementptr inbounds i8, ptr %86, i64 %88
+  %90 = zext i32 %87 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %89, ptr align 1 %68, i64 %90, i1 false)
+  %91 = getelementptr inbounds i8, ptr %68, i64 %90
+  %92 = sub nsw i32 %67, %87
+  %93 = load i32, ptr %9, align 8, !tbaa !24
+  %94 = add nsw i32 %93, %87
+  store i32 %94, ptr %9, align 8, !tbaa !24
+  %95 = icmp sgt i32 %92, 0
+  br i1 %95, label %65, label %96, !llvm.loop !41
 
-94:                                               ; preds = %81, %54
-  %95 = load ptr, ptr %15, align 8, !tbaa !36
-  %96 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %95, i32 noundef 10) #14
-  %97 = icmp eq ptr %96, null
-  br i1 %97, label %107, label %98
+96:                                               ; preds = %83, %56
+  %97 = load ptr, ptr %15, align 8, !tbaa !36
+  %98 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %97, i32 noundef 10) #14
+  %99 = icmp eq ptr %98, null
+  br i1 %99, label %109, label %100
 
-98:                                               ; preds = %94
-  %99 = load i64, ptr %12, align 8, !tbaa !23
-  br label %100
+100:                                              ; preds = %96
+  %101 = load i64, ptr %12, align 8, !tbaa !23
+  br label %102
 
-100:                                              ; preds = %100, %98
-  %101 = phi i64 [ %99, %98 ], [ %104, %100 ]
-  %102 = phi ptr [ %96, %98 ], [ %105, %100 ]
-  %103 = getelementptr inbounds i8, ptr %102, i64 1
-  %104 = add nsw i64 %101, 1
-  store i64 %104, ptr %12, align 8, !tbaa !23
-  %105 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %103, i32 noundef 10) #14
-  %106 = icmp eq ptr %105, null
-  br i1 %106, label %107, label %100, !llvm.loop !42
+102:                                              ; preds = %102, %100
+  %103 = phi i64 [ %101, %100 ], [ %106, %102 ]
+  %104 = phi ptr [ %98, %100 ], [ %107, %102 ]
+  %105 = getelementptr inbounds i8, ptr %104, i64 1
+  %106 = add nsw i64 %103, 1
+  store i64 %106, ptr %12, align 8, !tbaa !23
+  %107 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %105, i32 noundef 10) #14
+  %108 = icmp eq ptr %107, null
+  br i1 %108, label %109, label %102, !llvm.loop !42
 
-107:                                              ; preds = %100, %94
-  %108 = load i8, ptr %95, align 1, !tbaa !5
-  %109 = icmp eq i8 %108, 0
-  br i1 %109, label %167, label %110
+109:                                              ; preds = %102, %96
+  %110 = load i8, ptr %97, align 1, !tbaa !5
+  %111 = icmp eq i8 %110, 0
+  br i1 %111, label %169, label %112
 
-110:                                              ; preds = %107
-  %111 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %95) #14
-  %112 = add i64 %111, -1
-  %113 = getelementptr inbounds i8, ptr %95, i64 %112
-  %114 = load i8, ptr %113, align 1, !tbaa !5
-  %115 = icmp eq i8 %114, 10
-  br i1 %115, label %167, label %116
+112:                                              ; preds = %109
+  %113 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %97) #14
+  %114 = add i64 %113, -1
+  %115 = getelementptr inbounds i8, ptr %97, i64 %114
+  %116 = load i8, ptr %115, align 1, !tbaa !5
+  %117 = icmp eq i8 %116, 10
+  br i1 %117, label %169, label %118
 
-116:                                              ; preds = %110
-  %117 = load i32, ptr %9, align 8, !tbaa !24
-  %118 = icmp slt i32 %117, 2048
-  br i1 %118, label %119, label %126
+118:                                              ; preds = %112
+  %119 = load i32, ptr %9, align 8, !tbaa !24
+  %120 = icmp slt i32 %119, 2048
+  br i1 %120, label %121, label %128
 
-119:                                              ; preds = %116
-  %120 = load ptr, ptr %10, align 8, !tbaa !38
-  %121 = add nsw i32 %117, 1
-  store i32 %121, ptr %9, align 8, !tbaa !24
-  %122 = sext i32 %117 to i64
-  %123 = getelementptr inbounds [2048 x i8], ptr %120, i64 0, i64 %122
-  store i8 10, ptr %123, align 1, !tbaa !5
-  %124 = load i8, ptr %8, align 4
-  %125 = or i8 %124, 16
-  store i8 %125, ptr %8, align 4
-  br label %164
+121:                                              ; preds = %118
+  %122 = load ptr, ptr %10, align 8, !tbaa !38
+  %123 = add nsw i32 %119, 1
+  store i32 %123, ptr %9, align 8, !tbaa !24
+  %124 = sext i32 %119 to i64
+  %125 = getelementptr inbounds [2048 x i8], ptr %122, i64 0, i64 %124
+  store i8 10, ptr %125, align 1, !tbaa !5
+  %126 = load i8, ptr %8, align 4
+  %127 = or i8 %126, 16
+  store i8 %127, ptr %8, align 4
+  br label %166
 
-126:                                              ; preds = %116
+128:                                              ; preds = %118
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #16
   store i8 10, ptr %3, align 1, !tbaa !5
   store i8 0, ptr %13, align 1, !tbaa !5
-  %127 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
-  %128 = trunc i64 %127 to i32
-  %129 = load i8, ptr %8, align 4
-  %130 = or i8 %129, 16
-  store i8 %130, ptr %8, align 4
-  %131 = icmp sgt i32 %128, 0
-  br i1 %131, label %132, label %163
+  %129 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
+  %130 = trunc i64 %129 to i32
+  %131 = load i8, ptr %8, align 4
+  %132 = or i8 %131, 16
+  store i8 %132, ptr %8, align 4
+  %133 = icmp sgt i32 %130, 0
+  br i1 %133, label %134, label %165
 
-132:                                              ; preds = %126, %150
-  %133 = phi i32 [ %161, %150 ], [ %117, %126 ]
-  %134 = phi i32 [ %159, %150 ], [ %128, %126 ]
-  %135 = phi ptr [ %158, %150 ], [ %3, %126 ]
-  %136 = icmp sgt i32 %133, 2047
-  br i1 %136, label %137, label %147
+134:                                              ; preds = %128, %152
+  %135 = phi i32 [ %163, %152 ], [ %119, %128 ]
+  %136 = phi i32 [ %161, %152 ], [ %130, %128 ]
+  %137 = phi ptr [ %160, %152 ], [ %3, %128 ]
+  %138 = icmp sgt i32 %135, 2047
+  br i1 %138, label %139, label %149
 
-137:                                              ; preds = %132
-  %138 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %139 = icmp eq ptr %138, null
-  br i1 %139, label %140, label %141
+139:                                              ; preds = %134
+  %140 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %141 = icmp eq ptr %140, null
+  br i1 %141, label %142, label %143
 
-140:                                              ; preds = %137
+142:                                              ; preds = %139
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %141
+  br label %143
 
-141:                                              ; preds = %140, %137
-  %142 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %138, i64 0, i32 1
-  store ptr null, ptr %142, align 8, !tbaa !29
-  %143 = load ptr, ptr %10, align 8, !tbaa !38
-  %144 = icmp eq ptr %143, null
-  %145 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %143, i64 0, i32 1
-  %146 = select i1 %144, ptr %11, ptr %145
-  store ptr %138, ptr %146, align 8, !tbaa !17
-  store ptr %138, ptr %10, align 8, !tbaa !38
+143:                                              ; preds = %142, %139
+  %144 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %140, i64 0, i32 1
+  store ptr null, ptr %144, align 8, !tbaa !29
+  %145 = load ptr, ptr %10, align 8, !tbaa !38
+  %146 = icmp eq ptr %145, null
+  %147 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %145, i64 0, i32 1
+  %148 = select i1 %146, ptr %11, ptr %147
+  store ptr %140, ptr %148, align 8, !tbaa !17
+  store ptr %140, ptr %10, align 8, !tbaa !38
   store i32 0, ptr %9, align 8, !tbaa !24
-  br label %150
+  br label %152
 
-147:                                              ; preds = %132
-  %148 = load ptr, ptr %10, align 8, !tbaa !38
-  %149 = sub nsw i32 2048, %133
-  br label %150
+149:                                              ; preds = %134
+  %150 = load ptr, ptr %10, align 8, !tbaa !38
+  %151 = sub nsw i32 2048, %135
+  br label %152
 
-150:                                              ; preds = %147, %141
-  %151 = phi i32 [ 0, %141 ], [ %133, %147 ]
-  %152 = phi i32 [ 2048, %141 ], [ %149, %147 ]
-  %153 = phi ptr [ %138, %141 ], [ %148, %147 ]
-  %154 = tail call i32 @llvm.umin.i32(i32 %152, i32 %134)
-  %155 = sext i32 %151 to i64
-  %156 = getelementptr inbounds i8, ptr %153, i64 %155
-  %157 = zext i32 %154 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %156, ptr align 1 %135, i64 %157, i1 false)
-  %158 = getelementptr inbounds i8, ptr %135, i64 %157
-  %159 = sub nsw i32 %134, %154
-  %160 = load i32, ptr %9, align 8, !tbaa !24
-  %161 = add nsw i32 %160, %154
-  store i32 %161, ptr %9, align 8, !tbaa !24
-  %162 = icmp sgt i32 %159, 0
-  br i1 %162, label %132, label %163, !llvm.loop !41
+152:                                              ; preds = %149, %143
+  %153 = phi i32 [ 0, %143 ], [ %135, %149 ]
+  %154 = phi i32 [ 2048, %143 ], [ %151, %149 ]
+  %155 = phi ptr [ %140, %143 ], [ %150, %149 ]
+  %156 = tail call i32 @llvm.umin.i32(i32 %154, i32 %136)
+  %157 = sext i32 %153 to i64
+  %158 = getelementptr inbounds i8, ptr %155, i64 %157
+  %159 = zext i32 %156 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %158, ptr align 1 %137, i64 %159, i1 false)
+  %160 = getelementptr inbounds i8, ptr %137, i64 %159
+  %161 = sub nsw i32 %136, %156
+  %162 = load i32, ptr %9, align 8, !tbaa !24
+  %163 = add nsw i32 %162, %156
+  store i32 %163, ptr %9, align 8, !tbaa !24
+  %164 = icmp sgt i32 %161, 0
+  br i1 %164, label %134, label %165, !llvm.loop !41
 
-163:                                              ; preds = %150, %126
+165:                                              ; preds = %152, %128
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #16
-  br label %164
+  br label %166
 
-164:                                              ; preds = %163, %119
-  %165 = load i64, ptr %12, align 8, !tbaa !23
-  %166 = add nsw i64 %165, 1
-  store i64 %166, ptr %12, align 8, !tbaa !23
-  br label %167
+166:                                              ; preds = %165, %121
+  %167 = load i64, ptr %12, align 8, !tbaa !23
+  %168 = add nsw i64 %167, 1
+  store i64 %168, ptr %12, align 8, !tbaa !23
+  br label %169
 
-167:                                              ; preds = %107, %110, %164, %14
-  %168 = phi i32 [ %16, %14 ], [ 1, %164 ], [ 1, %110 ], [ 1, %107 ]
-  %169 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 5
-  %170 = load ptr, ptr %169, align 8, !tbaa !17
-  %171 = icmp eq ptr %170, null
-  br i1 %171, label %172, label %14, !llvm.loop !54
+169:                                              ; preds = %109, %112, %166, %14
+  %170 = phi i32 [ %16, %14 ], [ 1, %166 ], [ 1, %112 ], [ 1, %109 ]
+  %171 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 5
+  %172 = load ptr, ptr %171, align 8, !tbaa !17
+  %173 = icmp eq ptr %172, null
+  br i1 %173, label %174, label %14, !llvm.loop !54
 
-172:                                              ; preds = %167
-  %173 = icmp eq i32 %168, 0
-  br i1 %173, label %209, label %174
+174:                                              ; preds = %169
+  %175 = icmp eq i32 %170, 0
+  br i1 %175, label %213, label %176
 
-174:                                              ; preds = %172
-  %175 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %176 = load i64, ptr %175, align 8, !tbaa !23
-  %177 = add nsw i64 %176, 1
-  %178 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
-  %179 = load ptr, ptr %178, align 8, !tbaa !22
-  %180 = load ptr, ptr %0, align 8, !tbaa !21
-  %181 = getelementptr inbounds %struct._tagTreeCCContext, ptr %180, i64 0, i32 8
-  %182 = load i16, ptr %181, align 8
-  %183 = and i16 %182, 512
-  %184 = icmp eq i16 %183, 0
-  br i1 %184, label %209, label %185
+176:                                              ; preds = %174
+  %177 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
+  %178 = load i64, ptr %177, align 8, !tbaa !23
+  %179 = add nsw i64 %178, 1
+  %180 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
+  %181 = load ptr, ptr %180, align 8, !tbaa !22
+  %182 = load ptr, ptr %0, align 8, !tbaa !21
+  %183 = getelementptr inbounds %struct._tagTreeCCContext, ptr %182, i64 0, i32 8
+  %184 = load i16, ptr %183, align 8
+  %185 = and i16 %184, 512
+  %186 = icmp eq i16 %185, 0
+  br i1 %186, label %213, label %187
 
-185:                                              ; preds = %174
-  %186 = and i16 %182, 256
-  %187 = icmp eq i16 %186, 0
-  br i1 %187, label %207, label %188
+187:                                              ; preds = %176
+  %188 = and i16 %184, 256
+  %189 = icmp eq i16 %188, 0
+  br i1 %189, label %211, label %190
 
-188:                                              ; preds = %185
-  %189 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %179) #14
-  %190 = trunc i64 %189 to i32
-  %191 = and i64 %189, 4294967295
-  %192 = tail call i32 @llvm.smin.i32(i32 %190, i32 0)
-  br label %193
+190:                                              ; preds = %187
+  %191 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %181) #14
+  %192 = trunc i64 %191 to i32
+  %193 = icmp sgt i32 %192, 0
+  br i1 %193, label %194, label %206
 
-193:                                              ; preds = %197, %188
-  %194 = phi i64 [ %198, %197 ], [ %191, %188 ]
-  %195 = trunc i64 %194 to i32
-  %196 = icmp sgt i32 %195, 0
-  br i1 %196, label %197, label %203
+194:                                              ; preds = %190
+  %195 = and i64 %191, 4294967295
+  br label %196
 
-197:                                              ; preds = %193
-  %198 = add nsw i64 %194, -1
-  %199 = getelementptr inbounds i8, ptr %179, i64 %198
-  %200 = load i8, ptr %199, align 1, !tbaa !5
-  switch i8 %200, label %193 [
-    i8 47, label %201
-    i8 92, label %201
-  ], !llvm.loop !47
+196:                                              ; preds = %203, %194
+  %197 = phi i64 [ %195, %194 ], [ %204, %203 ]
+  %198 = add nuw nsw i64 %197, 4294967295
+  %199 = and i64 %198, 4294967295
+  %200 = getelementptr inbounds i8, ptr %181, i64 %199
+  %201 = load i8, ptr %200, align 1, !tbaa !5
+  %202 = sext i8 %201 to i32
+  switch i32 %202, label %203 [
+    i32 47, label %206
+    i32 92, label %206
+  ]
 
-201:                                              ; preds = %197, %197
-  %202 = trunc i64 %194 to i32
-  br label %203
+203:                                              ; preds = %196
+  %204 = add nsw i64 %197, -1
+  %205 = icmp sgt i64 %197, 1
+  br i1 %205, label %196, label %206, !llvm.loop !47
 
-203:                                              ; preds = %193, %201
-  %204 = phi i32 [ %202, %201 ], [ %192, %193 ]
-  %205 = sext i32 %204 to i64
-  %206 = getelementptr inbounds i8, ptr %179, i64 %205
-  br label %207
+206:                                              ; preds = %203, %196, %196, %190
+  %207 = phi i64 [ %191, %190 ], [ %197, %196 ], [ %197, %196 ], [ 0, %203 ]
+  %208 = shl i64 %207, 32
+  %209 = ashr exact i64 %208, 32
+  %210 = getelementptr inbounds i8, ptr %181, i64 %209
+  br label %211
 
-207:                                              ; preds = %203, %185
-  %208 = phi ptr [ %206, %203 ], [ %179, %185 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %177, ptr noundef %208)
-  br label %209
+211:                                              ; preds = %206, %187
+  %212 = phi ptr [ %210, %206 ], [ %181, %187 ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %179, ptr noundef %212)
+  br label %213
 
-209:                                              ; preds = %2, %207, %174, %172
+213:                                              ; preds = %2, %211, %176, %174
   ret void
 }
 
@@ -2140,17 +2167,14 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare ptr @strchr(ptr noundef, i32 noundef) local_unnamed_addr #3
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2163,8 +2187,8 @@ attributes #7 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapp
 attributes #8 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind willreturn }
 attributes #10 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #11 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind willreturn memory(read) }
 attributes #15 = { nounwind allocsize(0) }

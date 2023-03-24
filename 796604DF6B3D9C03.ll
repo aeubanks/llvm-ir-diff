@@ -204,7 +204,9 @@ define dso_local noundef float @_ZN17btTypedConstraint14getMotorFactorEfffff(ptr
 
 21:                                               ; preds = %13
   %22 = fcmp olt float %1, %2
-  %23 = select i1 %22, float 0.000000e+00, float 1.000000e+00
+  br i1 %22, label %37, label %23
+
+23:                                               ; preds = %21
   br label %37
 
 24:                                               ; preds = %10
@@ -225,11 +227,13 @@ define dso_local noundef float @_ZN17btTypedConstraint14getMotorFactorEfffff(ptr
 
 34:                                               ; preds = %26
   %35 = fcmp ogt float %1, %3
-  %36 = select i1 %35, float 0.000000e+00, float 1.000000e+00
+  br i1 %35, label %37, label %36
+
+36:                                               ; preds = %34
   br label %37
 
-37:                                               ; preds = %18, %31, %21, %34, %24, %8, %6
-  %38 = phi float [ 1.000000e+00, %6 ], [ 0.000000e+00, %8 ], [ %20, %18 ], [ %33, %31 ], [ %23, %21 ], [ %36, %34 ], [ 0.000000e+00, %24 ]
+37:                                               ; preds = %23, %18, %31, %36, %21, %34, %24, %8, %6
+  %38 = phi float [ 1.000000e+00, %6 ], [ 0.000000e+00, %8 ], [ %20, %18 ], [ 1.000000e+00, %23 ], [ %33, %31 ], [ 1.000000e+00, %36 ], [ 0.000000e+00, %21 ], [ 0.000000e+00, %34 ], [ 0.000000e+00, %24 ]
   ret float %38
 }
 

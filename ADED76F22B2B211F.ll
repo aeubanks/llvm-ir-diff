@@ -199,7 +199,7 @@ define dso_local noundef i32 @_ZN29CSequentialOutStreamForBinder5WriteEPKvjPj(pt
   br label %27
 
 27:                                               ; preds = %7, %24, %26
-  %28 = phi i32 [ 1, %7 ], [ 0, %26 ], [ 0, %24 ]
+  %28 = phi i32 [ 0, %26 ], [ 0, %24 ], [ 1, %7 ]
   ret i32 %28
 }
 
@@ -242,7 +242,7 @@ define dso_local noundef i32 @_ZN13CStreamBinder5WriteEPKvjPj(ptr noundef nonnul
   br label %25
 
 25:                                               ; preds = %7, %22, %24
-  %26 = phi i32 [ 1, %7 ], [ 0, %24 ], [ 0, %22 ]
+  %26 = phi i32 [ 0, %24 ], [ 0, %22 ], [ 1, %7 ]
   ret i32 %26
 }
 

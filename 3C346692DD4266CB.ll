@@ -749,78 +749,79 @@ define dso_local void @writeSE_UVLC(ptr nocapture noundef %0, ptr nocapture noun
   %23 = shl nsw i32 -1, %20
   %24 = add i32 %23, %7
   store i32 %24, ptr %6, align 4, !tbaa !18
-  %25 = shl nuw nsw i32 1, %20
-  %26 = add nsw i32 %25, -1
-  %27 = and i32 %26, %24
-  %28 = or i32 %27, %25
-  %29 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %28, ptr %29, align 4, !tbaa !22
-  %30 = load ptr, ptr %1, align 8, !tbaa !33
-  %31 = shl nuw i32 1, %21
-  %32 = getelementptr inbounds %struct.Bitstream, ptr %30, i64 0, i32 2
-  %33 = getelementptr inbounds %struct.Bitstream, ptr %30, i64 0, i32 1
-  %34 = getelementptr inbounds %struct.Bitstream, ptr %30, i64 0, i32 9
-  %35 = load i8, ptr %32, align 8, !tbaa !7
-  br label %36
+  %25 = and i32 %20, 127
+  %26 = shl nuw i32 1, %25
+  %27 = add nsw i32 %26, -1
+  %28 = and i32 %27, %24
+  %29 = or i32 %28, %26
+  %30 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
+  store i32 %29, ptr %30, align 4, !tbaa !22
+  %31 = load ptr, ptr %1, align 8, !tbaa !33
+  %32 = shl nuw i32 1, %21
+  %33 = getelementptr inbounds %struct.Bitstream, ptr %31, i64 0, i32 2
+  %34 = getelementptr inbounds %struct.Bitstream, ptr %31, i64 0, i32 1
+  %35 = getelementptr inbounds %struct.Bitstream, ptr %31, i64 0, i32 9
+  %36 = load i8, ptr %33, align 8, !tbaa !7
+  br label %37
 
-36:                                               ; preds = %60, %19
-  %37 = phi i32 [ %22, %19 ], [ %61, %60 ]
-  %38 = phi i8 [ %35, %19 ], [ %62, %60 ]
-  %39 = phi i32 [ %31, %19 ], [ %51, %60 ]
-  %40 = phi i32 [ 0, %19 ], [ %63, %60 ]
-  %41 = shl i8 %38, 1
-  store i8 %41, ptr %32, align 8, !tbaa !7
-  %42 = load i32, ptr %29, align 4, !tbaa !22
-  %43 = and i32 %42, %39
-  %44 = icmp eq i32 %43, 0
-  br i1 %44, label %47, label %45
+37:                                               ; preds = %61, %19
+  %38 = phi i32 [ %22, %19 ], [ %62, %61 ]
+  %39 = phi i8 [ %36, %19 ], [ %63, %61 ]
+  %40 = phi i32 [ %32, %19 ], [ %52, %61 ]
+  %41 = phi i32 [ 0, %19 ], [ %64, %61 ]
+  %42 = shl i8 %39, 1
+  store i8 %42, ptr %33, align 8, !tbaa !7
+  %43 = load i32, ptr %30, align 4, !tbaa !22
+  %44 = and i32 %43, %40
+  %45 = icmp eq i32 %44, 0
+  br i1 %45, label %48, label %46
 
-45:                                               ; preds = %36
-  %46 = or i8 %41, 1
-  store i8 %46, ptr %32, align 8, !tbaa !7
-  br label %47
+46:                                               ; preds = %37
+  %47 = or i8 %42, 1
+  store i8 %47, ptr %33, align 8, !tbaa !7
+  br label %48
 
-47:                                               ; preds = %45, %36
-  %48 = phi i8 [ %46, %45 ], [ %41, %36 ]
-  %49 = load i32, ptr %33, align 4, !tbaa !13
-  %50 = add nsw i32 %49, -1
-  store i32 %50, ptr %33, align 4, !tbaa !13
-  %51 = lshr i32 %39, 1
-  %52 = icmp eq i32 %50, 0
-  br i1 %52, label %53, label %60
+48:                                               ; preds = %46, %37
+  %49 = phi i8 [ %47, %46 ], [ %42, %37 ]
+  %50 = load i32, ptr %34, align 4, !tbaa !13
+  %51 = add nsw i32 %50, -1
+  store i32 %51, ptr %34, align 4, !tbaa !13
+  %52 = lshr i32 %40, 1
+  %53 = icmp eq i32 %51, 0
+  br i1 %53, label %54, label %61
 
-53:                                               ; preds = %47
-  store i32 8, ptr %33, align 4, !tbaa !13
-  %54 = load ptr, ptr %34, align 8, !tbaa !14
-  %55 = load i32, ptr %30, align 8, !tbaa !15
-  %56 = add nsw i32 %55, 1
-  store i32 %56, ptr %30, align 8, !tbaa !15
-  %57 = sext i32 %55 to i64
-  %58 = getelementptr inbounds i8, ptr %54, i64 %57
-  store i8 %48, ptr %58, align 1, !tbaa !16
-  store i8 0, ptr %32, align 8, !tbaa !7
-  %59 = load i32, ptr %5, align 4, !tbaa !19
-  br label %60
+54:                                               ; preds = %48
+  store i32 8, ptr %34, align 4, !tbaa !13
+  %55 = load ptr, ptr %35, align 8, !tbaa !14
+  %56 = load i32, ptr %31, align 8, !tbaa !15
+  %57 = add nsw i32 %56, 1
+  store i32 %57, ptr %31, align 8, !tbaa !15
+  %58 = sext i32 %56 to i64
+  %59 = getelementptr inbounds i8, ptr %55, i64 %58
+  store i8 %49, ptr %59, align 1, !tbaa !16
+  store i8 0, ptr %33, align 8, !tbaa !7
+  %60 = load i32, ptr %5, align 4, !tbaa !19
+  br label %61
 
-60:                                               ; preds = %53, %47
-  %61 = phi i32 [ %37, %47 ], [ %59, %53 ]
-  %62 = phi i8 [ %48, %47 ], [ 0, %53 ]
-  %63 = add nuw nsw i32 %40, 1
-  %64 = icmp slt i32 %63, %61
-  br i1 %64, label %36, label %65, !llvm.loop !17
+61:                                               ; preds = %54, %48
+  %62 = phi i32 [ %38, %48 ], [ %60, %54 ]
+  %63 = phi i8 [ %49, %48 ], [ 0, %54 ]
+  %64 = add nuw nsw i32 %41, 1
+  %65 = icmp slt i32 %64, %62
+  br i1 %65, label %37, label %66, !llvm.loop !17
 
-65:                                               ; preds = %60
-  %66 = load i32, ptr %0, align 8, !tbaa !36
-  %67 = icmp eq i32 %66, 0
-  br i1 %67, label %71, label %68
+66:                                               ; preds = %61
+  %67 = load i32, ptr %0, align 8, !tbaa !36
+  %68 = icmp eq i32 %67, 0
+  br i1 %68, label %72, label %69
 
-68:                                               ; preds = %65
-  %69 = load ptr, ptr %1, align 8, !tbaa !33
-  %70 = getelementptr inbounds %struct.Bitstream, ptr %69, i64 0, i32 10
-  store i32 1, ptr %70, align 8, !tbaa !37
-  br label %71
+69:                                               ; preds = %66
+  %70 = load ptr, ptr %1, align 8, !tbaa !33
+  %71 = getelementptr inbounds %struct.Bitstream, ptr %70, i64 0, i32 10
+  store i32 1, ptr %71, align 8, !tbaa !37
+  br label %72
 
-71:                                               ; preds = %68, %65
+72:                                               ; preds = %69, %66
   ret void
 }
 
@@ -861,78 +862,79 @@ define dso_local void @writeSE_SVLC(ptr nocapture noundef %0, ptr nocapture noun
   %28 = or i32 %8, %24
   %29 = add i32 %27, %28
   store i32 %29, ptr %6, align 4, !tbaa !18
-  %30 = shl nuw nsw i32 1, %22
-  %31 = add nsw i32 %30, -1
-  %32 = and i32 %31, %29
-  %33 = or i32 %32, %30
-  %34 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %33, ptr %34, align 4, !tbaa !22
-  %35 = load ptr, ptr %1, align 8, !tbaa !33
-  %36 = shl nuw i32 1, %25
-  %37 = getelementptr inbounds %struct.Bitstream, ptr %35, i64 0, i32 2
-  %38 = getelementptr inbounds %struct.Bitstream, ptr %35, i64 0, i32 1
-  %39 = getelementptr inbounds %struct.Bitstream, ptr %35, i64 0, i32 9
-  %40 = load i8, ptr %37, align 8, !tbaa !7
-  br label %41
+  %30 = and i32 %22, 127
+  %31 = shl nuw i32 1, %30
+  %32 = add nsw i32 %31, -1
+  %33 = and i32 %32, %29
+  %34 = or i32 %33, %31
+  %35 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
+  store i32 %34, ptr %35, align 4, !tbaa !22
+  %36 = load ptr, ptr %1, align 8, !tbaa !33
+  %37 = shl nuw i32 1, %25
+  %38 = getelementptr inbounds %struct.Bitstream, ptr %36, i64 0, i32 2
+  %39 = getelementptr inbounds %struct.Bitstream, ptr %36, i64 0, i32 1
+  %40 = getelementptr inbounds %struct.Bitstream, ptr %36, i64 0, i32 9
+  %41 = load i8, ptr %38, align 8, !tbaa !7
+  br label %42
 
-41:                                               ; preds = %65, %21
-  %42 = phi i32 [ %26, %21 ], [ %66, %65 ]
-  %43 = phi i8 [ %40, %21 ], [ %67, %65 ]
-  %44 = phi i32 [ %36, %21 ], [ %56, %65 ]
-  %45 = phi i32 [ 0, %21 ], [ %68, %65 ]
-  %46 = shl i8 %43, 1
-  store i8 %46, ptr %37, align 8, !tbaa !7
-  %47 = load i32, ptr %34, align 4, !tbaa !22
-  %48 = and i32 %47, %44
-  %49 = icmp eq i32 %48, 0
-  br i1 %49, label %52, label %50
+42:                                               ; preds = %66, %21
+  %43 = phi i32 [ %26, %21 ], [ %67, %66 ]
+  %44 = phi i8 [ %41, %21 ], [ %68, %66 ]
+  %45 = phi i32 [ %37, %21 ], [ %57, %66 ]
+  %46 = phi i32 [ 0, %21 ], [ %69, %66 ]
+  %47 = shl i8 %44, 1
+  store i8 %47, ptr %38, align 8, !tbaa !7
+  %48 = load i32, ptr %35, align 4, !tbaa !22
+  %49 = and i32 %48, %45
+  %50 = icmp eq i32 %49, 0
+  br i1 %50, label %53, label %51
 
-50:                                               ; preds = %41
-  %51 = or i8 %46, 1
-  store i8 %51, ptr %37, align 8, !tbaa !7
-  br label %52
+51:                                               ; preds = %42
+  %52 = or i8 %47, 1
+  store i8 %52, ptr %38, align 8, !tbaa !7
+  br label %53
 
-52:                                               ; preds = %50, %41
-  %53 = phi i8 [ %51, %50 ], [ %46, %41 ]
-  %54 = load i32, ptr %38, align 4, !tbaa !13
-  %55 = add nsw i32 %54, -1
-  store i32 %55, ptr %38, align 4, !tbaa !13
-  %56 = lshr i32 %44, 1
-  %57 = icmp eq i32 %55, 0
-  br i1 %57, label %58, label %65
+53:                                               ; preds = %51, %42
+  %54 = phi i8 [ %52, %51 ], [ %47, %42 ]
+  %55 = load i32, ptr %39, align 4, !tbaa !13
+  %56 = add nsw i32 %55, -1
+  store i32 %56, ptr %39, align 4, !tbaa !13
+  %57 = lshr i32 %45, 1
+  %58 = icmp eq i32 %56, 0
+  br i1 %58, label %59, label %66
 
-58:                                               ; preds = %52
-  store i32 8, ptr %38, align 4, !tbaa !13
-  %59 = load ptr, ptr %39, align 8, !tbaa !14
-  %60 = load i32, ptr %35, align 8, !tbaa !15
-  %61 = add nsw i32 %60, 1
-  store i32 %61, ptr %35, align 8, !tbaa !15
-  %62 = sext i32 %60 to i64
-  %63 = getelementptr inbounds i8, ptr %59, i64 %62
-  store i8 %53, ptr %63, align 1, !tbaa !16
-  store i8 0, ptr %37, align 8, !tbaa !7
-  %64 = load i32, ptr %5, align 4, !tbaa !19
-  br label %65
+59:                                               ; preds = %53
+  store i32 8, ptr %39, align 4, !tbaa !13
+  %60 = load ptr, ptr %40, align 8, !tbaa !14
+  %61 = load i32, ptr %36, align 8, !tbaa !15
+  %62 = add nsw i32 %61, 1
+  store i32 %62, ptr %36, align 8, !tbaa !15
+  %63 = sext i32 %61 to i64
+  %64 = getelementptr inbounds i8, ptr %60, i64 %63
+  store i8 %54, ptr %64, align 1, !tbaa !16
+  store i8 0, ptr %38, align 8, !tbaa !7
+  %65 = load i32, ptr %5, align 4, !tbaa !19
+  br label %66
 
-65:                                               ; preds = %58, %52
-  %66 = phi i32 [ %42, %52 ], [ %64, %58 ]
-  %67 = phi i8 [ %53, %52 ], [ 0, %58 ]
-  %68 = add nuw nsw i32 %45, 1
-  %69 = icmp slt i32 %68, %66
-  br i1 %69, label %41, label %70, !llvm.loop !17
+66:                                               ; preds = %59, %53
+  %67 = phi i32 [ %43, %53 ], [ %65, %59 ]
+  %68 = phi i8 [ %54, %53 ], [ 0, %59 ]
+  %69 = add nuw nsw i32 %46, 1
+  %70 = icmp slt i32 %69, %67
+  br i1 %70, label %42, label %71, !llvm.loop !17
 
-70:                                               ; preds = %65
-  %71 = load i32, ptr %0, align 8, !tbaa !36
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %76, label %73
+71:                                               ; preds = %66
+  %72 = load i32, ptr %0, align 8, !tbaa !36
+  %73 = icmp eq i32 %72, 0
+  br i1 %73, label %77, label %74
 
-73:                                               ; preds = %70
-  %74 = load ptr, ptr %1, align 8, !tbaa !33
-  %75 = getelementptr inbounds %struct.Bitstream, ptr %74, i64 0, i32 10
-  store i32 1, ptr %75, align 8, !tbaa !37
-  br label %76
+74:                                               ; preds = %71
+  %75 = load ptr, ptr %1, align 8, !tbaa !33
+  %76 = getelementptr inbounds %struct.Bitstream, ptr %75, i64 0, i32 10
+  store i32 1, ptr %76, align 8, !tbaa !37
+  br label %77
 
-76:                                               ; preds = %73, %70
+77:                                               ; preds = %74, %71
   ret void
 }
 
@@ -1361,62 +1363,77 @@ define dso_local void @writeSE_Flag(ptr nocapture noundef %0, ptr nocapture noun
   %11 = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 9
   %12 = load i8, ptr %9, align 8, !tbaa !7
   %13 = shl i8 %12, 1
-  %14 = trunc i32 %6 to i8
-  %15 = or i8 %13, %14
-  store i8 %15, ptr %9, align 8, !tbaa !7
-  %16 = load i32, ptr %10, align 4, !tbaa !13
-  %17 = add nsw i32 %16, -1
-  store i32 %17, ptr %10, align 4, !tbaa !13
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %47
+  store i8 %13, ptr %9, align 8, !tbaa !7
+  %14 = load i32, ptr %7, align 4, !tbaa !22
+  %15 = and i32 %14, 1
+  %16 = icmp eq i32 %15, 0
+  br i1 %16, label %19, label %17
 
-19:                                               ; preds = %2
+17:                                               ; preds = %2
+  %18 = or i8 %13, 1
+  store i8 %18, ptr %9, align 8, !tbaa !7
+  br label %19
+
+19:                                               ; preds = %17, %2
+  %20 = phi i8 [ %18, %17 ], [ %13, %2 ]
+  %21 = load i32, ptr %10, align 4, !tbaa !13
+  %22 = add nsw i32 %21, -1
+  store i32 %22, ptr %10, align 4, !tbaa !13
+  %23 = icmp eq i32 %22, 0
+  br i1 %23, label %24, label %31
+
+24:                                               ; preds = %19
   store i32 8, ptr %10, align 4, !tbaa !13
-  %20 = load ptr, ptr %11, align 8, !tbaa !14
-  %21 = load i32, ptr %8, align 8, !tbaa !15
-  %22 = add nsw i32 %21, 1
-  store i32 %22, ptr %8, align 8, !tbaa !15
-  %23 = sext i32 %21 to i64
-  %24 = getelementptr inbounds i8, ptr %20, i64 %23
-  store i8 %15, ptr %24, align 1, !tbaa !16
+  %25 = load ptr, ptr %11, align 8, !tbaa !14
+  %26 = load i32, ptr %8, align 8, !tbaa !15
+  %27 = add nsw i32 %26, 1
+  store i32 %27, ptr %8, align 8, !tbaa !15
+  %28 = sext i32 %26 to i64
+  %29 = getelementptr inbounds i8, ptr %25, i64 %28
+  store i8 %20, ptr %29, align 1, !tbaa !16
   store i8 0, ptr %9, align 8, !tbaa !7
-  %25 = load i32, ptr %3, align 4, !tbaa !19
-  %26 = icmp sgt i32 %25, 1
-  br i1 %26, label %27, label %47
+  %30 = load i32, ptr %3, align 4, !tbaa !19
+  br label %31
 
-27:                                               ; preds = %19, %42
-  %28 = phi i32 [ %43, %42 ], [ %25, %19 ]
-  %29 = phi i8 [ %44, %42 ], [ 0, %19 ]
-  %30 = phi i32 [ %45, %42 ], [ 1, %19 ]
-  %31 = shl i8 %29, 1
-  store i8 %31, ptr %9, align 8, !tbaa !7
-  %32 = load i32, ptr %10, align 4, !tbaa !13
-  %33 = add nsw i32 %32, -1
-  store i32 %33, ptr %10, align 4, !tbaa !13
-  %34 = icmp eq i32 %33, 0
-  br i1 %34, label %35, label %42
+31:                                               ; preds = %24, %19
+  %32 = phi i32 [ 1, %19 ], [ %30, %24 ]
+  %33 = phi i8 [ %20, %19 ], [ 0, %24 ]
+  %34 = icmp sgt i32 %32, 1
+  br i1 %34, label %35, label %55
 
-35:                                               ; preds = %27
+35:                                               ; preds = %31, %50
+  %36 = phi i32 [ %51, %50 ], [ %32, %31 ]
+  %37 = phi i8 [ %52, %50 ], [ %33, %31 ]
+  %38 = phi i32 [ %53, %50 ], [ 1, %31 ]
+  %39 = shl i8 %37, 1
+  store i8 %39, ptr %9, align 8, !tbaa !7
+  %40 = load i32, ptr %10, align 4, !tbaa !13
+  %41 = add nsw i32 %40, -1
+  store i32 %41, ptr %10, align 4, !tbaa !13
+  %42 = icmp eq i32 %41, 0
+  br i1 %42, label %43, label %50
+
+43:                                               ; preds = %35
   store i32 8, ptr %10, align 4, !tbaa !13
-  %36 = load ptr, ptr %11, align 8, !tbaa !14
-  %37 = load i32, ptr %8, align 8, !tbaa !15
-  %38 = add nsw i32 %37, 1
-  store i32 %38, ptr %8, align 8, !tbaa !15
-  %39 = sext i32 %37 to i64
-  %40 = getelementptr inbounds i8, ptr %36, i64 %39
-  store i8 %31, ptr %40, align 1, !tbaa !16
+  %44 = load ptr, ptr %11, align 8, !tbaa !14
+  %45 = load i32, ptr %8, align 8, !tbaa !15
+  %46 = add nsw i32 %45, 1
+  store i32 %46, ptr %8, align 8, !tbaa !15
+  %47 = sext i32 %45 to i64
+  %48 = getelementptr inbounds i8, ptr %44, i64 %47
+  store i8 %39, ptr %48, align 1, !tbaa !16
   store i8 0, ptr %9, align 8, !tbaa !7
-  %41 = load i32, ptr %3, align 4, !tbaa !19
-  br label %42
+  %49 = load i32, ptr %3, align 4, !tbaa !19
+  br label %50
 
-42:                                               ; preds = %35, %27
-  %43 = phi i32 [ %28, %27 ], [ %41, %35 ]
-  %44 = phi i8 [ %31, %27 ], [ 0, %35 ]
-  %45 = add nuw nsw i32 %30, 1
-  %46 = icmp slt i32 %45, %43
-  br i1 %46, label %27, label %47, !llvm.loop !45
+50:                                               ; preds = %43, %35
+  %51 = phi i32 [ %36, %35 ], [ %49, %43 ]
+  %52 = phi i8 [ %39, %35 ], [ 0, %43 ]
+  %53 = add nuw nsw i32 %38, 1
+  %54 = icmp slt i32 %53, %51
+  br i1 %54, label %35, label %55, !llvm.loop !45
 
-47:                                               ; preds = %42, %2, %19
+55:                                               ; preds = %50, %31
   ret void
 }
 
@@ -1436,62 +1453,77 @@ define dso_local void @writeSE_invFlag(ptr nocapture noundef %0, ptr nocapture n
   %12 = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 9
   %13 = load i8, ptr %10, align 8, !tbaa !7
   %14 = shl i8 %13, 1
-  %15 = trunc i32 %7 to i8
-  %16 = or i8 %14, %15
-  store i8 %16, ptr %10, align 8, !tbaa !7
-  %17 = load i32, ptr %11, align 4, !tbaa !13
-  %18 = add nsw i32 %17, -1
-  store i32 %18, ptr %11, align 4, !tbaa !13
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %48
+  store i8 %14, ptr %10, align 8, !tbaa !7
+  %15 = load i32, ptr %8, align 4, !tbaa !22
+  %16 = and i32 %15, 1
+  %17 = icmp eq i32 %16, 0
+  br i1 %17, label %20, label %18
 
-20:                                               ; preds = %2
+18:                                               ; preds = %2
+  %19 = or i8 %14, 1
+  store i8 %19, ptr %10, align 8, !tbaa !7
+  br label %20
+
+20:                                               ; preds = %18, %2
+  %21 = phi i8 [ %19, %18 ], [ %14, %2 ]
+  %22 = load i32, ptr %11, align 4, !tbaa !13
+  %23 = add nsw i32 %22, -1
+  store i32 %23, ptr %11, align 4, !tbaa !13
+  %24 = icmp eq i32 %23, 0
+  br i1 %24, label %25, label %32
+
+25:                                               ; preds = %20
   store i32 8, ptr %11, align 4, !tbaa !13
-  %21 = load ptr, ptr %12, align 8, !tbaa !14
-  %22 = load i32, ptr %9, align 8, !tbaa !15
-  %23 = add nsw i32 %22, 1
-  store i32 %23, ptr %9, align 8, !tbaa !15
-  %24 = sext i32 %22 to i64
-  %25 = getelementptr inbounds i8, ptr %21, i64 %24
-  store i8 %16, ptr %25, align 1, !tbaa !16
+  %26 = load ptr, ptr %12, align 8, !tbaa !14
+  %27 = load i32, ptr %9, align 8, !tbaa !15
+  %28 = add nsw i32 %27, 1
+  store i32 %28, ptr %9, align 8, !tbaa !15
+  %29 = sext i32 %27 to i64
+  %30 = getelementptr inbounds i8, ptr %26, i64 %29
+  store i8 %21, ptr %30, align 1, !tbaa !16
   store i8 0, ptr %10, align 8, !tbaa !7
-  %26 = load i32, ptr %3, align 4, !tbaa !19
-  %27 = icmp sgt i32 %26, 1
-  br i1 %27, label %28, label %48
+  %31 = load i32, ptr %3, align 4, !tbaa !19
+  br label %32
 
-28:                                               ; preds = %20, %43
-  %29 = phi i32 [ %44, %43 ], [ %26, %20 ]
-  %30 = phi i8 [ %45, %43 ], [ 0, %20 ]
-  %31 = phi i32 [ %46, %43 ], [ 1, %20 ]
-  %32 = shl i8 %30, 1
-  store i8 %32, ptr %10, align 8, !tbaa !7
-  %33 = load i32, ptr %11, align 4, !tbaa !13
-  %34 = add nsw i32 %33, -1
-  store i32 %34, ptr %11, align 4, !tbaa !13
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %43
+32:                                               ; preds = %25, %20
+  %33 = phi i32 [ 1, %20 ], [ %31, %25 ]
+  %34 = phi i8 [ %21, %20 ], [ 0, %25 ]
+  %35 = icmp sgt i32 %33, 1
+  br i1 %35, label %36, label %56
 
-36:                                               ; preds = %28
+36:                                               ; preds = %32, %51
+  %37 = phi i32 [ %52, %51 ], [ %33, %32 ]
+  %38 = phi i8 [ %53, %51 ], [ %34, %32 ]
+  %39 = phi i32 [ %54, %51 ], [ 1, %32 ]
+  %40 = shl i8 %38, 1
+  store i8 %40, ptr %10, align 8, !tbaa !7
+  %41 = load i32, ptr %11, align 4, !tbaa !13
+  %42 = add nsw i32 %41, -1
+  store i32 %42, ptr %11, align 4, !tbaa !13
+  %43 = icmp eq i32 %42, 0
+  br i1 %43, label %44, label %51
+
+44:                                               ; preds = %36
   store i32 8, ptr %11, align 4, !tbaa !13
-  %37 = load ptr, ptr %12, align 8, !tbaa !14
-  %38 = load i32, ptr %9, align 8, !tbaa !15
-  %39 = add nsw i32 %38, 1
-  store i32 %39, ptr %9, align 8, !tbaa !15
-  %40 = sext i32 %38 to i64
-  %41 = getelementptr inbounds i8, ptr %37, i64 %40
-  store i8 %32, ptr %41, align 1, !tbaa !16
+  %45 = load ptr, ptr %12, align 8, !tbaa !14
+  %46 = load i32, ptr %9, align 8, !tbaa !15
+  %47 = add nsw i32 %46, 1
+  store i32 %47, ptr %9, align 8, !tbaa !15
+  %48 = sext i32 %46 to i64
+  %49 = getelementptr inbounds i8, ptr %45, i64 %48
+  store i8 %40, ptr %49, align 1, !tbaa !16
   store i8 0, ptr %10, align 8, !tbaa !7
-  %42 = load i32, ptr %3, align 4, !tbaa !19
-  br label %43
+  %50 = load i32, ptr %3, align 4, !tbaa !19
+  br label %51
 
-43:                                               ; preds = %36, %28
-  %44 = phi i32 [ %29, %28 ], [ %42, %36 ]
-  %45 = phi i8 [ %32, %28 ], [ 0, %36 ]
-  %46 = add nuw nsw i32 %31, 1
-  %47 = icmp slt i32 %46, %44
-  br i1 %47, label %28, label %48, !llvm.loop !47
+51:                                               ; preds = %44, %36
+  %52 = phi i32 [ %37, %36 ], [ %50, %44 ]
+  %53 = phi i8 [ %40, %36 ], [ 0, %44 ]
+  %54 = add nuw nsw i32 %39, 1
+  %55 = icmp slt i32 %54, %52
+  br i1 %55, label %36, label %56, !llvm.loop !47
 
-48:                                               ; preds = %43, %2, %20
+56:                                               ; preds = %51, %32
   ret void
 }
 
@@ -1798,14 +1830,14 @@ define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnes(ptr nocapture noun
   %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
   %4 = load i32, ptr %3, align 4, !tbaa !19
   %5 = icmp eq i32 %4, 3
-  br i1 %5, label %6, label %19
+  br i1 %5, label %6, label %16
 
 6:                                                ; preds = %2
   store i32 6, ptr %3, align 4, !tbaa !19
   %7 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
   %8 = load i32, ptr %7, align 4, !tbaa !32
   %9 = icmp sgt i32 %8, 0
-  br i1 %9, label %10, label %16
+  br i1 %9, label %10, label %38
 
 10:                                               ; preds = %6
   %11 = shl i32 %8, 2
@@ -1813,51 +1845,51 @@ define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnes(ptr nocapture noun
   %13 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
   %14 = load i32, ptr %13, align 8, !tbaa !44
   %15 = or i32 %14, %12
-  br label %16
+  br label %38
 
-16:                                               ; preds = %6, %10
-  %17 = phi i32 [ %15, %10 ], [ 3, %6 ]
-  %18 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %17, ptr %18, align 8
-  br label %41
-
-19:                                               ; preds = %2
-  %20 = sext i32 %4 to i64
-  %21 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %22 = load i32, ptr %21, align 8, !tbaa !44
+16:                                               ; preds = %2
+  %17 = sext i32 %4 to i64
+  %18 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
+  %19 = load i32, ptr %18, align 8, !tbaa !44
+  %20 = sext i32 %19 to i64
+  %21 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
+  %22 = load i32, ptr %21, align 4, !tbaa !32
   %23 = sext i32 %22 to i64
-  %24 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %25 = load i32, ptr %24, align 4, !tbaa !32
-  %26 = sext i32 %25 to i64
-  %27 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.lentab, i64 0, i64 %20, i64 %23, i64 %26
-  %28 = load i32, ptr %27, align 4, !tbaa !18
-  store i32 %28, ptr %3, align 4, !tbaa !19
-  %29 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.codtab, i64 0, i64 %20, i64 %23, i64 %26
-  %30 = load i32, ptr %29, align 4, !tbaa !18
-  %31 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %30, ptr %31, align 8, !tbaa !21
-  %32 = icmp eq i32 %28, 0
-  br i1 %32, label %33, label %37
+  %24 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.lentab, i64 0, i64 %17, i64 %20, i64 %23
+  %25 = load i32, ptr %24, align 4, !tbaa !18
+  store i32 %25, ptr %3, align 4, !tbaa !19
+  %26 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.codtab, i64 0, i64 %17, i64 %20, i64 %23
+  %27 = load i32, ptr %26, align 4, !tbaa !18
+  %28 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
+  store i32 %27, ptr %28, align 8, !tbaa !21
+  %29 = icmp eq i32 %25, 0
+  br i1 %29, label %30, label %34
 
-33:                                               ; preds = %19
-  %34 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %35 = load i32, ptr %34, align 8, !tbaa !44
-  %36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %4, i32 noundef %25, i32 noundef %35)
+30:                                               ; preds = %16
+  %31 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
+  %32 = load i32, ptr %31, align 8, !tbaa !44
+  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %4, i32 noundef %22, i32 noundef %32)
   tail call void @exit(i32 noundef -1) #17
   unreachable
 
-37:                                               ; preds = %19
-  %38 = icmp sgt i32 %28, 0
-  br i1 %38, label %41, label %39
+34:                                               ; preds = %16
+  %35 = icmp sgt i32 %25, 0
+  br i1 %35, label %41, label %36
 
-39:                                               ; preds = %37
-  %40 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %40, align 4, !tbaa !22
+36:                                               ; preds = %34
+  %37 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
+  store i32 0, ptr %37, align 4, !tbaa !22
   br label %91
 
-41:                                               ; preds = %16, %37
-  %42 = phi i32 [ %17, %16 ], [ %30, %37 ]
-  %43 = phi i32 [ 6, %16 ], [ %28, %37 ]
+38:                                               ; preds = %6, %10
+  %39 = phi i32 [ %15, %10 ], [ 3, %6 ]
+  %40 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
+  store i32 %39, ptr %40, align 8, !tbaa !21
+  br label %41
+
+41:                                               ; preds = %38, %34
+  %42 = phi i32 [ %27, %34 ], [ %39, %38 ]
+  %43 = phi i32 [ %25, %34 ], [ 6, %38 ]
   br label %44
 
 44:                                               ; preds = %44, %41
@@ -1929,8 +1961,8 @@ define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnes(ptr nocapture noun
   %90 = icmp slt i32 %89, %87
   br i1 %90, label %62, label %91, !llvm.loop !17
 
-91:                                               ; preds = %86, %39
-  %92 = phi i32 [ %28, %39 ], [ %87, %86 ]
+91:                                               ; preds = %86, %36
+  %92 = phi i32 [ %25, %36 ], [ %87, %86 ]
   %93 = load i32, ptr %0, align 8, !tbaa !36
   %94 = icmp eq i32 %93, 0
   br i1 %94, label %98, label %95
@@ -2649,37 +2681,37 @@ define dso_local i32 @writeSyntaxElement_Level_VLC1(ptr nocapture noundef %0, pt
   br label %56
 
 22:                                               ; preds = %13
-  %23 = icmp ugt i32 %6, 2064
-  br i1 %23, label %24, label %31
+  %23 = add nsw i32 %6, -16
+  %24 = icmp ugt i32 %23, 2048
+  br i1 %24, label %25, label %32
 
-24:                                               ; preds = %22, %24
-  %25 = phi i32 [ %30, %24 ], [ 16, %22 ]
-  %26 = add nsw i32 %25, -3
-  %27 = shl nuw i32 1, %26
-  %28 = add nsw i32 %27, -4080
-  %29 = icmp sgt i32 %6, %28
-  %30 = add nuw nsw i32 %25, 1
-  br i1 %29, label %24, label %31, !llvm.loop !56
+25:                                               ; preds = %22, %25
+  %26 = phi i32 [ %31, %25 ], [ 16, %22 ]
+  %27 = add nsw i32 %26, -3
+  %28 = shl nuw i32 1, %27
+  %29 = add nsw i32 %28, -4080
+  %30 = icmp sgt i32 %6, %29
+  %31 = add nuw nsw i32 %26, 1
+  br i1 %30, label %25, label %32, !llvm.loop !56
 
-31:                                               ; preds = %24, %22
-  %32 = phi i32 [ 15, %22 ], [ %25, %24 ]
-  %33 = add nsw i32 %32, -3
-  %34 = shl nuw i32 1, %33
-  %35 = shl nuw i32 %6, 1
-  %36 = add i32 %35, -32
-  %37 = or i32 %36, %34
+32:                                               ; preds = %25, %22
+  %33 = phi i32 [ 15, %22 ], [ %26, %25 ]
+  %34 = add nsw i32 %33, -3
+  %35 = shl nuw i32 1, %34
+  %36 = shl nuw i32 %23, 1
+  %37 = or i32 %36, %35
   %38 = or i32 %37, %7
-  %39 = icmp ult i32 %32, 16
-  %40 = icmp sgt i32 %2, 99
-  %41 = or i1 %40, %39
-  br i1 %41, label %42, label %45
+  %39 = icmp ugt i32 %33, 15
+  %40 = icmp slt i32 %2, 100
+  %41 = and i1 %40, %39
+  br i1 %41, label %45, label %42
 
-42:                                               ; preds = %31
-  %43 = shl nuw i32 %32, 1
+42:                                               ; preds = %32
+  %43 = shl nuw i32 %33, 1
   %44 = add i32 %43, -2
   br label %48
 
-45:                                               ; preds = %31
+45:                                               ; preds = %32
   %46 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
   store i32 65535, ptr %46, align 4, !tbaa !19
   %47 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
@@ -2846,10 +2878,10 @@ define dso_local i32 @writeSyntaxElement_Level_VLCN(ptr nocapture noundef %0, i3
   %45 = shl i32 %44, 1
   %46 = or i32 %42, %45
   %47 = or i32 %46, %8
-  %48 = icmp ult i32 %36, 16
-  %49 = icmp sgt i32 %3, 99
-  %50 = or i1 %49, %48
-  br i1 %50, label %54, label %51
+  %48 = icmp ugt i32 %36, 15
+  %49 = icmp slt i32 %3, 100
+  %50 = and i1 %49, %48
+  br i1 %50, label %51, label %54
 
 51:                                               ; preds = %35
   %52 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3

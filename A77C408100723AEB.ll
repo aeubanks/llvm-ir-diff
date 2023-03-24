@@ -898,7 +898,7 @@ define internal i32 @eamForce(ptr nocapture noundef %0) #0 {
   %111 = load i32, ptr %110, align 4, !tbaa !15
   %112 = icmp sgt i32 %111, 0
   %113 = zext i32 %103 to i64
-  %114 = icmp ne i64 %82, %113
+  %114 = icmp eq i64 %82, %113
   br i1 %112, label %115, label %118
 
 115:                                              ; preds = %106
@@ -922,9 +922,9 @@ define internal i32 @eamForce(ptr nocapture noundef %0) #0 {
   %127 = phi i64 [ %284, %281 ], [ %117, %122 ]
   %128 = phi double [ %282, %281 ], [ %124, %122 ]
   %129 = phi i32 [ %283, %281 ], [ 0, %122 ]
-  %130 = icmp ugt i32 %129, %125
-  %131 = select i1 %114, i1 true, i1 %130
-  br i1 %131, label %132, label %281
+  %130 = icmp ule i32 %129, %125
+  %131 = select i1 %114, i1 %130, i1 false
+  br i1 %131, label %281, label %132
 
 132:                                              ; preds = %126
   %133 = load ptr, ptr %32, align 8, !tbaa !51
@@ -1259,7 +1259,7 @@ define internal i32 @eamForce(ptr nocapture noundef %0) #0 {
   %417 = load i32, ptr %416, align 4, !tbaa !15
   %418 = icmp sgt i32 %417, 0
   %419 = zext i32 %409 to i64
-  %420 = icmp ne i64 %390, %419
+  %420 = icmp eq i64 %390, %419
   br i1 %418, label %421, label %424
 
 421:                                              ; preds = %412
@@ -1280,9 +1280,9 @@ define internal i32 @eamForce(ptr nocapture noundef %0) #0 {
 430:                                              ; preds = %562, %427
   %431 = phi i64 [ %564, %562 ], [ %423, %427 ]
   %432 = phi i32 [ %563, %562 ], [ 0, %427 ]
-  %433 = icmp ugt i32 %432, %429
-  %434 = select i1 %420, i1 true, i1 %433
-  br i1 %434, label %435, label %562
+  %433 = icmp ule i32 %432, %429
+  %434 = select i1 %420, i1 %433, i1 false
+  br i1 %434, label %562, label %435
 
 435:                                              ; preds = %430
   %436 = load ptr, ptr %32, align 8, !tbaa !51
@@ -1697,14 +1697,14 @@ declare void @exit(i32 noundef) local_unnamed_addr #12
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #13
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #15
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #16
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #15
@@ -1726,9 +1726,9 @@ attributes #10 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #11 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nofree nounwind }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #16 = { nofree nounwind }
 attributes #17 = { nounwind allocsize(0) }
 attributes #18 = { nounwind }
 attributes #19 = { nounwind willreturn memory(read) }

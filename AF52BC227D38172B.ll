@@ -53,58 +53,72 @@ define dso_local noundef i32 @_Z9pushbinopP9Classfile(ptr nocapture noundef read
   %11 = load i32, ptr %10, align 8, !tbaa !11
   %12 = getelementptr inbounds %struct.Exp, ptr %6, i64 0, i32 3
   %13 = load i32, ptr %12, align 8, !tbaa !11
-  %14 = tail call i32 @llvm.umin.i32(i32 %11, i32 %13)
-  %15 = tail call i32 @llvm.umin.i32(i32 %14, i32 %3)
-  %16 = load ptr, ptr %8, align 8, !tbaa !13
-  %17 = getelementptr inbounds %struct.Exp_, ptr %16, i64 0, i32 2
-  %18 = load i32, ptr %17, align 8, !tbaa !14
-  %19 = load i32, ptr @ch, align 4, !tbaa !5
-  %20 = icmp slt i32 %19, 116
-  br i1 %20, label %21, label %24
+  %14 = icmp ult i32 %11, %13
+  br i1 %14, label %15, label %17
 
-21:                                               ; preds = %1
-  %22 = add nsw i32 %19, -96
-  %23 = ashr i32 %22, 2
-  br label %28
+15:                                               ; preds = %1
+  %16 = icmp ult i32 %11, %3
+  br i1 %16, label %20, label %19
 
-24:                                               ; preds = %1
-  %25 = add nsw i32 %19, -120
-  %26 = ashr i32 %25, 1
-  %27 = add nsw i32 %26, 7
-  br label %28
+17:                                               ; preds = %1
+  %18 = icmp ult i32 %13, %3
+  br i1 %18, label %20, label %19
 
-28:                                               ; preds = %24, %21
-  %29 = phi i32 [ %23, %21 ], [ %27, %24 ]
-  %30 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 1
-  store i32 1, ptr %30, align 8, !tbaa !19
-  %31 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 2
-  store i32 %3, ptr %31, align 4, !tbaa !20
-  %32 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 3
-  store i32 %15, ptr %32, align 8, !tbaa !11
-  %33 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %34 unwind label %40
+19:                                               ; preds = %17, %15
+  br label %20
 
-34:                                               ; preds = %28
-  store i32 0, ptr %33, align 8, !tbaa !21
-  %35 = getelementptr inbounds %struct.Exp_, ptr %33, i64 0, i32 1
-  store i32 4, ptr %35, align 4, !tbaa !22
-  %36 = getelementptr inbounds %struct.Exp_, ptr %33, i64 0, i32 2
-  store i32 %18, ptr %36, align 8, !tbaa !14
-  %37 = getelementptr inbounds %struct.Exp_, ptr %33, i64 0, i32 3
-  store i32 %29, ptr %37, align 4, !tbaa !23
-  store ptr %33, ptr %9, align 8, !tbaa !13
-  %38 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 4
-  store ptr %8, ptr %38, align 8, !tbaa !24
-  %39 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 5
-  store ptr %6, ptr %39, align 8, !tbaa !25
+20:                                               ; preds = %17, %15, %19
+  %21 = phi i32 [ %3, %19 ], [ %11, %15 ], [ %13, %17 ]
+  %22 = load ptr, ptr %8, align 8, !tbaa !13
+  %23 = getelementptr inbounds %struct.Exp_, ptr %22, i64 0, i32 2
+  %24 = load i32, ptr %23, align 8, !tbaa !14
+  %25 = load i32, ptr @ch, align 4, !tbaa !5
+  %26 = icmp slt i32 %25, 116
+  br i1 %26, label %27, label %30
+
+27:                                               ; preds = %20
+  %28 = add nsw i32 %25, -96
+  %29 = ashr i32 %28, 2
+  br label %34
+
+30:                                               ; preds = %20
+  %31 = add nsw i32 %25, -120
+  %32 = ashr i32 %31, 1
+  %33 = add nsw i32 %32, 7
+  br label %34
+
+34:                                               ; preds = %30, %27
+  %35 = phi i32 [ %29, %27 ], [ %33, %30 ]
+  %36 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 1
+  store i32 1, ptr %36, align 8, !tbaa !19
+  %37 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 2
+  store i32 %3, ptr %37, align 4, !tbaa !20
+  %38 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 3
+  store i32 %21, ptr %38, align 8, !tbaa !11
+  %39 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %40 unwind label %46
+
+40:                                               ; preds = %34
+  store i32 0, ptr %39, align 8, !tbaa !21
+  %41 = getelementptr inbounds %struct.Exp_, ptr %39, i64 0, i32 1
+  store i32 4, ptr %41, align 4, !tbaa !22
+  %42 = getelementptr inbounds %struct.Exp_, ptr %39, i64 0, i32 2
+  store i32 %24, ptr %42, align 8, !tbaa !14
+  %43 = getelementptr inbounds %struct.Exp_, ptr %39, i64 0, i32 3
+  store i32 %35, ptr %43, align 4, !tbaa !23
+  store ptr %39, ptr %9, align 8, !tbaa !13
+  %44 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 4
+  store ptr %8, ptr %44, align 8, !tbaa !24
+  %45 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 5
+  store ptr %6, ptr %45, align 8, !tbaa !25
   store ptr %9, ptr %7, align 8, !tbaa !9
   ret i32 0
 
-40:                                               ; preds = %28
-  %41 = landingpad { ptr, i32 }
+46:                                               ; preds = %34
+  %47 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %9) #10
-  resume { ptr, i32 } %41
+  resume { ptr, i32 } %47
 }
 
 ; Function Attrs: nobuiltin allocsize(0)

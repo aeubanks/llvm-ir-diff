@@ -611,90 +611,90 @@ define dso_local void @readgeo(ptr noundef %0) local_unnamed_addr #0 {
   %395 = load i32, ptr @edgeCount, align 4, !tbaa !5
   %396 = add nsw i32 %395, 1
   %397 = sext i32 %396 to i64
-  %398 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 1
-  store i32 %394, ptr %398, align 4, !tbaa !16
-  %399 = load i32, ptr @bbt, align 4, !tbaa !5
-  %400 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 2
-  store i32 %399, ptr %400, align 4, !tbaa !18
-  %401 = load i32, ptr @bbl, align 4, !tbaa !5
-  %402 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 3
-  store i32 %401, ptr %402, align 4, !tbaa !19
-  %403 = sub nsw i32 %399, %394
-  %404 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 4
-  store i32 %403, ptr %404, align 4, !tbaa !20
-  %405 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 6
-  store i32 1, ptr %405, align 4, !tbaa !23
-  %406 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 5
-  store i32 -1, ptr %406, align 4, !tbaa !21
-  %407 = add nsw i32 %395, 2
-  %408 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 7
-  store i32 %407, ptr %408, align 4, !tbaa !25
-  %409 = add nsw i32 %395, 4
-  %410 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 8
-  store i32 %409, ptr %410, align 4, !tbaa !24
-  %411 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397
-  store i32 -1, ptr %411, align 4, !tbaa !22
-  %412 = sext i32 %407 to i64
-  %413 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 1
-  store i32 %401, ptr %413, align 4, !tbaa !16
-  %414 = load i32, ptr @bbr, align 4, !tbaa !5
-  %415 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 2
-  store i32 %414, ptr %415, align 4, !tbaa !18
-  %416 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 3
-  store i32 %399, ptr %416, align 4, !tbaa !19
-  %417 = sub nsw i32 %414, %401
-  %418 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 4
-  store i32 %417, ptr %418, align 4, !tbaa !20
-  %419 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 6
-  store i32 1, ptr %419, align 4, !tbaa !23
-  %420 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 5
-  store i32 -1, ptr %420, align 4, !tbaa !21
-  %421 = add nsw i32 %395, 3
-  %422 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 7
-  store i32 %421, ptr %422, align 4, !tbaa !25
-  %423 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 8
-  store i32 %396, ptr %423, align 4, !tbaa !24
-  %424 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412
-  store i32 -1, ptr %424, align 4, !tbaa !22
-  %425 = sext i32 %421 to i64
-  %426 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 1
-  store i32 %394, ptr %426, align 4, !tbaa !16
-  %427 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 2
-  store i32 %399, ptr %427, align 4, !tbaa !18
-  %428 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 3
-  store i32 %414, ptr %428, align 4, !tbaa !19
-  %429 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 4
-  store i32 %403, ptr %429, align 4, !tbaa !20
-  %430 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 6
-  store i32 1, ptr %430, align 4, !tbaa !23
-  %431 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 5
-  store i32 1, ptr %431, align 4, !tbaa !21
-  %432 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 7
-  store i32 %409, ptr %432, align 4, !tbaa !25
-  %433 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 8
-  store i32 %407, ptr %433, align 4, !tbaa !24
-  %434 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425
-  store i32 -1, ptr %434, align 4, !tbaa !22
-  store i32 %409, ptr @edgeCount, align 4, !tbaa !5
-  %435 = sext i32 %409 to i64
-  %436 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 1
-  store i32 %401, ptr %436, align 4, !tbaa !16
-  %437 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 2
-  store i32 %414, ptr %437, align 4, !tbaa !18
-  %438 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 3
-  store i32 %394, ptr %438, align 4, !tbaa !19
-  %439 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 4
-  store i32 %417, ptr %439, align 4, !tbaa !20
-  %440 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 6
-  store i32 1, ptr %440, align 4, !tbaa !23
-  %441 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 5
-  store i32 1, ptr %441, align 4, !tbaa !21
-  %442 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 7
-  store i32 %396, ptr %442, align 4, !tbaa !25
-  %443 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 8
-  store i32 %421, ptr %443, align 4, !tbaa !24
-  %444 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435
-  store i32 -1, ptr %444, align 4, !tbaa !22
+  %398 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397
+  %399 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 1
+  store i32 %394, ptr %399, align 4, !tbaa !16
+  %400 = load i32, ptr @bbt, align 4, !tbaa !5
+  %401 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 2
+  store i32 %400, ptr %401, align 4, !tbaa !18
+  %402 = load i32, ptr @bbl, align 4, !tbaa !5
+  %403 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 3
+  store i32 %402, ptr %403, align 4, !tbaa !19
+  %404 = sub nsw i32 %400, %394
+  %405 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 4
+  store i32 %404, ptr %405, align 4, !tbaa !20
+  %406 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 6
+  store i32 1, ptr %406, align 4, !tbaa !23
+  %407 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 5
+  store i32 -1, ptr %407, align 4, !tbaa !21
+  %408 = add nsw i32 %395, 2
+  %409 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 7
+  store i32 %408, ptr %409, align 4, !tbaa !25
+  %410 = add nsw i32 %395, 4
+  %411 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 8
+  store i32 %410, ptr %411, align 4, !tbaa !24
+  store i32 -1, ptr %398, align 4, !tbaa !22
+  %412 = sext i32 %408 to i64
+  %413 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412
+  %414 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 1
+  store i32 %402, ptr %414, align 4, !tbaa !16
+  %415 = load i32, ptr @bbr, align 4, !tbaa !5
+  %416 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 2
+  store i32 %415, ptr %416, align 4, !tbaa !18
+  %417 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 3
+  store i32 %400, ptr %417, align 4, !tbaa !19
+  %418 = sub nsw i32 %415, %402
+  %419 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 4
+  store i32 %418, ptr %419, align 4, !tbaa !20
+  %420 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 6
+  store i32 1, ptr %420, align 4, !tbaa !23
+  %421 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 5
+  store i32 -1, ptr %421, align 4, !tbaa !21
+  %422 = add nsw i32 %395, 3
+  %423 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 7
+  store i32 %422, ptr %423, align 4, !tbaa !25
+  %424 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 8
+  store i32 %396, ptr %424, align 4, !tbaa !24
+  store i32 -1, ptr %413, align 4, !tbaa !22
+  %425 = sext i32 %422 to i64
+  %426 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425
+  %427 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 1
+  store i32 %394, ptr %427, align 4, !tbaa !16
+  %428 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 2
+  store i32 %400, ptr %428, align 4, !tbaa !18
+  %429 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 3
+  store i32 %415, ptr %429, align 4, !tbaa !19
+  %430 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 4
+  store i32 %404, ptr %430, align 4, !tbaa !20
+  %431 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 6
+  store i32 1, ptr %431, align 4, !tbaa !23
+  %432 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 5
+  store i32 1, ptr %432, align 4, !tbaa !21
+  %433 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 7
+  store i32 %410, ptr %433, align 4, !tbaa !25
+  %434 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 8
+  store i32 %408, ptr %434, align 4, !tbaa !24
+  store i32 -1, ptr %426, align 4, !tbaa !22
+  store i32 %410, ptr @edgeCount, align 4, !tbaa !5
+  %435 = sext i32 %410 to i64
+  %436 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435
+  %437 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 1
+  store i32 %402, ptr %437, align 4, !tbaa !16
+  %438 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 2
+  store i32 %415, ptr %438, align 4, !tbaa !18
+  %439 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 3
+  store i32 %394, ptr %439, align 4, !tbaa !19
+  %440 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 4
+  store i32 %418, ptr %440, align 4, !tbaa !20
+  %441 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 6
+  store i32 1, ptr %441, align 4, !tbaa !23
+  %442 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 5
+  store i32 1, ptr %442, align 4, !tbaa !21
+  %443 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 7
+  store i32 %396, ptr %443, align 4, !tbaa !25
+  %444 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 8
+  store i32 %422, ptr %444, align 4, !tbaa !24
+  store i32 -1, ptr %436, align 4, !tbaa !22
   store i32 0, ptr @numProbes, align 4, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #12
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #12

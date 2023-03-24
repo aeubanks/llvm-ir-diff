@@ -16,7 +16,7 @@ define dso_local i32 @hypre_PrintBoxArrayData(ptr nocapture noundef %0, ptr noca
   %7 = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %1, i64 0, i32 1
   %8 = load i32, ptr %7, align 8, !tbaa !5
   %9 = icmp sgt i32 %8, 0
-  br i1 %9, label %10, label %139
+  br i1 %9, label %10, label %137
 
 10:                                               ; preds = %5
   %11 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 1
@@ -25,9 +25,9 @@ define dso_local i32 @hypre_PrintBoxArrayData(ptr nocapture noundef %0, ptr noca
   %14 = zext i32 %3 to i64
   br label %15
 
-15:                                               ; preds = %10, %131
-  %16 = phi i64 [ 0, %10 ], [ %135, %131 ]
-  %17 = phi ptr [ %4, %10 ], [ %134, %131 ]
+15:                                               ; preds = %10, %129
+  %16 = phi i64 [ 0, %10 ], [ %133, %129 ]
+  %17 = phi ptr [ %4, %10 ], [ %132, %129 ]
   %18 = load ptr, ptr %1, align 8, !tbaa !11
   %19 = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %16
   %20 = load ptr, ptr %2, align 8, !tbaa !11
@@ -36,142 +36,140 @@ define dso_local i32 @hypre_PrintBoxArrayData(ptr nocapture noundef %0, ptr noca
   %23 = load i32, ptr %22, align 4, !tbaa !12
   %24 = load i32, ptr %21, align 4, !tbaa !12
   %25 = sub nsw i32 %23, %24
-  %26 = add nsw i32 %25, 1
-  %27 = icmp slt i32 %25, 0
-  %28 = select i1 %27, i32 0, i32 %26
-  %29 = getelementptr inbounds %struct.hypre_Box_struct, ptr %20, i64 %16, i32 1, i64 1
-  %30 = load i32, ptr %29, align 4, !tbaa !12
-  %31 = getelementptr inbounds [3 x i32], ptr %21, i64 0, i64 1
-  %32 = load i32, ptr %31, align 4, !tbaa !12
-  %33 = sub nsw i32 %30, %32
+  %26 = call i32 @llvm.smax.i32(i32 %25, i32 -1)
+  %27 = add nsw i32 %26, 1
+  %28 = getelementptr inbounds %struct.hypre_Box_struct, ptr %20, i64 %16, i32 1, i64 1
+  %29 = load i32, ptr %28, align 4, !tbaa !12
+  %30 = getelementptr inbounds [3 x i32], ptr %21, i64 0, i64 1
+  %31 = load i32, ptr %30, align 4, !tbaa !12
+  %32 = sub nsw i32 %29, %31
+  %33 = call i32 @llvm.smax.i32(i32 %32, i32 -1)
   %34 = add nsw i32 %33, 1
-  %35 = icmp slt i32 %33, 0
-  %36 = select i1 %35, i32 0, i32 %34
-  %37 = mul nsw i32 %36, %28
-  %38 = getelementptr inbounds %struct.hypre_Box_struct, ptr %20, i64 %16, i32 1, i64 2
+  %35 = mul nsw i32 %34, %27
+  %36 = getelementptr inbounds %struct.hypre_Box_struct, ptr %20, i64 %16, i32 1, i64 2
+  %37 = load i32, ptr %36, align 4, !tbaa !12
+  %38 = getelementptr inbounds [3 x i32], ptr %21, i64 0, i64 2
   %39 = load i32, ptr %38, align 4, !tbaa !12
-  %40 = getelementptr inbounds [3 x i32], ptr %21, i64 0, i64 2
-  %41 = load i32, ptr %40, align 4, !tbaa !12
-  %42 = sub nsw i32 %39, %41
-  %43 = add nsw i32 %42, 1
-  %44 = icmp slt i32 %42, 0
-  %45 = select i1 %44, i32 0, i32 %43
-  %46 = mul nsw i32 %37, %45
-  %47 = call i32 @hypre_BoxGetSize(ptr noundef %19, ptr noundef nonnull %6) #5
-  %48 = load i32, ptr %19, align 4, !tbaa !12
-  %49 = load i32, ptr %21, align 4, !tbaa !12
-  %50 = sub i32 %48, %49
-  %51 = getelementptr inbounds i32, ptr %19, i64 1
-  %52 = load i32, ptr %51, align 4, !tbaa !12
-  %53 = load i32, ptr %31, align 4, !tbaa !12
-  %54 = sub i32 %52, %53
-  %55 = getelementptr inbounds i32, ptr %19, i64 2
-  %56 = load i32, ptr %55, align 4, !tbaa !12
-  %57 = load i32, ptr %40, align 4, !tbaa !12
-  %58 = sub nsw i32 %56, %57
-  %59 = load i32, ptr %29, align 4, !tbaa !12
-  %60 = sub nsw i32 %59, %53
-  %61 = add nsw i32 %60, 1
-  %62 = icmp slt i32 %60, 0
-  %63 = select i1 %62, i32 0, i32 %61
-  %64 = mul nsw i32 %63, %58
-  %65 = add nsw i32 %54, %64
-  %66 = load i32, ptr %22, align 4, !tbaa !12
-  %67 = sub nsw i32 %66, %49
-  %68 = add nsw i32 %67, 1
-  %69 = icmp slt i32 %67, 0
-  %70 = select i1 %69, i32 0, i32 %68
-  %71 = mul nsw i32 %65, %70
-  %72 = add nsw i32 %50, %71
-  %73 = load i32, ptr %6, align 4, !tbaa !12
-  %74 = load i32, ptr %11, align 4, !tbaa !12
-  %75 = load i32, ptr %12, align 4, !tbaa !12
-  %76 = call i32 @llvm.smax.i32(i32 %74, i32 %73)
-  %77 = call i32 @llvm.smax.i32(i32 %75, i32 %76)
-  %78 = icmp sgt i32 %77, 0
-  br i1 %78, label %79, label %131
+  %40 = sub nsw i32 %37, %39
+  %41 = call i32 @llvm.smax.i32(i32 %40, i32 -1)
+  %42 = add nsw i32 %41, 1
+  %43 = mul nsw i32 %35, %42
+  %44 = call i32 @hypre_BoxGetSize(ptr noundef %19, ptr noundef nonnull %6) #5
+  %45 = load i32, ptr %19, align 4, !tbaa !12
+  %46 = load i32, ptr %21, align 4, !tbaa !12
+  %47 = sub i32 %45, %46
+  %48 = getelementptr inbounds i32, ptr %19, i64 1
+  %49 = load i32, ptr %48, align 4, !tbaa !12
+  %50 = load i32, ptr %30, align 4, !tbaa !12
+  %51 = sub i32 %49, %50
+  %52 = getelementptr inbounds i32, ptr %19, i64 2
+  %53 = load i32, ptr %52, align 4, !tbaa !12
+  %54 = load i32, ptr %38, align 4, !tbaa !12
+  %55 = sub nsw i32 %53, %54
+  %56 = load i32, ptr %28, align 4, !tbaa !12
+  %57 = sub nsw i32 %56, %50
+  %58 = add nsw i32 %57, 1
+  %59 = icmp slt i32 %57, 0
+  %60 = select i1 %59, i32 0, i32 %58
+  %61 = mul nsw i32 %60, %55
+  %62 = add nsw i32 %51, %61
+  %63 = load i32, ptr %22, align 4, !tbaa !12
+  %64 = sub i32 %63, %46
+  %65 = add nsw i32 %64, 1
+  %66 = icmp sgt i32 %64, -1
+  %67 = mul nsw i32 %62, %65
+  %68 = select i1 %66, i32 %67, i32 0
+  %69 = add nsw i32 %47, %68
+  %70 = load i32, ptr %6, align 4, !tbaa !12
+  %71 = load i32, ptr %11, align 4, !tbaa !12
+  %72 = load i32, ptr %12, align 4, !tbaa !12
+  %73 = call i32 @llvm.smax.i32(i32 %71, i32 %70)
+  %74 = call i32 @llvm.smax.i32(i32 %72, i32 %73)
+  %75 = icmp sgt i32 %74, 0
+  br i1 %75, label %76, label %129
 
-79:                                               ; preds = %15
-  %80 = icmp slt i32 %75, 1
-  %81 = icmp slt i32 %73, 1
-  %82 = sub i32 %70, %73
-  %83 = sub i32 %63, %74
-  %84 = mul i32 %70, %83
-  %85 = icmp slt i32 %74, 1
-  %86 = select i1 %80, i1 true, i1 %85
-  %87 = select i1 %86, i1 true, i1 %81
-  %88 = or i1 %87, %13
-  br i1 %88, label %131, label %89
+76:                                               ; preds = %15
+  %77 = select i1 %66, i32 %65, i32 0
+  %78 = icmp slt i32 %72, 1
+  %79 = icmp slt i32 %70, 1
+  %80 = sub i32 %77, %70
+  %81 = sub i32 %60, %71
+  %82 = mul i32 %77, %81
+  %83 = icmp slt i32 %71, 1
+  %84 = select i1 %78, i1 true, i1 %83
+  %85 = select i1 %84, i1 true, i1 %79
+  %86 = or i1 %85, %13
+  br i1 %86, label %129, label %87
 
-89:                                               ; preds = %79
-  %90 = sext i32 %46 to i64
-  %91 = trunc i64 %16 to i32
-  br label %92
+87:                                               ; preds = %76
+  %88 = sext i32 %43 to i64
+  %89 = trunc i64 %16 to i32
+  br label %90
 
-92:                                               ; preds = %89, %127
-  %93 = phi i32 [ %128, %127 ], [ %72, %89 ]
-  %94 = phi i32 [ %129, %127 ], [ 0, %89 ]
-  br label %95
+90:                                               ; preds = %87, %125
+  %91 = phi i32 [ %126, %125 ], [ %69, %87 ]
+  %92 = phi i32 [ %127, %125 ], [ 0, %87 ]
+  br label %93
 
-95:                                               ; preds = %122, %92
-  %96 = phi i32 [ %93, %92 ], [ %124, %122 ]
-  %97 = phi i32 [ 0, %92 ], [ %125, %122 ]
-  %98 = sext i32 %96 to i64
-  br label %99
+93:                                               ; preds = %120, %90
+  %94 = phi i32 [ %91, %90 ], [ %122, %120 ]
+  %95 = phi i32 [ 0, %90 ], [ %123, %120 ]
+  %96 = sext i32 %94 to i64
+  br label %97
 
-99:                                               ; preds = %118, %95
-  %100 = phi i64 [ %119, %118 ], [ %98, %95 ]
-  %101 = phi i32 [ %120, %118 ], [ 0, %95 ]
-  br label %102
+97:                                               ; preds = %116, %93
+  %98 = phi i64 [ %117, %116 ], [ %96, %93 ]
+  %99 = phi i32 [ %118, %116 ], [ 0, %93 ]
+  br label %100
 
-102:                                              ; preds = %102, %99
-  %103 = phi i64 [ %116, %102 ], [ 0, %99 ]
-  %104 = load i32, ptr %19, align 4, !tbaa !12
-  %105 = add nsw i32 %104, %101
-  %106 = load i32, ptr %51, align 4, !tbaa !12
-  %107 = add nsw i32 %106, %97
-  %108 = load i32, ptr %55, align 4, !tbaa !12
-  %109 = add nsw i32 %108, %94
-  %110 = mul nsw i64 %103, %90
-  %111 = add nsw i64 %110, %100
-  %112 = getelementptr inbounds double, ptr %17, i64 %111
-  %113 = load double, ptr %112, align 8, !tbaa !13
-  %114 = trunc i64 %103 to i32
-  %115 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str, i32 noundef %91, i32 noundef %105, i32 noundef %107, i32 noundef %109, i32 noundef %114, double noundef %113)
-  %116 = add nuw nsw i64 %103, 1
-  %117 = icmp eq i64 %116, %14
-  br i1 %117, label %118, label %102, !llvm.loop !15
+100:                                              ; preds = %100, %97
+  %101 = phi i64 [ %114, %100 ], [ 0, %97 ]
+  %102 = load i32, ptr %19, align 4, !tbaa !12
+  %103 = add nsw i32 %102, %99
+  %104 = load i32, ptr %48, align 4, !tbaa !12
+  %105 = add nsw i32 %104, %95
+  %106 = load i32, ptr %52, align 4, !tbaa !12
+  %107 = add nsw i32 %106, %92
+  %108 = mul nsw i64 %101, %88
+  %109 = add nsw i64 %108, %98
+  %110 = getelementptr inbounds double, ptr %17, i64 %109
+  %111 = load double, ptr %110, align 8, !tbaa !13
+  %112 = trunc i64 %101 to i32
+  %113 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str, i32 noundef %89, i32 noundef %103, i32 noundef %105, i32 noundef %107, i32 noundef %112, double noundef %111)
+  %114 = add nuw nsw i64 %101, 1
+  %115 = icmp eq i64 %114, %14
+  br i1 %115, label %116, label %100, !llvm.loop !15
 
-118:                                              ; preds = %102
-  %119 = add nsw i64 %100, 1
-  %120 = add nuw nsw i32 %101, 1
-  %121 = icmp eq i32 %120, %73
-  br i1 %121, label %122, label %99, !llvm.loop !17
+116:                                              ; preds = %100
+  %117 = add nsw i64 %98, 1
+  %118 = add nuw nsw i32 %99, 1
+  %119 = icmp eq i32 %118, %70
+  br i1 %119, label %120, label %97, !llvm.loop !17
 
-122:                                              ; preds = %118
-  %123 = trunc i64 %119 to i32
-  %124 = add nsw i32 %82, %123
-  %125 = add nuw nsw i32 %97, 1
-  %126 = icmp eq i32 %125, %74
-  br i1 %126, label %127, label %95, !llvm.loop !18
+120:                                              ; preds = %116
+  %121 = trunc i64 %117 to i32
+  %122 = add nsw i32 %80, %121
+  %123 = add nuw nsw i32 %95, 1
+  %124 = icmp eq i32 %123, %71
+  br i1 %124, label %125, label %93, !llvm.loop !18
 
-127:                                              ; preds = %122
-  %128 = add nsw i32 %124, %84
-  %129 = add nuw nsw i32 %94, 1
-  %130 = icmp eq i32 %129, %75
-  br i1 %130, label %131, label %92, !llvm.loop !19
+125:                                              ; preds = %120
+  %126 = add nsw i32 %122, %82
+  %127 = add nuw nsw i32 %92, 1
+  %128 = icmp eq i32 %127, %72
+  br i1 %128, label %129, label %90, !llvm.loop !19
 
-131:                                              ; preds = %127, %79, %15
-  %132 = mul nsw i32 %46, %3
-  %133 = sext i32 %132 to i64
-  %134 = getelementptr inbounds double, ptr %17, i64 %133
-  %135 = add nuw nsw i64 %16, 1
-  %136 = load i32, ptr %7, align 8, !tbaa !5
-  %137 = sext i32 %136 to i64
-  %138 = icmp slt i64 %135, %137
-  br i1 %138, label %15, label %139, !llvm.loop !20
+129:                                              ; preds = %125, %76, %15
+  %130 = mul nsw i32 %43, %3
+  %131 = sext i32 %130 to i64
+  %132 = getelementptr inbounds double, ptr %17, i64 %131
+  %133 = add nuw nsw i64 %16, 1
+  %134 = load i32, ptr %7, align 8, !tbaa !5
+  %135 = sext i32 %134 to i64
+  %136 = icmp slt i64 %133, %135
+  br i1 %136, label %15, label %137, !llvm.loop !20
 
-139:                                              ; preds = %131, %5
+137:                                              ; preds = %129, %5
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %6) #5
   ret i32 0
 }
@@ -196,7 +194,7 @@ define dso_local i32 @hypre_ReadBoxArrayData(ptr noundef %0, ptr nocapture nound
   %8 = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %1, i64 0, i32 1
   %9 = load i32, ptr %8, align 8, !tbaa !5
   %10 = icmp sgt i32 %9, 0
-  br i1 %10, label %11, label %131
+  br i1 %10, label %11, label %129
 
 11:                                               ; preds = %5
   %12 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 1
@@ -205,9 +203,9 @@ define dso_local i32 @hypre_ReadBoxArrayData(ptr noundef %0, ptr nocapture nound
   %15 = zext i32 %3 to i64
   br label %16
 
-16:                                               ; preds = %11, %123
-  %17 = phi i64 [ 0, %11 ], [ %127, %123 ]
-  %18 = phi ptr [ %4, %11 ], [ %126, %123 ]
+16:                                               ; preds = %11, %121
+  %17 = phi i64 [ 0, %11 ], [ %125, %121 ]
+  %18 = phi ptr [ %4, %11 ], [ %124, %121 ]
   %19 = load ptr, ptr %1, align 8, !tbaa !11
   %20 = getelementptr inbounds %struct.hypre_Box_struct, ptr %19, i64 %17
   %21 = load ptr, ptr %2, align 8, !tbaa !11
@@ -216,133 +214,131 @@ define dso_local i32 @hypre_ReadBoxArrayData(ptr noundef %0, ptr nocapture nound
   %24 = load i32, ptr %23, align 4, !tbaa !12
   %25 = load i32, ptr %22, align 4, !tbaa !12
   %26 = sub nsw i32 %24, %25
-  %27 = add nsw i32 %26, 1
-  %28 = icmp slt i32 %26, 0
-  %29 = select i1 %28, i32 0, i32 %27
-  %30 = getelementptr inbounds %struct.hypre_Box_struct, ptr %21, i64 %17, i32 1, i64 1
-  %31 = load i32, ptr %30, align 4, !tbaa !12
-  %32 = getelementptr inbounds [3 x i32], ptr %22, i64 0, i64 1
-  %33 = load i32, ptr %32, align 4, !tbaa !12
-  %34 = sub nsw i32 %31, %33
+  %27 = call i32 @llvm.smax.i32(i32 %26, i32 -1)
+  %28 = add nsw i32 %27, 1
+  %29 = getelementptr inbounds %struct.hypre_Box_struct, ptr %21, i64 %17, i32 1, i64 1
+  %30 = load i32, ptr %29, align 4, !tbaa !12
+  %31 = getelementptr inbounds [3 x i32], ptr %22, i64 0, i64 1
+  %32 = load i32, ptr %31, align 4, !tbaa !12
+  %33 = sub nsw i32 %30, %32
+  %34 = call i32 @llvm.smax.i32(i32 %33, i32 -1)
   %35 = add nsw i32 %34, 1
-  %36 = icmp slt i32 %34, 0
-  %37 = select i1 %36, i32 0, i32 %35
-  %38 = mul nsw i32 %37, %29
-  %39 = getelementptr inbounds %struct.hypre_Box_struct, ptr %21, i64 %17, i32 1, i64 2
+  %36 = mul nsw i32 %35, %28
+  %37 = getelementptr inbounds %struct.hypre_Box_struct, ptr %21, i64 %17, i32 1, i64 2
+  %38 = load i32, ptr %37, align 4, !tbaa !12
+  %39 = getelementptr inbounds [3 x i32], ptr %22, i64 0, i64 2
   %40 = load i32, ptr %39, align 4, !tbaa !12
-  %41 = getelementptr inbounds [3 x i32], ptr %22, i64 0, i64 2
-  %42 = load i32, ptr %41, align 4, !tbaa !12
-  %43 = sub nsw i32 %40, %42
-  %44 = add nsw i32 %43, 1
-  %45 = icmp slt i32 %43, 0
-  %46 = select i1 %45, i32 0, i32 %44
-  %47 = mul nsw i32 %38, %46
-  %48 = call i32 @hypre_BoxGetSize(ptr noundef %20, ptr noundef nonnull %6) #5
-  %49 = load i32, ptr %20, align 4, !tbaa !12
-  %50 = load i32, ptr %22, align 4, !tbaa !12
-  %51 = sub i32 %49, %50
-  %52 = getelementptr inbounds i32, ptr %20, i64 1
-  %53 = load i32, ptr %52, align 4, !tbaa !12
-  %54 = load i32, ptr %32, align 4, !tbaa !12
-  %55 = sub i32 %53, %54
-  %56 = getelementptr inbounds i32, ptr %20, i64 2
-  %57 = load i32, ptr %56, align 4, !tbaa !12
-  %58 = load i32, ptr %41, align 4, !tbaa !12
-  %59 = sub nsw i32 %57, %58
-  %60 = load i32, ptr %30, align 4, !tbaa !12
-  %61 = sub nsw i32 %60, %54
-  %62 = add nsw i32 %61, 1
-  %63 = icmp slt i32 %61, 0
-  %64 = select i1 %63, i32 0, i32 %62
-  %65 = mul nsw i32 %64, %59
-  %66 = add nsw i32 %55, %65
-  %67 = load i32, ptr %23, align 4, !tbaa !12
-  %68 = sub nsw i32 %67, %50
-  %69 = add nsw i32 %68, 1
-  %70 = icmp slt i32 %68, 0
-  %71 = select i1 %70, i32 0, i32 %69
-  %72 = mul nsw i32 %66, %71
-  %73 = add nsw i32 %51, %72
-  %74 = load i32, ptr %6, align 4, !tbaa !12
-  %75 = load i32, ptr %12, align 4, !tbaa !12
-  %76 = load i32, ptr %13, align 4, !tbaa !12
-  %77 = call i32 @llvm.smax.i32(i32 %75, i32 %74)
-  %78 = call i32 @llvm.smax.i32(i32 %76, i32 %77)
-  %79 = icmp sgt i32 %78, 0
-  br i1 %79, label %80, label %123
+  %41 = sub nsw i32 %38, %40
+  %42 = call i32 @llvm.smax.i32(i32 %41, i32 -1)
+  %43 = add nsw i32 %42, 1
+  %44 = mul nsw i32 %36, %43
+  %45 = call i32 @hypre_BoxGetSize(ptr noundef %20, ptr noundef nonnull %6) #5
+  %46 = load i32, ptr %20, align 4, !tbaa !12
+  %47 = load i32, ptr %22, align 4, !tbaa !12
+  %48 = sub i32 %46, %47
+  %49 = getelementptr inbounds i32, ptr %20, i64 1
+  %50 = load i32, ptr %49, align 4, !tbaa !12
+  %51 = load i32, ptr %31, align 4, !tbaa !12
+  %52 = sub i32 %50, %51
+  %53 = getelementptr inbounds i32, ptr %20, i64 2
+  %54 = load i32, ptr %53, align 4, !tbaa !12
+  %55 = load i32, ptr %39, align 4, !tbaa !12
+  %56 = sub nsw i32 %54, %55
+  %57 = load i32, ptr %29, align 4, !tbaa !12
+  %58 = sub nsw i32 %57, %51
+  %59 = add nsw i32 %58, 1
+  %60 = icmp slt i32 %58, 0
+  %61 = select i1 %60, i32 0, i32 %59
+  %62 = mul nsw i32 %61, %56
+  %63 = add nsw i32 %52, %62
+  %64 = load i32, ptr %23, align 4, !tbaa !12
+  %65 = sub i32 %64, %47
+  %66 = add nsw i32 %65, 1
+  %67 = icmp sgt i32 %65, -1
+  %68 = mul nsw i32 %63, %66
+  %69 = select i1 %67, i32 %68, i32 0
+  %70 = add nsw i32 %48, %69
+  %71 = load i32, ptr %6, align 4, !tbaa !12
+  %72 = load i32, ptr %12, align 4, !tbaa !12
+  %73 = load i32, ptr %13, align 4, !tbaa !12
+  %74 = call i32 @llvm.smax.i32(i32 %72, i32 %71)
+  %75 = call i32 @llvm.smax.i32(i32 %73, i32 %74)
+  %76 = icmp sgt i32 %75, 0
+  br i1 %76, label %77, label %121
 
-80:                                               ; preds = %16
-  %81 = icmp slt i32 %76, 1
-  %82 = icmp slt i32 %74, 1
-  %83 = sub i32 %71, %74
-  %84 = sub i32 %64, %75
-  %85 = mul i32 %71, %84
-  %86 = icmp slt i32 %75, 1
-  %87 = select i1 %81, i1 true, i1 %86
-  %88 = select i1 %87, i1 true, i1 %82
-  %89 = or i1 %88, %14
-  br i1 %89, label %123, label %90
+77:                                               ; preds = %16
+  %78 = select i1 %67, i32 %66, i32 0
+  %79 = icmp slt i32 %73, 1
+  %80 = icmp slt i32 %71, 1
+  %81 = sub i32 %78, %71
+  %82 = sub i32 %61, %72
+  %83 = mul i32 %78, %82
+  %84 = icmp slt i32 %72, 1
+  %85 = select i1 %79, i1 true, i1 %84
+  %86 = select i1 %85, i1 true, i1 %80
+  %87 = or i1 %86, %14
+  br i1 %87, label %121, label %88
 
-90:                                               ; preds = %80
-  %91 = sext i32 %47 to i64
-  br label %92
+88:                                               ; preds = %77
+  %89 = sext i32 %44 to i64
+  br label %90
 
-92:                                               ; preds = %90, %119
-  %93 = phi i32 [ %120, %119 ], [ %73, %90 ]
-  %94 = phi i32 [ %121, %119 ], [ 0, %90 ]
-  br label %95
+90:                                               ; preds = %88, %117
+  %91 = phi i32 [ %118, %117 ], [ %70, %88 ]
+  %92 = phi i32 [ %119, %117 ], [ 0, %88 ]
+  br label %93
 
-95:                                               ; preds = %114, %92
-  %96 = phi i32 [ %93, %92 ], [ %116, %114 ]
-  %97 = phi i32 [ 0, %92 ], [ %117, %114 ]
-  %98 = sext i32 %96 to i64
-  br label %99
+93:                                               ; preds = %112, %90
+  %94 = phi i32 [ %91, %90 ], [ %114, %112 ]
+  %95 = phi i32 [ 0, %90 ], [ %115, %112 ]
+  %96 = sext i32 %94 to i64
+  br label %97
 
-99:                                               ; preds = %110, %95
-  %100 = phi i64 [ %111, %110 ], [ %98, %95 ]
-  %101 = phi i32 [ %112, %110 ], [ 0, %95 ]
-  br label %102
+97:                                               ; preds = %108, %93
+  %98 = phi i64 [ %109, %108 ], [ %96, %93 ]
+  %99 = phi i32 [ %110, %108 ], [ 0, %93 ]
+  br label %100
 
-102:                                              ; preds = %102, %99
-  %103 = phi i64 [ %108, %102 ], [ 0, %99 ]
-  %104 = mul nsw i64 %103, %91
-  %105 = add nsw i64 %104, %100
-  %106 = getelementptr inbounds double, ptr %18, i64 %105
-  %107 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.1, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef %106) #5
-  %108 = add nuw nsw i64 %103, 1
-  %109 = icmp eq i64 %108, %15
-  br i1 %109, label %110, label %102, !llvm.loop !21
+100:                                              ; preds = %100, %97
+  %101 = phi i64 [ %106, %100 ], [ 0, %97 ]
+  %102 = mul nsw i64 %101, %89
+  %103 = add nsw i64 %102, %98
+  %104 = getelementptr inbounds double, ptr %18, i64 %103
+  %105 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.1, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef nonnull %7, ptr noundef %104) #5
+  %106 = add nuw nsw i64 %101, 1
+  %107 = icmp eq i64 %106, %15
+  br i1 %107, label %108, label %100, !llvm.loop !21
 
-110:                                              ; preds = %102
-  %111 = add nsw i64 %100, 1
-  %112 = add nuw nsw i32 %101, 1
-  %113 = icmp eq i32 %112, %74
-  br i1 %113, label %114, label %99, !llvm.loop !22
+108:                                              ; preds = %100
+  %109 = add nsw i64 %98, 1
+  %110 = add nuw nsw i32 %99, 1
+  %111 = icmp eq i32 %110, %71
+  br i1 %111, label %112, label %97, !llvm.loop !22
 
-114:                                              ; preds = %110
-  %115 = trunc i64 %111 to i32
-  %116 = add nsw i32 %83, %115
-  %117 = add nuw nsw i32 %97, 1
-  %118 = icmp eq i32 %117, %75
-  br i1 %118, label %119, label %95, !llvm.loop !23
+112:                                              ; preds = %108
+  %113 = trunc i64 %109 to i32
+  %114 = add nsw i32 %81, %113
+  %115 = add nuw nsw i32 %95, 1
+  %116 = icmp eq i32 %115, %72
+  br i1 %116, label %117, label %93, !llvm.loop !23
 
-119:                                              ; preds = %114
-  %120 = add nsw i32 %116, %85
-  %121 = add nuw nsw i32 %94, 1
-  %122 = icmp eq i32 %121, %76
-  br i1 %122, label %123, label %92, !llvm.loop !24
+117:                                              ; preds = %112
+  %118 = add nsw i32 %114, %83
+  %119 = add nuw nsw i32 %92, 1
+  %120 = icmp eq i32 %119, %73
+  br i1 %120, label %121, label %90, !llvm.loop !24
 
-123:                                              ; preds = %119, %80, %16
-  %124 = mul nsw i32 %47, %3
-  %125 = sext i32 %124 to i64
-  %126 = getelementptr inbounds double, ptr %18, i64 %125
-  %127 = add nuw nsw i64 %17, 1
-  %128 = load i32, ptr %8, align 8, !tbaa !5
-  %129 = sext i32 %128 to i64
-  %130 = icmp slt i64 %127, %129
-  br i1 %130, label %16, label %131, !llvm.loop !25
+121:                                              ; preds = %117, %77, %16
+  %122 = mul nsw i32 %44, %3
+  %123 = sext i32 %122 to i64
+  %124 = getelementptr inbounds double, ptr %18, i64 %123
+  %125 = add nuw nsw i64 %17, 1
+  %126 = load i32, ptr %8, align 8, !tbaa !5
+  %127 = sext i32 %126 to i64
+  %128 = icmp slt i64 %125, %127
+  br i1 %128, label %16, label %129, !llvm.loop !25
 
-131:                                              ; preds = %123, %5
+129:                                              ; preds = %121, %5
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #5
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %6) #5
   ret i32 0

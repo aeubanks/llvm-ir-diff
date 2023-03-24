@@ -664,7 +664,7 @@ define dso_local void @_Z16GetCorrectFsPathRK11CStringBaseIwE(ptr noalias nocapt
   store i32 %16, ptr %33, align 8, !tbaa !21, !alias.scope !48
   br label %34
 
-34:                                               ; preds = %10, %32
+34:                                               ; preds = %32, %10
   ret void
 }
 
@@ -694,7 +694,7 @@ define dso_local void @_Z20GetCorrectFullFsPathRK11CStringBaseIwE(ptr noalias sr
   store i32 0, ptr %9, align 4, !tbaa !19, !noalias !50
   store i32 4, ptr %11, align 4, !tbaa !27, !alias.scope !50
   %12 = icmp sgt i32 %8, 0
-  br i1 %12, label %13, label %45
+  br i1 %12, label %13, label %47
 
 13:                                               ; preds = %10
   %14 = getelementptr inbounds %class.CBaseRecordVector, ptr %3, i64 0, i32 3
@@ -706,7 +706,7 @@ define dso_local void @_Z20GetCorrectFullFsPathRK11CStringBaseIwE(ptr noalias sr
 18:                                               ; preds = %13
   %19 = load i32, ptr %7, align 4, !tbaa !5, !noalias !50
   %20 = icmp sgt i32 %19, 1
-  br i1 %20, label %30, label %45
+  br i1 %20, label %30, label %47
 
 21:                                               ; preds = %33, %30
   %22 = landingpad { ptr, i32 }
@@ -722,11 +722,11 @@ define dso_local void @_Z20GetCorrectFullFsPathRK11CStringBaseIwE(ptr noalias sr
   %26 = phi { ptr, i32 } [ %22, %21 ], [ %24, %23 ]
   %27 = load ptr, ptr %0, align 8, !tbaa !14, !alias.scope !50
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %50, label %29
+  br i1 %28, label %45, label %29
 
 29:                                               ; preds = %25
   call void @_ZdaPv(ptr noundef nonnull %27) #12
-  br label %50
+  br label %45
 
 30:                                               ; preds = %18, %38
   %31 = phi i64 [ %39, %38 ], [ 1, %18 ]
@@ -745,35 +745,35 @@ define dso_local void @_Z20GetCorrectFullFsPathRK11CStringBaseIwE(ptr noalias sr
   %40 = load i32, ptr %7, align 4, !tbaa !5, !noalias !50
   %41 = sext i32 %40 to i64
   %42 = icmp slt i64 %39, %41
-  br i1 %42, label %30, label %45, !llvm.loop !31
+  br i1 %42, label %30, label %47, !llvm.loop !31
 
 43:                                               ; preds = %6, %2
   %44 = landingpad { ptr, i32 }
           cleanup
-  br label %50
+  br label %45
 
-45:                                               ; preds = %38, %18, %10
+45:                                               ; preds = %25, %29, %43
+  %46 = phi { ptr, i32 } [ %44, %43 ], [ %26, %29 ], [ %26, %25 ]
+  call void @_ZN13CObjectVectorI11CStringBaseIwEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #13
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #13
+  resume { ptr, i32 } %46
+
+47:                                               ; preds = %38, %18, %10
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CObjectVectorI11CStringBaseIwEE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !28
   invoke void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %3)
-          to label %49 unwind label %46
+          to label %51 unwind label %48
 
-46:                                               ; preds = %45
-  %47 = landingpad { ptr, i32 }
+48:                                               ; preds = %47
+  %49 = landingpad { ptr, i32 }
           catch ptr null
-  %48 = extractvalue { ptr, i32 } %47, 0
-  call void @__clang_call_terminate(ptr %48) #14
+  %50 = extractvalue { ptr, i32 } %49, 0
+  call void @__clang_call_terminate(ptr %50) #14
   unreachable
 
-49:                                               ; preds = %45
+51:                                               ; preds = %47
   call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #13
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #13
   ret void
-
-50:                                               ; preds = %43, %29, %25
-  %51 = phi { ptr, i32 } [ %44, %43 ], [ %26, %29 ], [ %26, %25 ]
-  call void @_ZN13CObjectVectorI11CStringBaseIwEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #13
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #13
-  resume { ptr, i32 } %51
 }
 
 declare void @_Z16SplitPathToPartsRK11CStringBaseIwER13CObjectVectorIS0_E(ptr noundef nonnull align 8 dereferenceable(16), ptr noundef nonnull align 8 dereferenceable(32)) local_unnamed_addr #3

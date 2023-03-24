@@ -13,8 +13,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.6 = private unnamed_addr constant [21 x i8] c"Call tsp(t, %d, %d)\0A\00", align 1
 @str = private unnamed_addr constant [11 x i8] c"Past build\00", align 1
 @str.8 = private unnamed_addr constant [15 x i8] c"linetype solid\00", align 1
-@str.9 = private unnamed_addr constant [13 x i8] c"newcurve pts\00", align 1
-@str.10 = private unnamed_addr constant [9 x i8] c"newgraph\00", align 1
+@str.9 = private unnamed_addr constant [9 x i8] c"newgraph\00", align 1
+@str.10 = private unnamed_addr constant [13 x i8] c"newcurve pts\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_tree(ptr noundef readonly %0) local_unnamed_addr #0 {
@@ -92,13 +92,13 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #2
   br i1 %12, label %19, label %13
 
 13:                                               ; preds = %2, %9
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   %15 = load i32, ptr @flag, align 4, !tbaa !18
   %16 = icmp eq i32 %15, 0
   br i1 %16, label %19, label %17
 
 17:                                               ; preds = %13
-  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   br label %19
 
 19:                                               ; preds = %9, %17, %13

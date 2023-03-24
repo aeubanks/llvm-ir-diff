@@ -1793,7 +1793,7 @@ define dso_local void @break_a_tie(ptr noundef %0, i32 noundef %1, i32 noundef %
   %6 = alloca [28 x i32], align 16
   %7 = alloca [28 x double], align 16
   %8 = icmp slt i32 %1, 2
-  br i1 %8, label %429, label %9
+  br i1 %8, label %440, label %9
 
 9:                                                ; preds = %3
   %10 = icmp eq i32 %2, 0
@@ -1918,7 +1918,7 @@ define dso_local void @break_a_tie(ptr noundef %0, i32 noundef %1, i32 noundef %
 97:                                               ; preds = %94
   %98 = tail call i32 @head_to_head(ptr noundef %13, i32 noundef %12)
   %99 = icmp eq i32 %98, %12
-  br i1 %99, label %218, label %100
+  br i1 %99, label %229, label %100
 
 100:                                              ; preds = %97
   br i1 %10, label %101, label %108
@@ -1927,13 +1927,13 @@ define dso_local void @break_a_tie(ptr noundef %0, i32 noundef %1, i32 noundef %
   tail call void @break_a_tie(ptr noundef %13, i32 noundef %98, i32 noundef 0)
   br label %102
 
-102:                                              ; preds = %101, %126, %197, %215, %223, %242, %249, %268, %275, %294, %354, %355, %362, %363, %422, %423
-  %103 = phi i32 [ %98, %101 ], [ %98, %126 ], [ %196, %197 ], [ %196, %215 ], [ %220, %223 ], [ %220, %242 ], [ %246, %249 ], [ %246, %268 ], [ %272, %275 ], [ %272, %294 ], [ %321, %354 ], [ %321, %355 ], [ %359, %362 ], [ %359, %363 ], [ %391, %422 ], [ %391, %423 ]
+102:                                              ; preds = %101, %126, %197, %226, %234, %253, %260, %279, %286, %305, %365, %366, %373, %374, %433, %434
+  %103 = phi i32 [ %98, %101 ], [ %98, %126 ], [ %196, %197 ], [ %196, %226 ], [ %231, %234 ], [ %231, %253 ], [ %257, %260 ], [ %257, %279 ], [ %283, %286 ], [ %283, %305 ], [ %332, %365 ], [ %332, %366 ], [ %370, %373 ], [ %370, %374 ], [ %402, %433 ], [ %402, %434 ]
   %104 = sext i32 %103 to i64
   %105 = getelementptr inbounds i32, ptr %13, i64 %104
   %106 = sub nsw i32 %12, %103
   %107 = icmp slt i32 %106, 2
-  br i1 %107, label %429, label %11
+  br i1 %107, label %440, label %11
 
 108:                                              ; preds = %100
   %109 = load ptr, ptr @stdout, align 8, !tbaa !39
@@ -1984,7 +1984,7 @@ define dso_local void @break_a_tie(ptr noundef %0, i32 noundef %1, i32 noundef %
 137:                                              ; preds = %176, %134
   %138 = add nuw nsw i64 %132, 1
   %139 = icmp eq i64 %138, %130
-  br i1 %139, label %218, label %131, !llvm.loop !17
+  br i1 %139, label %229, label %131, !llvm.loop !17
 
 140:                                              ; preds = %172, %131
   %141 = phi i64 [ 0, %131 ], [ %173, %172 ]
@@ -2065,7 +2065,7 @@ define dso_local void @break_a_tie(ptr noundef %0, i32 noundef %1, i32 noundef %
   store i32 %193, ptr %13, align 4, !tbaa !5
   store i32 %190, ptr %192, align 4, !tbaa !5
   %194 = icmp eq i32 %12, 1
-  br i1 %194, label %218, label %195
+  br i1 %194, label %229, label %195
 
 195:                                              ; preds = %181, %189
   %196 = phi i32 [ %182, %181 ], [ 1, %189 ]
@@ -2077,396 +2077,411 @@ define dso_local void @break_a_tie(ptr noundef %0, i32 noundef %1, i32 noundef %
 
 198:                                              ; preds = %195
   %199 = load ptr, ptr @stdout, align 8, !tbaa !39
-  %200 = add nsw i32 %196, -1
-  %201 = zext i32 %200 to i64
-  br label %202
+  %200 = icmp eq i32 %196, %12
+  br i1 %200, label %204, label %201
 
-202:                                              ; preds = %212, %198
-  %203 = phi i64 [ 0, %198 ], [ %213, %212 ]
-  %204 = getelementptr inbounds i32, ptr %13, i64 %203
-  %205 = load i32, ptr %204, align 4, !tbaa !5
-  %206 = sext i32 %205 to i64
-  %207 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %206, i64 1
-  %208 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %199, ptr noundef nonnull @.str.14, ptr noundef nonnull %207)
-  %209 = icmp eq i64 %203, %201
-  br i1 %209, label %210, label %212
+201:                                              ; preds = %198
+  %202 = add nsw i32 %196, -1
+  %203 = zext i32 %202 to i64
+  br label %213
 
-210:                                              ; preds = %202
-  %211 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %199)
-  br label %212
+204:                                              ; preds = %198, %204
+  %205 = phi i64 [ %211, %204 ], [ 0, %198 ]
+  %206 = getelementptr inbounds i32, ptr %13, i64 %205
+  %207 = load i32, ptr %206, align 4, !tbaa !5
+  %208 = sext i32 %207 to i64
+  %209 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %208, i64 1
+  %210 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %199, ptr noundef nonnull @.str.14, ptr noundef nonnull %209)
+  %211 = add nuw nsw i64 %205, 1
+  %212 = icmp eq i64 %211, %130
+  br i1 %212, label %226, label %204, !llvm.loop !41
 
-212:                                              ; preds = %210, %202
-  %213 = add nuw nsw i64 %203, 1
-  %214 = icmp eq i64 %213, %130
-  br i1 %214, label %215, label %202, !llvm.loop !41
+213:                                              ; preds = %223, %201
+  %214 = phi i64 [ 0, %201 ], [ %224, %223 ]
+  %215 = getelementptr inbounds i32, ptr %13, i64 %214
+  %216 = load i32, ptr %215, align 4, !tbaa !5
+  %217 = sext i32 %216 to i64
+  %218 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %217, i64 1
+  %219 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %199, ptr noundef nonnull @.str.14, ptr noundef nonnull %218)
+  %220 = icmp eq i64 %214, %203
+  br i1 %220, label %221, label %223
 
-215:                                              ; preds = %212
-  %216 = tail call i32 @fputc(i32 10, ptr %199)
-  %217 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.27)
+221:                                              ; preds = %213
+  %222 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %199)
+  br label %223
+
+223:                                              ; preds = %221, %213
+  %224 = add nuw nsw i64 %214, 1
+  %225 = icmp eq i64 %224, %130
+  br i1 %225, label %226, label %213, !llvm.loop !41
+
+226:                                              ; preds = %223, %204
+  %227 = tail call i32 @fputc(i32 10, ptr %199)
+  %228 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.27)
   tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %196, i32 noundef %2)
   br label %102
 
-218:                                              ; preds = %137, %189, %97
-  br i1 %77, label %219, label %245
+229:                                              ; preds = %137, %189, %97
+  br i1 %77, label %230, label %256
 
-219:                                              ; preds = %218
-  %220 = tail call i32 @div_conf_rec(ptr noundef %13, i32 noundef %12, i32 noundef 1)
-  %221 = icmp eq i32 %220, %12
-  br i1 %221, label %245, label %222
+230:                                              ; preds = %229
+  %231 = tail call i32 @div_conf_rec(ptr noundef %13, i32 noundef %12, i32 noundef 1)
+  %232 = icmp eq i32 %231, %12
+  br i1 %232, label %256, label %233
 
-222:                                              ; preds = %219
-  br i1 %10, label %223, label %224
+233:                                              ; preds = %230
+  br i1 %10, label %234, label %235
 
-223:                                              ; preds = %222
-  tail call void @break_a_tie(ptr noundef %13, i32 noundef %220, i32 noundef 0)
+234:                                              ; preds = %233
+  tail call void @break_a_tie(ptr noundef %13, i32 noundef %231, i32 noundef 0)
   br label %102
 
-224:                                              ; preds = %222
-  %225 = load ptr, ptr @stdout, align 8, !tbaa !39
-  %226 = add nsw i32 %220, -1
-  %227 = zext i32 %226 to i64
-  %228 = zext i32 %12 to i64
-  br label %229
+235:                                              ; preds = %233
+  %236 = load ptr, ptr @stdout, align 8, !tbaa !39
+  %237 = add nsw i32 %231, -1
+  %238 = zext i32 %237 to i64
+  %239 = zext i32 %12 to i64
+  br label %240
 
-229:                                              ; preds = %239, %224
-  %230 = phi i64 [ 0, %224 ], [ %240, %239 ]
-  %231 = getelementptr inbounds i32, ptr %13, i64 %230
-  %232 = load i32, ptr %231, align 4, !tbaa !5
-  %233 = sext i32 %232 to i64
-  %234 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %233, i64 1
-  %235 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %225, ptr noundef nonnull @.str.14, ptr noundef nonnull %234)
-  %236 = icmp eq i64 %230, %227
-  br i1 %236, label %237, label %239
+240:                                              ; preds = %250, %235
+  %241 = phi i64 [ 0, %235 ], [ %251, %250 ]
+  %242 = getelementptr inbounds i32, ptr %13, i64 %241
+  %243 = load i32, ptr %242, align 4, !tbaa !5
+  %244 = sext i32 %243 to i64
+  %245 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %244, i64 1
+  %246 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %236, ptr noundef nonnull @.str.14, ptr noundef nonnull %245)
+  %247 = icmp eq i64 %241, %238
+  br i1 %247, label %248, label %250
 
-237:                                              ; preds = %229
-  %238 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %225)
-  br label %239
+248:                                              ; preds = %240
+  %249 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %236)
+  br label %250
 
-239:                                              ; preds = %237, %229
-  %240 = add nuw nsw i64 %230, 1
-  %241 = icmp eq i64 %240, %228
-  br i1 %241, label %242, label %229, !llvm.loop !41
+250:                                              ; preds = %248, %240
+  %251 = add nuw nsw i64 %241, 1
+  %252 = icmp eq i64 %251, %239
+  br i1 %252, label %253, label %240, !llvm.loop !41
 
-242:                                              ; preds = %239
-  %243 = tail call i32 @fputc(i32 10, ptr %225)
-  %244 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.26)
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %220, i32 noundef %2)
+253:                                              ; preds = %250
+  %254 = tail call i32 @fputc(i32 10, ptr %236)
+  %255 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.26)
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %231, i32 noundef %2)
   br label %102
 
-245:                                              ; preds = %219, %218
-  %246 = tail call i32 @div_conf_rec(ptr noundef %13, i32 noundef %12, i32 noundef 0)
-  %247 = icmp eq i32 %12, %246
-  br i1 %247, label %271, label %248
+256:                                              ; preds = %230, %229
+  %257 = tail call i32 @div_conf_rec(ptr noundef %13, i32 noundef %12, i32 noundef 0)
+  %258 = icmp eq i32 %12, %257
+  br i1 %258, label %282, label %259
 
-248:                                              ; preds = %245
-  br i1 %10, label %249, label %250
+259:                                              ; preds = %256
+  br i1 %10, label %260, label %261
 
-249:                                              ; preds = %248
-  tail call void @break_a_tie(ptr noundef %13, i32 noundef %246, i32 noundef 0)
+260:                                              ; preds = %259
+  tail call void @break_a_tie(ptr noundef %13, i32 noundef %257, i32 noundef 0)
   br label %102
 
-250:                                              ; preds = %248
-  %251 = load ptr, ptr @stdout, align 8, !tbaa !39
-  %252 = add nsw i32 %246, -1
-  %253 = zext i32 %252 to i64
-  %254 = zext i32 %12 to i64
-  br label %255
+261:                                              ; preds = %259
+  %262 = load ptr, ptr @stdout, align 8, !tbaa !39
+  %263 = add nsw i32 %257, -1
+  %264 = zext i32 %263 to i64
+  %265 = zext i32 %12 to i64
+  br label %266
 
-255:                                              ; preds = %265, %250
-  %256 = phi i64 [ 0, %250 ], [ %266, %265 ]
-  %257 = getelementptr inbounds i32, ptr %13, i64 %256
-  %258 = load i32, ptr %257, align 4, !tbaa !5
-  %259 = sext i32 %258 to i64
-  %260 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %259, i64 1
-  %261 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %251, ptr noundef nonnull @.str.14, ptr noundef nonnull %260)
-  %262 = icmp eq i64 %256, %253
-  br i1 %262, label %263, label %265
+266:                                              ; preds = %276, %261
+  %267 = phi i64 [ 0, %261 ], [ %277, %276 ]
+  %268 = getelementptr inbounds i32, ptr %13, i64 %267
+  %269 = load i32, ptr %268, align 4, !tbaa !5
+  %270 = sext i32 %269 to i64
+  %271 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %270, i64 1
+  %272 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %262, ptr noundef nonnull @.str.14, ptr noundef nonnull %271)
+  %273 = icmp eq i64 %267, %264
+  br i1 %273, label %274, label %276
 
-263:                                              ; preds = %255
-  %264 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %251)
-  br label %265
+274:                                              ; preds = %266
+  %275 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %262)
+  br label %276
 
-265:                                              ; preds = %263, %255
-  %266 = add nuw nsw i64 %256, 1
-  %267 = icmp eq i64 %266, %254
-  br i1 %267, label %268, label %255, !llvm.loop !41
+276:                                              ; preds = %274, %266
+  %277 = add nuw nsw i64 %267, 1
+  %278 = icmp eq i64 %277, %265
+  br i1 %278, label %279, label %266, !llvm.loop !41
 
-268:                                              ; preds = %265
-  %269 = tail call i32 @fputc(i32 10, ptr %251)
-  %270 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %246, i32 noundef %2)
+279:                                              ; preds = %276
+  %280 = tail call i32 @fputc(i32 10, ptr %262)
+  %281 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %257, i32 noundef %2)
   br label %102
 
-271:                                              ; preds = %245
-  %272 = tail call i32 @break_common(ptr noundef %13, i32 noundef %12)
-  %273 = icmp eq i32 %272, %12
-  br i1 %273, label %297, label %274
+282:                                              ; preds = %256
+  %283 = tail call i32 @break_common(ptr noundef %13, i32 noundef %12)
+  %284 = icmp eq i32 %283, %12
+  br i1 %284, label %308, label %285
 
-274:                                              ; preds = %271
-  br i1 %10, label %275, label %276
+285:                                              ; preds = %282
+  br i1 %10, label %286, label %287
 
-275:                                              ; preds = %274
-  tail call void @break_a_tie(ptr noundef %13, i32 noundef %272, i32 noundef 0)
+286:                                              ; preds = %285
+  tail call void @break_a_tie(ptr noundef %13, i32 noundef %283, i32 noundef 0)
   br label %102
 
-276:                                              ; preds = %274
-  %277 = load ptr, ptr @stdout, align 8, !tbaa !39
-  %278 = add nsw i32 %272, -1
-  %279 = zext i32 %278 to i64
-  %280 = zext i32 %12 to i64
-  br label %281
+287:                                              ; preds = %285
+  %288 = load ptr, ptr @stdout, align 8, !tbaa !39
+  %289 = add nsw i32 %283, -1
+  %290 = zext i32 %289 to i64
+  %291 = zext i32 %12 to i64
+  br label %292
 
-281:                                              ; preds = %291, %276
-  %282 = phi i64 [ 0, %276 ], [ %292, %291 ]
-  %283 = getelementptr inbounds i32, ptr %13, i64 %282
-  %284 = load i32, ptr %283, align 4, !tbaa !5
-  %285 = sext i32 %284 to i64
-  %286 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %285, i64 1
-  %287 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %277, ptr noundef nonnull @.str.14, ptr noundef nonnull %286)
-  %288 = icmp eq i64 %282, %279
-  br i1 %288, label %289, label %291
+292:                                              ; preds = %302, %287
+  %293 = phi i64 [ 0, %287 ], [ %303, %302 ]
+  %294 = getelementptr inbounds i32, ptr %13, i64 %293
+  %295 = load i32, ptr %294, align 4, !tbaa !5
+  %296 = sext i32 %295 to i64
+  %297 = getelementptr inbounds [30 x [2 x [15 x i8]]], ptr @team, i64 0, i64 %296, i64 1
+  %298 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %288, ptr noundef nonnull @.str.14, ptr noundef nonnull %297)
+  %299 = icmp eq i64 %293, %290
+  br i1 %299, label %300, label %302
 
-289:                                              ; preds = %281
-  %290 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %277)
-  br label %291
-
-291:                                              ; preds = %289, %281
-  %292 = add nuw nsw i64 %282, 1
-  %293 = icmp eq i64 %292, %280
-  br i1 %293, label %294, label %281, !llvm.loop !41
-
-294:                                              ; preds = %291
-  %295 = tail call i32 @fputc(i32 10, ptr %277)
-  %296 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %272, i32 noundef %2)
-  br label %102
-
-297:                                              ; preds = %271
-  br i1 %77, label %298, label %358
-
-298:                                              ; preds = %297
-  call void @llvm.lifetime.start.p0(i64 224, ptr nonnull %7) #14
-  %299 = icmp sgt i32 %12, 28
-  br i1 %299, label %324, label %300
-
-300:                                              ; preds = %298
-  %301 = zext i32 %12 to i64
+300:                                              ; preds = %292
+  %301 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 6, i64 1, ptr %288)
   br label %302
 
-302:                                              ; preds = %302, %300
-  %303 = phi i64 [ 0, %300 ], [ %322, %302 ]
-  %304 = phi i32 [ 0, %300 ], [ %321, %302 ]
-  %305 = phi double [ -1.000000e+04, %300 ], [ %317, %302 ]
-  %306 = getelementptr inbounds i32, ptr %13, i64 %303
-  %307 = load i32, ptr %306, align 4, !tbaa !5
-  %308 = sext i32 %307 to i64
-  %309 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %308, i32 3
-  %310 = load i32, ptr %309, align 4, !tbaa !35
-  %311 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %308, i32 4
-  %312 = load i32, ptr %311, align 4, !tbaa !36
-  %313 = sub nsw i32 %310, %312
-  %314 = sitofp i32 %313 to double
-  %315 = getelementptr inbounds [28 x double], ptr %7, i64 0, i64 %303
-  store double %314, ptr %315, align 8, !tbaa !21
-  %316 = fcmp olt double %305, %314
-  %317 = select i1 %316, double %314, double %305
-  %318 = select i1 %316, i32 0, i32 %304
-  %319 = fcmp oeq double %317, %314
-  %320 = zext i1 %319 to i32
-  %321 = add nsw i32 %318, %320
-  %322 = add nuw nsw i64 %303, 1
-  %323 = icmp eq i64 %322, %301
-  br i1 %323, label %326, label %302, !llvm.loop !37
+302:                                              ; preds = %300, %292
+  %303 = add nuw nsw i64 %293, 1
+  %304 = icmp eq i64 %303, %291
+  br i1 %304, label %305, label %292, !llvm.loop !41
 
-324:                                              ; preds = %298
-  %325 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+305:                                              ; preds = %302
+  %306 = tail call i32 @fputc(i32 10, ptr %288)
+  %307 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %283, i32 noundef %2)
+  br label %102
+
+308:                                              ; preds = %282
+  br i1 %77, label %309, label %369
+
+309:                                              ; preds = %308
+  call void @llvm.lifetime.start.p0(i64 224, ptr nonnull %7) #14
+  %310 = icmp sgt i32 %12, 28
+  br i1 %310, label %335, label %311
+
+311:                                              ; preds = %309
+  %312 = zext i32 %12 to i64
+  br label %313
+
+313:                                              ; preds = %313, %311
+  %314 = phi i64 [ 0, %311 ], [ %333, %313 ]
+  %315 = phi i32 [ 0, %311 ], [ %332, %313 ]
+  %316 = phi double [ -1.000000e+04, %311 ], [ %328, %313 ]
+  %317 = getelementptr inbounds i32, ptr %13, i64 %314
+  %318 = load i32, ptr %317, align 4, !tbaa !5
+  %319 = sext i32 %318 to i64
+  %320 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %319, i32 3
+  %321 = load i32, ptr %320, align 4, !tbaa !35
+  %322 = getelementptr inbounds [29 x %struct.info], ptr @team_info_wi_div, i64 0, i64 %319, i32 4
+  %323 = load i32, ptr %322, align 4, !tbaa !36
+  %324 = sub nsw i32 %321, %323
+  %325 = sitofp i32 %324 to double
+  %326 = getelementptr inbounds [28 x double], ptr %7, i64 0, i64 %314
+  store double %325, ptr %326, align 8, !tbaa !21
+  %327 = fcmp olt double %316, %325
+  %328 = select i1 %327, double %325, double %316
+  %329 = select i1 %327, i32 0, i32 %315
+  %330 = fcmp oeq double %328, %325
+  %331 = zext i1 %330 to i32
+  %332 = add nsw i32 %329, %331
+  %333 = add nuw nsw i64 %314, 1
+  %334 = icmp eq i64 %333, %312
+  br i1 %334, label %337, label %313, !llvm.loop !37
+
+335:                                              ; preds = %309
+  %336 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-326:                                              ; preds = %302
+337:                                              ; preds = %313
   call void @llvm.lifetime.start.p0(i64 112, ptr nonnull %6) #14
-  br label %330
+  br label %341
 
-327:                                              ; preds = %348
-  %328 = shl nuw nsw i64 %301, 2
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %13, ptr nonnull align 16 %6, i64 %328, i1 false), !tbaa !5
+338:                                              ; preds = %359
+  %339 = shl nuw nsw i64 %312, 2
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %13, ptr nonnull align 16 %6, i64 %339, i1 false), !tbaa !5
   call void @llvm.lifetime.end.p0(i64 112, ptr nonnull %6) #14
   call void @llvm.lifetime.end.p0(i64 224, ptr nonnull %7) #14
-  %329 = icmp eq i32 %321, %12
-  br i1 %329, label %366, label %353
+  %340 = icmp eq i32 %332, %12
+  br i1 %340, label %377, label %364
 
-330:                                              ; preds = %348, %326
-  %331 = phi i64 [ 0, %326 ], [ %351, %348 ]
-  %332 = phi i32 [ 0, %326 ], [ %350, %348 ]
-  %333 = phi i32 [ 0, %326 ], [ %349, %348 ]
-  %334 = getelementptr inbounds double, ptr %7, i64 %331
-  %335 = load double, ptr %334, align 8, !tbaa !21
-  %336 = fcmp oeq double %335, %317
-  %337 = getelementptr inbounds i32, ptr %13, i64 %331
-  %338 = load i32, ptr %337, align 4, !tbaa !5
-  br i1 %336, label %339, label %343
+341:                                              ; preds = %359, %337
+  %342 = phi i64 [ 0, %337 ], [ %362, %359 ]
+  %343 = phi i32 [ 0, %337 ], [ %361, %359 ]
+  %344 = phi i32 [ 0, %337 ], [ %360, %359 ]
+  %345 = getelementptr inbounds double, ptr %7, i64 %342
+  %346 = load double, ptr %345, align 8, !tbaa !21
+  %347 = fcmp oeq double %346, %328
+  %348 = getelementptr inbounds i32, ptr %13, i64 %342
+  %349 = load i32, ptr %348, align 4, !tbaa !5
+  br i1 %347, label %350, label %354
 
-339:                                              ; preds = %330
-  %340 = sext i32 %333 to i64
-  %341 = getelementptr inbounds [28 x i32], ptr %6, i64 0, i64 %340
-  store i32 %338, ptr %341, align 4, !tbaa !5
-  %342 = add nsw i32 %333, 1
-  br label %348
+350:                                              ; preds = %341
+  %351 = sext i32 %344 to i64
+  %352 = getelementptr inbounds [28 x i32], ptr %6, i64 0, i64 %351
+  store i32 %349, ptr %352, align 4, !tbaa !5
+  %353 = add nsw i32 %344, 1
+  br label %359
 
-343:                                              ; preds = %330
-  %344 = add nsw i32 %332, %321
-  %345 = sext i32 %344 to i64
-  %346 = getelementptr inbounds [28 x i32], ptr %6, i64 0, i64 %345
-  store i32 %338, ptr %346, align 4, !tbaa !5
-  %347 = add nsw i32 %332, 1
-  br label %348
+354:                                              ; preds = %341
+  %355 = add nsw i32 %343, %332
+  %356 = sext i32 %355 to i64
+  %357 = getelementptr inbounds [28 x i32], ptr %6, i64 0, i64 %356
+  store i32 %349, ptr %357, align 4, !tbaa !5
+  %358 = add nsw i32 %343, 1
+  br label %359
 
-348:                                              ; preds = %343, %339
-  %349 = phi i32 [ %342, %339 ], [ %333, %343 ]
-  %350 = phi i32 [ %332, %339 ], [ %347, %343 ]
-  %351 = add nuw nsw i64 %331, 1
-  %352 = icmp eq i64 %351, %301
-  br i1 %352, label %327, label %330, !llvm.loop !23
+359:                                              ; preds = %354, %350
+  %360 = phi i32 [ %353, %350 ], [ %344, %354 ]
+  %361 = phi i32 [ %343, %350 ], [ %358, %354 ]
+  %362 = add nuw nsw i64 %342, 1
+  %363 = icmp eq i64 %362, %312
+  br i1 %363, label %338, label %341, !llvm.loop !23
 
-353:                                              ; preds = %327
-  br i1 %10, label %354, label %355
+364:                                              ; preds = %338
+  br i1 %10, label %365, label %366
 
-354:                                              ; preds = %353
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %321, i32 noundef 0)
+365:                                              ; preds = %364
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %332, i32 noundef 0)
   br label %102
 
-355:                                              ; preds = %353
-  %356 = load ptr, ptr @stdout, align 8, !tbaa !39
-  tail call void @display_split(ptr noundef %356, ptr noundef nonnull %13, i32 noundef %321, i32 noundef %12)
-  %357 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %321, i32 noundef %2)
+366:                                              ; preds = %364
+  %367 = load ptr, ptr @stdout, align 8, !tbaa !39
+  tail call void @display_split(ptr noundef %367, ptr noundef nonnull %13, i32 noundef %332, i32 noundef %12)
+  %368 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %332, i32 noundef %2)
   br label %102
 
-358:                                              ; preds = %297
-  %359 = tail call i32 @break_net_points(ptr noundef %13, i32 noundef %12, i32 noundef 0)
-  %360 = icmp eq i32 %359, %12
-  br i1 %360, label %366, label %361
+369:                                              ; preds = %308
+  %370 = tail call i32 @break_net_points(ptr noundef %13, i32 noundef %12, i32 noundef 0)
+  %371 = icmp eq i32 %370, %12
+  br i1 %371, label %377, label %372
 
-361:                                              ; preds = %358
-  br i1 %10, label %362, label %363
+372:                                              ; preds = %369
+  br i1 %10, label %373, label %374
 
-362:                                              ; preds = %361
-  tail call void @break_a_tie(ptr noundef %13, i32 noundef %359, i32 noundef 0)
+373:                                              ; preds = %372
+  tail call void @break_a_tie(ptr noundef %13, i32 noundef %370, i32 noundef 0)
   br label %102
 
-363:                                              ; preds = %361
-  %364 = load ptr, ptr @stdout, align 8, !tbaa !39
-  tail call void @display_split(ptr noundef %364, ptr noundef %13, i32 noundef %359, i32 noundef %12)
-  %365 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
-  tail call void @break_a_tie(ptr noundef %13, i32 noundef %359, i32 noundef %2)
+374:                                              ; preds = %372
+  %375 = load ptr, ptr @stdout, align 8, !tbaa !39
+  tail call void @display_split(ptr noundef %375, ptr noundef %13, i32 noundef %370, i32 noundef %12)
+  %376 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  tail call void @break_a_tie(ptr noundef %13, i32 noundef %370, i32 noundef %2)
   br label %102
 
-366:                                              ; preds = %358, %327
+377:                                              ; preds = %369, %338
   call void @llvm.lifetime.start.p0(i64 224, ptr nonnull %5) #14
-  %367 = icmp sgt i32 %12, 28
-  br i1 %367, label %370, label %368
+  %378 = icmp sgt i32 %12, 28
+  br i1 %378, label %381, label %379
 
-368:                                              ; preds = %366
-  %369 = zext i32 %12 to i64
-  br label %372
+379:                                              ; preds = %377
+  %380 = zext i32 %12 to i64
+  br label %383
 
-370:                                              ; preds = %366
-  %371 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+381:                                              ; preds = %377
+  %382 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-372:                                              ; preds = %372, %368
-  %373 = phi i64 [ 0, %368 ], [ %392, %372 ]
-  %374 = phi i32 [ 0, %368 ], [ %391, %372 ]
-  %375 = phi double [ -1.000000e+04, %368 ], [ %387, %372 ]
-  %376 = getelementptr inbounds i32, ptr %13, i64 %373
-  %377 = load i32, ptr %376, align 4, !tbaa !5
-  %378 = sext i32 %377 to i64
-  %379 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %378, i32 3
-  %380 = load i32, ptr %379, align 4, !tbaa !35
-  %381 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %378, i32 4
-  %382 = load i32, ptr %381, align 4, !tbaa !36
-  %383 = sub nsw i32 %380, %382
-  %384 = sitofp i32 %383 to double
-  %385 = getelementptr inbounds [28 x double], ptr %5, i64 0, i64 %373
-  store double %384, ptr %385, align 8, !tbaa !21
-  %386 = fcmp olt double %375, %384
-  %387 = select i1 %386, double %384, double %375
-  %388 = select i1 %386, i32 0, i32 %374
-  %389 = fcmp oeq double %387, %384
-  %390 = zext i1 %389 to i32
-  %391 = add nsw i32 %388, %390
-  %392 = add nuw nsw i64 %373, 1
-  %393 = icmp eq i64 %392, %369
-  br i1 %393, label %394, label %372, !llvm.loop !37
+383:                                              ; preds = %383, %379
+  %384 = phi i64 [ 0, %379 ], [ %403, %383 ]
+  %385 = phi i32 [ 0, %379 ], [ %402, %383 ]
+  %386 = phi double [ -1.000000e+04, %379 ], [ %398, %383 ]
+  %387 = getelementptr inbounds i32, ptr %13, i64 %384
+  %388 = load i32, ptr %387, align 4, !tbaa !5
+  %389 = sext i32 %388 to i64
+  %390 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %389, i32 3
+  %391 = load i32, ptr %390, align 4, !tbaa !35
+  %392 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %389, i32 4
+  %393 = load i32, ptr %392, align 4, !tbaa !36
+  %394 = sub nsw i32 %391, %393
+  %395 = sitofp i32 %394 to double
+  %396 = getelementptr inbounds [28 x double], ptr %5, i64 0, i64 %384
+  store double %395, ptr %396, align 8, !tbaa !21
+  %397 = fcmp olt double %386, %395
+  %398 = select i1 %397, double %395, double %386
+  %399 = select i1 %397, i32 0, i32 %385
+  %400 = fcmp oeq double %398, %395
+  %401 = zext i1 %400 to i32
+  %402 = add nsw i32 %399, %401
+  %403 = add nuw nsw i64 %384, 1
+  %404 = icmp eq i64 %403, %380
+  br i1 %404, label %405, label %383, !llvm.loop !37
 
-394:                                              ; preds = %372
+405:                                              ; preds = %383
   call void @llvm.lifetime.start.p0(i64 112, ptr nonnull %4) #14
-  br label %398
+  br label %409
 
-395:                                              ; preds = %416
-  %396 = shl nuw nsw i64 %369, 2
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %13, ptr nonnull align 16 %4, i64 %396, i1 false), !tbaa !5
+406:                                              ; preds = %427
+  %407 = shl nuw nsw i64 %380, 2
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %13, ptr nonnull align 16 %4, i64 %407, i1 false), !tbaa !5
   call void @llvm.lifetime.end.p0(i64 112, ptr nonnull %4) #14
   call void @llvm.lifetime.end.p0(i64 224, ptr nonnull %5) #14
-  %397 = icmp eq i32 %391, %12
-  br i1 %397, label %426, label %421
+  %408 = icmp eq i32 %402, %12
+  br i1 %408, label %437, label %432
 
-398:                                              ; preds = %416, %394
-  %399 = phi i64 [ 0, %394 ], [ %419, %416 ]
-  %400 = phi i32 [ 0, %394 ], [ %418, %416 ]
-  %401 = phi i32 [ 0, %394 ], [ %417, %416 ]
-  %402 = getelementptr inbounds double, ptr %5, i64 %399
-  %403 = load double, ptr %402, align 8, !tbaa !21
-  %404 = fcmp oeq double %403, %387
-  %405 = getelementptr inbounds i32, ptr %13, i64 %399
-  %406 = load i32, ptr %405, align 4, !tbaa !5
-  br i1 %404, label %407, label %411
+409:                                              ; preds = %427, %405
+  %410 = phi i64 [ 0, %405 ], [ %430, %427 ]
+  %411 = phi i32 [ 0, %405 ], [ %429, %427 ]
+  %412 = phi i32 [ 0, %405 ], [ %428, %427 ]
+  %413 = getelementptr inbounds double, ptr %5, i64 %410
+  %414 = load double, ptr %413, align 8, !tbaa !21
+  %415 = fcmp oeq double %414, %398
+  %416 = getelementptr inbounds i32, ptr %13, i64 %410
+  %417 = load i32, ptr %416, align 4, !tbaa !5
+  br i1 %415, label %418, label %422
 
-407:                                              ; preds = %398
-  %408 = sext i32 %401 to i64
-  %409 = getelementptr inbounds [28 x i32], ptr %4, i64 0, i64 %408
-  store i32 %406, ptr %409, align 4, !tbaa !5
-  %410 = add nsw i32 %401, 1
-  br label %416
+418:                                              ; preds = %409
+  %419 = sext i32 %412 to i64
+  %420 = getelementptr inbounds [28 x i32], ptr %4, i64 0, i64 %419
+  store i32 %417, ptr %420, align 4, !tbaa !5
+  %421 = add nsw i32 %412, 1
+  br label %427
 
-411:                                              ; preds = %398
-  %412 = add nsw i32 %400, %391
-  %413 = sext i32 %412 to i64
-  %414 = getelementptr inbounds [28 x i32], ptr %4, i64 0, i64 %413
-  store i32 %406, ptr %414, align 4, !tbaa !5
-  %415 = add nsw i32 %400, 1
-  br label %416
+422:                                              ; preds = %409
+  %423 = add nsw i32 %411, %402
+  %424 = sext i32 %423 to i64
+  %425 = getelementptr inbounds [28 x i32], ptr %4, i64 0, i64 %424
+  store i32 %417, ptr %425, align 4, !tbaa !5
+  %426 = add nsw i32 %411, 1
+  br label %427
 
-416:                                              ; preds = %411, %407
-  %417 = phi i32 [ %410, %407 ], [ %401, %411 ]
-  %418 = phi i32 [ %400, %407 ], [ %415, %411 ]
-  %419 = add nuw nsw i64 %399, 1
-  %420 = icmp eq i64 %419, %369
-  br i1 %420, label %395, label %398, !llvm.loop !23
+427:                                              ; preds = %422, %418
+  %428 = phi i32 [ %421, %418 ], [ %412, %422 ]
+  %429 = phi i32 [ %411, %418 ], [ %426, %422 ]
+  %430 = add nuw nsw i64 %410, 1
+  %431 = icmp eq i64 %430, %380
+  br i1 %431, label %406, label %409, !llvm.loop !23
 
-421:                                              ; preds = %395
-  br i1 %10, label %422, label %423
+432:                                              ; preds = %406
+  br i1 %10, label %433, label %434
 
-422:                                              ; preds = %421
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %391, i32 noundef 0)
+433:                                              ; preds = %432
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %402, i32 noundef 0)
   br label %102
 
-423:                                              ; preds = %421
-  %424 = load ptr, ptr @stdout, align 8, !tbaa !39
-  tail call void @display_split(ptr noundef %424, ptr noundef nonnull %13, i32 noundef %391, i32 noundef %12)
-  %425 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %391, i32 noundef %2)
+434:                                              ; preds = %432
+  %435 = load ptr, ptr @stdout, align 8, !tbaa !39
+  tail call void @display_split(ptr noundef %435, ptr noundef nonnull %13, i32 noundef %402, i32 noundef %12)
+  %436 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  tail call void @break_a_tie(ptr noundef nonnull %13, i32 noundef %402, i32 noundef %2)
   br label %102
 
-426:                                              ; preds = %395
-  br i1 %10, label %429, label %427
+437:                                              ; preds = %406
+  br i1 %10, label %440, label %438
 
-427:                                              ; preds = %426
-  %428 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
-  br label %429
+438:                                              ; preds = %437
+  %439 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+  br label %440
 
-429:                                              ; preds = %102, %3, %426, %427
+440:                                              ; preds = %102, %3, %437, %438
   ret void
 }
 
@@ -2527,20 +2542,20 @@ define dso_local void @display_split(ptr nocapture noundef %0, ptr nocapture nou
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #6
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #13
@@ -2555,9 +2570,9 @@ attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #7 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind }
 attributes #15 = { noreturn nounwind }

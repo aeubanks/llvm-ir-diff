@@ -147,7 +147,7 @@ define dso_local i32 @dict_lookup(ptr noundef readnone %0, ptr noundef readonly 
   %8 = lshr i16 %7, 2
   %9 = and i16 %8, 63
   %10 = zext i16 %9 to i32
-  switch i32 %10, label %27 [
+  switch i32 %10, label %29 [
     i32 7, label %11
     i32 13, label %19
   ]
@@ -156,13 +156,13 @@ define dso_local i32 @dict_lookup(ptr noundef readnone %0, ptr noundef readonly 
   %12 = load ptr, ptr %2, align 8, !tbaa !5
   br label %13
 
-13:                                               ; preds = %19, %11
-  %14 = phi ptr [ %26, %19 ], [ %12, %11 ]
+13:                                               ; preds = %26, %11
+  %14 = phi ptr [ %12, %11 ], [ %27, %26 ]
   %15 = getelementptr inbounds %struct.name_s, ptr %14, i64 0, i32 1
   %16 = load i16, ptr %15, align 8, !tbaa !22
   %17 = zext i16 %16 to i32
   %18 = mul nuw nsw i32 %17, 40503
-  br label %31
+  br label %33
 
 19:                                               ; preds = %4
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #8
@@ -171,136 +171,149 @@ define dso_local i32 @dict_lookup(ptr noundef readnone %0, ptr noundef readonly 
   %22 = load i16, ptr %21, align 2, !tbaa !25
   %23 = zext i16 %22 to i32
   %24 = call i32 @name_ref(ptr noundef %20, i32 noundef %23, ptr noundef nonnull %5, i32 noundef 1) #8
-  %25 = icmp sgt i32 %24, -1
-  %26 = load ptr, ptr %5, align 8
+  %25 = icmp slt i32 %24, 0
+  br i1 %25, label %28, label %26
+
+26:                                               ; preds = %19
+  %27 = load ptr, ptr %5, align 8, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #8
-  br i1 %25, label %13, label %107
+  br label %13
 
-27:                                               ; preds = %4
-  %28 = icmp ugt i16 %9, 15
-  %29 = mul nuw nsw i32 %10, 99
-  %30 = select i1 %28, i32 891, i32 %29
-  br label %31
+28:                                               ; preds = %19
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #8
+  br label %112
 
-31:                                               ; preds = %27, %13
-  %32 = phi ptr [ undef, %27 ], [ %14, %13 ]
-  %33 = phi i32 [ -1, %27 ], [ 7, %13 ]
-  %34 = phi i32 [ %30, %27 ], [ %18, %13 ]
-  br label %35
+29:                                               ; preds = %4
+  %30 = icmp ugt i16 %9, 15
+  %31 = mul nuw nsw i32 %10, 99
+  %32 = select i1 %30, i32 891, i32 %31
+  br label %33
 
-35:                                               ; preds = %100, %31
-  %36 = phi i32 [ 1, %31 ], [ %101, %100 ]
-  %37 = phi ptr [ %1, %31 ], [ %102, %100 ]
-  %38 = load ptr, ptr %37, align 8, !tbaa !5
-  %39 = getelementptr inbounds %struct.dict_s, ptr %38, i64 0, i32 1
-  %40 = getelementptr inbounds %struct.dict_s, ptr %38, i64 0, i32 1, i32 2
-  %41 = load i16, ptr %40, align 2, !tbaa !13
-  %42 = lshr i16 %41, 1
-  %43 = load ptr, ptr %39, align 8, !tbaa !5
-  %44 = zext i16 %42 to i64
-  %45 = getelementptr inbounds %struct.pair_s, ptr %43, i64 %44
-  %46 = getelementptr inbounds %struct.pair_s, ptr %43, i64 2
-  %47 = zext i16 %42 to i32
-  %48 = add nsw i32 %47, -1
-  %49 = urem i32 %34, %48
-  %50 = zext i32 %49 to i64
-  %51 = getelementptr inbounds %struct.pair_s, ptr %46, i64 %50
-  br label %52
+33:                                               ; preds = %29, %13
+  %34 = phi ptr [ undef, %29 ], [ %14, %13 ]
+  %35 = phi i32 [ -1, %29 ], [ 7, %13 ]
+  %36 = phi i32 [ %32, %29 ], [ %18, %13 ]
+  br label %37
 
-52:                                               ; preds = %94, %35
-  %53 = phi ptr [ %51, %35 ], [ %54, %94 ]
-  %54 = getelementptr inbounds %struct.pair_s, ptr %53, i64 -1
-  %55 = getelementptr %struct.pair_s, ptr %53, i64 -1, i32 0, i32 1
-  %56 = load i16, ptr %55, align 8, !tbaa !17
-  %57 = lshr i16 %56, 2
-  %58 = and i16 %57, 63
-  %59 = zext i16 %58 to i32
-  %60 = icmp eq i32 %33, %59
-  br i1 %60, label %61, label %64
+37:                                               ; preds = %108, %33
+  %38 = phi i32 [ 1, %33 ], [ %109, %108 ]
+  %39 = phi ptr [ %1, %33 ], [ %110, %108 ]
+  %40 = load ptr, ptr %39, align 8, !tbaa !5
+  %41 = getelementptr inbounds %struct.dict_s, ptr %40, i64 0, i32 1
+  %42 = getelementptr inbounds %struct.dict_s, ptr %40, i64 0, i32 1, i32 2
+  %43 = load i16, ptr %42, align 2, !tbaa !13
+  %44 = lshr i16 %43, 1
+  %45 = load ptr, ptr %41, align 8, !tbaa !5
+  %46 = zext i16 %44 to i64
+  %47 = getelementptr inbounds %struct.pair_s, ptr %45, i64 %46
+  %48 = getelementptr inbounds %struct.pair_s, ptr %45, i64 2
+  %49 = zext i16 %44 to i32
+  %50 = add nsw i32 %49, -1
+  %51 = urem i32 %36, %50
+  %52 = zext i32 %51 to i64
+  %53 = getelementptr inbounds %struct.pair_s, ptr %48, i64 %52
+  br label %54
 
-61:                                               ; preds = %52
-  %62 = load ptr, ptr %54, align 8, !tbaa !5
-  %63 = icmp eq ptr %62, %32
-  br i1 %63, label %104, label %94
+54:                                               ; preds = %99, %37
+  %55 = phi ptr [ %53, %37 ], [ %56, %99 ]
+  %56 = getelementptr inbounds %struct.pair_s, ptr %55, i64 -1
+  %57 = getelementptr %struct.pair_s, ptr %55, i64 -1, i32 0, i32 1
+  %58 = load i16, ptr %57, align 8, !tbaa !17
+  %59 = lshr i16 %58, 2
+  %60 = and i16 %59, 63
+  %61 = zext i16 %60 to i32
+  %62 = icmp eq i32 %35, %61
+  br i1 %62, label %63, label %69
 
-64:                                               ; preds = %52
-  %65 = icmp eq i16 %58, 8
-  br i1 %65, label %66, label %91
+63:                                               ; preds = %54
+  %64 = load ptr, ptr %56, align 8, !tbaa !5
+  %65 = icmp eq ptr %64, %34
+  br i1 %65, label %66, label %99
 
-66:                                               ; preds = %64
-  %67 = icmp eq ptr %54, %43
-  br i1 %67, label %68, label %95
+66:                                               ; preds = %92, %63
+  %67 = phi ptr [ %55, %63 ], [ %74, %92 ]
+  %68 = getelementptr %struct.pair_s, ptr %67, i64 -1, i32 1
+  store ptr %68, ptr %3, align 8, !tbaa !26
+  br label %112
 
-68:                                               ; preds = %66, %90
-  %69 = phi ptr [ %70, %90 ], [ %45, %66 ]
-  %70 = getelementptr inbounds %struct.pair_s, ptr %69, i64 -1
-  %71 = getelementptr %struct.pair_s, ptr %69, i64 -1, i32 0, i32 1
-  %72 = load i16, ptr %71, align 8, !tbaa !17
-  %73 = lshr i16 %72, 2
-  %74 = and i16 %73, 63
-  %75 = zext i16 %74 to i32
-  %76 = icmp eq i32 %33, %75
-  br i1 %76, label %87, label %77
+69:                                               ; preds = %54
+  %70 = icmp eq i16 %60, 8
+  br i1 %70, label %71, label %96
 
-77:                                               ; preds = %68
-  %78 = icmp eq i16 %74, 8
-  br i1 %78, label %82, label %79
+71:                                               ; preds = %69
+  %72 = icmp eq ptr %56, %45
+  br i1 %72, label %73, label %103
 
-79:                                               ; preds = %77
-  %80 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %70, ptr noundef %2) #8
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %90, label %104
+73:                                               ; preds = %71, %95
+  %74 = phi ptr [ %75, %95 ], [ %47, %71 ]
+  %75 = getelementptr inbounds %struct.pair_s, ptr %74, i64 -1
+  %76 = getelementptr %struct.pair_s, ptr %74, i64 -1, i32 0, i32 1
+  %77 = load i16, ptr %76, align 8, !tbaa !17
+  %78 = lshr i16 %77, 2
+  %79 = and i16 %78, 63
+  %80 = zext i16 %79 to i32
+  %81 = icmp eq i32 %35, %80
+  br i1 %81, label %92, label %82
 
-82:                                               ; preds = %77
-  %83 = icmp eq ptr %70, %43
-  br i1 %83, label %84, label %95
+82:                                               ; preds = %73
+  %83 = icmp eq i16 %79, 8
+  br i1 %83, label %87, label %84
 
 84:                                               ; preds = %82
-  %85 = icmp sgt i32 %36, 0
-  %86 = select i1 %85, i32 -2, i32 %36
-  br label %100
+  %85 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %75, ptr noundef %2) #8
+  %86 = icmp eq i32 %85, 0
+  br i1 %86, label %95, label %100
 
-87:                                               ; preds = %68
-  %88 = load ptr, ptr %70, align 8, !tbaa !5
-  %89 = icmp eq ptr %88, %32
-  br i1 %89, label %104, label %90
+87:                                               ; preds = %82
+  %88 = icmp eq ptr %75, %45
+  br i1 %88, label %89, label %103
 
-90:                                               ; preds = %87, %79
-  br label %68
+89:                                               ; preds = %87
+  %90 = icmp sgt i32 %38, 0
+  %91 = select i1 %90, i32 -2, i32 %38
+  br label %108
 
-91:                                               ; preds = %64
-  %92 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %54, ptr noundef %2) #8
-  %93 = icmp eq i32 %92, 0
-  br i1 %93, label %94, label %104
+92:                                               ; preds = %73
+  %93 = load ptr, ptr %75, align 8, !tbaa !5
+  %94 = icmp eq ptr %93, %34
+  br i1 %94, label %66, label %95
 
-94:                                               ; preds = %91, %61
-  br label %52
+95:                                               ; preds = %92, %84
+  br label %73
 
-95:                                               ; preds = %82, %66
-  %96 = phi ptr [ %53, %66 ], [ %69, %82 ]
-  %97 = icmp sgt i32 %36, 0
-  br i1 %97, label %98, label %100
+96:                                               ; preds = %69
+  %97 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %56, ptr noundef %2) #8
+  %98 = icmp eq i32 %97, 0
+  br i1 %98, label %99, label %100
 
-98:                                               ; preds = %95
-  %99 = getelementptr %struct.pair_s, ptr %96, i64 -1, i32 1
-  store ptr %99, ptr %3, align 8, !tbaa !26
-  br label %100
+99:                                               ; preds = %96, %63
+  br label %54
 
-100:                                              ; preds = %95, %98, %84
-  %101 = phi i32 [ %36, %95 ], [ 0, %98 ], [ %86, %84 ]
-  %102 = getelementptr inbounds %struct.ref_s, ptr %37, i64 -1
-  %103 = icmp ult ptr %102, %0
-  br i1 %103, label %107, label %35, !llvm.loop !27
+100:                                              ; preds = %84, %96
+  %101 = phi ptr [ %55, %96 ], [ %74, %84 ]
+  %102 = getelementptr %struct.pair_s, ptr %101, i64 -1, i32 1
+  store ptr %102, ptr %3, align 8, !tbaa !26
+  br label %112
 
-104:                                              ; preds = %87, %79, %91, %61
-  %105 = phi ptr [ %53, %61 ], [ %53, %91 ], [ %69, %79 ], [ %69, %87 ]
-  %106 = getelementptr %struct.pair_s, ptr %105, i64 -1, i32 1
-  store ptr %106, ptr %3, align 8, !tbaa !26
-  br label %107
+103:                                              ; preds = %87, %71
+  %104 = phi ptr [ %55, %71 ], [ %74, %87 ]
+  %105 = icmp sgt i32 %38, 0
+  br i1 %105, label %106, label %108
 
-107:                                              ; preds = %100, %104, %19
-  %108 = phi i32 [ %24, %19 ], [ 1, %104 ], [ %101, %100 ]
-  ret i32 %108
+106:                                              ; preds = %103
+  %107 = getelementptr %struct.pair_s, ptr %104, i64 -1, i32 1
+  store ptr %107, ptr %3, align 8, !tbaa !26
+  br label %108
+
+108:                                              ; preds = %103, %106, %89
+  %109 = phi i32 [ %38, %103 ], [ 0, %106 ], [ %91, %89 ]
+  %110 = getelementptr inbounds %struct.ref_s, ptr %39, i64 -1
+  %111 = icmp ult ptr %110, %0
+  br i1 %111, label %112, label %37, !llvm.loop !27
+
+112:                                              ; preds = %108, %66, %100, %28
+  %113 = phi i32 [ %24, %28 ], [ 1, %66 ], [ 1, %100 ], [ %109, %108 ]
+  ret i32 %113
 }
 
 declare i32 @name_ref(ptr noundef, i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
@@ -317,7 +330,7 @@ define dso_local i32 @dict_put(ptr noundef %0, ptr noundef %1, ptr nocapture nou
 
 7:                                                ; preds = %3
   %8 = load ptr, ptr %4, align 8, !tbaa !26
-  br label %40
+  br label %39
 
 9:                                                ; preds = %3
   %10 = load ptr, ptr %0, align 8, !tbaa !5
@@ -328,7 +341,7 @@ define dso_local i32 @dict_put(ptr noundef %0, ptr noundef %1, ptr nocapture nou
   %15 = zext i16 %14 to i64
   %16 = add nsw i64 %15, -1
   %17 = icmp eq i64 %11, %16
-  br i1 %17, label %42, label %18
+  br i1 %17, label %41, label %18
 
 18:                                               ; preds = %9
   %19 = add nsw i64 %11, 1
@@ -340,7 +353,7 @@ define dso_local i32 @dict_put(ptr noundef %0, ptr noundef %1, ptr nocapture nou
   %23 = load i16, ptr %22, align 8, !tbaa !14
   %24 = and i16 %23, 252
   %25 = icmp eq i16 %24, 28
-  br i1 %25, label %26, label %40
+  br i1 %25, label %26, label %39
 
 26:                                               ; preds = %18
   %27 = load ptr, ptr %1, align 8, !tbaa !5
@@ -360,22 +373,22 @@ define dso_local i32 @dict_put(ptr noundef %0, ptr noundef %1, ptr nocapture nou
   br i1 %36, label %37, label %38
 
 37:                                               ; preds = %34, %31
-  br label %38
+  store ptr %20, ptr %28, align 8, !tbaa !34
+  br label %39
 
-38:                                               ; preds = %26, %34, %37
-  %39 = phi ptr [ %20, %37 ], [ inttoptr (i64 1 to ptr), %34 ], [ inttoptr (i64 1 to ptr), %26 ]
-  store ptr %39, ptr %28, align 8, !tbaa !34
-  br label %40
+38:                                               ; preds = %34, %26
+  store ptr inttoptr (i64 1 to ptr), ptr %28, align 8, !tbaa !34
+  br label %39
 
-40:                                               ; preds = %7, %38, %18
-  %41 = phi ptr [ %8, %7 ], [ %20, %38 ], [ %20, %18 ]
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %41, ptr noundef nonnull align 8 dereferenceable(16) %2, i64 16, i1 false), !tbaa.struct !28
-  br label %42
+39:                                               ; preds = %7, %18, %38, %37
+  %40 = phi ptr [ %8, %7 ], [ %20, %18 ], [ %20, %38 ], [ %20, %37 ]
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %40, ptr noundef nonnull align 8 dereferenceable(16) %2, i64 16, i1 false), !tbaa.struct !28
+  br label %41
 
-42:                                               ; preds = %9, %40
-  %43 = phi i32 [ 0, %40 ], [ -2, %9 ]
+41:                                               ; preds = %9, %39
+  %42 = phi i32 [ 0, %39 ], [ -2, %9 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #8
-  ret i32 %43
+  ret i32 %42
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
@@ -407,7 +420,7 @@ define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %
   %5 = getelementptr inbounds %struct.dict_s, ptr %4, i64 0, i32 1, i32 2
   %6 = load i16, ptr %5, align 2, !tbaa !13
   %7 = icmp ult i16 %6, 2
-  br i1 %7, label %63, label %8
+  br i1 %7, label %62, label %8
 
 8:                                                ; preds = %2
   %9 = getelementptr inbounds %struct.dict_s, ptr %4, i64 0, i32 1
@@ -416,15 +429,15 @@ define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %
   %12 = zext i16 %11 to i32
   br label %13
 
-13:                                               ; preds = %8, %60
-  %14 = phi i32 [ %16, %60 ], [ %12, %8 ]
-  %15 = phi ptr [ %61, %60 ], [ %10, %8 ]
+13:                                               ; preds = %8, %59
+  %14 = phi i32 [ %16, %59 ], [ %12, %8 ]
+  %15 = phi ptr [ %60, %59 ], [ %10, %8 ]
   %16 = add nsw i32 %14, -1
   %17 = getelementptr inbounds %struct.ref_s, ptr %15, i64 0, i32 1
   %18 = load i16, ptr %17, align 8, !tbaa !17
   %19 = and i16 %18, 252
   %20 = icmp eq i16 %19, 32
-  br i1 %20, label %60, label %21
+  br i1 %20, label %59, label %21
 
 21:                                               ; preds = %13
   %22 = getelementptr inbounds %struct.pair_s, ptr %15, i64 0, i32 1
@@ -435,7 +448,7 @@ define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %
 
 25:                                               ; preds = %21
   %26 = load ptr, ptr %3, align 8, !tbaa !26
-  br label %57
+  br label %56
 
 27:                                               ; preds = %21
   %28 = load ptr, ptr %1, align 8, !tbaa !5
@@ -446,7 +459,7 @@ define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %
   %33 = zext i16 %32 to i64
   %34 = add nsw i64 %33, -1
   %35 = icmp eq i64 %29, %34
-  br i1 %35, label %59, label %36
+  br i1 %35, label %58, label %36
 
 36:                                               ; preds = %27
   %37 = add nsw i64 %29, 1
@@ -457,7 +470,7 @@ define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %
   %40 = load i16, ptr %17, align 8, !tbaa !14
   %41 = and i16 %40, 252
   %42 = icmp eq i16 %41, 28
-  br i1 %42, label %43, label %57
+  br i1 %42, label %43, label %56
 
 43:                                               ; preds = %36
   %44 = load ptr, ptr %15, align 8, !tbaa !5
@@ -477,31 +490,31 @@ define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %
   br i1 %53, label %54, label %55
 
 54:                                               ; preds = %51, %48
-  br label %55
+  store ptr %38, ptr %45, align 8, !tbaa !34
+  br label %56
 
-55:                                               ; preds = %54, %51, %43
-  %56 = phi ptr [ %38, %54 ], [ inttoptr (i64 1 to ptr), %51 ], [ inttoptr (i64 1 to ptr), %43 ]
-  store ptr %56, ptr %45, align 8, !tbaa !34
-  br label %57
+55:                                               ; preds = %51, %43
+  store ptr inttoptr (i64 1 to ptr), ptr %45, align 8, !tbaa !34
+  br label %56
 
-57:                                               ; preds = %25, %36, %55
-  %58 = phi ptr [ %26, %25 ], [ %38, %55 ], [ %38, %36 ]
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %58, ptr noundef nonnull align 8 dereferenceable(16) %22, i64 16, i1 false), !tbaa.struct !28
+56:                                               ; preds = %25, %36, %54, %55
+  %57 = phi ptr [ %26, %25 ], [ %38, %36 ], [ %38, %55 ], [ %38, %54 ]
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %57, ptr noundef nonnull align 8 dereferenceable(16) %22, i64 16, i1 false), !tbaa.struct !28
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %60
+  br label %59
 
-59:                                               ; preds = %27
+58:                                               ; preds = %27
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %63
+  br label %62
 
-60:                                               ; preds = %57, %13
-  %61 = getelementptr inbounds %struct.pair_s, ptr %15, i64 1
-  %62 = icmp eq i32 %16, 0
-  br i1 %62, label %63, label %13, !llvm.loop !35
+59:                                               ; preds = %56, %13
+  %60 = getelementptr inbounds %struct.pair_s, ptr %15, i64 1
+  %61 = icmp eq i32 %16, 0
+  br i1 %61, label %62, label %13, !llvm.loop !35
 
-63:                                               ; preds = %60, %2, %59
-  %64 = phi i32 [ -2, %59 ], [ 0, %2 ], [ 0, %60 ]
-  ret i32 %64
+62:                                               ; preds = %59, %2, %58
+  %63 = phi i32 [ -2, %58 ], [ 0, %2 ], [ 0, %59 ]
+  ret i32 %63
 }
 
 ; Function Attrs: nounwind uwtable
@@ -514,7 +527,7 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   %7 = add i32 %6, 1
   %8 = tail call ptr @alloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
   %9 = icmp eq ptr %8, null
-  br i1 %9, label %132, label %10
+  br i1 %9, label %131, label %10
 
 10:                                               ; preds = %2
   %11 = tail call ptr @alloc(i32 noundef %7, i32 noundef 32, ptr noundef nonnull @.str.1) #8
@@ -523,7 +536,7 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
 
 13:                                               ; preds = %10
   tail call void @alloc_free(ptr noundef nonnull %8, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
-  br label %132
+  br label %131
 
 14:                                               ; preds = %10
   store i64 0, ptr %8, align 8, !tbaa !5
@@ -613,7 +626,7 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   %64 = getelementptr inbounds %struct.dict_s, ptr %63, i64 0, i32 1, i32 2
   %65 = load i16, ptr %64, align 2, !tbaa !13
   %66 = icmp ult i16 %65, 2
-  br i1 %66, label %122, label %67
+  br i1 %66, label %121, label %67
 
 67:                                               ; preds = %62
   %68 = getelementptr inbounds %struct.dict_s, ptr %63, i64 0, i32 1
@@ -622,15 +635,15 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   %71 = zext i16 %70 to i32
   br label %72
 
-72:                                               ; preds = %119, %67
-  %73 = phi i32 [ %75, %119 ], [ %71, %67 ]
-  %74 = phi ptr [ %120, %119 ], [ %69, %67 ]
+72:                                               ; preds = %118, %67
+  %73 = phi i32 [ %75, %118 ], [ %71, %67 ]
+  %74 = phi ptr [ %119, %118 ], [ %69, %67 ]
   %75 = add nsw i32 %73, -1
   %76 = getelementptr inbounds %struct.ref_s, ptr %74, i64 0, i32 1
   %77 = load i16, ptr %76, align 8, !tbaa !17
   %78 = and i16 %77, 252
   %79 = icmp eq i16 %78, 32
-  br i1 %79, label %119, label %80
+  br i1 %79, label %118, label %80
 
 80:                                               ; preds = %72
   %81 = getelementptr inbounds %struct.pair_s, ptr %74, i64 0, i32 1
@@ -641,7 +654,7 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
 
 84:                                               ; preds = %80
   %85 = load ptr, ptr %3, align 8, !tbaa !26
-  br label %116
+  br label %115
 
 86:                                               ; preds = %80
   %87 = load ptr, ptr %4, align 8, !tbaa !5
@@ -652,7 +665,7 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   %92 = zext i16 %91 to i64
   %93 = add nsw i64 %92, -1
   %94 = icmp eq i64 %88, %93
-  br i1 %94, label %118, label %95
+  br i1 %94, label %117, label %95
 
 95:                                               ; preds = %86
   %96 = add nsw i64 %88, 1
@@ -663,7 +676,7 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   %99 = load i16, ptr %76, align 8, !tbaa !14
   %100 = and i16 %99, 252
   %101 = icmp eq i16 %100, 28
-  br i1 %101, label %102, label %116
+  br i1 %101, label %102, label %115
 
 102:                                              ; preds = %95
   %103 = load ptr, ptr %74, align 8, !tbaa !5
@@ -683,47 +696,47 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   br i1 %112, label %113, label %114
 
 113:                                              ; preds = %110, %107
-  br label %114
+  store ptr %97, ptr %104, align 8, !tbaa !34
+  br label %115
 
-114:                                              ; preds = %113, %110, %102
-  %115 = phi ptr [ %97, %113 ], [ inttoptr (i64 1 to ptr), %110 ], [ inttoptr (i64 1 to ptr), %102 ]
-  store ptr %115, ptr %104, align 8, !tbaa !34
-  br label %116
+114:                                              ; preds = %110, %102
+  store ptr inttoptr (i64 1 to ptr), ptr %104, align 8, !tbaa !34
+  br label %115
 
-116:                                              ; preds = %114, %95, %84
-  %117 = phi ptr [ %85, %84 ], [ %97, %114 ], [ %97, %95 ]
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %117, ptr noundef nonnull align 8 dereferenceable(16) %81, i64 16, i1 false), !tbaa.struct !28
+115:                                              ; preds = %114, %113, %95, %84
+  %116 = phi ptr [ %85, %84 ], [ %97, %95 ], [ %97, %114 ], [ %97, %113 ]
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %116, ptr noundef nonnull align 8 dereferenceable(16) %81, i64 16, i1 false), !tbaa.struct !28
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %119
+  br label %118
 
-118:                                              ; preds = %86
+117:                                              ; preds = %86
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %122
+  br label %121
 
-119:                                              ; preds = %116, %72
-  %120 = getelementptr inbounds %struct.pair_s, ptr %74, i64 1
-  %121 = icmp eq i32 %75, 0
-  br i1 %121, label %122, label %72, !llvm.loop !35
+118:                                              ; preds = %115, %72
+  %119 = getelementptr inbounds %struct.pair_s, ptr %74, i64 1
+  %120 = icmp eq i32 %75, 0
+  br i1 %120, label %121, label %72, !llvm.loop !35
 
-122:                                              ; preds = %119, %62, %118
-  %123 = getelementptr inbounds %struct.dict_s, ptr %5, i64 0, i32 1
-  %124 = load ptr, ptr %123, align 8, !tbaa !5
-  %125 = load ptr, ptr %0, align 8, !tbaa !5
-  %126 = getelementptr inbounds %struct.dict_s, ptr %125, i64 0, i32 1, i32 2
-  %127 = load i16, ptr %126, align 2, !tbaa !13
-  %128 = lshr i16 %127, 1
-  %129 = zext i16 %128 to i32
-  %130 = add nsw i32 %129, -1
-  call void @alloc_free(ptr noundef %124, i32 noundef %130, i32 noundef 32, ptr noundef nonnull @.str.2) #8
-  %131 = load ptr, ptr %4, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %131, i64 32, i1 false), !tbaa.struct !37
-  call void @alloc_free(ptr noundef %131, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
-  br label %132
+121:                                              ; preds = %118, %62, %117
+  %122 = getelementptr inbounds %struct.dict_s, ptr %5, i64 0, i32 1
+  %123 = load ptr, ptr %122, align 8, !tbaa !5
+  %124 = load ptr, ptr %0, align 8, !tbaa !5
+  %125 = getelementptr inbounds %struct.dict_s, ptr %124, i64 0, i32 1, i32 2
+  %126 = load i16, ptr %125, align 2, !tbaa !13
+  %127 = lshr i16 %126, 1
+  %128 = zext i16 %127 to i32
+  %129 = add nsw i32 %128, -1
+  call void @alloc_free(ptr noundef %123, i32 noundef %129, i32 noundef 32, ptr noundef nonnull @.str.2) #8
+  %130 = load ptr, ptr %4, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %130, i64 32, i1 false), !tbaa.struct !37
+  call void @alloc_free(ptr noundef %130, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
+  br label %131
 
-132:                                              ; preds = %2, %13, %122
-  %133 = phi i32 [ 0, %122 ], [ -25, %13 ], [ -25, %2 ]
+131:                                              ; preds = %2, %13, %121
+  %132 = phi i32 [ 0, %121 ], [ -25, %13 ], [ -25, %2 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #8
-  ret i32 %133
+  ret i32 %132
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable

@@ -1363,8 +1363,8 @@ define internal fastcc i32 @cli_scanraw(i32 noundef %0, ptr noundef %1, i32 noun
   %165 = icmp eq i32 %164, 1
   br i1 %165, label %170, label %34
 
-166:                                              ; preds = %34, %27, %21, %158, %25
-  %167 = phi i32 [ 0, %25 ], [ %161, %158 ], [ %23, %21 ], [ 0, %27 ], [ %35, %34 ]
+166:                                              ; preds = %34, %21, %27, %25, %158
+  %167 = phi i32 [ 0, %25 ], [ %161, %158 ], [ 0, %27 ], [ %23, %21 ], [ %35, %34 ]
   %168 = icmp eq i32 %17, 529
   %169 = icmp eq i32 %167, 1
   br i1 %168, label %188, label %192
@@ -1667,25 +1667,25 @@ define internal fastcc i32 @cli_scanzip(i32 noundef %0, ptr noundef %1, i64 noun
 95:                                               ; preds = %90
   %96 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 3
   %97 = load i32, ptr %96, align 4, !tbaa !64
-  %98 = icmp eq i32 %97, 0
-  %99 = icmp eq i32 %97, %86
-  %100 = select i1 %98, i1 true, i1 %99
-  br i1 %100, label %101, label %139
+  %98 = icmp ne i32 %97, 0
+  %99 = icmp ne i32 %97, %86
+  %100 = select i1 %98, i1 %99, i1 false
+  br i1 %100, label %139, label %101
 
 101:                                              ; preds = %95
   %102 = load i32, ptr %91, align 8, !tbaa !65
-  %103 = icmp slt i32 %102, 1
-  %104 = icmp eq i32 %102, %87
-  %105 = select i1 %103, i1 true, i1 %104
-  br i1 %105, label %106, label %139
+  %103 = icmp sgt i32 %102, 0
+  %104 = icmp ne i32 %102, %87
+  %105 = select i1 %103, i1 %104, i1 false
+  br i1 %105, label %139, label %106
 
 106:                                              ; preds = %101
   %107 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 1
   %108 = load i32, ptr %107, align 4, !tbaa !66
-  %109 = icmp slt i32 %108, 0
-  %110 = icmp eq i32 %108, %71
-  %111 = select i1 %109, i1 true, i1 %110
-  br i1 %111, label %112, label %139
+  %109 = icmp sgt i32 %108, -1
+  %110 = icmp ne i32 %108, %71
+  %111 = select i1 %109, i1 %110, i1 false
+  br i1 %111, label %139, label %112
 
 112:                                              ; preds = %106
   %113 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 2
@@ -1699,10 +1699,10 @@ define internal fastcc i32 @cli_scanzip(i32 noundef %0, ptr noundef %1, i64 noun
 119:                                              ; preds = %112
   %120 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 4
   %121 = load i32, ptr %120, align 8, !tbaa !68
-  %122 = icmp eq i32 %121, 0
-  %123 = icmp eq i32 %121, %35
-  %124 = select i1 %122, i1 true, i1 %123
-  br i1 %124, label %125, label %139
+  %122 = icmp ne i32 %121, 0
+  %123 = icmp ne i32 %121, %35
+  %124 = select i1 %122, i1 %123, i1 false
+  br i1 %124, label %139, label %125
 
 125:                                              ; preds = %119
   %126 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 6
@@ -1726,13 +1726,13 @@ define internal fastcc i32 @cli_scanzip(i32 noundef %0, ptr noundef %1, i64 noun
   %138 = icmp eq i32 %137, 0
   br i1 %138, label %143, label %139
 
-139:                                              ; preds = %119, %112, %106, %101, %95, %136, %129, %90
+139:                                              ; preds = %112, %119, %106, %101, %95, %136, %129, %90
   %140 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 9
   %141 = load ptr, ptr %140, align 8, !tbaa !71
   %142 = icmp eq ptr %141, null
   br i1 %142, label %147, label %90, !llvm.loop !72
 
-143:                                              ; preds = %132, %136
+143:                                              ; preds = %136, %132
   %144 = getelementptr inbounds %struct.cli_meta_node, ptr %91, i64 0, i32 8
   %145 = load ptr, ptr %144, align 8, !tbaa !73
   %146 = load ptr, ptr %1, align 8, !tbaa !23

@@ -600,9 +600,9 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
           cleanup
   br label %258
 
-233:                                              ; preds = %229, %184, %131, %188
-  %234 = phi i1 [ false, %229 ], [ false, %184 ], [ false, %131 ], [ true, %188 ]
-  %235 = phi i32 [ -1, %229 ], [ -1, %184 ], [ -1, %131 ], [ 0, %188 ]
+233:                                              ; preds = %184, %188, %229, %131
+  %234 = phi i1 [ false, %184 ], [ true, %188 ], [ false, %229 ], [ false, %131 ]
+  %235 = phi i32 [ -1, %184 ], [ 0, %188 ], [ -1, %229 ], [ -1, %131 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #18
   %236 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %236, ptr %8, align 8, !tbaa !31

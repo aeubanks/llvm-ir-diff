@@ -89,23 +89,23 @@ define dso_local zeroext i1 @HistogramElement_updateList(ptr nocapture noundef %
   %32 = phi ptr [ %0, %2 ], [ %27, %26 ]
   %33 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #13
   %34 = icmp eq ptr %33, null
-  br i1 %34, label %35, label %36
+  br i1 %34, label %38, label %35
 
 35:                                               ; preds = %31
-  store ptr null, ptr %32, align 8, !tbaa !13
-  br label %39
-
-36:                                               ; preds = %31
   store i32 %1, ptr %33, align 8, !tbaa !5
-  %37 = getelementptr inbounds %struct.HistogramElementStruct, ptr %33, i64 0, i32 1
-  store i32 1, ptr %37, align 4, !tbaa !11
-  %38 = getelementptr inbounds %struct.HistogramElementStruct, ptr %33, i64 0, i32 2
-  store ptr null, ptr %38, align 8, !tbaa !12
+  %36 = getelementptr inbounds %struct.HistogramElementStruct, ptr %33, i64 0, i32 1
+  store i32 1, ptr %36, align 4, !tbaa !11
+  %37 = getelementptr inbounds %struct.HistogramElementStruct, ptr %33, i64 0, i32 2
+  store ptr null, ptr %37, align 8, !tbaa !12
   store ptr %33, ptr %32, align 8, !tbaa !13
   br label %39
 
-39:                                               ; preds = %20, %23, %14, %36, %35
-  %40 = phi i1 [ false, %35 ], [ true, %36 ], [ true, %14 ], [ true, %23 ], [ false, %20 ]
+38:                                               ; preds = %31
+  store ptr null, ptr %32, align 8, !tbaa !13
+  br label %39
+
+39:                                               ; preds = %23, %14, %35, %20, %38
+  %40 = phi i1 [ false, %38 ], [ false, %20 ], [ true, %35 ], [ true, %14 ], [ true, %23 ]
   ret i1 %40
 }
 
@@ -903,11 +903,11 @@ define dso_local void @testStats() local_unnamed_addr #3 {
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #10
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -920,8 +920,8 @@ attributes #7 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroe
 attributes #8 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nounwind allocsize(0) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind allocsize(0,1) }

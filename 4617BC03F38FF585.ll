@@ -74,7 +74,7 @@ define dso_local i32 @verify(ptr noundef %0, ptr noundef %1, ptr noundef %2) loc
   tail call void @free(ptr noundef nonnull %34) #8
   br label %37
 
-37:                                               ; preds = %32, %36
+37:                                               ; preds = %36, %32
   tail call void @free(ptr noundef nonnull %4) #8
   %38 = tail call ptr (ptr, ptr, ...) @cube2list(ptr noundef nonnull %0, ptr noundef %2) #8
   %39 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 5
@@ -124,7 +124,7 @@ define dso_local i32 @verify(ptr noundef %0, ptr noundef %1, ptr noundef %2) loc
   tail call void @free(ptr noundef nonnull %68) #8
   br label %71
 
-71:                                               ; preds = %66, %70
+71:                                               ; preds = %70, %66
   tail call void @free(ptr noundef nonnull %38) #8
   ret i32 %67
 }
@@ -570,11 +570,11 @@ declare ptr @complement(...) local_unnamed_addr #1
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #6
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

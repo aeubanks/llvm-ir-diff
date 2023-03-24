@@ -41,26 +41,24 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(readwrite, argmem: none) uwtable
 define dso_local void @AllocVCG() local_unnamed_addr #0 {
   %1 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %2 = shl i64 %1, 6
-  %3 = add i64 %2, 64
+  %2 = add i64 %1, 1
+  %3 = shl i64 %2, 6
   %4 = tail call noalias ptr @malloc(i64 noundef %3) #13
   store ptr %4, ptr @VCG, align 8, !tbaa !9
-  %5 = add i64 %1, 1
-  %6 = mul i64 %5, %5
-  %7 = shl i64 %6, 5
-  %8 = tail call noalias ptr @malloc(i64 noundef %7) #13
-  store ptr %8, ptr @storageRootVCG, align 8, !tbaa !9
-  store ptr %8, ptr @storageVCG, align 8, !tbaa !9
-  store i64 %6, ptr @storageLimitVCG, align 8, !tbaa !5
-  %9 = shl i64 %1, 3
-  %10 = add i64 %9, 8
-  %11 = tail call noalias ptr @malloc(i64 noundef %10) #13
-  store ptr %11, ptr @SCC, align 8, !tbaa !9
-  %12 = tail call noalias ptr @malloc(i64 noundef %10) #13
-  store ptr %12, ptr @perSCC, align 8, !tbaa !9
-  %13 = shl i64 %6, 3
-  %14 = tail call noalias ptr @malloc(i64 noundef %13) #13
-  store ptr %14, ptr @removeVCG, align 8, !tbaa !9
+  %5 = mul i64 %2, %2
+  %6 = shl i64 %5, 5
+  %7 = tail call noalias ptr @malloc(i64 noundef %6) #13
+  store ptr %7, ptr @storageRootVCG, align 8, !tbaa !9
+  store ptr %7, ptr @storageVCG, align 8, !tbaa !9
+  store i64 %5, ptr @storageLimitVCG, align 8, !tbaa !5
+  %8 = shl i64 %2, 3
+  %9 = tail call noalias ptr @malloc(i64 noundef %8) #13
+  store ptr %9, ptr @SCC, align 8, !tbaa !9
+  %10 = tail call noalias ptr @malloc(i64 noundef %8) #13
+  store ptr %10, ptr @perSCC, align 8, !tbaa !9
+  %11 = shl i64 %5, 3
+  %12 = tail call noalias ptr @malloc(i64 noundef %11) #13
+  store ptr %12, ptr @removeVCG, align 8, !tbaa !9
   ret void
 }
 
@@ -89,202 +87,200 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #3
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @BuildVCG() local_unnamed_addr #4 {
   %1 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %2 = shl i64 %1, 6
-  %3 = add i64 %2, 64
+  %2 = add i64 %1, 1
+  %3 = shl i64 %2, 6
   %4 = tail call noalias ptr @malloc(i64 noundef %3) #13
   store ptr %4, ptr @VCG, align 8, !tbaa !9
-  %5 = add i64 %1, 1
-  %6 = mul i64 %5, %5
-  %7 = shl i64 %6, 5
-  %8 = tail call noalias ptr @malloc(i64 noundef %7) #13
-  store ptr %8, ptr @storageRootVCG, align 8, !tbaa !9
-  store ptr %8, ptr @storageVCG, align 8, !tbaa !9
-  store i64 %6, ptr @storageLimitVCG, align 8, !tbaa !5
-  %9 = shl i64 %1, 3
-  %10 = add i64 %9, 8
-  %11 = tail call noalias ptr @malloc(i64 noundef %10) #13
-  store ptr %11, ptr @SCC, align 8, !tbaa !9
-  %12 = tail call noalias ptr @malloc(i64 noundef %10) #13
-  store ptr %12, ptr @perSCC, align 8, !tbaa !9
-  %13 = shl i64 %6, 3
-  %14 = tail call noalias ptr @malloc(i64 noundef %13) #13
-  store ptr %14, ptr @removeVCG, align 8, !tbaa !9
-  %15 = icmp eq i64 %1, 0
-  br i1 %15, label %134, label %16
+  %5 = mul i64 %2, %2
+  %6 = shl i64 %5, 5
+  %7 = tail call noalias ptr @malloc(i64 noundef %6) #13
+  store ptr %7, ptr @storageRootVCG, align 8, !tbaa !9
+  store ptr %7, ptr @storageVCG, align 8, !tbaa !9
+  store i64 %5, ptr @storageLimitVCG, align 8, !tbaa !5
+  %8 = shl i64 %2, 3
+  %9 = tail call noalias ptr @malloc(i64 noundef %8) #13
+  store ptr %9, ptr @SCC, align 8, !tbaa !9
+  %10 = tail call noalias ptr @malloc(i64 noundef %8) #13
+  store ptr %10, ptr @perSCC, align 8, !tbaa !9
+  %11 = shl i64 %5, 3
+  %12 = tail call noalias ptr @malloc(i64 noundef %11) #13
+  store ptr %12, ptr @removeVCG, align 8, !tbaa !9
+  %13 = icmp eq i64 %1, 0
+  br i1 %13, label %132, label %14
 
-16:                                               ; preds = %0, %127
-  %17 = phi ptr [ %129, %127 ], [ %4, %0 ]
-  %18 = phi i64 [ %131, %127 ], [ 1, %0 ]
-  %19 = load ptr, ptr @storageVCG, align 8, !tbaa !9
-  %20 = getelementptr inbounds %struct._nodeVCGType, ptr %17, i64 %18
-  store ptr %19, ptr %20, align 8, !tbaa !11
-  %21 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  %22 = icmp eq i64 %21, 0
-  %23 = load ptr, ptr @storageVCG, align 8, !tbaa !9
-  br i1 %22, label %71, label %24
+14:                                               ; preds = %0, %125
+  %15 = phi ptr [ %127, %125 ], [ %4, %0 ]
+  %16 = phi i64 [ %129, %125 ], [ 1, %0 ]
+  %17 = load ptr, ptr @storageVCG, align 8, !tbaa !9
+  %18 = getelementptr inbounds %struct._nodeVCGType, ptr %15, i64 %16
+  store ptr %17, ptr %18, align 8, !tbaa !11
+  %19 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  %20 = icmp eq i64 %19, 0
+  %21 = load ptr, ptr @storageVCG, align 8, !tbaa !9
+  br i1 %20, label %69, label %22
 
-24:                                               ; preds = %16
-  %25 = load ptr, ptr @TOP, align 8, !tbaa !9
-  %26 = load ptr, ptr @BOT, align 8
-  %27 = load ptr, ptr @VCG, align 8
-  %28 = getelementptr inbounds %struct._nodeVCGType, ptr %27, i64 %18
-  br label %29
+22:                                               ; preds = %14
+  %23 = load ptr, ptr @TOP, align 8, !tbaa !9
+  %24 = load ptr, ptr @BOT, align 8
+  %25 = load ptr, ptr @VCG, align 8
+  %26 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %16
+  br label %27
 
-29:                                               ; preds = %24, %65
-  %30 = phi i64 [ %21, %24 ], [ %66, %65 ]
-  %31 = phi i64 [ 0, %24 ], [ %68, %65 ]
-  %32 = phi i64 [ 1, %24 ], [ %69, %65 ]
-  %33 = phi ptr [ %23, %24 ], [ %67, %65 ]
-  %34 = getelementptr inbounds i64, ptr %25, i64 %32
-  %35 = load i64, ptr %34, align 8, !tbaa !5
-  %36 = icmp eq i64 %35, %18
-  br i1 %36, label %37, label %65
+27:                                               ; preds = %22, %63
+  %28 = phi i64 [ %19, %22 ], [ %64, %63 ]
+  %29 = phi i64 [ 0, %22 ], [ %66, %63 ]
+  %30 = phi i64 [ 1, %22 ], [ %67, %63 ]
+  %31 = phi ptr [ %21, %22 ], [ %65, %63 ]
+  %32 = getelementptr inbounds i64, ptr %23, i64 %30
+  %33 = load i64, ptr %32, align 8, !tbaa !5
+  %34 = icmp eq i64 %33, %16
+  br i1 %34, label %35, label %63
 
-37:                                               ; preds = %29
-  %38 = getelementptr inbounds i64, ptr %26, i64 %32
-  %39 = load i64, ptr %38, align 8, !tbaa !5
-  %40 = icmp eq i64 %39, %18
-  %41 = icmp eq i64 %39, 0
-  %42 = or i1 %40, %41
-  br i1 %42, label %65, label %43
+35:                                               ; preds = %27
+  %36 = getelementptr inbounds i64, ptr %24, i64 %30
+  %37 = load i64, ptr %36, align 8, !tbaa !5
+  %38 = icmp ne i64 %37, %16
+  %39 = icmp ne i64 %37, 0
+  %40 = and i1 %38, %39
+  br i1 %40, label %41, label %63
 
-43:                                               ; preds = %37
-  %44 = icmp eq i64 %31, 0
-  %45 = load ptr, ptr %28, align 8, !tbaa !11
-  br i1 %44, label %54, label %49
+41:                                               ; preds = %35
+  %42 = icmp eq i64 %29, 0
+  %43 = load ptr, ptr %26, align 8, !tbaa !11
+  br i1 %42, label %52, label %47
 
-46:                                               ; preds = %49
-  %47 = add nuw i64 %50, 1
-  %48 = icmp eq i64 %47, %31
-  br i1 %48, label %54, label %49, !llvm.loop !13
+44:                                               ; preds = %47
+  %45 = add nuw i64 %48, 1
+  %46 = icmp eq i64 %45, %29
+  br i1 %46, label %52, label %47, !llvm.loop !13
 
-49:                                               ; preds = %43, %46
-  %50 = phi i64 [ %47, %46 ], [ 0, %43 ]
-  %51 = getelementptr inbounds %struct._constraintVCGType, ptr %45, i64 %50, i32 1
-  %52 = load i64, ptr %51, align 8, !tbaa !15
-  %53 = icmp eq i64 %52, %39
-  br i1 %53, label %65, label %46
+47:                                               ; preds = %41, %44
+  %48 = phi i64 [ %45, %44 ], [ 0, %41 ]
+  %49 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %48, i32 1
+  %50 = load i64, ptr %49, align 8, !tbaa !15
+  %51 = icmp eq i64 %50, %37
+  br i1 %51, label %63, label %44
 
-54:                                               ; preds = %46, %43
-  %55 = getelementptr inbounds %struct._constraintVCGType, ptr %45, i64 %31
-  store i64 %18, ptr %55, align 8, !tbaa !17
-  %56 = load i64, ptr %38, align 8, !tbaa !5
-  %57 = getelementptr inbounds %struct._constraintVCGType, ptr %45, i64 %31, i32 1
-  store i64 %56, ptr %57, align 8, !tbaa !15
-  %58 = getelementptr inbounds %struct._constraintVCGType, ptr %45, i64 %31, i32 2
-  store i64 %32, ptr %58, align 8, !tbaa !18
-  %59 = getelementptr inbounds %struct._constraintVCGType, ptr %45, i64 %31, i32 3
-  store i64 0, ptr %59, align 8, !tbaa !19
-  %60 = getelementptr inbounds %struct._constraintVCGType, ptr %33, i64 1
-  store ptr %60, ptr @storageVCG, align 8, !tbaa !9
-  %61 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
-  %62 = add i64 %61, -1
-  store i64 %62, ptr @storageLimitVCG, align 8, !tbaa !5
-  %63 = add i64 %31, 1
-  %64 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  br label %65
+52:                                               ; preds = %44, %41
+  %53 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29
+  store i64 %16, ptr %53, align 8, !tbaa !17
+  %54 = load i64, ptr %36, align 8, !tbaa !5
+  %55 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29, i32 1
+  store i64 %54, ptr %55, align 8, !tbaa !15
+  %56 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29, i32 2
+  store i64 %30, ptr %56, align 8, !tbaa !18
+  %57 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29, i32 3
+  store i64 0, ptr %57, align 8, !tbaa !19
+  %58 = getelementptr inbounds %struct._constraintVCGType, ptr %31, i64 1
+  store ptr %58, ptr @storageVCG, align 8, !tbaa !9
+  %59 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
+  %60 = add i64 %59, -1
+  store i64 %60, ptr @storageLimitVCG, align 8, !tbaa !5
+  %61 = add i64 %29, 1
+  %62 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  br label %63
 
-65:                                               ; preds = %49, %29, %37, %54
-  %66 = phi i64 [ %64, %54 ], [ %30, %37 ], [ %30, %29 ], [ %30, %49 ]
-  %67 = phi ptr [ %60, %54 ], [ %33, %37 ], [ %33, %29 ], [ %33, %49 ]
-  %68 = phi i64 [ %63, %54 ], [ %31, %37 ], [ %31, %29 ], [ %31, %49 ]
-  %69 = add i64 %32, 1
-  %70 = icmp ugt i64 %69, %66
-  br i1 %70, label %71, label %29, !llvm.loop !20
+63:                                               ; preds = %47, %27, %35, %52
+  %64 = phi i64 [ %62, %52 ], [ %28, %35 ], [ %28, %27 ], [ %28, %47 ]
+  %65 = phi ptr [ %58, %52 ], [ %31, %35 ], [ %31, %27 ], [ %31, %47 ]
+  %66 = phi i64 [ %61, %52 ], [ %29, %35 ], [ %29, %27 ], [ %29, %47 ]
+  %67 = add i64 %30, 1
+  %68 = icmp ugt i64 %67, %64
+  br i1 %68, label %69, label %27, !llvm.loop !20
 
-71:                                               ; preds = %65, %16
-  %72 = phi ptr [ %23, %16 ], [ %67, %65 ]
-  %73 = phi i64 [ 0, %16 ], [ %68, %65 ]
-  %74 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %75 = getelementptr inbounds %struct._nodeVCGType, ptr %74, i64 %18, i32 1
-  store i64 %73, ptr %75, align 8, !tbaa !21
-  %76 = getelementptr inbounds %struct._nodeVCGType, ptr %74, i64 %18, i32 4
-  store ptr %72, ptr %76, align 8, !tbaa !22
-  %77 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  %78 = icmp eq i64 %77, 0
-  br i1 %78, label %127, label %79
+69:                                               ; preds = %63, %14
+  %70 = phi ptr [ %21, %14 ], [ %65, %63 ]
+  %71 = phi i64 [ 0, %14 ], [ %66, %63 ]
+  %72 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %73 = getelementptr inbounds %struct._nodeVCGType, ptr %72, i64 %16, i32 1
+  store i64 %71, ptr %73, align 8, !tbaa !21
+  %74 = getelementptr inbounds %struct._nodeVCGType, ptr %72, i64 %16, i32 4
+  store ptr %70, ptr %74, align 8, !tbaa !22
+  %75 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  %76 = icmp eq i64 %75, 0
+  br i1 %76, label %125, label %77
 
-79:                                               ; preds = %71
-  %80 = load ptr, ptr @storageVCG, align 8, !tbaa !9
-  %81 = load ptr, ptr @BOT, align 8, !tbaa !9
-  %82 = load ptr, ptr @TOP, align 8
-  %83 = load ptr, ptr @VCG, align 8
-  %84 = getelementptr inbounds %struct._nodeVCGType, ptr %83, i64 %18, i32 4
-  br label %85
+77:                                               ; preds = %69
+  %78 = load ptr, ptr @storageVCG, align 8, !tbaa !9
+  %79 = load ptr, ptr @BOT, align 8, !tbaa !9
+  %80 = load ptr, ptr @TOP, align 8
+  %81 = load ptr, ptr @VCG, align 8
+  %82 = getelementptr inbounds %struct._nodeVCGType, ptr %81, i64 %16, i32 4
+  br label %83
 
-85:                                               ; preds = %79, %121
-  %86 = phi i64 [ %77, %79 ], [ %122, %121 ]
-  %87 = phi i64 [ 0, %79 ], [ %124, %121 ]
-  %88 = phi i64 [ 1, %79 ], [ %125, %121 ]
-  %89 = phi ptr [ %80, %79 ], [ %123, %121 ]
-  %90 = getelementptr inbounds i64, ptr %81, i64 %88
-  %91 = load i64, ptr %90, align 8, !tbaa !5
-  %92 = icmp eq i64 %91, %18
-  br i1 %92, label %93, label %121
+83:                                               ; preds = %77, %119
+  %84 = phi i64 [ %75, %77 ], [ %120, %119 ]
+  %85 = phi i64 [ 0, %77 ], [ %122, %119 ]
+  %86 = phi i64 [ 1, %77 ], [ %123, %119 ]
+  %87 = phi ptr [ %78, %77 ], [ %121, %119 ]
+  %88 = getelementptr inbounds i64, ptr %79, i64 %86
+  %89 = load i64, ptr %88, align 8, !tbaa !5
+  %90 = icmp eq i64 %89, %16
+  br i1 %90, label %91, label %119
 
-93:                                               ; preds = %85
-  %94 = getelementptr inbounds i64, ptr %82, i64 %88
-  %95 = load i64, ptr %94, align 8, !tbaa !5
-  %96 = icmp eq i64 %95, %18
-  %97 = icmp eq i64 %95, 0
-  %98 = or i1 %96, %97
-  br i1 %98, label %121, label %99
+91:                                               ; preds = %83
+  %92 = getelementptr inbounds i64, ptr %80, i64 %86
+  %93 = load i64, ptr %92, align 8, !tbaa !5
+  %94 = icmp ne i64 %93, %16
+  %95 = icmp ne i64 %93, 0
+  %96 = and i1 %94, %95
+  br i1 %96, label %97, label %119
 
-99:                                               ; preds = %93
-  %100 = icmp eq i64 %87, 0
-  %101 = load ptr, ptr %84, align 8, !tbaa !22
-  br i1 %100, label %110, label %105
+97:                                               ; preds = %91
+  %98 = icmp eq i64 %85, 0
+  %99 = load ptr, ptr %82, align 8, !tbaa !22
+  br i1 %98, label %108, label %103
 
-102:                                              ; preds = %105
-  %103 = add nuw i64 %106, 1
-  %104 = icmp eq i64 %103, %87
-  br i1 %104, label %110, label %105, !llvm.loop !23
+100:                                              ; preds = %103
+  %101 = add nuw i64 %104, 1
+  %102 = icmp eq i64 %101, %85
+  br i1 %102, label %108, label %103, !llvm.loop !23
 
-105:                                              ; preds = %99, %102
-  %106 = phi i64 [ %103, %102 ], [ 0, %99 ]
-  %107 = getelementptr inbounds %struct._constraintVCGType, ptr %101, i64 %106
-  %108 = load i64, ptr %107, align 8, !tbaa !17
-  %109 = icmp eq i64 %108, %95
-  br i1 %109, label %121, label %102
+103:                                              ; preds = %97, %100
+  %104 = phi i64 [ %101, %100 ], [ 0, %97 ]
+  %105 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %104
+  %106 = load i64, ptr %105, align 8, !tbaa !17
+  %107 = icmp eq i64 %106, %93
+  br i1 %107, label %119, label %100
 
-110:                                              ; preds = %102, %99
-  %111 = getelementptr inbounds %struct._constraintVCGType, ptr %101, i64 %87
-  store i64 %95, ptr %111, align 8, !tbaa !17
-  %112 = load i64, ptr %90, align 8, !tbaa !5
-  %113 = getelementptr inbounds %struct._constraintVCGType, ptr %101, i64 %87, i32 1
-  store i64 %112, ptr %113, align 8, !tbaa !15
-  %114 = getelementptr inbounds %struct._constraintVCGType, ptr %101, i64 %87, i32 2
-  store i64 %88, ptr %114, align 8, !tbaa !18
-  %115 = getelementptr inbounds %struct._constraintVCGType, ptr %101, i64 %87, i32 3
-  store i64 0, ptr %115, align 8, !tbaa !19
-  %116 = getelementptr inbounds %struct._constraintVCGType, ptr %89, i64 1
-  store ptr %116, ptr @storageVCG, align 8, !tbaa !9
-  %117 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
-  %118 = add i64 %117, -1
-  store i64 %118, ptr @storageLimitVCG, align 8, !tbaa !5
-  %119 = add i64 %87, 1
-  %120 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  br label %121
+108:                                              ; preds = %100, %97
+  %109 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85
+  store i64 %93, ptr %109, align 8, !tbaa !17
+  %110 = load i64, ptr %88, align 8, !tbaa !5
+  %111 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85, i32 1
+  store i64 %110, ptr %111, align 8, !tbaa !15
+  %112 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85, i32 2
+  store i64 %86, ptr %112, align 8, !tbaa !18
+  %113 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85, i32 3
+  store i64 0, ptr %113, align 8, !tbaa !19
+  %114 = getelementptr inbounds %struct._constraintVCGType, ptr %87, i64 1
+  store ptr %114, ptr @storageVCG, align 8, !tbaa !9
+  %115 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
+  %116 = add i64 %115, -1
+  store i64 %116, ptr @storageLimitVCG, align 8, !tbaa !5
+  %117 = add i64 %85, 1
+  %118 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  br label %119
 
-121:                                              ; preds = %105, %85, %93, %110
-  %122 = phi i64 [ %120, %110 ], [ %86, %93 ], [ %86, %85 ], [ %86, %105 ]
-  %123 = phi ptr [ %116, %110 ], [ %89, %93 ], [ %89, %85 ], [ %89, %105 ]
-  %124 = phi i64 [ %119, %110 ], [ %87, %93 ], [ %87, %85 ], [ %87, %105 ]
-  %125 = add i64 %88, 1
-  %126 = icmp ugt i64 %125, %122
-  br i1 %126, label %127, label %85, !llvm.loop !24
+119:                                              ; preds = %103, %83, %91, %108
+  %120 = phi i64 [ %118, %108 ], [ %84, %91 ], [ %84, %83 ], [ %84, %103 ]
+  %121 = phi ptr [ %114, %108 ], [ %87, %91 ], [ %87, %83 ], [ %87, %103 ]
+  %122 = phi i64 [ %117, %108 ], [ %85, %91 ], [ %85, %83 ], [ %85, %103 ]
+  %123 = add i64 %86, 1
+  %124 = icmp ugt i64 %123, %120
+  br i1 %124, label %125, label %83, !llvm.loop !24
 
-127:                                              ; preds = %121, %71
-  %128 = phi i64 [ 0, %71 ], [ %124, %121 ]
-  %129 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %130 = getelementptr inbounds %struct._nodeVCGType, ptr %129, i64 %18, i32 5
-  store i64 %128, ptr %130, align 8, !tbaa !25
-  %131 = add i64 %18, 1
-  %132 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %133 = icmp ugt i64 %131, %132
-  br i1 %133, label %134, label %16, !llvm.loop !26
+125:                                              ; preds = %119, %69
+  %126 = phi i64 [ 0, %69 ], [ %122, %119 ]
+  %127 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %128 = getelementptr inbounds %struct._nodeVCGType, ptr %127, i64 %16, i32 5
+  store i64 %126, ptr %128, align 8, !tbaa !25
+  %129 = add i64 %16, 1
+  %130 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %131 = icmp ugt i64 %129, %130
+  br i1 %131, label %132, label %14, !llvm.loop !26
 
-134:                                              ; preds = %127, %0
+132:                                              ; preds = %125, %0
   ret void
 }
 
@@ -626,7 +622,7 @@ define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef 
   tail call void @SCC_DFSBelowVCG(ptr noundef nonnull %0, i64 noundef %87, i64 noundef %91)
   %92 = load i64, ptr @channelNets, align 8, !tbaa !5
   %93 = icmp eq i64 %92, 0
-  br i1 %93, label %22, label %23, !llvm.loop !38
+  br i1 %93, label %22, label %23
 
 94:                                               ; preds = %86
   store i64 0, ptr @totalSCC, align 8, !tbaa !5
@@ -639,7 +635,7 @@ define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef 
 97:                                               ; preds = %94, %105
   %98 = phi i64 [ %107, %105 ], [ 1, %94 ]
   %99 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %98, i32 6
-  %100 = load i64, ptr %99, align 8, !tbaa !39
+  %100 = load i64, ptr %99, align 8, !tbaa !38
   %101 = getelementptr inbounds i64, ptr %1, i64 %98
   store i64 %100, ptr %101, align 8, !tbaa !5
   %102 = load i64, ptr @totalSCC, align 8, !tbaa !5
@@ -655,7 +651,7 @@ define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef 
   %107 = add i64 %98, 1
   %108 = load i64, ptr @channelNets, align 8, !tbaa !5
   %109 = icmp ugt i64 %107, %108
-  br i1 %109, label %95, label %97, !llvm.loop !40
+  br i1 %109, label %95, label %97, !llvm.loop !39
 
 110:                                              ; preds = %95, %160
   %111 = phi i64 [ %163, %160 ], [ 1, %95 ]
@@ -696,7 +692,7 @@ define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef 
   %140 = add <2 x i64> %129, %138
   %141 = add nuw i64 %127, 4
   %142 = icmp eq i64 %141, %120
-  br i1 %142, label %143, label %126, !llvm.loop !41
+  br i1 %142, label %143, label %126, !llvm.loop !40
 
 143:                                              ; preds = %126
   %144 = add <2 x i64> %140, %139
@@ -719,7 +715,7 @@ define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef 
   %157 = add i64 %151, %156
   %158 = add nuw i64 %152, 1
   %159 = icmp eq i64 %158, %116
-  br i1 %159, label %160, label %150, !llvm.loop !44
+  br i1 %159, label %160, label %150, !llvm.loop !43
 
 160:                                              ; preds = %150, %143, %110
   %161 = phi i64 [ 0, %110 ], [ %145, %143 ], [ %157, %150 ]
@@ -728,7 +724,7 @@ define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef 
   %163 = add i64 %111, 1
   %164 = load i64, ptr @totalSCC, align 8, !tbaa !5
   %165 = icmp ugt i64 %163, %164
-  br i1 %165, label %166, label %110, !llvm.loop !45
+  br i1 %165, label %166, label %110, !llvm.loop !44
 
 166:                                              ; preds = %160, %22, %94, %95
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #14
@@ -771,7 +767,7 @@ define dso_local void @SCC_DFSAboveVCG(ptr nocapture noundef %0, i64 noundef %1,
   %25 = phi i64 [ %10, %9 ], [ %23, %22 ], [ %10, %16 ]
   %26 = add nuw i64 %11, 1
   %27 = icmp ult i64 %26, %25
-  br i1 %27, label %9, label %28, !llvm.loop !46
+  br i1 %27, label %9, label %28, !llvm.loop !45
 
 28:                                               ; preds = %24, %3
   %29 = load i64, ptr %2, align 8, !tbaa !5
@@ -821,11 +817,11 @@ define dso_local void @SCC_DFSBelowVCG(ptr nocapture noundef %0, i64 noundef %1,
   %26 = phi i64 [ %11, %10 ], [ %24, %23 ], [ %11, %17 ]
   %27 = add nuw i64 %12, 1
   %28 = icmp ult i64 %27, %26
-  br i1 %28, label %10, label %29, !llvm.loop !47
+  br i1 %28, label %10, label %29, !llvm.loop !46
 
 29:                                               ; preds = %25, %3
   %30 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 6
-  store i64 %2, ptr %30, align 8, !tbaa !39
+  store i64 %2, ptr %30, align 8, !tbaa !38
   ret void
 }
 
@@ -859,7 +855,7 @@ define dso_local void @DumpSCC(ptr nocapture noundef readonly %0, ptr nocapture 
   %20 = phi i64 [ %11, %10 ], [ %18, %16 ]
   %21 = add i64 %12, 1
   %22 = icmp ugt i64 %21, %20
-  br i1 %22, label %23, label %10, !llvm.loop !48
+  br i1 %22, label %23, label %10, !llvm.loop !47
 
 23:                                               ; preds = %19, %5
   %24 = getelementptr inbounds i64, ptr %1, i64 %6
@@ -869,7 +865,7 @@ define dso_local void @DumpSCC(ptr nocapture noundef readonly %0, ptr nocapture 
   %28 = add i64 %6, 1
   %29 = load i64, ptr @totalSCC, align 8, !tbaa !5
   %30 = icmp ugt i64 %28, %29
-  br i1 %30, label %31, label %5, !llvm.loop !49
+  br i1 %30, label %31, label %5, !llvm.loop !48
 
 31:                                               ; preds = %23, %2
   %32 = tail call i32 @putchar(i32 10)
@@ -917,7 +913,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
   %24 = add nuw i64 %21, 1
   %25 = add i64 %22, 1
   %26 = icmp eq i64 %25, %13
-  br i1 %26, label %27, label %20, !llvm.loop !50
+  br i1 %26, label %27, label %20, !llvm.loop !49
 
 27:                                               ; preds = %17, %20, %5
   %28 = getelementptr inbounds %struct._nodeVCGType, ptr %4, i64 %6, i32 5
@@ -953,7 +949,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
   %48 = add nuw i64 %39, 4
   %49 = add i64 %40, 4
   %50 = icmp eq i64 %49, %16
-  br i1 %50, label %17, label %38, !llvm.loop !52
+  br i1 %50, label %17, label %38, !llvm.loop !51
 
 51:                                               ; preds = %51, %36
   %52 = phi i64 [ 0, %36 ], [ %61, %51 ]
@@ -972,7 +968,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
   %61 = add nuw i64 %52, 4
   %62 = add i64 %53, 4
   %63 = icmp eq i64 %62, %37
-  br i1 %63, label %64, label %51, !llvm.loop !53
+  br i1 %63, label %64, label %51, !llvm.loop !52
 
 64:                                               ; preds = %51, %31
   %65 = phi i64 [ 0, %31 ], [ %61, %51 ]
@@ -987,70 +983,70 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
   %71 = add nuw i64 %68, 1
   %72 = add i64 %69, 1
   %73 = icmp eq i64 %72, %34
-  br i1 %73, label %74, label %67, !llvm.loop !54
+  br i1 %73, label %74, label %67, !llvm.loop !53
 
 74:                                               ; preds = %64, %67, %27
   %75 = add i64 %6, 1
   %76 = load i64, ptr @channelNets, align 8, !tbaa !5
   %77 = icmp ugt i64 %75, %76
-  br i1 %77, label %78, label %5, !llvm.loop !55
+  br i1 %77, label %78, label %5, !llvm.loop !54
 
 78:                                               ; preds = %74, %0
   %79 = phi i64 [ 0, %0 ], [ %76, %74 ]
   store i64 0, ptr @removeTotalVCG, align 8, !tbaa !5
-  br label %80
+  br label %85
 
-80:                                               ; preds = %107, %78
-  %81 = phi i64 [ %111, %107 ], [ %79, %78 ]
-  %82 = phi i1 [ true, %107 ], [ false, %78 ]
-  %83 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %84 = icmp eq i64 %81, 0
-  br i1 %84, label %92, label %85
+80:                                               ; preds = %107
+  %81 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %82 = load ptr, ptr @SCC, align 8, !tbaa !9
+  %83 = load ptr, ptr @removeVCG, align 8, !tbaa !9
+  tail call void @RemoveConstraintVCG(ptr noundef %81, ptr noundef %82, ptr noundef nonnull %103, ptr noundef %83)
+  %84 = load i64, ptr @channelNets, align 8, !tbaa !5
+  br label %85
 
-85:                                               ; preds = %80, %85
-  %86 = phi i64 [ %89, %85 ], [ 1, %80 ]
-  %87 = getelementptr inbounds %struct._nodeVCGType, ptr %83, i64 %86, i32 2
-  %88 = getelementptr inbounds %struct._nodeVCGType, ptr %83, i64 %86, i32 6
-  %89 = add i64 %86, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %87, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %88, i8 0, i64 16, i1 false)
-  %90 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %91 = icmp ugt i64 %89, %90
-  br i1 %91, label %92, label %85, !llvm.loop !27
+85:                                               ; preds = %80, %78
+  %86 = phi i64 [ %84, %80 ], [ %79, %78 ]
+  %87 = phi i1 [ true, %80 ], [ false, %78 ]
+  %88 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %89 = icmp eq i64 %86, 0
+  br i1 %89, label %97, label %90
 
-92:                                               ; preds = %85, %80
-  %93 = load ptr, ptr @SCC, align 8, !tbaa !9
-  %94 = load ptr, ptr @perSCC, align 8, !tbaa !9
-  tail call void @SCCofVCG(ptr noundef %83, ptr noundef %93, ptr noundef %94)
-  %95 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %96 = icmp eq i64 %95, 0
-  br i1 %96, label %112, label %97
+90:                                               ; preds = %85, %90
+  %91 = phi i64 [ %94, %90 ], [ 1, %85 ]
+  %92 = getelementptr inbounds %struct._nodeVCGType, ptr %88, i64 %91, i32 2
+  %93 = getelementptr inbounds %struct._nodeVCGType, ptr %88, i64 %91, i32 6
+  %94 = add i64 %91, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %92, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %93, i8 0, i64 16, i1 false)
+  %95 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %96 = icmp ugt i64 %94, %95
+  br i1 %96, label %97, label %90, !llvm.loop !27
 
-97:                                               ; preds = %92
-  %98 = load ptr, ptr @perSCC, align 8, !tbaa !9
-  br label %102
+97:                                               ; preds = %90, %85
+  %98 = load ptr, ptr @SCC, align 8, !tbaa !9
+  %99 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  tail call void @SCCofVCG(ptr noundef %88, ptr noundef %98, ptr noundef %99)
+  %100 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %101 = icmp eq i64 %100, 0
+  br i1 %101, label %112, label %102
 
-99:                                               ; preds = %102
-  %100 = add i64 %103, 1
-  %101 = icmp ugt i64 %100, %95
-  br i1 %101, label %112, label %102, !llvm.loop !56
+102:                                              ; preds = %97
+  %103 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  br label %107
 
-102:                                              ; preds = %97, %99
-  %103 = phi i64 [ 1, %97 ], [ %100, %99 ]
-  %104 = getelementptr inbounds i64, ptr %98, i64 %103
-  %105 = load i64, ptr %104, align 8, !tbaa !5
-  %106 = icmp ugt i64 %105, 1
-  br i1 %106, label %107, label %99
+104:                                              ; preds = %107
+  %105 = add i64 %108, 1
+  %106 = icmp ugt i64 %105, %100
+  br i1 %106, label %112, label %107, !llvm.loop !55
 
-107:                                              ; preds = %102
-  %108 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %109 = load ptr, ptr @SCC, align 8, !tbaa !9
-  %110 = load ptr, ptr @removeVCG, align 8, !tbaa !9
-  tail call void @RemoveConstraintVCG(ptr noundef %108, ptr noundef %109, ptr noundef nonnull %98, ptr noundef %110)
-  %111 = load i64, ptr @channelNets, align 8, !tbaa !5
-  br label %80, !llvm.loop !57
+107:                                              ; preds = %102, %104
+  %108 = phi i64 [ 1, %102 ], [ %105, %104 ]
+  %109 = getelementptr inbounds i64, ptr %103, i64 %108
+  %110 = load i64, ptr %109, align 8, !tbaa !5
+  %111 = icmp ugt i64 %110, 1
+  br i1 %111, label %80, label %104
 
-112:                                              ; preds = %92, %99
+112:                                              ; preds = %97, %104
   %113 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
   %114 = icmp eq i64 %113, 0
   br i1 %114, label %225, label %115
@@ -1090,7 +1086,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
 138:                                              ; preds = %131
   %139 = add nuw i64 %132, 1
   %140 = icmp eq i64 %139, %126
-  br i1 %140, label %141, label %131, !llvm.loop !58
+  br i1 %140, label %141, label %131, !llvm.loop !56
 
 141:                                              ; preds = %138, %115, %136
   %142 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %123, i32 5
@@ -1118,7 +1114,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
 155:                                              ; preds = %148
   %156 = add nuw i64 %149, 1
   %157 = icmp eq i64 %156, %143
-  br i1 %157, label %158, label %148, !llvm.loop !59
+  br i1 %157, label %158, label %148, !llvm.loop !57
 
 158:                                              ; preds = %155, %141, %153
   %159 = load i64, ptr @channelNets, align 8, !tbaa !5
@@ -1151,7 +1147,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
 175:                                              ; preds = %178
   %176 = add i64 %179, 1
   %177 = icmp ugt i64 %176, %171
-  br i1 %177, label %218, label %178, !llvm.loop !60
+  br i1 %177, label %218, label %178, !llvm.loop !58
 
 178:                                              ; preds = %173, %175
   %179 = phi i64 [ 1, %173 ], [ %176, %175 ]
@@ -1187,7 +1183,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
 198:                                              ; preds = %191
   %199 = add nuw i64 %192, 1
   %200 = icmp eq i64 %199, %186
-  br i1 %200, label %201, label %191, !llvm.loop !61
+  br i1 %200, label %201, label %191, !llvm.loop !59
 
 201:                                              ; preds = %198, %183, %196
   %202 = getelementptr inbounds %struct._nodeVCGType, ptr %184, i64 %123, i32 5
@@ -1215,7 +1211,7 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
 215:                                              ; preds = %208
   %216 = add nuw i64 %209, 1
   %217 = icmp eq i64 %216, %203
-  br i1 %217, label %220, label %208, !llvm.loop !62
+  br i1 %217, label %220, label %208, !llvm.loop !60
 
 218:                                              ; preds = %175, %168
   %219 = add i64 %116, -1
@@ -1226,11 +1222,11 @@ define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
   %222 = add nuw i64 %117, 1
   %223 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
   %224 = icmp ult i64 %222, %223
-  br i1 %224, label %115, label %225, !llvm.loop !63
+  br i1 %224, label %115, label %225, !llvm.loop !61
 
 225:                                              ; preds = %220, %112
   %226 = phi i64 [ 0, %112 ], [ %221, %220 ]
-  br i1 %82, label %229, label %227
+  br i1 %87, label %229, label %227
 
 227:                                              ; preds = %225
   %228 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
@@ -1301,128 +1297,128 @@ define dso_local void @RemoveConstraintVCG(ptr nocapture noundef readonly %0, pt
   %42 = phi ptr [ %28, %38 ], [ %112, %110 ]
   %43 = phi i64 [ %30, %38 ], [ %111, %110 ]
   %44 = phi i64 [ 0, %38 ], [ %113, %110 ]
-  %45 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 1
-  %46 = load i64, ptr %45, align 8, !tbaa !15
-  %47 = getelementptr inbounds i64, ptr %1, i64 %46
-  %48 = load i64, ptr %47, align 8, !tbaa !5
-  %49 = icmp eq i64 %48, %8
-  br i1 %49, label %50, label %110
+  %45 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44
+  %46 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 1
+  %47 = load i64, ptr %46, align 8, !tbaa !15
+  %48 = getelementptr inbounds i64, ptr %1, i64 %47
+  %49 = load i64, ptr %48, align 8, !tbaa !5
+  %50 = icmp eq i64 %49, %8
+  br i1 %50, label %51, label %110
 
-50:                                               ; preds = %41
-  %51 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 3
-  %52 = load i64, ptr %51, align 8, !tbaa !19
-  %53 = icmp eq i64 %52, 0
-  br i1 %53, label %54, label %110
+51:                                               ; preds = %41
+  %52 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 3
+  %53 = load i64, ptr %52, align 8, !tbaa !19
+  %54 = icmp eq i64 %53, 0
+  br i1 %54, label %55, label %110
 
-54:                                               ; preds = %50
-  %55 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 2
-  %56 = load i64, ptr %55, align 8, !tbaa !18
-  %57 = icmp eq i64 %56, 1
-  br i1 %57, label %58, label %66
+55:                                               ; preds = %51
+  %56 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 2
+  %57 = load i64, ptr %56, align 8, !tbaa !18
+  %58 = icmp eq i64 %57, 1
+  br i1 %58, label %59, label %67
 
-58:                                               ; preds = %54
-  %59 = load i64, ptr %19, align 8, !tbaa !5
-  %60 = icmp eq i64 %59, 0
-  %61 = load i64, ptr %20, align 8, !tbaa !5
-  %62 = icmp eq i64 %61, 0
-  br i1 %60, label %64, label %63
+59:                                               ; preds = %55
+  %60 = load i64, ptr %19, align 8, !tbaa !5
+  %61 = icmp eq i64 %60, 0
+  %62 = load i64, ptr %20, align 8, !tbaa !5
+  %63 = icmp eq i64 %62, 0
+  br i1 %61, label %65, label %64
 
-63:                                               ; preds = %58
-  br i1 %62, label %65, label %104
+64:                                               ; preds = %59
+  br i1 %63, label %66, label %105
 
-64:                                               ; preds = %58
-  br i1 %62, label %104, label %65
+65:                                               ; preds = %59
+  br i1 %63, label %105, label %66
 
-65:                                               ; preds = %63, %64
-  br label %104
+66:                                               ; preds = %64, %65
+  br label %105
 
-66:                                               ; preds = %54
-  %67 = icmp eq i64 %56, %16
-  br i1 %67, label %68, label %78
+67:                                               ; preds = %55
+  %68 = icmp eq i64 %57, %16
+  br i1 %68, label %69, label %79
 
-68:                                               ; preds = %66
-  %69 = load i64, ptr %24, align 8, !tbaa !5
-  %70 = icmp eq i64 %69, 0
-  br i1 %70, label %74, label %71
+69:                                               ; preds = %67
+  %70 = load i64, ptr %24, align 8, !tbaa !5
+  %71 = icmp eq i64 %70, 0
+  br i1 %71, label %75, label %72
 
-71:                                               ; preds = %68
-  %72 = load i64, ptr %25, align 8, !tbaa !5
-  %73 = icmp eq i64 %72, 0
-  br i1 %73, label %77, label %104
+72:                                               ; preds = %69
+  %73 = load i64, ptr %25, align 8, !tbaa !5
+  %74 = icmp eq i64 %73, 0
+  br i1 %74, label %78, label %105
 
-74:                                               ; preds = %68
-  %75 = load i64, ptr %26, align 8, !tbaa !5
-  %76 = icmp eq i64 %75, 0
-  br i1 %76, label %104, label %77
+75:                                               ; preds = %69
+  %76 = load i64, ptr %26, align 8, !tbaa !5
+  %77 = icmp eq i64 %76, 0
+  br i1 %77, label %105, label %78
 
-77:                                               ; preds = %71, %74
-  br label %104
+78:                                               ; preds = %72, %75
+  br label %105
 
-78:                                               ; preds = %66
-  %79 = add i64 %56, -1
-  %80 = getelementptr inbounds i64, ptr %17, i64 %79
-  %81 = load i64, ptr %80, align 8, !tbaa !5
-  %82 = icmp eq i64 %81, 0
-  %83 = getelementptr inbounds i64, ptr %18, i64 %79
-  %84 = load i64, ptr %83, align 8, !tbaa !5
-  %85 = icmp eq i64 %84, 0
-  br i1 %82, label %87, label %86
+79:                                               ; preds = %67
+  %80 = add i64 %57, -1
+  %81 = getelementptr inbounds i64, ptr %17, i64 %80
+  %82 = load i64, ptr %81, align 8, !tbaa !5
+  %83 = icmp eq i64 %82, 0
+  %84 = getelementptr inbounds i64, ptr %18, i64 %80
+  %85 = load i64, ptr %84, align 8, !tbaa !5
+  %86 = icmp eq i64 %85, 0
+  br i1 %83, label %88, label %87
 
-86:                                               ; preds = %78
-  br i1 %85, label %88, label %89
+87:                                               ; preds = %79
+  br i1 %86, label %89, label %90
 
-87:                                               ; preds = %78
-  br i1 %85, label %89, label %88
+88:                                               ; preds = %79
+  br i1 %86, label %90, label %89
 
-88:                                               ; preds = %86, %87
-  br label %89
+89:                                               ; preds = %87, %88
+  br label %90
 
-89:                                               ; preds = %86, %88, %87
-  %90 = phi i64 [ 2, %88 ], [ 0, %87 ], [ 3, %86 ]
-  %91 = add i64 %56, 1
-  %92 = getelementptr inbounds i64, ptr %17, i64 %91
-  %93 = load i64, ptr %92, align 8, !tbaa !5
-  %94 = icmp eq i64 %93, 0
-  %95 = getelementptr inbounds i64, ptr %18, i64 %91
-  %96 = load i64, ptr %95, align 8, !tbaa !5
-  %97 = icmp eq i64 %96, 0
-  br i1 %94, label %101, label %98
+90:                                               ; preds = %87, %89, %88
+  %91 = phi i64 [ 2, %89 ], [ 0, %88 ], [ 3, %87 ]
+  %92 = add i64 %57, 1
+  %93 = getelementptr inbounds i64, ptr %17, i64 %92
+  %94 = load i64, ptr %93, align 8, !tbaa !5
+  %95 = icmp eq i64 %94, 0
+  %96 = getelementptr inbounds i64, ptr %18, i64 %92
+  %97 = load i64, ptr %96, align 8, !tbaa !5
+  %98 = icmp eq i64 %97, 0
+  br i1 %95, label %102, label %99
 
-98:                                               ; preds = %89
-  br i1 %97, label %102, label %99
+99:                                               ; preds = %90
+  br i1 %98, label %103, label %100
 
-99:                                               ; preds = %98
-  %100 = add nuw nsw i64 %90, 3
-  br label %104
+100:                                              ; preds = %99
+  %101 = add nuw nsw i64 %91, 3
+  br label %105
 
-101:                                              ; preds = %89
-  br i1 %97, label %104, label %102
+102:                                              ; preds = %90
+  br i1 %98, label %105, label %103
 
-102:                                              ; preds = %98, %101
-  %103 = add nuw nsw i64 %90, 2
-  br label %104
+103:                                              ; preds = %99, %102
+  %104 = add nuw nsw i64 %91, 2
+  br label %105
 
-104:                                              ; preds = %71, %63, %77, %74, %102, %101, %99, %64, %65
-  %105 = phi i64 [ 5, %65 ], [ 3, %64 ], [ 5, %77 ], [ 3, %74 ], [ %100, %99 ], [ %103, %102 ], [ %90, %101 ], [ 6, %63 ], [ 6, %71 ]
-  %106 = icmp ult i64 %105, %43
-  %107 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44
-  %108 = tail call i64 @llvm.umin.i64(i64 %105, i64 %43)
-  %109 = select i1 %106, ptr %107, ptr %42
+105:                                              ; preds = %72, %64, %78, %75, %103, %102, %100, %65, %66
+  %106 = phi i64 [ 5, %66 ], [ 3, %65 ], [ 5, %78 ], [ 3, %75 ], [ %101, %100 ], [ %104, %103 ], [ %91, %102 ], [ 6, %64 ], [ 6, %72 ]
+  %107 = icmp ult i64 %106, %43
+  %108 = tail call i64 @llvm.umin.i64(i64 %106, i64 %43)
+  %109 = select i1 %107, ptr %45, ptr %42
   br label %110
 
-110:                                              ; preds = %104, %41, %50
-  %111 = phi i64 [ %43, %50 ], [ %43, %41 ], [ %108, %104 ]
-  %112 = phi ptr [ %42, %50 ], [ %42, %41 ], [ %109, %104 ]
+110:                                              ; preds = %105, %41, %51
+  %111 = phi i64 [ %43, %51 ], [ %43, %41 ], [ %108, %105 ]
+  %112 = phi ptr [ %42, %51 ], [ %42, %41 ], [ %109, %105 ]
   %113 = add nuw i64 %44, 1
   %114 = icmp eq i64 %113, %36
-  br i1 %114, label %115, label %41, !llvm.loop !64
+  br i1 %114, label %115, label %41, !llvm.loop !62
 
 115:                                              ; preds = %110, %34, %27
   %116 = phi i64 [ %30, %27 ], [ %30, %34 ], [ %111, %110 ]
   %117 = phi ptr [ %28, %27 ], [ %28, %34 ], [ %112, %110 ]
   %118 = add nuw i64 %29, 1
   %119 = icmp eq i64 %118, %22
-  br i1 %119, label %120, label %27, !llvm.loop !65
+  br i1 %119, label %120, label %27, !llvm.loop !63
 
 120:                                              ; preds = %115, %12
   %121 = phi ptr [ null, %12 ], [ %117, %115 ]
@@ -1463,13 +1459,13 @@ define dso_local void @RemoveConstraintVCG(ptr nocapture noundef readonly %0, pt
 144:                                              ; preds = %137
   %145 = add nuw i64 %138, 1
   %146 = icmp eq i64 %145, %132
-  br i1 %146, label %147, label %137, !llvm.loop !66
+  br i1 %146, label %147, label %137, !llvm.loop !64
 
 147:                                              ; preds = %144, %120, %7, %142
   %148 = add i64 %8, 1
   %149 = load i64, ptr @totalSCC, align 8, !tbaa !5
   %150 = icmp ugt i64 %148, %149
-  br i1 %150, label %151, label %7, !llvm.loop !67
+  br i1 %150, label %151, label %7, !llvm.loop !65
 
 151:                                              ; preds = %147, %4
   ret void
@@ -1563,7 +1559,7 @@ define dso_local void @LongestPathVCG(ptr nocapture noundef %0, i64 noundef %1) 
   store i64 %39, ptr %41, align 8
   %42 = add i64 %33, -2
   %43 = icmp eq i64 %42, 0
-  br i1 %43, label %44, label %31, !llvm.loop !68
+  br i1 %43, label %44, label %31, !llvm.loop !66
 
 44:                                               ; preds = %27, %31, %12
   %45 = load i64, ptr @channelNets, align 8, !tbaa !5
@@ -1614,7 +1610,7 @@ define dso_local void @LongestPathVCG(ptr nocapture noundef %0, i64 noundef %1) 
   %74 = add i64 %69, 1
   %75 = load i64, ptr @channelTracks, align 8, !tbaa !5
   %76 = icmp ugt i64 %74, %75
-  br i1 %76, label %61, label %67, !llvm.loop !69
+  br i1 %76, label %61, label %67, !llvm.loop !67
 
 77:                                               ; preds = %63, %92
   %78 = phi i64 [ 0, %63 ], [ %93, %92 ]
@@ -1646,7 +1642,7 @@ define dso_local void @LongestPathVCG(ptr nocapture noundef %0, i64 noundef %1) 
   %94 = add i64 %79, 1
   %95 = load i64, ptr @channelTracks, align 8, !tbaa !5
   %96 = icmp ugt i64 %94, %95
-  br i1 %96, label %97, label %77, !llvm.loop !70
+  br i1 %96, label %97, label %77, !llvm.loop !68
 
 97:                                               ; preds = %92, %54, %61
   %98 = phi i64 [ 0, %61 ], [ 0, %54 ], [ %93, %92 ]
@@ -1693,7 +1689,7 @@ define dso_local i64 @DFSAboveLongestPathVCG(ptr nocapture noundef %0, i64 nound
   %28 = phi i64 [ %10, %8 ], [ %10, %16 ], [ %24, %22 ]
   %29 = add nuw i64 %11, 1
   %30 = icmp ult i64 %29, %27
-  br i1 %30, label %8, label %31, !llvm.loop !71
+  br i1 %30, label %8, label %31, !llvm.loop !69
 
 31:                                               ; preds = %26, %2
   %32 = phi i64 [ 0, %2 ], [ %28, %26 ]
@@ -1743,7 +1739,7 @@ define dso_local i64 @DFSBelowLongestPathVCG(ptr nocapture noundef %0, i64 nound
   %29 = phi i64 [ %11, %9 ], [ %11, %17 ], [ %25, %23 ]
   %30 = add nuw i64 %12, 1
   %31 = icmp ult i64 %30, %28
-  br i1 %31, label %9, label %32, !llvm.loop !72
+  br i1 %31, label %9, label %32, !llvm.loop !70
 
 32:                                               ; preds = %27, %2
   %33 = phi i64 [ 0, %2 ], [ %29, %27 ]
@@ -1877,21 +1873,21 @@ define dso_local i64 @VCV(ptr nocapture noundef %0, i64 noundef %1, i64 noundef 
   %78 = add i64 %12, 1
   %79 = load i64, ptr @channelNets, align 8, !tbaa !5
   %80 = icmp ugt i64 %78, %79
-  br i1 %80, label %81, label %9, !llvm.loop !73
+  br i1 %80, label %81, label %9, !llvm.loop !71
 
 81:                                               ; preds = %76, %4
   %82 = phi i64 [ 0, %4 ], [ %77, %76 ]
   ret i64 %82
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #12
@@ -1915,8 +1911,8 @@ attributes #6 = { nofree nosync nounwind memory(read, argmem: write, inaccessibl
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nounwind allocsize(0) }
 attributes #14 = { nounwind }
@@ -1962,23 +1958,23 @@ attributes #14 = { nounwind }
 !35 = distinct !{!35, !14}
 !36 = !{!12, !6, i64 16}
 !37 = distinct !{!37, !14}
-!38 = distinct !{!38, !14}
-!39 = !{!12, !6, i64 48}
-!40 = distinct !{!40, !14}
-!41 = distinct !{!41, !14, !42, !43}
-!42 = !{!"llvm.loop.isvectorized", i32 1}
-!43 = !{!"llvm.loop.unroll.runtime.disable"}
-!44 = distinct !{!44, !14, !43, !42}
+!38 = !{!12, !6, i64 48}
+!39 = distinct !{!39, !14}
+!40 = distinct !{!40, !14, !41, !42}
+!41 = !{!"llvm.loop.isvectorized", i32 1}
+!42 = !{!"llvm.loop.unroll.runtime.disable"}
+!43 = distinct !{!43, !14, !42, !41}
+!44 = distinct !{!44, !14}
 !45 = distinct !{!45, !14}
 !46 = distinct !{!46, !14}
 !47 = distinct !{!47, !14}
 !48 = distinct !{!48, !14}
-!49 = distinct !{!49, !14}
-!50 = distinct !{!50, !51}
-!51 = !{!"llvm.loop.unroll.disable"}
+!49 = distinct !{!49, !50}
+!50 = !{!"llvm.loop.unroll.disable"}
+!51 = distinct !{!51, !14}
 !52 = distinct !{!52, !14}
-!53 = distinct !{!53, !14}
-!54 = distinct !{!54, !51}
+!53 = distinct !{!53, !50}
+!54 = distinct !{!54, !14}
 !55 = distinct !{!55, !14}
 !56 = distinct !{!56, !14}
 !57 = distinct !{!57, !14}
@@ -1996,5 +1992,3 @@ attributes #14 = { nounwind }
 !69 = distinct !{!69, !14}
 !70 = distinct !{!70, !14}
 !71 = distinct !{!71, !14}
-!72 = distinct !{!72, !14}
-!73 = distinct !{!73, !14}

@@ -436,17 +436,17 @@ define dso_local i32 @zsetdash(ptr noundef %0) #0 {
   %6 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -1
   %7 = getelementptr %struct.ref_s, ptr %0, i64 -1, i32 1
   %8 = load i16, ptr %7, align 8, !tbaa !24
-  %9 = lshr i16 %8, 2
-  %10 = and i16 %9, 63
-  %11 = zext i16 %10 to i32
+  %9 = zext i16 %8 to i32
+  %10 = lshr i32 %9, 2
+  %11 = and i32 %10, 63
   switch i32 %11, label %52 [
     i32 0, label %12
     i32 10, label %12
   ]
 
 12:                                               ; preds = %5, %5
-  %13 = and i16 %8, 512
-  %14 = icmp eq i16 %13, 0
+  %13 = and i32 %9, 512
+  %14 = icmp eq i32 %13, 0
   br i1 %14, label %52, label %15
 
 15:                                               ; preds = %12
@@ -927,17 +927,17 @@ declare i32 @gs_currentrgbcolor(ptr noundef, ptr noundef) local_unnamed_addr #1
 define dso_local i32 @zsettransfer(ptr nocapture noundef readonly %0) #6 {
   %2 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
   %3 = load i16, ptr %2, align 8, !tbaa !24
-  %4 = lshr i16 %3, 2
-  %5 = and i16 %4, 63
-  %6 = zext i16 %5 to i32
+  %4 = zext i16 %3 to i32
+  %5 = lshr i32 %4, 2
+  %6 = and i32 %5, 63
   switch i32 %6, label %13 [
     i32 0, label %7
     i32 10, label %7
   ]
 
 7:                                                ; preds = %1, %1
-  %8 = and i16 %3, 3
-  %9 = icmp eq i16 %8, 3
+  %8 = and i32 %4, 3
+  %9 = icmp eq i32 %8, 3
   br i1 %9, label %10, label %13
 
 10:                                               ; preds = %7

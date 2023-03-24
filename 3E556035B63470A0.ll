@@ -153,7 +153,7 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %10 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 100
   %11 = load i32, ptr %10, align 4, !tbaa !21
   %12 = icmp eq i32 %11, 0
-  br i1 %12, label %132, label %13
+  br i1 %12, label %130, label %13
 
 13:                                               ; preds = %0
   %14 = ashr i32 %3, 1
@@ -170,373 +170,370 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %23 = add i32 %21, 2
   %24 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 24
   store i32 %23, ptr %24, align 4, !tbaa !25
-  %25 = xor i32 %19, -1
-  %26 = add i32 %14, %25
-  %27 = shl i32 %26, 1
-  %28 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 25
-  store i32 %27, ptr %28, align 8, !tbaa !26
-  %29 = icmp slt i32 %16, 0
-  br i1 %29, label %55, label %30
+  %25 = add i32 %21, -2
+  %26 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 25
+  store i32 %25, ptr %26, align 8, !tbaa !26
+  %27 = icmp slt i32 %16, 0
+  br i1 %27, label %53, label %28
 
-30:                                               ; preds = %13
-  %31 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %32 = load i32, ptr %31, align 4, !tbaa !9
-  %33 = icmp sgt i32 %32, %16
-  br i1 %33, label %34, label %55
+28:                                               ; preds = %13
+  %29 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %30 = load i32, ptr %29, align 4, !tbaa !9
+  %31 = icmp sgt i32 %30, %16
+  br i1 %31, label %32, label %53
 
-34:                                               ; preds = %30
-  %35 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %36 = load i32, ptr %35, align 4, !tbaa !15
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %47
+32:                                               ; preds = %28
+  %33 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %34 = load i32, ptr %33, align 4, !tbaa !15
+  %35 = icmp eq i32 %34, 0
+  br i1 %35, label %36, label %45
 
-38:                                               ; preds = %34
-  %39 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %40 = load ptr, ptr %39, align 8, !tbaa !16
-  %41 = zext i32 %16 to i64
-  %42 = getelementptr inbounds %struct.macroblock, ptr %40, i64 %41
+36:                                               ; preds = %32
+  %37 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %38 = load ptr, ptr %37, align 8, !tbaa !16
+  %39 = zext i32 %16 to i64
+  %40 = getelementptr inbounds %struct.macroblock, ptr %38, i64 %39
+  %41 = load i32, ptr %40, align 8, !tbaa !17
+  %42 = getelementptr inbounds %struct.macroblock, ptr %38, i64 %6
   %43 = load i32, ptr %42, align 8, !tbaa !17
-  %44 = getelementptr inbounds %struct.macroblock, ptr %40, i64 %6
-  %45 = load i32, ptr %44, align 8, !tbaa !17
-  %46 = icmp eq i32 %43, %45
-  br i1 %46, label %47, label %55
+  %44 = icmp eq i32 %41, %43
+  br i1 %44, label %45, label %53
 
-47:                                               ; preds = %38, %34
-  %48 = load ptr, ptr @PicPos, align 8, !tbaa !5
-  %49 = sext i32 %14 to i64
-  %50 = getelementptr inbounds ptr, ptr %48, i64 %49
-  %51 = load ptr, ptr %50, align 8, !tbaa !5
-  %52 = load i32, ptr %51, align 4, !tbaa !27
-  %53 = icmp ne i32 %52, 0
-  %54 = zext i1 %53 to i32
-  br label %55
+45:                                               ; preds = %36, %32
+  %46 = load ptr, ptr @PicPos, align 8, !tbaa !5
+  %47 = sext i32 %14 to i64
+  %48 = getelementptr inbounds ptr, ptr %46, i64 %47
+  %49 = load ptr, ptr %48, align 8, !tbaa !5
+  %50 = load i32, ptr %49, align 4, !tbaa !27
+  %51 = icmp ne i32 %50, 0
+  %52 = zext i1 %51 to i32
+  br label %53
 
-55:                                               ; preds = %38, %13, %30, %47
-  %56 = phi i32 [ %54, %47 ], [ 0, %30 ], [ 0, %13 ], [ 0, %38 ]
-  %57 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 26
-  store i32 %56, ptr %57, align 4, !tbaa !28
-  %58 = icmp slt i32 %21, 0
-  br i1 %58, label %77, label %59
+53:                                               ; preds = %36, %13, %28, %45
+  %54 = phi i32 [ %52, %45 ], [ 0, %28 ], [ 0, %13 ], [ 0, %36 ]
+  %55 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 26
+  store i32 %54, ptr %55, align 4, !tbaa !28
+  %56 = icmp slt i32 %21, 0
+  br i1 %56, label %75, label %57
 
-59:                                               ; preds = %55
-  %60 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %61 = load i32, ptr %60, align 4, !tbaa !9
-  %62 = icmp sgt i32 %61, %21
-  br i1 %62, label %63, label %77
+57:                                               ; preds = %53
+  %58 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %59 = load i32, ptr %58, align 4, !tbaa !9
+  %60 = icmp sgt i32 %59, %21
+  br i1 %60, label %61, label %75
 
-63:                                               ; preds = %59
-  %64 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %65 = load i32, ptr %64, align 4, !tbaa !15
-  %66 = icmp eq i32 %65, 0
-  br i1 %66, label %67, label %76
+61:                                               ; preds = %57
+  %62 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %63 = load i32, ptr %62, align 4, !tbaa !15
+  %64 = icmp eq i32 %63, 0
+  br i1 %64, label %65, label %74
 
-67:                                               ; preds = %63
-  %68 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %69 = load ptr, ptr %68, align 8, !tbaa !16
-  %70 = zext i32 %21 to i64
-  %71 = getelementptr inbounds %struct.macroblock, ptr %69, i64 %70
+65:                                               ; preds = %61
+  %66 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %67 = load ptr, ptr %66, align 8, !tbaa !16
+  %68 = zext i32 %21 to i64
+  %69 = getelementptr inbounds %struct.macroblock, ptr %67, i64 %68
+  %70 = load i32, ptr %69, align 8, !tbaa !17
+  %71 = getelementptr inbounds %struct.macroblock, ptr %67, i64 %6
   %72 = load i32, ptr %71, align 8, !tbaa !17
-  %73 = getelementptr inbounds %struct.macroblock, ptr %69, i64 %6
-  %74 = load i32, ptr %73, align 8, !tbaa !17
-  %75 = icmp eq i32 %72, %74
-  br i1 %75, label %76, label %77
+  %73 = icmp eq i32 %70, %72
+  br i1 %73, label %74, label %75
 
-76:                                               ; preds = %67, %63
-  br label %77
+74:                                               ; preds = %65, %61
+  br label %75
 
-77:                                               ; preds = %55, %59, %67, %76
-  %78 = phi i32 [ 1, %76 ], [ 0, %59 ], [ 0, %55 ], [ 0, %67 ]
-  %79 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 27
-  store i32 %78, ptr %79, align 8, !tbaa !29
-  %80 = icmp slt i32 %23, 0
-  br i1 %80, label %107, label %81
+75:                                               ; preds = %53, %57, %65, %74
+  %76 = phi i32 [ 1, %74 ], [ 0, %57 ], [ 0, %53 ], [ 0, %65 ]
+  %77 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 27
+  store i32 %76, ptr %77, align 8, !tbaa !29
+  %78 = icmp slt i32 %23, 0
+  br i1 %78, label %105, label %79
 
-81:                                               ; preds = %77
-  %82 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %83 = load i32, ptr %82, align 4, !tbaa !9
-  %84 = icmp sgt i32 %83, %23
-  br i1 %84, label %85, label %107
+79:                                               ; preds = %75
+  %80 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %81 = load i32, ptr %80, align 4, !tbaa !9
+  %82 = icmp sgt i32 %81, %23
+  br i1 %82, label %83, label %105
 
-85:                                               ; preds = %81
-  %86 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %87 = load i32, ptr %86, align 4, !tbaa !15
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %89, label %98
+83:                                               ; preds = %79
+  %84 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %85 = load i32, ptr %84, align 4, !tbaa !15
+  %86 = icmp eq i32 %85, 0
+  br i1 %86, label %87, label %96
 
-89:                                               ; preds = %85
-  %90 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %91 = load ptr, ptr %90, align 8, !tbaa !16
-  %92 = zext i32 %23 to i64
-  %93 = getelementptr inbounds %struct.macroblock, ptr %91, i64 %92
+87:                                               ; preds = %83
+  %88 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %89 = load ptr, ptr %88, align 8, !tbaa !16
+  %90 = zext i32 %23 to i64
+  %91 = getelementptr inbounds %struct.macroblock, ptr %89, i64 %90
+  %92 = load i32, ptr %91, align 8, !tbaa !17
+  %93 = getelementptr inbounds %struct.macroblock, ptr %89, i64 %6
   %94 = load i32, ptr %93, align 8, !tbaa !17
-  %95 = getelementptr inbounds %struct.macroblock, ptr %91, i64 %6
-  %96 = load i32, ptr %95, align 8, !tbaa !17
-  %97 = icmp eq i32 %94, %96
-  br i1 %97, label %98, label %107
+  %95 = icmp eq i32 %92, %94
+  br i1 %95, label %96, label %105
 
-98:                                               ; preds = %89, %85
-  %99 = load ptr, ptr @PicPos, align 8, !tbaa !5
-  %100 = add nsw i32 %14, 1
-  %101 = sext i32 %100 to i64
-  %102 = getelementptr inbounds ptr, ptr %99, i64 %101
-  %103 = load ptr, ptr %102, align 8, !tbaa !5
-  %104 = load i32, ptr %103, align 4, !tbaa !27
-  %105 = icmp ne i32 %104, 0
-  %106 = zext i1 %105 to i32
-  br label %107
+96:                                               ; preds = %87, %83
+  %97 = load ptr, ptr @PicPos, align 8, !tbaa !5
+  %98 = add nsw i32 %14, 1
+  %99 = sext i32 %98 to i64
+  %100 = getelementptr inbounds ptr, ptr %97, i64 %99
+  %101 = load ptr, ptr %100, align 8, !tbaa !5
+  %102 = load i32, ptr %101, align 4, !tbaa !27
+  %103 = icmp ne i32 %102, 0
+  %104 = zext i1 %103 to i32
+  br label %105
 
-107:                                              ; preds = %89, %77, %81, %98
-  %108 = phi i32 [ %106, %98 ], [ 0, %81 ], [ 0, %77 ], [ 0, %89 ]
-  %109 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 28
-  store i32 %108, ptr %109, align 4, !tbaa !30
-  %110 = icmp slt i32 %27, 0
-  br i1 %110, label %261, label %111
+105:                                              ; preds = %87, %75, %79, %96
+  %106 = phi i32 [ %104, %96 ], [ 0, %79 ], [ 0, %75 ], [ 0, %87 ]
+  %107 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 28
+  store i32 %106, ptr %107, align 4, !tbaa !30
+  %108 = icmp slt i32 %25, 0
+  br i1 %108, label %258, label %109
 
-111:                                              ; preds = %107
-  %112 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %113 = load i32, ptr %112, align 4, !tbaa !9
-  %114 = icmp sgt i32 %113, %27
-  br i1 %114, label %115, label %261
+109:                                              ; preds = %105
+  %110 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %111 = load i32, ptr %110, align 4, !tbaa !9
+  %112 = icmp sgt i32 %111, %25
+  br i1 %112, label %113, label %258
 
-115:                                              ; preds = %111
-  %116 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %117 = load i32, ptr %116, align 4, !tbaa !15
-  %118 = icmp eq i32 %117, 0
-  br i1 %118, label %119, label %128
+113:                                              ; preds = %109
+  %114 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %115 = load i32, ptr %114, align 4, !tbaa !15
+  %116 = icmp eq i32 %115, 0
+  br i1 %116, label %117, label %126
 
-119:                                              ; preds = %115
-  %120 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %121 = load ptr, ptr %120, align 8, !tbaa !16
-  %122 = zext i32 %27 to i64
-  %123 = getelementptr inbounds %struct.macroblock, ptr %121, i64 %122
+117:                                              ; preds = %113
+  %118 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %119 = load ptr, ptr %118, align 8, !tbaa !16
+  %120 = zext i32 %25 to i64
+  %121 = getelementptr inbounds %struct.macroblock, ptr %119, i64 %120
+  %122 = load i32, ptr %121, align 8, !tbaa !17
+  %123 = getelementptr inbounds %struct.macroblock, ptr %119, i64 %6
   %124 = load i32, ptr %123, align 8, !tbaa !17
-  %125 = getelementptr inbounds %struct.macroblock, ptr %121, i64 %6
-  %126 = load i32, ptr %125, align 8, !tbaa !17
-  %127 = icmp eq i32 %124, %126
-  br i1 %127, label %128, label %261
+  %125 = icmp eq i32 %122, %124
+  br i1 %125, label %126, label %258
 
-128:                                              ; preds = %119, %115
-  %129 = load ptr, ptr @PicPos, align 8, !tbaa !5
-  %130 = sext i32 %14 to i64
-  %131 = getelementptr inbounds ptr, ptr %129, i64 %130
-  br label %251
+126:                                              ; preds = %117, %113
+  %127 = load ptr, ptr @PicPos, align 8, !tbaa !5
+  %128 = sext i32 %14 to i64
+  %129 = getelementptr inbounds ptr, ptr %127, i64 %128
+  br label %248
 
-132:                                              ; preds = %0
-  %133 = add nsw i32 %3, -1
-  %134 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 22
-  store i32 %133, ptr %134, align 4, !tbaa !22
-  %135 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 116
-  %136 = load i32, ptr %135, align 8, !tbaa !23
-  %137 = sub i32 %3, %136
-  %138 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 23
-  store i32 %137, ptr %138, align 8, !tbaa !24
-  %139 = add i32 %137, 1
-  %140 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 24
-  store i32 %139, ptr %140, align 4, !tbaa !25
-  %141 = xor i32 %136, -1
-  %142 = add i32 %3, %141
-  %143 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 25
-  store i32 %142, ptr %143, align 8, !tbaa !26
-  %144 = icmp slt i32 %3, 1
-  br i1 %144, label %169, label %145
+130:                                              ; preds = %0
+  %131 = add nsw i32 %3, -1
+  %132 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 22
+  store i32 %131, ptr %132, align 4, !tbaa !22
+  %133 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 116
+  %134 = load i32, ptr %133, align 8, !tbaa !23
+  %135 = sub i32 %3, %134
+  %136 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 23
+  store i32 %135, ptr %136, align 8, !tbaa !24
+  %137 = add i32 %135, 1
+  %138 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 24
+  store i32 %137, ptr %138, align 4, !tbaa !25
+  %139 = add i32 %135, -1
+  %140 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 25
+  store i32 %139, ptr %140, align 8, !tbaa !26
+  %141 = icmp slt i32 %3, 1
+  br i1 %141, label %166, label %142
 
-145:                                              ; preds = %132
-  %146 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %147 = load i32, ptr %146, align 4, !tbaa !9
-  %148 = icmp slt i32 %147, %3
-  br i1 %148, label %169, label %149
+142:                                              ; preds = %130
+  %143 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %144 = load i32, ptr %143, align 4, !tbaa !9
+  %145 = icmp slt i32 %144, %3
+  br i1 %145, label %166, label %146
 
-149:                                              ; preds = %145
-  %150 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %151 = load i32, ptr %150, align 4, !tbaa !15
-  %152 = icmp eq i32 %151, 0
-  br i1 %152, label %153, label %162
+146:                                              ; preds = %142
+  %147 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %148 = load i32, ptr %147, align 4, !tbaa !15
+  %149 = icmp eq i32 %148, 0
+  br i1 %149, label %150, label %159
 
-153:                                              ; preds = %149
-  %154 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %155 = load ptr, ptr %154, align 8, !tbaa !16
-  %156 = zext i32 %133 to i64
-  %157 = getelementptr inbounds %struct.macroblock, ptr %155, i64 %156
-  %158 = load i32, ptr %157, align 8, !tbaa !17
-  %159 = getelementptr inbounds %struct.macroblock, ptr %155, i64 %6
-  %160 = load i32, ptr %159, align 8, !tbaa !17
-  %161 = icmp eq i32 %158, %160
-  br i1 %161, label %162, label %169
+150:                                              ; preds = %146
+  %151 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %152 = load ptr, ptr %151, align 8, !tbaa !16
+  %153 = zext i32 %131 to i64
+  %154 = getelementptr inbounds %struct.macroblock, ptr %152, i64 %153
+  %155 = load i32, ptr %154, align 8, !tbaa !17
+  %156 = getelementptr inbounds %struct.macroblock, ptr %152, i64 %6
+  %157 = load i32, ptr %156, align 8, !tbaa !17
+  %158 = icmp eq i32 %155, %157
+  br i1 %158, label %159, label %166
 
-162:                                              ; preds = %153, %149
-  %163 = load ptr, ptr @PicPos, align 8, !tbaa !5
-  %164 = getelementptr inbounds ptr, ptr %163, i64 %6
-  %165 = load ptr, ptr %164, align 8, !tbaa !5
-  %166 = load i32, ptr %165, align 4, !tbaa !27
-  %167 = icmp ne i32 %166, 0
-  %168 = zext i1 %167 to i32
-  br label %169
+159:                                              ; preds = %150, %146
+  %160 = load ptr, ptr @PicPos, align 8, !tbaa !5
+  %161 = getelementptr inbounds ptr, ptr %160, i64 %6
+  %162 = load ptr, ptr %161, align 8, !tbaa !5
+  %163 = load i32, ptr %162, align 4, !tbaa !27
+  %164 = icmp ne i32 %163, 0
+  %165 = zext i1 %164 to i32
+  br label %166
 
-169:                                              ; preds = %153, %132, %145, %162
-  %170 = phi i32 [ %168, %162 ], [ 0, %145 ], [ 0, %132 ], [ 0, %153 ]
-  %171 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 26
-  store i32 %170, ptr %171, align 4, !tbaa !28
-  %172 = icmp slt i32 %137, 0
-  br i1 %172, label %194, label %173
+166:                                              ; preds = %150, %130, %142, %159
+  %167 = phi i32 [ %165, %159 ], [ 0, %142 ], [ 0, %130 ], [ 0, %150 ]
+  %168 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 26
+  store i32 %167, ptr %168, align 4, !tbaa !28
+  %169 = icmp slt i32 %135, 0
+  br i1 %169, label %191, label %170
 
-173:                                              ; preds = %169
-  %174 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %175 = load i32, ptr %174, align 4, !tbaa !9
-  %176 = icmp sgt i32 %175, %137
-  br i1 %176, label %177, label %194
+170:                                              ; preds = %166
+  %171 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %172 = load i32, ptr %171, align 4, !tbaa !9
+  %173 = icmp sgt i32 %172, %135
+  br i1 %173, label %174, label %191
 
-177:                                              ; preds = %173
-  %178 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %179 = load i32, ptr %178, align 4, !tbaa !15
-  %180 = icmp eq i32 %179, 0
-  br i1 %180, label %181, label %190
+174:                                              ; preds = %170
+  %175 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %176 = load i32, ptr %175, align 4, !tbaa !15
+  %177 = icmp eq i32 %176, 0
+  br i1 %177, label %178, label %187
 
-181:                                              ; preds = %177
-  %182 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %183 = load ptr, ptr %182, align 8, !tbaa !16
-  %184 = zext i32 %137 to i64
-  %185 = getelementptr inbounds %struct.macroblock, ptr %183, i64 %184
-  %186 = load i32, ptr %185, align 8, !tbaa !17
-  %187 = getelementptr inbounds %struct.macroblock, ptr %183, i64 %6
-  %188 = load i32, ptr %187, align 8, !tbaa !17
-  %189 = icmp eq i32 %186, %188
-  br i1 %189, label %190, label %191
+178:                                              ; preds = %174
+  %179 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %180 = load ptr, ptr %179, align 8, !tbaa !16
+  %181 = zext i32 %135 to i64
+  %182 = getelementptr inbounds %struct.macroblock, ptr %180, i64 %181
+  %183 = load i32, ptr %182, align 8, !tbaa !17
+  %184 = getelementptr inbounds %struct.macroblock, ptr %180, i64 %6
+  %185 = load i32, ptr %184, align 8, !tbaa !17
+  %186 = icmp eq i32 %183, %185
+  br i1 %186, label %187, label %188
 
-190:                                              ; preds = %181, %177
-  br label %191
+187:                                              ; preds = %178, %174
+  br label %188
 
-191:                                              ; preds = %181, %190
-  %192 = phi i32 [ 0, %181 ], [ 1, %190 ]
-  %193 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 27
-  store i32 %192, ptr %193, align 8, !tbaa !29
-  br label %200
+188:                                              ; preds = %178, %187
+  %189 = phi i32 [ 0, %178 ], [ 1, %187 ]
+  %190 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 27
+  store i32 %189, ptr %190, align 8, !tbaa !29
+  br label %197
 
-194:                                              ; preds = %169, %173
-  %195 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 27
-  store i32 0, ptr %195, align 8, !tbaa !29
-  %196 = icmp slt i32 %139, 0
-  br i1 %196, label %226, label %197
+191:                                              ; preds = %166, %170
+  %192 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 27
+  store i32 0, ptr %192, align 8, !tbaa !29
+  %193 = icmp slt i32 %137, 0
+  br i1 %193, label %223, label %194
 
-197:                                              ; preds = %194
-  %198 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %199 = load i32, ptr %198, align 4, !tbaa !9
-  br label %200
+194:                                              ; preds = %191
+  %195 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %196 = load i32, ptr %195, align 4, !tbaa !9
+  br label %197
 
-200:                                              ; preds = %197, %191
-  %201 = phi i32 [ 0, %197 ], [ %192, %191 ]
-  %202 = phi i32 [ %199, %197 ], [ %175, %191 ]
-  %203 = icmp sgt i32 %202, %139
-  br i1 %203, label %204, label %226
+197:                                              ; preds = %194, %188
+  %198 = phi i32 [ 0, %194 ], [ %189, %188 ]
+  %199 = phi i32 [ %196, %194 ], [ %172, %188 ]
+  %200 = icmp sgt i32 %199, %137
+  br i1 %200, label %201, label %223
 
-204:                                              ; preds = %200
-  %205 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %206 = load i32, ptr %205, align 4, !tbaa !15
-  %207 = icmp eq i32 %206, 0
-  br i1 %207, label %208, label %217
+201:                                              ; preds = %197
+  %202 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %203 = load i32, ptr %202, align 4, !tbaa !15
+  %204 = icmp eq i32 %203, 0
+  br i1 %204, label %205, label %214
 
-208:                                              ; preds = %204
-  %209 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %210 = load ptr, ptr %209, align 8, !tbaa !16
-  %211 = zext i32 %139 to i64
-  %212 = getelementptr inbounds %struct.macroblock, ptr %210, i64 %211
-  %213 = load i32, ptr %212, align 8, !tbaa !17
-  %214 = getelementptr inbounds %struct.macroblock, ptr %210, i64 %6
-  %215 = load i32, ptr %214, align 8, !tbaa !17
-  %216 = icmp eq i32 %213, %215
-  br i1 %216, label %217, label %226
+205:                                              ; preds = %201
+  %206 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %207 = load ptr, ptr %206, align 8, !tbaa !16
+  %208 = zext i32 %137 to i64
+  %209 = getelementptr inbounds %struct.macroblock, ptr %207, i64 %208
+  %210 = load i32, ptr %209, align 8, !tbaa !17
+  %211 = getelementptr inbounds %struct.macroblock, ptr %207, i64 %6
+  %212 = load i32, ptr %211, align 8, !tbaa !17
+  %213 = icmp eq i32 %210, %212
+  br i1 %213, label %214, label %223
 
-217:                                              ; preds = %208, %204
-  %218 = load ptr, ptr @PicPos, align 8, !tbaa !5
-  %219 = add nsw i32 %3, 1
-  %220 = sext i32 %219 to i64
-  %221 = getelementptr inbounds ptr, ptr %218, i64 %220
-  %222 = load ptr, ptr %221, align 8, !tbaa !5
-  %223 = load i32, ptr %222, align 4, !tbaa !27
-  %224 = icmp ne i32 %223, 0
-  %225 = zext i1 %224 to i32
-  br label %226
+214:                                              ; preds = %205, %201
+  %215 = load ptr, ptr @PicPos, align 8, !tbaa !5
+  %216 = add nsw i32 %3, 1
+  %217 = sext i32 %216 to i64
+  %218 = getelementptr inbounds ptr, ptr %215, i64 %217
+  %219 = load ptr, ptr %218, align 8, !tbaa !5
+  %220 = load i32, ptr %219, align 4, !tbaa !27
+  %221 = icmp ne i32 %220, 0
+  %222 = zext i1 %221 to i32
+  br label %223
 
-226:                                              ; preds = %208, %194, %200, %217
-  %227 = phi i32 [ %201, %217 ], [ %201, %200 ], [ 0, %194 ], [ %201, %208 ]
-  %228 = phi i32 [ %225, %217 ], [ 0, %200 ], [ 0, %194 ], [ 0, %208 ]
-  %229 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 28
-  store i32 %228, ptr %229, align 4, !tbaa !30
-  %230 = icmp slt i32 %142, 0
-  br i1 %230, label %261, label %231
+223:                                              ; preds = %205, %191, %197, %214
+  %224 = phi i32 [ %198, %214 ], [ %198, %197 ], [ 0, %191 ], [ %198, %205 ]
+  %225 = phi i32 [ %222, %214 ], [ 0, %197 ], [ 0, %191 ], [ 0, %205 ]
+  %226 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 28
+  store i32 %225, ptr %226, align 4, !tbaa !30
+  %227 = icmp slt i32 %139, 0
+  br i1 %227, label %258, label %228
 
-231:                                              ; preds = %226
-  %232 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
-  %233 = load i32, ptr %232, align 4, !tbaa !9
-  %234 = icmp sgt i32 %233, %142
-  br i1 %234, label %235, label %261
+228:                                              ; preds = %223
+  %229 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 119
+  %230 = load i32, ptr %229, align 4, !tbaa !9
+  %231 = icmp sgt i32 %230, %139
+  br i1 %231, label %232, label %258
 
-235:                                              ; preds = %231
-  %236 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
-  %237 = load i32, ptr %236, align 4, !tbaa !15
-  %238 = icmp eq i32 %237, 0
-  br i1 %238, label %239, label %248
+232:                                              ; preds = %228
+  %233 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 136
+  %234 = load i32, ptr %233, align 4, !tbaa !15
+  %235 = icmp eq i32 %234, 0
+  br i1 %235, label %236, label %245
 
-239:                                              ; preds = %235
-  %240 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %241 = load ptr, ptr %240, align 8, !tbaa !16
-  %242 = zext i32 %142 to i64
-  %243 = getelementptr inbounds %struct.macroblock, ptr %241, i64 %242
-  %244 = load i32, ptr %243, align 8, !tbaa !17
-  %245 = getelementptr inbounds %struct.macroblock, ptr %241, i64 %6
-  %246 = load i32, ptr %245, align 8, !tbaa !17
-  %247 = icmp eq i32 %244, %246
-  br i1 %247, label %248, label %261
+236:                                              ; preds = %232
+  %237 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %238 = load ptr, ptr %237, align 8, !tbaa !16
+  %239 = zext i32 %139 to i64
+  %240 = getelementptr inbounds %struct.macroblock, ptr %238, i64 %239
+  %241 = load i32, ptr %240, align 8, !tbaa !17
+  %242 = getelementptr inbounds %struct.macroblock, ptr %238, i64 %6
+  %243 = load i32, ptr %242, align 8, !tbaa !17
+  %244 = icmp eq i32 %241, %243
+  br i1 %244, label %245, label %258
 
-248:                                              ; preds = %239, %235
-  %249 = load ptr, ptr @PicPos, align 8, !tbaa !5
-  %250 = getelementptr inbounds ptr, ptr %249, i64 %6
-  br label %251
+245:                                              ; preds = %236, %232
+  %246 = load ptr, ptr @PicPos, align 8, !tbaa !5
+  %247 = getelementptr inbounds ptr, ptr %246, i64 %6
+  br label %248
 
-251:                                              ; preds = %128, %248
-  %252 = phi ptr [ %250, %248 ], [ %131, %128 ]
-  %253 = phi i32 [ %137, %248 ], [ %21, %128 ]
-  %254 = phi i32 [ %227, %248 ], [ %78, %128 ]
-  %255 = phi i32 [ %133, %248 ], [ %16, %128 ]
-  %256 = phi i32 [ %170, %248 ], [ %56, %128 ]
-  %257 = load ptr, ptr %252, align 8, !tbaa !5
-  %258 = load i32, ptr %257, align 4, !tbaa !27
-  %259 = icmp ne i32 %258, 0
-  %260 = zext i1 %259 to i32
-  br label %261
+248:                                              ; preds = %126, %245
+  %249 = phi ptr [ %247, %245 ], [ %129, %126 ]
+  %250 = phi i32 [ %135, %245 ], [ %21, %126 ]
+  %251 = phi i32 [ %224, %245 ], [ %76, %126 ]
+  %252 = phi i32 [ %131, %245 ], [ %16, %126 ]
+  %253 = phi i32 [ %167, %245 ], [ %54, %126 ]
+  %254 = load ptr, ptr %249, align 8, !tbaa !5
+  %255 = load i32, ptr %254, align 4, !tbaa !27
+  %256 = icmp ne i32 %255, 0
+  %257 = zext i1 %256 to i32
+  br label %258
 
-261:                                              ; preds = %251, %231, %226, %239, %111, %107, %119
-  %262 = phi i32 [ 0, %111 ], [ 0, %107 ], [ 0, %119 ], [ 0, %231 ], [ 0, %226 ], [ 0, %239 ], [ %260, %251 ]
-  %263 = phi i32 [ %21, %111 ], [ %21, %107 ], [ %21, %119 ], [ %137, %231 ], [ %137, %226 ], [ %137, %239 ], [ %253, %251 ]
-  %264 = phi i32 [ %78, %111 ], [ %78, %107 ], [ %78, %119 ], [ %227, %231 ], [ %227, %226 ], [ %227, %239 ], [ %254, %251 ]
-  %265 = phi i32 [ %16, %111 ], [ %16, %107 ], [ %16, %119 ], [ %133, %231 ], [ %133, %226 ], [ %133, %239 ], [ %255, %251 ]
-  %266 = phi i32 [ %56, %111 ], [ %56, %107 ], [ %56, %119 ], [ %170, %231 ], [ %170, %226 ], [ %170, %239 ], [ %256, %251 ]
-  %267 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 29
-  store i32 %262, ptr %267, align 8, !tbaa !31
-  %268 = icmp eq i32 %266, 0
-  br i1 %268, label %274, label %269
+258:                                              ; preds = %248, %228, %223, %236, %109, %105, %117
+  %259 = phi i32 [ 0, %109 ], [ 0, %105 ], [ 0, %117 ], [ 0, %228 ], [ 0, %223 ], [ 0, %236 ], [ %257, %248 ]
+  %260 = phi i32 [ %21, %109 ], [ %21, %105 ], [ %21, %117 ], [ %135, %228 ], [ %135, %223 ], [ %135, %236 ], [ %250, %248 ]
+  %261 = phi i32 [ %76, %109 ], [ %76, %105 ], [ %76, %117 ], [ %224, %228 ], [ %224, %223 ], [ %224, %236 ], [ %251, %248 ]
+  %262 = phi i32 [ %16, %109 ], [ %16, %105 ], [ %16, %117 ], [ %131, %228 ], [ %131, %223 ], [ %131, %236 ], [ %252, %248 ]
+  %263 = phi i32 [ %54, %109 ], [ %54, %105 ], [ %54, %117 ], [ %167, %228 ], [ %167, %223 ], [ %167, %236 ], [ %253, %248 ]
+  %264 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 29
+  store i32 %259, ptr %264, align 8, !tbaa !31
+  %265 = icmp eq i32 %263, 0
+  br i1 %265, label %271, label %266
 
-269:                                              ; preds = %261
-  %270 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
-  %271 = load ptr, ptr %270, align 8, !tbaa !16
-  %272 = sext i32 %265 to i64
-  %273 = getelementptr inbounds %struct.macroblock, ptr %271, i64 %272
-  store ptr %273, ptr %8, align 8, !tbaa !32
-  br label %274
+266:                                              ; preds = %258
+  %267 = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 61
+  %268 = load ptr, ptr %267, align 8, !tbaa !16
+  %269 = sext i32 %262 to i64
+  %270 = getelementptr inbounds %struct.macroblock, ptr %268, i64 %269
+  store ptr %270, ptr %8, align 8, !tbaa !32
+  br label %271
 
-274:                                              ; preds = %269, %261
-  %275 = icmp eq i32 %264, 0
-  br i1 %275, label %282, label %276
+271:                                              ; preds = %266, %258
+  %272 = icmp eq i32 %261, 0
+  br i1 %272, label %279, label %273
 
-276:                                              ; preds = %274
-  %277 = load ptr, ptr @img, align 8, !tbaa !5
-  %278 = getelementptr inbounds %struct.ImageParameters, ptr %277, i64 0, i32 61
-  %279 = load ptr, ptr %278, align 8, !tbaa !16
-  %280 = sext i32 %263 to i64
-  %281 = getelementptr inbounds %struct.macroblock, ptr %279, i64 %280
-  store ptr %281, ptr %7, align 8, !tbaa !33
-  br label %282
+273:                                              ; preds = %271
+  %274 = load ptr, ptr @img, align 8, !tbaa !5
+  %275 = getelementptr inbounds %struct.ImageParameters, ptr %274, i64 0, i32 61
+  %276 = load ptr, ptr %275, align 8, !tbaa !16
+  %277 = sext i32 %260 to i64
+  %278 = getelementptr inbounds %struct.macroblock, ptr %276, i64 %277
+  store ptr %278, ptr %7, align 8, !tbaa !33
+  br label %279
 
-282:                                              ; preds = %276, %274
+279:                                              ; preds = %273, %271
   ret void
 }
 
@@ -619,11 +616,13 @@ define dso_local void @getNonAffNeighbour(i32 noundef %0, i32 noundef %1, i32 no
   %24 = icmp slt i32 %1, 0
   %25 = icmp sgt i32 %2, -1
   %26 = and i1 %24, %25
-  %27 = icmp sgt i32 %14, %2
-  %28 = select i1 %26, i1 %27, i1 false
-  br i1 %28, label %29, label %34
+  br i1 %26, label %27, label %34
 
-29:                                               ; preds = %23
+27:                                               ; preds = %23
+  %28 = icmp sgt i32 %14, %2
+  br i1 %28, label %29, label %58
+
+29:                                               ; preds = %27
   %30 = getelementptr inbounds %struct.macroblock, ptr %8, i64 %9, i32 22
   %31 = load i32, ptr %30, align 4, !tbaa !22
   %32 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 1
@@ -633,12 +632,14 @@ define dso_local void @getNonAffNeighbour(i32 noundef %0, i32 noundef %1, i32 no
 
 34:                                               ; preds = %23
   %35 = icmp sgt i32 %1, -1
-  %36 = icmp sgt i32 %12, %1
-  %37 = and i1 %15, %36
-  %38 = select i1 %35, i1 %37, i1 false
+  br i1 %35, label %36, label %50
+
+36:                                               ; preds = %34
+  %37 = icmp sgt i32 %12, %1
+  %38 = and i1 %15, %37
   br i1 %38, label %39, label %44
 
-39:                                               ; preds = %34
+39:                                               ; preds = %36
   %40 = getelementptr inbounds %struct.macroblock, ptr %8, i64 %9, i32 23
   %41 = load i32, ptr %40, align 8, !tbaa !24
   %42 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 1
@@ -646,19 +647,21 @@ define dso_local void @getNonAffNeighbour(i32 noundef %0, i32 noundef %1, i32 no
   %43 = getelementptr inbounds %struct.macroblock, ptr %8, i64 %9, i32 27
   br label %59
 
-44:                                               ; preds = %34
-  %45 = and i1 %25, %36
-  %46 = select i1 %35, i1 %45, i1 false
-  %47 = select i1 %46, i1 %27, i1 false
-  br i1 %47, label %48, label %50
+44:                                               ; preds = %36
+  %45 = and i1 %25, %37
+  br i1 %45, label %46, label %50
 
-48:                                               ; preds = %44
+46:                                               ; preds = %44
+  %47 = icmp sgt i32 %14, %2
+  br i1 %47, label %48, label %58
+
+48:                                               ; preds = %46
   %49 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 1
   store i32 %0, ptr %49, align 4, !tbaa !34
   store i32 1, ptr %4, align 4, !tbaa !36
   br label %71
 
-50:                                               ; preds = %44
+50:                                               ; preds = %34, %44
   %51 = icmp sle i32 %12, %1
   %52 = and i1 %15, %51
   br i1 %52, label %53, label %58
@@ -671,7 +674,7 @@ define dso_local void @getNonAffNeighbour(i32 noundef %0, i32 noundef %1, i32 no
   %57 = getelementptr inbounds %struct.macroblock, ptr %8, i64 %9, i32 28
   br label %59
 
-58:                                               ; preds = %50
+58:                                               ; preds = %50, %27, %46
   store i32 0, ptr %4, align 4, !tbaa !36
   br label %64
 
@@ -1171,7 +1174,7 @@ define dso_local void @getAffNeighbour(i32 noundef %0, i32 noundef %1, i32 nound
   store i32 %276, ptr %262, align 4, !tbaa !40
   br label %277
 
-277:                                              ; preds = %248, %253, %17, %5
+277:                                              ; preds = %17, %248, %253, %5
   ret void
 }
 

@@ -185,7 +185,7 @@ define dso_local void @_ZN4TreeC2EPcS_(ptr nocapture noundef nonnull writeonly a
   tail call void %33(ptr noundef nonnull align 8 dereferenceable(12) %5) #15
   br label %34
 
-34:                                               ; preds = %25, %30
+34:                                               ; preds = %30, %25
   tail call void @_ZdlPv(ptr noundef nonnull %4) #14
   resume { ptr, i32 } %26
 }
@@ -279,7 +279,7 @@ define dso_local void @_ZN4TreeC2ES_PcS_(ptr nocapture noundef nonnull writeonly
   tail call void %51(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
   br label %52
 
-52:                                               ; preds = %43, %48
+52:                                               ; preds = %48, %43
   %53 = load i32, ptr %7, align 8, !tbaa !8
   %54 = add nsw i32 %53, -1
   store i32 %54, ptr %7, align 8, !tbaa !8
@@ -293,7 +293,7 @@ define dso_local void @_ZN4TreeC2ES_PcS_(ptr nocapture noundef nonnull writeonly
   tail call void %59(ptr noundef nonnull align 8 dereferenceable(12) %6) #15
   br label %60
 
-60:                                               ; preds = %52, %56
+60:                                               ; preds = %56, %52
   tail call void @_ZdlPv(ptr noundef nonnull %5) #14
   resume { ptr, i32 } %44
 }
@@ -635,7 +635,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %45(ptr noundef nonnull align 8 dereferenceable(12) %12) #15
   br label %46
 
-46:                                               ; preds = %38, %42
+46:                                               ; preds = %42, %38
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #15
   store ptr %25, ptr %5, align 8, !tbaa !18
   %47 = load i32, ptr %27, align 8, !tbaa !8
@@ -909,7 +909,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %192(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
   br label %193
 
-193:                                              ; preds = %184, %189
+193:                                              ; preds = %189, %184
   %194 = load i32, ptr %13, align 8, !tbaa !8
   %195 = add nsw i32 %194, -1
   store i32 %195, ptr %13, align 8, !tbaa !8
@@ -947,7 +947,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %213(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
   br label %214
 
-214:                                              ; preds = %205, %210
+214:                                              ; preds = %210, %205
   %215 = load i32, ptr %13, align 8, !tbaa !8
   %216 = add nsw i32 %215, -1
   store i32 %216, ptr %13, align 8, !tbaa !8
@@ -975,7 +975,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %228(ptr noundef nonnull align 8 dereferenceable(12) %63) #15
   br label %229
 
-229:                                              ; preds = %220, %225
+229:                                              ; preds = %225, %220
   %230 = load i32, ptr %13, align 8, !tbaa !8
   %231 = add nsw i32 %230, -1
   store i32 %231, ptr %13, align 8, !tbaa !8
@@ -1099,8 +1099,8 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %304(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
   br label %305
 
-305:                                              ; preds = %301, %296, %180, %22
-  %306 = phi { ptr, i32 } [ %181, %180 ], [ %23, %22 ], [ %297, %296 ], [ %297, %301 ]
+305:                                              ; preds = %180, %22, %301, %296
+  %306 = phi { ptr, i32 } [ %297, %296 ], [ %297, %301 ], [ %181, %180 ], [ %23, %22 ]
   %307 = load i32, ptr %13, align 8, !tbaa !8
   %308 = add nsw i32 %307, -1
   store i32 %308, ptr %13, align 8, !tbaa !8

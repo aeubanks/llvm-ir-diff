@@ -209,48 +209,54 @@ define dso_local i32 @FileTimeToSystemTime(ptr nocapture noundef readonly %0, pt
   %25 = add nsw i32 %24, 1
   %26 = srem i32 %25, 7
   %27 = trunc i32 %26 to i16
-  %28 = shl nsw i64 %15, 2
-  %29 = add nsw i64 %28, 1227
-  %30 = sdiv i64 %29, 146097
-  %31 = mul nsw i64 %30, 3
-  %32 = add nsw i64 %31, 3
-  %33 = sdiv i64 %32, 4
-  %34 = add nsw i64 %15, 28188
-  %35 = add nsw i64 %34, %33
-  %36 = mul nsw i64 %35, 20
-  %37 = add nsw i64 %36, -2442
-  %38 = sdiv i64 %37, 7305
-  %39 = mul nsw i64 %38, 1461
-  %40 = sdiv i64 %39, -4
-  %41 = add nsw i64 %40, %35
-  %42 = shl nsw i64 %41, 6
-  %43 = sdiv i64 %42, 1959
-  %44 = icmp slt i64 %41, 429
-  %45 = trunc i64 %43 to i16
-  %46 = trunc i64 %38 to i16
-  %47 = select i1 %44, i16 -1, i16 -13
-  %48 = select i1 %44, i16 1524, i16 1525
-  %49 = add i16 %47, %45
-  %50 = add i16 %48, %46
-  %51 = mul nsw i64 %43, 1959
-  %52 = sdiv i64 %51, -64
-  %53 = add nsw i64 %52, %41
-  %54 = trunc i64 %53 to i16
-  store i16 %50, ptr %1, align 2, !tbaa !28
-  %55 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 1
-  store i16 %49, ptr %55, align 2, !tbaa !30
-  %56 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 3
-  store i16 %54, ptr %56, align 2, !tbaa !31
-  %57 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 4
-  store i16 %19, ptr %57, align 2, !tbaa !32
-  %58 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 5
-  store i16 %22, ptr %58, align 2, !tbaa !33
-  %59 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 6
-  store i16 %23, ptr %59, align 2, !tbaa !34
-  %60 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 7
-  store i16 %13, ptr %60, align 2, !tbaa !35
-  %61 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 2
-  store i16 %27, ptr %61, align 2, !tbaa !36
+  %28 = shl nsw i32 %24, 2
+  %29 = add nsw i32 %28, 1227
+  %30 = sdiv i32 %29, 146097
+  %31 = trunc i32 %30 to i16
+  %32 = mul nsw i16 %31, 3
+  %33 = add i16 %32, 3
+  %34 = sdiv i16 %33, 4
+  %35 = sext i16 %34 to i64
+  %36 = add nsw i64 %15, 28188
+  %37 = add nsw i64 %36, %35
+  %38 = trunc i64 %37 to i32
+  %39 = mul nsw i32 %38, 20
+  %40 = add nsw i32 %39, -2442
+  %41 = sdiv i32 %40, 7305
+  %42 = mul nsw i32 %41, 1461
+  %43 = sdiv i32 %42, 4
+  %44 = zext i32 %43 to i64
+  %45 = sub nsw i64 %37, %44
+  %46 = trunc i64 %45 to i32
+  %47 = shl nsw i32 %46, 6
+  %48 = sdiv i32 %47, 1959
+  %49 = icmp slt i32 %46, 429
+  %50 = trunc i32 %48 to i16
+  %51 = trunc i32 %41 to i16
+  %52 = select i1 %49, i16 -1, i16 -13
+  %53 = select i1 %49, i16 1524, i16 1525
+  %54 = add i16 %52, %50
+  %55 = add nsw i16 %53, %51
+  %56 = mul nsw i32 %48, 1959
+  %57 = sdiv i32 %56, 64
+  %58 = zext i32 %57 to i64
+  %59 = sub nsw i64 %45, %58
+  %60 = trunc i64 %59 to i16
+  store i16 %55, ptr %1, align 2, !tbaa !28
+  %61 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 1
+  store i16 %54, ptr %61, align 2, !tbaa !30
+  %62 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 3
+  store i16 %60, ptr %62, align 2, !tbaa !31
+  %63 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 4
+  store i16 %19, ptr %63, align 2, !tbaa !32
+  %64 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 5
+  store i16 %22, ptr %64, align 2, !tbaa !33
+  %65 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 6
+  store i16 %23, ptr %65, align 2, !tbaa !34
+  %66 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 7
+  store i16 %13, ptr %66, align 2, !tbaa !35
+  %67 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 2
+  store i16 %27, ptr %67, align 2, !tbaa !36
   ret i32 1
 }
 
@@ -314,48 +320,54 @@ define dso_local void @GetSystemTime(ptr nocapture noundef writeonly %0) local_u
   %26 = add nsw i32 %25, 1
   %27 = srem i32 %26, 7
   %28 = trunc i32 %27 to i16
-  %29 = shl nsw i64 %16, 2
-  %30 = add nsw i64 %29, 1227
-  %31 = sdiv i64 %30, 146097
-  %32 = mul nsw i64 %31, 3
-  %33 = add nsw i64 %32, 3
-  %34 = sdiv i64 %33, 4
-  %35 = add nsw i64 %16, 28188
-  %36 = add nsw i64 %35, %34
-  %37 = mul nsw i64 %36, 20
-  %38 = add nsw i64 %37, -2442
-  %39 = sdiv i64 %38, 7305
-  %40 = mul nsw i64 %39, 1461
-  %41 = sdiv i64 %40, -4
-  %42 = add nsw i64 %41, %36
-  %43 = shl nsw i64 %42, 6
-  %44 = sdiv i64 %43, 1959
-  %45 = icmp slt i64 %42, 429
-  %46 = trunc i64 %44 to i16
-  %47 = trunc i64 %39 to i16
-  %48 = select i1 %45, i16 -1, i16 -13
-  %49 = select i1 %45, i16 1524, i16 1525
-  %50 = add i16 %48, %46
-  %51 = add i16 %49, %47
-  %52 = mul nsw i64 %44, 1959
-  %53 = sdiv i64 %52, -64
-  %54 = add nsw i64 %53, %42
-  %55 = trunc i64 %54 to i16
-  store i16 %51, ptr %0, align 2, !tbaa !28
-  %56 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 1
-  store i16 %50, ptr %56, align 2, !tbaa !30
-  %57 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 3
-  store i16 %55, ptr %57, align 2, !tbaa !31
-  %58 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 4
-  store i16 %20, ptr %58, align 2, !tbaa !32
-  %59 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 5
-  store i16 %23, ptr %59, align 2, !tbaa !33
-  %60 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 6
-  store i16 %24, ptr %60, align 2, !tbaa !34
-  %61 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 7
-  store i16 %14, ptr %61, align 2, !tbaa !35
-  %62 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 2
-  store i16 %28, ptr %62, align 2, !tbaa !36
+  %29 = shl nsw i32 %25, 2
+  %30 = add nsw i32 %29, 1227
+  %31 = sdiv i32 %30, 146097
+  %32 = trunc i32 %31 to i16
+  %33 = mul nsw i16 %32, 3
+  %34 = add i16 %33, 3
+  %35 = sdiv i16 %34, 4
+  %36 = sext i16 %35 to i64
+  %37 = add nsw i64 %16, 28188
+  %38 = add nsw i64 %37, %36
+  %39 = trunc i64 %38 to i32
+  %40 = mul nsw i32 %39, 20
+  %41 = add nsw i32 %40, -2442
+  %42 = sdiv i32 %41, 7305
+  %43 = mul nsw i32 %42, 1461
+  %44 = sdiv i32 %43, 4
+  %45 = zext i32 %44 to i64
+  %46 = sub nsw i64 %38, %45
+  %47 = trunc i64 %46 to i32
+  %48 = shl nsw i32 %47, 6
+  %49 = sdiv i32 %48, 1959
+  %50 = icmp slt i32 %47, 429
+  %51 = trunc i32 %49 to i16
+  %52 = trunc i32 %42 to i16
+  %53 = select i1 %50, i16 -1, i16 -13
+  %54 = select i1 %50, i16 1524, i16 1525
+  %55 = add i16 %53, %51
+  %56 = add nsw i16 %54, %52
+  %57 = mul nsw i32 %49, 1959
+  %58 = sdiv i32 %57, 64
+  %59 = zext i32 %58 to i64
+  %60 = sub nsw i64 %46, %59
+  %61 = trunc i64 %60 to i16
+  store i16 %56, ptr %0, align 2, !tbaa !28
+  %62 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 1
+  store i16 %55, ptr %62, align 2, !tbaa !30
+  %63 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 3
+  store i16 %61, ptr %63, align 2, !tbaa !31
+  %64 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 4
+  store i16 %20, ptr %64, align 2, !tbaa !32
+  %65 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 5
+  store i16 %23, ptr %65, align 2, !tbaa !33
+  %66 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 6
+  store i16 %24, ptr %66, align 2, !tbaa !34
+  %67 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 7
+  store i16 %14, ptr %67, align 2, !tbaa !35
+  %68 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 2
+  store i16 %28, ptr %68, align 2, !tbaa !36
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #8
   ret void
 }
@@ -368,57 +380,57 @@ define dso_local i32 @SystemTimeToFileTime(ptr nocapture noundef readonly %0, pt
   %3 = load i16, ptr %0, align 2, !tbaa !28
   %4 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 1
   %5 = load i16, ptr %4, align 2, !tbaa !30
-  %6 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 4
-  %7 = load <4 x i16>, ptr %6, align 2, !tbaa !26
-  %8 = freeze <4 x i16> %7
-  %9 = icmp ugt <4 x i16> %8, <i16 23, i16 59, i16 59, i16 999>
-  %10 = add i16 %5, -13
-  %11 = icmp ult i16 %10, -12
-  %12 = bitcast <4 x i1> %9 to i4
-  %13 = icmp ne i4 %12, 0
-  %14 = select i1 %13, i1 true, i1 %11
-  br i1 %14, label %82, label %15
+  %6 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 3
+  %7 = load i16, ptr %6, align 2, !tbaa !31
+  %8 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 4
+  %9 = load <4 x i16>, ptr %8, align 2, !tbaa !26
+  %10 = freeze <4 x i16> %9
+  %11 = icmp ugt <4 x i16> %10, <i16 23, i16 59, i16 59, i16 999>
+  %12 = bitcast <4 x i1> %11 to i4
+  %13 = icmp eq i4 %12, 0
+  br i1 %13, label %14, label %82
 
-15:                                               ; preds = %2
-  %16 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 3
-  %17 = load i16, ptr %16, align 2, !tbaa !31
-  %18 = sext i16 %17 to i32
-  %19 = icmp slt i16 %17, 1
-  br i1 %19, label %82, label %20
+14:                                               ; preds = %2
+  %15 = sext i16 %5 to i64
+  %16 = add i16 %5, -13
+  %17 = icmp ult i16 %16, -12
+  br i1 %17, label %82, label %18
 
-20:                                               ; preds = %15
-  %21 = icmp eq i16 %5, 2
-  br i1 %21, label %32, label %22
+18:                                               ; preds = %14
+  %19 = sext i16 %7 to i32
+  %20 = icmp slt i16 %7, 1
+  br i1 %20, label %82, label %21
 
-22:                                               ; preds = %20
-  %23 = and i16 %3, 3
-  %24 = icmp eq i16 %23, 0
-  br i1 %24, label %25, label %32
+21:                                               ; preds = %18
+  %22 = icmp eq i16 %5, 2
+  br i1 %22, label %33, label %23
 
-25:                                               ; preds = %22
-  %26 = srem i16 %3, 100
-  %27 = icmp eq i16 %26, 0
-  br i1 %27, label %28, label %32
+23:                                               ; preds = %21
+  %24 = and i16 %3, 3
+  %25 = icmp eq i16 %24, 0
+  br i1 %25, label %26, label %33
 
-28:                                               ; preds = %25
+26:                                               ; preds = %23
+  %27 = srem i16 %3, 100
+  %28 = icmp ne i16 %27, 0
   %29 = srem i16 %3, 400
   %30 = icmp eq i16 %29, 0
-  %31 = zext i1 %30 to i64
-  br label %32
+  %31 = or i1 %28, %30
+  %32 = zext i1 %31 to i64
+  br label %33
 
-32:                                               ; preds = %28, %25, %22, %20
-  %33 = phi i64 [ 1, %20 ], [ 0, %22 ], [ 1, %25 ], [ %31, %28 ]
-  %34 = zext i16 %5 to i64
-  %35 = add nuw nsw i64 %34, 4294967295
+33:                                               ; preds = %26, %23, %21
+  %34 = phi i64 [ 1, %21 ], [ 0, %23 ], [ %32, %26 ]
+  %35 = add nsw i64 %15, 4294967295
   %36 = and i64 %35, 4294967295
-  %37 = getelementptr inbounds [2 x [12 x i32]], ptr @_ZL12MonthLengths, i64 0, i64 %33, i64 %36
+  %37 = getelementptr inbounds [2 x [12 x i32]], ptr @_ZL12MonthLengths, i64 0, i64 %34, i64 %36
   %38 = load i32, ptr %37, align 4, !tbaa !24
-  %39 = icmp slt i32 %38, %18
+  %39 = icmp slt i32 %38, %19
   %40 = icmp slt i16 %3, 1601
   %41 = select i1 %39, i1 true, i1 %40
   br i1 %41, label %82, label %42
 
-42:                                               ; preds = %32
+42:                                               ; preds = %33
   %43 = zext i16 %3 to i32
   %44 = icmp ult i16 %5, 3
   %45 = sext i1 %44 to i32
@@ -436,32 +448,32 @@ define dso_local i32 @SystemTimeToFileTime(ptr nocapture noundef readonly %0, pt
   %57 = mul nuw i16 %48, 1959
   %58 = lshr i16 %57, 6
   %59 = zext i16 %58 to i32
-  %60 = add nsw i32 %56, -584817
-  %61 = add nsw i32 %60, %59
-  %62 = sub nsw i32 %61, %54
-  %63 = add nsw i32 %62, %18
+  %60 = add nsw i32 %19, -584817
+  %61 = add nsw i32 %60, %56
+  %62 = add nsw i32 %61, %59
+  %63 = sub nsw i32 %62, %54
   %64 = sext i32 %63 to i64
   %65 = mul nsw i64 %64, 24
-  %66 = extractelement <4 x i16> %8, i64 0
+  %66 = extractelement <4 x i16> %10, i64 0
   %67 = zext i16 %66 to i64
   %68 = add nsw i64 %65, %67
   %69 = mul nsw i64 %68, 60
-  %70 = extractelement <4 x i16> %8, i64 1
+  %70 = extractelement <4 x i16> %10, i64 1
   %71 = zext i16 %70 to i64
   %72 = add nsw i64 %69, %71
   %73 = mul nsw i64 %72, 60
-  %74 = extractelement <4 x i16> %8, i64 2
+  %74 = extractelement <4 x i16> %10, i64 2
   %75 = zext i16 %74 to i64
   %76 = add nsw i64 %73, %75
   %77 = mul nsw i64 %76, 1000
-  %78 = extractelement <4 x i16> %8, i64 3
+  %78 = extractelement <4 x i16> %10, i64 3
   %79 = zext i16 %78 to i64
   %80 = add nsw i64 %77, %79
   %81 = mul nsw i64 %80, 10000
   br label %82
 
-82:                                               ; preds = %2, %15, %32, %42
-  %83 = phi i64 [ undef, %2 ], [ undef, %15 ], [ undef, %32 ], [ %81, %42 ]
+82:                                               ; preds = %2, %14, %18, %33, %42
+  %83 = phi i64 [ undef, %2 ], [ undef, %14 ], [ undef, %18 ], [ undef, %33 ], [ %81, %42 ]
   %84 = trunc i64 %83 to i32
   store i32 %84, ptr %1, align 4, !tbaa !5
   %85 = lshr i64 %83, 32

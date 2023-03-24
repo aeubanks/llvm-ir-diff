@@ -111,31 +111,33 @@ define dso_local i32 @Read32Bits(ptr nocapture noundef %0) local_unnamed_addr #0
   %6 = and i32 %5, 65280
   %7 = or i32 %3, %6
   %8 = tail call i32 @getc(ptr noundef %0)
-  %9 = tail call i32 @getc(ptr noundef %0)
-  %10 = shl i32 %9, 24
-  %11 = shl i32 %8, 16
-  %12 = and i32 %11, 16711680
-  %13 = or i32 %10, %12
-  %14 = or i32 %13, %7
-  ret i32 %14
+  %9 = and i32 %8, 255
+  %10 = tail call i32 @getc(ptr noundef %0)
+  %11 = shl i32 %10, 8
+  %12 = and i32 %11, 65280
+  %13 = or i32 %12, %9
+  %14 = shl nuw i32 %13, 16
+  %15 = or i32 %14, %7
+  ret i32 %15
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @Read32BitsHighLow(ptr nocapture noundef %0) local_unnamed_addr #0 {
   %2 = tail call i32 @getc(ptr noundef %0)
   %3 = tail call i32 @getc(ptr noundef %0)
-  %4 = tail call i32 @getc(ptr noundef %0)
-  %5 = tail call i32 @getc(ptr noundef %0)
-  %6 = and i32 %5, 255
-  %7 = shl i32 %4, 8
-  %8 = and i32 %7, 65280
-  %9 = or i32 %8, %6
-  %10 = shl i32 %2, 24
-  %11 = shl i32 %3, 16
-  %12 = and i32 %11, 16711680
+  %4 = and i32 %3, 255
+  %5 = shl i32 %2, 8
+  %6 = and i32 %5, 65280
+  %7 = or i32 %6, %4
+  %8 = tail call i32 @getc(ptr noundef %0)
+  %9 = tail call i32 @getc(ptr noundef %0)
+  %10 = and i32 %9, 255
+  %11 = shl i32 %8, 8
+  %12 = and i32 %11, 65280
   %13 = or i32 %12, %10
-  %14 = or i32 %9, %13
-  ret i32 %14
+  %14 = shl nuw i32 %7, 16
+  %15 = or i32 %13, %14
+  ret i32 %15
 }
 
 ; Function Attrs: nofree nounwind uwtable

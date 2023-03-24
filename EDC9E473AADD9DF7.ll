@@ -68,7 +68,7 @@ define dso_local i32 @zcolorimage(ptr noundef %0) #0 {
   %4 = load i16, ptr %3, align 8, !tbaa !9
   %5 = and i16 %4, 252
   %6 = icmp eq i16 %5, 20
-  br i1 %6, label %7, label %64
+  br i1 %6, label %7, label %63
 
 7:                                                ; preds = %1
   %8 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -1
@@ -76,16 +76,16 @@ define dso_local i32 @zcolorimage(ptr noundef %0) #0 {
   %10 = load i16, ptr %9, align 8, !tbaa !9
   %11 = and i16 %10, 252
   %12 = icmp eq i16 %11, 4
-  br i1 %12, label %13, label %64
+  br i1 %12, label %13, label %63
 
 13:                                               ; preds = %7
   %14 = load i64, ptr %0, align 8, !tbaa !12
   %15 = icmp ugt i64 %14, 4
-  br i1 %15, label %64, label %16
+  br i1 %15, label %63, label %16
 
 16:                                               ; preds = %13
   %17 = trunc i64 %14 to i32
-  switch i32 %17, label %64 [
+  switch i32 %17, label %63 [
     i32 1, label %18
     i32 3, label %32
     i32 4, label %32
@@ -99,67 +99,66 @@ define dso_local i32 @zcolorimage(ptr noundef %0) #0 {
   %22 = load i16, ptr %21, align 8, !tbaa !9
   %23 = and i16 %22, 252
   %24 = icmp eq i16 %23, 20
-  br i1 %24, label %25, label %64
+  br i1 %24, label %25, label %63
 
 25:                                               ; preds = %18
   %26 = load i64, ptr %2, align 8, !tbaa !12
   %27 = icmp ugt i64 %26, 8
-  br i1 %27, label %64, label %28
+  br i1 %27, label %63, label %28
 
 28:                                               ; preds = %25
   %29 = trunc i64 %26 to i32
   %30 = tail call i32 @image_setup(ptr noundef nonnull %0, i32 noundef %29, i32 noundef 1), !range !13
   %31 = icmp sgt i32 %30, -1
-  br i1 %31, label %59, label %64
+  br i1 %31, label %58, label %63
 
 32:                                               ; preds = %16, %16
   %33 = load i16, ptr %8, align 8, !tbaa !12
   %34 = icmp eq i16 %33, 0
-  br i1 %34, label %43, label %35
+  br i1 %34, label %42, label %35
 
 35:                                               ; preds = %32
-  %36 = sub nuw nsw i64 -6, %14
-  %37 = shl nuw nsw i64 %14, 32
-  %38 = add nsw i64 %37, -4294967296
-  %39 = ashr exact i64 %38, 32
-  %40 = sub nsw i64 0, %39
-  %41 = getelementptr inbounds %struct.ref_s, ptr %2, i64 %40
-  %42 = sub nsw i32 0, %17
-  br label %43
+  %36 = add nuw nsw i64 %14, 4294967295
+  %37 = sub i64 -6, %14
+  %38 = and i64 %36, 4294967295
+  %39 = sub nsw i64 0, %38
+  %40 = getelementptr inbounds %struct.ref_s, ptr %2, i64 %39
+  %41 = sub nsw i32 0, %17
+  br label %42
 
-43:                                               ; preds = %35, %32
-  %44 = phi i32 [ %42, %35 ], [ %17, %32 ]
-  %45 = phi i64 [ %36, %35 ], [ -7, %32 ]
-  %46 = phi ptr [ %41, %35 ], [ %2, %32 ]
-  %47 = getelementptr %struct.ref_s, ptr %46, i64 -2, i32 1
-  %48 = load i16, ptr %47, align 8, !tbaa !9
-  %49 = and i16 %48, 252
-  %50 = icmp eq i16 %49, 20
-  br i1 %50, label %51, label %64
+42:                                               ; preds = %35, %32
+  %43 = phi i32 [ %41, %35 ], [ %17, %32 ]
+  %44 = phi i64 [ %37, %35 ], [ -7, %32 ]
+  %45 = phi ptr [ %40, %35 ], [ %2, %32 ]
+  %46 = getelementptr %struct.ref_s, ptr %45, i64 -2, i32 1
+  %47 = load i16, ptr %46, align 8, !tbaa !9
+  %48 = and i16 %47, 252
+  %49 = icmp eq i16 %48, 20
+  br i1 %49, label %50, label %63
 
-51:                                               ; preds = %43
-  %52 = getelementptr inbounds %struct.ref_s, ptr %46, i64 -2
-  %53 = load i64, ptr %52, align 8, !tbaa !12
-  %54 = icmp ugt i64 %53, 8
-  br i1 %54, label %64, label %55
+50:                                               ; preds = %42
+  %51 = getelementptr inbounds %struct.ref_s, ptr %45, i64 -2
+  %52 = load i64, ptr %51, align 8, !tbaa !12
+  %53 = icmp ugt i64 %52, 8
+  br i1 %53, label %63, label %54
 
-55:                                               ; preds = %51
-  %56 = trunc i64 %53 to i32
-  %57 = tail call i32 @image_setup(ptr noundef nonnull %46, i32 noundef %56, i32 noundef %44), !range !13
-  %58 = icmp sgt i32 %57, -1
-  br i1 %58, label %59, label %64
+54:                                               ; preds = %50
+  %55 = trunc i64 %52 to i32
+  %56 = tail call i32 @image_setup(ptr noundef nonnull %45, i32 noundef %55, i32 noundef %43), !range !13
+  %57 = icmp sgt i32 %56, -1
+  br i1 %57, label %58, label %63
 
-59:                                               ; preds = %55, %28
-  %60 = phi i64 [ -5, %28 ], [ %45, %55 ]
-  %61 = phi i32 [ %30, %28 ], [ %57, %55 ]
-  %62 = load ptr, ptr @osp, align 8, !tbaa !5
-  %63 = getelementptr inbounds %struct.ref_s, ptr %62, i64 %60
-  store ptr %63, ptr @osp, align 8, !tbaa !5
-  br label %64
+58:                                               ; preds = %54, %28
+  %59 = phi i64 [ -5, %28 ], [ %44, %54 ]
+  %60 = phi i32 [ %30, %28 ], [ %56, %54 ]
+  %61 = load ptr, ptr @osp, align 8, !tbaa !5
+  %62 = getelementptr inbounds %struct.ref_s, ptr %61, i64 %59
+  store ptr %62, ptr @osp, align 8, !tbaa !5
+  br label %63
 
-64:                                               ; preds = %59, %28, %25, %18, %55, %51, %43, %16, %13, %7, %1
-  %65 = phi i32 [ -20, %1 ], [ -20, %7 ], [ -15, %13 ], [ -15, %16 ], [ -20, %43 ], [ -15, %51 ], [ %57, %55 ], [ -20, %18 ], [ -15, %25 ], [ %30, %28 ], [ %61, %59 ]
-  ret i32 %65
+63:                                               ; preds = %58, %54, %50, %42, %16, %28, %25, %18, %13, %7, %1
+  %64 = phi i32 [ -20, %1 ], [ -20, %7 ], [ -15, %13 ], [ -20, %18 ], [ -15, %25 ], [ %30, %28 ], [ -15, %16 ], [ -20, %42 ], [ -15, %50 ], [ %56, %54 ], [ %60, %58 ]
+  ret i32 %64
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -176,7 +175,7 @@ define dso_local i32 @image_setup(ptr noundef %0, i32 noundef %1, i32 noundef %2
   %9 = getelementptr inbounds %struct.ref_s, ptr %8, i64 9
   %10 = load ptr, ptr @estop, align 8, !tbaa !5
   %11 = icmp ugt ptr %9, %10
-  br i1 %11, label %121, label %12
+  br i1 %11, label %119, label %12
 
 12:                                               ; preds = %3
   %13 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -4
@@ -184,7 +183,7 @@ define dso_local i32 @image_setup(ptr noundef %0, i32 noundef %1, i32 noundef %2
   %15 = load i16, ptr %14, align 8, !tbaa !9
   %16 = and i16 %15, 252
   %17 = icmp eq i16 %16, 20
-  br i1 %17, label %18, label %121
+  br i1 %17, label %18, label %119
 
 18:                                               ; preds = %12
   %19 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -3
@@ -192,189 +191,186 @@ define dso_local i32 @image_setup(ptr noundef %0, i32 noundef %1, i32 noundef %2
   %21 = load i16, ptr %20, align 8, !tbaa !9
   %22 = and i16 %21, 252
   %23 = icmp eq i16 %22, 20
-  br i1 %23, label %24, label %121
+  br i1 %23, label %24, label %119
 
 24:                                               ; preds = %18
   %25 = icmp slt i32 %7, 0
-  br i1 %25, label %44, label %26
+  br i1 %25, label %42, label %26
 
 26:                                               ; preds = %24
   %27 = add nuw i32 %7, 1
   %28 = zext i32 %27 to i64
   br label %29
 
-29:                                               ; preds = %26, %41
-  %30 = phi i64 [ 0, %26 ], [ %42, %41 ]
+29:                                               ; preds = %26, %39
+  %30 = phi i64 [ 0, %26 ], [ %40, %39 ]
   %31 = getelementptr inbounds %struct.ref_s, ptr %0, i64 %30, i32 1
   %32 = load i16, ptr %31, align 8, !tbaa !9
-  %33 = lshr i16 %32, 2
-  %34 = and i16 %33, 63
-  %35 = icmp eq i16 %34, 13
-  br i1 %35, label %41, label %36
-
-36:                                               ; preds = %29
-  %37 = zext i16 %34 to i32
-  switch i32 %37, label %121 [
-    i32 0, label %38
-    i32 10, label %38
+  %33 = zext i16 %32 to i32
+  %34 = lshr i32 %33, 2
+  %35 = and i32 %34, 63
+  switch i32 %35, label %119 [
+    i32 13, label %39
+    i32 0, label %36
+    i32 10, label %36
   ]
 
-38:                                               ; preds = %36, %36
-  %39 = and i16 %32, 3
-  %40 = icmp eq i16 %39, 3
-  br i1 %40, label %41, label %121
+36:                                               ; preds = %29, %29
+  %37 = and i32 %33, 3
+  %38 = icmp eq i32 %37, 3
+  br i1 %38, label %39, label %119
 
-41:                                               ; preds = %29, %38
-  %42 = add nuw nsw i64 %30, 1
-  %43 = icmp eq i64 %42, %28
-  br i1 %43, label %44, label %29, !llvm.loop !14
+39:                                               ; preds = %29, %36
+  %40 = add nuw nsw i64 %30, 1
+  %41 = icmp eq i64 %40, %28
+  br i1 %41, label %42, label %29, !llvm.loop !14
 
-44:                                               ; preds = %41, %24
-  %45 = load i64, ptr %13, align 8, !tbaa !12
-  %46 = icmp slt i64 %45, 1
-  br i1 %46, label %121, label %47
+42:                                               ; preds = %39, %24
+  %43 = load i64, ptr %13, align 8, !tbaa !12
+  %44 = icmp slt i64 %43, 1
+  br i1 %44, label %119, label %45
 
-47:                                               ; preds = %44
-  %48 = load i64, ptr %19, align 8, !tbaa !12
-  %49 = icmp slt i64 %48, 0
-  br i1 %49, label %121, label %50
+45:                                               ; preds = %42
+  %46 = load i64, ptr %19, align 8, !tbaa !12
+  %47 = icmp slt i64 %46, 0
+  br i1 %47, label %119, label %48
 
-50:                                               ; preds = %47
-  %51 = icmp eq i64 %48, 0
-  br i1 %51, label %121, label %52
+48:                                               ; preds = %45
+  %49 = icmp eq i64 %46, 0
+  br i1 %49, label %119, label %50
 
-52:                                               ; preds = %50
-  %53 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -1
-  %54 = call i32 (ptr, ptr, ...) @read_matrix(ptr noundef nonnull %53, ptr noundef nonnull %4) #4
-  %55 = icmp slt i32 %54, 0
-  br i1 %55, label %121, label %56
+50:                                               ; preds = %48
+  %51 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -1
+  %52 = call i32 (ptr, ptr, ...) @read_matrix(ptr noundef nonnull %51, ptr noundef nonnull %4) #4
+  %53 = icmp slt i32 %52, 0
+  br i1 %53, label %119, label %54
 
-56:                                               ; preds = %52
-  %57 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
-  %58 = call ptr @alloc(i32 noundef 1, i32 noundef %57, ptr noundef nonnull @.str) #4
-  %59 = icmp eq ptr %58, null
-  br i1 %59, label %121, label %60
+54:                                               ; preds = %50
+  %55 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
+  %56 = call ptr @alloc(i32 noundef 1, i32 noundef %55, ptr noundef nonnull @.str) #4
+  %57 = icmp eq ptr %56, null
+  br i1 %57, label %119, label %58
 
-60:                                               ; preds = %56
-  %61 = icmp eq i32 %2, 0
-  %62 = load ptr, ptr @igs, align 8, !tbaa !5
-  %63 = load i64, ptr %13, align 8, !tbaa !12
+58:                                               ; preds = %54
+  %59 = icmp eq i32 %2, 0
+  %60 = load ptr, ptr @igs, align 8, !tbaa !5
+  %61 = load i64, ptr %13, align 8, !tbaa !12
+  %62 = trunc i64 %61 to i32
+  %63 = load i64, ptr %19, align 8, !tbaa !12
   %64 = trunc i64 %63 to i32
-  %65 = load i64, ptr %19, align 8, !tbaa !12
-  %66 = trunc i64 %65 to i32
-  br i1 %61, label %67, label %69
+  br i1 %59, label %65, label %67
 
-67:                                               ; preds = %60
-  %68 = call i32 @gs_imagemask_init(ptr noundef nonnull %58, ptr noundef %62, i32 noundef %64, i32 noundef %66, i32 noundef %1, ptr noundef nonnull %4) #4
-  br label %71
+65:                                               ; preds = %58
+  %66 = call i32 @gs_imagemask_init(ptr noundef nonnull %56, ptr noundef %60, i32 noundef %62, i32 noundef %64, i32 noundef %1, ptr noundef nonnull %4) #4
+  br label %69
 
-69:                                               ; preds = %60
-  %70 = call i32 @gs_image_init(ptr noundef nonnull %58, ptr noundef %62, i32 noundef %64, i32 noundef %66, i32 noundef %1, i32 noundef %2, ptr noundef nonnull %4) #4
-  br label %71
+67:                                               ; preds = %58
+  %68 = call i32 @gs_image_init(ptr noundef nonnull %56, ptr noundef %60, i32 noundef %62, i32 noundef %64, i32 noundef %1, i32 noundef %2, ptr noundef nonnull %4) #4
+  br label %69
 
-71:                                               ; preds = %69, %67
-  %72 = phi i32 [ %68, %67 ], [ %70, %69 ]
-  %73 = icmp slt i32 %72, 0
-  br i1 %73, label %121, label %74
+69:                                               ; preds = %67, %65
+  %70 = phi i32 [ %66, %65 ], [ %68, %67 ]
+  %71 = icmp slt i32 %70, 0
+  br i1 %71, label %119, label %72
 
-74:                                               ; preds = %71
-  %75 = load ptr, ptr @esp, align 8, !tbaa !5
-  %76 = getelementptr inbounds %struct.ref_s, ptr %75, i64 1
-  store i16 0, ptr %76, align 8, !tbaa !12
-  %77 = getelementptr inbounds %struct.ref_s, ptr %75, i64 1, i32 1
-  store i16 33, ptr %77, align 8, !tbaa !9
-  %78 = getelementptr inbounds %struct.ref_s, ptr %75, i64 2
-  store ptr %78, ptr @esp, align 8, !tbaa !5
-  %79 = icmp slt i32 %7, 0
-  br i1 %79, label %80, label %83
+72:                                               ; preds = %69
+  %73 = load ptr, ptr @esp, align 8, !tbaa !5
+  %74 = getelementptr inbounds %struct.ref_s, ptr %73, i64 1
+  store i16 0, ptr %74, align 8, !tbaa !12
+  %75 = getelementptr inbounds %struct.ref_s, ptr %73, i64 1, i32 1
+  store i16 33, ptr %75, align 8, !tbaa !9
+  %76 = getelementptr inbounds %struct.ref_s, ptr %73, i64 2
+  store ptr %76, ptr @esp, align 8, !tbaa !5
+  %77 = icmp slt i32 %7, 0
+  br i1 %77, label %78, label %81
 
-80:                                               ; preds = %74
-  store i64 0, ptr %78, align 8, !tbaa !12
-  %81 = getelementptr inbounds %struct.ref_s, ptr %75, i64 2, i32 1
-  store i16 32, ptr %81, align 8, !tbaa !9
-  %82 = getelementptr inbounds %struct.ref_s, ptr %75, i64 3
-  store ptr %82, ptr @esp, align 8, !tbaa !5
-  br label %86
+78:                                               ; preds = %72
+  store i64 0, ptr %76, align 8, !tbaa !12
+  %79 = getelementptr inbounds %struct.ref_s, ptr %73, i64 2, i32 1
+  store i16 32, ptr %79, align 8, !tbaa !9
+  %80 = getelementptr inbounds %struct.ref_s, ptr %73, i64 3
+  store ptr %80, ptr @esp, align 8, !tbaa !5
+  br label %84
 
-83:                                               ; preds = %74
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %78, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !18
-  %84 = getelementptr inbounds %struct.ref_s, ptr %75, i64 3
-  %85 = icmp eq i32 %7, 0
-  br i1 %85, label %86, label %90
+81:                                               ; preds = %72
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %76, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !18
+  %82 = getelementptr inbounds %struct.ref_s, ptr %73, i64 3
+  %83 = icmp eq i32 %7, 0
+  br i1 %83, label %84, label %88
 
-86:                                               ; preds = %83, %80
-  %87 = phi ptr [ %82, %80 ], [ %84, %83 ]
-  store i64 0, ptr %87, align 8, !tbaa !12
-  %88 = getelementptr inbounds %struct.ref_s, ptr %75, i64 3, i32 1
-  store i16 32, ptr %88, align 8, !tbaa !9
-  %89 = getelementptr inbounds %struct.ref_s, ptr %75, i64 4
-  br label %94
+84:                                               ; preds = %81, %78
+  %85 = phi ptr [ %80, %78 ], [ %82, %81 ]
+  store i64 0, ptr %85, align 8, !tbaa !12
+  %86 = getelementptr inbounds %struct.ref_s, ptr %73, i64 3, i32 1
+  store i16 32, ptr %86, align 8, !tbaa !9
+  %87 = getelementptr inbounds %struct.ref_s, ptr %73, i64 4
+  br label %92
 
-90:                                               ; preds = %83
-  %91 = getelementptr inbounds %struct.ref_s, ptr %0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %84, ptr noundef nonnull align 8 dereferenceable(16) %91, i64 16, i1 false), !tbaa.struct !18
-  %92 = getelementptr inbounds %struct.ref_s, ptr %75, i64 4
-  %93 = icmp eq i32 %7, 1
-  br i1 %93, label %94, label %98
+88:                                               ; preds = %81
+  %89 = getelementptr inbounds %struct.ref_s, ptr %0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %82, ptr noundef nonnull align 8 dereferenceable(16) %89, i64 16, i1 false), !tbaa.struct !18
+  %90 = getelementptr inbounds %struct.ref_s, ptr %73, i64 4
+  %91 = icmp eq i32 %7, 1
+  br i1 %91, label %92, label %96
 
-94:                                               ; preds = %90, %86
-  %95 = phi ptr [ %89, %86 ], [ %92, %90 ]
-  store i64 0, ptr %95, align 8, !tbaa !12
-  %96 = getelementptr inbounds %struct.ref_s, ptr %75, i64 4, i32 1
-  store i16 32, ptr %96, align 8, !tbaa !9
-  %97 = getelementptr inbounds %struct.ref_s, ptr %75, i64 5
-  br label %104
+92:                                               ; preds = %88, %84
+  %93 = phi ptr [ %87, %84 ], [ %90, %88 ]
+  store i64 0, ptr %93, align 8, !tbaa !12
+  %94 = getelementptr inbounds %struct.ref_s, ptr %73, i64 4, i32 1
+  store i16 32, ptr %94, align 8, !tbaa !9
+  %95 = getelementptr inbounds %struct.ref_s, ptr %73, i64 5
+  br label %102
 
-98:                                               ; preds = %90
-  %99 = getelementptr inbounds %struct.ref_s, ptr %0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %92, ptr noundef nonnull align 8 dereferenceable(16) %99, i64 16, i1 false), !tbaa.struct !18
-  %100 = getelementptr inbounds %struct.ref_s, ptr %75, i64 5
-  %101 = icmp ult i32 %7, 3
-  br i1 %101, label %104, label %102
+96:                                               ; preds = %88
+  %97 = getelementptr inbounds %struct.ref_s, ptr %0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %90, ptr noundef nonnull align 8 dereferenceable(16) %97, i64 16, i1 false), !tbaa.struct !18
+  %98 = getelementptr inbounds %struct.ref_s, ptr %73, i64 5
+  %99 = icmp ult i32 %7, 3
+  br i1 %99, label %102, label %100
 
-102:                                              ; preds = %98
-  %103 = getelementptr inbounds %struct.ref_s, ptr %0, i64 3
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %100, ptr noundef nonnull align 8 dereferenceable(16) %103, i64 16, i1 false), !tbaa.struct !18
-  br label %107
+100:                                              ; preds = %96
+  %101 = getelementptr inbounds %struct.ref_s, ptr %0, i64 3
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %98, ptr noundef nonnull align 8 dereferenceable(16) %101, i64 16, i1 false), !tbaa.struct !18
+  br label %105
 
-104:                                              ; preds = %94, %98
-  %105 = phi ptr [ %97, %94 ], [ %100, %98 ]
-  store i64 0, ptr %105, align 8, !tbaa !12
-  %106 = getelementptr inbounds %struct.ref_s, ptr %75, i64 5, i32 1
-  store i16 32, ptr %106, align 8, !tbaa !9
-  br label %107
+102:                                              ; preds = %92, %96
+  %103 = phi ptr [ %95, %92 ], [ %98, %96 ]
+  store i64 0, ptr %103, align 8, !tbaa !12
+  %104 = getelementptr inbounds %struct.ref_s, ptr %73, i64 5, i32 1
+  store i16 32, ptr %104, align 8, !tbaa !9
+  br label %105
 
-107:                                              ; preds = %104, %102
-  %108 = getelementptr inbounds %struct.ref_s, ptr %75, i64 6
-  store i64 0, ptr %108, align 8, !tbaa !12
-  %109 = getelementptr inbounds %struct.ref_s, ptr %75, i64 6, i32 1
-  store i16 20, ptr %109, align 8, !tbaa !9
-  %110 = trunc i32 %7 to i16
-  %111 = getelementptr inbounds %struct.ref_s, ptr %75, i64 6, i32 2
-  store i16 %110, ptr %111, align 2, !tbaa !24
-  %112 = getelementptr inbounds %struct.ref_s, ptr %75, i64 7
-  store ptr %58, ptr %112, align 8, !tbaa !12
-  %113 = getelementptr inbounds %struct.ref_s, ptr %75, i64 7, i32 1
-  store i16 52, ptr %113, align 8, !tbaa !9
-  %114 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
-  %115 = trunc i32 %114 to i16
-  %116 = getelementptr inbounds %struct.ref_s, ptr %75, i64 7, i32 2
-  store i16 %115, ptr %116, align 2, !tbaa !24
-  %117 = getelementptr inbounds %struct.ref_s, ptr %75, i64 8
-  store ptr @image_continue, ptr %117, align 8, !tbaa !12
-  %118 = getelementptr inbounds %struct.ref_s, ptr %75, i64 8, i32 1
-  store i16 37, ptr %118, align 8, !tbaa !9
-  %119 = getelementptr inbounds %struct.ref_s, ptr %75, i64 8, i32 2
-  store i16 0, ptr %119, align 2, !tbaa !24
-  %120 = getelementptr inbounds %struct.ref_s, ptr %75, i64 9
-  store ptr %120, ptr @esp, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %120, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !18
-  br label %121
+105:                                              ; preds = %102, %100
+  %106 = getelementptr inbounds %struct.ref_s, ptr %73, i64 6
+  store i64 0, ptr %106, align 8, !tbaa !12
+  %107 = getelementptr inbounds %struct.ref_s, ptr %73, i64 6, i32 1
+  store i16 20, ptr %107, align 8, !tbaa !9
+  %108 = trunc i32 %7 to i16
+  %109 = getelementptr inbounds %struct.ref_s, ptr %73, i64 6, i32 2
+  store i16 %108, ptr %109, align 2, !tbaa !24
+  %110 = getelementptr inbounds %struct.ref_s, ptr %73, i64 7
+  store ptr %56, ptr %110, align 8, !tbaa !12
+  %111 = getelementptr inbounds %struct.ref_s, ptr %73, i64 7, i32 1
+  store i16 52, ptr %111, align 8, !tbaa !9
+  %112 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
+  %113 = trunc i32 %112 to i16
+  %114 = getelementptr inbounds %struct.ref_s, ptr %73, i64 7, i32 2
+  store i16 %113, ptr %114, align 2, !tbaa !24
+  %115 = getelementptr inbounds %struct.ref_s, ptr %73, i64 8
+  store ptr @image_continue, ptr %115, align 8, !tbaa !12
+  %116 = getelementptr inbounds %struct.ref_s, ptr %73, i64 8, i32 1
+  store i16 37, ptr %116, align 8, !tbaa !9
+  %117 = getelementptr inbounds %struct.ref_s, ptr %73, i64 8, i32 2
+  store i16 0, ptr %117, align 2, !tbaa !24
+  %118 = getelementptr inbounds %struct.ref_s, ptr %73, i64 9
+  store ptr %118, ptr @esp, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %118, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !18
+  br label %119
 
-121:                                              ; preds = %38, %36, %71, %56, %52, %50, %44, %47, %18, %12, %3, %107
-  %122 = phi i32 [ 1, %107 ], [ -5, %3 ], [ -20, %12 ], [ -20, %18 ], [ -23, %47 ], [ -23, %44 ], [ 0, %50 ], [ %54, %52 ], [ -25, %56 ], [ %72, %71 ], [ -7, %38 ], [ -20, %36 ]
+119:                                              ; preds = %29, %36, %69, %54, %50, %48, %42, %45, %18, %12, %3, %105
+  %120 = phi i32 [ 1, %105 ], [ -5, %3 ], [ -20, %12 ], [ -20, %18 ], [ -23, %45 ], [ -23, %42 ], [ 0, %48 ], [ %52, %50 ], [ -25, %54 ], [ %70, %69 ], [ -20, %29 ], [ -7, %36 ]
   call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %4) #4
-  ret i32 %122
+  ret i32 %120
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

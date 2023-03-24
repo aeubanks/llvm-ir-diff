@@ -33,10 +33,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [31 x i8] c"MonteCarlo:     Mflops: %8.2f\0A\00", align 1
 @.str.10 = private unnamed_addr constant [48 x i8] c"Sparse matmult  Mflops: %8.2f    (N=%d, nz=%d)\0A\00", align 1
 @.str.11 = private unnamed_addr constant [47 x i8] c"LU              Mflops: %8.2f    (M=%d, N=%d)\0A\00", align 1
-@str = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
-@str.16 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
-@str.17 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
-@str.18 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
+@str.15 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
+@str.16 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
+@str.17 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
+@str.18 = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
@@ -71,9 +71,9 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %20
 
 20:                                               ; preds = %19, %16
-  %21 = phi i32 [ 100000, %19 ], [ 1000, %16 ]
-  %22 = phi i32 [ 1000000, %19 ], [ 5000, %16 ]
-  %23 = phi i32 [ 1000, %19 ], [ 100, %16 ]
+  %21 = phi i32 [ 1000, %19 ], [ 100, %16 ]
+  %22 = phi i32 [ 100000, %19 ], [ 1000, %16 ]
+  %23 = phi i32 [ 1000000, %19 ], [ 5000, %16 ]
   %24 = phi i32 [ 1048576, %19 ], [ 1024, %16 ]
   %25 = phi i32 [ 2, %19 ], [ 1, %16 ]
   %26 = icmp ult i32 %25, %0
@@ -87,39 +87,39 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %32
 
 32:                                               ; preds = %20, %27, %2
-  %33 = phi i32 [ 1000, %2 ], [ %21, %27 ], [ %21, %20 ]
-  %34 = phi i32 [ 5000, %2 ], [ %22, %27 ], [ %22, %20 ]
-  %35 = phi i32 [ 100, %2 ], [ %23, %27 ], [ %23, %20 ]
+  %33 = phi i32 [ 100, %2 ], [ %21, %27 ], [ %21, %20 ]
+  %34 = phi i32 [ 1000, %2 ], [ %22, %27 ], [ %22, %20 ]
+  %35 = phi i32 [ 5000, %2 ], [ %23, %27 ], [ %23, %20 ]
   %36 = phi i32 [ 1024, %2 ], [ %24, %27 ], [ %24, %20 ]
   %37 = phi double [ 2.000000e+00, %2 ], [ %31, %27 ], [ 2.000000e+00, %20 ]
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, double noundef %37)
   %43 = tail call double @kernel_measureFFT(i32 noundef %36, double noundef %37, ptr noundef %3) #8
-  %44 = tail call double @kernel_measureSOR(i32 noundef %35, double noundef %37, ptr noundef %3) #8
+  %44 = tail call double @kernel_measureSOR(i32 noundef %33, double noundef %37, ptr noundef %3) #8
   %45 = tail call double @kernel_measureMonteCarlo(double noundef %37, ptr noundef %3) #8
-  %46 = tail call double @kernel_measureSparseMatMult(i32 noundef %33, i32 noundef %34, double noundef %37, ptr noundef %3) #8
-  %47 = tail call double @kernel_measureLU(i32 noundef %35, double noundef %37, ptr noundef %3) #8
+  %46 = tail call double @kernel_measureSparseMatMult(i32 noundef %34, i32 noundef %35, double noundef %37, ptr noundef %3) #8
+  %47 = tail call double @kernel_measureLU(i32 noundef %33, double noundef %37, ptr noundef %3) #8
   %48 = fadd double %43, %44
   %49 = fadd double %48, %45
   %50 = fadd double %49, %46
   %51 = fadd double %50, %47
   %52 = fdiv double %51, 5.000000e+00
-  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   %54 = fdiv double %52, 1.000000e+07
   %55 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %54)
   %56 = fdiv double %43, 1.000000e+07
   %57 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %56, i32 noundef %36)
   %58 = fdiv double %44, 1.000000e+07
-  %59 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, double noundef %58, i32 noundef %35, i32 noundef %35)
+  %59 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, double noundef %58, i32 noundef %33, i32 noundef %33)
   %60 = fdiv double %45, 1.000000e+07
   %61 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %60)
   %62 = fdiv double %46, 1.000000e+07
-  %63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %62, i32 noundef %33, i32 noundef %34)
+  %63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %62, i32 noundef %34, i32 noundef %35)
   %64 = fdiv double %47, 1.000000e+07
-  %65 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, double noundef %64, i32 noundef %35, i32 noundef %35)
+  %65 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, double noundef %64, i32 noundef %33, i32 noundef %33)
   tail call void @Random_delete(ptr noundef %3) #8
   ret i32 0
 }
@@ -134,10 +134,10 @@ declare void @exit(i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_banner() local_unnamed_addr #4 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   ret void
 }
 

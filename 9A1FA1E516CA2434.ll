@@ -185,12 +185,12 @@ define dso_local noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11
   %95 = call float @llvm.fmuladd.f32(float %45, float %87, float %94)
   %96 = fdiv float %84, %95
   %97 = fsub float %86, %96
-  %98 = fcmp ule float %97, 1.000000e+00
-  %99 = fcmp uge float %97, 0.000000e+00
-  %100 = and i1 %98, %99
-  %101 = fcmp ugt float %97, %86
-  %102 = and i1 %101, %100
-  br i1 %102, label %103, label %165
+  %98 = fcmp ogt float %97, 1.000000e+00
+  %99 = fcmp olt float %97, 0.000000e+00
+  %100 = or i1 %98, %99
+  %101 = fcmp ole float %97, %86
+  %102 = or i1 %101, %100
+  br i1 %102, label %165, label %103
 
 103:                                              ; preds = %92
   %104 = load ptr, ptr %5, align 8, !tbaa !5

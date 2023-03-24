@@ -23,11 +23,11 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   store i32 1, ptr @x, align 4, !tbaa !5
   tail call void asm sideeffect "", "=*m,=*m,*m,*m,~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) @x, ptr nonnull elementtype(i32) @y, ptr nonnull elementtype(i32) @x, ptr nonnull elementtype(i32) @y) #3, !srcloc !9
   %1 = load i32, ptr @x, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 0
+  %2 = icmp ne i32 %1, 0
   %3 = load i32, ptr @y, align 4
-  %4 = icmp eq i32 %3, 0
-  %5 = select i1 %2, i1 true, i1 %4
-  br i1 %5, label %7, label %6
+  %4 = icmp ne i32 %3, 0
+  %5 = select i1 %2, i1 %4, i1 false
+  br i1 %5, label %6, label %7
 
 6:                                                ; preds = %0
   tail call void @abort() #4

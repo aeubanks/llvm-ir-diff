@@ -465,11 +465,11 @@ define internal fastcc i32 @register_option(ptr nocapture noundef %0, ptr nounde
 
 49:                                               ; preds = %48
   %50 = sext i8 %2 to i32
-  tail call void (ptr, ...) @mprintf(ptr noundef nonnull @.str.8, ptr noundef nonnull %30, i32 noundef %50) #8
+  tail call void (ptr, ...) @mprintf(ptr noundef nonnull @.str.8, ptr noundef %30, i32 noundef %50) #8
   br label %82
 
 51:                                               ; preds = %48
-  tail call void (ptr, ...) @mprintf(ptr noundef nonnull @.str.9, ptr noundef nonnull %30) #8
+  tail call void (ptr, ...) @mprintf(ptr noundef nonnull @.str.9, ptr noundef %30) #8
   br label %82
 
 52:                                               ; preds = %46, %29

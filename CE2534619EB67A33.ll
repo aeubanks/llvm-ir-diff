@@ -155,26 +155,24 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %71 = sitofp i32 %51 to double
   %72 = fmul double %70, %71
   %73 = sitofp <2 x i32> %55 to <2 x double>
-  %74 = insertelement <2 x double> poison, double %70, i64 0
-  %75 = shufflevector <2 x double> %74, <2 x double> poison, <2 x i32> zeroinitializer
-  %76 = fmul <2 x double> %75, %73
-  %77 = sitofp i32 %47 to double
-  %78 = fmul double %43, %77
-  %79 = fcmp olt double %78, %72
-  br i1 %79, label %89, label %80
-
-80:                                               ; preds = %68
-  %81 = sitofp <2 x i32> %54 to <2 x double>
-  %82 = insertelement <2 x double> poison, double %43, i64 0
-  %83 = shufflevector <2 x double> %82, <2 x double> poison, <2 x i32> zeroinitializer
-  %84 = fmul <2 x double> %83, %81
-  %85 = fcmp olt <2 x double> %84, %76
-  %86 = extractelement <2 x i1> %85, i64 0
-  %87 = extractelement <2 x i1> %85, i64 1
+  %74 = sitofp i32 %47 to double
+  %75 = fmul double %43, %74
+  %76 = sitofp <2 x i32> %54 to <2 x double>
+  %77 = fcmp olt double %75, %72
+  %78 = insertelement <2 x double> poison, double %70, i64 0
+  %79 = shufflevector <2 x double> %78, <2 x double> poison, <2 x i32> zeroinitializer
+  %80 = fmul <2 x double> %79, %73
+  %81 = insertelement <2 x double> poison, double %43, i64 0
+  %82 = shufflevector <2 x double> %81, <2 x double> poison, <2 x i32> zeroinitializer
+  %83 = fmul <2 x double> %82, %76
+  %84 = fcmp olt <2 x double> %83, %80
+  %85 = extractelement <2 x i1> %84, i64 0
+  %86 = select i1 %77, i1 true, i1 %85
+  %87 = extractelement <2 x i1> %84, i64 1
   %88 = select i1 %86, i1 true, i1 %87
   br i1 %88, label %89, label %98
 
-89:                                               ; preds = %80, %68
+89:                                               ; preds = %68
   %90 = or i32 %69, 2
   %91 = call i32 @printRank() #13
   %92 = icmp eq i32 %91, 0
@@ -182,13 +180,13 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 
 93:                                               ; preds = %89
   %94 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %95 = extractelement <2 x double> %76, i64 0
-  %96 = extractelement <2 x double> %76, i64 1
+  %95 = extractelement <2 x double> %80, i64 0
+  %96 = extractelement <2 x double> %80, i64 1
   %97 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %94, ptr noundef nonnull @.str.6, double noundef %72, double noundef %95, double noundef %96)
   br label %98
 
-98:                                               ; preds = %93, %89, %80
-  %99 = phi i32 [ %90, %93 ], [ %90, %89 ], [ %69, %80 ]
+98:                                               ; preds = %93, %89, %68
+  %99 = phi i32 [ %90, %93 ], [ %90, %89 ], [ %69, %68 ]
   %100 = call i32 @strcasecmp(ptr noundef nonnull %45, ptr noundef nonnull @.str.7) #15
   %101 = icmp eq i32 %100, 0
   br i1 %101, label %110, label %102
@@ -243,39 +241,37 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #13
   %128 = load <2 x i32>, ptr %46, align 4, !tbaa !5
   %129 = sitofp <2 x i32> %128 to <2 x double>
-  %130 = insertelement <2 x double> poison, double %43, i64 0
-  %131 = shufflevector <2 x double> %130, <2 x double> poison, <2 x i32> zeroinitializer
-  %132 = fmul <2 x double> %131, %129
-  store <2 x double> %132, ptr %5, align 16, !tbaa !29
-  %133 = load i32, ptr %49, align 4, !tbaa !30
-  %134 = sitofp i32 %133 to double
-  %135 = fmul double %43, %134
-  %136 = getelementptr inbounds [3 x double], ptr %5, i64 0, i64 2
-  store double %135, ptr %136, align 16, !tbaa !29
-  %137 = load i32, ptr %50, align 8, !tbaa !31
-  %138 = load i32, ptr %52, align 4, !tbaa !32
-  %139 = load i32, ptr %53, align 8, !tbaa !33
-  %140 = call ptr @initDecomposition(i32 noundef %137, i32 noundef %138, i32 noundef %139, ptr noundef nonnull %5) #13
-  store ptr %140, ptr %21, align 8, !tbaa !34
-  %141 = load double, ptr %117, align 8, !tbaa !22
-  %142 = call ptr @initLinkCells(ptr noundef %140, double noundef %141) #13
-  store ptr %142, ptr %116, align 8, !tbaa !35
-  %143 = call ptr @initAtoms(ptr noundef %142) #13
-  store ptr %143, ptr %115, align 8, !tbaa !36
-  %144 = load i32, ptr %46, align 4, !tbaa !37
-  %145 = load i32, ptr %48, align 8, !tbaa !38
-  %146 = load i32, ptr %49, align 4, !tbaa !30
-  call void @createFccLattice(i32 noundef %144, i32 noundef %145, i32 noundef %146, double noundef %43, ptr noundef nonnull %14) #13
-  %147 = getelementptr inbounds %struct.CommandSt, ptr %6, i64 0, i32 14
-  %148 = load double, ptr %147, align 8, !tbaa !39
-  call void @setTemperature(ptr noundef nonnull %14, double noundef %148) #13
-  %149 = getelementptr inbounds %struct.CommandSt, ptr %6, i64 0, i32 15
-  %150 = load double, ptr %149, align 8, !tbaa !40
-  call void @randomDisplacements(ptr noundef nonnull %14, double noundef %150) #13
-  %151 = load ptr, ptr %21, align 8, !tbaa !34
-  %152 = load ptr, ptr %116, align 8, !tbaa !35
-  %153 = call ptr @initAtomHaloExchange(ptr noundef %151, ptr noundef %152) #13
-  store ptr %153, ptr %23, align 8, !tbaa !16
+  %130 = fmul <2 x double> %82, %129
+  store <2 x double> %130, ptr %5, align 16, !tbaa !29
+  %131 = load i32, ptr %49, align 4, !tbaa !30
+  %132 = sitofp i32 %131 to double
+  %133 = fmul double %43, %132
+  %134 = getelementptr inbounds [3 x double], ptr %5, i64 0, i64 2
+  store double %133, ptr %134, align 16, !tbaa !29
+  %135 = load i32, ptr %50, align 8, !tbaa !31
+  %136 = load i32, ptr %52, align 4, !tbaa !32
+  %137 = load i32, ptr %53, align 8, !tbaa !33
+  %138 = call ptr @initDecomposition(i32 noundef %135, i32 noundef %136, i32 noundef %137, ptr noundef nonnull %5) #13
+  store ptr %138, ptr %21, align 8, !tbaa !34
+  %139 = load double, ptr %117, align 8, !tbaa !22
+  %140 = call ptr @initLinkCells(ptr noundef %138, double noundef %139) #13
+  store ptr %140, ptr %116, align 8, !tbaa !35
+  %141 = call ptr @initAtoms(ptr noundef %140) #13
+  store ptr %141, ptr %115, align 8, !tbaa !36
+  %142 = load i32, ptr %46, align 4, !tbaa !37
+  %143 = load i32, ptr %48, align 8, !tbaa !38
+  %144 = load i32, ptr %49, align 4, !tbaa !30
+  call void @createFccLattice(i32 noundef %142, i32 noundef %143, i32 noundef %144, double noundef %43, ptr noundef nonnull %14) #13
+  %145 = getelementptr inbounds %struct.CommandSt, ptr %6, i64 0, i32 14
+  %146 = load double, ptr %145, align 8, !tbaa !39
+  call void @setTemperature(ptr noundef nonnull %14, double noundef %146) #13
+  %147 = getelementptr inbounds %struct.CommandSt, ptr %6, i64 0, i32 15
+  %148 = load double, ptr %147, align 8, !tbaa !40
+  call void @randomDisplacements(ptr noundef nonnull %14, double noundef %148) #13
+  %149 = load ptr, ptr %21, align 8, !tbaa !34
+  %150 = load ptr, ptr %116, align 8, !tbaa !35
+  %151 = call ptr @initAtomHaloExchange(ptr noundef %149, ptr noundef %150) #13
+  store ptr %151, ptr %23, align 8, !tbaa !16
   call void @profileStart(i32 noundef 5) #13
   call void @redistributeAtoms(ptr noundef nonnull %14) #13
   call void @profileStop(i32 noundef 5) #13
@@ -285,578 +281,578 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   call void @kineticEnergy(ptr noundef nonnull %14) #13
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #13
   call void @llvm.lifetime.end.p0(i64 3144, ptr nonnull %6)
-  %154 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %155 = load ptr, ptr %116, align 8, !tbaa !35
-  %156 = call i32 @maxOccupancy(ptr noundef %155) #13
-  %157 = call i32 @printRank() #13
-  %158 = icmp eq i32 %157, 0
-  br i1 %158, label %267, label %159
+  %152 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %153 = load ptr, ptr %116, align 8, !tbaa !35
+  %154 = call i32 @maxOccupancy(ptr noundef %153) #13
+  %155 = call i32 @printRank() #13
+  %156 = icmp eq i32 %155, 0
+  br i1 %156, label %265, label %157
 
-159:                                              ; preds = %114
-  %160 = call i64 @fwrite(ptr nonnull @.str.20, i64 18, i64 1, ptr %154)
-  %161 = load ptr, ptr %115, align 8, !tbaa !36
-  %162 = getelementptr inbounds %struct.AtomsSt, ptr %161, i64 0, i32 1
-  %163 = load i32, ptr %162, align 4, !tbaa !41
-  %164 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.21, i32 noundef %163)
-  %165 = load ptr, ptr %21, align 8, !tbaa !34
-  %166 = getelementptr inbounds %struct.DomainSt, ptr %165, i64 0, i32 2
+157:                                              ; preds = %114
+  %158 = call i64 @fwrite(ptr nonnull @.str.20, i64 18, i64 1, ptr %152)
+  %159 = load ptr, ptr %115, align 8, !tbaa !36
+  %160 = getelementptr inbounds %struct.AtomsSt, ptr %159, i64 0, i32 1
+  %161 = load i32, ptr %160, align 4, !tbaa !41
+  %162 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.21, i32 noundef %161)
+  %163 = load ptr, ptr %21, align 8, !tbaa !34
+  %164 = getelementptr inbounds %struct.DomainSt, ptr %163, i64 0, i32 2
+  %165 = load double, ptr %164, align 8, !tbaa !29
+  %166 = getelementptr inbounds %struct.DomainSt, ptr %163, i64 0, i32 2, i64 1
   %167 = load double, ptr %166, align 8, !tbaa !29
-  %168 = getelementptr inbounds %struct.DomainSt, ptr %165, i64 0, i32 2, i64 1
+  %168 = getelementptr inbounds %struct.DomainSt, ptr %163, i64 0, i32 2, i64 2
   %169 = load double, ptr %168, align 8, !tbaa !29
-  %170 = getelementptr inbounds %struct.DomainSt, ptr %165, i64 0, i32 2, i64 2
-  %171 = load double, ptr %170, align 8, !tbaa !29
-  %172 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.22, double noundef %167, double noundef %169, double noundef %171)
-  %173 = load ptr, ptr %21, align 8, !tbaa !34
-  %174 = getelementptr inbounds %struct.DomainSt, ptr %173, i64 0, i32 3
+  %170 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.22, double noundef %165, double noundef %167, double noundef %169)
+  %171 = load ptr, ptr %21, align 8, !tbaa !34
+  %172 = getelementptr inbounds %struct.DomainSt, ptr %171, i64 0, i32 3
+  %173 = load double, ptr %172, align 8, !tbaa !29
+  %174 = getelementptr inbounds %struct.DomainSt, ptr %171, i64 0, i32 3, i64 1
   %175 = load double, ptr %174, align 8, !tbaa !29
-  %176 = getelementptr inbounds %struct.DomainSt, ptr %173, i64 0, i32 3, i64 1
+  %176 = getelementptr inbounds %struct.DomainSt, ptr %171, i64 0, i32 3, i64 2
   %177 = load double, ptr %176, align 8, !tbaa !29
-  %178 = getelementptr inbounds %struct.DomainSt, ptr %173, i64 0, i32 3, i64 2
-  %179 = load double, ptr %178, align 8, !tbaa !29
-  %180 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.23, double noundef %175, double noundef %177, double noundef %179)
-  call void @printSeparator(ptr noundef %154) #13
-  %181 = call i64 @fwrite(ptr nonnull @.str.24, i64 21, i64 1, ptr %154)
-  %182 = load ptr, ptr %21, align 8, !tbaa !34
-  %183 = load i32, ptr %182, align 8, !tbaa !5
-  %184 = getelementptr inbounds [3 x i32], ptr %182, i64 0, i64 1
-  %185 = load i32, ptr %184, align 4, !tbaa !5
-  %186 = getelementptr inbounds [3 x i32], ptr %182, i64 0, i64 2
-  %187 = load i32, ptr %186, align 8, !tbaa !5
-  %188 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.25, i32 noundef %183, i32 noundef %185, i32 noundef %187)
-  %189 = load ptr, ptr %116, align 8, !tbaa !35
-  %190 = load i32, ptr %189, align 8, !tbaa !5
-  %191 = getelementptr inbounds [3 x i32], ptr %189, i64 0, i64 1
-  %192 = load i32, ptr %191, align 4, !tbaa !5
-  %193 = getelementptr inbounds [3 x i32], ptr %189, i64 0, i64 2
-  %194 = load i32, ptr %193, align 8, !tbaa !5
-  %195 = mul nsw i32 %192, %190
-  %196 = mul nsw i32 %195, %194
-  %197 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.26, i32 noundef %190, i32 noundef %192, i32 noundef %194, i32 noundef %196)
-  %198 = load ptr, ptr %116, align 8, !tbaa !35
-  %199 = getelementptr inbounds %struct.LinkCellSt, ptr %198, i64 0, i32 6
+  %178 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.23, double noundef %173, double noundef %175, double noundef %177)
+  call void @printSeparator(ptr noundef %152) #13
+  %179 = call i64 @fwrite(ptr nonnull @.str.24, i64 21, i64 1, ptr %152)
+  %180 = load ptr, ptr %21, align 8, !tbaa !34
+  %181 = load i32, ptr %180, align 8, !tbaa !5
+  %182 = getelementptr inbounds [3 x i32], ptr %180, i64 0, i64 1
+  %183 = load i32, ptr %182, align 4, !tbaa !5
+  %184 = getelementptr inbounds [3 x i32], ptr %180, i64 0, i64 2
+  %185 = load i32, ptr %184, align 8, !tbaa !5
+  %186 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.25, i32 noundef %181, i32 noundef %183, i32 noundef %185)
+  %187 = load ptr, ptr %116, align 8, !tbaa !35
+  %188 = load i32, ptr %187, align 8, !tbaa !5
+  %189 = getelementptr inbounds [3 x i32], ptr %187, i64 0, i64 1
+  %190 = load i32, ptr %189, align 4, !tbaa !5
+  %191 = getelementptr inbounds [3 x i32], ptr %187, i64 0, i64 2
+  %192 = load i32, ptr %191, align 8, !tbaa !5
+  %193 = mul nsw i32 %190, %188
+  %194 = mul nsw i32 %193, %192
+  %195 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.26, i32 noundef %188, i32 noundef %190, i32 noundef %192, i32 noundef %194)
+  %196 = load ptr, ptr %116, align 8, !tbaa !35
+  %197 = getelementptr inbounds %struct.LinkCellSt, ptr %196, i64 0, i32 6
+  %198 = load double, ptr %197, align 8, !tbaa !29
+  %199 = getelementptr inbounds %struct.LinkCellSt, ptr %196, i64 0, i32 6, i64 1
   %200 = load double, ptr %199, align 8, !tbaa !29
-  %201 = getelementptr inbounds %struct.LinkCellSt, ptr %198, i64 0, i32 6, i64 1
+  %201 = getelementptr inbounds %struct.LinkCellSt, ptr %196, i64 0, i32 6, i64 2
   %202 = load double, ptr %201, align 8, !tbaa !29
-  %203 = getelementptr inbounds %struct.LinkCellSt, ptr %198, i64 0, i32 6, i64 2
-  %204 = load double, ptr %203, align 8, !tbaa !29
-  %205 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.27, double noundef %200, double noundef %202, double noundef %204)
-  %206 = load ptr, ptr %116, align 8, !tbaa !35
-  %207 = getelementptr inbounds %struct.LinkCellSt, ptr %206, i64 0, i32 6
-  %208 = load double, ptr %207, align 8, !tbaa !29
-  %209 = load ptr, ptr %35, align 8, !tbaa !18
-  %210 = load double, ptr %209, align 8, !tbaa !22
-  %211 = fdiv double %208, %210
-  %212 = getelementptr inbounds %struct.LinkCellSt, ptr %206, i64 0, i32 6, i64 1
-  %213 = load double, ptr %212, align 8, !tbaa !29
-  %214 = fdiv double %213, %210
-  %215 = getelementptr inbounds %struct.LinkCellSt, ptr %206, i64 0, i32 6, i64 2
-  %216 = load double, ptr %215, align 8, !tbaa !29
-  %217 = fdiv double %216, %210
-  %218 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.28, double noundef %211, double noundef %214, double noundef %217)
-  %219 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.29, i32 noundef %156, i32 noundef 64)
-  call void @printSeparator(ptr noundef %154) #13
-  %220 = call i64 @fwrite(ptr nonnull @.str.30, i64 17, i64 1, ptr %154)
-  %221 = load ptr, ptr %35, align 8, !tbaa !18
-  %222 = getelementptr inbounds %struct.BasePotentialSt, ptr %221, i64 0, i32 7
-  %223 = load ptr, ptr %222, align 8, !tbaa !43
-  call void %223(ptr noundef %154, ptr noundef %221) #13
-  %224 = load ptr, ptr %115, align 8, !tbaa !36
-  %225 = load i32, ptr %224, align 8, !tbaa !44
-  %226 = mul nsw i32 %225, 88
-  %227 = sitofp i32 %226 to float
-  %228 = fmul float %227, 0x3F50000000000000
-  %229 = fmul float %228, 0x3F50000000000000
-  %230 = getelementptr inbounds %struct.AtomsSt, ptr %224, i64 0, i32 1
-  %231 = load i32, ptr %230, align 4, !tbaa !41
-  %232 = mul nsw i32 %231, 88
-  %233 = sitofp i32 %232 to float
-  %234 = fmul float %233, 0x3F50000000000000
-  %235 = fmul float %234, 0x3F50000000000000
-  %236 = load ptr, ptr %116, align 8, !tbaa !35
-  %237 = load i32, ptr %236, align 8, !tbaa !5
-  %238 = getelementptr inbounds [3 x i32], ptr %236, i64 0, i64 1
-  %239 = load i32, ptr %238, align 4, !tbaa !5
-  %240 = mul nsw i32 %239, %237
-  %241 = getelementptr inbounds [3 x i32], ptr %236, i64 0, i64 2
-  %242 = load i32, ptr %241, align 8, !tbaa !5
-  %243 = mul nsw i32 %240, %242
-  %244 = add nsw i32 %237, 2
-  %245 = add nsw i32 %239, 2
-  %246 = mul nsw i32 %245, %244
-  %247 = add nsw i32 %242, 2
-  %248 = mul nsw i32 %246, %247
-  %249 = sitofp i32 %243 to float
-  %250 = fmul float %249, 5.632000e+03
-  %251 = fmul float %250, 0x3F50000000000000
-  %252 = fmul float %251, 0x3F50000000000000
-  %253 = sitofp i32 %248 to float
-  %254 = fmul float %253, 5.632000e+03
-  %255 = fmul float %254, 0x3F50000000000000
-  %256 = fmul float %255, 0x3F50000000000000
-  call void @printSeparator(ptr noundef %154) #13
-  %257 = call i64 @fwrite(ptr nonnull @.str.31, i64 14, i64 1, ptr %154)
-  %258 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.32, i32 noundef 88)
-  %259 = fpext float %235 to double
-  %260 = fpext float %229 to double
-  %261 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.33, double noundef %259, double noundef %260)
-  %262 = fpext float %252 to double
-  %263 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.34, double noundef %262)
-  %264 = fpext float %256 to double
-  %265 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.35, double noundef %264)
-  %266 = call i32 @fflush(ptr noundef %154)
-  br label %267
+  %203 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.27, double noundef %198, double noundef %200, double noundef %202)
+  %204 = load ptr, ptr %116, align 8, !tbaa !35
+  %205 = getelementptr inbounds %struct.LinkCellSt, ptr %204, i64 0, i32 6
+  %206 = load double, ptr %205, align 8, !tbaa !29
+  %207 = load ptr, ptr %35, align 8, !tbaa !18
+  %208 = load double, ptr %207, align 8, !tbaa !22
+  %209 = fdiv double %206, %208
+  %210 = getelementptr inbounds %struct.LinkCellSt, ptr %204, i64 0, i32 6, i64 1
+  %211 = load double, ptr %210, align 8, !tbaa !29
+  %212 = fdiv double %211, %208
+  %213 = getelementptr inbounds %struct.LinkCellSt, ptr %204, i64 0, i32 6, i64 2
+  %214 = load double, ptr %213, align 8, !tbaa !29
+  %215 = fdiv double %214, %208
+  %216 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.28, double noundef %209, double noundef %212, double noundef %215)
+  %217 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.29, i32 noundef %154, i32 noundef 64)
+  call void @printSeparator(ptr noundef %152) #13
+  %218 = call i64 @fwrite(ptr nonnull @.str.30, i64 17, i64 1, ptr %152)
+  %219 = load ptr, ptr %35, align 8, !tbaa !18
+  %220 = getelementptr inbounds %struct.BasePotentialSt, ptr %219, i64 0, i32 7
+  %221 = load ptr, ptr %220, align 8, !tbaa !43
+  call void %221(ptr noundef %152, ptr noundef %219) #13
+  %222 = load ptr, ptr %115, align 8, !tbaa !36
+  %223 = load i32, ptr %222, align 8, !tbaa !44
+  %224 = mul nsw i32 %223, 88
+  %225 = sitofp i32 %224 to float
+  %226 = fmul float %225, 0x3F50000000000000
+  %227 = fmul float %226, 0x3F50000000000000
+  %228 = getelementptr inbounds %struct.AtomsSt, ptr %222, i64 0, i32 1
+  %229 = load i32, ptr %228, align 4, !tbaa !41
+  %230 = mul nsw i32 %229, 88
+  %231 = sitofp i32 %230 to float
+  %232 = fmul float %231, 0x3F50000000000000
+  %233 = fmul float %232, 0x3F50000000000000
+  %234 = load ptr, ptr %116, align 8, !tbaa !35
+  %235 = load i32, ptr %234, align 8, !tbaa !5
+  %236 = getelementptr inbounds [3 x i32], ptr %234, i64 0, i64 1
+  %237 = load i32, ptr %236, align 4, !tbaa !5
+  %238 = mul nsw i32 %237, %235
+  %239 = getelementptr inbounds [3 x i32], ptr %234, i64 0, i64 2
+  %240 = load i32, ptr %239, align 8, !tbaa !5
+  %241 = mul nsw i32 %238, %240
+  %242 = add nsw i32 %235, 2
+  %243 = add nsw i32 %237, 2
+  %244 = mul nsw i32 %243, %242
+  %245 = add nsw i32 %240, 2
+  %246 = mul nsw i32 %244, %245
+  %247 = sitofp i32 %241 to float
+  %248 = fmul float %247, 5.632000e+03
+  %249 = fmul float %248, 0x3F50000000000000
+  %250 = fmul float %249, 0x3F50000000000000
+  %251 = sitofp i32 %246 to float
+  %252 = fmul float %251, 5.632000e+03
+  %253 = fmul float %252, 0x3F50000000000000
+  %254 = fmul float %253, 0x3F50000000000000
+  call void @printSeparator(ptr noundef %152) #13
+  %255 = call i64 @fwrite(ptr nonnull @.str.31, i64 14, i64 1, ptr %152)
+  %256 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.32, i32 noundef 88)
+  %257 = fpext float %233 to double
+  %258 = fpext float %227 to double
+  %259 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.33, double noundef %257, double noundef %258)
+  %260 = fpext float %250 to double
+  %261 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.34, double noundef %260)
+  %262 = fpext float %254 to double
+  %263 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %152, ptr noundef nonnull @.str.35, double noundef %262)
+  %264 = call i32 @fflush(ptr noundef %152)
+  br label %265
 
-267:                                              ; preds = %114, %159
-  %268 = load ptr, ptr %115, align 8, !tbaa !36
-  store i32 0, ptr %268, align 8, !tbaa !44
-  %269 = load ptr, ptr %116, align 8, !tbaa !35
-  %270 = getelementptr inbounds %struct.LinkCellSt, ptr %269, i64 0, i32 1
-  %271 = load i32, ptr %270, align 4, !tbaa !45
-  %272 = icmp sgt i32 %271, 0
-  br i1 %272, label %273, label %344
+265:                                              ; preds = %114, %157
+  %266 = load ptr, ptr %115, align 8, !tbaa !36
+  store i32 0, ptr %266, align 8, !tbaa !44
+  %267 = load ptr, ptr %116, align 8, !tbaa !35
+  %268 = getelementptr inbounds %struct.LinkCellSt, ptr %267, i64 0, i32 1
+  %269 = load i32, ptr %268, align 4, !tbaa !45
+  %270 = icmp sgt i32 %269, 0
+  br i1 %270, label %271, label %342
 
-273:                                              ; preds = %267
-  %274 = getelementptr inbounds %struct.LinkCellSt, ptr %269, i64 0, i32 8
-  %275 = load ptr, ptr %274, align 8, !tbaa !47
-  %276 = zext i32 %271 to i64
-  %277 = icmp ult i32 %271, 12
-  br i1 %277, label %303, label %278
+271:                                              ; preds = %265
+  %272 = getelementptr inbounds %struct.LinkCellSt, ptr %267, i64 0, i32 8
+  %273 = load ptr, ptr %272, align 8, !tbaa !47
+  %274 = zext i32 %269 to i64
+  %275 = icmp ult i32 %269, 12
+  br i1 %275, label %301, label %276
 
-278:                                              ; preds = %273
-  %279 = getelementptr i8, ptr %268, i64 4
-  %280 = shl nuw nsw i64 %276, 2
-  %281 = getelementptr i8, ptr %275, i64 %280
-  %282 = icmp ult ptr %268, %281
-  %283 = icmp ult ptr %275, %279
-  %284 = and i1 %282, %283
-  br i1 %284, label %303, label %285
+276:                                              ; preds = %271
+  %277 = getelementptr i8, ptr %266, i64 4
+  %278 = shl nuw nsw i64 %274, 2
+  %279 = getelementptr i8, ptr %273, i64 %278
+  %280 = icmp ult ptr %266, %279
+  %281 = icmp ult ptr %273, %277
+  %282 = and i1 %280, %281
+  br i1 %282, label %301, label %283
 
-285:                                              ; preds = %278
-  %286 = and i64 %276, 4294967288
-  br label %287
+283:                                              ; preds = %276
+  %284 = and i64 %274, 4294967288
+  br label %285
 
-287:                                              ; preds = %287, %285
-  %288 = phi i64 [ 0, %285 ], [ %297, %287 ]
-  %289 = phi <4 x i32> [ zeroinitializer, %285 ], [ %295, %287 ]
-  %290 = phi <4 x i32> [ zeroinitializer, %285 ], [ %296, %287 ]
-  %291 = getelementptr inbounds i32, ptr %275, i64 %288
+285:                                              ; preds = %285, %283
+  %286 = phi i64 [ 0, %283 ], [ %295, %285 ]
+  %287 = phi <4 x i32> [ zeroinitializer, %283 ], [ %293, %285 ]
+  %288 = phi <4 x i32> [ zeroinitializer, %283 ], [ %294, %285 ]
+  %289 = getelementptr inbounds i32, ptr %273, i64 %286
+  %290 = load <4 x i32>, ptr %289, align 4, !tbaa !5, !alias.scope !48
+  %291 = getelementptr inbounds i32, ptr %289, i64 4
   %292 = load <4 x i32>, ptr %291, align 4, !tbaa !5, !alias.scope !48
-  %293 = getelementptr inbounds i32, ptr %291, i64 4
-  %294 = load <4 x i32>, ptr %293, align 4, !tbaa !5, !alias.scope !48
-  %295 = add <4 x i32> %292, %289
-  %296 = add <4 x i32> %294, %290
-  %297 = add nuw i64 %288, 8
-  %298 = icmp eq i64 %297, %286
-  br i1 %298, label %299, label %287, !llvm.loop !51
+  %293 = add <4 x i32> %290, %287
+  %294 = add <4 x i32> %292, %288
+  %295 = add nuw i64 %286, 8
+  %296 = icmp eq i64 %295, %284
+  br i1 %296, label %297, label %285, !llvm.loop !51
 
-299:                                              ; preds = %287
-  %300 = add <4 x i32> %296, %295
-  %301 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %300)
-  store i32 %301, ptr %268, align 4, !tbaa !44
-  %302 = icmp eq i64 %286, %276
-  br i1 %302, label %344, label %303
+297:                                              ; preds = %285
+  %298 = add <4 x i32> %294, %293
+  %299 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %298)
+  store i32 %299, ptr %266, align 4, !tbaa !44
+  %300 = icmp eq i64 %284, %274
+  br i1 %300, label %342, label %301
 
-303:                                              ; preds = %278, %273, %299
-  %304 = phi i64 [ 0, %278 ], [ 0, %273 ], [ %286, %299 ]
-  %305 = phi i32 [ 0, %278 ], [ 0, %273 ], [ %301, %299 ]
-  %306 = xor i64 %304, -1
-  %307 = add nsw i64 %306, %276
-  %308 = and i64 %276, 3
-  %309 = icmp eq i64 %308, 0
-  br i1 %309, label %320, label %310
+301:                                              ; preds = %276, %271, %297
+  %302 = phi i64 [ 0, %276 ], [ 0, %271 ], [ %284, %297 ]
+  %303 = phi i32 [ 0, %276 ], [ 0, %271 ], [ %299, %297 ]
+  %304 = xor i64 %302, -1
+  %305 = add nsw i64 %304, %274
+  %306 = and i64 %274, 3
+  %307 = icmp eq i64 %306, 0
+  br i1 %307, label %318, label %308
 
-310:                                              ; preds = %303, %310
-  %311 = phi i64 [ %317, %310 ], [ %304, %303 ]
-  %312 = phi i32 [ %316, %310 ], [ %305, %303 ]
-  %313 = phi i64 [ %318, %310 ], [ 0, %303 ]
-  %314 = getelementptr inbounds i32, ptr %275, i64 %311
-  %315 = load i32, ptr %314, align 4, !tbaa !5
-  %316 = add nsw i32 %315, %312
-  store i32 %316, ptr %268, align 8, !tbaa !44
-  %317 = add nuw nsw i64 %311, 1
-  %318 = add i64 %313, 1
-  %319 = icmp eq i64 %318, %308
-  br i1 %319, label %320, label %310, !llvm.loop !54
+308:                                              ; preds = %301, %308
+  %309 = phi i64 [ %315, %308 ], [ %302, %301 ]
+  %310 = phi i32 [ %314, %308 ], [ %303, %301 ]
+  %311 = phi i64 [ %316, %308 ], [ 0, %301 ]
+  %312 = getelementptr inbounds i32, ptr %273, i64 %309
+  %313 = load i32, ptr %312, align 4, !tbaa !5
+  %314 = add nsw i32 %313, %310
+  store i32 %314, ptr %266, align 8, !tbaa !44
+  %315 = add nuw nsw i64 %309, 1
+  %316 = add i64 %311, 1
+  %317 = icmp eq i64 %316, %306
+  br i1 %317, label %318, label %308, !llvm.loop !54
 
-320:                                              ; preds = %310, %303
-  %321 = phi i64 [ %304, %303 ], [ %317, %310 ]
-  %322 = phi i32 [ %305, %303 ], [ %316, %310 ]
-  %323 = icmp ult i64 %307, 3
-  br i1 %323, label %344, label %324
+318:                                              ; preds = %308, %301
+  %319 = phi i64 [ %302, %301 ], [ %315, %308 ]
+  %320 = phi i32 [ %303, %301 ], [ %314, %308 ]
+  %321 = icmp ult i64 %305, 3
+  br i1 %321, label %342, label %322
 
-324:                                              ; preds = %320, %324
-  %325 = phi i64 [ %342, %324 ], [ %321, %320 ]
-  %326 = phi i32 [ %341, %324 ], [ %322, %320 ]
-  %327 = getelementptr inbounds i32, ptr %275, i64 %325
-  %328 = load i32, ptr %327, align 4, !tbaa !5
-  %329 = add nsw i32 %328, %326
-  store i32 %329, ptr %268, align 8, !tbaa !44
-  %330 = add nuw nsw i64 %325, 1
-  %331 = getelementptr inbounds i32, ptr %275, i64 %330
-  %332 = load i32, ptr %331, align 4, !tbaa !5
-  %333 = add nsw i32 %332, %329
-  store i32 %333, ptr %268, align 8, !tbaa !44
-  %334 = add nuw nsw i64 %325, 2
-  %335 = getelementptr inbounds i32, ptr %275, i64 %334
-  %336 = load i32, ptr %335, align 4, !tbaa !5
-  %337 = add nsw i32 %336, %333
-  store i32 %337, ptr %268, align 8, !tbaa !44
-  %338 = add nuw nsw i64 %325, 3
-  %339 = getelementptr inbounds i32, ptr %275, i64 %338
-  %340 = load i32, ptr %339, align 4, !tbaa !5
-  %341 = add nsw i32 %340, %337
-  store i32 %341, ptr %268, align 8, !tbaa !44
-  %342 = add nuw nsw i64 %325, 4
-  %343 = icmp eq i64 %342, %276
-  br i1 %343, label %344, label %324, !llvm.loop !56
+322:                                              ; preds = %318, %322
+  %323 = phi i64 [ %340, %322 ], [ %319, %318 ]
+  %324 = phi i32 [ %339, %322 ], [ %320, %318 ]
+  %325 = getelementptr inbounds i32, ptr %273, i64 %323
+  %326 = load i32, ptr %325, align 4, !tbaa !5
+  %327 = add nsw i32 %326, %324
+  store i32 %327, ptr %266, align 8, !tbaa !44
+  %328 = add nuw nsw i64 %323, 1
+  %329 = getelementptr inbounds i32, ptr %273, i64 %328
+  %330 = load i32, ptr %329, align 4, !tbaa !5
+  %331 = add nsw i32 %330, %327
+  store i32 %331, ptr %266, align 8, !tbaa !44
+  %332 = add nuw nsw i64 %323, 2
+  %333 = getelementptr inbounds i32, ptr %273, i64 %332
+  %334 = load i32, ptr %333, align 4, !tbaa !5
+  %335 = add nsw i32 %334, %331
+  store i32 %335, ptr %266, align 8, !tbaa !44
+  %336 = add nuw nsw i64 %323, 3
+  %337 = getelementptr inbounds i32, ptr %273, i64 %336
+  %338 = load i32, ptr %337, align 4, !tbaa !5
+  %339 = add nsw i32 %338, %335
+  store i32 %339, ptr %266, align 8, !tbaa !44
+  %340 = add nuw nsw i64 %323, 4
+  %341 = icmp eq i64 %340, %274
+  br i1 %341, label %342, label %322, !llvm.loop !56
 
-344:                                              ; preds = %320, %324, %299, %267
+342:                                              ; preds = %318, %322, %297, %265
   call void @profileStart(i32 noundef 10) #13
-  %345 = load ptr, ptr %115, align 8, !tbaa !36
-  %346 = getelementptr inbounds %struct.AtomsSt, ptr %345, i64 0, i32 1
-  call void @addIntParallel(ptr noundef %345, ptr noundef nonnull %346, i32 noundef 1) #13
+  %343 = load ptr, ptr %115, align 8, !tbaa !36
+  %344 = getelementptr inbounds %struct.AtomsSt, ptr %343, i64 0, i32 1
+  call void @addIntParallel(ptr noundef %343, ptr noundef nonnull %344, i32 noundef 1) #13
   call void @profileStop(i32 noundef 10) #13
-  %347 = load double, ptr %22, align 8, !tbaa !57
-  %348 = getelementptr inbounds %struct.SimFlatSt, ptr %14, i64 0, i32 8
-  %349 = load double, ptr %348, align 8, !tbaa !58
-  %350 = fadd double %347, %349
-  %351 = load ptr, ptr %115, align 8, !tbaa !36
-  %352 = getelementptr inbounds %struct.AtomsSt, ptr %351, i64 0, i32 1
-  %353 = load i32, ptr %352, align 4, !tbaa !41
-  %354 = sitofp i32 %353 to double
-  %355 = fdiv double %350, %354
-  %356 = call i32 @printRank() #13
-  %357 = icmp eq i32 %356, 0
-  br i1 %357, label %366, label %358
+  %345 = load double, ptr %22, align 8, !tbaa !57
+  %346 = getelementptr inbounds %struct.SimFlatSt, ptr %14, i64 0, i32 8
+  %347 = load double, ptr %346, align 8, !tbaa !58
+  %348 = fadd double %345, %347
+  %349 = load ptr, ptr %115, align 8, !tbaa !36
+  %350 = getelementptr inbounds %struct.AtomsSt, ptr %349, i64 0, i32 1
+  %351 = load i32, ptr %350, align 4, !tbaa !41
+  %352 = sitofp i32 %351 to double
+  %353 = fdiv double %348, %352
+  %354 = call i32 @printRank() #13
+  %355 = icmp eq i32 %354, 0
+  br i1 %355, label %364, label %356
 
-358:                                              ; preds = %344
+356:                                              ; preds = %342
+  %357 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %358 = call i32 @fputc(i32 10, ptr %357)
   %359 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %360 = call i32 @fputc(i32 10, ptr %359)
-  %361 = load ptr, ptr @stdout, align 8, !tbaa !9
-  call void @printSeparator(ptr noundef %361) #13
+  call void @printSeparator(ptr noundef %359) #13
+  %360 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %361 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %360, ptr noundef nonnull @.str.10, double noundef %353, i32 noundef %351)
   %362 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %363 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %362, ptr noundef nonnull @.str.10, double noundef %355, i32 noundef %353)
-  %364 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %365 = call i32 @fputc(i32 10, ptr %364)
-  br label %366
+  %363 = call i32 @fputc(i32 10, ptr %362)
+  br label %364
 
-366:                                              ; preds = %344, %358
+364:                                              ; preds = %342, %356
   call void @timestampBarrier(ptr noundef nonnull @.str.1) #13
   call void @timestampBarrier(ptr noundef nonnull @.str.2) #13
-  %367 = load i32, ptr %14, align 8, !tbaa !59
-  %368 = load i32, ptr %16, align 4, !tbaa !60
+  %365 = load i32, ptr %14, align 8, !tbaa !59
+  %366 = load i32, ptr %16, align 4, !tbaa !60
   call void @profileStart(i32 noundef 1) #13
-  %369 = icmp sgt i32 %367, 0
-  br i1 %369, label %370, label %456
+  %367 = icmp sgt i32 %365, 0
+  br i1 %367, label %368, label %454
 
-370:                                              ; preds = %366, %448
-  %371 = phi i32 [ %454, %448 ], [ 0, %366 ]
+368:                                              ; preds = %364, %446
+  %369 = phi i32 [ %452, %446 ], [ 0, %364 ]
   call void @profileStart(i32 noundef 10) #13
-  %372 = load ptr, ptr %115, align 8, !tbaa !36
-  store i32 0, ptr %372, align 8, !tbaa !44
-  %373 = load ptr, ptr %116, align 8, !tbaa !35
-  %374 = getelementptr inbounds %struct.LinkCellSt, ptr %373, i64 0, i32 1
-  %375 = load i32, ptr %374, align 4, !tbaa !45
-  %376 = icmp sgt i32 %375, 0
-  br i1 %376, label %377, label %448
+  %370 = load ptr, ptr %115, align 8, !tbaa !36
+  store i32 0, ptr %370, align 8, !tbaa !44
+  %371 = load ptr, ptr %116, align 8, !tbaa !35
+  %372 = getelementptr inbounds %struct.LinkCellSt, ptr %371, i64 0, i32 1
+  %373 = load i32, ptr %372, align 4, !tbaa !45
+  %374 = icmp sgt i32 %373, 0
+  br i1 %374, label %375, label %446
 
-377:                                              ; preds = %370
-  %378 = getelementptr inbounds %struct.LinkCellSt, ptr %373, i64 0, i32 8
-  %379 = load ptr, ptr %378, align 8, !tbaa !47
-  %380 = zext i32 %375 to i64
-  %381 = icmp ult i32 %375, 12
-  br i1 %381, label %407, label %382
+375:                                              ; preds = %368
+  %376 = getelementptr inbounds %struct.LinkCellSt, ptr %371, i64 0, i32 8
+  %377 = load ptr, ptr %376, align 8, !tbaa !47
+  %378 = zext i32 %373 to i64
+  %379 = icmp ult i32 %373, 12
+  br i1 %379, label %405, label %380
 
-382:                                              ; preds = %377
-  %383 = getelementptr i8, ptr %372, i64 4
-  %384 = shl nuw nsw i64 %380, 2
-  %385 = getelementptr i8, ptr %379, i64 %384
-  %386 = icmp ult ptr %372, %385
-  %387 = icmp ult ptr %379, %383
-  %388 = and i1 %386, %387
-  br i1 %388, label %407, label %389
+380:                                              ; preds = %375
+  %381 = getelementptr i8, ptr %370, i64 4
+  %382 = shl nuw nsw i64 %378, 2
+  %383 = getelementptr i8, ptr %377, i64 %382
+  %384 = icmp ult ptr %370, %383
+  %385 = icmp ult ptr %377, %381
+  %386 = and i1 %384, %385
+  br i1 %386, label %405, label %387
 
-389:                                              ; preds = %382
-  %390 = and i64 %380, 4294967288
-  br label %391
+387:                                              ; preds = %380
+  %388 = and i64 %378, 4294967288
+  br label %389
 
-391:                                              ; preds = %391, %389
-  %392 = phi i64 [ 0, %389 ], [ %401, %391 ]
-  %393 = phi <4 x i32> [ zeroinitializer, %389 ], [ %399, %391 ]
-  %394 = phi <4 x i32> [ zeroinitializer, %389 ], [ %400, %391 ]
-  %395 = getelementptr inbounds i32, ptr %379, i64 %392
+389:                                              ; preds = %389, %387
+  %390 = phi i64 [ 0, %387 ], [ %399, %389 ]
+  %391 = phi <4 x i32> [ zeroinitializer, %387 ], [ %397, %389 ]
+  %392 = phi <4 x i32> [ zeroinitializer, %387 ], [ %398, %389 ]
+  %393 = getelementptr inbounds i32, ptr %377, i64 %390
+  %394 = load <4 x i32>, ptr %393, align 4, !tbaa !5, !alias.scope !61
+  %395 = getelementptr inbounds i32, ptr %393, i64 4
   %396 = load <4 x i32>, ptr %395, align 4, !tbaa !5, !alias.scope !61
-  %397 = getelementptr inbounds i32, ptr %395, i64 4
-  %398 = load <4 x i32>, ptr %397, align 4, !tbaa !5, !alias.scope !61
-  %399 = add <4 x i32> %396, %393
-  %400 = add <4 x i32> %398, %394
-  %401 = add nuw i64 %392, 8
-  %402 = icmp eq i64 %401, %390
-  br i1 %402, label %403, label %391, !llvm.loop !64
+  %397 = add <4 x i32> %394, %391
+  %398 = add <4 x i32> %396, %392
+  %399 = add nuw i64 %390, 8
+  %400 = icmp eq i64 %399, %388
+  br i1 %400, label %401, label %389, !llvm.loop !64
 
-403:                                              ; preds = %391
-  %404 = add <4 x i32> %400, %399
-  %405 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %404)
-  store i32 %405, ptr %372, align 4, !tbaa !44
-  %406 = icmp eq i64 %390, %380
-  br i1 %406, label %448, label %407
+401:                                              ; preds = %389
+  %402 = add <4 x i32> %398, %397
+  %403 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %402)
+  store i32 %403, ptr %370, align 4, !tbaa !44
+  %404 = icmp eq i64 %388, %378
+  br i1 %404, label %446, label %405
 
-407:                                              ; preds = %382, %377, %403
-  %408 = phi i64 [ 0, %382 ], [ 0, %377 ], [ %390, %403 ]
-  %409 = phi i32 [ 0, %382 ], [ 0, %377 ], [ %405, %403 ]
-  %410 = xor i64 %408, -1
-  %411 = add nsw i64 %410, %380
-  %412 = and i64 %380, 3
-  %413 = icmp eq i64 %412, 0
-  br i1 %413, label %424, label %414
+405:                                              ; preds = %380, %375, %401
+  %406 = phi i64 [ 0, %380 ], [ 0, %375 ], [ %388, %401 ]
+  %407 = phi i32 [ 0, %380 ], [ 0, %375 ], [ %403, %401 ]
+  %408 = xor i64 %406, -1
+  %409 = add nsw i64 %408, %378
+  %410 = and i64 %378, 3
+  %411 = icmp eq i64 %410, 0
+  br i1 %411, label %422, label %412
 
-414:                                              ; preds = %407, %414
-  %415 = phi i64 [ %421, %414 ], [ %408, %407 ]
-  %416 = phi i32 [ %420, %414 ], [ %409, %407 ]
-  %417 = phi i64 [ %422, %414 ], [ 0, %407 ]
-  %418 = getelementptr inbounds i32, ptr %379, i64 %415
-  %419 = load i32, ptr %418, align 4, !tbaa !5
-  %420 = add nsw i32 %419, %416
-  store i32 %420, ptr %372, align 8, !tbaa !44
-  %421 = add nuw nsw i64 %415, 1
-  %422 = add i64 %417, 1
-  %423 = icmp eq i64 %422, %412
-  br i1 %423, label %424, label %414, !llvm.loop !65
+412:                                              ; preds = %405, %412
+  %413 = phi i64 [ %419, %412 ], [ %406, %405 ]
+  %414 = phi i32 [ %418, %412 ], [ %407, %405 ]
+  %415 = phi i64 [ %420, %412 ], [ 0, %405 ]
+  %416 = getelementptr inbounds i32, ptr %377, i64 %413
+  %417 = load i32, ptr %416, align 4, !tbaa !5
+  %418 = add nsw i32 %417, %414
+  store i32 %418, ptr %370, align 8, !tbaa !44
+  %419 = add nuw nsw i64 %413, 1
+  %420 = add i64 %415, 1
+  %421 = icmp eq i64 %420, %410
+  br i1 %421, label %422, label %412, !llvm.loop !65
 
-424:                                              ; preds = %414, %407
-  %425 = phi i64 [ %408, %407 ], [ %421, %414 ]
-  %426 = phi i32 [ %409, %407 ], [ %420, %414 ]
-  %427 = icmp ult i64 %411, 3
-  br i1 %427, label %448, label %428
+422:                                              ; preds = %412, %405
+  %423 = phi i64 [ %406, %405 ], [ %419, %412 ]
+  %424 = phi i32 [ %407, %405 ], [ %418, %412 ]
+  %425 = icmp ult i64 %409, 3
+  br i1 %425, label %446, label %426
 
-428:                                              ; preds = %424, %428
-  %429 = phi i64 [ %446, %428 ], [ %425, %424 ]
-  %430 = phi i32 [ %445, %428 ], [ %426, %424 ]
-  %431 = getelementptr inbounds i32, ptr %379, i64 %429
-  %432 = load i32, ptr %431, align 4, !tbaa !5
-  %433 = add nsw i32 %432, %430
-  store i32 %433, ptr %372, align 8, !tbaa !44
-  %434 = add nuw nsw i64 %429, 1
-  %435 = getelementptr inbounds i32, ptr %379, i64 %434
-  %436 = load i32, ptr %435, align 4, !tbaa !5
-  %437 = add nsw i32 %436, %433
-  store i32 %437, ptr %372, align 8, !tbaa !44
-  %438 = add nuw nsw i64 %429, 2
-  %439 = getelementptr inbounds i32, ptr %379, i64 %438
-  %440 = load i32, ptr %439, align 4, !tbaa !5
-  %441 = add nsw i32 %440, %437
-  store i32 %441, ptr %372, align 8, !tbaa !44
-  %442 = add nuw nsw i64 %429, 3
-  %443 = getelementptr inbounds i32, ptr %379, i64 %442
-  %444 = load i32, ptr %443, align 4, !tbaa !5
-  %445 = add nsw i32 %444, %441
-  store i32 %445, ptr %372, align 8, !tbaa !44
-  %446 = add nuw nsw i64 %429, 4
-  %447 = icmp eq i64 %446, %380
-  br i1 %447, label %448, label %428, !llvm.loop !66
+426:                                              ; preds = %422, %426
+  %427 = phi i64 [ %444, %426 ], [ %423, %422 ]
+  %428 = phi i32 [ %443, %426 ], [ %424, %422 ]
+  %429 = getelementptr inbounds i32, ptr %377, i64 %427
+  %430 = load i32, ptr %429, align 4, !tbaa !5
+  %431 = add nsw i32 %430, %428
+  store i32 %431, ptr %370, align 8, !tbaa !44
+  %432 = add nuw nsw i64 %427, 1
+  %433 = getelementptr inbounds i32, ptr %377, i64 %432
+  %434 = load i32, ptr %433, align 4, !tbaa !5
+  %435 = add nsw i32 %434, %431
+  store i32 %435, ptr %370, align 8, !tbaa !44
+  %436 = add nuw nsw i64 %427, 2
+  %437 = getelementptr inbounds i32, ptr %377, i64 %436
+  %438 = load i32, ptr %437, align 4, !tbaa !5
+  %439 = add nsw i32 %438, %435
+  store i32 %439, ptr %370, align 8, !tbaa !44
+  %440 = add nuw nsw i64 %427, 3
+  %441 = getelementptr inbounds i32, ptr %377, i64 %440
+  %442 = load i32, ptr %441, align 4, !tbaa !5
+  %443 = add nsw i32 %442, %439
+  store i32 %443, ptr %370, align 8, !tbaa !44
+  %444 = add nuw nsw i64 %427, 4
+  %445 = icmp eq i64 %444, %378
+  br i1 %445, label %446, label %426, !llvm.loop !66
 
-448:                                              ; preds = %424, %428, %403, %370
+446:                                              ; preds = %422, %426, %401, %368
   call void @profileStart(i32 noundef 10) #13
-  %449 = load ptr, ptr %115, align 8, !tbaa !36
-  %450 = getelementptr inbounds %struct.AtomsSt, ptr %449, i64 0, i32 1
-  call void @addIntParallel(ptr noundef %449, ptr noundef nonnull %450, i32 noundef 1) #13
+  %447 = load ptr, ptr %115, align 8, !tbaa !36
+  %448 = getelementptr inbounds %struct.AtomsSt, ptr %447, i64 0, i32 1
+  call void @addIntParallel(ptr noundef %447, ptr noundef nonnull %448, i32 noundef 1) #13
   call void @profileStop(i32 noundef 10) #13
   call void @profileStop(i32 noundef 10) #13
-  %451 = call double @getElapsedTime(i32 noundef 2) #13
-  call fastcc void @printThings(ptr noundef nonnull %14, i32 noundef %371)
+  %449 = call double @getElapsedTime(i32 noundef 2) #13
+  call fastcc void @printThings(ptr noundef nonnull %14, i32 noundef %369)
   call void @profileStart(i32 noundef 2) #13
-  %452 = load double, ptr %20, align 8, !tbaa !14
-  %453 = call double @timestep(ptr noundef nonnull %14, i32 noundef %368, double noundef %452) #13
+  %450 = load double, ptr %20, align 8, !tbaa !14
+  %451 = call double @timestep(ptr noundef nonnull %14, i32 noundef %366, double noundef %450) #13
   call void @profileStop(i32 noundef 2) #13
-  %454 = add nsw i32 %371, %368
-  %455 = icmp slt i32 %454, %367
-  br i1 %455, label %370, label %456
+  %452 = add nsw i32 %369, %366
+  %453 = icmp slt i32 %452, %365
+  br i1 %453, label %368, label %454
 
-456:                                              ; preds = %448, %366
-  %457 = phi i32 [ 0, %366 ], [ %454, %448 ]
+454:                                              ; preds = %446, %364
+  %455 = phi i32 [ 0, %364 ], [ %452, %446 ]
   call void @profileStop(i32 noundef 1) #13
-  %458 = load ptr, ptr %115, align 8, !tbaa !36
-  store i32 0, ptr %458, align 8, !tbaa !44
-  %459 = load ptr, ptr %116, align 8, !tbaa !35
-  %460 = getelementptr inbounds %struct.LinkCellSt, ptr %459, i64 0, i32 1
-  %461 = load i32, ptr %460, align 4, !tbaa !45
-  %462 = icmp sgt i32 %461, 0
-  br i1 %462, label %463, label %534
+  %456 = load ptr, ptr %115, align 8, !tbaa !36
+  store i32 0, ptr %456, align 8, !tbaa !44
+  %457 = load ptr, ptr %116, align 8, !tbaa !35
+  %458 = getelementptr inbounds %struct.LinkCellSt, ptr %457, i64 0, i32 1
+  %459 = load i32, ptr %458, align 4, !tbaa !45
+  %460 = icmp sgt i32 %459, 0
+  br i1 %460, label %461, label %532
 
-463:                                              ; preds = %456
-  %464 = getelementptr inbounds %struct.LinkCellSt, ptr %459, i64 0, i32 8
-  %465 = load ptr, ptr %464, align 8, !tbaa !47
-  %466 = zext i32 %461 to i64
-  %467 = icmp ult i32 %461, 12
-  br i1 %467, label %493, label %468
+461:                                              ; preds = %454
+  %462 = getelementptr inbounds %struct.LinkCellSt, ptr %457, i64 0, i32 8
+  %463 = load ptr, ptr %462, align 8, !tbaa !47
+  %464 = zext i32 %459 to i64
+  %465 = icmp ult i32 %459, 12
+  br i1 %465, label %491, label %466
 
-468:                                              ; preds = %463
-  %469 = getelementptr i8, ptr %458, i64 4
-  %470 = shl nuw nsw i64 %466, 2
-  %471 = getelementptr i8, ptr %465, i64 %470
-  %472 = icmp ult ptr %458, %471
-  %473 = icmp ult ptr %465, %469
-  %474 = and i1 %472, %473
-  br i1 %474, label %493, label %475
+466:                                              ; preds = %461
+  %467 = getelementptr i8, ptr %456, i64 4
+  %468 = shl nuw nsw i64 %464, 2
+  %469 = getelementptr i8, ptr %463, i64 %468
+  %470 = icmp ult ptr %456, %469
+  %471 = icmp ult ptr %463, %467
+  %472 = and i1 %470, %471
+  br i1 %472, label %491, label %473
 
-475:                                              ; preds = %468
-  %476 = and i64 %466, 4294967288
-  br label %477
+473:                                              ; preds = %466
+  %474 = and i64 %464, 4294967288
+  br label %475
 
-477:                                              ; preds = %477, %475
-  %478 = phi i64 [ 0, %475 ], [ %487, %477 ]
-  %479 = phi <4 x i32> [ zeroinitializer, %475 ], [ %485, %477 ]
-  %480 = phi <4 x i32> [ zeroinitializer, %475 ], [ %486, %477 ]
-  %481 = getelementptr inbounds i32, ptr %465, i64 %478
+475:                                              ; preds = %475, %473
+  %476 = phi i64 [ 0, %473 ], [ %485, %475 ]
+  %477 = phi <4 x i32> [ zeroinitializer, %473 ], [ %483, %475 ]
+  %478 = phi <4 x i32> [ zeroinitializer, %473 ], [ %484, %475 ]
+  %479 = getelementptr inbounds i32, ptr %463, i64 %476
+  %480 = load <4 x i32>, ptr %479, align 4, !tbaa !5, !alias.scope !67
+  %481 = getelementptr inbounds i32, ptr %479, i64 4
   %482 = load <4 x i32>, ptr %481, align 4, !tbaa !5, !alias.scope !67
-  %483 = getelementptr inbounds i32, ptr %481, i64 4
-  %484 = load <4 x i32>, ptr %483, align 4, !tbaa !5, !alias.scope !67
-  %485 = add <4 x i32> %482, %479
-  %486 = add <4 x i32> %484, %480
-  %487 = add nuw i64 %478, 8
-  %488 = icmp eq i64 %487, %476
-  br i1 %488, label %489, label %477, !llvm.loop !70
+  %483 = add <4 x i32> %480, %477
+  %484 = add <4 x i32> %482, %478
+  %485 = add nuw i64 %476, 8
+  %486 = icmp eq i64 %485, %474
+  br i1 %486, label %487, label %475, !llvm.loop !70
 
-489:                                              ; preds = %477
-  %490 = add <4 x i32> %486, %485
-  %491 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %490)
-  store i32 %491, ptr %458, align 4, !tbaa !44
-  %492 = icmp eq i64 %476, %466
-  br i1 %492, label %534, label %493
+487:                                              ; preds = %475
+  %488 = add <4 x i32> %484, %483
+  %489 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %488)
+  store i32 %489, ptr %456, align 4, !tbaa !44
+  %490 = icmp eq i64 %474, %464
+  br i1 %490, label %532, label %491
 
-493:                                              ; preds = %468, %463, %489
-  %494 = phi i64 [ 0, %468 ], [ 0, %463 ], [ %476, %489 ]
-  %495 = phi i32 [ 0, %468 ], [ 0, %463 ], [ %491, %489 ]
-  %496 = xor i64 %494, -1
-  %497 = add nsw i64 %496, %466
-  %498 = and i64 %466, 3
-  %499 = icmp eq i64 %498, 0
-  br i1 %499, label %510, label %500
+491:                                              ; preds = %466, %461, %487
+  %492 = phi i64 [ 0, %466 ], [ 0, %461 ], [ %474, %487 ]
+  %493 = phi i32 [ 0, %466 ], [ 0, %461 ], [ %489, %487 ]
+  %494 = xor i64 %492, -1
+  %495 = add nsw i64 %494, %464
+  %496 = and i64 %464, 3
+  %497 = icmp eq i64 %496, 0
+  br i1 %497, label %508, label %498
 
-500:                                              ; preds = %493, %500
-  %501 = phi i64 [ %507, %500 ], [ %494, %493 ]
-  %502 = phi i32 [ %506, %500 ], [ %495, %493 ]
-  %503 = phi i64 [ %508, %500 ], [ 0, %493 ]
-  %504 = getelementptr inbounds i32, ptr %465, i64 %501
-  %505 = load i32, ptr %504, align 4, !tbaa !5
-  %506 = add nsw i32 %505, %502
-  store i32 %506, ptr %458, align 8, !tbaa !44
-  %507 = add nuw nsw i64 %501, 1
-  %508 = add i64 %503, 1
-  %509 = icmp eq i64 %508, %498
-  br i1 %509, label %510, label %500, !llvm.loop !71
+498:                                              ; preds = %491, %498
+  %499 = phi i64 [ %505, %498 ], [ %492, %491 ]
+  %500 = phi i32 [ %504, %498 ], [ %493, %491 ]
+  %501 = phi i64 [ %506, %498 ], [ 0, %491 ]
+  %502 = getelementptr inbounds i32, ptr %463, i64 %499
+  %503 = load i32, ptr %502, align 4, !tbaa !5
+  %504 = add nsw i32 %503, %500
+  store i32 %504, ptr %456, align 8, !tbaa !44
+  %505 = add nuw nsw i64 %499, 1
+  %506 = add i64 %501, 1
+  %507 = icmp eq i64 %506, %496
+  br i1 %507, label %508, label %498, !llvm.loop !71
 
-510:                                              ; preds = %500, %493
-  %511 = phi i64 [ %494, %493 ], [ %507, %500 ]
-  %512 = phi i32 [ %495, %493 ], [ %506, %500 ]
-  %513 = icmp ult i64 %497, 3
-  br i1 %513, label %534, label %514
+508:                                              ; preds = %498, %491
+  %509 = phi i64 [ %492, %491 ], [ %505, %498 ]
+  %510 = phi i32 [ %493, %491 ], [ %504, %498 ]
+  %511 = icmp ult i64 %495, 3
+  br i1 %511, label %532, label %512
 
-514:                                              ; preds = %510, %514
-  %515 = phi i64 [ %532, %514 ], [ %511, %510 ]
-  %516 = phi i32 [ %531, %514 ], [ %512, %510 ]
-  %517 = getelementptr inbounds i32, ptr %465, i64 %515
-  %518 = load i32, ptr %517, align 4, !tbaa !5
-  %519 = add nsw i32 %518, %516
-  store i32 %519, ptr %458, align 8, !tbaa !44
-  %520 = add nuw nsw i64 %515, 1
-  %521 = getelementptr inbounds i32, ptr %465, i64 %520
-  %522 = load i32, ptr %521, align 4, !tbaa !5
-  %523 = add nsw i32 %522, %519
-  store i32 %523, ptr %458, align 8, !tbaa !44
-  %524 = add nuw nsw i64 %515, 2
-  %525 = getelementptr inbounds i32, ptr %465, i64 %524
-  %526 = load i32, ptr %525, align 4, !tbaa !5
-  %527 = add nsw i32 %526, %523
-  store i32 %527, ptr %458, align 8, !tbaa !44
-  %528 = add nuw nsw i64 %515, 3
-  %529 = getelementptr inbounds i32, ptr %465, i64 %528
-  %530 = load i32, ptr %529, align 4, !tbaa !5
-  %531 = add nsw i32 %530, %527
-  store i32 %531, ptr %458, align 8, !tbaa !44
-  %532 = add nuw nsw i64 %515, 4
-  %533 = icmp eq i64 %532, %466
-  br i1 %533, label %534, label %514, !llvm.loop !72
+512:                                              ; preds = %508, %512
+  %513 = phi i64 [ %530, %512 ], [ %509, %508 ]
+  %514 = phi i32 [ %529, %512 ], [ %510, %508 ]
+  %515 = getelementptr inbounds i32, ptr %463, i64 %513
+  %516 = load i32, ptr %515, align 4, !tbaa !5
+  %517 = add nsw i32 %516, %514
+  store i32 %517, ptr %456, align 8, !tbaa !44
+  %518 = add nuw nsw i64 %513, 1
+  %519 = getelementptr inbounds i32, ptr %463, i64 %518
+  %520 = load i32, ptr %519, align 4, !tbaa !5
+  %521 = add nsw i32 %520, %517
+  store i32 %521, ptr %456, align 8, !tbaa !44
+  %522 = add nuw nsw i64 %513, 2
+  %523 = getelementptr inbounds i32, ptr %463, i64 %522
+  %524 = load i32, ptr %523, align 4, !tbaa !5
+  %525 = add nsw i32 %524, %521
+  store i32 %525, ptr %456, align 8, !tbaa !44
+  %526 = add nuw nsw i64 %513, 3
+  %527 = getelementptr inbounds i32, ptr %463, i64 %526
+  %528 = load i32, ptr %527, align 4, !tbaa !5
+  %529 = add nsw i32 %528, %525
+  store i32 %529, ptr %456, align 8, !tbaa !44
+  %530 = add nuw nsw i64 %513, 4
+  %531 = icmp eq i64 %530, %464
+  br i1 %531, label %532, label %512, !llvm.loop !72
 
-534:                                              ; preds = %510, %514, %489, %456
+532:                                              ; preds = %508, %512, %487, %454
   call void @profileStart(i32 noundef 10) #13
-  %535 = load ptr, ptr %115, align 8, !tbaa !36
-  %536 = getelementptr inbounds %struct.AtomsSt, ptr %535, i64 0, i32 1
-  call void @addIntParallel(ptr noundef %535, ptr noundef nonnull %536, i32 noundef 1) #13
+  %533 = load ptr, ptr %115, align 8, !tbaa !36
+  %534 = getelementptr inbounds %struct.AtomsSt, ptr %533, i64 0, i32 1
+  call void @addIntParallel(ptr noundef %533, ptr noundef nonnull %534, i32 noundef 1) #13
   call void @profileStop(i32 noundef 10) #13
-  %537 = call double @getElapsedTime(i32 noundef 2) #13
-  call fastcc void @printThings(ptr noundef nonnull %14, i32 noundef %457)
+  %535 = call double @getElapsedTime(i32 noundef 2) #13
+  call fastcc void @printThings(ptr noundef nonnull %14, i32 noundef %455)
   call void @timestampBarrier(ptr noundef nonnull @.str.3) #13
-  %538 = call i32 @printRank() #13
-  %539 = icmp eq i32 %538, 0
-  br i1 %539, label %577, label %540
+  %536 = call i32 @printRank() #13
+  %537 = icmp eq i32 %536, 0
+  br i1 %537, label %575, label %538
 
-540:                                              ; preds = %534
-  %541 = load double, ptr %22, align 8, !tbaa !57
-  %542 = load double, ptr %348, align 8, !tbaa !58
-  %543 = fadd double %541, %542
-  %544 = load ptr, ptr %115, align 8, !tbaa !36
-  %545 = getelementptr inbounds %struct.AtomsSt, ptr %544, i64 0, i32 1
-  %546 = load i32, ptr %545, align 4, !tbaa !41
-  %547 = sitofp i32 %546 to double
-  %548 = fdiv double %543, %547
+538:                                              ; preds = %532
+  %539 = load double, ptr %22, align 8, !tbaa !57
+  %540 = load double, ptr %346, align 8, !tbaa !58
+  %541 = fadd double %539, %540
+  %542 = load ptr, ptr %115, align 8, !tbaa !36
+  %543 = getelementptr inbounds %struct.AtomsSt, ptr %542, i64 0, i32 1
+  %544 = load i32, ptr %543, align 4, !tbaa !41
+  %545 = sitofp i32 %544 to double
+  %546 = fdiv double %541, %545
+  %547 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %548 = call i32 @fputc(i32 10, ptr %547)
   %549 = load ptr, ptr @stdout, align 8, !tbaa !9
   %550 = call i32 @fputc(i32 10, ptr %549)
   %551 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %552 = call i32 @fputc(i32 10, ptr %551)
+  %552 = call i64 @fwrite(ptr nonnull @.str.11, i64 23, i64 1, ptr %551)
   %553 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %554 = call i64 @fwrite(ptr nonnull @.str.11, i64 23, i64 1, ptr %553)
+  %554 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %553, ptr noundef nonnull @.str.12, double noundef %353)
   %555 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %556 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %555, ptr noundef nonnull @.str.12, double noundef %355)
+  %556 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %555, ptr noundef nonnull @.str.13, double noundef %546)
   %557 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %558 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %557, ptr noundef nonnull @.str.13, double noundef %548)
-  %559 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %560 = fdiv double %548, %355
-  %561 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %559, ptr noundef nonnull @.str.14, double noundef %560)
-  %562 = icmp eq i32 %546, %353
-  br i1 %562, label %563, label %569
+  %558 = fdiv double %546, %353
+  %559 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %557, ptr noundef nonnull @.str.14, double noundef %558)
+  %560 = icmp eq i32 %544, %351
+  br i1 %560, label %561, label %567
 
-563:                                              ; preds = %540
-  %564 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %565 = load ptr, ptr %115, align 8, !tbaa !36
-  %566 = getelementptr inbounds %struct.AtomsSt, ptr %565, i64 0, i32 1
-  %567 = load i32, ptr %566, align 4, !tbaa !41
-  %568 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %564, ptr noundef nonnull @.str.15, i32 noundef %567)
-  br label %577
+561:                                              ; preds = %538
+  %562 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %563 = load ptr, ptr %115, align 8, !tbaa !36
+  %564 = getelementptr inbounds %struct.AtomsSt, ptr %563, i64 0, i32 1
+  %565 = load i32, ptr %564, align 4, !tbaa !41
+  %566 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %562, ptr noundef nonnull @.str.15, i32 noundef %565)
+  br label %575
 
-569:                                              ; preds = %540
-  %570 = sub nsw i32 %546, %353
+567:                                              ; preds = %538
+  %568 = sub nsw i32 %544, %351
+  %569 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %570 = call i64 @fwrite(ptr nonnull @.str.16, i64 30, i64 1, ptr %569)
   %571 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %572 = call i64 @fwrite(ptr nonnull @.str.16, i64 30, i64 1, ptr %571)
+  %572 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %571, ptr noundef nonnull @.str.17, i32 noundef %568)
   %573 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %574 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %573, ptr noundef nonnull @.str.17, i32 noundef %570)
-  %575 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %576 = call i64 @fwrite(ptr nonnull @.str.16, i64 30, i64 1, ptr %575)
-  br label %577
+  %574 = call i64 @fwrite(ptr nonnull @.str.16, i64 30, i64 1, ptr %573)
+  br label %575
 
-577:                                              ; preds = %569, %563, %534
+575:                                              ; preds = %567, %561, %532
   call void @profileStop(i32 noundef 0) #13
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #13
-  %578 = load ptr, ptr %35, align 8, !tbaa !18
-  store ptr %578, ptr %3, align 8, !tbaa !9
-  %579 = icmp eq ptr %578, null
-  br i1 %579, label %583, label %580
+  %576 = load ptr, ptr %35, align 8, !tbaa !18
+  store ptr %576, ptr %3, align 8, !tbaa !9
+  %577 = icmp eq ptr %576, null
+  br i1 %577, label %581, label %578
 
-580:                                              ; preds = %577
-  %581 = getelementptr inbounds %struct.BasePotentialSt, ptr %578, i64 0, i32 8
-  %582 = load ptr, ptr %581, align 8, !tbaa !73
-  call void %582(ptr noundef nonnull %3) #13
-  br label %583
+578:                                              ; preds = %575
+  %579 = getelementptr inbounds %struct.BasePotentialSt, ptr %576, i64 0, i32 8
+  %580 = load ptr, ptr %579, align 8, !tbaa !73
+  call void %580(ptr noundef nonnull %3) #13
+  br label %581
 
-583:                                              ; preds = %577, %580
+581:                                              ; preds = %575, %578
   call void @destroyLinkCells(ptr noundef nonnull %116) #13
-  %584 = load ptr, ptr %115, align 8, !tbaa !36
-  call void @destroyAtoms(ptr noundef %584) #13
+  %582 = load ptr, ptr %115, align 8, !tbaa !36
+  call void @destroyAtoms(ptr noundef %582) #13
   call void @destroyHaloExchange(ptr noundef nonnull %23) #13
-  %585 = load ptr, ptr %127, align 8, !tbaa !28
-  call void @free(ptr noundef %585) #13
-  %586 = load ptr, ptr %21, align 8, !tbaa !34
-  call void @free(ptr noundef %586) #13
+  %583 = load ptr, ptr %127, align 8, !tbaa !28
+  call void @free(ptr noundef %583) #13
+  %584 = load ptr, ptr %21, align 8, !tbaa !34
+  call void @free(ptr noundef %584) #13
   call void @free(ptr noundef nonnull %14) #13
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #13
   call void @timestampBarrier(ptr noundef nonnull @.str.4) #13
@@ -1002,14 +998,14 @@ declare i32 @maxOccupancy(ptr noundef) local_unnamed_addr #1
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #12

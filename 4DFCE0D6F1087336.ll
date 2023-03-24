@@ -64,8 +64,8 @@ define dso_local noundef i32 @_Z14ParsePropValueRK11CStringBaseIwERK14tagPROPVAR
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #7
   br label %31
 
-31:                                               ; preds = %10, %13, %28, %30, %3, %6
-  %32 = phi i32 [ -2147024809, %30 ], [ -2147024809, %6 ], [ -2147024809, %3 ], [ 0, %28 ], [ 0, %13 ], [ 0, %10 ]
+31:                                               ; preds = %3, %10, %13, %28, %30, %6
+  %32 = phi i32 [ -2147024809, %30 ], [ -2147024809, %6 ], [ 0, %28 ], [ 0, %13 ], [ 0, %10 ], [ -2147024809, %3 ]
   ret i32 %32
 }
 
@@ -515,8 +515,8 @@ define dso_local noundef i32 @_Z15SetBoolPropertyRbRK14tagPROPVARIANT(ptr nocapt
 66:                                               ; preds = %62, %65
   resume { ptr, i32 } %63
 
-67:                                               ; preds = %61, %58, %2, %5, %4
-  %68 = phi i32 [ 0, %5 ], [ 0, %4 ], [ -2147024809, %2 ], [ %59, %58 ], [ %59, %61 ]
+67:                                               ; preds = %2, %61, %58, %5, %4
+  %68 = phi i32 [ 0, %5 ], [ 0, %4 ], [ %59, %58 ], [ %59, %61 ], [ -2147024809, %2 ]
   ret i32 %68
 }
 

@@ -18,29 +18,29 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @TreeCCError(ptr noundef %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #0 {
   %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #9
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #8
   call void @llvm.va_start(ptr nonnull %3)
   %4 = icmp eq ptr %0, null
-  br i1 %4, label %11, label %5
+  br i1 %4, label %5, label %6
 
 5:                                                ; preds = %2
-  %6 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 4
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  %8 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 5
-  %9 = load i64, ptr %8, align 8, !tbaa !12
-  call fastcc void @ReportError(ptr noundef %7, i64 noundef %9, ptr noundef %1, ptr noundef nonnull %3)
-  call void @llvm.va_end(ptr nonnull %3)
-  %10 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 7
-  store i32 1, ptr %10, align 8, !tbaa !13
-  br label %12
-
-11:                                               ; preds = %2
   call fastcc void @ReportError(ptr noundef null, i64 noundef 0, ptr noundef %1, ptr noundef nonnull %3)
   call void @llvm.va_end(ptr nonnull %3)
   br label %12
 
-12:                                               ; preds = %11, %5
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #9
+6:                                                ; preds = %2
+  %7 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 4
+  %8 = load ptr, ptr %7, align 8, !tbaa !5
+  %9 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 5
+  %10 = load i64, ptr %9, align 8, !tbaa !12
+  call fastcc void @ReportError(ptr noundef %8, i64 noundef %10, ptr noundef %1, ptr noundef nonnull %3)
+  call void @llvm.va_end(ptr nonnull %3)
+  %11 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 7
+  store i32 1, ptr %11, align 8, !tbaa !13
+  br label %12
+
+12:                                               ; preds = %5, %6
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #8
   ret void
 }
 
@@ -64,62 +64,64 @@ define internal fastcc void @ReportError(ptr noundef readonly %0, i64 noundef %1
 9:                                                ; preds = %7, %4
   %10 = phi ptr [ %8, %7 ], [ %5, %4 ]
   %11 = icmp eq ptr %0, null
-  br i1 %11, label %40, label %12
+  br i1 %11, label %42, label %12
 
 12:                                               ; preds = %9
   %13 = load i32, ptr @TreeCCErrorStripPath, align 4, !tbaa !15
   %14 = icmp eq i32 %13, 0
-  br i1 %14, label %34, label %15
+  br i1 %14, label %36, label %15
 
 15:                                               ; preds = %12
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #10
+  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #9
   %17 = trunc i64 %16 to i32
-  %18 = and i64 %16, 4294967295
-  %19 = tail call i32 @llvm.smin.i32(i32 %17, i32 0)
-  br label %20
+  %18 = icmp sgt i32 %17, 0
+  br i1 %18, label %19, label %31
 
-20:                                               ; preds = %24, %15
-  %21 = phi i64 [ %25, %24 ], [ %18, %15 ]
-  %22 = trunc i64 %21 to i32
-  %23 = icmp sgt i32 %22, 0
-  br i1 %23, label %24, label %30
+19:                                               ; preds = %15
+  %20 = and i64 %16, 4294967295
+  br label %21
 
-24:                                               ; preds = %20
-  %25 = add nsw i64 %21, -1
-  %26 = getelementptr inbounds i8, ptr %0, i64 %25
-  %27 = load i8, ptr %26, align 1, !tbaa !16
-  switch i8 %27, label %20 [
-    i8 47, label %28
-    i8 92, label %28
-  ], !llvm.loop !17
+21:                                               ; preds = %19, %28
+  %22 = phi i64 [ %20, %19 ], [ %29, %28 ]
+  %23 = add nuw i64 %22, 4294967295
+  %24 = and i64 %23, 4294967295
+  %25 = getelementptr inbounds i8, ptr %0, i64 %24
+  %26 = load i8, ptr %25, align 1, !tbaa !16
+  %27 = sext i8 %26 to i32
+  switch i32 %27, label %28 [
+    i32 47, label %31
+    i32 92, label %31
+  ]
 
-28:                                               ; preds = %24, %24
-  %29 = trunc i64 %21 to i32
-  br label %30
+28:                                               ; preds = %21
+  %29 = add nsw i64 %22, -1
+  %30 = icmp sgt i64 %22, 1
+  br i1 %30, label %21, label %31, !llvm.loop !17
 
-30:                                               ; preds = %20, %28
-  %31 = phi i32 [ %29, %28 ], [ %19, %20 ]
-  %32 = sext i32 %31 to i64
-  %33 = getelementptr inbounds i8, ptr %0, i64 %32
-  br label %34
+31:                                               ; preds = %28, %21, %21, %15
+  %32 = phi i64 [ %16, %15 ], [ %22, %21 ], [ %22, %21 ], [ 0, %28 ]
+  %33 = shl i64 %32, 32
+  %34 = ashr exact i64 %33, 32
+  %35 = getelementptr inbounds i8, ptr %0, i64 %34
+  br label %36
 
-34:                                               ; preds = %30, %12
-  %35 = phi ptr [ %33, %30 ], [ %0, %12 ]
-  %36 = tail call i32 @fputs(ptr noundef %35, ptr noundef %10)
-  %37 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %38 = tail call i32 @putc(i32 noundef 58, ptr noundef %37)
+36:                                               ; preds = %31, %12
+  %37 = phi ptr [ %35, %31 ], [ %0, %12 ]
+  %38 = tail call i32 @fputs(ptr noundef %37, ptr noundef %10)
   %39 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  br label %40
+  %40 = tail call i32 @putc(i32 noundef 58, ptr noundef %39)
+  %41 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  br label %42
 
-40:                                               ; preds = %34, %9
-  %41 = phi ptr [ %39, %34 ], [ %10, %9 ]
-  %42 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %41, ptr noundef nonnull @.str.3, i64 noundef %1)
-  %43 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %44 = tail call i32 @vfprintf(ptr noundef %43, ptr noundef %2, ptr noundef %3)
+42:                                               ; preds = %36, %9
+  %43 = phi ptr [ %41, %36 ], [ %10, %9 ]
+  %44 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %43, ptr noundef nonnull @.str.3, i64 noundef %1)
   %45 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %46 = tail call i32 @putc(i32 noundef 10, ptr noundef %45)
+  %46 = tail call i32 @vfprintf(ptr noundef %45, ptr noundef %2, ptr noundef %3)
   %47 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %48 = tail call i32 @fflush(ptr noundef %47)
+  %48 = tail call i32 @putc(i32 noundef 10, ptr noundef %47)
+  %49 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %50 = tail call i32 @fflush(ptr noundef %49)
   ret void
 }
 
@@ -132,7 +134,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @TreeCCErrorOnLine(ptr noundef writeonly %0, ptr noundef %1, i64 noundef %2, ptr nocapture noundef readonly %3, ...) local_unnamed_addr #0 {
   %5 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #9
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #8
   call void @llvm.va_start(ptr nonnull %5)
   call fastcc void @ReportError(ptr noundef %1, i64 noundef %2, ptr noundef %3, ptr noundef nonnull %5)
   call void @llvm.va_end(ptr nonnull %5)
@@ -145,14 +147,14 @@ define dso_local void @TreeCCErrorOnLine(ptr noundef writeonly %0, ptr noundef %
   br label %9
 
 9:                                                ; preds = %7, %4
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #9
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #8
   ret void
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @TreeCCAbort(ptr noundef readonly %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #3 {
   %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #9
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #8
   call void @llvm.va_start(ptr nonnull %3)
   %4 = icmp eq ptr %0, null
   br i1 %4, label %10, label %5
@@ -169,7 +171,7 @@ define dso_local void @TreeCCAbort(ptr noundef readonly %0, ptr nocapture nounde
   %12 = phi i64 [ %9, %5 ], [ 0, %2 ]
   call fastcc void @ReportError(ptr noundef %11, i64 noundef %12, ptr noundef %1, ptr noundef nonnull %3)
   call void @llvm.va_end(ptr nonnull %3)
-  call void @exit(i32 noundef 1) #11
+  call void @exit(i32 noundef 1) #10
   unreachable
 }
 
@@ -179,7 +181,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #4
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @TreeCCDebug(i64 noundef %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #0 {
   %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #9
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #8
   call void @llvm.va_start(ptr nonnull %3)
   %4 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef %0)
   %5 = load ptr, ptr @stdout, align 8, !tbaa !14
@@ -189,7 +191,7 @@ define dso_local void @TreeCCDebug(i64 noundef %0, ptr nocapture noundef readonl
   call void @llvm.va_end(ptr nonnull %3)
   %9 = load ptr, ptr @stdout, align 8, !tbaa !14
   %10 = call i32 @fflush(ptr noundef %9)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #9
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #8
   ret void
 }
 
@@ -218,15 +220,15 @@ define dso_local void @TreeCCOutOfMemory(ptr noundef readonly %0) local_unnamed_
 
 7:                                                ; preds = %3
   %8 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %9 = tail call i32 @fputs(ptr noundef nonnull %5, ptr noundef %8) #12
+  %9 = tail call i32 @fputs(ptr noundef nonnull %5, ptr noundef %8) #11
   %10 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %11 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 2, i64 1, ptr %10) #12
+  %11 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 2, i64 1, ptr %10) #11
   br label %12
 
 12:                                               ; preds = %7, %3, %1
   %13 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %14 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 25, i64 1, ptr %13) #12
-  tail call void @exit(i32 noundef 1) #11
+  %14 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 25, i64 1, ptr %13) #11
+  tail call void @exit(i32 noundef 1) #10
   unreachable
 }
 
@@ -242,9 +244,6 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #8
-
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn }
@@ -253,11 +252,10 @@ attributes #4 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-b
 attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree nounwind }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #9 = { nounwind }
-attributes #10 = { nounwind willreturn memory(read) }
-attributes #11 = { noreturn nounwind }
-attributes #12 = { cold }
+attributes #8 = { nounwind }
+attributes #9 = { nounwind willreturn memory(read) }
+attributes #10 = { noreturn nounwind }
+attributes #11 = { cold }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

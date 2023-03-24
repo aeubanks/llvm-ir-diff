@@ -365,15 +365,15 @@ define dso_local void @_ZN15CPercentPrinter10PrintRatioEv(ptr nocapture noundef 
   %5 = load i64, ptr %4, align 8, !tbaa !24
   %6 = load i64, ptr %0, align 8, !tbaa !25
   %7 = add i64 %6, %5
-  %8 = icmp uge i64 %3, %7
+  %8 = icmp ult i64 %3, %7
   %9 = add i64 %6, %3
-  %10 = icmp ule i64 %9, %5
-  %11 = or i1 %8, %10
+  %10 = icmp ugt i64 %9, %5
+  %11 = and i1 %8, %10
   %12 = getelementptr inbounds %class.CPercentPrinter, ptr %0, i64 0, i32 4
   %13 = load i32, ptr %12, align 8
-  %14 = icmp eq i32 %13, 0
-  %15 = select i1 %11, i1 true, i1 %14
-  br i1 %15, label %16, label %17
+  %14 = icmp ne i32 %13, 0
+  %15 = select i1 %11, i1 %14, i1 false
+  br i1 %15, label %17, label %16
 
 16:                                               ; preds = %1
   tail call void @_ZN15CPercentPrinter12RePrintRatioEv(ptr noundef nonnull align 8 dereferenceable(48) %0)
@@ -383,18 +383,18 @@ define dso_local void @_ZN15CPercentPrinter10PrintRatioEv(ptr nocapture noundef 
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #5
 
 attributes #0 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #6 = { nounwind }
 attributes #7 = { nounwind willreturn memory(read) }
 

@@ -135,7 +135,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 35:                                               ; preds = %17, %35
   %36 = phi i64 [ %54, %35 ], [ 0, %17 ]
-  %37 = shl nuw nsw i64 %36, 9
+  %37 = shl nsw i64 %36, 9
   %38 = getelementptr inbounds i32, ptr %10, i64 %37
   store i32 0, ptr %38, align 4, !tbaa !5
   %39 = or i64 %37, 1
@@ -194,9 +194,9 @@ define dso_local void @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE(ptr
   %4 = load i64, ptr %3, align 8, !tbaa !18
   %5 = trunc i64 %4 to i32
   %6 = shl i64 %4, 32
-  %7 = ashr exact i64 %6, 30
-  %8 = ashr exact i64 %6, 32
-  %9 = mul i64 %7, %8
+  %7 = ashr exact i64 %6, 32
+  %8 = ashr exact i64 %6, 30
+  %9 = mul i64 %8, %7
   %10 = tail call noalias ptr @malloc(i64 noundef %9) #13
   %11 = icmp eq ptr %10, null
   br i1 %11, label %12, label %14

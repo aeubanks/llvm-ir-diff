@@ -551,7 +551,7 @@ define dso_local void @on_pe(ptr nocapture noundef readonly %0, ptr nocapture no
   %9 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 46
   %10 = load i32, ptr %9, align 4, !tbaa !28
   %11 = icmp sgt i32 %10, 0
-  br i1 %11, label %12, label %46
+  br i1 %11, label %12, label %44
 
 12:                                               ; preds = %6
   %13 = load i32, ptr %7, align 4, !tbaa !17
@@ -561,9 +561,9 @@ define dso_local void @on_pe(ptr nocapture noundef readonly %0, ptr nocapture no
   br label %17
 
 17:                                               ; preds = %12, %17
-  %18 = phi i64 [ 0, %12 ], [ %42, %17 ]
-  %19 = phi i32 [ %10, %12 ], [ %43, %17 ]
-  %20 = phi i32 [ %13, %12 ], [ %41, %17 ]
+  %18 = phi i64 [ 0, %12 ], [ %40, %17 ]
+  %19 = phi i32 [ %10, %12 ], [ %41, %17 ]
+  %20 = phi i32 [ %13, %12 ], [ %39, %17 ]
   %21 = sdiv i32 %16, %19
   %22 = getelementptr inbounds i32, ptr %3, i64 %18
   store i32 %21, ptr %22, align 4, !tbaa !17
@@ -575,25 +575,23 @@ define dso_local void @on_pe(ptr nocapture noundef readonly %0, ptr nocapture no
   %28 = getelementptr inbounds [2 x %struct.gr_info_ss], ptr %15, i64 0, i64 %18, i32 0, i32 6
   %29 = load i32, ptr %28, align 8, !tbaa !29
   %30 = icmp eq i32 %29, 2
-  %31 = icmp slt i32 %27, 500
-  %32 = select i1 %30, i1 %31, i1 false
-  %33 = call i32 @llvm.smax.i32(i32 %27, i32 0)
-  %34 = select i1 %32, i32 500, i32 %33
-  %35 = call i32 @llvm.smin.i32(i32 %34, i32 %20)
-  %36 = add nsw i32 %35, %21
-  %37 = icmp sgt i32 %36, 4095
-  %38 = sub nsw i32 4095, %21
-  %39 = select i1 %37, i32 %38, i32 %35
-  %40 = add nsw i32 %39, %21
-  store i32 %40, ptr %22, align 4, !tbaa !17
-  %41 = sub nsw i32 %20, %39
-  %42 = add nuw nsw i64 %18, 1
-  %43 = load i32, ptr %9, align 4, !tbaa !28
-  %44 = sext i32 %43 to i64
-  %45 = icmp slt i64 %42, %44
-  br i1 %45, label %17, label %46, !llvm.loop !49
+  %31 = select i1 %30, i32 500, i32 0
+  %32 = call i32 @llvm.smax.i32(i32 %31, i32 %27)
+  %33 = call i32 @llvm.smin.i32(i32 %32, i32 %20)
+  %34 = add nsw i32 %33, %21
+  %35 = icmp sgt i32 %34, 4095
+  %36 = sub nsw i32 4095, %21
+  %37 = select i1 %35, i32 %36, i32 %33
+  %38 = add nsw i32 %37, %21
+  store i32 %38, ptr %22, align 4, !tbaa !17
+  %39 = sub nsw i32 %20, %37
+  %40 = add nuw nsw i64 %18, 1
+  %41 = load i32, ptr %9, align 4, !tbaa !28
+  %42 = sext i32 %41 to i64
+  %43 = icmp slt i64 %40, %42
+  br i1 %43, label %17, label %44, !llvm.loop !49
 
-46:                                               ; preds = %17, %6
+44:                                               ; preds = %17, %6
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #17
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #17
   ret void
@@ -612,74 +610,61 @@ define dso_local void @reduce_side(ptr nocapture noundef %0, double noundef %1, 
   %10 = getelementptr inbounds i32, ptr %0, i64 1
   %11 = load i32, ptr %10, align 4, !tbaa !17
   %12 = icmp sgt i32 %11, 124
-  br i1 %12, label %13, label %30
+  br i1 %12, label %15, label %13
 
 13:                                               ; preds = %3
-  %14 = sitofp i32 %11 to float
-  %15 = fneg float %14
-  %16 = tail call float @llvm.fmuladd.f32(float %15, float %9, float %14)
-  %17 = fcmp ogt float %16, 1.250000e+02
-  br i1 %17, label %18, label %24
+  %14 = load i32, ptr %0, align 4, !tbaa !17
+  br label %33
 
-18:                                               ; preds = %13
-  %19 = load i32, ptr %0, align 4, !tbaa !17
-  %20 = sitofp i32 %19 to float
-  %21 = tail call float @llvm.fmuladd.f32(float %14, float %9, float %20)
-  %22 = fptosi float %21 to i32
-  store i32 %22, ptr %0, align 4, !tbaa !17
-  %23 = fptosi float %16 to i32
-  br label %28
+15:                                               ; preds = %3
+  %16 = sitofp i32 %11 to float
+  %17 = fneg float %16
+  %18 = tail call float @llvm.fmuladd.f32(float %17, float %9, float %16)
+  %19 = fcmp ogt float %18, 1.250000e+02
+  br i1 %19, label %20, label %29
 
-24:                                               ; preds = %13
-  %25 = add nsw i32 %11, -125
-  %26 = load i32, ptr %0, align 4, !tbaa !17
-  %27 = add nsw i32 %25, %26
-  store i32 %27, ptr %0, align 4, !tbaa !17
-  br label %28
+20:                                               ; preds = %15
+  %21 = load i32, ptr %0, align 4, !tbaa !17
+  %22 = sitofp i32 %21 to float
+  %23 = tail call float @llvm.fmuladd.f32(float %16, float %9, float %22)
+  %24 = insertelement <2 x float> poison, float %23, i64 0
+  %25 = insertelement <2 x float> %24, float %18, i64 1
+  %26 = fptosi <2 x float> %25 to <2 x i32>
+  store <2 x i32> %26, ptr %0, align 4, !tbaa !17
+  %27 = extractelement <2 x i32> %26, i64 0
+  %28 = extractelement <2 x i32> %26, i64 1
+  br label %33
 
-28:                                               ; preds = %24, %18
-  %29 = phi i32 [ %23, %18 ], [ 125, %24 ]
-  store i32 %29, ptr %10, align 4, !tbaa !17
-  br label %30
+29:                                               ; preds = %15
+  %30 = add nsw i32 %11, -125
+  %31 = load i32, ptr %0, align 4, !tbaa !17
+  %32 = add nsw i32 %30, %31
+  store i32 %32, ptr %0, align 4, !tbaa !17
+  store i32 125, ptr %10, align 4, !tbaa !17
+  br label %33
 
-30:                                               ; preds = %28, %3
-  %31 = phi i32 [ %11, %3 ], [ %29, %28 ]
-  %32 = icmp sgt i32 %2, 5791
-  %33 = sdiv i32 %2, 2
-  %34 = add nsw i32 %33, 1200
-  %35 = load i32, ptr %0, align 4, !tbaa !17
-  br i1 %32, label %38, label %36
-
-36:                                               ; preds = %30
-  %37 = icmp sgt i32 %35, %34
-  br i1 %37, label %43, label %44
-
-38:                                               ; preds = %30
-  %39 = icmp sgt i32 %35, 4095
+33:                                               ; preds = %13, %20, %29
+  %34 = phi i32 [ %11, %13 ], [ %28, %20 ], [ 125, %29 ]
+  %35 = phi i32 [ %14, %13 ], [ %27, %20 ], [ %32, %29 ]
+  %36 = sdiv i32 %2, 2
+  %37 = tail call i32 @llvm.smin.i32(i32 %36, i32 2895)
+  %38 = add nsw i32 %37, 1200
+  %39 = icmp sgt i32 %35, %38
   br i1 %39, label %40, label %41
 
-40:                                               ; preds = %38
-  store i32 4095, ptr %0, align 4, !tbaa !17
+40:                                               ; preds = %33
+  store i32 %38, ptr %0, align 4, !tbaa !17
   br label %41
 
-41:                                               ; preds = %40, %38
-  %42 = icmp sgt i32 %31, 4095
-  br i1 %42, label %46, label %48
+41:                                               ; preds = %40, %33
+  %42 = icmp sgt i32 %34, %38
+  br i1 %42, label %43, label %44
 
-43:                                               ; preds = %36
-  store i32 %34, ptr %0, align 4, !tbaa !17
+43:                                               ; preds = %41
+  store i32 %38, ptr %10, align 4, !tbaa !17
   br label %44
 
-44:                                               ; preds = %43, %36
-  %45 = icmp sgt i32 %31, %34
-  br i1 %45, label %46, label %48
-
-46:                                               ; preds = %44, %41
-  %47 = phi i32 [ 4095, %41 ], [ %34, %44 ]
-  store i32 %47, ptr %10, align 4, !tbaa !17
-  br label %48
-
-48:                                               ; preds = %46, %44, %41
+44:                                               ; preds = %43, %41
   ret void
 }
 
@@ -1779,8 +1764,8 @@ define dso_local i32 @scale_bitcount_lsf(ptr nocapture noundef readonly %0, ptr 
   %365 = add i32 %364, %353
   %366 = shl i32 %365, 4
   %367 = shl i32 %357, 2
-  %368 = add i32 %367, %366
-  %369 = add i32 %368, %361
+  %368 = add i32 %361, %366
+  %369 = add i32 %368, %367
   br label %374
 
 370:                                              ; preds = %344
@@ -2760,26 +2745,26 @@ define dso_local void @quantize_xrpow_ISO(ptr nocapture noundef readonly %0, ptr
 
 declare double @exp2(double) local_unnamed_addr
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #15
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #15
+declare i32 @llvm.smin.i32(i32, i32) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #15
+declare i32 @llvm.smax.i32(i32, i32) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #15
+declare i32 @llvm.abs.i32(i32, i1 immarg) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smax.v4i32(<4 x i32>) #15
+declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #15
+declare i32 @llvm.vector.reduce.smax.v4i32(<4 x i32>) #16
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #16
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2796,8 +2781,8 @@ attributes #11 = { nofree norecurse nosync nounwind memory(read, argmem: readwri
 attributes #12 = { nofree norecurse nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #17 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

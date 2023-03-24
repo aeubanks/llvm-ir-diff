@@ -1044,15 +1044,15 @@ define dso_local i32 @lzmaDecode(ptr noundef %0) local_unnamed_addr #2 {
 
 821:                                              ; preds = %217
   %822 = icmp eq i32 %220, 0
-  %823 = select i1 %822, i32 %207, i32 %206
-  %824 = select i1 %822, i32 %206, i32 %207
+  %823 = select i1 %822, i32 %206, i32 %207
+  %824 = select i1 %822, i32 %207, i32 %206
   br label %825
 
 825:                                              ; preds = %236, %821, %815
-  %826 = phi i32 [ %824, %821 ], [ %205, %815 ], [ %197, %236 ]
-  %827 = phi i32 [ %197, %821 ], [ %197, %815 ], [ %205, %236 ]
-  %828 = phi i32 [ %205, %821 ], [ %206, %815 ], [ %206, %236 ]
-  %829 = phi i32 [ %823, %821 ], [ %207, %815 ], [ %207, %236 ]
+  %826 = phi i32 [ %205, %815 ], [ %823, %821 ], [ %197, %236 ]
+  %827 = phi i32 [ %197, %815 ], [ %197, %821 ], [ %205, %236 ]
+  %828 = phi i32 [ %206, %815 ], [ %205, %821 ], [ %206, %236 ]
+  %829 = phi i32 [ %207, %815 ], [ %824, %821 ], [ %207, %236 ]
   %830 = getelementptr inbounds i16, ptr %214, i64 1332
   br label %1395
 
@@ -2024,11 +2024,11 @@ define dso_local void @lzmaShutdown(ptr nocapture noundef %0) local_unnamed_addr
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2037,8 +2037,8 @@ attributes #3 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #4 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

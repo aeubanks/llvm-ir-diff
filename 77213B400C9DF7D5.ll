@@ -231,9 +231,9 @@ define dso_local void @BitBufferByteAlign(ptr nocapture noundef %0, i32 noundef 
   %11 = sub i32 8, %4
   br label %12
 
-12:                                               ; preds = %10, %31
-  %13 = phi i32 [ %16, %31 ], [ %11, %10 ]
-  %14 = phi i32 [ %32, %31 ], [ %11, %10 ]
+12:                                               ; preds = %31, %10
+  %13 = phi i32 [ %11, %10 ], [ %16, %31 ]
+  %14 = phi i32 [ %11, %10 ], [ %32, %31 ]
   %15 = tail call i32 @llvm.umin.i32(i32 %14, i32 %13)
   %16 = sub i32 %13, %15
   %17 = sub i32 %14, %15
@@ -285,10 +285,10 @@ define dso_local void @BitBufferByteAlign(ptr nocapture noundef %0, i32 noundef 
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local void @BitBufferWrite(ptr noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #5 {
-  %4 = icmp eq ptr %0, null
-  %5 = icmp eq i32 %2, 0
-  %6 = or i1 %4, %5
-  br i1 %6, label %40, label %7
+  %4 = icmp ne ptr %0, null
+  %5 = icmp ne i32 %2, 0
+  %6 = and i1 %4, %5
+  br i1 %6, label %7, label %40
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
