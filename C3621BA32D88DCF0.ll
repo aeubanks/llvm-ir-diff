@@ -328,7 +328,7 @@ define hidden void @_ZN9benchmark8internal23PerfCountersMeasurementC2ERKSt6vecto
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #10
   br label %86
 
-86:                                               ; preds = %85, %82, %77
+86:                                               ; preds = %77, %82, %85
   %87 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
   ret void
 }
@@ -461,7 +461,7 @@ define hidden void @_ZN9benchmark8internal23PerfCountersMeasurementD2Ev(ptr noca
   tail call void @_ZdlPv(ptr noundef nonnull %15) #11
   br label %30
 
-30:                                               ; preds = %27, %29, %6
+30:                                               ; preds = %6, %29, %27
   %31 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
   ret void
 

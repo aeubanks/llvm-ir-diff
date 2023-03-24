@@ -1585,7 +1585,7 @@ define dso_local void @_Z21my_windows_split_pathRK11CStringBaseIcERS0_S3_(ptr no
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #20
   br label %964
 
-963:                                              ; preds = %947, %956, %352, %239, %729, %602, %236
+963:                                              ; preds = %352, %239, %947, %956, %729, %602, %236
   ret void
 
 964:                                              ; preds = %962, %735, %500
@@ -2130,8 +2130,8 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind9CFindFile9FindFirs
   store i32 1048867, ptr %237, align 4, !tbaa !66
   br label %238
 
-238:                                              ; preds = %232, %234, %220, %9, %18
-  %239 = phi i1 [ false, %18 ], [ false, %9 ], [ false, %220 ], [ false, %234 ], [ true, %232 ]
+238:                                              ; preds = %9, %232, %234, %220, %18
+  %239 = phi i1 [ false, %18 ], [ false, %220 ], [ false, %234 ], [ true, %232 ], [ false, %9 ]
   ret i1 %239
 
 240:                                              ; preds = %219, %196
@@ -5046,7 +5046,7 @@ define internal fastcc void @_ZL21my_windows_split_pathRK11CStringBaseIwERS0_S3_
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #20
   br label %309
 
-308:                                              ; preds = %292, %301, %102, %69, %240, %191, %66
+308:                                              ; preds = %102, %69, %292, %301, %240, %191, %66
   ret void
 
 309:                                              ; preds = %307, %246, %172
@@ -5361,12 +5361,12 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind13DoesFileExistEPKw
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
   br label %185
 
-67:                                               ; preds = %55, %60
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
+67:                                               ; preds = %60, %55
   %68 = icmp eq i32 %54, 0
   %69 = and i32 %57, 16
   %70 = icmp eq i32 %69, 0
   %71 = select i1 %68, i1 %70, i1 false
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
   br i1 %71, label %179, label %80
 
 72:                                               ; preds = %31
@@ -5524,11 +5524,11 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind13DoesFileExistEPKw
   br label %172
 
 149:                                              ; preds = %137, %142
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %2) #20
   %150 = icmp eq i32 %136, 0
   %151 = and i32 %139, 16
   %152 = icmp eq i32 %151, 0
   %153 = select i1 %150, i1 %152, i1 false
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %2) #20
   br label %166
 
 154:                                              ; preds = %80
@@ -5562,7 +5562,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind13DoesFileExistEPKw
   br label %172
 
 166:                                              ; preds = %149, %118
-  %167 = phi i1 [ %153, %149 ], [ false, %118 ]
+  %167 = phi i1 [ false, %118 ], [ %153, %149 ]
   %168 = load ptr, ptr %6, align 8, !tbaa !11
   %169 = icmp eq ptr %168, null
   br i1 %169, label %171, label %170
@@ -5740,12 +5740,12 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind12DoesDirExistEPKw(
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
   br label %185
 
-67:                                               ; preds = %55, %60
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
+67:                                               ; preds = %60, %55
   %68 = icmp eq i32 %54, 0
   %69 = and i32 %57, 16
   %70 = icmp ne i32 %69, 0
   %71 = select i1 %68, i1 %70, i1 false
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
   br i1 %71, label %179, label %80
 
 72:                                               ; preds = %31
@@ -5903,11 +5903,11 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind12DoesDirExistEPKw(
   br label %172
 
 149:                                              ; preds = %137, %142
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %2) #20
   %150 = icmp eq i32 %136, 0
   %151 = and i32 %139, 16
   %152 = icmp ne i32 %151, 0
   %153 = select i1 %150, i1 %152, i1 false
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %2) #20
   br label %166
 
 154:                                              ; preds = %80
@@ -5941,7 +5941,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind12DoesDirExistEPKw(
   br label %172
 
 166:                                              ; preds = %149, %118
-  %167 = phi i1 [ %153, %149 ], [ false, %118 ]
+  %167 = phi i1 [ false, %118 ], [ %153, %149 ]
   %168 = load ptr, ptr %6, align 8, !tbaa !11
   %169 = icmp eq ptr %168, null
   br i1 %169, label %171, label %170
@@ -6117,9 +6117,9 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind18DoesFileOrDirExis
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
   br label %175
 
-65:                                               ; preds = %55, %58
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
+65:                                               ; preds = %58, %55
   %66 = icmp eq i32 %54, 0
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %3) #20
   br i1 %66, label %169, label %75
 
 67:                                               ; preds = %31
@@ -6275,8 +6275,8 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind18DoesFileOrDirExis
   br label %162
 
 142:                                              ; preds = %132, %135
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %2) #20
   %143 = icmp eq i32 %131, 0
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %2) #20
   br label %156
 
 144:                                              ; preds = %75
@@ -6310,7 +6310,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind18DoesFileOrDirExis
   br label %162
 
 156:                                              ; preds = %142, %113
-  %157 = phi i1 [ %143, %142 ], [ false, %113 ]
+  %157 = phi i1 [ false, %113 ], [ %143, %142 ]
   %158 = load ptr, ptr %6, align 8, !tbaa !11
   %159 = icmp eq ptr %158, null
   br i1 %159, label %161, label %160
@@ -6488,8 +6488,8 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind11CEnumerator4NextE
 47:                                               ; preds = %41, %39
   br label %9, !llvm.loop !106
 
-48:                                               ; preds = %32, %28, %35, %41, %25, %23
-  %49 = phi i1 [ false, %23 ], [ false, %25 ], [ true, %41 ], [ true, %35 ], [ true, %28 ], [ true, %32 ]
+48:                                               ; preds = %35, %28, %32, %41, %25, %23
+  %49 = phi i1 [ false, %23 ], [ true, %35 ], [ true, %28 ], [ true, %32 ], [ true, %41 ], [ false, %25 ]
   ret i1 %49
 }
 
@@ -6586,8 +6586,8 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind12CEnumeratorW4Next
 34:                                               ; preds = %28, %26
   br label %7, !llvm.loop !107
 
-35:                                               ; preds = %10, %19, %15, %22, %28, %12
-  %36 = phi i1 [ false, %10 ], [ true, %19 ], [ true, %15 ], [ true, %22 ], [ true, %28 ], [ false, %12 ]
+35:                                               ; preds = %22, %15, %19, %28, %10, %12
+  %36 = phi i1 [ false, %10 ], [ false, %12 ], [ true, %28 ], [ true, %19 ], [ true, %15 ], [ true, %22 ]
   ret i1 %36
 }
 
@@ -6645,11 +6645,11 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile5NFind12CEnumeratorW4Next
 35:                                               ; preds = %29, %27
   br label %8, !llvm.loop !107
 
-36:                                               ; preds = %29, %23, %20, %16
+36:                                               ; preds = %29, %20, %16, %23
   store i8 1, ptr %2, align 1, !tbaa !108
   br label %41
 
-37:                                               ; preds = %11, %13
+37:                                               ; preds = %13, %11
   store i8 0, ptr %2, align 1, !tbaa !108
   %38 = tail call ptr @__errno_location() #21
   %39 = load i32, ptr %38, align 4, !tbaa !66

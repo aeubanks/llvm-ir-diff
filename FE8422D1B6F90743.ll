@@ -359,7 +359,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %118) #10
   br label %121
 
-121:                                              ; preds = %114, %116, %120
+121:                                              ; preds = %120, %116, %114
   %122 = phi { ptr, i32 } [ %115, %114 ], [ %117, %116 ], [ %117, %120 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %13) #9
   br label %123
@@ -374,7 +374,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %125) #10
   br label %128
 
-128:                                              ; preds = %110, %123, %127
+128:                                              ; preds = %127, %123, %110
   %129 = phi { ptr, i32 } [ %111, %110 ], [ %124, %123 ], [ %124, %127 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %12) #9
   br label %130
@@ -389,7 +389,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %132) #10
   br label %135
 
-135:                                              ; preds = %106, %130, %134
+135:                                              ; preds = %134, %130, %106
   %136 = phi { ptr, i32 } [ %107, %106 ], [ %131, %130 ], [ %131, %134 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %11) #9
   br label %137
@@ -404,7 +404,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %139) #10
   br label %142
 
-142:                                              ; preds = %102, %137, %141
+142:                                              ; preds = %141, %137, %102
   %143 = phi { ptr, i32 } [ %103, %102 ], [ %138, %137 ], [ %138, %141 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %10) #9
   br label %144
@@ -429,8 +429,8 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
           cleanup
   br label %160
 
-153:                                              ; preds = %90, %93
-  %154 = phi i32 [ 1, %93 ], [ 0, %90 ]
+153:                                              ; preds = %93, %90
+  %154 = phi i32 [ 0, %90 ], [ 1, %93 ]
   %155 = load ptr, ptr %8, align 8, !tbaa !12
   %156 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 2
   %157 = icmp eq ptr %155, %156

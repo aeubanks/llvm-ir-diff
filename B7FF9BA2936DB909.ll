@@ -381,7 +381,7 @@ define dso_local ptr @split_Backtrack(ptr noundef %0, ptr nocapture noundef read
   br i1 %240, label %241, label %198, !llvm.loop !8
 
 241:                                              ; preds = %237
-  %242 = tail call ptr @list_PointerDeleteElement(ptr noundef %197, ptr noundef null) #3
+  %242 = tail call ptr @list_PointerDeleteElement(ptr noundef nonnull %197, ptr noundef null) #3
   %243 = icmp eq ptr %242, null
   br i1 %243, label %251, label %244
 

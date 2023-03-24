@@ -28,7 +28,7 @@ define dso_local void @adpcm_coder(ptr nocapture noundef readonly %0, ptr nocapt
   %16 = phi i32 [ %77, %74 ], [ 1, %9 ]
   %17 = phi i32 [ %76, %74 ], [ undef, %9 ]
   %18 = phi i32 [ %62, %74 ], [ %10, %9 ]
-  %19 = phi i32 [ %55, %74 ], [ %11, %9 ]
+  %19 = phi i32 [ %54, %74 ], [ %11, %9 ]
   %20 = phi i32 [ %65, %74 ], [ %14, %9 ]
   %21 = phi i32 [ %78, %74 ], [ %2, %9 ]
   %22 = phi ptr [ %24, %74 ], [ %0, %9 ]
@@ -46,7 +46,7 @@ define dso_local void @adpcm_coder(ptr nocapture noundef readonly %0, ptr nocapt
   %34 = select i1 %33, i32 0, i32 4
   %35 = select i1 %33, i32 0, i32 %20
   %36 = sub nsw i32 %31, %35
-  %37 = add nsw i32 %32, %35
+  %37 = add nsw i32 %35, %32
   %38 = ashr i32 %20, 1
   %39 = icmp slt i32 %36, %38
   %40 = or i32 %34, 2
@@ -57,15 +57,15 @@ define dso_local void @adpcm_coder(ptr nocapture noundef readonly %0, ptr nocapt
   %45 = ashr i32 %20, 2
   %46 = icmp sge i32 %43, %45
   %47 = zext i1 %46 to i32
-  %48 = or i32 %41, %47
-  %49 = select i1 %46, i32 %45, i32 0
-  %50 = add nsw i32 %44, %49
-  %51 = sub i32 0, %50
-  %52 = select i1 %28, i32 %51, i32 %50
-  %53 = add i32 %19, %52
-  %54 = tail call i32 @llvm.smax.i32(i32 %53, i32 -32768)
-  %55 = tail call i32 @llvm.smin.i32(i32 %54, i32 32767)
-  %56 = or i32 %48, %30
+  %48 = select i1 %46, i32 %45, i32 0
+  %49 = add nsw i32 %44, %48
+  %50 = sub i32 0, %49
+  %51 = select i1 %28, i32 %50, i32 %49
+  %52 = add i32 %51, %19
+  %53 = tail call i32 @llvm.smax.i32(i32 %52, i32 -32768)
+  %54 = tail call i32 @llvm.smin.i32(i32 %53, i32 32767)
+  %55 = or i32 %41, %30
+  %56 = or i32 %55, %47
   %57 = zext i32 %56 to i64
   %58 = getelementptr inbounds [16 x i32], ptr @indexTable, i64 0, i64 %57
   %59 = load i32, ptr %58, align 4, !tbaa !11
@@ -100,7 +100,7 @@ define dso_local void @adpcm_coder(ptr nocapture noundef readonly %0, ptr nocapt
 
 80:                                               ; preds = %74
   %81 = icmp eq i32 %77, 0
-  %82 = trunc i32 %55 to i16
+  %82 = trunc i32 %54 to i16
   %83 = trunc i32 %62 to i8
   br i1 %81, label %84, label %86
 
@@ -169,7 +169,7 @@ define dso_local void @adpcm_decoder(ptr nocapture noundef readonly %0, ptr noca
   %44 = and i32 %32, 4
   %45 = icmp eq i32 %44, 0
   %46 = select i1 %45, i32 0, i32 %20
-  %47 = add nsw i32 %43, %46
+  %47 = add nsw i32 %46, %43
   %48 = and i32 %32, 2
   %49 = icmp eq i32 %48, 0
   %50 = ashr i32 %20, 1
@@ -183,7 +183,7 @@ define dso_local void @adpcm_decoder(ptr nocapture noundef readonly %0, ptr noca
   %58 = icmp eq i32 %42, 0
   %59 = sub i32 0, %57
   %60 = select i1 %58, i32 %57, i32 %59
-  %61 = add i32 %19, %60
+  %61 = add i32 %60, %19
   %62 = tail call i32 @llvm.smax.i32(i32 %61, i32 -32768)
   %63 = tail call i32 @llvm.smin.i32(i32 %62, i32 32767)
   %64 = zext i32 %41 to i64

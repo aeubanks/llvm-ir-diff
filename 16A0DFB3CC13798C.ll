@@ -214,7 +214,7 @@ define dso_local i32 @start_slice() local_unnamed_addr #2 {
   %29 = load i32, ptr %28, align 4, !tbaa !31
   %30 = icmp eq i32 %29, 8
   %31 = select i1 %30, i32 0, i32 %29
-  %32 = add nsw i32 %19, %31
+  %32 = add nsw i32 %31, %19
   tail call void @writeVlcByteAlign(ptr noundef nonnull %17) #12
   %33 = getelementptr inbounds %struct.Bitstream, ptr %17, i64 0, i32 9
   %34 = load ptr, ptr %33, align 8, !tbaa !32
@@ -248,7 +248,7 @@ define dso_local i32 @start_slice() local_unnamed_addr #2 {
   %53 = load i32, ptr %52, align 4, !tbaa !31
   %54 = icmp eq i32 %53, 8
   %55 = select i1 %54, i32 0, i32 %53
-  %56 = add nsw i32 %47, %55
+  %56 = add nsw i32 %55, %47
   tail call void @writeVlcByteAlign(ptr noundef nonnull %41) #12
   %57 = getelementptr inbounds %struct.Bitstream, ptr %41, i64 0, i32 9
   %58 = load ptr, ptr %57, align 8, !tbaa !32
@@ -286,7 +286,7 @@ define dso_local i32 @start_slice() local_unnamed_addr #2 {
   %77 = load i32, ptr %76, align 4, !tbaa !31
   %78 = icmp eq i32 %77, 8
   %79 = select i1 %78, i32 0, i32 %77
-  %80 = add nsw i32 %70, %79
+  %80 = add nsw i32 %79, %70
   tail call void @writeVlcByteAlign(ptr noundef nonnull %64) #12
   %81 = getelementptr inbounds %struct.Bitstream, ptr %64, i64 0, i32 9
   %82 = load ptr, ptr %81, align 8, !tbaa !32
@@ -4230,19 +4230,19 @@ declare void @delete_contexts_MotionInfo(ptr noundef) local_unnamed_addr #3
 
 declare void @delete_contexts_TextureInfo(ptr noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #10
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #11
 
 declare double @exp2(double) local_unnamed_addr
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #11
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -4254,8 +4254,8 @@ attributes #6 = { mustprogress nofree nounwind willreturn memory(write) "no-trap
 attributes #7 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #8 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0,1) }
 

@@ -20,7 +20,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #1
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @bar(i32 %0, ...) local_unnamed_addr #0 {
   tail call void @llvm.va_start(ptr nonnull @ap)
-  tail call void @exit(i32 noundef 0) #3
+  %2 = tail call ptr @foo()
   unreachable
 }
 

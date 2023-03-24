@@ -1100,7 +1100,7 @@ define dso_local noundef i32 @_ZN12CFilterCoder4CodeEP19ISequentialInStreamP20IS
   %191 = icmp eq i64 %190, %161
   br i1 %191, label %194, label %162, !llvm.loop !59
 
-192:                                              ; preds = %35, %144, %135, %102, %115, %121
+192:                                              ; preds = %135, %35, %144, %102, %115, %121
   %193 = phi i32 [ 0, %121 ], [ %119, %115 ], [ 0, %102 ], [ %139, %135 ], [ %41, %35 ], [ %148, %144 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
   br label %215

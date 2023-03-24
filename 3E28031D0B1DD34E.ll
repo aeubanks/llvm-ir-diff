@@ -1005,7 +1005,7 @@ define dso_local noundef i32 @_ZN11ALACDecoder6DecodeEP9BitBufferPhjjPj(ptr noca
   %536 = phi i32 [ %35, %39 ], [ %35, %524 ], [ %35, %514 ], [ %318, %513 ], [ %73, %281 ]
   %537 = icmp ult i32 %534, %4
   %538 = icmp eq i32 %535, 0
-  %539 = select i1 %537, i1 %538, i1 false
+  %539 = and i1 %537, %538
   br i1 %539, label %33, label %540, !llvm.loop !61
 
 540:                                              ; preds = %39, %39, %533, %283

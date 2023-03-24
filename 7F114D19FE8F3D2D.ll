@@ -18,14 +18,14 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   %3 = load i32, ptr @z, align 4
   %4 = icmp ne i32 %3, 3
   %5 = select i1 %2, i1 true, i1 %4
-  br i1 %5, label %6, label %7
+  br i1 %5, label %7, label %6
 
 6:                                                ; preds = %0
-  tail call void @abort() #3
-  unreachable
+  ret i32 0
 
 7:                                                ; preds = %0
-  ret i32 0
+  tail call void @abort() #3
+  unreachable
 }
 
 ; Function Attrs: noreturn

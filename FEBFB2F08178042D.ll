@@ -5,27 +5,13 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = tail call x86_fp80 asm sideeffect "fsqrt", "={st},0,~{dirflag},~{fpsr},~{flags}"(x86_fp80 0xK3FFF8000000000000000) #2, !srcloc !5
-  %2 = tail call x86_fp80 asm sideeffect "fpatan\0A\09", "={st},0,{st(1)},~{st(1)},~{dirflag},~{fpsr},~{flags}"(x86_fp80 %1, x86_fp80 0xK80000000000000000000) #2, !srcloc !6
-  %3 = fptrunc x86_fp80 %2 to double
-  %4 = fcmp une double %3, 0.000000e+00
-  br i1 %4, label %5, label %6
-
-5:                                                ; preds = %0
-  tail call void @abort() #3
-  unreachable
-
-6:                                                ; preds = %0
+  %1 = tail call x86_fp80 asm sideeffect "fsqrt", "={st},0,~{dirflag},~{fpsr},~{flags}"(x86_fp80 0xK3FFF8000000000000000) #1, !srcloc !5
+  %2 = tail call x86_fp80 asm sideeffect "fpatan\0A\09", "={st},0,{st(1)},~{st(1)},~{dirflag},~{fpsr},~{flags}"(x86_fp80 %1, x86_fp80 0xK80000000000000000000) #1, !srcloc !6
   ret i32 0
 }
 
-; Function Attrs: noreturn
-declare void @abort() local_unnamed_addr #1
-
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #1 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { nounwind }
-attributes #3 = { noreturn nounwind }
+attributes #1 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

@@ -38,7 +38,7 @@ define dso_local double @cbrtl(double noundef %0) local_unnamed_addr #0 {
   %24 = zext i32 %23 to i64
   %25 = shl nuw nsw i64 %24, 32
   %26 = and i64 %19, 4294967295
-  %27 = or i64 %26, %25
+  %27 = or i64 %25, %26
   br label %33
 
 28:                                               ; preds = %13

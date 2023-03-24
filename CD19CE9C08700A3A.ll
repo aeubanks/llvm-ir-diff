@@ -239,7 +239,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %41, ptr nonnull align 1 %31, i64 %35, i1 false)
   br label %45
 
-45:                                               ; preds = %40, %42, %44
+45:                                               ; preds = %44, %42, %40
   %46 = load i64, ptr %4, align 8, !tbaa !36
   store i64 %46, ptr %14, align 8, !tbaa !40
   %47 = load ptr, ptr %6, align 8, !tbaa !37
@@ -320,7 +320,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %78, ptr nonnull align 1 %65, i64 %71, i1 false)
   br label %82
 
-82:                                               ; preds = %77, %79, %81
+82:                                               ; preds = %81, %79, %77
   %83 = load i64, ptr %3, align 8, !tbaa !36
   %84 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %9, i64 0, i32 1
   store i64 %83, ptr %84, align 8, !tbaa !40
@@ -600,9 +600,9 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
           cleanup
   br label %258
 
-233:                                              ; preds = %184, %188, %229, %131
-  %234 = phi i1 [ false, %184 ], [ true, %188 ], [ false, %229 ], [ false, %131 ]
-  %235 = phi i32 [ -1, %184 ], [ 0, %188 ], [ -1, %229 ], [ -1, %131 ]
+233:                                              ; preds = %229, %184, %131, %188
+  %234 = phi i1 [ false, %229 ], [ false, %184 ], [ false, %131 ], [ true, %188 ]
+  %235 = phi i32 [ -1, %229 ], [ -1, %184 ], [ -1, %131 ], [ 0, %188 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #18
   %236 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %236, ptr %8, align 8, !tbaa !31

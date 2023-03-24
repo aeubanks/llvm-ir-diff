@@ -1233,7 +1233,7 @@ define dso_local i32 @inflateBack(ptr noundef %0, ptr nocapture noundef readonly
   %733 = phi ptr [ %718, %723 ], [ %666, %658 ]
   %734 = getelementptr inbounds i8, ptr %733, i64 2
   %735 = load i16, ptr %734, align 2
-  %736 = load i8, ptr %733, align 2
+  %736 = load i8, ptr %733, align 2, !tbaa.struct !62
   %737 = add i8 %736, -1
   %738 = icmp ult i8 %737, 15
   br i1 %738, label %739, label %809
@@ -1321,8 +1321,8 @@ define dso_local i32 @inflateBack(ptr noundef %0, ptr nocapture noundef readonly
   %801 = phi ptr [ %786, %793 ], [ %750, %739 ]
   %802 = phi i8 [ %788, %793 ], [ %752, %739 ]
   %803 = getelementptr inbounds i8, ptr %801, i64 2
-  %804 = load i16, ptr %803, align 2, !tbaa.struct !62
-  %805 = load i8, ptr %801, align 2, !tbaa.struct !63
+  %804 = load i16, ptr %803, align 2, !tbaa.struct !63
+  %805 = load i8, ptr %801, align 2, !tbaa.struct !62
   %806 = zext i8 %729 to i64
   %807 = lshr i64 %799, %806
   %808 = sub i32 %800, %727
@@ -1544,7 +1544,7 @@ define dso_local i32 @inflateBack(ptr noundef %0, ptr nocapture noundef readonly
   %957 = phi ptr [ %942, %947 ], [ %904, %893 ]
   %958 = getelementptr inbounds i8, ptr %957, i64 2
   %959 = load i16, ptr %958, align 2
-  %960 = load i8, ptr %957, align 2, !tbaa.struct !63
+  %960 = load i8, ptr %957, align 2, !tbaa.struct !62
   %961 = icmp ult i8 %960, 16
   br i1 %961, label %962, label %1032
 
@@ -1631,8 +1631,8 @@ define dso_local i32 @inflateBack(ptr noundef %0, ptr nocapture noundef readonly
   %1024 = phi ptr [ %1009, %1016 ], [ %973, %962 ]
   %1025 = phi i8 [ %1011, %1016 ], [ %975, %962 ]
   %1026 = getelementptr inbounds i8, ptr %1024, i64 2
-  %1027 = load i16, ptr %1026, align 2, !tbaa.struct !62
-  %1028 = load i8, ptr %1024, align 2, !tbaa.struct !63
+  %1027 = load i16, ptr %1026, align 2, !tbaa.struct !63
+  %1028 = load i8, ptr %1024, align 2, !tbaa.struct !62
   %1029 = zext i8 %953 to i64
   %1030 = lshr i64 %1022, %1029
   %1031 = sub i32 %1023, %951
@@ -2044,8 +2044,8 @@ attributes #5 = { nounwind }
 !59 = !{!9, !11, i64 32}
 !60 = !{!18, !12, i64 80}
 !61 = !{!18, !11, i64 88}
-!62 = !{i64 0, i64 2, !42}
-!63 = !{i64 0, i64 1, !5, i64 1, i64 1, !5, i64 2, i64 2, !42}
+!62 = !{i64 0, i64 1, !5, i64 1, i64 1, !5, i64 2, i64 2, !42}
+!63 = !{i64 0, i64 2, !42}
 !64 = !{!18, !11, i64 100}
 !65 = distinct !{!65, !34}
 !66 = !{!18, !11, i64 96}

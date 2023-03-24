@@ -403,11 +403,11 @@ define dso_local i32 @hypre_CreateCommInfoFromStencil(ptr nocapture noundef read
   br label %315
 
 306:                                              ; preds = %395
-  %307 = load <2 x i32>, ptr %266, align 4, !tbaa !20
-  %308 = sub nsw <2 x i32> zeroinitializer, %307
-  store <2 x i32> %308, ptr %266, align 4, !tbaa !20
-  %309 = load i32, ptr %270, align 4, !tbaa !20
-  %310 = sub nsw i32 0, %309
+  %307 = load i32, ptr %270, align 4, !tbaa !20
+  %308 = load <2 x i32>, ptr %266, align 4, !tbaa !20
+  %309 = sub nsw <2 x i32> zeroinitializer, %308
+  store <2 x i32> %309, ptr %266, align 4, !tbaa !20
+  %310 = sub nsw i32 0, %307
   store i32 %310, ptr %270, align 4, !tbaa !20
   %311 = add nuw nsw i64 %264, 1
   %312 = load i32, ptr %39, align 8, !tbaa !21

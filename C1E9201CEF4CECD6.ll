@@ -238,24 +238,24 @@ define hidden void @_ZN23MyFixture_Bar_Benchmark13BenchmarkCaseERN9benchmark5Sta
 
 39:                                               ; preds = %32
   %40 = load i64, ptr %36, align 8, !tbaa !33
-  %41 = getelementptr inbounds %"class.benchmark::State", ptr %1, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #18
-  %42 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
-  store ptr %42, ptr %4, align 8, !tbaa !34
+  %41 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
+  store ptr %41, ptr %4, align 8, !tbaa !34
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #18
   store i64 16, ptr %3, align 8, !tbaa !33
-  %43 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
-  store ptr %43, ptr %4, align 8, !tbaa !36
-  %44 = load i64, ptr %3, align 8, !tbaa !33
-  store i64 %44, ptr %42, align 8, !tbaa !38
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %43, ptr noundef nonnull align 1 dereferenceable(16) @.str.11, i64 16, i1 false)
-  %45 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  store i64 %44, ptr %45, align 8, !tbaa !39
-  %46 = load ptr, ptr %4, align 8, !tbaa !36
-  %47 = getelementptr inbounds i8, ptr %46, i64 %44
-  store i8 0, ptr %47, align 1, !tbaa !38
+  %42 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
+  store ptr %42, ptr %4, align 8, !tbaa !36
+  %43 = load i64, ptr %3, align 8, !tbaa !33
+  store i64 %43, ptr %41, align 8, !tbaa !38
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %42, ptr noundef nonnull align 1 dereferenceable(16) @.str.11, i64 16, i1 false)
+  %44 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
+  store i64 %43, ptr %44, align 8, !tbaa !39
+  %45 = load ptr, ptr %4, align 8, !tbaa !36
+  %46 = getelementptr inbounds i8, ptr %45, i64 %43
+  store i8 0, ptr %46, align 1, !tbaa !38
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #18
-  %48 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %41, ptr noundef nonnull align 8 dereferenceable(32) %4)
+  %47 = getelementptr inbounds %"class.benchmark::State", ptr %1, i64 0, i32 8
+  %48 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %47, ptr noundef nonnull align 8 dereferenceable(32) %4)
           to label %49 unwind label %56
 
 49:                                               ; preds = %39
@@ -266,7 +266,7 @@ define hidden void @_ZN23MyFixture_Bar_Benchmark13BenchmarkCaseERN9benchmark5Sta
   %52 = getelementptr inbounds i8, ptr %48, i64 12
   store i32 1000, ptr %52, align 4, !tbaa.struct !48
   %53 = load ptr, ptr %4, align 8, !tbaa !36
-  %54 = icmp eq ptr %53, %42
+  %54 = icmp eq ptr %53, %41
   br i1 %54, label %62, label %55
 
 55:                                               ; preds = %49
@@ -277,7 +277,7 @@ define hidden void @_ZN23MyFixture_Bar_Benchmark13BenchmarkCaseERN9benchmark5Sta
   %57 = landingpad { ptr, i32 }
           cleanup
   %58 = load ptr, ptr %4, align 8, !tbaa !36
-  %59 = icmp eq ptr %58, %42
+  %59 = icmp eq ptr %58, %41
   br i1 %59, label %61, label %60
 
 60:                                               ; preds = %56
@@ -579,7 +579,7 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(16) ptr @_ZNS
   br i1 %58, label %59, label %62
 
 59:                                               ; preds = %2, %39, %56
-  %60 = phi ptr [ %7, %39 ], [ %35, %56 ], [ %7, %2 ]
+  %60 = phi ptr [ %35, %56 ], [ %7, %39 ], [ %7, %2 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #18
   store ptr %1, ptr %3, align 8, !tbaa !5, !alias.scope !54
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #18
@@ -630,7 +630,7 @@ define linkonce_odr hidden ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11ch
   store i64 %22, ptr %11, align 8, !tbaa !38
   br label %23
 
-23:                                               ; preds = %15, %20, %21
+23:                                               ; preds = %21, %20, %15
   %24 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Auto_node", ptr %6, i64 0, i32 1
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   %26 = load i64, ptr %25, align 8, !tbaa !39
@@ -690,7 +690,7 @@ define linkonce_odr hidden ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11ch
   %60 = icmp slt i32 %59, 0
   br label %61
 
-61:                                               ; preds = %58, %36
+61:                                               ; preds = %36, %58
   %62 = phi i1 [ true, %36 ], [ %60, %58 ]
   tail call void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext %62, ptr noundef nonnull %7, ptr noundef nonnull %34, ptr noundef nonnull align 8 dereferenceable(32) %38) #18
   %63 = getelementptr inbounds i8, ptr %0, i64 40
@@ -927,9 +927,9 @@ define linkonce_odr hidden { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_strin
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
-  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
-  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
+143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
+  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
+  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147

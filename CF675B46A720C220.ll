@@ -53,11 +53,11 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %2 = getelementptr inbounds i8, ptr %1, i64 3
   tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
+  %3 = getelementptr inbounds i8, ptr %1, i64 1
   tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
   store i32 3, ptr @idx, align 4, !tbaa !9
   tail call void @llvm.prefetch.p0(ptr %1, i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
-  %3 = getelementptr inbounds i8, ptr %1, i64 1
   store ptr %3, ptr @ptr, align 8, !tbaa !5
   store i32 2, ptr @idx, align 4, !tbaa !9
   tail call void @llvm.prefetch.p0(ptr nonnull %3, i32 0, i32 0, i32 1)

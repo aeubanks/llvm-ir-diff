@@ -124,11 +124,11 @@ define dso_local noundef i32 @_ZN5TableeqER6Object(ptr noundef nonnull align 8 d
   %15 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
   %16 = load i32, ptr %15, align 8, !tbaa !5
   %17 = icmp eq i32 %14, %16
-  br i1 %17, label %18, label %39
+  br i1 %17, label %18, label %41
 
 18:                                               ; preds = %2
-  %19 = icmp sgt i32 %14, 0
-  br i1 %19, label %24, label %39
+  %19 = icmp slt i32 %14, 1
+  br i1 %19, label %41, label %24
 
 20:                                               ; preds = %24
   %21 = add nuw nsw i32 %25, 1
@@ -150,12 +150,16 @@ define dso_local noundef i32 @_ZN5TableeqER6Object(ptr noundef nonnull align 8 d
   %35 = getelementptr inbounds ptr, ptr %34, i64 2
   %36 = load ptr, ptr %35, align 8
   %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %29, ptr noundef nonnull align 8 dereferenceable(8) %33)
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %39, label %20
+  %38 = icmp ne i32 %37, 0
+  br i1 %38, label %20, label %39
 
-39:                                               ; preds = %24, %20, %18, %2
-  %40 = phi i32 [ 0, %2 ], [ 1, %18 ], [ 0, %24 ], [ 1, %20 ]
-  ret i32 %40
+39:                                               ; preds = %24, %20
+  %40 = zext i1 %38 to i32
+  br label %41
+
+41:                                               ; preds = %18, %39, %2
+  %42 = phi i32 [ 0, %2 ], [ 1, %18 ], [ %40, %39 ]
+  ret i32 %42
 }
 
 ; Function Attrs: uwtable

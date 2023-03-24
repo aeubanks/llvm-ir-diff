@@ -141,7 +141,7 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK25btConvexTriangleMeshShape37
   %23 = fmul float %8, %19
   br label %24
 
-24:                                               ; preds = %2, %15
+24:                                               ; preds = %15, %2
   %25 = phi float [ %23, %15 ], [ 0.000000e+00, %2 ]
   %26 = phi float [ %17, %15 ], [ 0.000000e+00, %2 ]
   %27 = phi <2 x float> [ %22, %15 ], [ <float 1.000000e+00, float 0.000000e+00>, %2 ]
@@ -176,11 +176,11 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK25btConvexTriangleMeshShape37
   %40 = load <2 x float>, ptr %28, align 8, !tbaa.struct !29
   %41 = getelementptr inbounds %class.LocalSupportVertexCallback, ptr %3, i64 0, i32 1, i32 0, i64 2
   %42 = load <2 x float>, ptr %41, align 8, !tbaa.struct !22
+  %43 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %40, 0
+  %44 = insertvalue { <2 x float>, <2 x float> } %43, <2 x float> %42, 1
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #16
   call void @_ZN31btInternalTriangleIndexCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(44) %3)
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %3) #16
-  %43 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %40, 0
-  %44 = insertvalue { <2 x float>, <2 x float> } %43, <2 x float> %42, 1
   ret { <2 x float>, <2 x float> } %44
 
 45:                                               ; preds = %24
@@ -608,7 +608,7 @@ define dso_local void @_ZNK25btConvexTriangleMeshShape31calculatePrincipalAxisTr
   br label %88
 
 88:                                               ; preds = %86, %76
-  %89 = phi { ptr, i32 } [ %87, %86 ], [ %77, %76 ]
+  %89 = phi { ptr, i32 } [ %77, %76 ], [ %87, %86 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #16
   invoke void @_ZN31btInternalTriangleIndexCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(48) %5)
           to label %90 unwind label %91

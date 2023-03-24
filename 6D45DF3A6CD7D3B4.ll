@@ -425,9 +425,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIfED2Ev(ptr noundef
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -461,9 +461,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btVector3ED2Ev(pt
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -515,8 +515,8 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK18btMultiSphereShape37localGe
 33:                                               ; preds = %25, %33
   %34 = phi i32 [ 0, %25 ], [ %76, %33 ]
   %35 = phi float [ 0xC3ABC16D60000000, %25 ], [ %75, %33 ]
-  %36 = phi ptr [ %29, %25 ], [ %64, %33 ]
-  %37 = phi ptr [ %27, %25 ], [ %65, %33 ]
+  %36 = phi ptr [ %29, %25 ], [ %65, %33 ]
+  %37 = phi ptr [ %27, %25 ], [ %66, %33 ]
   %38 = phi <2 x float> [ zeroinitializer, %25 ], [ %74, %33 ]
   %39 = phi <2 x float> [ zeroinitializer, %25 ], [ %73, %33 ]
   %40 = load float, ptr %31, align 8, !tbaa !28
@@ -543,18 +543,18 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK18btMultiSphereShape37localGe
   %61 = fmul float %20, %57
   %62 = fsub <2 x float> %56, %60
   %63 = fsub float %46, %61
-  %64 = getelementptr inbounds %class.btVector3, ptr %36, i64 1
-  %65 = getelementptr inbounds float, ptr %37, i64 1
-  %66 = fmul <2 x float> %21, %62
-  %67 = extractelement <2 x float> %66, i64 1
-  %68 = extractelement <2 x float> %62, i64 0
-  %69 = tail call float @llvm.fmuladd.f32(float %32, float %68, float %67)
-  %70 = tail call float @llvm.fmuladd.f32(float %20, float %63, float %69)
-  %71 = fcmp ogt float %70, %35
-  %72 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %63, i64 0
-  %73 = select i1 %71, <2 x float> %62, <2 x float> %39
-  %74 = select i1 %71, <2 x float> %72, <2 x float> %38
-  %75 = select i1 %71, float %70, float %35
+  %64 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %63, i64 0
+  %65 = getelementptr inbounds %class.btVector3, ptr %36, i64 1
+  %66 = getelementptr inbounds float, ptr %37, i64 1
+  %67 = fmul <2 x float> %21, %62
+  %68 = extractelement <2 x float> %67, i64 1
+  %69 = extractelement <2 x float> %62, i64 0
+  %70 = tail call float @llvm.fmuladd.f32(float %32, float %69, float %68)
+  %71 = tail call float @llvm.fmuladd.f32(float %20, float %63, float %70)
+  %72 = fcmp ogt float %71, %35
+  %73 = select i1 %72, <2 x float> %62, <2 x float> %39
+  %74 = select i1 %72, <2 x float> %64, <2 x float> %38
+  %75 = select i1 %72, float %71, float %35
   %76 = add nuw nsw i32 %34, 1
   %77 = icmp eq i32 %76, %23
   br i1 %77, label %78, label %33
@@ -727,10 +727,10 @@ define linkonce_odr dso_local void @_ZN18btMultiSphereShapeD2Ev(ptr noundef nonn
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %24
 
-10:                                               ; preds = %9, %1
+10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 3, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
-  %11 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -747,10 +747,10 @@ define linkonce_odr dso_local void @_ZN18btMultiSphereShapeD2Ev(ptr noundef nonn
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %27
 
-21:                                               ; preds = %20, %10
+21:                                               ; preds = %10, %20
+  %22 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 2, i32 2
   store i8 1, ptr %16, align 8, !tbaa !8
   store ptr null, ptr %13, align 8, !tbaa !15
-  %22 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %22, align 4, !tbaa !16
   %23 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %23, align 8, !tbaa !17
@@ -802,9 +802,9 @@ define linkonce_odr dso_local void @_ZN18btMultiSphereShapeD0Ev(ptr noundef nonn
           to label %10 unwind label %24
 
 10:                                               ; preds = %9, %1
+  %11 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 3, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
-  %11 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -822,9 +822,9 @@ define linkonce_odr dso_local void @_ZN18btMultiSphereShapeD0Ev(ptr noundef nonn
           to label %21 unwind label %27
 
 21:                                               ; preds = %20, %10
+  %22 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 2, i32 2
   store i8 1, ptr %16, align 8, !tbaa !8
   store ptr null, ptr %13, align 8, !tbaa !15
-  %22 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %22, align 4, !tbaa !16
   %23 = getelementptr inbounds %class.btMultiSphereShape, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %23, align 8, !tbaa !17

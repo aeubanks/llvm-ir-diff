@@ -516,17 +516,17 @@ define internal fastcc void @_ZL19checkVectorFunctionIjEvSt8functionIFvPT_S2_jEE
   call void @_ZdaPv(ptr noundef nonnull %45) #24
   br label %75
 
-75:                                               ; preds = %71, %73
+75:                                               ; preds = %73, %71
   %76 = phi { ptr, i32 } [ %74, %73 ], [ %72, %71 ]
   call void @_ZdaPv(ptr noundef nonnull %39) #24
   br label %77
 
-77:                                               ; preds = %69, %75
+77:                                               ; preds = %75, %69
   %78 = phi { ptr, i32 } [ %76, %75 ], [ %70, %69 ]
   call void @_ZdaPv(ptr noundef nonnull %37) #24
   br label %79
 
-79:                                               ; preds = %40, %77, %42
+79:                                               ; preds = %42, %77, %40
   %80 = phi { ptr, i32 } [ %41, %40 ], [ %78, %77 ], [ %43, %42 ]
   call void @_ZdaPv(ptr noundef nonnull %26) #24
   resume { ptr, i32 } %80

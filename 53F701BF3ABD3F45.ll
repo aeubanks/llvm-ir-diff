@@ -108,7 +108,7 @@ define dso_local void @_ZN26btTriangleIndexVertexArrayC2EiPiiiPfi(ptr noundef no
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %46)
           to label %52 unwind label %68
 
-52:                                               ; preds = %45, %51
+52:                                               ; preds = %51, %45
   store i8 1, ptr %10, align 8, !tbaa !11
   store ptr %15, ptr %11, align 8, !tbaa !17
   store i32 1, ptr %13, align 8, !tbaa !19
@@ -178,9 +178,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI13btIndexedMeshED2
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !11
   store ptr null, ptr %2, align 8, !tbaa !17
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !18
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !19
@@ -216,10 +216,10 @@ define dso_local void @_ZN26btTriangleIndexVertexArrayD2Ev(ptr noundef nonnull a
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %9, %1
+10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btTriangleIndexVertexArray, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %5, align 8, !tbaa !11
   store ptr null, ptr %2, align 8, !tbaa !17
-  %11 = getelementptr inbounds %class.btTriangleIndexVertexArray, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !18
   %12 = getelementptr inbounds %class.btTriangleIndexVertexArray, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !19
@@ -260,9 +260,9 @@ define dso_local void @_ZN26btTriangleIndexVertexArrayD0Ev(ptr noundef nonnull a
           to label %10 unwind label %13
 
 10:                                               ; preds = %9, %1
+  %11 = getelementptr inbounds %class.btTriangleIndexVertexArray, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %5, align 8, !tbaa !11
   store ptr null, ptr %2, align 8, !tbaa !17
-  %11 = getelementptr inbounds %class.btTriangleIndexVertexArray, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !18
   %12 = getelementptr inbounds %class.btTriangleIndexVertexArray, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !19

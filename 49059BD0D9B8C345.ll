@@ -155,8 +155,8 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %54 = zext i1 %53 to i32
   br label %55
 
-55:                                               ; preds = %12, %29, %38, %47
-  %56 = phi i32 [ %54, %47 ], [ 0, %38 ], [ 0, %29 ], [ 0, %12 ]
+55:                                               ; preds = %38, %12, %29, %47
+  %56 = phi i32 [ %54, %47 ], [ 0, %29 ], [ 0, %12 ], [ 0, %38 ]
   %57 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 26
   store i32 %56, ptr %57, align 4, !tbaa !29
   %58 = icmp slt i32 %20, 0
@@ -231,8 +231,8 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %108 = zext i1 %107 to i32
   br label %109
 
-109:                                              ; preds = %78, %82, %91, %100
-  %110 = phi i32 [ %108, %100 ], [ 0, %91 ], [ 0, %82 ], [ 0, %78 ]
+109:                                              ; preds = %91, %78, %82, %100
+  %110 = phi i32 [ %108, %100 ], [ 0, %82 ], [ 0, %78 ], [ 0, %91 ]
   %111 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 28
   store i32 %110, ptr %111, align 4, !tbaa !31
   %112 = icmp slt i32 %26, 0
@@ -320,8 +320,8 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %172 = zext i1 %171 to i32
   br label %173
 
-173:                                              ; preds = %135, %148, %157, %166
-  %174 = phi i32 [ %172, %166 ], [ 0, %157 ], [ 0, %148 ], [ 0, %135 ]
+173:                                              ; preds = %157, %135, %148, %166
+  %174 = phi i32 [ %172, %166 ], [ 0, %148 ], [ 0, %135 ], [ 0, %157 ]
   %175 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 26
   store i32 %174, ptr %175, align 4, !tbaa !29
   %176 = icmp slt i32 %140, 0
@@ -405,8 +405,8 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %230 = zext i1 %229 to i32
   br label %231
 
-231:                                              ; preds = %199, %205, %213, %222
-  %232 = phi i32 [ %230, %222 ], [ 0, %213 ], [ 0, %205 ], [ 0, %199 ]
+231:                                              ; preds = %213, %199, %205, %222
+  %232 = phi i32 [ %230, %222 ], [ 0, %205 ], [ 0, %199 ], [ 0, %213 ]
   %233 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 28
   store i32 %232, ptr %233, align 4, !tbaa !31
   %234 = icmp slt i32 %145, 0
@@ -449,8 +449,8 @@ define dso_local void @CheckAvailabilityOfNeighbors() local_unnamed_addr #1 {
   %261 = zext i1 %260 to i32
   br label %262
 
-262:                                              ; preds = %256, %244, %235, %231, %122, %113, %109
-  %263 = phi i32 [ 0, %122 ], [ 0, %113 ], [ 0, %109 ], [ 0, %244 ], [ 0, %235 ], [ 0, %231 ], [ %261, %256 ]
+262:                                              ; preds = %256, %235, %231, %244, %113, %109, %122
+  %263 = phi i32 [ 0, %113 ], [ 0, %109 ], [ 0, %122 ], [ 0, %235 ], [ 0, %231 ], [ 0, %244 ], [ %261, %256 ]
   %264 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %6, i32 29
   store i32 %263, ptr %264, align 8, !tbaa !32
   ret void

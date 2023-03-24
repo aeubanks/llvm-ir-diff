@@ -9425,7 +9425,7 @@ define dso_local ptr @set_eval_history(ptr noundef returned %0, ptr noundef read
 
 50:                                               ; preds = %45, %41, %37, %34
   %51 = phi ptr [ %18, %34 ], [ %18, %37 ], [ %46, %41 ], [ %46, %45 ]
-  %52 = tail call ptr @setcdr(ptr noundef nonnull %51, ptr noundef nonnull %18) #25
+  %52 = tail call ptr @setcdr(ptr noundef nonnull %51, ptr noundef %18) #25
   br label %53
 
 53:                                               ; preds = %10, %2, %50, %21

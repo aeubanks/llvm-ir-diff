@@ -28,8 +28,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.38 = private unnamed_addr constant [30 x i8] c"XS Lookups:                  \00", align 1
 @.str.39 = private unnamed_addr constant [33 x i8] c"Threads:                     %d\0A\00", align 1
 @.str.40 = private unnamed_addr constant [36 x i8] c"Est. Memory Usage (MB):      %.1lf\0A\00", align 1
-@str = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
-@str.41 = private unnamed_addr constant [378 x i8] c"                    _____   _____ ____                  _     \0A                   |  __ \\ / ____|  _ \\                | |    \0A                   | |__) | (___ | |_) | ___ _ __   ___| |__  \0A                   |  _  / \\___ \\|  _ < / _ \\ '_ \\ / __| '_ \\ \0A                   | | \\ \\ ____) | |_) |  __/ | | | (__| | | |\0A                   |_|  \\_\\_____/|____/ \\___|_| |_|\\___|_| |_|\00", align 1
+@str = private unnamed_addr constant [378 x i8] c"                    _____   _____ ____                  _     \0A                   |  __ \\ / ____|  _ \\                | |    \0A                   | |__) | (___ | |_) | ___ _ __   ___| |__  \0A                   |  _  / \\___ \\|  _ < / _ \\ '_ \\ / __| '_ \\ \0A                   | | \\ \\ ____) | |_) |  __/ | | | (__| | | |\0A                   |_|  \\_\\_____/|____/ \\___|_| |_|\\___|_| |_|\00", align 1
+@str.41 = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
 @str.42 = private unnamed_addr constant [30 x i8] c"Usage: ./multibench <options>\00", align 1
 @str.43 = private unnamed_addr constant [17 x i8] c"Options include:\00", align 1
 @str.44 = private unnamed_addr constant [51 x i8] c"  -t <threads>     Number of OpenMP threads to run\00", align 1
@@ -49,9 +49,9 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @logo(i32 noundef %0) local_unnamed_addr #0 {
   %2 = alloca [100 x i8], align 16
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
   %6 = load ptr, ptr @stdout, align 8, !tbaa !5
   %7 = tail call i32 @fputc(i32 32, ptr %6)
   %8 = load ptr, ptr @stdout, align 8, !tbaa !5
@@ -121,14 +121,14 @@ define dso_local void @logo(i32 noundef %0) local_unnamed_addr #0 {
   %65 = call i32 @fputs(ptr noundef nonnull %2, ptr noundef %64)
   %66 = load ptr, ptr @stdout, align 8, !tbaa !5
   %67 = tail call i32 @fputc(i32 10, ptr %66)
-  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
   call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %2) #10
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @border_print() local_unnamed_addr #0 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
   ret void
 }
 

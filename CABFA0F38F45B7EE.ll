@@ -18,7 +18,7 @@ define dso_local noundef ptr @_Z9CharPrevAPKcS0_(ptr noundef readonly %0, ptr no
   %8 = and i1 %7, %6
   %9 = getelementptr i8, ptr %4, i64 1
   %10 = icmp ult ptr %9, %1
-  %11 = and i1 %8, %10
+  %11 = and i1 %10, %8
   br i1 %11, label %3, label %12
 
 12:                                               ; preds = %3

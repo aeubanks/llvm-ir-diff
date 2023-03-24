@@ -24,7 +24,7 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   %6 = trunc i64 %2 to i16
   %7 = udiv i16 %6, 3
   %8 = zext i16 %7 to i32
-  %9 = icmp eq i32 %8, %5
+  %9 = icmp eq i32 %5, %8
   br i1 %9, label %10, label %22
 
 10:                                               ; preds = %1
@@ -40,7 +40,7 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   %18 = trunc i64 %14 to i16
   %19 = udiv i16 %18, 3
   %20 = zext i16 %19 to i32
-  %21 = icmp eq i32 %20, %17
+  %21 = icmp eq i32 %17, %20
   br i1 %21, label %1, label %22
 
 22:                                               ; preds = %1, %13

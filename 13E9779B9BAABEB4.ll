@@ -97,9 +97,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.32 = private unnamed_addr constant [4 x i8] c"%s\0A\00", align 1
 @.str.33 = private unnamed_addr constant [16 x i8] c"Cannot open %s.\00", align 1
 @rusage = dso_local global %struct.rusage zeroinitializer, align 8
-@str = private unnamed_addr constant [59 x i8] c"\0A*********************************************************\00", align 1
-@str.34 = private unnamed_addr constant [30 x i8] c"\09\09SIM output with parameters:\00", align 1
-@str.35 = private unnamed_addr constant [29 x i8] c"Can not open Output/sim.res\0A\00", align 1
+@str = private unnamed_addr constant [30 x i8] c"\09\09SIM output with parameters:\00", align 1
+@str.34 = private unnamed_addr constant [29 x i8] c"Can not open Output/sim.res\0A\00", align 1
+@str.35 = private unnamed_addr constant [59 x i8] c"\0A*********************************************************\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
@@ -112,7 +112,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %6, label %7, label %9
 
 7:                                                ; preds = %2
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.35)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.34)
   tail call void @exit(i32 noundef 1) #18
   unreachable
 
@@ -357,7 +357,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %147 = phi double [ -1.000000e+00, %102 ], [ %140, %137 ]
   %148 = phi double [ 6.000000e+00, %102 ], [ %141, %137 ]
   %149 = phi double [ 2.000000e-01, %102 ], [ %142, %137 ]
-  %150 = call i32 @puts(ptr nonnull dereferenceable(1) @str.34)
+  %150 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %151 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, double noundef %145, double noundef %146, double noundef %147, double noundef %148, double noundef %149)
   %152 = fmul double %145, 1.000000e+01
   %153 = fcmp ogt double %152, 0.000000e+00
@@ -793,7 +793,7 @@ define dso_local i32 @SIM(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 no
   %227 = getelementptr i8, ptr %116, i64 %226
   %228 = load i32, ptr @q, align 4, !tbaa !9
   %229 = tail call i32 @diff(ptr noundef nonnull %225, ptr noundef nonnull %227, i32 noundef %221, i32 noundef %223, i32 noundef %228, i32 noundef %228)
-  %230 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %230 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.35)
   %231 = sub nsw i32 %4, %119
   %232 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.21, i32 noundef %231)
   %233 = sitofp i32 %201 to double
@@ -5138,26 +5138,26 @@ declare double @strtod(ptr noundef readonly, ptr nocapture noundef) local_unname
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare ptr @strrchr(ptr noundef, i32 noundef) local_unnamed_addr #5
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #14
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #15
+declare i32 @llvm.smax.i32(i32, i32) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #15
+declare i32 @llvm.smin.i32(i32, i32) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #15
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #16
+declare i32 @llvm.umax.i32(i32, i32) #16
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -5173,9 +5173,9 @@ attributes #10 = { nofree norecurse nosync nounwind memory(readwrite, argmem: re
 attributes #11 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #16 = { nofree nounwind }
+attributes #14 = { nofree nounwind }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #17 = { nounwind }
 attributes #18 = { noreturn nounwind }
 attributes #19 = { cold }

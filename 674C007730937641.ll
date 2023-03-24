@@ -96,14 +96,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %50 = getelementptr inbounds %"class.std::ios_base", ptr %49, i64 0, i32 3
   %51 = load i32, ptr %50, align 8, !tbaa !22
   %52 = or i32 %51, 4
-  store i32 %52, ptr %50, align 8, !tbaa !22
+  store i32 %52, ptr %50, align 8, !tbaa !23
   %53 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %42)
   %54 = load ptr, ptr %53, align 8, !tbaa !13
   %55 = getelementptr i8, ptr %54, i64 -24
   %56 = load i64, ptr %55, align 8
   %57 = getelementptr inbounds i8, ptr %53, i64 %56
   %58 = getelementptr inbounds %"class.std::basic_ios", ptr %57, i64 0, i32 5
-  %59 = load ptr, ptr %58, align 8, !tbaa !23
+  %59 = load ptr, ptr %58, align 8, !tbaa !24
   %60 = icmp eq ptr %59, null
   br i1 %60, label %61, label %62
 
@@ -113,13 +113,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 62:                                               ; preds = %41
   %63 = getelementptr inbounds %"class.std::ctype", ptr %59, i64 0, i32 8
-  %64 = load i8, ptr %63, align 8, !tbaa !26
+  %64 = load i8, ptr %63, align 8, !tbaa !27
   %65 = icmp eq i8 %64, 0
   br i1 %65, label %69, label %66
 
 66:                                               ; preds = %62
   %67 = getelementptr inbounds %"class.std::ctype", ptr %59, i64 0, i32 9, i64 10
-  %68 = load i8, ptr %67, align 1, !tbaa !29
+  %68 = load i8, ptr %67, align 1, !tbaa !30
   br label %74
 
 69:                                               ; preds = %62
@@ -193,11 +193,12 @@ attributes #8 = { noreturn }
 !19 = !{!"_ZTSNSt8ios_base6_WordsE", !6, i64 0, !10, i64 8}
 !20 = !{!"int", !7, i64 0}
 !21 = !{!"_ZTSSt6locale", !6, i64 0}
-!22 = !{!17, !17, i64 0}
-!23 = !{!24, !6, i64 240}
-!24 = !{!"_ZTSSt9basic_iosIcSt11char_traitsIcEE", !16, i64 0, !6, i64 216, !7, i64 224, !25, i64 225, !6, i64 232, !6, i64 240, !6, i64 248, !6, i64 256}
-!25 = !{!"bool", !7, i64 0}
-!26 = !{!27, !7, i64 56}
-!27 = !{!"_ZTSSt5ctypeIcE", !28, i64 0, !6, i64 16, !25, i64 24, !6, i64 32, !6, i64 40, !6, i64 48, !7, i64 56, !7, i64 57, !7, i64 313, !7, i64 569}
-!28 = !{!"_ZTSNSt6locale5facetE", !20, i64 8}
-!29 = !{!7, !7, i64 0}
+!22 = !{!16, !17, i64 24}
+!23 = !{!17, !17, i64 0}
+!24 = !{!25, !6, i64 240}
+!25 = !{!"_ZTSSt9basic_iosIcSt11char_traitsIcEE", !16, i64 0, !6, i64 216, !7, i64 224, !26, i64 225, !6, i64 232, !6, i64 240, !6, i64 248, !6, i64 256}
+!26 = !{!"bool", !7, i64 0}
+!27 = !{!28, !7, i64 56}
+!28 = !{!"_ZTSSt5ctypeIcE", !29, i64 0, !6, i64 16, !26, i64 24, !6, i64 32, !6, i64 40, !6, i64 48, !7, i64 56, !7, i64 57, !7, i64 313, !7, i64 569}
+!29 = !{!"_ZTSNSt6locale5facetE", !20, i64 8}
+!30 = !{!7, !7, i64 0}

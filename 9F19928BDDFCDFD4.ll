@@ -55,9 +55,9 @@ define dso_local ptr @part_Init(ptr noundef %0, i32 noundef %1) local_unnamed_ad
   %16 = load i32, ptr @memory_ALIGN, align 4
   %17 = urem i32 %13, %16
   %18 = icmp eq i32 %17, 0
-  %19 = add i32 %16, %13
-  %20 = sub i32 %19, %17
-  %21 = select i1 %18, i32 %13, i32 %20
+  %19 = sub i32 %16, %17
+  %20 = select i1 %18, i32 0, i32 %19
+  %21 = add i32 %20, %13
   %22 = load i32, ptr @memory_OFFSET, align 4
   %23 = zext i32 %22 to i64
   %24 = sub nsw i64 0, %23
@@ -81,7 +81,7 @@ define dso_local ptr @part_Init(ptr noundef %0, i32 noundef %1) local_unnamed_ad
 
 37:                                               ; preds = %35, %15
   %38 = load i32, ptr @memory_MARKSIZE, align 4
-  %39 = add i32 %38, %21
+  %39 = add i32 %21, %38
   %40 = zext i32 %39 to i64
   %41 = add nuw nsw i64 %40, 16
   %42 = load i64, ptr @memory_FREEDBYTES, align 8

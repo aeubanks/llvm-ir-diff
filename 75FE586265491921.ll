@@ -84,7 +84,7 @@ define dso_local void @fap(i32 noundef %0, ptr nocapture noundef readonly %1, pt
   %34 = zext i32 %30 to i64
   %35 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %34
   %36 = load i8, ptr %35, align 1, !tbaa !5
-  %37 = icmp eq i8 %14, %36
+  %37 = icmp eq i8 %36, %14
   br i1 %37, label %12, label %38, !llvm.loop !8
 
 38:                                               ; preds = %33
@@ -160,7 +160,7 @@ define dso_local void @f0(ptr nocapture noundef readonly %0, ...) local_unnamed_
   %35 = zext i32 %31 to i64
   %36 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %35
   %37 = load i8, ptr %36, align 1, !tbaa !5
-  %38 = icmp eq i8 %16, %37
+  %38 = icmp eq i8 %37, %16
   br i1 %38, label %12, label %39, !llvm.loop !8
 
 39:                                               ; preds = %34
@@ -247,7 +247,7 @@ define dso_local void @f1(i32 %0, ptr nocapture noundef readonly %1, ...) local_
   %36 = zext i32 %32 to i64
   %37 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %36
   %38 = load i8, ptr %37, align 1, !tbaa !5
-  %39 = icmp eq i8 %17, %38
+  %39 = icmp eq i8 %38, %17
   br i1 %39, label %13, label %40, !llvm.loop !8
 
 40:                                               ; preds = %35
@@ -322,7 +322,7 @@ define dso_local void @f2(i32 %0, i32 %1, ptr nocapture noundef readonly %2, ...
   %37 = zext i32 %33 to i64
   %38 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %37
   %39 = load i8, ptr %38, align 1, !tbaa !5
-  %40 = icmp eq i8 %18, %39
+  %40 = icmp eq i8 %39, %18
   br i1 %40, label %14, label %41, !llvm.loop !8
 
 41:                                               ; preds = %36
@@ -397,7 +397,7 @@ define dso_local void @f3(i32 %0, i32 %1, i32 %2, ptr nocapture noundef readonly
   %38 = zext i32 %34 to i64
   %39 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %38
   %40 = load i8, ptr %39, align 1, !tbaa !5
-  %41 = icmp eq i8 %19, %40
+  %41 = icmp eq i8 %40, %19
   br i1 %41, label %15, label %42, !llvm.loop !8
 
 42:                                               ; preds = %37
@@ -472,7 +472,7 @@ define dso_local void @f4(i32 %0, i32 %1, i32 %2, i32 %3, ptr nocapture noundef 
   %39 = zext i32 %35 to i64
   %40 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %39
   %41 = load i8, ptr %40, align 1, !tbaa !5
-  %42 = icmp eq i8 %20, %41
+  %42 = icmp eq i8 %41, %20
   br i1 %42, label %16, label %43, !llvm.loop !8
 
 43:                                               ; preds = %38
@@ -547,7 +547,7 @@ define dso_local void @f5(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, ptr nocapture 
   %40 = zext i32 %36 to i64
   %41 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %40
   %42 = load i8, ptr %41, align 1, !tbaa !5
-  %43 = icmp eq i8 %21, %42
+  %43 = icmp eq i8 %42, %21
   br i1 %43, label %17, label %44, !llvm.loop !8
 
 44:                                               ; preds = %39
@@ -622,7 +622,7 @@ define dso_local void @f6(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, ptr no
   %41 = zext i32 %37 to i64
   %42 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %41
   %43 = load i8, ptr %42, align 1, !tbaa !5
-  %44 = icmp eq i8 %22, %43
+  %44 = icmp eq i8 %43, %22
   br i1 %44, label %18, label %45, !llvm.loop !8
 
 45:                                               ; preds = %40
@@ -697,7 +697,7 @@ define dso_local void @f7(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6
   %42 = zext i32 %38 to i64
   %43 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %42
   %44 = load i8, ptr %43, align 1, !tbaa !5
-  %45 = icmp eq i8 %23, %44
+  %45 = icmp eq i8 %44, %23
   br i1 %45, label %19, label %46, !llvm.loop !8
 
 46:                                               ; preds = %41
@@ -772,7 +772,7 @@ define dso_local void @f8(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6
   %43 = zext i32 %39 to i64
   %44 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %43
   %45 = load i8, ptr %44, align 1, !tbaa !5
-  %46 = icmp eq i8 %24, %45
+  %46 = icmp eq i8 %45, %24
   br i1 %46, label %20, label %47, !llvm.loop !8
 
 47:                                               ; preds = %42
@@ -847,7 +847,7 @@ define dso_local void @f9(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6
   %44 = zext i32 %40 to i64
   %45 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %44
   %46 = load i8, ptr %45, align 1, !tbaa !5
-  %47 = icmp eq i8 %25, %46
+  %47 = icmp eq i8 %46, %25
   br i1 %47, label %21, label %48, !llvm.loop !8
 
 48:                                               ; preds = %43
@@ -922,7 +922,7 @@ define dso_local void @f10(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %
   %45 = zext i32 %41 to i64
   %46 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %45
   %47 = load i8, ptr %46, align 1, !tbaa !5
-  %48 = icmp eq i8 %26, %47
+  %48 = icmp eq i8 %47, %26
   br i1 %48, label %22, label %49, !llvm.loop !8
 
 49:                                               ; preds = %44
@@ -997,7 +997,7 @@ define dso_local void @f11(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %
   %46 = zext i32 %42 to i64
   %47 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %46
   %48 = load i8, ptr %47, align 1, !tbaa !5
-  %49 = icmp eq i8 %27, %48
+  %49 = icmp eq i8 %48, %27
   br i1 %49, label %23, label %50, !llvm.loop !8
 
 50:                                               ; preds = %45
@@ -1072,7 +1072,7 @@ define dso_local void @f12(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %
   %47 = zext i32 %43 to i64
   %48 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %47
   %49 = load i8, ptr %48, align 1, !tbaa !5
-  %50 = icmp eq i8 %28, %49
+  %50 = icmp eq i8 %49, %28
   br i1 %50, label %24, label %51, !llvm.loop !8
 
 51:                                               ; preds = %46
@@ -1147,7 +1147,7 @@ define dso_local void @f13(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %
   %48 = zext i32 %44 to i64
   %49 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %48
   %50 = load i8, ptr %49, align 1, !tbaa !5
-  %51 = icmp eq i8 %29, %50
+  %51 = icmp eq i8 %50, %29
   br i1 %51, label %25, label %52, !llvm.loop !8
 
 52:                                               ; preds = %47
@@ -1222,7 +1222,7 @@ define dso_local void @f14(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %
   %49 = zext i32 %45 to i64
   %50 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %49
   %51 = load i8, ptr %50, align 1, !tbaa !5
-  %52 = icmp eq i8 %30, %51
+  %52 = icmp eq i8 %51, %30
   br i1 %52, label %26, label %53, !llvm.loop !8
 
 53:                                               ; preds = %48
@@ -1297,7 +1297,7 @@ define dso_local void @f15(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %
   %50 = zext i32 %46 to i64
   %51 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %50
   %52 = load i8, ptr %51, align 1, !tbaa !5
-  %53 = icmp eq i8 %31, %52
+  %53 = icmp eq i8 %52, %31
   br i1 %53, label %27, label %54, !llvm.loop !8
 
 54:                                               ; preds = %49

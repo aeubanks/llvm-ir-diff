@@ -124,7 +124,7 @@ define dso_local i32 @zcopy(ptr noundef %0) #0 {
   %67 = tail call i32 (ptr, ...) @zcopy_dict(ptr noundef nonnull %0) #6
   br label %74
 
-68:                                               ; preds = %57, %58, %62
+68:                                               ; preds = %62, %57, %58
   %69 = load i16, ptr %51, align 2, !tbaa !13
   store i16 %69, ptr %54, align 2, !tbaa !13
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %34, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !14
@@ -693,14 +693,14 @@ define dso_local i32 @zputinterval(ptr nocapture noundef readonly %0) #0 {
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %58, ptr align 1 %59, i64 %60, i1 false)
   br label %61
 
-61:                                               ; preds = %55, %49, %48
+61:                                               ; preds = %55, %48, %49
   %62 = load ptr, ptr @osp, align 8, !tbaa !11
   %63 = getelementptr inbounds %struct.ref_s, ptr %62, i64 -3
   store ptr %63, ptr @osp, align 8, !tbaa !11
   br label %64
 
-64:                                               ; preds = %61, %41, %35, %24, %18, %15, %8, %1, %14
-  %65 = phi i32 [ -7, %14 ], [ -20, %1 ], [ -20, %8 ], [ -7, %15 ], [ -15, %18 ], [ 0, %24 ], [ 0, %35 ], [ 0, %41 ], [ 0, %61 ]
+64:                                               ; preds = %41, %35, %24, %61, %18, %15, %8, %1, %14
+  %65 = phi i32 [ -7, %14 ], [ -20, %1 ], [ -20, %8 ], [ -7, %15 ], [ -15, %18 ], [ 0, %61 ], [ 0, %24 ], [ 0, %35 ], [ 0, %41 ]
   ret i32 %65
 }
 

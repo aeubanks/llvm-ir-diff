@@ -1835,9 +1835,9 @@ define dso_local void @REAL_CODE(ptr nocapture noundef readonly %0, i32 noundef 
   %1178 = phi i32 [ %1176, %1175 ], [ %1173, %1172 ]
   %1179 = phi i32 [ 0, %1175 ], [ %891, %1172 ]
   %1180 = icmp eq i32 %1178, 2
-  %1181 = sub i32 %1179, %3
-  %1182 = add i32 %1181, -3
-  %1183 = select i1 %1180, i32 %1182, i32 %1179
+  %1181 = add nsw i32 %3, 3
+  %1182 = select i1 %1180, i32 %1181, i32 0
+  %1183 = sub nsw i32 %1179, %1182
   %1184 = icmp sgt i32 %1183, 2047
   %1185 = select i1 %1180, i1 %1184, i1 false
   br i1 %1185, label %1197, label %1186
@@ -2351,11 +2351,11 @@ declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
-
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #13
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2370,8 +2370,8 @@ attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #10 = { nofree nounwind }
 attributes #11 = { nofree willreturn }
 attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }

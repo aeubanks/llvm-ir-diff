@@ -369,7 +369,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 126:                                              ; preds = %121, %113
   %127 = shl i64 %114, 32
   %128 = ashr exact i64 %127, 32
-  %129 = icmp ult i64 %128, %67
+  %129 = icmp ugt i64 %67, %128
   br i1 %129, label %130, label %197
 
 130:                                              ; preds = %126

@@ -129,7 +129,7 @@ define dso_local void @ReadDict(ptr nocapture noundef readonly %0) local_unnamed
   %40 = lshr i16 %39, 10
   %41 = trunc i16 %40 to i8
   %42 = and i8 %41, 1
-  %43 = add i8 %31, %42
+  %43 = add i8 %42, %31
   %44 = trunc i32 %33 to i8
   %45 = getelementptr inbounds i8, ptr %32, i64 1
   store i8 %44, ptr %32, align 1, !tbaa !16
@@ -292,20 +292,20 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
 53:                                               ; preds = %50
   %54 = add i32 %36, 1
   %55 = icmp ugt i32 %54, 1
-  br i1 %55, label %60, label %56
+  br i1 %55, label %56, label %59
 
 56:                                               ; preds = %53
-  %57 = trunc i64 %48 to i32
-  %58 = add i32 %57, -1
-  %59 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 2
-  store i32 %58, ptr %59, align 8, !tbaa !25
-  br label %70
-
-60:                                               ; preds = %53
-  %61 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %62 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.7, i32 noundef 0) #15
+  %57 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %58 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %57, ptr noundef nonnull @.str.7, i32 noundef 0) #15
   tail call void @exit(i32 noundef 1) #16
   unreachable
+
+59:                                               ; preds = %53
+  %60 = trunc i64 %48 to i32
+  %61 = add i32 %60, -1
+  %62 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %34, i32 2
+  store i32 %61, ptr %62, align 8, !tbaa !25
+  br label %70
 
 63:                                               ; preds = %50
   %64 = trunc i64 %48 to i32
@@ -317,8 +317,8 @@ define dso_local void @BuildMask(ptr nocapture noundef readonly %0) local_unname
   %69 = shl i64 %48, %68
   br i1 %67, label %70, label %72
 
-70:                                               ; preds = %56, %63
-  %71 = phi i32 [ %54, %56 ], [ %36, %63 ]
+70:                                               ; preds = %59, %63
+  %71 = phi i32 [ %54, %59 ], [ %36, %63 ]
   br label %72
 
 72:                                               ; preds = %63, %70

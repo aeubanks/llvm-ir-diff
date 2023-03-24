@@ -192,8 +192,8 @@ define dso_local void @add_segments(ptr noundef %0, ptr noundef %1, ptr noundef 
   %34 = add i32 %31, %32
   %35 = sub i32 %34, %33
   %36 = add i32 %35, %29
-  %37 = icmp slt i32 %36, 0
-  br i1 %37, label %38, label %100
+  %37 = icmp sgt i32 %36, -1
+  br i1 %37, label %100, label %38
 
 38:                                               ; preds = %8
   %39 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
@@ -255,8 +255,8 @@ define dso_local void @add_segments(ptr noundef %0, ptr noundef %1, ptr noundef 
   %81 = add i32 %78, %79
   %82 = sub i32 %81, %80
   %83 = add i32 %82, %76
-  %84 = icmp sgt i32 %83, 0
-  br i1 %84, label %85, label %100
+  %84 = icmp slt i32 %83, 1
+  br i1 %84, label %100, label %85
 
 85:                                               ; preds = %55
   %86 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
@@ -380,8 +380,8 @@ define dso_local ptr @construct_ch() local_unnamed_addr #2 {
   %58 = add i32 %55, %56
   %59 = sub i32 %58, %57
   %60 = add i32 %59, %53
-  %61 = icmp slt i32 %60, 0
-  br i1 %61, label %62, label %77
+  %61 = icmp sgt i32 %60, -1
+  br i1 %61, label %77, label %62
 
 62:                                               ; preds = %32
   %63 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
@@ -444,8 +444,8 @@ define dso_local ptr @construct_ch() local_unnamed_addr #2 {
   %106 = add i32 %103, %104
   %107 = sub i32 %106, %105
   %108 = add i32 %107, %101
-  %109 = icmp sgt i32 %108, 0
-  br i1 %109, label %110, label %125
+  %109 = icmp slt i32 %108, 1
+  br i1 %109, label %125, label %110
 
 110:                                              ; preds = %80
   %111 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8

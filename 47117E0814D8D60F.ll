@@ -272,7 +272,7 @@ define internal fastcc ptr @gtequal_adj_neighbor(ptr nocapture noundef readonly 
   %39 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 4
   br label %40
 
-40:                                               ; preds = %38, %36, %34, %32
+40:                                               ; preds = %32, %34, %36, %38
   %41 = phi ptr [ %39, %38 ], [ %37, %36 ], [ %35, %34 ], [ %33, %32 ]
   %42 = load ptr, ptr %41, align 8, !tbaa !16
   br label %43

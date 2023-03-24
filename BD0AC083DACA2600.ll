@@ -1628,7 +1628,7 @@ define dso_local ptr @CrossExpand(ptr noundef %0, ptr noundef %1, ptr noundef %2
 330:                                              ; preds = %107, %311, %314, %78, %326
   %331 = phi i32 [ %327, %326 ], [ 0, %311 ], [ 0, %314 ], [ 0, %78 ], [ %104, %107 ]
   %332 = icmp ne i32 %331, 0
-  %333 = or i1 %332, %59
+  %333 = or i1 %59, %332
   br i1 %333, label %338, label %334
 
 334:                                              ; preds = %330
@@ -1860,7 +1860,7 @@ define dso_local ptr @CrossExpand(ptr noundef %0, ptr noundef %1, ptr noundef %2
   store ptr %450, ptr @zz_hold, align 8, !tbaa !10
   %459 = icmp eq ptr %450, null
   %460 = icmp eq ptr %447, null
-  %461 = or i1 %459, %460
+  %461 = or i1 %460, %459
   br i1 %461, label %469, label %462
 
 462:                                              ; preds = %453

@@ -42,23 +42,23 @@ define dso_local i32 @main() local_unnamed_addr #2 {
   store i64 %2, ptr %3, align 8
   %4 = and i64 %2, -4294967296
   %5 = icmp eq i64 %4, 425201762304
-  br i1 %5, label %6, label %9
+  br i1 %5, label %7, label %6
 
 6:                                                ; preds = %0
-  %7 = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %1, ptr noundef nonnull dereferenceable(11) @.str, i64 11)
-  %8 = icmp eq i32 %7, 0
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1)
-  br i1 %8, label %11, label %10
-
-9:                                                ; preds = %0
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1)
   br label %10
 
-10:                                               ; preds = %9, %6
+7:                                                ; preds = %0
+  %8 = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %1, ptr noundef nonnull dereferenceable(11) @.str, i64 11)
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1)
+  %9 = icmp eq i32 %8, 0
+  br i1 %9, label %11, label %10
+
+10:                                               ; preds = %6, %7
   tail call void @abort() #7
   unreachable
 
-11:                                               ; preds = %6
+11:                                               ; preds = %7
   tail call void @exit(i32 noundef 0) #7
   unreachable
 }
@@ -69,14 +69,14 @@ declare void @abort() local_unnamed_addr #3
 ; Function Attrs: noreturn
 declare void @exit(i32 noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #4
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #4
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #5
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #4
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #5
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
 
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
 declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #6
@@ -85,8 +85,8 @@ attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(none) uw
 attributes #1 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #5 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #7 = { noreturn nounwind }
 

@@ -12,8 +12,8 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %2 = load i64, ptr @bb, align 8, !tbaa !5
   %3 = add i64 %1, 4096
   %4 = sub i64 %3, %2
-  %5 = icmp sgt i64 %4, 0
-  br i1 %5, label %7, label %6
+  %5 = icmp slt i64 %4, 1
+  br i1 %5, label %6, label %7
 
 6:                                                ; preds = %0
   tail call void @abort() #3

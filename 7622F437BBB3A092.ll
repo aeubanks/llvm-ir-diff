@@ -269,9 +269,9 @@ define dso_local nonnull ptr @get_responce(ptr nocapture noundef %0) local_unnam
   store i1 %36, ptr @white_space.commentP, align 4
   br label %42
 
-42:                                               ; preds = %41, %40, %40, %40, %38
-  %43 = phi i1 [ %32, %40 ], [ %32, %40 ], [ %32, %40 ], [ %32, %38 ], [ %36, %41 ]
-  %44 = phi i1 [ false, %40 ], [ false, %40 ], [ false, %40 ], [ true, %38 ], [ %36, %41 ]
+42:                                               ; preds = %41, %38, %40, %40, %40
+  %43 = phi i1 [ %32, %38 ], [ %32, %40 ], [ %32, %40 ], [ %32, %40 ], [ %36, %41 ]
+  %44 = phi i1 [ true, %38 ], [ false, %40 ], [ false, %40 ], [ false, %40 ], [ %36, %41 ]
   store i8 0, ptr %33, align 1, !tbaa !5
   %45 = getelementptr inbounds i8, ptr %33, i64 -1
   %46 = icmp ult ptr %45, @responce
@@ -314,12 +314,12 @@ define dso_local nonnull ptr @get_responce(ptr nocapture noundef %0) local_unnam
   store i1 %60, ptr @white_space.commentP, align 4
   br label %61
 
-61:                                               ; preds = %59, %58, %58, %58, %56
-  %62 = phi i1 [ false, %58 ], [ false, %58 ], [ false, %58 ], [ true, %56 ], [ %60, %59 ]
+61:                                               ; preds = %59, %56, %58, %58, %58
+  %62 = phi i1 [ true, %56 ], [ false, %58 ], [ false, %58 ], [ false, %58 ], [ %60, %59 ]
   %63 = getelementptr inbounds i8, ptr %53, i64 1
   br label %51, !llvm.loop !15
 
-64:                                               ; preds = %58, %51
+64:                                               ; preds = %51, %58
   ret ptr %53
 }
 
@@ -767,9 +767,9 @@ define dso_local i32 @matches(ptr nocapture noundef readonly %0, ptr nocapture n
   %24 = trunc i64 %13 to i32
   br label %25
 
-25:                                               ; preds = %23, %10, %15, %17
-  %26 = phi i1 [ false, %23 ], [ true, %10 ], [ true, %15 ], [ false, %17 ]
-  %27 = phi i32 [ %24, %23 ], [ %11, %10 ], [ 0, %15 ], [ 0, %17 ]
+25:                                               ; preds = %23, %15, %17, %10
+  %26 = phi i1 [ false, %23 ], [ true, %15 ], [ false, %17 ], [ true, %10 ]
+  %27 = phi i32 [ %24, %23 ], [ 0, %15 ], [ 0, %17 ], [ %11, %10 ]
   %28 = zext i32 %27 to i64
   %29 = icmp slt i32 %27, %2
   br i1 %29, label %51, label %30
@@ -821,7 +821,7 @@ define dso_local i32 @matches(ptr nocapture noundef readonly %0, ptr nocapture n
   %50 = zext i1 %49 to i32
   br label %51
 
-51:                                               ; preds = %33, %40, %42, %44, %45, %45, %45, %46, %25, %47
+51:                                               ; preds = %46, %45, %45, %45, %44, %42, %40, %33, %25, %47
   %52 = phi i32 [ %50, %47 ], [ 0, %25 ], [ 0, %33 ], [ 1, %40 ], [ 1, %42 ], [ 1, %44 ], [ 1, %45 ], [ 1, %45 ], [ 1, %45 ], [ 0, %46 ]
   ret i32 %52
 }
@@ -3252,8 +3252,8 @@ define dso_local void @enter_week(ptr noundef %0, ptr nocapture noundef %1, i32 
   br label %53
 
 53:                                               ; preds = %52, %51, %51, %51, %49
-  %54 = phi i1 [ %43, %51 ], [ %43, %51 ], [ %43, %51 ], [ %43, %49 ], [ %47, %52 ]
-  %55 = phi i1 [ false, %51 ], [ false, %51 ], [ false, %51 ], [ true, %49 ], [ %47, %52 ]
+  %54 = phi i1 [ %43, %49 ], [ %43, %51 ], [ %43, %51 ], [ %43, %51 ], [ %47, %52 ]
+  %55 = phi i1 [ true, %49 ], [ false, %51 ], [ false, %51 ], [ false, %51 ], [ %47, %52 ]
   store i8 0, ptr %44, align 1, !tbaa !5
   %56 = getelementptr inbounds i8, ptr %44, i64 -1
   %57 = icmp ult ptr %56, @responce
@@ -3298,8 +3298,8 @@ define dso_local void @enter_week(ptr noundef %0, ptr nocapture noundef %1, i32 
   br label %73
 
 73:                                               ; preds = %71, %70, %70, %70, %68
-  %74 = phi i1 [ %63, %70 ], [ %63, %70 ], [ %63, %70 ], [ %63, %68 ], [ %72, %71 ]
-  %75 = phi i1 [ false, %70 ], [ false, %70 ], [ false, %70 ], [ true, %68 ], [ %72, %71 ]
+  %74 = phi i1 [ %63, %68 ], [ %63, %70 ], [ %63, %70 ], [ %63, %70 ], [ %72, %71 ]
+  %75 = phi i1 [ true, %68 ], [ false, %70 ], [ false, %70 ], [ false, %70 ], [ %72, %71 ]
   %76 = getelementptr inbounds i8, ptr %65, i64 1
   br label %62, !llvm.loop !15
 

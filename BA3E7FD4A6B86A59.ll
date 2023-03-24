@@ -139,19 +139,19 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.96 = private unnamed_addr constant [25 x i8] c"  Number of arrays: %lu\0A\00", align 1
 @.str.97 = private unnamed_addr constant [23 x i8] c" Number of loops: %lu\0A\00", align 1
 @str = private unnamed_addr constant [14 x i8] c" -v = verbose\00", align 1
-@str.99 = private unnamed_addr constant [48 x i8] c" -c = input parameters thru command file <FILE>\00", align 1
+@str.98 = private unnamed_addr constant [48 x i8] c" -c = input parameters thru command file <FILE>\00", align 1
 @str.100 = private unnamed_addr constant [35 x i8] c"BBBBBB   YYY   Y  TTTTTTT  EEEEEEE\00", align 1
 @str.102 = private unnamed_addr constant [31 x i8] c"BBB   B  YYY   Y    TTT    EEE\00", align 1
 @str.103 = private unnamed_addr constant [35 x i8] c"BBBBBB    YYY Y     TTT    EEEEEEE\00", align 1
 @str.105 = private unnamed_addr constant [31 x i8] c"BBB   B    YYY      TTT    EEE\00", align 1
 @str.106 = private unnamed_addr constant [36 x i8] c"BBBBBB     YYY      TTT    EEEEEEE\0A\00", align 1
 @str.107 = private unnamed_addr constant [52 x i8] c"\0ABYTEmark (tm) Native Mode Benchmark ver. 2 (10/95)\00", align 1
-@str.108 = private unnamed_addr constant [67 x i8] c"\0ANOTE!!! Iteration display disabled to prevent diffs from failing!\00", align 1
-@str.109 = private unnamed_addr constant [78 x i8] c"==========================ORIGINAL BYTEMARK RESULTS==========================\00", align 1
-@str.110 = private unnamed_addr constant [74 x i8] c"Baseline (MSDOS*)   : Pentium* 90, 256 KB L2-cache, Watcom* compiler 10.0\00", align 1
-@str.111 = private unnamed_addr constant [54 x i8] c"* Trademarks are property of their respective holder.\00", align 1
-@str.112 = private unnamed_addr constant [78 x i8] c"============================== ALL STATISTICS ===============================\00", align 1
-@str.113 = private unnamed_addr constant [78 x i8] c"=============================================================================\00", align 1
+@str.108 = private unnamed_addr constant [78 x i8] c"============================== ALL STATISTICS ===============================\00", align 1
+@str.109 = private unnamed_addr constant [78 x i8] c"=============================================================================\00", align 1
+@str.110 = private unnamed_addr constant [67 x i8] c"\0ANOTE!!! Iteration display disabled to prevent diffs from failing!\00", align 1
+@str.111 = private unnamed_addr constant [78 x i8] c"==========================ORIGINAL BYTEMARK RESULTS==========================\00", align 1
+@str.112 = private unnamed_addr constant [74 x i8] c"Baseline (MSDOS*)   : Pentium* 90, 256 KB L2-cache, Watcom* compiler 10.0\00", align 1
+@str.113 = private unnamed_addr constant [54 x i8] c"* Trademarks are property of their respective holder.\00", align 1
 
 declare void @DoNumSort() #0
 
@@ -722,7 +722,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %257 = call i32 @fclose(ptr noundef nonnull %39)
   br label %260
 
-258:                                              ; preds = %33, %16, %9, %41
+258:                                              ; preds = %9, %33, %16, %41
   %259 = load ptr, ptr %1, align 8, !tbaa !28
   call fastcc void @display_help(ptr noundef %259)
   unreachable
@@ -837,7 +837,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %329
 
 329:                                              ; preds = %322, %326
-  %330 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
+  %330 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
   %331 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %332 = icmp eq i32 %331, 0
   br i1 %332, label %336, label %333
@@ -914,7 +914,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %382
 
 382:                                              ; preds = %373, %379
-  %383 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
+  %383 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
   %384 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %385 = icmp eq i32 %384, 0
   br i1 %385, label %389, label %386
@@ -925,7 +925,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %389
 
 389:                                              ; preds = %386, %382, %319
-  %390 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
+  %390 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
   %391 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %392 = icmp eq i32 %391, 0
   br i1 %392, label %396, label %393
@@ -992,7 +992,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %433 = call i32 @fputs(ptr nonnull @buffer, ptr %432)
   br label %434
 
-434:                                              ; preds = %431, %426
+434:                                              ; preds = %426, %431
   %435 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @buffer, ptr noundef nonnull dereferenceable(1) @.str.72, i64 noundef undef) #11
   %436 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.88, ptr noundef nonnull @buffer)
   %437 = load i32, ptr @write_to_file, align 4, !tbaa !9
@@ -1209,7 +1209,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %576, label %577, label %614
 
 577:                                              ; preds = %574
-  %578 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
+  %578 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
   %579 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %580 = icmp eq i32 %579, 0
   br i1 %580, label %584, label %581
@@ -1244,7 +1244,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %600
 
 600:                                              ; preds = %592, %597
-  %601 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
+  %601 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
   %602 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %603 = icmp eq i32 %602, 0
   br i1 %603, label %607, label %604
@@ -1255,7 +1255,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %607
 
 607:                                              ; preds = %600, %604
-  %608 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
+  %608 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
   %609 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %610 = icmp eq i32 %609, 0
   br i1 %610, label %614, label %611
@@ -1277,7 +1277,7 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #2
 define internal fastcc void @display_help(ptr noundef %0) unnamed_addr #1 {
   %2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.85, ptr noundef %0)
   %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
   tail call void @exit(i32 noundef 0) #14
   unreachable
 }

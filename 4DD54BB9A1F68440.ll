@@ -686,28 +686,28 @@ define dso_local void @GeneratePictureParameterSet(ptr nocapture noundef %0, ptr
   %62 = and i32 %61, 1
   %63 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 5
   store i32 %62, ptr %63, align 4
-  br i1 %31, label %67, label %64
+  br i1 %31, label %64, label %75
 
 64:                                               ; preds = %27
-  %65 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 6
-  store i32 0, ptr %65, align 4
-  %66 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 7
-  store i32 0, ptr %66, align 4
+  %65 = getelementptr inbounds %struct.InputParameters, ptr %9, i64 0, i32 168, i64 6
+  %66 = load i32, ptr %65, align 4, !tbaa !29
+  %67 = lshr i32 %66, 1
+  %68 = and i32 %67, 1
+  %69 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 6
+  store i32 %68, ptr %69, align 4
+  %70 = getelementptr inbounds %struct.InputParameters, ptr %9, i64 0, i32 168, i64 7
+  %71 = load i32, ptr %70, align 4, !tbaa !29
+  %72 = lshr i32 %71, 1
+  %73 = and i32 %72, 1
+  %74 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 7
+  store i32 %73, ptr %74, align 4
   br label %81
 
-67:                                               ; preds = %27
-  %68 = getelementptr inbounds %struct.InputParameters, ptr %9, i64 0, i32 168, i64 6
-  %69 = load i32, ptr %68, align 4, !tbaa !29
-  %70 = lshr i32 %69, 1
-  %71 = and i32 %70, 1
-  %72 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 6
-  store i32 %71, ptr %72, align 4
-  %73 = getelementptr inbounds %struct.InputParameters, ptr %9, i64 0, i32 168, i64 7
-  %74 = load i32, ptr %73, align 4, !tbaa !29
-  %75 = lshr i32 %74, 1
-  %76 = and i32 %75, 1
+75:                                               ; preds = %27
+  %76 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 6
+  store i32 0, ptr %76, align 4
   %77 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %0, i64 0, i32 6, i64 7
-  store i32 %76, ptr %77, align 4
+  store i32 0, ptr %77, align 4
   br label %81
 
 78:                                               ; preds = %7
@@ -717,7 +717,7 @@ define dso_local void @GeneratePictureParameterSet(ptr nocapture noundef %0, ptr
   store i32 0, ptr %80, align 4, !tbaa !63
   br label %81
 
-81:                                               ; preds = %64, %67, %78
+81:                                               ; preds = %75, %64, %78
   %82 = load ptr, ptr @img, align 8, !tbaa !5
   %83 = getelementptr inbounds %struct.ImageParameters, ptr %82, i64 0, i32 121
   %84 = load i32, ptr %83, align 4, !tbaa !75
@@ -2045,11 +2045,11 @@ declare ptr @strncpy(ptr noalias noundef returned writeonly, ptr noalias nocaptu
 ; Function Attrs: noreturn nounwind
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #11
@@ -2063,8 +2063,8 @@ attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0,1) }

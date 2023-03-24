@@ -2907,8 +2907,8 @@ define dso_local ptr @lua_topointer(ptr nocapture noundef %0, i32 noundef %1) lo
   %121 = load ptr, ptr %114, align 8, !tbaa !31
   br label %122
 
-122:                                              ; preds = %53, %120, %117, %113, %61, %59, %57
-  %123 = phi ptr [ %62, %61 ], [ %60, %59 ], [ %58, %57 ], [ %121, %120 ], [ %119, %117 ], [ null, %113 ], [ null, %53 ]
+122:                                              ; preds = %120, %117, %113, %53, %61, %59, %57
+  %123 = phi ptr [ %62, %61 ], [ %60, %59 ], [ %58, %57 ], [ null, %53 ], [ %121, %120 ], [ %119, %117 ], [ null, %113 ]
   ret ptr %123
 }
 
@@ -5437,8 +5437,8 @@ define dso_local ptr @lua_getupvalue(ptr nocapture noundef %0, i32 noundef %1, i
   store ptr %105, ptr %98, align 8, !tbaa !5
   br label %106
 
-106:                                              ; preds = %54, %64, %66, %75, %79, %95
-  %107 = phi ptr [ %97, %95 ], [ null, %79 ], [ null, %75 ], [ null, %66 ], [ null, %64 ], [ null, %54 ]
+106:                                              ; preds = %75, %79, %64, %66, %54, %95
+  %107 = phi ptr [ %97, %95 ], [ null, %54 ], [ null, %66 ], [ null, %64 ], [ null, %79 ], [ null, %75 ]
   ret ptr %107
 }
 
@@ -5614,8 +5614,8 @@ define dso_local ptr @lua_setupvalue(ptr noundef %0, i32 noundef %1, i32 noundef
   tail call void @luaC_barrierf(ptr noundef nonnull %0, ptr noundef nonnull %116, ptr noundef nonnull %110) #14
   br label %122
 
-122:                                              ; preds = %54, %64, %66, %75, %79, %95, %109, %115, %121
-  %123 = phi ptr [ %97, %95 ], [ %97, %109 ], [ %97, %115 ], [ %97, %121 ], [ null, %79 ], [ null, %75 ], [ null, %66 ], [ null, %64 ], [ null, %54 ]
+122:                                              ; preds = %75, %79, %64, %66, %54, %95, %109, %115, %121
+  %123 = phi ptr [ %97, %95 ], [ %97, %109 ], [ %97, %115 ], [ %97, %121 ], [ null, %54 ], [ null, %66 ], [ null, %64 ], [ null, %79 ], [ null, %75 ]
   ret ptr %123
 }
 

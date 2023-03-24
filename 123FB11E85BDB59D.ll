@@ -822,7 +822,7 @@ define internal fastcc i64 @singlestep(ptr noundef %0) unnamed_addr #0 {
   br i1 %234, label %235, label %255
 
 235:                                              ; preds = %230, %225, %217
-  %236 = phi i32 [ %215, %217 ], [ %229, %225 ], [ %215, %230 ]
+  %236 = phi i32 [ %215, %230 ], [ %229, %225 ], [ %215, %217 ]
   %237 = icmp sgt i32 %236, 3
   br i1 %237, label %238, label %260
 

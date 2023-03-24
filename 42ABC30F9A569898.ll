@@ -1968,7 +1968,7 @@ define dso_local void @ExpandRecursives(ptr noundef %0) local_unnamed_addr #0 {
   store ptr %857, ptr %865, align 8, !tbaa !5
   store ptr %861, ptr @xx_tmp, align 8, !tbaa !10
   %870 = icmp eq ptr %861, null
-  %871 = or i1 %870, %11
+  %871 = or i1 %11, %870
   br i1 %871, label %878, label %872
 
 872:                                              ; preds = %864

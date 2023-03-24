@@ -17,18 +17,18 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nounwind uwtable
 define dso_local void @RenderBox_setStyle(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
   %3 = getelementptr inbounds %struct.RenderBox, ptr %0, i64 0, i32 2
-  %4 = load i32, ptr %1, align 4
-  %5 = and i32 %4, 262144
-  %6 = icmp eq i32 %5, 0
-  %7 = load i16, ptr %3, align 2
-  br i1 %6, label %10, label %8
+  %4 = load i16, ptr %3, align 2
+  %5 = load i32, ptr %1, align 4
+  %6 = and i32 %5, 262144
+  %7 = icmp eq i32 %6, 0
+  br i1 %7, label %10, label %8
 
 8:                                                ; preds = %2
-  %9 = or i16 %7, 16
+  %9 = or i16 %4, 16
   br label %29
 
 10:                                               ; preds = %2
-  %11 = and i16 %7, -17
+  %11 = and i16 %4, -17
   store i16 %11, ptr %3, align 2
   %12 = load i32, ptr %1, align 4
   %13 = getelementptr inbounds %struct.RenderBox, ptr %0, i64 0, i32 3

@@ -394,7 +394,7 @@ define linkonce_odr dso_local void @_ZSt13__introselectIN9__gnu_cxx17__normal_it
 
 9:                                                ; preds = %4, %65
   %10 = phi i64 [ %71, %65 ], [ %7, %4 ]
-  %11 = phi i64 [ %20, %65 ], [ %3, %4 ]
+  %11 = phi i64 [ %21, %65 ], [ %3, %4 ]
   %12 = phi ptr [ %68, %65 ], [ %0, %4 ]
   %13 = phi ptr [ %67, %65 ], [ %2, %4 ]
   %14 = icmp eq i64 %11, 0
@@ -410,9 +410,9 @@ define linkonce_odr dso_local void @_ZSt13__introselectIN9__gnu_cxx17__normal_it
   br label %112
 
 19:                                               ; preds = %9
-  %20 = add nsw i64 %11, -1
-  %21 = lshr i64 %10, 4
-  %22 = getelementptr inbounds double, ptr %12, i64 %21
+  %20 = lshr i64 %10, 4
+  %21 = add nsw i64 %11, -1
+  %22 = getelementptr inbounds double, ptr %12, i64 %20
   %23 = getelementptr inbounds double, ptr %12, i64 1
   %24 = getelementptr inbounds double, ptr %13, i64 -1
   %25 = load double, ptr %23, align 8, !tbaa !9
@@ -646,7 +646,7 @@ define linkonce_odr dso_local void @_ZSt13__heap_selectIN9__gnu_cxx17__normal_it
 50:                                               ; preds = %47, %57
   %51 = phi i64 [ %53, %57 ], [ %48, %47 ]
   %52 = add nsw i64 %51, -1
-  %53 = sdiv i64 %52, 2
+  %53 = lshr i64 %52, 1
   %54 = getelementptr inbounds double, ptr %0, i64 %53
   %55 = load double, ptr %54, align 8, !tbaa !9
   %56 = fcmp olt double %55, %26
@@ -655,11 +655,11 @@ define linkonce_odr dso_local void @_ZSt13__heap_selectIN9__gnu_cxx17__normal_it
 57:                                               ; preds = %50
   %58 = getelementptr inbounds double, ptr %0, i64 %51
   store double %55, ptr %58, align 8, !tbaa !9
-  %59 = icmp sgt i64 %51, 2
-  br i1 %59, label %50, label %60, !llvm.loop !32
+  %59 = icmp ult i64 %52, 2
+  br i1 %59, label %60, label %50, !llvm.loop !32
 
 60:                                               ; preds = %50, %57, %47
-  %61 = phi i64 [ %48, %47 ], [ %51, %50 ], [ %53, %57 ]
+  %61 = phi i64 [ %48, %47 ], [ %51, %50 ], [ 0, %57 ]
   %62 = getelementptr inbounds double, ptr %0, i64 %61
   store double %26, ptr %62, align 8, !tbaa !9
   br label %63

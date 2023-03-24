@@ -1445,8 +1445,8 @@ define internal fastcc i32 @url_get_host(ptr noundef %0, ptr nocapture noundef %
   store ptr null, ptr %76, align 8, !tbaa !35
   br label %77
 
-77:                                               ; preds = %74, %31, %47
-  %78 = phi ptr [ %32, %31 ], [ @empty_string, %47 ], [ %55, %74 ]
+77:                                               ; preds = %31, %74, %47
+  %78 = phi ptr [ %32, %31 ], [ %55, %74 ], [ @empty_string, %47 ]
   %79 = getelementptr inbounds %struct.string, ptr %10, i64 0, i32 2
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.28, ptr noundef %78) #14
   br i1 %8, label %80, label %88
@@ -1540,8 +1540,8 @@ define internal fastcc i32 @url_get_host(ptr noundef %0, ptr nocapture noundef %
   store i32 %132, ptr %4, align 4, !tbaa !41
   br label %133
 
-133:                                              ; preds = %98, %50, %127, %130, %124, %111, %107, %91, %88, %19, %121
-  %134 = phi i32 [ 117, %121 ], [ %20, %19 ], [ 101, %88 ], [ 114, %91 ], [ 113, %107 ], [ 113, %111 ], [ 100, %124 ], [ 0, %130 ], [ 0, %127 ], [ -114, %50 ], [ 113, %98 ]
+133:                                              ; preds = %98, %111, %107, %50, %127, %130, %124, %91, %88, %19, %121
+  %134 = phi i32 [ 117, %121 ], [ %20, %19 ], [ 101, %88 ], [ 114, %91 ], [ 100, %124 ], [ 0, %130 ], [ 0, %127 ], [ -114, %50 ], [ 113, %107 ], [ 113, %111 ], [ 113, %98 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #14
   ret i32 %134
@@ -4585,7 +4585,7 @@ define internal fastcc void @cleanupURL(ptr noundef %0, ptr noundef %1, i32 noun
   tail call void @free(ptr noundef nonnull %1633) #14
   br label %1644
 
-1636:                                             ; preds = %1606, %1619, %1615
+1636:                                             ; preds = %1606, %1615, %1619
   %1637 = getelementptr inbounds %struct.string, ptr %1595, i64 0, i32 2
   store ptr %1601, ptr %1637, align 8, !tbaa !34
   store i32 1, ptr %1595, align 8, !tbaa !33
@@ -4823,7 +4823,7 @@ define internal fastcc void @str_fixup_spaces(ptr nocapture noundef %0, ptr noca
   %34 = and i16 %33, 8
   %35 = icmp eq i16 %34, 0
   %36 = icmp uge ptr %29, %18
-  %37 = and i1 %35, %36
+  %37 = and i1 %36, %35
   %38 = getelementptr inbounds i8, ptr %29, i64 -1
   br i1 %37, label %28, label %39, !llvm.loop !82
 
@@ -5336,14 +5336,14 @@ define internal fastcc void @get_domain(ptr noundef %0, ptr nocapture noundef %1
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i8 @llvm.umax.i8(i8, i8) #12
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #13
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #12
+declare i8 @llvm.umax.i8(i8, i8) #13
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -5357,8 +5357,8 @@ attributes #8 = { nofree nounwind memory(readwrite, inaccessiblemem: none) uwtab
 attributes #9 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #10 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind willreturn memory(none) }

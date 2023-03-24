@@ -189,7 +189,7 @@ define dso_local noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11
   %99 = fcmp uge float %97, 0.000000e+00
   %100 = and i1 %98, %99
   %101 = fcmp ugt float %97, %86
-  %102 = and i1 %100, %101
+  %102 = and i1 %101, %100
   br i1 %102, label %103, label %165
 
 103:                                              ; preds = %92

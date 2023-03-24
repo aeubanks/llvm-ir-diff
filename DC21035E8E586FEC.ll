@@ -51,7 +51,7 @@ define dso_local ptr @pat_insert(ptr noundef %0, ptr noundef %1) local_unnamed_a
   br i1 %33, label %38, label %34
 
 34:                                               ; preds = %31
-  %35 = xor i64 %13, %32
+  %35 = xor i64 %32, %13
   %36 = and i64 %35, 1073741824
   %37 = icmp eq i64 %36, 0
   br i1 %37, label %102, label %193

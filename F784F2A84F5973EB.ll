@@ -388,8 +388,8 @@ define internal fastcc i32 @__zip_dir_parse(ptr nocapture noundef %0, i64 nounde
   %129 = icmp ult ptr %128, %18
   br i1 %129, label %26, label %56, !llvm.loop !26
 
-130:                                              ; preds = %16, %17, %42, %48, %29, %96, %100
-  %131 = phi i32 [ -123, %100 ], [ -123, %96 ], [ -124, %29 ], [ -123, %48 ], [ -123, %42 ], [ -114, %17 ], [ -124, %16 ]
+130:                                              ; preds = %16, %29, %42, %48, %96, %100, %17
+  %131 = phi i32 [ -114, %17 ], [ -123, %100 ], [ -123, %96 ], [ -123, %48 ], [ -123, %42 ], [ -124, %29 ], [ -124, %16 ]
   call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %5) #11
   br label %263
 
@@ -725,32 +725,32 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #2 {
-  %4 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !5
-  %6 = load i32, ptr %0, align 8, !tbaa !16
-  %7 = icmp slt i32 %6, 0
-  br i1 %7, label %8, label %9
+  %4 = load i32, ptr %0, align 8, !tbaa !16
+  %5 = icmp slt i32 %4, 0
+  br i1 %5, label %6, label %7
 
-8:                                                ; preds = %3
+6:                                                ; preds = %3
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.2) #11
   br label %129
 
-9:                                                ; preds = %3
-  %10 = icmp eq ptr %5, null
+7:                                                ; preds = %3
+  %8 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 3
+  %9 = load ptr, ptr %8, align 8, !tbaa !5
+  %10 = icmp eq ptr %9, null
   br i1 %10, label %28, label %11
 
-11:                                               ; preds = %9
+11:                                               ; preds = %7
   %12 = icmp eq i32 %2, -1
   br i1 %12, label %13, label %30
 
 13:                                               ; preds = %11
-  %14 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %5, i64 0, i32 9
+  %14 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %9, i64 0, i32 9
   %15 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(1) %1) #12
   %16 = icmp eq i32 %15, 0
   br i1 %16, label %39, label %17
 
 17:                                               ; preds = %13, %22
-  %18 = phi ptr [ %24, %22 ], [ %5, %13 ]
+  %18 = phi ptr [ %24, %22 ], [ %9, %13 ]
   %19 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %18, i64 0, i32 4
   %20 = load i16, ptr %19, align 4, !tbaa !46
   %21 = icmp eq i16 %20, 0
@@ -764,14 +764,14 @@ define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readon
   %27 = icmp eq i32 %26, 0
   br i1 %27, label %39, label %17
 
-28:                                               ; preds = %9
+28:                                               ; preds = %7
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.3) #11
   %29 = getelementptr inbounds %struct.__zip_dir, ptr %0, i64 0, i32 1
   store i32 -111, ptr %29, align 4, !tbaa !56
   br label %129
 
 30:                                               ; preds = %11, %124
-  %31 = phi ptr [ %126, %124 ], [ %5, %11 ]
+  %31 = phi ptr [ %126, %124 ], [ %9, %11 ]
   %32 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %31, i64 0, i32 9
   %33 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %32, ptr noundef nonnull dereferenceable(1) %1) #12
   %34 = icmp eq i32 %33, 0
@@ -784,7 +784,7 @@ define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readon
   br i1 %38, label %39, label %120
 
 39:                                               ; preds = %35, %22, %13
-  %40 = phi ptr [ %5, %13 ], [ %24, %22 ], [ %31, %35 ]
+  %40 = phi ptr [ %9, %13 ], [ %24, %22 ], [ %31, %35 ]
   %41 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %40, i64 0, i32 6
   %42 = load i16, ptr %41, align 4, !tbaa !42
   switch i16 %42, label %46 [
@@ -952,8 +952,8 @@ define dso_local ptr @zip_file_open(ptr noundef %0, ptr nocapture noundef readon
   store i32 -115, ptr %128, align 4, !tbaa !56
   br label %129
 
-129:                                              ; preds = %109, %127, %117, %105, %90, %80, %70, %57, %46, %43, %28, %8
-  %130 = phi ptr [ null, %8 ], [ null, %127 ], [ null, %46 ], [ null, %43 ], [ null, %80 ], [ null, %90 ], [ null, %105 ], [ null, %117 ], [ null, %70 ], [ null, %57 ], [ null, %28 ], [ %60, %109 ]
+129:                                              ; preds = %109, %127, %117, %105, %90, %80, %70, %57, %46, %43, %28, %6
+  %130 = phi ptr [ null, %6 ], [ null, %127 ], [ null, %46 ], [ null, %43 ], [ null, %80 ], [ null, %90 ], [ null, %105 ], [ null, %117 ], [ null, %70 ], [ null, %57 ], [ null, %28 ], [ %60, %109 ]
   ret ptr %130
 }
 

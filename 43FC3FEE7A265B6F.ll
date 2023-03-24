@@ -459,8 +459,8 @@ define dso_local i32 @cli_scannulsft(i32 noundef %0, ptr noundef %1, i64 noundef
   %252 = freeze i32 %249
   br label %253
 
-253:                                              ; preds = %248, %226, %251, %224
-  %254 = phi i32 [ 1, %224 ], [ %252, %251 ], [ 0, %226 ], [ 0, %248 ]
+253:                                              ; preds = %226, %248, %251, %224
+  %254 = phi i32 [ 1, %224 ], [ %252, %251 ], [ 0, %248 ], [ 0, %226 ]
   %255 = getelementptr inbounds %struct.nsis_st, ptr %7, i64 0, i32 14
   %256 = load i8, ptr %255, align 2, !tbaa !41
   %257 = icmp eq i8 %256, 0

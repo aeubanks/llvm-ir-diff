@@ -174,7 +174,7 @@ define dso_local void @_Z3runPFviPfS_S_S_fffffRfS0_S0_EPKc(ptr nocapture noundef
   call void @llvm.memset.p0.i64(ptr align 4 %83, i8 0, i64 %84, i1 false), !tbaa !19
   br label %85
 
-85:                                               ; preds = %64, %82, %81
+85:                                               ; preds = %82, %81, %64
   %86 = phi ptr [ %74, %81 ], [ %74, %82 ], [ null, %64 ]
   %87 = phi ptr [ %68, %81 ], [ %68, %82 ], [ null, %64 ]
   %88 = phi ptr [ %80, %81 ], [ %80, %82 ], [ null, %64 ]
@@ -251,7 +251,7 @@ define dso_local void @_Z3runPFviPfS_S_S_fffffRfS0_S0_EPKc(ptr nocapture noundef
   call void @llvm.memset.p0.i64(ptr align 4 %119, i8 0, i64 %120, i1 false), !tbaa !19
   br label %121
 
-121:                                              ; preds = %93, %118, %117
+121:                                              ; preds = %118, %117, %93
   %122 = phi ptr [ %110, %117 ], [ %110, %118 ], [ null, %93 ]
   %123 = phi ptr [ %97, %117 ], [ %97, %118 ], [ null, %93 ]
   %124 = phi ptr [ %104, %117 ], [ %104, %118 ], [ null, %93 ]
@@ -495,7 +495,7 @@ define dso_local void @_Z3runPFviPfS_S_S_fffffRfS0_S0_EPKc(ptr nocapture noundef
   %283 = fmul fast float %282, %282
   %284 = load float, ptr @SofteningLen, align 4, !tbaa !19
   %285 = fmul fast float %284, %284
-  invoke void %0(i32 noundef %49, ptr noundef %123, ptr noundef %124, ptr noundef %122, ptr noundef %125, float noundef nofpclass(nan inf) %277, float noundef nofpclass(nan inf) %279, float noundef nofpclass(nan inf) %281, float noundef nofpclass(nan inf) %283, float noundef nofpclass(nan inf) %285, ptr noundef nonnull align 4 dereferenceable(4) %3, ptr noundef nonnull align 4 dereferenceable(4) %4, ptr noundef nonnull align 4 dereferenceable(4) %5)
+  invoke void %0(i32 noundef %49, ptr noundef nonnull %123, ptr noundef nonnull %124, ptr noundef nonnull %122, ptr noundef nonnull %125, float noundef nofpclass(nan inf) %277, float noundef nofpclass(nan inf) %279, float noundef nofpclass(nan inf) %281, float noundef nofpclass(nan inf) %283, float noundef nofpclass(nan inf) %285, ptr noundef nonnull align 4 dereferenceable(4) %3, ptr noundef nonnull align 4 dereferenceable(4) %4, ptr noundef nonnull align 4 dereferenceable(4) %5)
           to label %286 unwind label %289
 
 286:                                              ; preds = %274
@@ -584,7 +584,7 @@ define dso_local void @_Z3runPFviPfS_S_S_fffffRfS0_S0_EPKc(ptr nocapture noundef
   br label %333
 
 333:                                              ; preds = %330, %326
-  %334 = phi { ptr, i32 } [ %331, %330 ], [ %328, %326 ]
+  %334 = phi { ptr, i32 } [ %328, %326 ], [ %331, %330 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #13
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #13
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #13

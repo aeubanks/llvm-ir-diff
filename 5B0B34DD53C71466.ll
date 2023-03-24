@@ -4237,7 +4237,7 @@ define dso_local ptr @FillObject(ptr noundef %0, ptr nocapture noundef readonly 
   %2641 = getelementptr inbounds %struct.word_type, ptr %2523, i64 0, i32 3, i32 1
   store i32 %2639, ptr %2641, align 8, !tbaa !5
   %2642 = load i32, ptr %2640, align 8, !tbaa !5
-  %2643 = add nsw i32 %2639, %2642
+  %2643 = add nsw i32 %2642, %2639
   %2644 = icmp sgt i32 %2643, %102
   br i1 %2644, label %2645, label %2649
 
@@ -4347,7 +4347,7 @@ define dso_local ptr @FillObject(ptr noundef %0, ptr nocapture noundef readonly 
   %2711 = freeze i8 %2707
   %2712 = add i8 %2696, -11
   %2713 = add i8 %2711, -11
-  %2714 = or i8 %2712, %2713
+  %2714 = or i8 %2713, %2712
   %2715 = icmp ult i8 %2714, 2
   br i1 %2715, label %2716, label %2875
 

@@ -86,9 +86,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP20btPersistentMan
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -124,10 +124,10 @@ define dso_local void @_ZN25btSimulationIslandManagerD2Ev(ptr noundef nonnull al
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %25
 
-10:                                               ; preds = %9, %1
+10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 3, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
-  %11 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -144,10 +144,10 @@ define dso_local void @_ZN25btSimulationIslandManagerD2Ev(ptr noundef nonnull al
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %28
 
-21:                                               ; preds = %20, %10
+21:                                               ; preds = %10, %20
+  %22 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 2
   store i8 1, ptr %16, align 8, !tbaa !8
   store ptr null, ptr %13, align 8, !tbaa !15
-  %22 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %22, align 4, !tbaa !16
   %23 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %23, align 8, !tbaa !17
@@ -1080,7 +1080,7 @@ define dso_local void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatc
   tail call void @_ZN15CProfileManager12Stop_ProfileEv()
   ret void
 
-373:                                              ; preds = %262, %266, %264, %184, %203, %82, %80
+373:                                              ; preds = %264, %266, %262, %184, %203, %82, %80
   %374 = phi { ptr, i32 } [ %81, %80 ], [ %83, %82 ], [ %185, %184 ], [ %204, %203 ], [ %263, %262 ], [ %267, %266 ], [ %265, %264 ]
   invoke void @_ZN15CProfileManager12Stop_ProfileEv()
           to label %375 unwind label %376
@@ -1104,7 +1104,7 @@ declare void @_ZN17btCollisionObject8activateEb(ptr noundef nonnull align 8 dere
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP12btDispatcherP16btCollisionWorldPNS_14IslandCallbackE(ptr noundef nonnull align 8 dereferenceable(105) %0, ptr noundef %1, ptr nocapture noundef readonly %2, ptr noundef %3) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  tail call void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatcherP16btCollisionWorld(ptr noundef nonnull align 8 dereferenceable(105) %0, ptr noundef %1, ptr noundef %2)
+  tail call void @_ZN25btSimulationIslandManager12buildIslandsEP12btDispatcherP16btCollisionWorld(ptr noundef nonnull align 8 dereferenceable(105) %0, ptr noundef %1, ptr noundef nonnull %2)
   %5 = getelementptr inbounds %class.btSimulationIslandManager, ptr %0, i64 0, i32 1, i32 0, i32 2
   %6 = load i32, ptr %5, align 4, !tbaa !55
   tail call void @_ZN15CProfileManager13Start_ProfileEPKc(ptr noundef nonnull @.str.1)
@@ -1135,7 +1135,7 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %25 = load ptr, ptr %3, align 8, !tbaa !5
   %26 = getelementptr inbounds ptr, ptr %25, i64 2
   %27 = load ptr, ptr %26, align 8
-  invoke void %27(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %22, i32 noundef %24, ptr noundef %14, i32 noundef %19, i32 noundef -1)
+  invoke void %27(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %22, i32 noundef %24, ptr noundef %14, i32 noundef %19, i32 noundef -1)
           to label %285 unwind label %30
 
 28:                                               ; preds = %10
@@ -1160,7 +1160,7 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   invoke void @_ZN20btAlignedObjectArrayIP20btPersistentManifoldE17quickSortInternalI33btPersistentManifoldSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %37, i32 noundef 0, i32 noundef %38)
           to label %39 unwind label %164
 
-39:                                               ; preds = %32, %36
+39:                                               ; preds = %36, %32
   %40 = icmp sgt i32 %6, 0
   br i1 %40, label %41, label %285
 
@@ -1318,7 +1318,7 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   store i32 %81, ptr %45, align 8, !tbaa !23
   br label %150
 
-150:                                              ; preds = %68, %78, %148
+150:                                              ; preds = %148, %78, %68
   %151 = phi i32 [ %149, %148 ], [ %75, %78 ], [ %75, %68 ]
   %152 = load ptr, ptr %46, align 8, !tbaa !21
   %153 = sext i32 %151 to i64
@@ -1436,7 +1436,7 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   %229 = load ptr, ptr %3, align 8, !tbaa !5
   %230 = getelementptr inbounds ptr, ptr %229, i64 2
   %231 = load ptr, ptr %230, align 8
-  invoke void %231(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %227, i32 noundef %228, ptr noundef %223, i32 noundef %222, i32 noundef %58)
+  invoke void %231(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %227, i32 noundef %228, ptr noundef %223, i32 noundef %222, i32 noundef %58)
           to label %234 unwind label %232
 
 232:                                              ; preds = %226
@@ -1532,8 +1532,8 @@ define dso_local void @_ZN25btSimulationIslandManager22buildAndProcessIslandsEP1
   tail call void @_ZN15CProfileManager12Stop_ProfileEv()
   ret void
 
-286:                                              ; preds = %28, %30, %164, %232, %283, %166
-  %287 = phi { ptr, i32 } [ %165, %164 ], [ %167, %166 ], [ %284, %283 ], [ %233, %232 ], [ %31, %30 ], [ %29, %28 ]
+286:                                              ; preds = %164, %232, %283, %166, %28, %30
+  %287 = phi { ptr, i32 } [ %31, %30 ], [ %29, %28 ], [ %165, %164 ], [ %167, %166 ], [ %284, %283 ], [ %233, %232 ]
   invoke void @_ZN15CProfileManager12Stop_ProfileEv()
           to label %288 unwind label %289
 

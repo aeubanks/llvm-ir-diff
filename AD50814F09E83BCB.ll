@@ -629,7 +629,7 @@ define dso_local noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64
   %32 = icmp eq ptr %31, null
   br i1 %32, label %53, label %45
 
-33:                                               ; preds = %7, %10
+33:                                               ; preds = %10, %7
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #10
   %34 = load ptr, ptr %5, align 8, !tbaa !41
   %35 = icmp eq ptr %34, null
@@ -649,7 +649,7 @@ define dso_local noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64
   tail call void @__clang_call_terminate(ptr %43) #11
   unreachable
 
-44:                                               ; preds = %33, %36
+44:                                               ; preds = %36, %33
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #10
   ret i32 0
 
@@ -667,7 +667,7 @@ define dso_local noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64
   tail call void @__clang_call_terminate(ptr %52) #11
   unreachable
 
-53:                                               ; preds = %30, %45
+53:                                               ; preds = %45, %30
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #10
   resume { ptr, i32 } %19
 }

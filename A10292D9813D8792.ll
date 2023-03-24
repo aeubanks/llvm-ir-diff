@@ -16,8 +16,8 @@ $__clang_call_terminate = comdat any
 @.str.5 = private unnamed_addr constant [17 x i8] c"Destroyed A #%d\0A\00", align 1
 @str = private unnamed_addr constant [41 x i8] c"'throws' threw an exception: rethrowing!\00", align 1
 @str.7 = private unnamed_addr constant [18 x i8] c"In B constructor!\00", align 1
-@str.8 = private unnamed_addr constant [14 x i8] c"B destructor!\00", align 1
-@str.9 = private unnamed_addr constant [18 x i8] c"Caught exception!\00", align 1
+@str.8 = private unnamed_addr constant [18 x i8] c"Caught exception!\00", align 1
+@str.9 = private unnamed_addr constant [14 x i8] c"B destructor!\00", align 1
 
 @_ZN1BC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN1BC2Ev
 
@@ -132,15 +132,15 @@ define dso_local void @_ZN1BC2Ev(ptr nocapture noundef nonnull align 4 dereferen
   %26 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIi
-  %27 = extractvalue { ptr, i32 } %26, 1
-  %28 = load i32, ptr %9, align 4, !tbaa !9
-  %29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %28)
-  %30 = load i32, ptr %5, align 4, !tbaa !9
-  %31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %30)
-  %32 = load i32, ptr %0, align 4, !tbaa !9
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %32)
+  %27 = load i32, ptr %9, align 4, !tbaa !9
+  %28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %27)
+  %29 = load i32, ptr %5, align 4, !tbaa !9
+  %30 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %29)
+  %31 = load i32, ptr %0, align 4, !tbaa !9
+  %32 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %31)
+  %33 = extractvalue { ptr, i32 } %26, 1
   %34 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #8
-  %35 = icmp eq i32 %27, %34
+  %35 = icmp eq i32 %33, %34
   br i1 %35, label %36, label %44
 
 36:                                               ; preds = %25
@@ -180,7 +180,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gx
   %2 = alloca %struct.B, align 4
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %1) #8
   call void @_ZN1BC2Ev(ptr noundef nonnull align 4 dereferenceable(24) %1)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   %4 = getelementptr inbounds %struct.B, ptr %1, i64 0, i32 5
   %5 = load i32, ptr %4, align 4, !tbaa !9
   %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %5)
@@ -202,7 +202,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gx
           to label %18 unwind label %34
 
 18:                                               ; preds = %0
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   %20 = getelementptr inbounds %struct.B, ptr %2, i64 0, i32 5
   %21 = load i32, ptr %20, align 4, !tbaa !9
   %22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %21)
@@ -226,7 +226,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gx
   %36 = extractvalue { ptr, i32 } %35, 0
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #8
   %37 = tail call ptr @__cxa_begin_catch(ptr %36) #8
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   tail call void @__cxa_end_catch()
   br label %39
 

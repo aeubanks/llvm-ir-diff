@@ -29,7 +29,7 @@ define dso_local i32 @bar(ptr nocapture noundef readonly %0, ptr nocapture nound
   %21 = load i8, ptr %20, align 2, !tbaa !5
   %22 = zext i8 %21 to i32
   %23 = add nuw nsw i32 %22, 1
-  %24 = mul nuw nsw i32 %23, %12
+  %24 = mul nuw nsw i32 %12, %23
   %25 = lshr i32 %24, 8
   %26 = add nuw nsw i32 %25, %19
   %27 = getelementptr inbounds %struct.S, ptr %0, i64 0, i32 1

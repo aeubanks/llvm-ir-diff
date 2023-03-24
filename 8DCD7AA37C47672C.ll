@@ -107,8 +107,8 @@ define dso_local ptr @InsertPoint(ptr nocapture noundef %0, double noundef %1, d
   %25 = fsub double %24, %1
   %26 = tail call double @llvm.fabs.f64(double %25)
   %27 = fpext double %26 to x86_fp80
-  %28 = fcmp olt x86_fp80 %27, 0xK3FEB8637BD05AF6C69B6
-  br i1 %28, label %29, label %43
+  %28 = fcmp uge x86_fp80 %27, 0xK3FEB8637BD05AF6C69B6
+  br i1 %28, label %43, label %29
 
 29:                                               ; preds = %21
   %30 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 1
@@ -116,8 +116,8 @@ define dso_local ptr @InsertPoint(ptr nocapture noundef %0, double noundef %1, d
   %32 = fsub double %31, %2
   %33 = tail call double @llvm.fabs.f64(double %32)
   %34 = fpext double %33 to x86_fp80
-  %35 = fcmp olt x86_fp80 %34, 0xK3FEB8637BD05AF6C69B6
-  br i1 %35, label %36, label %43
+  %35 = fcmp uge x86_fp80 %34, 0xK3FEB8637BD05AF6C69B6
+  br i1 %35, label %43, label %36
 
 36:                                               ; preds = %29
   %37 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 2
@@ -125,8 +125,8 @@ define dso_local ptr @InsertPoint(ptr nocapture noundef %0, double noundef %1, d
   %39 = fsub double %38, %3
   %40 = tail call double @llvm.fabs.f64(double %39)
   %41 = fpext double %40 to x86_fp80
-  %42 = fcmp olt x86_fp80 %41, 0xK3FEB8637BD05AF6C69B6
-  br i1 %42, label %62, label %43
+  %42 = fcmp uge x86_fp80 %41, 0xK3FEB8637BD05AF6C69B6
+  br i1 %42, label %43, label %62
 
 43:                                               ; preds = %21, %29, %36
   %44 = getelementptr inbounds %struct.PointListStruct, ptr %22, i64 0, i32 1
@@ -403,7 +403,7 @@ define dso_local ptr @ArrayToPoly4(ptr noundef returned %0, ptr nocapture nounde
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @PrintPoints(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
   %2 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !19
+  %3 = load ptr, ptr %2, align 8, !tbaa !37
   %4 = icmp eq ptr %3, null
   br i1 %4, label %27, label %5
 
@@ -427,7 +427,7 @@ define dso_local void @PrintPoints(ptr nocapture noundef readonly %0) local_unna
   %22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %17, double noundef %19, double noundef %21)
   %23 = add nuw nsw i32 %7, 1
   %24 = getelementptr inbounds %struct.PointListStruct, ptr %6, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !30
+  %25 = load ptr, ptr %24, align 8, !tbaa !37
   %26 = icmp eq ptr %25, null
   br i1 %26, label %27, label %5, !llvm.loop !50
 
@@ -588,7 +588,7 @@ define dso_local void @PrintPoly4s(ptr nocapture noundef readonly %0) local_unna
 define dso_local void @PrintObject(ptr noundef %0) local_unnamed_addr #4 {
   %2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %0)
   %3 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !19
+  %4 = load ptr, ptr %3, align 8, !tbaa !37
   %5 = icmp eq ptr %4, null
   br i1 %5, label %28, label %6
 
@@ -612,7 +612,7 @@ define dso_local void @PrintObject(ptr noundef %0) local_unnamed_addr #4 {
   %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %18, double noundef %20, double noundef %22)
   %24 = add nuw nsw i32 %8, 1
   %25 = getelementptr inbounds %struct.PointListStruct, ptr %7, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !30
+  %26 = load ptr, ptr %25, align 8, !tbaa !37
   %27 = icmp eq ptr %26, null
   br i1 %27, label %28, label %6, !llvm.loop !50
 
@@ -1509,14 +1509,14 @@ define dso_local void @Draw_All(ptr noundef %0) local_unnamed_addr #8 {
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.fabs.f64(double) #12
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1531,8 +1531,8 @@ attributes #9 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #10 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #11 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nofree nounwind }
+attributes #13 = { nofree nounwind }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #15 = { nounwind allocsize(0,1) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }

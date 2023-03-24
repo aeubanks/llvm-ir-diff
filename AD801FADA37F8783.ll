@@ -249,8 +249,8 @@ define dso_local i32 @zsetlinecap(ptr nocapture noundef readonly %0) #0 {
   %14 = tail call i32 @gs_setlinecap(ptr noundef %13, i32 noundef %10) #8
   br label %15
 
-15:                                               ; preds = %1, %6, %9
-  %16 = phi i32 [ %14, %9 ], [ -20, %1 ], [ -15, %6 ]
+15:                                               ; preds = %6, %1, %9
+  %16 = phi i32 [ %14, %9 ], [ -15, %6 ], [ -20, %1 ]
   ret i32 %16
 }
 
@@ -332,8 +332,8 @@ define dso_local i32 @zsetlinejoin(ptr nocapture noundef readonly %0) #0 {
   %14 = tail call i32 @gs_setlinejoin(ptr noundef %13, i32 noundef %10) #8
   br label %15
 
-15:                                               ; preds = %1, %6, %9
-  %16 = phi i32 [ %14, %9 ], [ -20, %1 ], [ -15, %6 ]
+15:                                               ; preds = %6, %1, %9
+  %16 = phi i32 [ %14, %9 ], [ -15, %6 ], [ -20, %1 ]
   ret i32 %16
 }
 

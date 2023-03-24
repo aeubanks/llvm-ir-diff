@@ -595,7 +595,7 @@ define dso_local float @G__align11(ptr nocapture noundef readonly %0, ptr nocapt
   %392 = load i32, ptr @outgap, align 4, !tbaa !5
   %393 = icmp ne i32 %392, 0
   %394 = zext i1 %393 to i32
-  %395 = add nsw i32 %18, %394
+  %395 = add nsw i32 %394, %18
   %396 = icmp sgt i32 %395, 1
   br i1 %396, label %397, label %539
 
@@ -1677,7 +1677,7 @@ define dso_local float @G__align11_noalign(ptr nocapture noundef readonly %0, i3
   %349 = phi ptr [ %347, %341 ], [ %340, %339 ]
   %350 = icmp ne i32 %198, 0
   %351 = zext i1 %350 to i32
-  %352 = add nsw i32 %11, %351
+  %352 = add nsw i32 %351, %11
   %353 = icmp sgt i32 %352, 1
   br i1 %353, label %354, label %476
 

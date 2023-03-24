@@ -218,14 +218,14 @@ define dso_local noundef i32 @_Z19SetMethodPropertiesRK7CMethodPKyP8IUnknown(ptr
   br i1 %94, label %95, label %99
 
 95:                                               ; preds = %93
-  %96 = icmp ugt i64 %11, 2147483648
-  %97 = icmp ugt i64 %11, 3221225472
-  %98 = select i1 %96, i32 -1073741824, i32 -2147483648
+  %96 = icmp ult i64 %11, 2147483649
+  %97 = icmp ult i64 %11, 3221225473
+  %98 = select i1 %96, i32 -2147483648, i32 -1073741824
   br label %99
 
 99:                                               ; preds = %95, %13, %10, %15, %17, %19, %21, %23, %25, %27, %29, %31, %33, %35, %37, %39, %41, %43, %45, %47, %49, %51, %53, %55, %57, %59, %61, %63, %65, %67, %69, %71, %73, %75, %77, %79, %81, %83, %85, %87, %89, %91, %93, %8, %3
   %100 = phi i32 [ 1024, %3 ], [ 1024, %8 ], [ 1536, %13 ], [ 1024, %10 ], [ 2048, %15 ], [ 3072, %17 ], [ 4096, %19 ], [ 6144, %21 ], [ 8192, %23 ], [ 12288, %25 ], [ 16384, %27 ], [ 24576, %29 ], [ 32768, %31 ], [ 49152, %33 ], [ 65536, %35 ], [ 98304, %37 ], [ 131072, %39 ], [ 196608, %41 ], [ 262144, %43 ], [ 393216, %45 ], [ 524288, %47 ], [ 786432, %49 ], [ 1048576, %51 ], [ 1572864, %53 ], [ 2097152, %55 ], [ 3145728, %57 ], [ 4194304, %59 ], [ 6291456, %61 ], [ 8388608, %63 ], [ 12582912, %65 ], [ 16777216, %67 ], [ 25165824, %69 ], [ 33554432, %71 ], [ 50331648, %73 ], [ 67108864, %75 ], [ 100663296, %77 ], [ 134217728, %79 ], [ 201326592, %81 ], [ 268435456, %83 ], [ 402653184, %85 ], [ 536870912, %87 ], [ 805306368, %89 ], [ 1073741824, %91 ], [ 1610612736, %93 ], [ %98, %95 ]
-  %101 = phi i1 [ true, %3 ], [ true, %8 ], [ false, %13 ], [ false, %10 ], [ false, %15 ], [ false, %17 ], [ false, %19 ], [ false, %21 ], [ false, %23 ], [ false, %25 ], [ false, %27 ], [ false, %29 ], [ false, %31 ], [ false, %33 ], [ false, %35 ], [ false, %37 ], [ false, %39 ], [ false, %41 ], [ false, %43 ], [ false, %45 ], [ false, %47 ], [ false, %49 ], [ false, %51 ], [ false, %53 ], [ false, %55 ], [ false, %57 ], [ false, %59 ], [ false, %61 ], [ false, %63 ], [ false, %65 ], [ false, %67 ], [ false, %69 ], [ false, %71 ], [ false, %73 ], [ false, %75 ], [ false, %77 ], [ false, %79 ], [ false, %81 ], [ false, %83 ], [ false, %85 ], [ false, %87 ], [ false, %89 ], [ false, %91 ], [ false, %93 ], [ %97, %95 ]
+  %101 = phi i1 [ false, %3 ], [ false, %8 ], [ true, %13 ], [ true, %10 ], [ true, %15 ], [ true, %17 ], [ true, %19 ], [ true, %21 ], [ true, %23 ], [ true, %25 ], [ true, %27 ], [ true, %29 ], [ true, %31 ], [ true, %33 ], [ true, %35 ], [ true, %37 ], [ true, %39 ], [ true, %41 ], [ true, %43 ], [ true, %45 ], [ true, %47 ], [ true, %49 ], [ true, %51 ], [ true, %53 ], [ true, %55 ], [ true, %57 ], [ true, %59 ], [ true, %61 ], [ true, %63 ], [ true, %65 ], [ true, %67 ], [ true, %69 ], [ true, %71 ], [ true, %73 ], [ true, %75 ], [ true, %77 ], [ true, %79 ], [ true, %81 ], [ true, %83 ], [ true, %85 ], [ true, %87 ], [ true, %89 ], [ true, %91 ], [ true, %93 ], [ %97, %95 ]
   %102 = getelementptr inbounds %struct.CMethod, ptr %0, i64 0, i32 1, i32 0, i32 0, i32 2
   %103 = load i32, ptr %102, align 4, !tbaa !17
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #9
@@ -296,7 +296,7 @@ define dso_local noundef i32 @_Z19SetMethodPropertiesRK7CMethodPKyP8IUnknown(ptr
   %138 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 3
   %139 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 2
   %140 = zext i32 %103 to i64
-  br i1 %101, label %141, label %170
+  br i1 %101, label %170, label %141
 
 141:                                              ; preds = %136, %157
   %142 = phi i64 [ %158, %157 ], [ 0, %136 ]
@@ -336,7 +336,7 @@ define dso_local noundef i32 @_Z19SetMethodPropertiesRK7CMethodPKyP8IUnknown(ptr
           catch ptr null
   br label %241
 
-164:                                              ; preds = %201, %157, %124, %134
+164:                                              ; preds = %157, %201, %124, %134
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #9
   store ptr null, ptr %6, align 8, !tbaa !18
   %165 = load ptr, ptr %2, align 8, !tbaa !20
@@ -373,7 +373,7 @@ define dso_local noundef i32 @_Z19SetMethodPropertiesRK7CMethodPKyP8IUnknown(ptr
           to label %186 unwind label %199
 
 186:                                              ; preds = %176
-  %187 = load i32, ptr %174, align 8, !tbaa !29
+  %187 = load i32, ptr %174, align 8
   %188 = icmp eq i32 %187, 1
   br i1 %188, label %189, label %201
 
@@ -402,19 +402,19 @@ define dso_local noundef i32 @_Z19SetMethodPropertiesRK7CMethodPKyP8IUnknown(ptr
           catch ptr null
   br label %241
 
-201:                                              ; preds = %186, %192, %196, %189
+201:                                              ; preds = %192, %196, %189, %186
   %202 = add nuw nsw i64 %171, 1
   %203 = icmp eq i64 %202, %140
   br i1 %203, label %164, label %170, !llvm.loop !33
 
 204:                                              ; preds = %164
-  %205 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 3
-  %206 = load ptr, ptr %205, align 8, !tbaa !27
-  %207 = load ptr, ptr %6, align 8, !tbaa !18
-  %208 = load ptr, ptr %207, align 8, !tbaa !20
+  %205 = load ptr, ptr %6, align 8, !tbaa !18
+  %206 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 3
+  %207 = load ptr, ptr %206, align 8, !tbaa !27
+  %208 = load ptr, ptr %205, align 8, !tbaa !20
   %209 = getelementptr inbounds ptr, ptr %208, i64 5
   %210 = load ptr, ptr %209, align 8
-  %211 = invoke noundef i32 %210(ptr noundef nonnull align 8 dereferenceable(8) %207, ptr noundef %206, ptr noundef nonnull %125, i32 noundef %103)
+  %211 = invoke noundef i32 %210(ptr noundef nonnull align 8 dereferenceable(8) %205, ptr noundef nonnull %207, ptr noundef nonnull %125, i32 noundef %103)
           to label %212 unwind label %228
 
 212:                                              ; preds = %204

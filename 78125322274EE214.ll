@@ -378,8 +378,8 @@ define dso_local noalias noundef nonnull ptr @_ZN5empty4nextEPA40_P6living(ptr n
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV5empty, i64 0, inrange i32 0, i64 2), ptr %27, align 8, !tbaa !13
   br label %33
 
-33:                                               ; preds = %32, %31, %17, %7
-  %34 = phi ptr [ %8, %7 ], [ %18, %17 ], [ %27, %31 ], [ %27, %32 ]
+33:                                               ; preds = %31, %32, %17, %7
+  %34 = phi ptr [ %8, %7 ], [ %18, %17 ], [ %27, %32 ], [ %27, %31 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #8
   ret ptr %34
 }

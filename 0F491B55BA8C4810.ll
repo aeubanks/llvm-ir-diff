@@ -192,9 +192,9 @@ define dso_local void @Scaling_List(ptr nocapture noundef writeonly %0, i32 noun
 
 18:                                               ; preds = %9
   %19 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %3) #10
-  %20 = add nsw i32 %12, 256
-  %21 = add i32 %20, %19
-  %22 = freeze i32 %21
+  %20 = add nsw i32 %19, %12
+  %21 = freeze i32 %20
+  %22 = add i32 %21, 256
   %23 = srem i32 %22, 256
   %24 = icmp eq i8 %16, 0
   %25 = icmp eq i32 %23, 0
@@ -334,9 +334,9 @@ define dso_local i32 @InterpretSPS(ptr nocapture noundef readonly %0, ptr nocapt
 
 59:                                               ; preds = %52
   %60 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %3) #10
-  %61 = add nsw i32 %55, 256
-  %62 = add i32 %61, %60
-  %63 = freeze i32 %62
+  %61 = add nsw i32 %60, %55
+  %62 = freeze i32 %61
+  %63 = add i32 %62, 256
   %64 = srem i32 %63, 256
   %65 = icmp eq i64 %53, 0
   %66 = icmp eq i32 %64, 0
@@ -376,9 +376,9 @@ define dso_local i32 @InterpretSPS(ptr nocapture noundef readonly %0, ptr nocapt
 
 89:                                               ; preds = %82
   %90 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %3) #10
-  %91 = add nsw i32 %85, 256
-  %92 = add i32 %91, %90
-  %93 = freeze i32 %92
+  %91 = add nsw i32 %90, %85
+  %92 = freeze i32 %91
+  %93 = add i32 %92, 256
   %94 = srem i32 %93, 256
   %95 = icmp eq i64 %83, 0
   %96 = icmp eq i32 %94, 0
@@ -949,9 +949,9 @@ define dso_local i32 @InterpretPPS(ptr nocapture noundef readonly %0, ptr nocapt
 
 119:                                              ; preds = %112
   %120 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %3) #10
-  %121 = add nsw i32 %115, 256
-  %122 = add i32 %121, %120
-  %123 = freeze i32 %122
+  %121 = add nsw i32 %120, %115
+  %122 = freeze i32 %121
+  %123 = add i32 %122, 256
   %124 = srem i32 %123, 256
   %125 = icmp eq i64 %113, 0
   %126 = icmp eq i32 %124, 0
@@ -990,9 +990,9 @@ define dso_local i32 @InterpretPPS(ptr nocapture noundef readonly %0, ptr nocapt
 
 148:                                              ; preds = %141
   %149 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %3) #10
-  %150 = add nsw i32 %144, 256
-  %151 = add i32 %150, %149
-  %152 = freeze i32 %151
+  %150 = add nsw i32 %149, %144
+  %151 = freeze i32 %150
+  %152 = add i32 %151, 256
   %153 = srem i32 %152, 256
   %154 = icmp eq i64 %142, 0
   %155 = icmp eq i32 %153, 0

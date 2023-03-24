@@ -271,22 +271,22 @@ define dso_local i32 @dyn_decomp(ptr nocapture noundef readonly %0, ptr noundef 
   %194 = shl nsw i32 -1, %193
   %195 = xor i32 %194, -1
   %196 = and i32 %12, %195
-  %197 = add i32 %182, %137
-  %198 = add nuw nsw i32 %182, 1
-  %199 = shl i32 %180, %198
-  %200 = sub i32 32, %193
-  %201 = lshr i32 %199, %200
-  %202 = add i32 %197, %193
-  %203 = mul i32 %196, %182
-  %204 = icmp ugt i32 %201, 1
-  %205 = tail call i32 @llvm.usub.sat.i32(i32 %201, i32 1)
-  %206 = add i32 %203, %205
-  %207 = zext i1 %204 to i32
-  %208 = add i32 %202, %207
+  %197 = add nuw nsw i32 %182, 1
+  %198 = shl i32 %180, %197
+  %199 = sub i32 32, %193
+  %200 = lshr i32 %198, %199
+  %201 = mul i32 %196, %182
+  %202 = icmp ugt i32 %200, 1
+  %203 = tail call i32 @llvm.usub.sat.i32(i32 %200, i32 1)
+  %204 = add i32 %201, %203
+  %205 = zext i1 %202 to i32
+  %206 = add i32 %182, %137
+  %207 = add i32 %206, %193
+  %208 = add i32 %207, %205
   br label %209
 
 209:                                              ; preds = %184, %188
-  %210 = phi i32 [ %186, %184 ], [ %206, %188 ]
+  %210 = phi i32 [ %186, %184 ], [ %204, %188 ]
   %211 = phi i32 [ %187, %184 ], [ %208, %188 ]
   %212 = add i32 %210, %146
   %213 = icmp ugt i32 %212, %3

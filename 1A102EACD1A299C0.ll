@@ -101,7 +101,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
 15:                                               ; preds = %15, %14
   br label %15
 
-16:                                               ; preds = %8, %12
+16:                                               ; preds = %12, %8
   %17 = load i32, ptr %1, align 4, !tbaa !9
   store i32 0, ptr @a, align 4, !tbaa !9
   store i32 -1, ptr @i, align 4, !tbaa !9

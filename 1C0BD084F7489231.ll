@@ -687,8 +687,8 @@ define dso_local void @dgefa(ptr nocapture noundef readonly %0, ptr nocapture no
   store double %37, ptr %13, align 8, !tbaa !9
   br label %42
 
-42:                                               ; preds = %39, %41
-  %43 = phi double [ %14, %39 ], [ %37, %41 ]
+42:                                               ; preds = %41, %39
+  %43 = phi double [ %37, %41 ], [ %14, %39 ]
   %44 = fdiv double -1.000000e+00, %43
   %45 = sub nuw nsw i64 1999, %4
   %46 = icmp ult i64 %6, 4
@@ -1271,7 +1271,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %122
 
 122:                                              ; preds = %121, %119
-  %123 = phi double [ %94, %119 ], [ %117, %121 ]
+  %123 = phi double [ %117, %121 ], [ %94, %119 ]
   %124 = fdiv double -1.000000e+00, %123
   %125 = sub nuw nsw i64 1999, %84
   %126 = icmp ult i64 %86, 4

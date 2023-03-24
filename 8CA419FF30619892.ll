@@ -126,7 +126,7 @@ define hidden void @_ZN9benchmark12FormatStringB5cxx11EPKcP13__va_list_tag(ptr n
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %30, ptr nonnull align 16 %7, i64 %24, i1 false)
   br label %34
 
-34:                                               ; preds = %29, %31, %33
+34:                                               ; preds = %33, %31, %29
   %35 = load i64, ptr %5, align 8, !tbaa !17
   %36 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %35, ptr %36, align 8, !tbaa !13
@@ -155,7 +155,7 @@ define hidden void @_ZN9benchmark12FormatStringB5cxx11EPKcP13__va_list_tag(ptr n
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #15
   br label %50
 
-50:                                               ; preds = %49, %46, %39
+50:                                               ; preds = %39, %46, %49
   %51 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
   store ptr %51, ptr %0, align 8, !tbaa !11
   %52 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %42) #15
@@ -190,7 +190,7 @@ define hidden void @_ZN9benchmark12FormatStringB5cxx11EPKcP13__va_list_tag(ptr n
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %59, ptr nonnull align 1 %42, i64 %52, i1 false)
   br label %63
 
-63:                                               ; preds = %58, %60, %62
+63:                                               ; preds = %62, %60, %58
   %64 = load i64, ptr %4, align 8, !tbaa !17
   %65 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %64, ptr %65, align 8, !tbaa !13
@@ -419,13 +419,13 @@ define hidden noundef zeroext i1 @_ZN9benchmark15IsColorTerminalEv() local_unnam
   %35 = icmp eq i32 %34, 0
   br label %36
 
-36:                                               ; preds = %33, %3, %6, %9, %12, %15, %18, %21, %24, %27, %30, %0
-  %37 = phi i1 [ false, %0 ], [ true, %3 ], [ true, %6 ], [ true, %9 ], [ true, %12 ], [ true, %15 ], [ true, %18 ], [ true, %21 ], [ true, %24 ], [ true, %27 ], [ true, %30 ], [ %35, %33 ]
+36:                                               ; preds = %33, %6, %9, %12, %15, %18, %21, %24, %27, %30, %0, %3
+  %37 = phi i1 [ true, %3 ], [ false, %0 ], [ true, %6 ], [ true, %9 ], [ true, %12 ], [ true, %15 ], [ true, %18 ], [ true, %21 ], [ true, %24 ], [ true, %27 ], [ true, %30 ], [ %35, %33 ]
   %38 = load ptr, ptr @stdout, align 8, !tbaa !19
   %39 = tail call i32 @fileno(ptr noundef %38) #15
   %40 = tail call i32 @isatty(i32 noundef %39) #15
   %41 = icmp ne i32 %40, 0
-  %42 = and i1 %41, %37
+  %42 = and i1 %37, %41
   ret i1 %42
 }
 

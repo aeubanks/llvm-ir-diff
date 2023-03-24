@@ -32,8 +32,8 @@ define dso_local ptr @AllocateMemory(i64 noundef %0, ptr nocapture noundef write
 
 14:                                               ; preds = %2
   %15 = load i32, ptr @mem_array_ents, align 4, !tbaa !5
-  %16 = icmp slt i32 %15, 20
-  br i1 %16, label %17, label %22
+  %16 = icmp sgt i32 %15, 19
+  br i1 %16, label %22, label %17
 
 17:                                               ; preds = %14
   %18 = sext i32 %15 to i64
@@ -66,15 +66,15 @@ define dso_local ptr @AllocateMemory(i64 noundef %0, ptr nocapture noundef write
   %33 = urem i64 %26, %32
   %34 = icmp eq i64 %33, 0
   %35 = select i1 %34, i64 %13, i64 0
-  %36 = add i64 %26, %35
+  %36 = add i64 %35, %26
   br label %37
 
 37:                                               ; preds = %30, %23
   %38 = phi i64 [ %24, %23 ], [ %36, %30 ]
   %39 = inttoptr i64 %38 to ptr
   %40 = load i32, ptr @mem_array_ents, align 4, !tbaa !5
-  %41 = icmp slt i32 %40, 20
-  br i1 %41, label %42, label %47
+  %41 = icmp sgt i32 %40, 19
+  br i1 %41, label %47, label %42
 
 42:                                               ; preds = %37
   %43 = sext i32 %40 to i64
@@ -91,7 +91,7 @@ define dso_local ptr @AllocateMemory(i64 noundef %0, ptr nocapture noundef write
   br label %48
 
 48:                                               ; preds = %42, %17, %47, %22
-  %49 = phi ptr [ %7, %22 ], [ %7, %17 ], [ %39, %47 ], [ %39, %42 ]
+  %49 = phi ptr [ %7, %22 ], [ %39, %47 ], [ %7, %17 ], [ %39, %42 ]
   ret ptr %49
 }
 

@@ -1500,8 +1500,8 @@ define internal fastcc void @ftautology(ptr noundef %0, ptr noundef %1) unnamed_
   %227 = icmp eq ptr %216, null
   br i1 %227, label %230, label %228
 
-228:                                              ; preds = %226, %36, %74, %194
-  %229 = phi ptr [ %0, %194 ], [ %0, %74 ], [ %0, %36 ], [ %216, %226 ]
+228:                                              ; preds = %226, %194, %74, %36
+  %229 = phi ptr [ %0, %36 ], [ %0, %74 ], [ %0, %194 ], [ %216, %226 ]
   tail call void @free(ptr noundef nonnull %229) #6
   br label %230
 

@@ -69,10 +69,10 @@ define linkonce_odr dso_local void @_ZN11btRigidBodyD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %9, %1
+10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i8 1, ptr %5, align 8, !tbaa !15
   store ptr null, ptr %2, align 8, !tbaa !8
-  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17

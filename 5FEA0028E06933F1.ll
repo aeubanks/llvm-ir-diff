@@ -104,30 +104,30 @@ define dso_local i32 @yylex() local_unnamed_addr #2 {
   %14 = load i32, ptr @yyline, align 4, !tbaa !9
   br label %15
 
-15:                                               ; preds = %22, %13
-  %16 = phi i1 [ false, %13 ], [ %23, %22 ]
+15:                                               ; preds = %19, %13
+  %16 = phi i1 [ false, %13 ], [ %20, %19 ]
   %17 = load ptr, ptr @stdin, align 8, !tbaa !5
   %18 = tail call i32 @getc(ptr noundef %17)
   switch i32 %18, label %24 [
-    i32 10, label %19
+    i32 10, label %21
     i32 -1, label %27
-    i32 42, label %22
+    i32 42, label %19
   ]
 
-19:                                               ; preds = %15
-  %20 = load i32, ptr @yyline, align 4, !tbaa !9
-  %21 = add nsw i32 %20, 1
-  store i32 %21, ptr @yyline, align 4, !tbaa !9
-  br label %22
-
-22:                                               ; preds = %19, %15, %24
-  %23 = phi i1 [ false, %24 ], [ true, %15 ], [ false, %19 ]
+19:                                               ; preds = %15, %21, %24
+  %20 = phi i1 [ false, %24 ], [ false, %21 ], [ true, %15 ]
   br label %15
+
+21:                                               ; preds = %15
+  %22 = load i32, ptr @yyline, align 4, !tbaa !9
+  %23 = add nsw i32 %22, 1
+  store i32 %23, ptr @yyline, align 4, !tbaa !9
+  br label %19
 
 24:                                               ; preds = %15
   %25 = icmp eq i32 %18, 47
   %26 = and i1 %16, %25
-  br i1 %26, label %5, label %22
+  br i1 %26, label %5, label %19
 
 27:                                               ; preds = %15
   tail call void @yyerror1(ptr noundef nonnull @.str.10)

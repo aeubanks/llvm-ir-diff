@@ -420,8 +420,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %236 = load double, ptr %235, align 8, !tbaa !5
   %237 = fsub double %234, %236
   %238 = call double @llvm.fabs.f64(double %237)
-  %239 = fcmp ogt double %238, 1.000000e-05
-  br i1 %239, label %240, label %248
+  %239 = fcmp ule double %238, 1.000000e-05
+  br i1 %239, label %248, label %240
 
 240:                                              ; preds = %248, %231
   %241 = phi i64 [ %232, %231 ], [ %249, %248 ]
@@ -441,8 +441,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %253 = load double, ptr %252, align 8, !tbaa !5
   %254 = fsub double %251, %253
   %255 = call double @llvm.fabs.f64(double %254)
-  %256 = fcmp ogt double %255, 1.000000e-05
-  br i1 %256, label %240, label %257
+  %256 = fcmp ule double %255, 1.000000e-05
+  br i1 %256, label %257, label %240
 
 257:                                              ; preds = %248
   %258 = add nuw nsw i64 %232, 2

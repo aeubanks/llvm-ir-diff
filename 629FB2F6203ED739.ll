@@ -1113,8 +1113,8 @@ define dso_local void @finalpin() local_unnamed_addr #0 {
 
 760:                                              ; preds = %752
   %761 = load i32, ptr @nPinLocs, align 4, !tbaa !5
-  %762 = sub nsw i32 %761, %709
-  %763 = add nsw i32 %762, 1
+  %762 = sub i32 %761, %709
+  %763 = add i32 %762, 1
   %764 = tail call i32 @llvm.smin.i32(i32 %758, i32 %763)
   br label %765
 
@@ -2019,10 +2019,10 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
+declare i32 @llvm.abs.i32(i32, i1 immarg) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #9
+declare i32 @llvm.smin.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10

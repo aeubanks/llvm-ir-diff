@@ -154,31 +154,31 @@ define dso_local void @timestatus(i32 noundef %0, i64 noundef %1, i64 noundef %2
   %27 = sitofp i64 %2 to float
   %28 = fmul float %27, %15
   %29 = sitofp i64 %1 to float
-  %30 = fdiv float %28, %29
-  %31 = fsub float %30, %15
-  %32 = insertelement <2 x float> poison, float %31, i64 0
-  %33 = insertelement <2 x float> %32, float %30, i64 1
-  %34 = fpext <2 x float> %33 to <2 x double>
-  %35 = fadd <2 x double> %34, <double 5.000000e-01, double 5.000000e-01>
-  %36 = fmul float %24, %27
-  %37 = fdiv float %36, %29
-  %38 = sitofp i32 %0 to float
-  %39 = fmul float %37, %38
-  %40 = fcmp ogt float %39, 0.000000e+00
-  %41 = sext i32 %3 to i64
-  %42 = mul nsw i64 %41, %2
-  %43 = sitofp i64 %42 to float
-  %44 = fdiv float %43, %39
-  %45 = select i1 %40, float %44, float 0.000000e+00
-  %46 = fpext float %37 to double
-  %47 = fadd double %46, 5.000000e-01
-  %48 = fpext float %45 to double
+  %30 = fmul float %24, %27
+  %31 = fdiv float %30, %29
+  %32 = sitofp i32 %0 to float
+  %33 = fmul float %31, %32
+  %34 = fcmp ogt float %33, 0.000000e+00
+  %35 = sext i32 %3 to i64
+  %36 = mul nsw i64 %35, %2
+  %37 = sitofp i64 %36 to float
+  %38 = fdiv float %37, %33
+  %39 = select i1 %34, float %38, float 0.000000e+00
+  %40 = fpext float %31 to double
+  %41 = fadd double %40, 5.000000e-01
+  %42 = fpext float %39 to double
+  %43 = fdiv float %28, %29
+  %44 = fsub float %43, %15
+  %45 = insertelement <2 x float> poison, float %44, i64 0
+  %46 = insertelement <2 x float> %45, float %43, i64 1
+  %47 = fpext <2 x float> %46 to <2 x double>
+  %48 = fadd <2 x double> %47, <double 5.000000e-01, double 5.000000e-01>
   br label %49
 
 49:                                               ; preds = %20, %26
-  %50 = phi double [ %48, %26 ], [ 0.000000e+00, %20 ]
-  %51 = phi double [ %47, %26 ], [ 5.000000e-01, %20 ]
-  %52 = phi <2 x double> [ %35, %26 ], [ <double 5.000000e-01, double 5.000000e-01>, %20 ]
+  %50 = phi double [ %42, %26 ], [ 0.000000e+00, %20 ]
+  %51 = phi double [ %41, %26 ], [ 5.000000e-01, %20 ]
+  %52 = phi <2 x double> [ %48, %26 ], [ <double 5.000000e-01, double 5.000000e-01>, %20 ]
   %53 = icmp sgt i64 %2, 1
   br i1 %53, label %56, label %54
 

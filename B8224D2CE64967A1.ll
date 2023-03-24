@@ -47,39 +47,7 @@ define dso_local i32 @test() local_unnamed_addr #0 {
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = load i32, ptr @loop_1, align 4, !tbaa !5
-  %2 = icmp sgt i32 %1, 0
-  br i1 %2, label %3, label %20
-
-3:                                                ; preds = %0
-  %4 = load i32, ptr @loop_2, align 4
-  %5 = freeze i32 %4
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %18
-
-7:                                                ; preds = %3
-  %8 = load i32, ptr @flag, align 4, !tbaa !5
-  br label %9
-
-9:                                                ; preds = %7, %9
-  %10 = phi i32 [ %15, %9 ], [ 0, %7 ]
-  %11 = phi i32 [ %16, %9 ], [ %8, %7 ]
-  %12 = and i32 %11, 1
-  %13 = icmp eq i32 %12, 0
-  %14 = select i1 %13, i32 0, i32 %5
-  %15 = add i32 %14, %10
-  %16 = add nsw i32 %11, 1
-  %17 = icmp sgt i32 %1, %15
-  br i1 %17, label %9, label %19, !llvm.loop !9
-
-18:                                               ; preds = %3, %18
-  br label %18
-
-19:                                               ; preds = %9
-  store i32 %16, ptr @flag, align 4, !tbaa !5
-  br label %20
-
-20:                                               ; preds = %19, %0
+  %1 = tail call i32 @test()
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

@@ -146,7 +146,7 @@ define dso_local void @bigTableSetup() local_unnamed_addr #3 {
   %30 = select i1 %27, i32 %28, i32 %29
   %31 = lshr i32 %16, 19
   %32 = and i32 %31, 1
-  %33 = xor i32 %4, %32
+  %33 = xor i32 %32, %4
   br label %34
 
 34:                                               ; preds = %24, %22

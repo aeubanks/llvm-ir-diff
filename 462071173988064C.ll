@@ -61,7 +61,7 @@ define dso_local i32 @badfunc(i32 %0, i32 %1, i32 %2, i32 %3, ptr nocapture noun
   store i16 0, ptr %36, align 2, !tbaa !9
   br label %37
 
-37:                                               ; preds = %11, %33, %35, %6
+37:                                               ; preds = %35, %33, %11, %6
   %38 = phi i32 [ 0, %6 ], [ 0, %11 ], [ 1, %33 ], [ 1, %35 ]
   call void @llvm.lifetime.end.p0(i64 5348, ptr nonnull %7) #4
   ret i32 %38

@@ -906,8 +906,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %605 = load double, ptr %604, align 8, !tbaa !5
   %606 = fsub double %603, %605
   %607 = call double @llvm.fabs.f64(double %606)
-  %608 = fcmp ogt double %607, 1.000000e-05
-  br i1 %608, label %609, label %618
+  %608 = fcmp ule double %607, 1.000000e-05
+  br i1 %608, label %618, label %609
 
 609:                                              ; preds = %621, %600
   %610 = phi i64 [ %601, %600 ], [ %619, %621 ]
@@ -932,8 +932,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %625 = load double, ptr %624, align 8, !tbaa !5
   %626 = fsub double %623, %625
   %627 = call double @llvm.fabs.f64(double %626)
-  %628 = fcmp ogt double %627, 1.000000e-05
-  br i1 %628, label %609, label %629
+  %628 = fcmp ule double %627, 1.000000e-05
+  br i1 %628, label %629, label %609
 
 629:                                              ; preds = %621
   %630 = add nuw nsw i64 %601, 2
@@ -965,8 +965,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %646 = load double, ptr %645, align 8, !tbaa !5
   %647 = fsub double %644, %646
   %648 = call double @llvm.fabs.f64(double %647)
-  %649 = fcmp ogt double %648, 1.000000e-05
-  br i1 %649, label %650, label %659
+  %649 = fcmp ule double %648, 1.000000e-05
+  br i1 %649, label %659, label %650
 
 650:                                              ; preds = %662, %641
   %651 = phi i64 [ %642, %641 ], [ %660, %662 ]
@@ -991,8 +991,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %666 = load double, ptr %665, align 8, !tbaa !5
   %667 = fsub double %664, %666
   %668 = call double @llvm.fabs.f64(double %667)
-  %669 = fcmp ogt double %668, 1.000000e-05
-  br i1 %669, label %650, label %670
+  %669 = fcmp ule double %668, 1.000000e-05
+  br i1 %669, label %670, label %650
 
 670:                                              ; preds = %662
   %671 = add nuw nsw i64 %642, 2
@@ -1024,8 +1024,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %687 = load double, ptr %686, align 8, !tbaa !5
   %688 = fsub double %685, %687
   %689 = call double @llvm.fabs.f64(double %688)
-  %690 = fcmp ogt double %689, 1.000000e-05
-  br i1 %690, label %691, label %700
+  %690 = fcmp ule double %689, 1.000000e-05
+  br i1 %690, label %700, label %691
 
 691:                                              ; preds = %703, %682
   %692 = phi i64 [ %683, %682 ], [ %701, %703 ]
@@ -1050,8 +1050,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %707 = load double, ptr %706, align 8, !tbaa !5
   %708 = fsub double %705, %707
   %709 = call double @llvm.fabs.f64(double %708)
-  %710 = fcmp ogt double %709, 1.000000e-05
-  br i1 %710, label %691, label %711
+  %710 = fcmp ule double %709, 1.000000e-05
+  br i1 %710, label %711, label %691
 
 711:                                              ; preds = %703
   %712 = add nuw nsw i64 %683, 2
@@ -1083,8 +1083,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %728 = load double, ptr %727, align 8, !tbaa !5
   %729 = fsub double %726, %728
   %730 = call double @llvm.fabs.f64(double %729)
-  %731 = fcmp ogt double %730, 1.000000e-05
-  br i1 %731, label %732, label %741
+  %731 = fcmp ule double %730, 1.000000e-05
+  br i1 %731, label %741, label %732
 
 732:                                              ; preds = %744, %723
   %733 = phi i64 [ %724, %723 ], [ %742, %744 ]
@@ -1109,8 +1109,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %748 = load double, ptr %747, align 8, !tbaa !5
   %749 = fsub double %746, %748
   %750 = call double @llvm.fabs.f64(double %749)
-  %751 = fcmp ogt double %750, 1.000000e-05
-  br i1 %751, label %732, label %752
+  %751 = fcmp ule double %750, 1.000000e-05
+  br i1 %751, label %752, label %732
 
 752:                                              ; preds = %744
   %753 = add nuw nsw i64 %724, 2

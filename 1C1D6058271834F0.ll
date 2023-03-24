@@ -160,10 +160,10 @@ define dso_local ptr @sf_contain(ptr noundef %0) local_unnamed_addr #0 {
 
 105:                                              ; preds = %101, %31, %57
   %106 = phi ptr [ %7, %57 ], [ %7, %31 ], [ %102, %101 ]
+  %107 = ptrtoint ptr %7 to i64
   store ptr null, ptr %106, align 8, !tbaa !14
-  %107 = ptrtoint ptr %106 to i64
-  %108 = ptrtoint ptr %7 to i64
-  %109 = sub i64 %107, %108
+  %108 = ptrtoint ptr %106 to i64
+  %109 = sub i64 %108, %107
   %110 = lshr exact i64 %109, 3
   %111 = trunc i64 %110 to i32
   %112 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
@@ -450,10 +450,10 @@ define dso_local ptr @sf_rev_contain(ptr noundef %0) local_unnamed_addr #0 {
 
 106:                                              ; preds = %102, %31, %57
   %107 = phi ptr [ %7, %57 ], [ %7, %31 ], [ %103, %102 ]
+  %108 = ptrtoint ptr %7 to i64
   store ptr null, ptr %107, align 8, !tbaa !14
-  %108 = ptrtoint ptr %107 to i64
-  %109 = ptrtoint ptr %7 to i64
-  %110 = sub i64 %108, %109
+  %109 = ptrtoint ptr %107 to i64
+  %110 = sub i64 %109, %108
   %111 = lshr exact i64 %110, 3
   %112 = trunc i64 %111 to i32
   %113 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
@@ -737,10 +737,10 @@ define dso_local ptr @sf_ind_contain(ptr noundef %0, ptr nocapture noundef %1) l
 
 106:                                              ; preds = %102, %32, %58
   %107 = phi ptr [ %8, %58 ], [ %8, %32 ], [ %103, %102 ]
+  %108 = ptrtoint ptr %8 to i64
   store ptr null, ptr %107, align 8, !tbaa !14
-  %108 = ptrtoint ptr %107 to i64
-  %109 = ptrtoint ptr %8 to i64
-  %110 = sub i64 %108, %109
+  %109 = ptrtoint ptr %107 to i64
+  %110 = sub i64 %109, %108
   %111 = lshr exact i64 %110, 3
   %112 = trunc i64 %111 to i32
   %113 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
