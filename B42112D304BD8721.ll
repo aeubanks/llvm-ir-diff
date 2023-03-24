@@ -247,7 +247,7 @@ define internal fastcc void @Read_Frame(ptr noundef %0, ptr nocapture noundef re
   %76 = icmp slt i32 %74, %75
   br i1 %76, label %65, label %77, !llvm.loop !14
 
-77:                                               ; preds = %65, %36, %51
+77:                                               ; preds = %65, %51, %36
   %78 = tail call i32 @fclose(ptr noundef nonnull %13)
   br label %126
 

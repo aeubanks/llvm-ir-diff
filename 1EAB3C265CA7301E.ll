@@ -105,16 +105,16 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK23btConvexPointCloudShape37lo
   %46 = getelementptr inbounds [4 x float], ptr %43, i64 0, i64 2
   %47 = load float, ptr %46, align 4, !tbaa !24
   %48 = fmul float %47, %31
-  %49 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %48, i64 0
-  %50 = extractelement <2 x float> %45, i64 1
-  %51 = fmul float %20, %50
-  %52 = extractelement <2 x float> %45, i64 0
-  %53 = tail call float @llvm.fmuladd.f32(float %19, float %52, float %51)
-  %54 = tail call float @llvm.fmuladd.f32(float %21, float %48, float %53)
-  %55 = fcmp ogt float %54, %40
-  %56 = select i1 %55, <2 x float> %45, <2 x float> %42
-  %57 = select i1 %55, <2 x float> %49, <2 x float> %41
-  %58 = select i1 %55, float %54, float %40
+  %49 = extractelement <2 x float> %45, i64 1
+  %50 = fmul float %20, %49
+  %51 = extractelement <2 x float> %45, i64 0
+  %52 = tail call float @llvm.fmuladd.f32(float %19, float %51, float %50)
+  %53 = tail call float @llvm.fmuladd.f32(float %21, float %48, float %52)
+  %54 = fcmp ogt float %53, %40
+  %55 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %48, i64 0
+  %56 = select i1 %54, <2 x float> %45, <2 x float> %42
+  %57 = select i1 %54, <2 x float> %55, <2 x float> %41
+  %58 = select i1 %54, float %53, float %40
   %59 = add nuw nsw i64 %39, 1
   %60 = icmp eq i64 %59, %32
   br i1 %60, label %33, label %38

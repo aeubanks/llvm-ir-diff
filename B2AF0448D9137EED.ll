@@ -64,33 +64,33 @@ define dso_local void @Gsm_Decoder(ptr noundef %0, ptr noundef %1, ptr nocapture
   br label %48
 
 48:                                               ; preds = %48, %8
-  %49 = phi ptr [ %7, %8 ], [ %69, %48 ]
-  %50 = phi i16 [ %47, %8 ], [ %59, %48 ]
-  %51 = phi i32 [ 160, %8 ], [ %52, %48 ]
-  %52 = add nsw i32 %51, -1
-  %53 = sext i16 %50 to i64
-  %54 = load i16, ptr %49, align 2, !tbaa !5
-  %55 = mul nsw i64 %53, 242064356802560
-  %56 = add nsw i64 %55, 140737488355328
-  %57 = lshr i64 %56, 48
-  %58 = trunc i64 %57 to i16
-  %59 = call i16 @llvm.sadd.sat.i16(i16 %58, i16 %54)
-  %60 = sext i16 %59 to i64
-  %61 = shl nsw i64 %60, 1
-  %62 = add nsw i64 %61, -32768
-  %63 = icmp ult i64 %62, -65536
-  %64 = icmp sgt i16 %59, 0
-  %65 = select i1 %64, i64 32760, i64 32768
-  %66 = select i1 %63, i64 %65, i64 %61
-  %67 = trunc i64 %66 to i16
-  %68 = and i16 %67, -8
-  store i16 %68, ptr %49, align 2, !tbaa !5
-  %69 = getelementptr inbounds i16, ptr %49, i64 1
-  %70 = icmp eq i32 %52, 0
+  %49 = phi i32 [ 159, %8 ], [ %69, %48 ]
+  %50 = phi ptr [ %7, %8 ], [ %68, %48 ]
+  %51 = phi i16 [ %47, %8 ], [ %58, %48 ]
+  %52 = sext i16 %51 to i64
+  %53 = load i16, ptr %50, align 2, !tbaa !5
+  %54 = mul nsw i64 %52, 242064356802560
+  %55 = add nsw i64 %54, 140737488355328
+  %56 = lshr i64 %55, 48
+  %57 = trunc i64 %56 to i16
+  %58 = call i16 @llvm.sadd.sat.i16(i16 %57, i16 %53)
+  %59 = sext i16 %58 to i64
+  %60 = shl nsw i64 %59, 1
+  %61 = add nsw i64 %60, -32768
+  %62 = icmp ult i64 %61, -65536
+  %63 = icmp sgt i16 %58, 0
+  %64 = select i1 %63, i64 32760, i64 32768
+  %65 = select i1 %62, i64 %64, i64 %60
+  %66 = trunc i64 %65 to i16
+  %67 = and i16 %66, -8
+  store i16 %67, ptr %50, align 2, !tbaa !5
+  %68 = getelementptr inbounds i16, ptr %50, i64 1
+  %69 = add nsw i32 %49, -1
+  %70 = icmp eq i32 %49, 0
   br i1 %70, label %71, label %48, !llvm.loop !13
 
 71:                                               ; preds = %48
-  store i16 %59, ptr %46, align 2, !tbaa !9
+  store i16 %58, ptr %46, align 2, !tbaa !9
   call void @llvm.lifetime.end.p0(i64 320, ptr nonnull %10) #5
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %9) #5
   ret void

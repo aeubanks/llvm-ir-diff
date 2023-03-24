@@ -235,7 +235,7 @@ define dso_local i32 @encfile(ptr nocapture noundef %0, ptr nocapture noundef %1
   store i8 %83, ptr %5, align 16, !tbaa !9
   %84 = tail call i32 @feof(ptr noundef %0) #8
   %85 = icmp eq i32 %84, 0
-  br i1 %85, label %86, label %120
+  br i1 %85, label %86, label %113
 
 86:                                               ; preds = %77
   %87 = getelementptr inbounds i8, ptr %5, i64 1
@@ -278,9 +278,9 @@ define dso_local i32 @encfile(ptr nocapture noundef %0, ptr nocapture noundef %1
   %112 = icmp eq i64 %111, 16
   br i1 %112, label %100, label %131, !llvm.loop !12
 
-113:                                              ; preds = %100, %103, %86, %97
-  %114 = phi i64 [ 1, %86 ], [ 0, %97 ], [ 0, %103 ], [ 0, %100 ]
-  %115 = phi i64 [ %88, %86 ], [ 16, %97 ], [ 16, %100 ], [ %104, %103 ]
+113:                                              ; preds = %100, %103, %86, %97, %77
+  %114 = phi i64 [ 1, %77 ], [ 1, %86 ], [ 0, %97 ], [ 0, %103 ], [ 0, %100 ]
+  %115 = phi i64 [ 0, %77 ], [ %88, %86 ], [ 16, %97 ], [ 16, %100 ], [ %104, %103 ]
   %116 = add nuw nsw i64 %115, %114
   %117 = icmp eq i64 %116, 0
   br i1 %117, label %134, label %118
@@ -289,10 +289,10 @@ define dso_local i32 @encfile(ptr nocapture noundef %0, ptr nocapture noundef %1
   %119 = icmp ult i64 %116, 16
   br i1 %119, label %120, label %124
 
-120:                                              ; preds = %77, %118
-  %121 = phi i64 [ %116, %118 ], [ 1, %77 ]
+120:                                              ; preds = %118
+  %121 = add nuw nsw i64 %114, %115
   %122 = getelementptr i8, ptr %5, i64 %121
-  %123 = sub nuw nsw i64 16, %121
+  %123 = sub nuw nsw i64 16, %116
   call void @llvm.memset.p0.i64(ptr align 1 %122, i8 0, i64 %123, i1 false), !tbaa !9
   br label %124
 
@@ -627,11 +627,11 @@ declare signext i16 @set_key(ptr noundef, i32 noundef, i32 noundef, ptr noundef)
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #3
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #7
 
 attributes #0 = { nofree norecurse nosync nounwind memory(readwrite, argmem: write, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -639,8 +639,8 @@ attributes #2 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-mat
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nofree nounwind }
-attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { nofree nounwind }
 attributes #8 = { nounwind }
 attributes #9 = { nounwind willreturn memory(none) }
 

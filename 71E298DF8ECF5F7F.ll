@@ -260,13 +260,13 @@ define dso_local void @KDTree_CreateTree(ptr noundef %0) local_unnamed_addr #0 {
   %65 = add nsw i64 %58, -3
   %66 = getelementptr inbounds i32, ptr %22, i64 %65
   %67 = load i32, ptr %66, align 4, !tbaa !23
-  %68 = icmp eq i32 %61, %64
-  br i1 %68, label %92, label %69
+  %68 = sub nsw i32 %61, %64
+  %69 = icmp eq i32 %68, 0
+  br i1 %69, label %92, label %70
 
-69:                                               ; preds = %57
-  %70 = getelementptr inbounds i32, ptr %22, i64 %59
-  %71 = getelementptr inbounds i32, ptr %22, i64 %65
-  %72 = trunc i64 %58 to i32
+70:                                               ; preds = %57
+  %71 = getelementptr inbounds i32, ptr %22, i64 %59
+  %72 = getelementptr inbounds i32, ptr %22, i64 %65
   %73 = sext i32 %67 to i64
   %74 = load ptr, ptr %15, align 8, !tbaa !19
   %75 = getelementptr inbounds %struct.TBounds, ptr %74, i64 %73
@@ -279,18 +279,18 @@ define dso_local void @KDTree_CreateTree(ptr noundef %0) local_unnamed_addr #0 {
   %82 = tail call double @Bounds_WidthAxis(ptr noundef %81, i32 noundef 1) #9
   %83 = fcmp ogt double %82, %79
   %84 = select i1 %83, i32 1, i32 %78
-  %85 = sub nsw i32 %61, %64
+  %85 = trunc i64 %58 to i32
   %86 = add nsw i32 %64, %61
   %87 = sdiv i32 %86, 2
   %88 = sub nsw i32 %87, %64
   %89 = sext i32 %64 to i64
   %90 = getelementptr inbounds i32, ptr %25, i64 %89
-  %91 = icmp sgt i32 %85, 1
+  %91 = icmp sgt i32 %68, 1
   br i1 %91, label %107, label %216
 
 92:                                               ; preds = %57
   %93 = load ptr, ptr %52, align 8, !tbaa !16
-  %94 = sext i32 %61 to i64
+  %94 = sext i32 %64 to i64
   %95 = getelementptr inbounds i32, ptr %25, i64 %94
   %96 = load i32, ptr %95, align 4, !tbaa !23
   %97 = sext i32 %96 to i64
@@ -310,9 +310,9 @@ define dso_local void @KDTree_CreateTree(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %22) #9
   br label %293
 
-107:                                              ; preds = %69, %203
-  %108 = phi i32 [ %211, %203 ], [ 0, %69 ]
-  %109 = phi i32 [ %209, %203 ], [ %85, %69 ]
+107:                                              ; preds = %70, %203
+  %108 = phi i32 [ %211, %203 ], [ 0, %70 ]
+  %109 = phi i32 [ %209, %203 ], [ %68, %70 ]
   %110 = add nsw i32 %109, %108
   %111 = sdiv i32 %110, 2
   %112 = sext i32 %111 to i64
@@ -461,10 +461,10 @@ define dso_local void @KDTree_CreateTree(ptr noundef %0) local_unnamed_addr #0 {
   %215 = sext i32 %211 to i64
   br label %216
 
-216:                                              ; preds = %214, %69
-  %217 = phi i32 [ %85, %69 ], [ %209, %214 ]
-  %218 = phi i64 [ 0, %69 ], [ %215, %214 ]
-  %219 = phi i32 [ %85, %69 ], [ %212, %214 ]
+216:                                              ; preds = %214, %70
+  %217 = phi i32 [ %68, %70 ], [ %209, %214 ]
+  %218 = phi i64 [ 0, %70 ], [ %215, %214 ]
+  %219 = phi i32 [ %68, %70 ], [ %212, %214 ]
   %220 = icmp eq i32 %219, 1
   br i1 %220, label %221, label %237
 
@@ -495,8 +495,8 @@ define dso_local void @KDTree_CreateTree(ptr noundef %0) local_unnamed_addr #0 {
   %239 = getelementptr inbounds i32, ptr %238, i64 %73
   %240 = trunc i64 %54 to i32
   store i32 %240, ptr %239, align 4, !tbaa !23
-  store i32 %240, ptr %71, align 4, !tbaa !23
-  store i32 %87, ptr %70, align 4, !tbaa !23
+  store i32 %240, ptr %72, align 4, !tbaa !23
+  store i32 %87, ptr %71, align 4, !tbaa !23
   %241 = load ptr, ptr %15, align 8, !tbaa !19
   %242 = getelementptr inbounds %struct.TBounds, ptr %241, i64 %54
   tail call void @Bounds_Infinite(ptr noundef nonnull %242) #9
@@ -531,7 +531,7 @@ define dso_local void @KDTree_CreateTree(ptr noundef %0) local_unnamed_addr #0 {
   %265 = ashr exact i64 %264, 32
   %266 = getelementptr inbounds i32, ptr %22, i64 %265
   store i32 %257, ptr %266, align 4, !tbaa !23
-  %267 = add nsw i32 %72, 3
+  %267 = add nsw i32 %85, 3
   %268 = shl i64 %58, 32
   %269 = add i64 %268, 8589934592
   %270 = ashr exact i64 %269, 32
@@ -1093,7 +1093,7 @@ define dso_local void @KDTree_QueryCircleIntersectWeighted_Double(ptr noundef %0
   %134 = getelementptr inbounds double, ptr %3, i64 %133
   store double %129, ptr %134, align 8, !tbaa !40
   %135 = or i1 %91, %76
-  %136 = or i1 %95, %135
+  %136 = or i1 %135, %95
   %137 = or i1 %84, %136
   br i1 %137, label %138, label %143
 
@@ -1296,7 +1296,7 @@ define dso_local void @KDTree_QueryCircleIntersectWeighted_Float(ptr noundef %0,
   %141 = getelementptr inbounds double, ptr %3, i64 %140
   store double %136, ptr %141, align 8, !tbaa !40
   %142 = or i1 %96, %81
-  %143 = or i1 %100, %142
+  %143 = or i1 %142, %100
   %144 = or i1 %89, %143
   br i1 %144, label %145, label %150
 

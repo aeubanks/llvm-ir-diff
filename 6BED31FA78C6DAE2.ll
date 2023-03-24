@@ -592,8 +592,8 @@ define dso_local noundef i32 @_Z10invokefuncP9Classfile(ptr nocapture noundef re
   br label %411
 
 328:                                              ; preds = %317, %297
-  %329 = phi i1 [ %304, %297 ], [ true, %317 ]
-  %330 = phi ptr [ %290, %297 ], [ %312, %317 ]
+  %329 = phi i1 [ true, %317 ], [ %304, %297 ]
+  %330 = phi ptr [ %312, %317 ], [ %290, %297 ]
   %331 = icmp eq i32 %133, 0
   %332 = and i1 %331, %329
   br i1 %332, label %333, label %336

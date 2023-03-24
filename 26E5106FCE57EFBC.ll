@@ -8,7 +8,7 @@ define dso_local i32 @f(i32 noundef %0, i32 noundef %1, i32 noundef %2, i1 nound
   %8 = icmp eq i8 %6, 1
   %9 = and i1 %3, %4
   %10 = and i1 %9, %5
-  %11 = and i1 %10, %8
+  %11 = and i1 %8, %10
   br i1 %11, label %13, label %12
 
 12:                                               ; preds = %7

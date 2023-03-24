@@ -3295,7 +3295,7 @@ define dso_local void @parseAStmt() local_unnamed_addr #0 {
   tail call void @error(ptr noundef nonnull @.str.3) #7
   br label %230
 
-230:                                              ; preds = %171, %85, %33, %227, %224, %218, %211, %144, %142, %135, %54, %203, %118, %117, %205, %200, %197, %194, %177, %151, %112, %109, %100, %97, %94, %91, %64, %48, %45, %42, %39, %11
+230:                                              ; preds = %171, %85, %33, %144, %142, %135, %54, %203, %118, %117, %227, %224, %218, %211, %205, %200, %197, %194, %177, %151, %112, %109, %100, %97, %94, %91, %64, %48, %45, %42, %39, %11
   ret void
 }
 
@@ -3330,7 +3330,7 @@ define dso_local void @parse() local_unnamed_addr #0 {
   store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
   br label %14
 
-14:                                               ; preds = %9, %13
+14:                                               ; preds = %13, %9
   store i32 1, ptr @PreviousLookahead, align 4, !tbaa !5
   %15 = load i32, ptr @tokenval, align 4, !tbaa !5
   store i32 %15, ptr @PreviousTokenval, align 4, !tbaa !5

@@ -58,7 +58,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   store i32 0, ptr %19, align 4, !tbaa !9
   %20 = getelementptr i32, ptr %19, i64 1
   %21 = add nsw i64 %18, -4
-  tail call void @llvm.memset.p0.i64(ptr align 4 %20, i8 0, i64 %21, i1 false), !tbaa !9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(1) %20, i8 0, i64 %21, i1 false), !tbaa !9
   %22 = invoke noalias noundef nonnull ptr @_Znwm(i64 noundef %18) #13
           to label %23 unwind label %65
 
@@ -66,7 +66,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %24 = getelementptr inbounds i32, ptr %22, i64 %17
   store i32 0, ptr %22, align 4, !tbaa !9
   %25 = getelementptr i32, ptr %22, i64 1
-  tail call void @llvm.memset.p0.i64(ptr align 4 %25, i8 0, i64 %21, i1 false), !tbaa !9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(1) %25, i8 0, i64 %21, i1 false), !tbaa !9
   %26 = icmp sgt i32 %16, 0
   br i1 %26, label %27, label %67
 

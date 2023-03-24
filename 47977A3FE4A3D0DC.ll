@@ -439,14 +439,14 @@ define internal i32 @BaseOption(ptr nocapture noundef writeonly %0, ptr noundef 
   br i1 %8, label %9, label %25
 
 9:                                                ; preds = %5, %9
-  %10 = phi i32 [ %16, %9 ], [ 0, %5 ]
-  %11 = phi ptr [ %17, %9 ], [ %1, %5 ]
-  %12 = phi i8 [ %18, %9 ], [ %6, %5 ]
-  %13 = zext i8 %12 to i32
-  %14 = mul nsw i32 %10, 10
+  %10 = phi i8 [ %18, %9 ], [ %6, %5 ]
+  %11 = phi i32 [ %16, %9 ], [ 0, %5 ]
+  %12 = phi ptr [ %17, %9 ], [ %1, %5 ]
+  %13 = zext i8 %10 to i32
+  %14 = mul nsw i32 %11, 10
   %15 = add nsw i32 %13, -48
   %16 = add nsw i32 %15, %14
-  %17 = getelementptr inbounds i8, ptr %11, i64 1
+  %17 = getelementptr inbounds i8, ptr %12, i64 1
   %18 = load i8, ptr %17, align 1, !tbaa !15
   %19 = add i8 %18, -48
   %20 = icmp ult i8 %19, 10
@@ -559,14 +559,14 @@ define internal i32 @BlockSizeOption(ptr nocapture noundef writeonly %0, ptr nou
   br i1 %8, label %9, label %25
 
 9:                                                ; preds = %5, %9
-  %10 = phi i32 [ %16, %9 ], [ 0, %5 ]
-  %11 = phi ptr [ %17, %9 ], [ %1, %5 ]
-  %12 = phi i8 [ %18, %9 ], [ %6, %5 ]
-  %13 = zext i8 %12 to i32
-  %14 = mul nsw i32 %10, 10
+  %10 = phi i8 [ %18, %9 ], [ %6, %5 ]
+  %11 = phi i32 [ %16, %9 ], [ 0, %5 ]
+  %12 = phi ptr [ %17, %9 ], [ %1, %5 ]
+  %13 = zext i8 %10 to i32
+  %14 = mul nsw i32 %11, 10
   %15 = add nsw i32 %13, -48
   %16 = add nsw i32 %15, %14
-  %17 = getelementptr inbounds i8, ptr %11, i64 1
+  %17 = getelementptr inbounds i8, ptr %12, i64 1
   %18 = load i8, ptr %17, align 1, !tbaa !15
   %19 = add i8 %18, -48
   %20 = icmp ult i8 %19, 10

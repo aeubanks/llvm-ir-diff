@@ -205,7 +205,7 @@ define hidden void @_ZN9benchmark19LocalDateTimeStringB5cxx11Ev(ptr noalias sret
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %47, ptr nonnull align 16 %5, i64 %41, i1 false)
   br label %51
 
-51:                                               ; preds = %50, %48, %46
+51:                                               ; preds = %46, %48, %50
   %52 = load i64, ptr %2, align 8, !tbaa !11
   %53 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %52, ptr %53, align 8, !tbaa !21

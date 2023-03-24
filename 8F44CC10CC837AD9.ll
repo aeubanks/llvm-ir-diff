@@ -92,7 +92,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br label %35
 
 35:                                               ; preds = %25, %35
-  %36 = phi i32 [ %45, %35 ], [ 100, %25 ]
+  %36 = phi i32 [ %45, %35 ], [ 99, %25 ]
   %37 = phi double [ %40, %35 ], [ 1.000000e+00, %25 ]
   %38 = fdiv double 1.312500e+00, %37
   %39 = fadd double %37, %38
@@ -102,7 +102,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %43 = fcmp uge double %41, 0xBD719799812DEA11
   %44 = and i1 %42, %43
   %45 = add nsw i32 %36, -1
-  %46 = icmp eq i32 %45, 0
+  %46 = icmp eq i32 %36, 0
   %47 = select i1 %44, i1 true, i1 %46
   br i1 %47, label %48, label %35, !llvm.loop !11
 
@@ -211,7 +211,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %119, label %133, label %120
 
 120:                                              ; preds = %100, %120
-  %121 = phi i32 [ %130, %120 ], [ 100, %100 ]
+  %121 = phi i32 [ %130, %120 ], [ 99, %100 ]
   %122 = phi double [ %125, %120 ], [ 1.000000e+00, %100 ]
   %123 = fdiv double %118, %122
   %124 = fadd double %122, %123
@@ -221,7 +221,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %128 = fcmp uge double %126, 0xBD719799812DEA11
   %129 = and i1 %127, %128
   %130 = add nsw i32 %121, -1
-  %131 = icmp eq i32 %130, 0
+  %131 = icmp eq i32 %121, 0
   %132 = select i1 %129, i1 true, i1 %131
   br i1 %132, label %133, label %120, !llvm.loop !11
 
@@ -272,7 +272,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %172, label %186, label %173
 
 173:                                              ; preds = %171, %173
-  %174 = phi i32 [ %183, %173 ], [ 100, %171 ]
+  %174 = phi i32 [ %183, %173 ], [ 99, %171 ]
   %175 = phi double [ %178, %173 ], [ 1.000000e+00, %171 ]
   %176 = fdiv double %169, %175
   %177 = fadd double %175, %176
@@ -282,7 +282,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %181 = fcmp uge double %179, 0xBD719799812DEA11
   %182 = and i1 %180, %181
   %183 = add nsw i32 %174, -1
-  %184 = icmp eq i32 %183, 0
+  %184 = icmp eq i32 %174, 0
   %185 = select i1 %182, i1 true, i1 %184
   br i1 %185, label %186, label %173, !llvm.loop !11
 
@@ -342,7 +342,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %228, label %242, label %229
 
 229:                                              ; preds = %227, %229
-  %230 = phi i32 [ %239, %229 ], [ 100, %227 ]
+  %230 = phi i32 [ %239, %229 ], [ 99, %227 ]
   %231 = phi double [ %234, %229 ], [ 1.000000e+00, %227 ]
   %232 = fdiv double %225, %231
   %233 = fadd double %231, %232
@@ -352,7 +352,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %237 = fcmp uge double %235, 0xBD719799812DEA11
   %238 = and i1 %236, %237
   %239 = add nsw i32 %230, -1
-  %240 = icmp eq i32 %239, 0
+  %240 = icmp eq i32 %230, 0
   %241 = select i1 %238, i1 true, i1 %240
   br i1 %241, label %242, label %229, !llvm.loop !11
 
@@ -461,7 +461,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %327, label %341, label %328
 
 328:                                              ; preds = %326, %328
-  %329 = phi i32 [ %338, %328 ], [ 100, %326 ]
+  %329 = phi i32 [ %338, %328 ], [ 99, %326 ]
   %330 = phi double [ %333, %328 ], [ 1.000000e+00, %326 ]
   %331 = fdiv double %324, %330
   %332 = fadd double %330, %331
@@ -471,7 +471,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %336 = fcmp uge double %334, 0xBD719799812DEA11
   %337 = and i1 %335, %336
   %338 = add nsw i32 %329, -1
-  %339 = icmp eq i32 %338, 0
+  %339 = icmp eq i32 %329, 0
   %340 = select i1 %337, i1 true, i1 %339
   br i1 %340, label %341, label %328, !llvm.loop !11
 
@@ -525,7 +525,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %381, label %395, label %382
 
 382:                                              ; preds = %380, %382
-  %383 = phi i32 [ %392, %382 ], [ 100, %380 ]
+  %383 = phi i32 [ %392, %382 ], [ 99, %380 ]
   %384 = phi double [ %387, %382 ], [ 1.000000e+00, %380 ]
   %385 = fdiv double %378, %384
   %386 = fadd double %384, %385
@@ -535,7 +535,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %390 = fcmp uge double %388, 0xBD719799812DEA11
   %391 = and i1 %389, %390
   %392 = add nsw i32 %383, -1
-  %393 = icmp eq i32 %392, 0
+  %393 = icmp eq i32 %383, 0
   %394 = select i1 %391, i1 true, i1 %393
   br i1 %394, label %395, label %382, !llvm.loop !11
 
@@ -825,7 +825,7 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   br i1 %164, label %178, label %165
 
 165:                                              ; preds = %131, %165
-  %166 = phi i32 [ %175, %165 ], [ 100, %131 ]
+  %166 = phi i32 [ %175, %165 ], [ 99, %131 ]
   %167 = phi double [ %170, %165 ], [ 1.000000e+00, %131 ]
   %168 = fdiv double %163, %167
   %169 = fadd double %167, %168
@@ -835,7 +835,7 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   %173 = fcmp uge double %171, 0xBD719799812DEA11
   %174 = and i1 %172, %173
   %175 = add nsw i32 %166, -1
-  %176 = icmp eq i32 %175, 0
+  %176 = icmp eq i32 %166, 0
   %177 = select i1 %174, i1 true, i1 %176
   br i1 %177, label %178, label %165, !llvm.loop !11
 
@@ -1028,7 +1028,7 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   br i1 %313, label %327, label %314
 
 314:                                              ; preds = %280, %314
-  %315 = phi i32 [ %324, %314 ], [ 100, %280 ]
+  %315 = phi i32 [ %324, %314 ], [ 99, %280 ]
   %316 = phi double [ %319, %314 ], [ 1.000000e+00, %280 ]
   %317 = fdiv double %312, %316
   %318 = fadd double %316, %317
@@ -1038,7 +1038,7 @@ define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr nou
   %322 = fcmp uge double %320, 0xBD719799812DEA11
   %323 = and i1 %321, %322
   %324 = add nsw i32 %315, -1
-  %325 = icmp eq i32 %324, 0
+  %325 = icmp eq i32 %315, 0
   %326 = select i1 %323, i1 true, i1 %325
   br i1 %326, label %327, label %314, !llvm.loop !11
 
@@ -1088,7 +1088,7 @@ define linkonce_odr dso_local void @_ZN7basis_tC2ERK3v_t(ptr noundef nonnull ali
   br i1 %12, label %26, label %13
 
 13:                                               ; preds = %2, %13
-  %14 = phi i32 [ %23, %13 ], [ 100, %2 ]
+  %14 = phi i32 [ %23, %13 ], [ 99, %2 ]
   %15 = phi double [ %18, %13 ], [ 1.000000e+00, %2 ]
   %16 = fdiv double %11, %15
   %17 = fadd double %15, %16
@@ -1098,7 +1098,7 @@ define linkonce_odr dso_local void @_ZN7basis_tC2ERK3v_t(ptr noundef nonnull ali
   %21 = fcmp uge double %19, 0xBD719799812DEA11
   %22 = and i1 %20, %21
   %23 = add nsw i32 %14, -1
-  %24 = icmp eq i32 %23, 0
+  %24 = icmp eq i32 %14, 0
   %25 = select i1 %22, i1 true, i1 %24
   br i1 %25, label %26, label %13, !llvm.loop !11
 
@@ -1215,7 +1215,7 @@ define internal void @_GLOBAL__sub_I_sphereflake.cpp() #7 section ".text.startup
   br label %2
 
 2:                                                ; preds = %2, %0
-  %3 = phi i32 [ %12, %2 ], [ 100, %0 ]
+  %3 = phi i32 [ %12, %2 ], [ 99, %0 ]
   %4 = phi double [ %7, %2 ], [ 1.000000e+00, %0 ]
   %5 = fdiv double 0x3FF7B851EB851EB9, %4
   %6 = fadd double %4, %5
@@ -1225,7 +1225,7 @@ define internal void @_GLOBAL__sub_I_sphereflake.cpp() #7 section ".text.startup
   %10 = fcmp uge double %8, 0xBD719799812DEA11
   %11 = and i1 %9, %10
   %12 = add nsw i32 %3, -1
-  %13 = icmp eq i32 %12, 0
+  %13 = icmp eq i32 %3, 0
   %14 = select i1 %11, i1 true, i1 %13
   br i1 %14, label %15, label %2, !llvm.loop !11
 

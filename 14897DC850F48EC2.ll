@@ -32,11 +32,11 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.18 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
 @.str.20 = private unnamed_addr constant [20 x i8] c"Pattern %d stored.\0A\00", align 1
 @.str.21 = private unnamed_addr constant [37 x i8] c"Pattern %d: hamming distance=%-.2d.\0A\00", align 1
-@str = private unnamed_addr constant [30 x i8] c"Checking hamming distances...\00", align 1
-@str.22 = private unnamed_addr constant [23 x i8] c"Generating T matrix...\00", align 1
-@str.23 = private unnamed_addr constant [18 x i8] c"Delta learning...\00", align 1
-@str.24 = private unnamed_addr constant [15 x i8] c"Store check...\00", align 1
-@str.25 = private unnamed_addr constant [24 x i8] c"Vectors read from file!\00", align 1
+@str = private unnamed_addr constant [24 x i8] c"Vectors read from file!\00", align 1
+@str.22 = private unnamed_addr constant [30 x i8] c"Checking hamming distances...\00", align 1
+@str.23 = private unnamed_addr constant [23 x i8] c"Generating T matrix...\00", align 1
+@str.24 = private unnamed_addr constant [18 x i8] c"Delta learning...\00", align 1
+@str.25 = private unnamed_addr constant [15 x i8] c"Store check...\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
@@ -310,8 +310,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 
 182:                                              ; preds = %177, %134
   %183 = call i32 @fclose(ptr noundef nonnull %19)
-  %184 = call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
-  %185 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %184 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %185 = call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   %186 = load i32, ptr @NUMPATS, align 4, !tbaa !9
   %187 = icmp sgt i32 %186, 0
   br i1 %187, label %188, label %374
@@ -551,7 +551,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br label %374
 
 374:                                              ; preds = %182, %369, %372
-  %375 = call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  %375 = call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
   %376 = load i32, ptr @NNTOT, align 4, !tbaa !9
   %377 = icmp sgt i32 %376, 0
   br i1 %377, label %378, label %726
@@ -1067,7 +1067,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 
 726:                                              ; preds = %723, %374
   store i32 1, ptr @nmode, align 4, !tbaa !9
-  %727 = call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %727 = call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   %728 = load i32, ptr @NNTOT, align 4, !tbaa !9
   %729 = sext i32 %728 to i64
   %730 = shl nsw i64 %729, 2
@@ -1523,7 +1523,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %1056, label %739, label %1057, !llvm.loop !48
 
 1057:                                             ; preds = %739, %1055, %733
-  %1058 = call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
+  %1058 = call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
   %1059 = load i32, ptr @NUMPATS, align 4, !tbaa !9
   %1060 = icmp sgt i32 %1059, 0
   br i1 %1060, label %1063, label %1340
@@ -2455,17 +2455,17 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare float @llvm.fabs.f32(float) #10
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #10
+declare float @llvm.fabs.f32(float) #12
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #12
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2477,9 +2477,9 @@ attributes #6 = { mustprogress nocallback nofree nosync nounwind speculatable wi
 attributes #7 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nounwind }
 attributes #14 = { cold }
 attributes #15 = { noreturn nounwind }

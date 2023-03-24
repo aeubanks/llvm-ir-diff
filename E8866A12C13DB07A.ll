@@ -108,8 +108,8 @@ define dso_local ptr @gs_state_alloc(ptr noundef %0, ptr noundef %1) local_unnam
   %50 = select i1 %49, ptr null, ptr %3
   br label %51
 
-51:                                               ; preds = %28, %24, %20, %16, %12, %8, %5, %32, %2
-  %52 = phi ptr [ null, %2 ], [ %50, %32 ], [ null, %5 ], [ null, %8 ], [ null, %12 ], [ null, %16 ], [ null, %20 ], [ null, %24 ], [ null, %28 ]
+51:                                               ; preds = %32, %5, %8, %12, %16, %20, %24, %28, %2
+  %52 = phi ptr [ null, %2 ], [ null, %28 ], [ null, %24 ], [ null, %20 ], [ null, %16 ], [ null, %12 ], [ null, %8 ], [ null, %5 ], [ %50, %32 ]
   ret ptr %52
 }
 
@@ -385,8 +385,8 @@ define dso_local i32 @gs_gsave(ptr nocapture noundef %0) local_unnamed_addr #0 {
   store ptr %4, ptr %0, align 8, !tbaa !23
   br label %60
 
-60:                                               ; preds = %30, %26, %22, %18, %14, %10, %6, %1, %34
-  %61 = phi i32 [ 0, %34 ], [ -25, %1 ], [ -25, %6 ], [ -25, %10 ], [ -25, %14 ], [ -25, %18 ], [ -25, %22 ], [ -25, %26 ], [ -25, %30 ]
+60:                                               ; preds = %6, %10, %14, %18, %22, %26, %30, %1, %34
+  %61 = phi i32 [ 0, %34 ], [ -25, %1 ], [ -25, %30 ], [ -25, %26 ], [ -25, %22 ], [ -25, %18 ], [ -25, %14 ], [ -25, %10 ], [ -25, %6 ]
   ret i32 %61
 }
 

@@ -488,13 +488,13 @@ define dso_local noundef i32 @_Z15SetBoolPropertyRbRK14tagPROPVARIANT(ptr nocapt
   %55 = icmp eq i32 %53, 0
   br i1 %55, label %56, label %58
 
-56:                                               ; preds = %38, %42, %46, %50, %54
+56:                                               ; preds = %54, %50, %46, %42, %38
   %57 = phi i8 [ 1, %46 ], [ 1, %42 ], [ 1, %38 ], [ 0, %54 ], [ 0, %50 ]
   store i8 %57, ptr %0, align 1, !tbaa !25
   br label %58
 
-58:                                               ; preds = %54, %56
-  %59 = phi i32 [ 0, %56 ], [ -2147024809, %54 ]
+58:                                               ; preds = %56, %54
+  %59 = phi i32 [ -2147024809, %54 ], [ 0, %56 ]
   %60 = icmp eq ptr %30, null
   br i1 %60, label %67, label %61
 
@@ -515,8 +515,8 @@ define dso_local noundef i32 @_Z15SetBoolPropertyRbRK14tagPROPVARIANT(ptr nocapt
 66:                                               ; preds = %62, %65
   resume { ptr, i32 } %63
 
-67:                                               ; preds = %61, %58, %2, %5, %4
-  %68 = phi i32 [ 0, %5 ], [ 0, %4 ], [ -2147024809, %2 ], [ %59, %58 ], [ %59, %61 ]
+67:                                               ; preds = %2, %61, %58, %5, %4
+  %68 = phi i32 [ 0, %5 ], [ 0, %4 ], [ %59, %58 ], [ %59, %61 ], [ -2147024809, %2 ]
   ret i32 %68
 }
 

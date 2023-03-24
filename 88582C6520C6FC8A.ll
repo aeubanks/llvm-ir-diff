@@ -306,27 +306,28 @@ define dso_local noundef i32 @main() local_unnamed_addr #9 personality ptr @__gx
   %45 = getelementptr inbounds [128 x ptr], ptr %42, i64 0, i64 %44
   %46 = load ptr, ptr %45, align 8, !tbaa !5
   %47 = icmp eq ptr %46, %41
-  br i1 %47, label %60, label %48
+  %48 = icmp eq ptr %46, null
+  %49 = or i1 %47, %48
+  br i1 %49, label %62, label %50
 
-48:                                               ; preds = %40, %52
-  %49 = phi i64 [ %53, %52 ], [ 1, %40 ]
-  %50 = phi ptr [ %58, %52 ], [ %46, %40 ]
-  %51 = icmp eq ptr %50, null
-  br i1 %51, label %60, label %52
-
-52:                                               ; preds = %48
-  %53 = add nuw i64 %49, 1
-  %54 = getelementptr inbounds [80 x i8], ptr %1, i64 0, i64 %49
+50:                                               ; preds = %40, %50
+  %51 = phi i64 [ %53, %50 ], [ 1, %40 ]
+  %52 = phi ptr [ %58, %50 ], [ %46, %40 ]
+  %53 = add nuw i64 %51, 1
+  %54 = getelementptr inbounds [80 x i8], ptr %1, i64 0, i64 %51
   %55 = load i8, ptr %54, align 1, !tbaa !22
   %56 = sext i8 %55 to i64
-  %57 = getelementptr inbounds [128 x ptr], ptr %50, i64 0, i64 %56
+  %57 = getelementptr inbounds [128 x ptr], ptr %52, i64 0, i64 %56
   %58 = load ptr, ptr %57, align 8, !tbaa !5
   %59 = icmp eq ptr %58, %41
-  br i1 %59, label %60, label %48, !llvm.loop !23
+  %60 = icmp eq ptr %58, null
+  %61 = or i1 %59, %60
+  br i1 %61, label %62, label %50, !llvm.loop !23
 
-60:                                               ; preds = %48, %52, %40
-  %61 = phi ptr [ @.str.2, %40 ], [ @.str.2, %52 ], [ @.str.3, %48 ]
-  %62 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %61)
+62:                                               ; preds = %50, %40
+  %63 = phi i1 [ %47, %40 ], [ %59, %50 ]
+  %64 = select i1 %63, ptr @.str.2, ptr @.str.3
+  %65 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %64)
   call void @_ZdaPv(ptr noundef nonnull %41) #15
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %1) #16
   ret i32 0

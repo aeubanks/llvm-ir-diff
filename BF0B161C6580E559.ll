@@ -572,7 +572,7 @@ define dso_local i32 @hypre_StructVectorSetBoxValues(ptr nocapture noundef reado
   %148 = sub i32 %106, %137
   %149 = mul i32 %148, %113
   %150 = sub i32 %126, %137
-  %151 = mul i32 %133, %150
+  %151 = mul i32 %150, %133
   %152 = icmp slt i32 %137, 1
   %153 = select i1 %144, i1 true, i1 %152
   %154 = select i1 %153, i1 true, i1 %145
@@ -717,8 +717,8 @@ define dso_local i32 @hypre_StructVectorSetBoxValues(ptr nocapture noundef reado
   br i1 %263, label %264, label %175, !llvm.loop !42
 
 264:                                              ; preds = %255
-  %265 = add nsw i32 %260, %149
-  %266 = add nsw i32 %261, %151
+  %265 = add i32 %149, %260
+  %266 = add i32 %151, %261
   %267 = add nuw nsw i32 %174, 1
   %268 = icmp eq i32 %267, %138
   br i1 %268, label %394, label %171, !llvm.loop !43
@@ -734,7 +734,7 @@ define dso_local i32 @hypre_StructVectorSetBoxValues(ptr nocapture noundef reado
   %275 = sub i32 %106, %137
   %276 = mul i32 %275, %113
   %277 = sub i32 %126, %137
-  %278 = mul i32 %133, %277
+  %278 = mul i32 %277, %133
   %279 = icmp slt i32 %137, 1
   %280 = select i1 %271, i1 true, i1 %279
   %281 = select i1 %280, i1 true, i1 %272
@@ -879,8 +879,8 @@ define dso_local i32 @hypre_StructVectorSetBoxValues(ptr nocapture noundef reado
   br i1 %388, label %389, label %296, !llvm.loop !48
 
 389:                                              ; preds = %380
-  %390 = add nsw i32 %385, %276
-  %391 = add nsw i32 %386, %278
+  %390 = add i32 %276, %385
+  %391 = add i32 %278, %386
   %392 = add nuw nsw i32 %295, 1
   %393 = icmp eq i32 %392, %138
   br i1 %393, label %394, label %292, !llvm.loop !49
@@ -1181,7 +1181,7 @@ define dso_local i32 @hypre_StructVectorGetBoxValues(ptr nocapture noundef reado
   %128 = sub i32 %117, %90
   %129 = mul i32 %128, %123
   %130 = sub i32 %102, %90
-  %131 = mul i32 %107, %130
+  %131 = mul i32 %130, %107
   %132 = icmp slt i32 %90, 1
   %133 = select i1 %124, i1 true, i1 %132
   %134 = select i1 %133, i1 true, i1 %125
@@ -1346,8 +1346,8 @@ define dso_local i32 @hypre_StructVectorGetBoxValues(ptr nocapture noundef reado
   br i1 %261, label %262, label %169, !llvm.loop !56
 
 262:                                              ; preds = %253
-  %263 = add nsw i32 %258, %129
-  %264 = add nsw i32 %259, %131
+  %263 = add i32 %129, %258
+  %264 = add i32 %131, %259
   %265 = add nuw nsw i32 %168, 1
   %266 = icmp eq i32 %265, %91
   br i1 %266, label %267, label %165, !llvm.loop !57
@@ -1469,7 +1469,7 @@ define dso_local i32 @hypre_StructVectorSetConstantValues(ptr nocapture noundef 
   %58 = icmp slt i32 %34, 1
   %59 = sub i32 %56, %34
   %60 = sub i32 %50, %35
-  %61 = mul i32 %56, %60
+  %61 = mul i32 %60, %56
   %62 = icmp slt i32 %35, 1
   %63 = select i1 %57, i1 true, i1 %62
   %64 = select i1 %63, i1 true, i1 %58
@@ -1552,7 +1552,7 @@ define dso_local i32 @hypre_StructVectorSetConstantValues(ptr nocapture noundef 
   br i1 %119, label %120, label %90, !llvm.loop !62
 
 120:                                              ; preds = %114
-  %121 = add nsw i32 %117, %61
+  %121 = add i32 %61, %117
   %122 = add nuw nsw i32 %89, 1
   %123 = icmp eq i32 %122, %36
   br i1 %123, label %124, label %87, !llvm.loop !63
@@ -1660,7 +1660,7 @@ define dso_local i32 @hypre_StructVectorClearGhostValues(ptr nocapture noundef r
   %77 = icmp slt i32 %72, 1
   %78 = icmp slt i32 %70, 1
   %79 = sub i32 %60, %71
-  %80 = mul i32 %67, %79
+  %80 = mul i32 %79, %67
   %81 = icmp slt i32 %71, 1
   %82 = select i1 %77, i1 true, i1 %81
   %83 = select i1 %82, i1 true, i1 %78
@@ -1727,7 +1727,7 @@ define dso_local i32 @hypre_StructVectorClearGhostValues(ptr nocapture noundef r
 
 128:                                              ; preds = %119, %116
   %129 = phi i32 [ %117, %116 ], [ %125, %119 ]
-  %130 = add nsw i32 %129, %80
+  %130 = add i32 %80, %129
   %131 = add nuw nsw i32 %94, 1
   %132 = icmp eq i32 %131, %72
   br i1 %132, label %133, label %92, !llvm.loop !67
@@ -2171,14 +2171,14 @@ declare i32 @hypre_StructGridRead(i32 noundef, ptr noundef, ptr noundef) local_u
 
 declare i32 @hypre_ReadBoxArrayData(ptr noundef, ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
+declare i32 @llvm.smax.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2190,9 +2190,9 @@ attributes #6 = { nofree norecurse nosync nounwind memory(read, argmem: readwrit
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nounwind }
 attributes #14 = { noreturn nounwind }
 

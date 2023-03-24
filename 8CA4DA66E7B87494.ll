@@ -436,10 +436,10 @@ define dso_local i32 @SystemTimeToFileTime(ptr nocapture noundef readonly %0, pt
   %57 = mul nuw i16 %48, 1959
   %58 = lshr i16 %57, 6
   %59 = zext i16 %58 to i32
-  %60 = add nsw i32 %56, -584817
-  %61 = add nsw i32 %60, %59
-  %62 = sub nsw i32 %61, %54
-  %63 = add nsw i32 %62, %18
+  %60 = add nsw i32 %18, -584817
+  %61 = add nsw i32 %60, %56
+  %62 = add nsw i32 %61, %59
+  %63 = sub nsw i32 %62, %54
   %64 = sext i32 %63 to i64
   %65 = mul nsw i64 %64, 24
   %66 = extractelement <4 x i16> %8, i64 0

@@ -362,7 +362,7 @@ define dso_local ptr @complement(ptr noundef %0) local_unnamed_addr #0 {
   br label %220
 
 220:                                              ; preds = %138, %162, %153, %47, %32, %21, %219
-  %221 = phi ptr [ %209, %219 ], [ %43, %47 ], [ %164, %162 ], [ %149, %153 ], [ %140, %138 ], [ %28, %32 ], [ %17, %21 ]
+  %221 = phi ptr [ %209, %219 ], [ %140, %138 ], [ %164, %162 ], [ %149, %153 ], [ %43, %47 ], [ %28, %32 ], [ %17, %21 ]
   %222 = load i32, ptr @debug, align 4, !tbaa !5
   %223 = and i32 %222, 1
   %224 = icmp eq i32 %223, 0
@@ -2236,7 +2236,7 @@ define internal fastcc ptr @compl_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %492 = icmp eq ptr %491, null
   br i1 %492, label %493, label %399
 
-493:                                              ; preds = %490, %385, %274, %275
+493:                                              ; preds = %490, %275, %274, %385
   tail call void @free(ptr noundef %181) #9
   tail call void @free(ptr noundef %184) #9
   %494 = load i32, ptr %24, align 4, !tbaa !26
@@ -2875,11 +2875,11 @@ declare ptr @set_merge(...) local_unnamed_addr #2
 
 declare ptr @sf_contain(...) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #7
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #8
+declare i32 @llvm.smin.i32(i32, i32) #7
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2888,8 +2888,8 @@ attributes #3 = { mustprogress nofree nounwind willreturn allockind("alloc,unini
 attributes #4 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nofree nounwind }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nofree nounwind }
 attributes #9 = { nounwind }
 attributes #10 = { nounwind allocsize(0) }
 

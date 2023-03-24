@@ -839,7 +839,7 @@ define dso_local i32 @yyparse() local_unnamed_addr #0 {
   store i64 %482, ptr %481, align 8
   br label %221
 
-483:                                              ; preds = %460, %453, %448, %193, %186, %181, %20, %13, %8
+483:                                              ; preds = %448, %453, %460, %181, %186, %193, %8, %13, %20
   tail call void @yyerror(ptr noundef nonnull @.str.1) #6
   br label %485
 
@@ -881,10 +881,10 @@ declare ptr @newIntList(i32 noundef, ptr noundef) local_unnamed_addr #1
 declare noalias noundef ptr @realloc(ptr allocptr nocapture noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #3
+declare i32 @llvm.umin.i32(i32, i32) #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #3
+declare i32 @llvm.smax.i32(i32, i32) #3
 
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #4

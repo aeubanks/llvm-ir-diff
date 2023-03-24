@@ -1514,8 +1514,8 @@ define dso_local void @writeMVD_CABAC(ptr nocapture noundef %0, ptr noundef %1) 
   %68 = lshr i32 %48, %67
   br label %69
 
-69:                                               ; preds = %63, %57, %54, %2, %31
-  %70 = phi i32 [ %48, %31 ], [ 0, %2 ], [ %62, %57 ], [ %48, %54 ], [ %68, %63 ]
+69:                                               ; preds = %57, %54, %63, %2, %31
+  %70 = phi i32 [ %48, %31 ], [ %68, %63 ], [ 0, %2 ], [ %62, %57 ], [ %48, %54 ]
   %71 = load i32, ptr %3, align 4, !tbaa !17
   %72 = icmp eq i32 %71, 0
   br i1 %72, label %111, label %73
@@ -1569,8 +1569,8 @@ define dso_local void @writeMVD_CABAC(ptr nocapture noundef %0, ptr noundef %1) 
   %110 = lshr i32 %90, %109
   br label %111
 
-111:                                              ; preds = %105, %99, %96, %69, %73
-  %112 = phi i32 [ %90, %73 ], [ 0, %69 ], [ %104, %99 ], [ %90, %96 ], [ %110, %105 ]
+111:                                              ; preds = %99, %96, %105, %69, %73
+  %112 = phi i32 [ %90, %73 ], [ %110, %105 ], [ 0, %69 ], [ %104, %99 ], [ %90, %96 ]
   %113 = add nsw i32 %112, %70
   %114 = icmp slt i32 %113, 3
   br i1 %114, label %115, label %117
@@ -2903,10 +2903,10 @@ define dso_local void @exp_golomb_encode_eq_prob(ptr noundef %0, i32 noundef %1,
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #10
+declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
+declare i32 @llvm.abs.i32(i32, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #11

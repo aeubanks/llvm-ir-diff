@@ -186,7 +186,7 @@ define dso_local noalias ptr @ltrace_1(ptr noundef %0, ptr noundef %1) local_unn
   %55 = icmp eq ptr %54, null
   br i1 %55, label %56, label %66
 
-56:                                               ; preds = %44, %31, %23, %9, %48, %39, %35, %27, %18, %14, %52
+56:                                               ; preds = %14, %18, %27, %35, %39, %48, %9, %23, %31, %44, %52
   %57 = load ptr, ptr @sym_begin, align 8, !tbaa !11
   %58 = load ptr, ptr @sym_quote, align 8, !tbaa !11
   %59 = tail call ptr @cons(ptr noundef %0, ptr noundef null) #4

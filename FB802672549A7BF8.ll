@@ -573,8 +573,8 @@ call_destructor.exit:                             ; preds = %"assert failed", %"
   %116 = zext i32 %115 to i64
   %117 = mul nsw i64 %37, %116
   %118 = sext i32 %blur_y.s0.y.yi.base to i64
-  %reass.add23 = sub nsw i64 %118, %7
-  %reass.mul24 = mul nsw i64 %reass.add23, %9
+  %reass.add21 = sub nsw i64 %118, %7
+  %reass.mul22 = mul nsw i64 %reass.add21, %9
   br label %"for blur_y.s0.x.x"
 
 "for blur_y.s0.x.x":                              ; preds = %"for blur_y.s0.x.x.preheader", %"for blur_y.s0.x.x"
@@ -597,7 +597,7 @@ call_destructor.exit:                             ; preds = %"assert failed", %"
   %132 = tail call <8 x i16> @llvm.x86.sse2.pmulhu.w(<8 x i16> %131, <8 x i16> <i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845>) #5
   %133 = lshr <8 x i16> %132, <i16 1, i16 1, i16 1, i16 1, i16 1, i16 1, i16 1, i16 1>
   %134 = sub nsw i64 %119, %3
-  %135 = add i64 %134, %reass.mul24
+  %135 = add i64 %134, %reass.mul22
   %136 = getelementptr inbounds i16, ptr %blur_y.host, i64 %135
   store <8 x i16> %133, ptr %136, align 2, !tbaa !11
   %lsr.iv.next59 = add i32 %lsr.iv58, -1
@@ -608,7 +608,7 @@ call_destructor.exit:                             ; preds = %"assert failed", %"
 "for blur_y.s0.y.yi.preheader":                   ; preds = %"for blur_y.s0.x.x", %"consume blur_x.for blur_y.s0.y.yi.preheader_crit_edge"
   %.pre-phi37 = phi i32 [ %.pre36, %"consume blur_x.for blur_y.s0.y.yi.preheader_crit_edge" ], [ %107, %"for blur_y.s0.x.x" ]
   %.pre-phi35 = phi i32 [ %.pre34, %"consume blur_x.for blur_y.s0.y.yi.preheader_crit_edge" ], [ %111, %"for blur_y.s0.x.x" ]
-  %reass.sub.pre-phi = phi i64 [ %.pre33, %"consume blur_x.for blur_y.s0.y.yi.preheader_crit_edge" ], [ %reass.add23, %"for blur_y.s0.x.x" ]
+  %reass.sub.pre-phi = phi i64 [ %.pre33, %"consume blur_x.for blur_y.s0.y.yi.preheader_crit_edge" ], [ %reass.add21, %"for blur_y.s0.x.x" ]
   %.pre-phi = phi i64 [ %.pre, %"consume blur_x.for blur_y.s0.y.yi.preheader_crit_edge" ], [ %118, %"for blur_y.s0.x.x" ]
   %137 = sub nsw i64 %5, %38
   %138 = trunc i32 %32 to i2
@@ -627,12 +627,12 @@ call_destructor.exit:                             ; preds = %"assert failed", %"
   %a13 = lshr i32 %18, 3
   %150 = icmp sgt i32 %18, 7
   %151 = select i1 %150, i32 %a13, i32 0
-  %.not16 = icmp eq i32 %151, 0
+  %.not30 = icmp eq i32 %151, 0
   %152 = icmp sgt i32 %34, %151
   %a16 = lshr i32 %blur_y.extent.0, 3
   %153 = icmp sgt i32 %blur_y.extent.0, 7
   %154 = select i1 %153, i32 %a16, i32 0
-  %.not17 = icmp eq i32 %154, 0
+  %.not31 = icmp eq i32 %154, 0
   %155 = icmp sgt i32 %105, %154
   %156 = sub i32 %17, %142
   %157 = add nsw i64 %3, %0
@@ -677,7 +677,7 @@ if.then.i18:                                      ; preds = %"end for blur_y.s0.
   %177 = add nsw i64 %176, %147
   %178 = shl nsw i64 %177, 1
   %scevgep52 = getelementptr i8, ptr %29, i64 %178
-  br i1 %.not16, label %"end for blur_x.s0.x.x5", label %"for blur_x.s0.x.x4.preheader", !prof !4
+  br i1 %.not30, label %"end for blur_x.s0.x.x5", label %"for blur_x.s0.x.x4.preheader", !prof !4
 
 "for blur_x.s0.x.x4.preheader":                   ; preds = %"produce blur_x3"
   %179 = add nsw i64 %137, %176
@@ -781,7 +781,7 @@ if.then.i18:                                      ; preds = %"end for blur_y.s0.
   br label %"consume blur_x10"
 
 "consume blur_x10":                               ; preds = %"for blur_x.s0.x.x7.preheader", %"end for blur_x.s0.x.x5"
-  br i1 %.not17, label %"end for blur_y.s0.x.x12", label %"for blur_y.s0.x.x11.preheader", !prof !4
+  br i1 %.not31, label %"end for blur_y.s0.x.x12", label %"for blur_y.s0.x.x11.preheader", !prof !4
 
 "for blur_y.s0.x.x11.preheader":                  ; preds = %"consume blur_x10"
   br i1 %lcmp.mod39.not, label %"for blur_y.s0.x.x11.prol.loopexit", label %"for blur_y.s0.x.x11.prol"
@@ -869,9 +869,9 @@ if.then.i18:                                      ; preds = %"end for blur_y.s0.
   %282 = add <8 x i16> %281, %280
   %283 = tail call <8 x i16> @llvm.x86.sse2.pmulhu.w(<8 x i16> %282, <8 x i16> <i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845, i16 -21845>) #5
   %284 = lshr <8 x i16> %283, <i16 1, i16 1, i16 1, i16 1, i16 1, i16 1, i16 1, i16 1>
-  %reass.add30 = add nsw i64 %reass.sub.pre-phi, %indvars.iv
-  %reass.mul31 = mul i64 %reass.add30, %9
-  %285 = add i64 %162, %reass.mul31
+  %reass.add28 = add nsw i64 %reass.sub.pre-phi, %indvars.iv
+  %reass.mul29 = mul i64 %reass.add28, %9
+  %285 = add i64 %162, %reass.mul29
   %286 = getelementptr inbounds i16, ptr %blur_y.host, i64 %285
   store <8 x i16> %284, ptr %286, align 2, !tbaa !11
   br label %"end for blur_y.s0.x.x15"
@@ -934,13 +934,13 @@ entry:
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #4
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #4
 
 attributes #0 = { "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(none) }

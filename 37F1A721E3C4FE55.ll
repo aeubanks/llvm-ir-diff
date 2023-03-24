@@ -12,8 +12,8 @@ define dso_local i32 @Lzma2Dec_AllocateProbs(ptr noundef %0, i8 noundef zeroext 
   %4 = alloca [5 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %4) #5
   %5 = zext i8 %1 to i32
-  %6 = icmp ugt i8 %1, 40
-  br i1 %6, label %29, label %7
+  %6 = icmp ult i8 %1, 41
+  br i1 %6, label %7, label %29
 
 7:                                                ; preds = %3
   %8 = icmp eq i8 %1, 40
@@ -67,8 +67,8 @@ define dso_local i32 @Lzma2Dec_Allocate(ptr noundef %0, i8 noundef zeroext %1, p
   %4 = alloca [5 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %4) #5
   %5 = zext i8 %1 to i32
-  %6 = icmp ugt i8 %1, 40
-  br i1 %6, label %29, label %7
+  %6 = icmp ult i8 %1, 41
+  br i1 %6, label %7, label %29
 
 7:                                                ; preds = %3
   %8 = icmp eq i8 %1, 40
@@ -622,8 +622,8 @@ define dso_local i32 @Lzma2Decode(ptr noundef %0, ptr nocapture noundef %1, ptr 
   %15 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 7
   store i64 %11, ptr %15, align 8, !tbaa !33
   %16 = zext i8 %4 to i32
-  %17 = icmp ugt i8 %4, 40
-  br i1 %17, label %52, label %18
+  %17 = icmp ult i8 %4, 41
+  br i1 %17, label %18, label %52
 
 18:                                               ; preds = %8
   %19 = icmp eq i8 %4, 40

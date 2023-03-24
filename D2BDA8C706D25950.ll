@@ -408,7 +408,7 @@ define linkonce_odr dso_local void @_ZN11CStringBaseIcE9TrimRightEv(ptr noundef 
   store i32 %59, ptr %47, align 8, !tbaa !5
   br label %60
 
-60:                                               ; preds = %51, %41, %39, %1
+60:                                               ; preds = %1, %39, %41, %51
   tail call void @_ZdaPv(ptr noundef nonnull %2) #9
   ret void
 
@@ -502,7 +502,7 @@ define linkonce_odr dso_local void @_ZN11CStringBaseIcE8TrimLeftEv(ptr noundef n
   store i32 %48, ptr %37, align 8, !tbaa !5
   br label %49
 
-49:                                               ; preds = %41, %31
+49:                                               ; preds = %31, %41
   tail call void @_ZdaPv(ptr noundef nonnull %2) #9
   ret void
 

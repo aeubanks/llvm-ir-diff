@@ -110,7 +110,7 @@ define dso_local noundef i32 @_Z9pushlocalP9Classfile(ptr nocapture noundef read
   %44 = getelementptr inbounds ptr, ptr %42, i64 %43
   %45 = load ptr, ptr %44, align 8, !tbaa !9
   %46 = icmp eq ptr %45, null
-  br i1 %46, label %62, label %47
+  br i1 %46, label %69, label %47
 
 47:                                               ; preds = %37
   %48 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %45) #6
@@ -136,28 +136,28 @@ define dso_local noundef i32 @_Z9pushlocalP9Classfile(ptr nocapture noundef read
   %60 = getelementptr inbounds %struct.Exp, ptr %52, i64 0, i32 2
   store i32 %3, ptr %60, align 4, !tbaa !26
   %61 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #7
-          to label %65 unwind label %72
+          to label %62 unwind label %72
 
-62:                                               ; preds = %37
-  %63 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %64 = tail call i64 @fwrite(ptr nonnull @.str, i64 42, i64 1, ptr %63) #9
+62:                                               ; preds = %54
+  store i32 0, ptr %61, align 8, !tbaa !27
+  %63 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 1
+  store i32 1, ptr %63, align 4, !tbaa !31
+  %64 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 2
+  store i32 %38, ptr %64, align 8, !tbaa !32
+  %65 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 3
+  store i32 39, ptr %65, align 4, !tbaa !33
+  %66 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 4
+  store ptr %53, ptr %66, align 8, !tbaa !34
+  store ptr %61, ptr %52, align 8, !tbaa !35
+  %67 = load ptr, ptr @stkptr, align 8, !tbaa !9
+  %68 = getelementptr inbounds ptr, ptr %67, i64 1
+  store ptr %68, ptr @stkptr, align 8, !tbaa !9
+  store ptr %52, ptr %67, align 8, !tbaa !9
   br label %74
 
-65:                                               ; preds = %54
-  store i32 0, ptr %61, align 8, !tbaa !27
-  %66 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 1
-  store i32 1, ptr %66, align 4, !tbaa !31
-  %67 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 2
-  store i32 %38, ptr %67, align 8, !tbaa !32
-  %68 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 3
-  store i32 39, ptr %68, align 4, !tbaa !33
-  %69 = getelementptr inbounds %struct.Exp_, ptr %61, i64 0, i32 4
-  store ptr %53, ptr %69, align 8, !tbaa !34
-  store ptr %61, ptr %52, align 8, !tbaa !35
-  %70 = load ptr, ptr @stkptr, align 8, !tbaa !9
-  %71 = getelementptr inbounds ptr, ptr %70, i64 1
-  store ptr %71, ptr @stkptr, align 8, !tbaa !9
-  store ptr %52, ptr %70, align 8, !tbaa !9
+69:                                               ; preds = %37
+  %70 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %71 = tail call i64 @fwrite(ptr nonnull @.str, i64 42, i64 1, ptr %70) #9
   br label %74
 
 72:                                               ; preds = %54, %47
@@ -166,8 +166,8 @@ define dso_local noundef i32 @_Z9pushlocalP9Classfile(ptr nocapture noundef read
   tail call void @_ZdlPv(ptr noundef nonnull %52) #10
   resume { ptr, i32 } %73
 
-74:                                               ; preds = %65, %62
-  %75 = phi i32 [ 0, %65 ], [ 1, %62 ]
+74:                                               ; preds = %62, %69
+  %75 = phi i32 [ 0, %62 ], [ 1, %69 ]
   ret i32 %75
 }
 

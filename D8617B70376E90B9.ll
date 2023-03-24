@@ -95,7 +95,7 @@ define dso_local void @_ZN7Mantevo21read_args_into_stringEiPPcRNSt7__cxx1112basi
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %33, ptr nonnull align 1 %23, i64 %27, i1 false)
   br label %37
 
-37:                                               ; preds = %36, %34, %32
+37:                                               ; preds = %32, %34, %36
   %38 = load i64, ptr %4, align 8, !tbaa !14
   store i64 %38, ptr %15, align 8, !tbaa !9
   %39 = load ptr, ptr %6, align 8, !tbaa !15
@@ -129,7 +129,7 @@ define dso_local void @_ZN7Mantevo21read_args_into_stringEiPPcRNSt7__cxx1112basi
   store i64 %53, ptr %16, align 8, !tbaa !16, !alias.scope !17
   br label %54
 
-54:                                               ; preds = %52, %51, %46
+54:                                               ; preds = %46, %51, %52
   %55 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %41, i64 0, i32 1
   %56 = load i64, ptr %55, align 8, !tbaa !9
   store i64 %56, ptr %17, align 8, !tbaa !9, !alias.scope !17
@@ -338,7 +338,7 @@ define dso_local void @_ZN7Mantevo21read_file_into_stringERKNSt7__cxx1112basic_s
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %56, ptr nonnull align 16 %5, i64 %49, i1 false)
   br label %60
 
-60:                                               ; preds = %59, %57, %55
+60:                                               ; preds = %55, %57, %59
   %61 = load i64, ptr %3, align 8, !tbaa !14
   store i64 %61, ptr %21, align 8, !tbaa !9
   %62 = load ptr, ptr %7, align 8, !tbaa !15
@@ -372,7 +372,7 @@ define dso_local void @_ZN7Mantevo21read_file_into_stringERKNSt7__cxx1112basic_s
   store i64 %76, ptr %22, align 8, !tbaa !16, !alias.scope !37
   br label %77
 
-77:                                               ; preds = %75, %74, %69
+77:                                               ; preds = %69, %74, %75
   %78 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 0, i32 1
   %79 = load i64, ptr %78, align 8, !tbaa !9
   store i64 %79, ptr %23, align 8, !tbaa !9, !alias.scope !37

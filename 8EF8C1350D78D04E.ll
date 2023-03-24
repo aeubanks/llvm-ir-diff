@@ -491,24 +491,24 @@ define dso_local void @_Z16BENCHMARK_HARRISRN9benchmark5StateE(ptr noundef nonnu
 
 144:                                              ; preds = %128, %137
   %145 = phi i64 [ %143, %137 ], [ 0, %128 ]
+  %146 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #16
-  %146 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 2
-  store ptr %146, ptr %3, align 8, !tbaa !54
+  %147 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 2
+  store ptr %147, ptr %3, align 8, !tbaa !54
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #16
   store i64 16, ptr %2, align 8, !tbaa !28
-  %147 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
-  store ptr %147, ptr %3, align 8, !tbaa !56
-  %148 = load i64, ptr %2, align 8, !tbaa !28
-  store i64 %148, ptr %146, align 8, !tbaa !58
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %147, ptr noundef nonnull align 1 dereferenceable(16) @.str.5, i64 16, i1 false)
-  %149 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
-  store i64 %148, ptr %149, align 8, !tbaa !59
-  %150 = load ptr, ptr %3, align 8, !tbaa !56
-  %151 = getelementptr inbounds i8, ptr %150, i64 %148
-  store i8 0, ptr %151, align 1, !tbaa !58
+  %148 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
+  store ptr %148, ptr %3, align 8, !tbaa !56
+  %149 = load i64, ptr %2, align 8, !tbaa !28
+  store i64 %149, ptr %147, align 8, !tbaa !58
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %148, ptr noundef nonnull align 1 dereferenceable(16) @.str.5, i64 16, i1 false)
+  %150 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
+  store i64 %149, ptr %150, align 8, !tbaa !59
+  %151 = load ptr, ptr %3, align 8, !tbaa !56
+  %152 = getelementptr inbounds i8, ptr %151, i64 %149
+  store i8 0, ptr %152, align 1, !tbaa !58
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #16
-  %152 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
-  %153 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %152, ptr noundef nonnull align 8 dereferenceable(32) %3)
+  %153 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %146, ptr noundef nonnull align 8 dereferenceable(32) %3)
           to label %154 unwind label %162
 
 154:                                              ; preds = %144
@@ -520,7 +520,7 @@ define dso_local void @_Z16BENCHMARK_HARRISRN9benchmark5StateE(ptr noundef nonnu
   %158 = getelementptr inbounds i8, ptr %153, i64 12
   store i32 1024, ptr %158, align 4, !tbaa.struct !68
   %159 = load ptr, ptr %3, align 8, !tbaa !56
-  %160 = icmp eq ptr %159, %146
+  %160 = icmp eq ptr %159, %147
   br i1 %160, label %168, label %161
 
 161:                                              ; preds = %154
@@ -531,7 +531,7 @@ define dso_local void @_Z16BENCHMARK_HARRISRN9benchmark5StateE(ptr noundef nonnu
   %163 = landingpad { ptr, i32 }
           cleanup
   %164 = load ptr, ptr %3, align 8, !tbaa !56
-  %165 = icmp eq ptr %164, %146
+  %165 = icmp eq ptr %164, %147
   br i1 %165, label %167, label %166
 
 166:                                              ; preds = %162
@@ -745,7 +745,7 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(16) ptr @_
   br i1 %58, label %59, label %62
 
 59:                                               ; preds = %2, %39, %56
-  %60 = phi ptr [ %35, %56 ], [ %7, %39 ], [ %7, %2 ]
+  %60 = phi ptr [ %7, %39 ], [ %35, %56 ], [ %7, %2 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #16
   store ptr %1, ptr %3, align 8, !tbaa !70, !alias.scope !72
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #16
@@ -796,7 +796,7 @@ define linkonce_odr dso_local ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt1
   store i64 %22, ptr %11, align 8, !tbaa !58
   br label %23
 
-23:                                               ; preds = %21, %20, %15
+23:                                               ; preds = %15, %20, %21
   %24 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Auto_node", ptr %6, i64 0, i32 1
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   %26 = load i64, ptr %25, align 8, !tbaa !59
@@ -856,7 +856,7 @@ define linkonce_odr dso_local ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt1
   %60 = icmp slt i32 %59, 0
   br label %61
 
-61:                                               ; preds = %36, %58
+61:                                               ; preds = %58, %36
   %62 = phi i1 [ true, %36 ], [ %60, %58 ]
   tail call void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext %62, ptr noundef nonnull %7, ptr noundef nonnull %34, ptr noundef nonnull align 8 dereferenceable(32) %38) #16
   %63 = getelementptr inbounds i8, ptr %0, i64 40
@@ -1093,9 +1093,9 @@ define linkonce_odr dso_local { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_st
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
-  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
-  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
+143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
+  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
+  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147

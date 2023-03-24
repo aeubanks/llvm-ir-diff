@@ -33,10 +33,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [15 x i8] c"END Index_Map:\00", align 1
 @str.20 = private unnamed_addr constant [17 x i8] c"BEGIN Dimension:\00", align 1
 @str.21 = private unnamed_addr constant [14 x i8] c"END Dimension\00", align 1
-@str.22 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
-@str.23 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
-@str.24 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
-@str.25 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.22 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.23 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
+@str.24 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
+@str.25 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
 define dso_local void @addRelevant(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
@@ -1316,7 +1316,7 @@ define dso_local void @dumpTable(ptr noundef readonly %0, i32 noundef %1) local_
   br i1 %3, label %28, label %4
 
 4:                                                ; preds = %2
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   %6 = icmp eq i32 %1, 0
   br i1 %6, label %9, label %7
 
@@ -1353,7 +1353,7 @@ define dso_local void @dumpTable(ptr noundef readonly %0, i32 noundef %1) local_
   br label %28
 
 28:                                               ; preds = %2, %27
-  %29 = phi ptr [ @str.24, %27 ], [ @str.22, %2 ]
+  %29 = phi ptr [ @str.25, %27 ], [ @str.23, %2 ]
   %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) %29)
   ret void
 }
@@ -1571,7 +1571,7 @@ define dso_local void @dumpTransition(ptr nocapture noundef readonly %0) local_u
   br i1 %149, label %62, label %150
 
 150:                                              ; preds = %140, %50
-  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   br label %152
 
 152:                                              ; preds = %1, %150, %48, %5

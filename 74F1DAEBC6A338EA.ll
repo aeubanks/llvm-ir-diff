@@ -261,9 +261,9 @@ define dso_local noalias ptr @sbuf_read(ptr nocapture noundef readonly %0) local
   store i8 0, ptr %19, align 1, !tbaa !5
   %20 = tail call i64 @read(i32 noundef %3, ptr noundef %14, i64 noundef %15) #23
   %21 = tail call i32 @close(i32 noundef %3) #23
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #23
   %22 = and i64 %10, 2147483648
   %23 = icmp eq i64 %22, 0
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #23
   br i1 %23, label %25, label %24
 
 24:                                               ; preds = %5, %6

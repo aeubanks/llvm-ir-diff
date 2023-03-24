@@ -84,9 +84,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIjED2Ev(ptr noundef
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !20
   store ptr null, ptr %2, align 8, !tbaa !21
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -120,9 +120,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btVector3ED2Ev(pt
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !16
   store ptr null, ptr %2, align 8, !tbaa !17
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !18
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !19
@@ -145,10 +145,10 @@ define dso_local void @_ZN11btShapeHullD2Ev(ptr noundef nonnull align 8 derefere
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %4)
           to label %11 unwind label %47
 
-11:                                               ; preds = %1, %10
-  %12 = getelementptr inbounds %class.btShapeHull, ptr %0, i64 0, i32 1, i32 2
+11:                                               ; preds = %10, %1
   store i8 1, ptr %6, align 8, !tbaa !20
   store ptr null, ptr %3, align 8, !tbaa !21
+  %12 = getelementptr inbounds %class.btShapeHull, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %12, align 4, !tbaa !22
   %13 = getelementptr inbounds %class.btShapeHull, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %13, align 8, !tbaa !23
@@ -162,9 +162,9 @@ define dso_local void @_ZN11btShapeHullD2Ev(ptr noundef nonnull align 8 derefere
   br i1 %20, label %21, label %24
 
 21:                                               ; preds = %11
-  %22 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %17, align 8, !tbaa !16
   store ptr null, ptr %14, align 8, !tbaa !17
+  %22 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %22, align 4, !tbaa !18
   %23 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %23, align 8, !tbaa !19
@@ -178,9 +178,9 @@ define dso_local void @_ZN11btShapeHullD2Ev(ptr noundef nonnull align 8 derefere
   %26 = load ptr, ptr %3, align 8, !tbaa !21
   %27 = load i8, ptr %6, align 8
   %28 = icmp eq i8 %27, 0
-  %29 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %17, align 8, !tbaa !16
   store ptr null, ptr %14, align 8, !tbaa !17
+  %29 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %29, align 4, !tbaa !18
   %30 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %30, align 8, !tbaa !19
@@ -757,7 +757,7 @@ define dso_local noundef zeroext i1 @_ZN11btShapeHull9buildHullEf(ptr nocapture 
   call void @__clang_call_terminate(ptr %304) #11
   unreachable
 
-305:                                              ; preds = %287, %293
+305:                                              ; preds = %293, %287
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %7) #10
   %306 = load ptr, ptr %57, align 8, !tbaa !48
   %307 = icmp eq ptr %306, null
@@ -800,8 +800,8 @@ define dso_local noundef zeroext i1 @_ZN11btShapeHull9buildHullEf(ptr nocapture 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %321)
           to label %327 unwind label %329
 
-327:                                              ; preds = %326, %319, %337
-  %328 = phi { ptr, i32 } [ %336, %337 ], [ %320, %319 ], [ %320, %326 ]
+327:                                              ; preds = %319, %326, %337
+  %328 = phi { ptr, i32 } [ %336, %337 ], [ %320, %326 ], [ %320, %319 ]
   resume { ptr, i32 } %328
 
 329:                                              ; preds = %326
@@ -822,8 +822,8 @@ define dso_local noundef zeroext i1 @_ZN11btShapeHull9buildHullEf(ptr nocapture 
   invoke void @_ZN10HullResultD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %7)
           to label %335 unwind label %338
 
-335:                                              ; preds = %301, %294, %74, %333
-  %336 = phi { ptr, i32 } [ %334, %333 ], [ %75, %74 ], [ %295, %294 ], [ %295, %301 ]
+335:                                              ; preds = %294, %301, %74, %333
+  %336 = phi { ptr, i32 } [ %334, %333 ], [ %75, %74 ], [ %295, %301 ], [ %295, %294 ]
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %7) #10
   invoke void @_ZN11HullLibraryD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %6)
           to label %337 unwind label %338
@@ -864,10 +864,10 @@ define linkonce_odr dso_local void @_ZN10HullResultD2Ev(ptr noundef nonnull alig
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %24
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !20
   store ptr null, ptr %2, align 8, !tbaa !21
+  %11 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -885,9 +885,9 @@ define linkonce_odr dso_local void @_ZN10HullResultD2Ev(ptr noundef nonnull alig
   br label %21
 
 21:                                               ; preds = %10, %20
-  %22 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 2
   store i8 1, ptr %16, align 8, !tbaa !16
   store ptr null, ptr %13, align 8, !tbaa !17
+  %22 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %22, align 4, !tbaa !18
   %23 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %23, align 8, !tbaa !19
@@ -926,10 +926,10 @@ define linkonce_odr dso_local void @_ZN11HullLibraryD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %24
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !45
   store ptr null, ptr %2, align 8, !tbaa !48
+  %11 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !49
   %12 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !50
@@ -947,9 +947,9 @@ define linkonce_odr dso_local void @_ZN11HullLibraryD2Ev(ptr noundef nonnull ali
   br label %21
 
 21:                                               ; preds = %10, %20
-  %22 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i8 1, ptr %16, align 8, !tbaa !39
   store ptr null, ptr %13, align 8, !tbaa !42
+  %22 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i32 0, ptr %22, align 4, !tbaa !43
   %23 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 3
   store i32 0, ptr %23, align 8, !tbaa !44
@@ -1010,9 +1010,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP14btHullTriangleE
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !39
   store ptr null, ptr %2, align 8, !tbaa !42
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !43
   %12 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !44

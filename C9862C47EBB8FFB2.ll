@@ -290,8 +290,8 @@ define dso_local i32 @graph_StronglyConnectedComponents(ptr nocapture noundef %0
   %26 = load ptr, ptr %25, align 8
   %27 = getelementptr i8, ptr %26, i64 4
   %28 = load i32, ptr %27, align 4
-  %29 = icmp slt i32 %28, 0
-  br i1 %29, label %30, label %31
+  %29 = icmp sgt i32 %28, -1
+  br i1 %29, label %31, label %30
 
 30:                                               ; preds = %23
   tail call fastcc void @graph_InternSCC(ptr noundef %0, ptr noundef nonnull %26)
@@ -339,8 +339,8 @@ define internal fastcc void @graph_InternSCC(ptr nocapture noundef %0, ptr nound
   %19 = load ptr, ptr %18, align 8
   %20 = getelementptr i8, ptr %19, i64 4
   %21 = load i32, ptr %20, align 4
-  %22 = icmp slt i32 %21, 0
-  br i1 %22, label %23, label %24
+  %22 = icmp sgt i32 %21, -1
+  br i1 %22, label %24, label %23
 
 23:                                               ; preds = %16
   tail call fastcc void @graph_InternSCC(ptr noundef %0, ptr noundef nonnull %19)

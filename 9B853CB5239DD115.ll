@@ -827,10 +827,10 @@ define dso_local i32 @hypre_StructGridPeriodicAllBoxes(ptr nocapture noundef rea
   br label %52
 
 52:                                               ; preds = %37, %224
-  %53 = phi i32 [ %232, %224 ], [ 0, %37 ]
-  %54 = phi i32 [ %226, %224 ], [ 0, %37 ]
-  %55 = phi i32 [ %225, %224 ], [ 0, %37 ]
-  %56 = phi i32 [ %231, %224 ], [ undef, %37 ]
+  %53 = phi i32 [ 0, %37 ], [ %232, %224 ]
+  %54 = phi i32 [ 0, %37 ], [ %226, %224 ]
+  %55 = phi i32 [ 0, %37 ], [ %225, %224 ]
+  %56 = phi i32 [ undef, %37 ], [ %231, %224 ]
   %57 = sext i32 %55 to i64
   %58 = getelementptr inbounds i32, ptr %23, i64 %57
   %59 = sext i32 %54 to i64

@@ -958,8 +958,8 @@ define dso_local noundef i32 @_ZN9NCompress5NLzma8CDecoder21SetDecoderProperties
   store i32 %28, ptr %29, align 8, !tbaa !37
   br label %30
 
-30:                                               ; preds = %3, %6, %7, %8, %9, %27, %21, %15
-  %31 = phi i32 [ -2147024882, %21 ], [ 0, %27 ], [ 0, %15 ], [ -2147024809, %6 ], [ -2147467263, %7 ], [ 1, %8 ], [ -2147467259, %9 ], [ -2147024882, %3 ]
+30:                                               ; preds = %3, %9, %8, %7, %6, %27, %21, %15
+  %31 = phi i32 [ -2147024882, %21 ], [ 0, %27 ], [ 0, %15 ], [ -2147467259, %9 ], [ 1, %8 ], [ -2147467263, %7 ], [ -2147024809, %6 ], [ -2147024882, %3 ]
   ret i32 %31
 }
 
@@ -1028,7 +1028,7 @@ define dso_local noundef i32 @_ZThn8_N9NCompress5NLzma8CDecoder21SetDecoderPrope
   br label %30
 
 30:                                               ; preds = %3, %6, %7, %8, %9, %15, %21, %27
-  %31 = phi i32 [ -2147024882, %21 ], [ 0, %27 ], [ 0, %15 ], [ -2147024809, %6 ], [ -2147467263, %7 ], [ 1, %8 ], [ -2147467259, %9 ], [ -2147024882, %3 ]
+  %31 = phi i32 [ -2147024882, %21 ], [ 0, %27 ], [ 0, %15 ], [ -2147467259, %9 ], [ 1, %8 ], [ -2147467263, %7 ], [ -2147024809, %6 ], [ -2147024882, %3 ]
   ret i32 %31
 }
 
@@ -1654,7 +1654,7 @@ define dso_local noundef i32 @_ZN9NCompress5NLzma8CDecoder19ReadFromInputStreamE
   store i32 %21, ptr %22, align 8, !tbaa !37
   br label %23
 
-23:                                               ; preds = %20, %8
+23:                                               ; preds = %8, %20
   %24 = icmp eq ptr %3, null
   br i1 %24, label %25, label %27
 
@@ -2133,7 +2133,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress5NLzma8CDecoder14QueryIn
   %239 = getelementptr inbounds i8, ptr %0, i64 8
   br label %335
 
-240:                                              ; preds = %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
+240:                                              ; preds = %160, %163, %168, %173, %178, %183, %188, %193, %198, %203, %208, %213, %218, %223, %228, %233
   %241 = load i8, ptr @IID_ICompressSetBufSize, align 4, !tbaa !55
   %242 = icmp eq i8 %4, %241
   br i1 %242, label %243, label %320
@@ -2247,7 +2247,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress5NLzma8CDecoder14QueryIn
   %319 = getelementptr inbounds i8, ptr %0, i64 16
   br label %335
 
-320:                                              ; preds = %308, %303, %298, %293, %288, %283, %278, %273, %268, %263, %258, %253, %248, %243, %240, %313
+320:                                              ; preds = %240, %243, %248, %253, %258, %263, %268, %273, %278, %283, %288, %293, %298, %303, %308, %313
   %321 = tail call noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetInStream)
   %322 = icmp eq i32 %321, 0
   br i1 %322, label %325, label %323

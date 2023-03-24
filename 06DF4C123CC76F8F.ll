@@ -231,9 +231,9 @@ define dso_local void @BitBufferByteAlign(ptr nocapture noundef %0, i32 noundef 
   %11 = sub i32 8, %4
   br label %12
 
-12:                                               ; preds = %10, %31
-  %13 = phi i32 [ %16, %31 ], [ %11, %10 ]
-  %14 = phi i32 [ %32, %31 ], [ %11, %10 ]
+12:                                               ; preds = %31, %10
+  %13 = phi i32 [ %11, %10 ], [ %16, %31 ]
+  %14 = phi i32 [ %11, %10 ], [ %32, %31 ]
   %15 = tail call i32 @llvm.umin.i32(i32 %14, i32 %13)
   %16 = sub i32 %13, %15
   %17 = sub i32 %14, %15

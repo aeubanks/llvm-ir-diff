@@ -291,13 +291,13 @@ define dso_local void @RotateConstraint(ptr nocapture noundef %0, ptr nocapture 
   br label %71
 
 71:                                               ; preds = %48, %64, %57, %41
-  %72 = phi ptr [ %69, %64 ], [ %62, %57 ], [ %3, %48 ], [ %4, %41 ]
-  %73 = phi ptr [ %70, %64 ], [ %63, %57 ], [ %53, %48 ], [ %44, %41 ]
-  %74 = phi ptr [ %3, %64 ], [ %4, %57 ], [ %54, %48 ], [ %45, %41 ]
-  %75 = phi ptr [ %4, %64 ], [ %60, %57 ], [ %51, %48 ], [ %3, %41 ]
-  %76 = phi ptr [ %67, %64 ], [ %61, %57 ], [ %52, %48 ], [ %42, %41 ]
-  %77 = phi ptr [ %68, %64 ], [ %3, %57 ], [ %4, %48 ], [ %43, %41 ]
-  %78 = phi float [ %66, %64 ], [ %59, %57 ], [ %50, %48 ], [ %31, %41 ]
+  %72 = phi ptr [ %4, %41 ], [ %3, %48 ], [ %62, %57 ], [ %69, %64 ]
+  %73 = phi ptr [ %44, %41 ], [ %53, %48 ], [ %63, %57 ], [ %70, %64 ]
+  %74 = phi ptr [ %45, %41 ], [ %54, %48 ], [ %4, %57 ], [ %3, %64 ]
+  %75 = phi ptr [ %3, %41 ], [ %51, %48 ], [ %60, %57 ], [ %4, %64 ]
+  %76 = phi ptr [ %42, %41 ], [ %52, %48 ], [ %61, %57 ], [ %67, %64 ]
+  %77 = phi ptr [ %43, %41 ], [ %4, %48 ], [ %3, %57 ], [ %68, %64 ]
+  %78 = phi float [ %31, %41 ], [ %50, %48 ], [ %59, %57 ], [ %66, %64 ]
   %79 = load i32, ptr %77, align 4, !tbaa !5
   %80 = load i32, ptr %76, align 4, !tbaa !11
   %81 = load i32, ptr %75, align 4, !tbaa !5
@@ -1853,10 +1853,10 @@ declare i32 @ExtraGap(i32 noundef, i32 noundef, ptr noundef, i32 noundef) local_
 declare i32 @MinGap(i32 noundef, i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare float @llvm.fabs.f32(float) #7
+declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
+declare float @llvm.fabs.f32(float) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #7

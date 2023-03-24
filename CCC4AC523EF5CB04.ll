@@ -63,11 +63,11 @@ define dso_local void @foo(ptr nocapture readnone %0, ptr nocapture noundef read
   %6 = icmp ne <4 x i32> %5, <i32 1, i32 2, i32 3, i32 4>
   %7 = getelementptr inbounds %struct.baz, ptr %1, i64 0, i32 4
   %8 = load i32, ptr %7, align 8
-  %9 = icmp ne i32 %8, 5
+  %9 = icmp eq i32 %8, 5
   %10 = bitcast <4 x i1> %6 to i4
-  %11 = icmp ne i4 %10, 0
-  %12 = select i1 %11, i1 true, i1 %9
-  br i1 %12, label %13, label %14
+  %11 = icmp eq i4 %10, 0
+  %12 = select i1 %11, i1 %9, i1 false
+  br i1 %12, label %14, label %13
 
 13:                                               ; preds = %3
   tail call void @abort() #4

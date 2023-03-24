@@ -1062,7 +1062,7 @@ define dso_local void @_Z24getTestDescriptionStringB5cxx11bbbbb(ptr noalias sret
   store i64 %28, ptr %17, align 8, !tbaa !5, !alias.scope !32
   br label %29
 
-29:                                               ; preds = %27, %26, %21
+29:                                               ; preds = %21, %26, %27
   %30 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %15, i64 0, i32 1
   %31 = load i64, ptr %30, align 8, !tbaa !30
   %32 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
@@ -1112,7 +1112,7 @@ define dso_local void @_Z24getTestDescriptionStringB5cxx11bbbbb(ptr noalias sret
   store i64 %52, ptr %41, align 8, !tbaa !5, !alias.scope !36
   br label %53
 
-53:                                               ; preds = %51, %50, %45
+53:                                               ; preds = %45, %50, %51
   %54 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %39, i64 0, i32 1
   %55 = load i64, ptr %54, align 8, !tbaa !30
   %56 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %9, i64 0, i32 1
@@ -1162,7 +1162,7 @@ define dso_local void @_Z24getTestDescriptionStringB5cxx11bbbbb(ptr noalias sret
   store i64 %76, ptr %65, align 8, !tbaa !5, !alias.scope !39
   br label %77
 
-77:                                               ; preds = %75, %74, %69
+77:                                               ; preds = %69, %74, %75
   %78 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %63, i64 0, i32 1
   %79 = load i64, ptr %78, align 8, !tbaa !30
   %80 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 1
@@ -1212,7 +1212,7 @@ define dso_local void @_Z24getTestDescriptionStringB5cxx11bbbbb(ptr noalias sret
   store i64 %100, ptr %89, align 8, !tbaa !5, !alias.scope !42
   br label %101
 
-101:                                              ; preds = %99, %98, %93
+101:                                              ; preds = %93, %98, %99
   %102 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %87, i64 0, i32 1
   %103 = load i64, ptr %102, align 8, !tbaa !30
   %104 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
@@ -1262,7 +1262,7 @@ define dso_local void @_Z24getTestDescriptionStringB5cxx11bbbbb(ptr noalias sret
   store i64 %124, ptr %113, align 8, !tbaa !5, !alias.scope !45
   br label %125
 
-125:                                              ; preds = %123, %122, %117
+125:                                              ; preds = %117, %122, %123
   %126 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %111, i64 0, i32 1
   %127 = load i64, ptr %126, align 8, !tbaa !30
   %128 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1

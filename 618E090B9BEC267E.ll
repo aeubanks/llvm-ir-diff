@@ -191,7 +191,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #3 personality ptr @__gx
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %80, ptr nonnull align 16 %7, i64 %73, i1 false)
   br label %84
 
-84:                                               ; preds = %83, %81, %79
+84:                                               ; preds = %79, %81, %83
   %85 = load i64, ptr %5, align 8, !tbaa !28
   store i64 %85, ptr %41, align 8, !tbaa !31
   %86 = load ptr, ptr %9, align 8, !tbaa !29
@@ -1051,8 +1051,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeINSt7__cxx1112basic_stringIcSt11c
   store i64 %43, ptr %14, align 8, !tbaa !67
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !70
   %66 = load ptr, ptr %65, align 8, !tbaa !44
   %67 = getelementptr inbounds %"struct.std::_Deque_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1

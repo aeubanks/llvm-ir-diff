@@ -766,7 +766,7 @@ define dso_local void @Ppmd8_EncodeSymbol(ptr noundef %0, i32 noundef %1) local_
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #4
   br label %499
 
-499:                                              ; preds = %498, %52, %105, %305
+499:                                              ; preds = %105, %52, %498, %305
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %3) #4
   ret void
 }

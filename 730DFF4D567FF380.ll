@@ -477,19 +477,19 @@ define dso_local void @process_args(ptr noundef %0, ptr noundef %1) local_unname
   br label %81
 
 81:                                               ; preds = %89, %77
-  %82 = phi ptr [ %92, %89 ], [ %71, %77 ]
-  %83 = phi i64 [ %90, %89 ], [ 0, %77 ]
-  %84 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %82) #17
+  %82 = phi i64 [ %90, %89 ], [ 0, %77 ]
+  %83 = phi ptr [ %92, %89 ], [ %71, %77 ]
+  %84 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %83) #17
   %85 = icmp eq i64 %80, %84
   br i1 %85, label %86, label %89
 
 86:                                               ; preds = %81
-  %87 = tail call i32 @strncmp(ptr noundef nonnull %82, ptr noundef nonnull %74, i64 noundef %80) #17
+  %87 = tail call i32 @strncmp(ptr noundef nonnull %83, ptr noundef nonnull %74, i64 noundef %80) #17
   %88 = icmp eq i32 %87, 0
   br i1 %88, label %109, label %89
 
 89:                                               ; preds = %86, %81
-  %90 = add nuw i64 %83, 1
+  %90 = add nuw i64 %82, 1
   %91 = getelementptr inbounds %struct.ArgumentDescription, ptr %5, i64 %90
   %92 = load ptr, ptr %91, align 8, !tbaa !23
   %93 = icmp eq ptr %92, null
@@ -508,19 +508,19 @@ define dso_local void @process_args(ptr noundef %0, ptr noundef %1) local_unname
   unreachable
 
 101:                                              ; preds = %94, %119
-  %102 = phi ptr [ %71, %94 ], [ %122, %119 ]
-  %103 = phi i64 [ 0, %94 ], [ %120, %119 ]
-  %104 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %102) #17
+  %102 = phi i64 [ 0, %94 ], [ %120, %119 ]
+  %103 = phi ptr [ %71, %94 ], [ %122, %119 ]
+  %104 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %103) #17
   %105 = icmp eq i64 %99, %104
   br i1 %105, label %106, label %119
 
 106:                                              ; preds = %101
-  %107 = tail call i32 @strncmp(ptr noundef nonnull %102, ptr noundef nonnull %74, i64 noundef %99) #17
+  %107 = tail call i32 @strncmp(ptr noundef nonnull %103, ptr noundef nonnull %74, i64 noundef %99) #17
   %108 = icmp eq i32 %107, 0
   br i1 %108, label %109, label %119
 
 109:                                              ; preds = %106, %86
-  %110 = phi i64 [ %83, %86 ], [ %103, %106 ]
+  %110 = phi i64 [ %82, %86 ], [ %102, %106 ]
   %111 = trunc i64 %110 to i32
   br i1 %76, label %112, label %116
 
@@ -538,7 +538,7 @@ define dso_local void @process_args(ptr noundef %0, ptr noundef %1) local_unname
   br label %160
 
 119:                                              ; preds = %101, %106
-  %120 = add nuw i64 %103, 1
+  %120 = add nuw i64 %102, 1
   %121 = getelementptr inbounds %struct.ArgumentDescription, ptr %5, i64 %120
   %122 = load ptr, ptr %121, align 8, !tbaa !23
   %123 = icmp eq ptr %122, null

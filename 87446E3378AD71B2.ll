@@ -582,7 +582,7 @@ define dso_local noundef nonnull ptr @_Z6createiRK3Vecd(i32 noundef %0, ptr noca
   %158 = icmp eq ptr %157, %7
   br i1 %158, label %159, label %155, !llvm.loop !58
 
-159:                                              ; preds = %101, %155, %152, %97
+159:                                              ; preds = %101, %155, %97, %152
   %160 = phi { ptr, i32 } [ %98, %97 ], [ %128, %152 ], [ %128, %155 ], [ %98, %101 ]
   call void @_ZdlPv(ptr noundef nonnull %78) #20
   br label %161

@@ -279,7 +279,7 @@ define dso_local void @_ZN4TreeC2ES_PcS_(ptr nocapture noundef nonnull writeonly
   tail call void %51(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
   br label %52
 
-52:                                               ; preds = %43, %48
+52:                                               ; preds = %48, %43
   %53 = load i32, ptr %7, align 8, !tbaa !8
   %54 = add nsw i32 %53, -1
   store i32 %54, ptr %7, align 8, !tbaa !8
@@ -909,7 +909,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %192(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
   br label %193
 
-193:                                              ; preds = %184, %189
+193:                                              ; preds = %189, %184
   %194 = load i32, ptr %13, align 8, !tbaa !8
   %195 = add nsw i32 %194, -1
   store i32 %195, ptr %13, align 8, !tbaa !8
@@ -947,7 +947,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %213(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
   br label %214
 
-214:                                              ; preds = %205, %210
+214:                                              ; preds = %210, %205
   %215 = load i32, ptr %13, align 8, !tbaa !8
   %216 = add nsw i32 %215, -1
   store i32 %216, ptr %13, align 8, !tbaa !8
@@ -975,7 +975,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   tail call void %228(ptr noundef nonnull align 8 dereferenceable(12) %63) #15
   br label %229
 
-229:                                              ; preds = %220, %225
+229:                                              ; preds = %225, %220
   %230 = load i32, ptr %13, align 8, !tbaa !8
   %231 = add nsw i32 %230, -1
   store i32 %231, ptr %13, align 8, !tbaa !8

@@ -448,9 +448,9 @@ define dso_local i32 @regex_list_match(ptr nocapture noundef readonly %0, ptr no
   %252 = phi ptr [ %217, %224 ], [ %230, %231 ], [ %230, %228 ], [ %239, %246 ], [ %184, %176 ]
   br label %99
 
-253:                                              ; preds = %244, %222, %198, %218, %240, %155, %77, %72, %89
-  %254 = phi ptr [ @.str.5, %89 ], [ @.str.6, %72 ], [ @.str.6, %77 ], [ @.str.6, %155 ], [ @.str.5, %240 ], [ @.str.5, %218 ], [ @.str.5, %198 ], [ @.str.5, %222 ], [ @.str.5, %244 ]
-  %255 = phi i32 [ 0, %89 ], [ %51, %72 ], [ %51, %77 ], [ 1, %155 ], [ 0, %240 ], [ 0, %218 ], [ 0, %198 ], [ 0, %222 ], [ 0, %244 ]
+253:                                              ; preds = %244, %222, %198, %218, %240, %72, %77, %155, %89
+  %254 = phi ptr [ @.str.5, %89 ], [ @.str.6, %155 ], [ @.str.6, %77 ], [ @.str.6, %72 ], [ @.str.5, %240 ], [ @.str.5, %218 ], [ @.str.5, %198 ], [ @.str.5, %222 ], [ @.str.5, %244 ]
+  %255 = phi i32 [ 0, %89 ], [ 1, %155 ], [ %51, %77 ], [ %51, %72 ], [ 0, %240 ], [ 0, %218 ], [ 0, %198 ], [ 0, %222 ], [ 0, %244 ]
   call void @free(ptr noundef %23) #17
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %254) #17
   br label %256
@@ -2108,8 +2108,8 @@ define dso_local i32 @load_regex_matcher(ptr noundef %0, ptr noundef %1, i32 nou
 843:                                              ; preds = %737, %760, %837
   br label %881
 
-844:                                              ; preds = %699, %831, %110, %109, %40
-  %845 = phi i32 [ %41, %40 ], [ %41, %109 ], [ %41, %110 ], [ %116, %831 ], [ %116, %699 ]
+844:                                              ; preds = %699, %831, %109, %110, %40
+  %845 = phi i32 [ %41, %40 ], [ %41, %110 ], [ %41, %109 ], [ %116, %831 ], [ %116, %699 ]
   %846 = call ptr @fgets(ptr noundef nonnull %7, i32 noundef 8192, ptr noundef nonnull %1)
   %847 = icmp eq ptr %846, null
   br i1 %847, label %848, label %40
@@ -2140,7 +2140,7 @@ define dso_local i32 @load_regex_matcher(ptr noundef %0, ptr noundef %1, i32 nou
   %862 = icmp eq i32 %861, 0
   br i1 %862, label %863, label %881
 
-863:                                              ; preds = %856, %853
+863:                                              ; preds = %853, %856
   %864 = getelementptr inbounds %struct.regex_matcher, ptr %0, i64 0, i32 6
   store i32 1, ptr %864, align 8, !tbaa !48
   %865 = getelementptr inbounds %struct.regex_matcher, ptr %0, i64 0, i32 7
@@ -2473,7 +2473,7 @@ define internal fastcc ptr @getNextToken(ptr noundef %0, ptr nocapture noundef w
 
 25:                                               ; preds = %24, %6
   %26 = getelementptr inbounds %struct.token_t, ptr %1, i64 0, i32 1
-  store i64 1, ptr %26, align 8, !tbaa !88
+  store i64 1, ptr %26, align 8, !tbaa !87
   br label %224
 
 27:                                               ; preds = %2
@@ -2607,7 +2607,7 @@ define internal fastcc ptr @getNextToken(ptr noundef %0, ptr nocapture noundef w
   %115 = xor i8 %113, %114
   store i8 %115, ptr %112, align 1, !tbaa !13
   %116 = icmp eq i32 %107, %74
-  br i1 %116, label %199, label %96, !llvm.loop !89
+  br i1 %116, label %199, label %96, !llvm.loop !88
 
 117:                                              ; preds = %44
   %118 = icmp eq i8 %45, 91
@@ -2718,7 +2718,7 @@ define internal fastcc ptr @getNextToken(ptr noundef %0, ptr nocapture noundef w
 186:                                              ; preds = %171, %178
   %187 = add nuw nsw i64 %172, 1
   %188 = icmp eq i64 %187, 256
-  br i1 %188, label %199, label %171, !llvm.loop !90
+  br i1 %188, label %199, label %171, !llvm.loop !89
 
 189:                                              ; preds = %119, %117
   %190 = and i8 %45, 7
@@ -2745,7 +2745,7 @@ define internal fastcc ptr @getNextToken(ptr noundef %0, ptr nocapture noundef w
   %206 = phi i8 [ %47, %199 ], [ %198, %189 ]
   %207 = phi ptr [ %201, %199 ], [ %197, %189 ]
   %208 = icmp eq i8 %204, 93
-  br i1 %208, label %211, label %44, !llvm.loop !91
+  br i1 %208, label %211, label %44, !llvm.loop !90
 
 209:                                              ; preds = %165, %123, %68, %64, %60
   %210 = phi ptr [ @.str.20, %60 ], [ @.str.20, %64 ], [ @.str.20, %68 ], [ @.str.22, %123 ], [ @.str.23, %165 ]
@@ -2780,7 +2780,7 @@ define internal fastcc ptr @getNextToken(ptr noundef %0, ptr nocapture noundef w
   %222 = load i8, ptr %0, align 1, !tbaa !13
   store i8 %222, ptr %1, align 8, !tbaa !13
   %223 = getelementptr inbounds %struct.token_t, ptr %1, i64 0, i32 1
-  store i64 1, ptr %223, align 8, !tbaa !88
+  store i64 1, ptr %223, align 8, !tbaa !87
   br label %224
 
 224:                                              ; preds = %211, %2, %220, %218, %216, %214, %29, %27, %25
@@ -2948,7 +2948,7 @@ define internal fastcc void @tree_node_insert_nonbin(ptr noundef %0, ptr noundef
   %97 = add nuw nsw i64 %91, 1
   %98 = add i64 %92, 1
   %99 = icmp eq i64 %98, %27
-  br i1 %99, label %100, label %90, !llvm.loop !92
+  br i1 %99, label %100, label %90, !llvm.loop !91
 
 100:                                              ; preds = %87, %90, %22, %60, %81, %84, %78
   ret void
@@ -3029,7 +3029,7 @@ define internal fastcc void @destroy_tree_internal(ptr noundef %0, ptr noundef %
 29:                                               ; preds = %32
   %30 = add nuw i64 %33, 1
   %31 = icmp eq i64 %30, %25
-  br i1 %31, label %37, label %32, !llvm.loop !93
+  br i1 %31, label %37, label %32, !llvm.loop !92
 
 32:                                               ; preds = %29, %27
   %33 = phi i64 [ 0, %27 ], [ %30, %29 ]
@@ -3080,7 +3080,7 @@ define internal fastcc void @destroy_tree_internal(ptr noundef %0, ptr noundef %
 60:                                               ; preds = %63
   %61 = add nuw i64 %64, 1
   %62 = icmp eq i64 %61, %56
-  br i1 %62, label %68, label %63, !llvm.loop !93
+  br i1 %62, label %68, label %63, !llvm.loop !92
 
 63:                                               ; preds = %60, %58
   %64 = phi i64 [ 0, %58 ], [ %61, %60 ]
@@ -3177,7 +3177,7 @@ define internal fastcc void @destroy_tree_internal(ptr noundef %0, ptr noundef %
   %117 = load i8, ptr %99, align 8, !tbaa !28
   %118 = sext i8 %117 to i64
   %119 = icmp slt i64 %116, %118
-  br i1 %119, label %112, label %120, !llvm.loop !94
+  br i1 %119, label %112, label %120, !llvm.loop !93
 
 120:                                              ; preds = %112, %109
   %121 = icmp eq ptr %110, null
@@ -3238,7 +3238,7 @@ define internal fastcc void @destroy_tree_internal(ptr noundef %0, ptr noundef %
 152:                                              ; preds = %155
   %153 = add nuw i64 %156, 1
   %154 = icmp eq i64 %153, %148
-  br i1 %154, label %160, label %155, !llvm.loop !93
+  br i1 %154, label %160, label %155, !llvm.loop !92
 
 155:                                              ; preds = %152, %150
   %156 = phi i64 [ 0, %150 ], [ %153, %152 ]
@@ -3311,7 +3311,7 @@ define internal fastcc void @destroy_tree_internal(ptr noundef %0, ptr noundef %
 195:                                              ; preds = %198
   %196 = add nuw i64 %199, 1
   %197 = icmp eq i64 %196, %191
-  br i1 %197, label %203, label %198, !llvm.loop !93
+  br i1 %197, label %203, label %198, !llvm.loop !92
 
 198:                                              ; preds = %195, %193
   %199 = phi i64 [ 0, %193 ], [ %196, %195 ]
@@ -3475,12 +3475,11 @@ attributes #19 = { nounwind willreturn memory(none) }
 !83 = !{!65, !7, i64 32}
 !84 = distinct !{!84, !19}
 !85 = !{!6, !10, i64 64}
-!86 = distinct !{!86, !19, !87}
-!87 = !{!"llvm.loop.unswitch.partial.disable"}
-!88 = !{!55, !10, i64 8}
+!86 = distinct !{!86, !19}
+!87 = !{!55, !10, i64 8}
+!88 = distinct !{!88, !19}
 !89 = distinct !{!89, !19}
 !90 = distinct !{!90, !19}
-!91 = distinct !{!91, !19}
-!92 = distinct !{!92, !61}
+!91 = distinct !{!91, !61}
+!92 = distinct !{!92, !19}
 !93 = distinct !{!93, !19}
-!94 = distinct !{!94, !19}

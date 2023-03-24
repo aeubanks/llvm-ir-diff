@@ -79,7 +79,7 @@ define hidden void @_Z8BM_emptyRN9benchmark5StateE(ptr noundef nonnull align 8 d
   %22 = add i64 %20, %21
   br label %23
 
-23:                                               ; preds = %17, %13
+23:                                               ; preds = %13, %17
   %24 = phi i64 [ %22, %17 ], [ 0, %13 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %24) #4, !srcloc !32
   %25 = add i64 %14, -1

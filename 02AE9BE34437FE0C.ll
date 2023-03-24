@@ -121,27 +121,21 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %2 = icmp eq i32 %1, 0
   br label %3
 
-3:                                                ; preds = %5, %0
-  %4 = phi i32 [ -10, %0 ], [ %6, %5 ]
-  br i1 %2, label %5, label %8
+3:                                                ; preds = %6, %0
+  %4 = phi i32 [ -10, %0 ], [ %7, %6 ]
+  br i1 %2, label %6, label %5
 
 5:                                                ; preds = %3
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  store i32 0, ptr @s, align 4, !tbaa !5
-  %6 = add nsw i32 %4, 6
-  store i32 0, ptr @s, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 266
-  br i1 %7, label %9, label %3, !llvm.loop !9
-
-8:                                                ; preds = %3
   store i32 %4, ptr @v, align 4, !tbaa !5
   tail call void @abort() #2
   unreachable
 
-9:                                                ; preds = %5
+6:                                                ; preds = %3
+  %7 = add nsw i32 %4, 12
+  %8 = icmp eq i32 %7, 266
+  br i1 %8, label %9, label %3, !llvm.loop !9
+
+9:                                                ; preds = %6
   store i32 266, ptr @v, align 4, !tbaa !5
   ret i32 0
 }

@@ -172,8 +172,8 @@ define dso_local i64 @cli_regerror(i32 noundef %0, ptr nocapture noundef readonl
   %80 = load ptr, ptr %79, align 8, !tbaa !17
   br label %81
 
-81:                                               ; preds = %58, %55, %72, %76, %78
-  %82 = phi ptr [ %80, %78 ], [ %5, %76 ], [ %5, %72 ], [ %5, %58 ], [ @.str.35, %55 ]
+81:                                               ; preds = %72, %76, %58, %55, %78
+  %82 = phi ptr [ %80, %78 ], [ %5, %58 ], [ @.str.35, %55 ], [ %5, %76 ], [ %5, %72 ]
   %83 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %82) #6
   %84 = icmp eq i64 %3, 0
   br i1 %84, label %87, label %85

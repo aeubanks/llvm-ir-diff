@@ -358,13 +358,13 @@ define dso_local i32 @decodeMP3(ptr noundef %0, ptr noundef readonly %1, i32 nou
   %178 = load ptr, ptr %146, align 8, !tbaa !16
   %179 = getelementptr inbounds i8, ptr %178, i64 %150
   %180 = load i8, ptr %179, align 1, !tbaa !30
-  %181 = zext i8 %180 to i64
-  %182 = load i32, ptr %46, align 8, !tbaa !26
-  %183 = add nsw i32 %182, -1
-  store i32 %183, ptr %46, align 8, !tbaa !26
-  %184 = add nsw i64 %148, 1
-  store i64 %184, ptr %169, align 8, !tbaa !25
-  %185 = or i64 %177, %181
+  %181 = load i32, ptr %46, align 8, !tbaa !26
+  %182 = add nsw i32 %181, -1
+  store i32 %182, ptr %46, align 8, !tbaa !26
+  %183 = add nsw i64 %148, 1
+  store i64 %183, ptr %169, align 8, !tbaa !25
+  %184 = zext i8 %180 to i64
+  %185 = or i64 %177, %184
   %186 = getelementptr inbounds %struct.mpstr, ptr %0, i64 0, i32 9
   store i64 %185, ptr %186, align 8, !tbaa !31
   %187 = getelementptr inbounds %struct.mpstr, ptr %0, i64 0, i32 5
@@ -479,8 +479,8 @@ define dso_local i32 @decodeMP3(ptr noundef %0, ptr noundef readonly %1, i32 nou
   store i32 0, ptr %39, align 4, !tbaa !27
   br label %258
 
-258:                                              ; preds = %16, %23, %191, %45, %254, %8
-  %259 = phi i32 [ -1, %8 ], [ 0, %254 ], [ 1, %45 ], [ 1, %191 ], [ -1, %23 ], [ -1, %16 ]
+258:                                              ; preds = %191, %45, %16, %23, %254, %8
+  %259 = phi i32 [ -1, %8 ], [ 0, %254 ], [ -1, %23 ], [ -1, %16 ], [ 1, %45 ], [ 1, %191 ]
   ret i32 %259
 }
 

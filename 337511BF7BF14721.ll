@@ -1115,7 +1115,7 @@ define dso_local i32 @maxOccupancy(ptr nocapture noundef readonly %0) local_unna
   %47 = phi i64 [ %52, %44 ], [ 0, %37 ]
   %48 = getelementptr inbounds i32, ptr %9, i64 %45
   %49 = load i32, ptr %48, align 4, !tbaa !9
-  %50 = tail call i32 @llvm.smax.i32(i32 %46, i32 %49)
+  %50 = call i32 @llvm.smax.i32(i32 %46, i32 %49)
   store i32 %50, ptr %2, align 4, !tbaa !9
   %51 = add nuw nsw i64 %45, 1
   %52 = add i64 %47, 1
@@ -1143,22 +1143,22 @@ define dso_local i32 @maxOccupancy(ptr nocapture noundef readonly %0) local_unna
   %62 = phi i32 [ %77, %60 ], [ %56, %54 ]
   %63 = getelementptr inbounds i32, ptr %9, i64 %61
   %64 = load i32, ptr %63, align 4, !tbaa !9
-  %65 = tail call i32 @llvm.smax.i32(i32 %62, i32 %64)
+  %65 = call i32 @llvm.smax.i32(i32 %62, i32 %64)
   store i32 %65, ptr %2, align 4, !tbaa !9
   %66 = add nuw nsw i64 %61, 1
   %67 = getelementptr inbounds i32, ptr %9, i64 %66
   %68 = load i32, ptr %67, align 4, !tbaa !9
-  %69 = tail call i32 @llvm.smax.i32(i32 %65, i32 %68)
+  %69 = call i32 @llvm.smax.i32(i32 %65, i32 %68)
   store i32 %69, ptr %2, align 4, !tbaa !9
   %70 = add nuw nsw i64 %61, 2
   %71 = getelementptr inbounds i32, ptr %9, i64 %70
   %72 = load i32, ptr %71, align 4, !tbaa !9
-  %73 = tail call i32 @llvm.smax.i32(i32 %69, i32 %72)
+  %73 = call i32 @llvm.smax.i32(i32 %69, i32 %72)
   store i32 %73, ptr %2, align 4, !tbaa !9
   %74 = add nuw nsw i64 %61, 3
   %75 = getelementptr inbounds i32, ptr %9, i64 %74
   %76 = load i32, ptr %75, align 4, !tbaa !9
-  %77 = tail call i32 @llvm.smax.i32(i32 %73, i32 %76)
+  %77 = call i32 @llvm.smax.i32(i32 %73, i32 %76)
   store i32 %77, ptr %2, align 4, !tbaa !9
   %78 = add nuw nsw i64 %61, 4
   %79 = icmp eq i64 %78, %10

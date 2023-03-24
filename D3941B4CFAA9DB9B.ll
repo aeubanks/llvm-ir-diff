@@ -17,10 +17,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.6 = private unnamed_addr constant [12 x i8] c"x:%d  y:%d\0A\00", align 1
 @.str.9 = private unnamed_addr constant [24 x i8] c"l:%d  r:%d  b:%d  t:%d\0A\00", align 1
 @stdout = external local_unnamed_addr global ptr, align 8
-@str = private unnamed_addr constant [24 x i8] c"Fatal error in unbust.c\00", align 1
-@str.10 = private unnamed_addr constant [8 x i8] c"PtsOut:\00", align 1
-@str.11 = private unnamed_addr constant [10 x i8] c"PtsArray:\00", align 1
-@str.12 = private unnamed_addr constant [12 x i8] c"Rectangles:\00", align 1
+@str = private unnamed_addr constant [8 x i8] c"PtsOut:\00", align 1
+@str.10 = private unnamed_addr constant [10 x i8] c"PtsArray:\00", align 1
+@str.11 = private unnamed_addr constant [12 x i8] c"Rectangles:\00", align 1
+@str.12 = private unnamed_addr constant [24 x i8] c"Fatal error in unbust.c\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @unbust() local_unnamed_addr #0 {
@@ -1323,7 +1323,7 @@ define dso_local void @condense() local_unnamed_addr #0 {
   br i1 %7, label %76, label %10
 
 8:                                                ; preds = %0
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @dumpError()
   tail call void @exit(i32 noundef 0) #12
   unreachable
@@ -1711,7 +1711,7 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @dumpError() local_unnamed_addr #8 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %2 = load ptr, ptr @PtsOut, align 8, !tbaa !5
   %3 = load i32, ptr %2, align 4, !tbaa !9
   %4 = icmp slt i32 %3, 1
@@ -1733,7 +1733,7 @@ define dso_local void @dumpError() local_unnamed_addr #8 {
   br i1 %17, label %5, label %18, !llvm.loop !38
 
 18:                                               ; preds = %5, %0
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   %20 = load ptr, ptr @PtsArray, align 8, !tbaa !5
   %21 = load i32, ptr %20, align 4, !tbaa !9
   %22 = icmp slt i32 %21, 1
@@ -1755,7 +1755,7 @@ define dso_local void @dumpError() local_unnamed_addr #8 {
   br i1 %35, label %23, label %36, !llvm.loop !39
 
 36:                                               ; preds = %23, %18
-  %37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   %38 = load ptr, ptr @rectang, align 8, !tbaa !5
   %39 = load i32, ptr %38, align 4, !tbaa !24
   %40 = icmp slt i32 %39, 1
@@ -1789,23 +1789,23 @@ define dso_local void @dumpError() local_unnamed_addr #8 {
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #7
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
+declare i32 @llvm.smin.i32(i32, i32) #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #10
+declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smin.v4i32(<4 x i32>) #10
+declare i32 @llvm.vector.reduce.smin.v4i32(<4 x i32>) #9
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1816,8 +1816,8 @@ attributes #5 = { nofree nosync nounwind memory(readwrite, argmem: write, inacce
 attributes #6 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { noreturn nounwind }
 

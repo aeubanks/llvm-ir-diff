@@ -209,8 +209,8 @@ define dso_local void @Node_addInteriorNode(ptr noundef %0, ptr noundef %1) loca
 
 10:                                               ; preds = %6
   %11 = tail call dereferenceable_or_null(16) ptr @calloc(i64 1, i64 16)
-  %12 = icmp eq ptr %11, null
   store ptr %11, ptr %7, align 8, !tbaa !14
+  %12 = icmp eq ptr %11, null
   br i1 %12, label %31, label %13
 
 13:                                               ; preds = %10
@@ -244,7 +244,7 @@ define dso_local void @Node_addInteriorNode(ptr noundef %0, ptr noundef %1) loca
   store ptr %24, ptr %27, align 8, !tbaa !16
   br label %28
 
-28:                                               ; preds = %26, %23, %17, %13
+28:                                               ; preds = %13, %17, %23, %26
   %29 = getelementptr inbounds %struct.NodeStruct, ptr %1, i64 0, i32 5
   store ptr %0, ptr %29, align 8, !tbaa !22
   %30 = getelementptr inbounds %struct.NodeStruct, ptr %1, i64 0, i32 4

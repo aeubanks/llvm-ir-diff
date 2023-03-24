@@ -147,7 +147,7 @@ define dso_local ptr @alloc(i32 noundef %0, i32 noundef %1, ptr noundef %2) loca
   %66 = load ptr, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 1), align 8, !tbaa !32
   br label %67
 
-67:                                               ; preds = %44, %65
+67:                                               ; preds = %65, %44
   %68 = phi ptr [ %66, %65 ], [ null, %44 ]
   %69 = getelementptr inbounds i8, ptr %42, i64 48
   store ptr %69, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 0, i32 1), align 8, !tbaa !16
@@ -182,7 +182,7 @@ define dso_local ptr @alloc(i32 noundef %0, i32 noundef %1, ptr noundef %2) loca
   store ptr %84, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 0, i32 1), align 8, !tbaa !16
   br label %85
 
-85:                                               ; preds = %39, %29, %12, %82, %78
+85:                                               ; preds = %29, %12, %39, %82, %78
   %86 = phi ptr [ %81, %78 ], [ %76, %82 ], [ %27, %29 ], [ %13, %12 ], [ null, %39 ]
   ret ptr %86
 }
@@ -456,7 +456,7 @@ define dso_local void @alloc_free(ptr noundef %0, i32 noundef %1, i32 noundef %2
   store ptr %0, ptr %109, align 8, !tbaa !30
   br label %111
 
-111:                                              ; preds = %18, %97, %76, %72, %25, %8, %103, %106, %101, %88, %92, %60, %65, %39, %44
+111:                                              ; preds = %18, %97, %76, %72, %103, %106, %101, %88, %92, %60, %65, %39, %44, %25, %8
   ret void
 }
 

@@ -733,9 +733,9 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   br i1 %58, label %59, label %178
 
 59:                                               ; preds = %55, %42, %23
-  %60 = phi i16 [ %18, %55 ], [ %26, %23 ], [ %26, %42 ]
-  %61 = phi i32 [ %17, %55 ], [ %27, %23 ], [ %27, %42 ]
-  %62 = phi i16 [ %16, %55 ], [ %31, %23 ], [ %31, %42 ]
+  %60 = phi i16 [ %26, %42 ], [ %26, %23 ], [ %18, %55 ]
+  %61 = phi i32 [ %27, %42 ], [ %27, %23 ], [ %17, %55 ]
+  %62 = phi i16 [ %31, %42 ], [ %31, %23 ], [ %16, %55 ]
   %63 = add nuw nsw i32 %15, 1
   %64 = icmp eq i32 %63, 20
   br i1 %64, label %178, label %14, !llvm.loop !38
@@ -867,11 +867,11 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   br i1 %145, label %146, label %178
 
 146:                                              ; preds = %142, %112
-  %147 = phi i64 [ %90, %142 ], [ %99, %112 ]
-  %148 = phi i16 [ %89, %142 ], [ %101, %112 ]
-  %149 = phi i16 [ %88, %142 ], [ %97, %112 ]
-  %150 = phi float [ %87, %142 ], [ %103, %112 ]
-  %151 = phi i64 [ %134, %142 ], [ %95, %112 ]
+  %147 = phi i64 [ %99, %112 ], [ %90, %142 ]
+  %148 = phi i16 [ %101, %112 ], [ %89, %142 ]
+  %149 = phi i16 [ %97, %112 ], [ %88, %142 ]
+  %150 = phi float [ %103, %112 ], [ %87, %142 ]
+  %151 = phi i64 [ %95, %112 ], [ %134, %142 ]
   %152 = sub i64 %91, %151
   %153 = icmp sgt i64 %152, 0
   br i1 %153, label %85, label %178
@@ -927,7 +927,7 @@ define dso_local void @parse_file_header(ptr nocapture noundef %0, ptr noundef %
   store i1 true, ptr @count_samples_carefully, align 4
   br label %183
 
-178:                                              ; preds = %146, %112, %142, %55, %42, %20, %59, %128, %77, %10
+178:                                              ; preds = %112, %142, %146, %20, %42, %55, %59, %77, %128, %10
   %179 = load i32, ptr %9, align 8, !tbaa !19
   %180 = icmp eq i32 %179, 4
   br i1 %180, label %181, label %183
@@ -967,20 +967,20 @@ declare i32 @Read16BitsHighLow(ptr noundef) local_unnamed_addr #3
 
 declare double @ReadIeeeExtendedHighLow(ptr noundef) local_unnamed_addr #3
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smin.i64(i64, i64) #10
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.usub.sat.i64(i64, i64) #11
+declare i32 @llvm.smax.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #11
+declare i64 @llvm.usub.sat.i64(i64, i64) #10
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -992,8 +992,8 @@ attributes #6 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-b
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }
 attributes #14 = { cold }

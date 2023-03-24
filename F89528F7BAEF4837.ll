@@ -51,7 +51,7 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %8 = load i16, ptr %0, align 8, !tbaa !17
   %9 = icmp ne i16 %8, 10
   %10 = icmp ult i32 %7, 32
-  %11 = or i1 %9, %10
+  %11 = select i1 %9, i1 true, i1 %10
   br i1 %11, label %42, label %12
 
 12:                                               ; preds = %3
@@ -108,8 +108,8 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %7 = load i16, ptr %0, align 8, !tbaa !17
   %8 = icmp ne i16 %7, 21589
   %9 = icmp ult i32 %6, 5
-  %10 = or i1 %8, %9
-  br i1 %10, label %49, label %11
+  %10 = select i1 %8, i1 true, i1 %9
+  br i1 %10, label %53, label %11
 
 11:                                               ; preds = %3
   %12 = getelementptr inbounds %"struct.NArchive::NZip::CExtraSubBlock", ptr %0, i64 0, i32 1, i32 2
@@ -126,8 +126,8 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %21 = icmp eq i32 %1, 0
   br i1 %21, label %22, label %25
 
-22:                                               ; preds = %40, %35, %20
-  %23 = phi ptr [ %14, %20 ], [ %30, %35 ], [ %42, %40 ]
+22:                                               ; preds = %47, %35, %20
+  %23 = phi ptr [ %14, %20 ], [ %30, %35 ], [ %42, %47 ]
   %24 = load i32, ptr %23, align 4, !tbaa !22
   store i32 %24, ptr %2, align 4, !tbaa !22
   br label %49
@@ -161,16 +161,26 @@ define dso_local noundef zeroext i1 @_ZNK8NArchive4NZip14CExtraSubBlock15Extract
   %41 = phi i32 [ %39, %37 ], [ %29, %28 ]
   %42 = phi ptr [ %38, %37 ], [ %30, %28 ]
   %43 = and i32 %17, 4
-  %44 = icmp ne i32 %43, 0
-  %45 = icmp ugt i32 %41, 3
-  %46 = select i1 %44, i1 %45, i1 false
-  %47 = icmp eq i32 %1, 2
-  %48 = and i1 %46, %47
+  %44 = icmp eq i32 %43, 0
+  br i1 %44, label %49, label %45
+
+45:                                               ; preds = %40
+  %46 = icmp ult i32 %41, 4
+  br i1 %46, label %49, label %47
+
+47:                                               ; preds = %45
+  %48 = icmp eq i32 %1, 2
   br i1 %48, label %22, label %49
 
-49:                                               ; preds = %33, %40, %22, %3
-  %50 = phi i1 [ false, %3 ], [ true, %22 ], [ false, %40 ], [ false, %33 ]
-  ret i1 %50
+49:                                               ; preds = %33, %45, %47, %40, %22
+  %50 = phi i1 [ true, %22 ], [ true, %33 ], [ true, %45 ], [ false, %47 ], [ false, %40 ]
+  %51 = phi i1 [ true, %22 ], [ false, %33 ], [ false, %45 ], [ false, %47 ], [ false, %40 ]
+  %52 = and i1 %51, %50
+  br label %53
+
+53:                                               ; preds = %3, %49
+  %54 = phi i1 [ %52, %49 ], [ false, %3 ]
+  ret i1 %54
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -256,7 +266,7 @@ define dso_local noundef i32 @_ZNK8NArchive4NZip5CItem16GetWinAttributesEv(ptr n
   %15 = and i32 %13, 1073741824
   %16 = icmp eq i32 %15, 0
   %17 = select i1 %16, i32 32768, i32 32784
-  %18 = or i32 %17, %14
+  %18 = or i32 %14, %17
   br label %46
 
 19:                                               ; preds = %1, %4, %8

@@ -673,7 +673,7 @@ define dso_local float @Aalign(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store float %462, ptr %463, align 4, !tbaa !21
   %464 = icmp ne i32 %457, 0
   %465 = zext i1 %464 to i32
-  %466 = add nsw i32 %465, %20
+  %466 = add nsw i32 %20, %465
   %467 = icmp sgt i32 %466, 1
   br i1 %467, label %468, label %571
 

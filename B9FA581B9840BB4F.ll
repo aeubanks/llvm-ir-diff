@@ -713,10 +713,10 @@ define linkonce_odr dso_local void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull a
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %4)
           to label %11 unwind label %28
 
-11:                                               ; preds = %2, %10
-  %12 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 2
+11:                                               ; preds = %10, %2
   store i8 1, ptr %6, align 8, !tbaa !17
   store ptr null, ptr %3, align 8, !tbaa !20
+  %12 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %12, align 4, !tbaa !21
   %13 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %13, align 8, !tbaa !22
@@ -734,9 +734,9 @@ define linkonce_odr dso_local void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull a
   br label %22
 
 22:                                               ; preds = %11, %21
-  %23 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %17, align 8, !tbaa !9
   store ptr null, ptr %14, align 8, !tbaa !14
+  %23 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %23, align 4, !tbaa !15
   %24 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %24, align 8, !tbaa !16
@@ -830,9 +830,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP16btCollisionShap
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !9
   store ptr null, ptr %2, align 8, !tbaa !14
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !15
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !16
@@ -958,9 +958,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP7RagDollED2Ev(ptr
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !17
   store ptr null, ptr %2, align 8, !tbaa !20
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !21
   %12 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !22

@@ -617,7 +617,7 @@ define hidden nonnull ptr @luaO_pushvfstring(ptr noundef %0, ptr noundef %1, ptr
   %251 = phi ptr [ %243, %235 ], [ %249, %248 ]
   %252 = getelementptr inbounds %struct.lua_TValue, ptr %251, i64 1
   store ptr %252, ptr %7, align 8, !tbaa !21
-  %253 = add nuw nsw i32 %237, 1
+  %253 = add nsw i32 %237, 1
   %254 = getelementptr inbounds %struct.lua_State, ptr %0, i64 0, i32 5
   %255 = load ptr, ptr %254, align 8, !tbaa !25
   %256 = ptrtoint ptr %252 to i64
@@ -628,7 +628,7 @@ define hidden nonnull ptr @luaO_pushvfstring(ptr noundef %0, ptr noundef %1, ptr
   %261 = add nsw i32 %260, -1
   call void @luaV_concat(ptr noundef nonnull %0, i32 noundef %253, i32 noundef %261) #16
   %262 = load ptr, ptr %7, align 8, !tbaa !21
-  %263 = zext i32 %237 to i64
+  %263 = sext i32 %237 to i64
   %264 = sub nsw i64 0, %263
   %265 = getelementptr inbounds %struct.lua_TValue, ptr %262, i64 %264
   store ptr %265, ptr %7, align 8, !tbaa !21

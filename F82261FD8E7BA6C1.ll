@@ -145,7 +145,7 @@ define hidden void @_Z8BM_emptyRN9benchmark5StateE(ptr noundef nonnull align 8 d
   %22 = add i64 %20, %21
   br label %23
 
-23:                                               ; preds = %17, %13
+23:                                               ; preds = %13, %17
   %24 = phi i64 [ %22, %17 ], [ 0, %13 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %24) #14, !srcloc !32
   %25 = add i64 %14, -1
@@ -2402,9 +2402,9 @@ define internal void @_GLOBAL__sub_I_memory_manager_test.cc() #3 section ".text.
   br label %1072
 
 1072:                                             ; preds = %1071, %1065, %401
-  %1073 = phi ptr [ %198, %401 ], [ %1066, %1065 ], [ %1066, %1071 ]
-  %1074 = phi { ptr, i32 } [ %402, %401 ], [ %1067, %1065 ], [ %1067, %1071 ]
-  %1075 = phi i1 [ true, %401 ], [ %1068, %1065 ], [ %1068, %1071 ]
+  %1073 = phi ptr [ %198, %401 ], [ %1066, %1071 ], [ %1066, %1065 ]
+  %1074 = phi { ptr, i32 } [ %402, %401 ], [ %1067, %1071 ], [ %1067, %1065 ]
+  %1075 = phi i1 [ true, %401 ], [ %1068, %1071 ], [ %1068, %1065 ]
   %1076 = load ptr, ptr %24, align 8, !tbaa !68
   %1077 = icmp eq ptr %1076, %199
   br i1 %1077, label %1079, label %1078

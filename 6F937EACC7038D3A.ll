@@ -161,15 +161,15 @@ define dso_local void @_Z26BENCHMARK_BILATERAL_FILTERRN9benchmark5StateE(ptr nou
   %20 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
   br label %21
 
-21:                                               ; preds = %33, %17
+21:                                               ; preds = %37, %17
   %22 = load i64, ptr %0, align 8, !tbaa !15
   %23 = icmp eq i64 %22, 0
-  br i1 %23, label %24, label %33, !prof !29
+  br i1 %23, label %24, label %37, !prof !29
 
 24:                                               ; preds = %21
   %25 = load i8, ptr %19, align 8, !tbaa !30, !range !31, !noundef !32
   %26 = icmp eq i8 %25, 0
-  br i1 %26, label %27, label %37
+  br i1 %26, label %27, label %33
 
 27:                                               ; preds = %24
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -178,28 +178,28 @@ define dso_local void @_Z26BENCHMARK_BILATERAL_FILTERRN9benchmark5StateE(ptr nou
   %30 = load i64, ptr %0, align 8
   %31 = icmp eq i64 %30, 0
   %32 = select i1 %29, i1 true, i1 %31
-  br i1 %32, label %37, label %33
+  br i1 %32, label %33, label %37
 
-33:                                               ; preds = %27, %21
-  %34 = phi i64 [ %22, %21 ], [ %30, %27 ]
-  %35 = add i64 %34, -1
-  store i64 %35, ptr %0, align 8, !tbaa !15
-  %36 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @bilateralFilterKernel(i32 noundef %5, i32 noundef %5, ptr noundef %36, ptr noundef nonnull %13, i32 noundef %8)
+33:                                               ; preds = %27, %24
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %34 = load ptr, ptr %2, align 8, !tbaa !11
+  %35 = load i64, ptr %34, align 8, !tbaa !13
+  %36 = icmp eq i64 %35, 20
+  br i1 %36, label %41, label %42
+
+37:                                               ; preds = %27, %21
+  %38 = phi i64 [ %22, %21 ], [ %30, %27 ]
+  %39 = add i64 %38, -1
+  store i64 %39, ptr %0, align 8, !tbaa !15
+  %40 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @bilateralFilterKernel(i32 noundef %5, i32 noundef %5, ptr noundef %40, ptr noundef nonnull %13, i32 noundef %8)
   br label %21, !llvm.loop !34
 
-37:                                               ; preds = %27, %24
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %38 = load ptr, ptr %2, align 8, !tbaa !11
-  %39 = load i64, ptr %38, align 8, !tbaa !13
-  %40 = icmp eq i64 %39, 20
-  br i1 %40, label %41, label %42
-
-41:                                               ; preds = %37
+41:                                               ; preds = %33
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %13, ptr noundef nonnull @.str.3, i32 noundef %5, i32 noundef %5)
   br label %42
 
-42:                                               ; preds = %41, %37
+42:                                               ; preds = %41, %33
   tail call void @free(ptr noundef %13) #17
   ret void
 }

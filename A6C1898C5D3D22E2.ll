@@ -119,28 +119,28 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %27 = phi i32 [ %3, %10 ], [ %22, %17 ]
   %28 = phi ptr [ %5, %10 ], [ %25, %17 ]
   %29 = icmp eq i32 %27, 4
-  br i1 %29, label %30, label %34
+  br i1 %29, label %30, label %37
 
 30:                                               ; preds = %26
   %31 = load i8, ptr %28, align 1, !tbaa !5
-  switch i8 %31, label %34 [
+  switch i8 %31, label %37 [
     i8 58, label %32
-    i8 0, label %35
+    i8 0, label %34
   ]
 
 32:                                               ; preds = %30
   %33 = getelementptr inbounds i8, ptr %28, i64 1
   store i8 0, ptr %28, align 1, !tbaa !5
-  br label %35
+  br label %34
 
-34:                                               ; preds = %30, %26
+34:                                               ; preds = %32, %30
+  %35 = phi ptr [ %33, %32 ], [ %28, %30 ]
+  %36 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @main.addr, ptr noundef nonnull dereferenceable(1) %35) #5
+  ret i32 0
+
+37:                                               ; preds = %30, %26
   tail call void @abort() #6
   unreachable
-
-35:                                               ; preds = %32, %30
-  %36 = phi ptr [ %33, %32 ], [ %28, %30 ]
-  %37 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @main.addr, ptr noundef nonnull dereferenceable(1) %36) #5
-  ret i32 0
 }
 
 ; Function Attrs: noreturn

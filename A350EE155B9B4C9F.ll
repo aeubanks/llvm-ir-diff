@@ -127,7 +127,7 @@ define dso_local double @hypre_StructInnerProd(ptr nocapture noundef readonly %0
   %107 = sub i32 %64, %99
   %108 = mul i32 %107, %71
   %109 = sub i32 %88, %99
-  %110 = mul i32 %95, %109
+  %110 = mul i32 %109, %95
   %111 = icmp slt i32 %99, 1
   %112 = select i1 %105, i1 true, i1 %111
   %113 = select i1 %112, i1 true, i1 %106
@@ -207,8 +207,8 @@ define dso_local double @hypre_StructInnerProd(ptr nocapture noundef readonly %0
 
 172:                                              ; preds = %166
   %173 = add i32 %116, %124
-  %174 = add nsw i32 %126, %108
-  %175 = add nsw i32 %173, %110
+  %174 = add i32 %108, %126
+  %175 = add i32 %110, %173
   %176 = add nuw nsw i32 %125, 1
   %177 = icmp eq i32 %176, %100
   br i1 %177, label %178, label %121, !llvm.loop !25

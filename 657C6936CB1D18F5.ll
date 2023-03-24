@@ -1843,7 +1843,7 @@ define internal fastcc void @print_res(ptr noundef %0, i32 noundef %1, ptr nocap
 427:                                              ; preds = %419, %410, %401, %392, %383, %374, %365, %356, %347, %338, %328
   %428 = phi i32 [ 0, %328 ], [ %345, %338 ], [ %354, %347 ], [ %363, %356 ], [ %372, %365 ], [ %381, %374 ], [ %390, %383 ], [ %399, %392 ], [ %408, %401 ], [ %417, %410 ], [ %426, %419 ]
   %429 = phi i32 [ %335, %328 ], [ %335, %338 ], [ %335, %347 ], [ %335, %356 ], [ %335, %365 ], [ %335, %374 ], [ %335, %383 ], [ %335, %392 ], [ %335, %401 ], [ %335, %410 ], [ %336, %419 ]
-  %430 = icmp ugt i32 %333, %429
+  %430 = icmp ult i32 %429, %333
   br i1 %430, label %431, label %454
 
 431:                                              ; preds = %427
@@ -2403,17 +2403,11 @@ declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #3
 ; Function Attrs: noreturn nounwind
 declare void @abort() local_unnamed_addr #14
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #15
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #17
@@ -2423,6 +2417,12 @@ declare i32 @llvm.umin.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.usub.sat.i32(i32, i32) #17
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #16
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #17
@@ -2442,8 +2442,8 @@ attributes #11 = { nofree "no-trapping-math"="true" "stack-protector-buffer-size
 attributes #12 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #14 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nofree nounwind }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nofree nounwind }
 attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #18 = { nounwind }
 attributes #19 = { cold }

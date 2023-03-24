@@ -529,8 +529,8 @@ define dso_local void @BtGetMatches(ptr noundef %0, ptr noundef %1) local_unname
   %64 = load i32, ptr %19, align 8, !tbaa !55
   %65 = load i32, ptr %7, align 8, !tbaa !49
   %66 = tail call i32 @llvm.umin.i32(i32 %62, i32 %65)
-  %67 = add i32 %65, 1
-  %68 = sub i32 %67, %66
+  %67 = sub i32 %65, %66
+  %68 = add i32 %67, 1
   %69 = tail call i32 @llvm.umin.i32(i32 %68, i32 %61)
   %70 = load i32, ptr %20, align 4, !tbaa !56
   %71 = sub i32 %70, %64
@@ -959,7 +959,7 @@ define internal fastcc i32 @MtSync_Create(ptr noundef %0, ptr noundef %1, ptr no
   br label %39
 
 39:                                               ; preds = %37, %4, %38
-  %40 = phi i32 [ 12, %38 ], [ 0, %37 ], [ 0, %4 ]
+  %40 = phi i32 [ 12, %38 ], [ 0, %4 ], [ 0, %37 ]
   ret i32 %40
 }
 

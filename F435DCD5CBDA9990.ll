@@ -42,7 +42,7 @@ define dso_local i64 @random_bitstring() local_unnamed_addr #1 {
   %19 = xor i32 %18, -1
   %20 = zext i32 %19 to i64
   %21 = select i1 %17, i64 0, i64 %20
-  %22 = or i64 %21, %15
+  %22 = or i64 %15, %21
   %23 = icmp ugt i32 %13, 70
   br i1 %23, label %24, label %2
 
